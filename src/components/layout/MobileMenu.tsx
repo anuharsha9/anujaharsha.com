@@ -18,7 +18,7 @@ interface MobileMenuProps {
 export default function MobileMenu({ isLandingPage = false, isLightBackground = false }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
-  const t = getTheme(true)
+  const t = getTheme(isLightBackground)
 
   // Simple scroll prevention - just overflow hidden, no position changes
   useEffect(() => {
@@ -79,9 +79,9 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <span className="w-6 h-[2.5px] rounded-full bg-slate-900" />
-              <span className="w-6 h-[2.5px] rounded-full bg-slate-900" />
-              <span className="w-6 h-[2.5px] rounded-full bg-slate-900" />
+              <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
+              <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
+              <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
             </motion.button>
           )}
         </AnimatePresence>
@@ -159,7 +159,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                 >
                   Anuja Harsha Nimmagadda
                 </Link>
-                <p className={`${t.textSecondary} text-sm mt-2`}>Principal UX Designer</p>
+                <p className={`${t.textSecondary} text-sm mt-2`}>Senior Product Designer</p>
               </div>
 
               {/* Navigation Links - Scrollable */}

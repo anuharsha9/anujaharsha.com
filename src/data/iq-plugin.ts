@@ -10,7 +10,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
     src: '/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png',
     alt: 'DSML Hub - Unified Data Science & Machine Learning',
   },
-  role: 'Principal Product Designer (Full Ownership)',
+  role: 'Lead Product Designer (Full Ownership)',
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Spring 2024 – Spring 2025 | Shipping 2027',
   status: {

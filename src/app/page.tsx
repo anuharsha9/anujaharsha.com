@@ -1,53 +1,58 @@
 import type { Metadata } from 'next'
 import HeroSplit from '@/components/home/HeroSplit'
-import ImpactMetrics from '@/components/home/ImpactMetrics'
-import WorkGrid from '@/components/home/WorkGrid'
 import TransformationShowcase from '@/components/home/TransformationShowcase'
-import GrowthStory from '@/components/home/GrowthStory'
-import WritingSection from '@/components/home/WritingSection'
-import CollapsibleWorkArchive from '@/components/home/CollapsibleWorkArchive'
+import EnergyStack from '@/components/home/EnergyStack'
 import TalkSection from '@/components/home/TalkSection'
 import ScrollGear from '@/components/ui/ScrollGear'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'Principal Product Designer | AI-Driven | Enterprise Systems Architect',
+  title: 'Senior Product Designer | AI Orchestrator | Enterprise Systems Architect',
   description:
-    'Principal Product Designer specializing in design systems architecture, legacy modernization, and AI-driven workflows. Designing through complexity — from Figma to Production.',
+    'Senior Product Designer specializing in design systems architecture, legacy modernization, and AI-driven workflows. Architecting Enterprise UX through complexity and ambiguity.',
   openGraph: {
-    title: 'Anuja Harsha Nimmagadda | Principal Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
     description:
-      'Principal Product Designer specializing in design systems architecture, legacy modernization, and AI-driven workflows. Transforming complex systems into intuitive experiences at scale.',
+      'Senior Product Designer specializing in design systems architecture, legacy modernization, and AI-driven workflows. Transforming complex systems into intuitive experiences at scale.',
     url: siteUrl,
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Anuja Harsha Nimmagadda - Principal Product Designer',
+        alt: 'Anuja Harsha Nimmagadda - Senior Product Designer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha Nimmagadda | Principal Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
     description:
-      'Principal Product Designer specializing in design systems architecture, legacy modernization, and AI-driven workflows.',
+      'Senior Product Designer specializing in code-first design systems architecture, legacy modernization, and AI-driven workflows.',
     images: ['/images/og-image.png'],
   },
 }
 
 export default function Home() {
   return (
-    <div className="bg-white relative overflow-clip">
+    <div className="bg-[#020617] relative overflow-clip">
       <HeroSplit />
-      <ImpactMetrics />
-      <WorkGrid />
+
+      {/* 
+        TRANSFORMATION SHOWCASE (Keep as the Hook) 
+        Immediate visual proof of value before the deep dive.
+      */}
       <TransformationShowcase />
-      <CollapsibleWorkArchive />
-      <GrowthStory />
-      <WritingSection />
+
+      {/* 
+        THE ENERGY STACK (The 4 Era Blocks)
+        Replaces WorkGrid, SocialProof, GrowthStory, Archive.
+      */}
+      <div id="work-overview">
+        <EnergyStack />
+      </div>
+
       <TalkSection />
       <ScrollGear />
     </div>

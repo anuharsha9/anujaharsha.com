@@ -158,39 +158,75 @@ export interface Theme {
  * return <div className={`${t.bg} ${t.text}`}>...</div>
  */
 export function getTheme(isLight: boolean = true): Theme {
-  // Always use light theme (Architect aesthetic)
-  return {
-    text: TEXT.heading,           // slate-900
-    textSecondary: TEXT.body,     // slate-600
-    textMuted: TEXT.muted,        // slate-500
-    textDim: TEXT.dim,            // slate-400
-    textAccent: TEXT.accent,      // teal
+  if (isLight) {
+    // Light Theme (Architect aesthetic)
+    return {
+      text: TEXT.heading,           // slate-900
+      textSecondary: TEXT.body,     // slate-600
+      textMuted: TEXT.muted,        // slate-500
+      textDim: TEXT.dim,            // slate-400
+      textAccent: TEXT.accent,      // teal
 
-    bg: BG.primary,               // slate-50
-    bgAlt: BG.secondary,          // white
-    bgAccent: BG.accent.light,    // teal soft
+      bg: BG.primary,               // slate-50
+      bgAlt: BG.secondary,          // white
+      bgAccent: BG.accent.light,    // teal soft
 
-    border: BORDER.primary,       // slate-200
-    borderSecondary: BORDER.secondary, // slate-300
-    borderSubtle: BORDER.subtle,  // slate-100
-    borderAccent: BORDER.accent.light,
+      border: BORDER.primary,       // slate-200
+      borderSecondary: BORDER.secondary, // slate-300
+      borderSubtle: BORDER.subtle,  // slate-100
+      borderAccent: BORDER.accent.light,
 
-    divider: DIVIDER.primary,     // slate-200
-    surface: 'bg-[var(--bg-secondary)]',
-    cardBg: BG.secondary,         // white
+      divider: DIVIDER.primary,     // slate-200
+      surface: 'bg-[var(--bg-secondary)]',
+      cardBg: BG.secondary,         // white
 
-    accentVar: cssVars.accent,
-    isLight: true,
+      accentVar: cssVars.accent,
+      isLight: true,
 
-    // Technical Monitor Theme (Dark)
-    monitor: {
-      bg: 'bg-[var(--bg-monitor)]',
-      bgAlt: 'bg-[var(--bg-monitor-alt)]',
-      bgSurface: 'bg-[var(--bg-monitor-surface)]',
-      border: 'border-[var(--border-monitor)]',
-      text: 'text-[var(--text-monitor)]',
-      textMuted: 'text-[var(--text-monitor-muted)]',
-      textDim: 'text-[var(--text-monitor-dim)]',
+      monitor: {
+        bg: 'bg-[var(--bg-monitor)]',
+        bgAlt: 'bg-[var(--bg-monitor-alt)]',
+        bgSurface: 'bg-[var(--bg-monitor-surface)]',
+        border: 'border-[var(--border-monitor)]',
+        text: 'text-[var(--text-monitor)]',
+        textMuted: 'text-[var(--text-monitor-muted)]',
+        textDim: 'text-[var(--text-monitor-dim)]',
+      }
+    }
+  } else {
+    // Dark Theme (monitor/System aesthetic)
+    return {
+      text: 'text-[var(--text-monitor)]',           // white
+      textSecondary: 'text-[var(--text-monitor-muted)]', // slate-400
+      textMuted: 'text-[var(--text-monitor-dim)]',  // slate-500
+      textDim: 'text-slate-600',
+      textAccent: TEXT.accent,      // teal
+
+      bg: 'bg-[#020617]',           // slate-950 (Monitor BG)
+      bgAlt: 'bg-[#0f172a]',        // slate-900 (Monitor Alt)
+      bgAccent: 'bg-[var(--accent-teal)]/10',
+
+      border: 'border-slate-800',
+      borderSecondary: 'border-slate-700',
+      borderSubtle: 'border-slate-800',
+      borderAccent: 'border-[var(--accent-teal)]/50',
+
+      divider: 'bg-slate-800',
+      surface: 'bg-[#0f172a]',
+      cardBg: 'bg-[#0f172a]',
+
+      accentVar: cssVars.accent,
+      isLight: false,
+
+      monitor: {
+        bg: 'bg-[var(--bg-monitor)]',
+        bgAlt: 'bg-[var(--bg-monitor-alt)]',
+        bgSurface: 'bg-[var(--bg-monitor-surface)]',
+        border: 'border-[var(--border-monitor)]',
+        text: 'text-[var(--text-monitor)]',
+        textMuted: 'text-[var(--text-monitor-muted)]',
+        textDim: 'text-[var(--text-monitor-dim)]',
+      }
     }
   }
 }

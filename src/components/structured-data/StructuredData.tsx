@@ -14,7 +14,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     name: 'Anuja Harsha Nimmagadda',
     url: siteUrl,
     description:
-      'Principal UX Designer specializing in enterprise design, legacy modernization, and AI/ML UX.',
+      'Senior Product Designer specializing in enterprise design, legacy modernization, and AI/ML UX.',
     author: {
       '@type': 'Person',
       name: 'Anuja Harsha Nimmagadda',
@@ -35,9 +35,9 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     '@type': 'Person',
     name: 'Anuja Harsha Nimmagadda',
     url: siteUrl,
-    jobTitle: 'Principal UX Designer',
+    jobTitle: 'Senior Product Designer',
     description:
-      'Principal UX Designer specializing in enterprise design, legacy modernization, and AI/ML UX. 13+ years transforming complex systems into intuitive experiences.',
+      'Senior Product Designer specializing in enterprise design, legacy modernization, and AI/ML UX. 13+ years transforming complex systems into intuitive experiences.',
     email: 'anujanimmagadda@gmail.com',
     telephone: '+1-781-354-7394',
     sameAs: [
@@ -106,7 +106,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         '@type': 'Person',
         name: 'Anuja Harsha Nimmagadda',
         url: siteUrl,
-        jobTitle: 'Principal UX Designer',
+        jobTitle: 'Senior Product Designer',
       },
       publisher: {
         '@type': 'Organization',

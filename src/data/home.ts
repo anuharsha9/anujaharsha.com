@@ -56,18 +56,6 @@ export const articleLinks: ArticleLink[] = [
     href: 'https://medium.com/@anu.anuja/i-always-thought-i-wasnt-good-enough-until-ibi-webfocus-made-me-someone-new-e1a769f15621',
     readTime: '6 min',
   },
-  {
-    title: 'The Secret Behind Better BI: Who\'s Your Business User?',
-    topic: 'UX Strategy',
-    href: 'https://community.ibi.com/articles/the-secret-behind-better-bi-who-s-your-business-user-r44/',
-    readTime: '4 min',
-  },
-  {
-    title: 'Enhancing User Experience in WebFOCUS DSML',
-    topic: 'AI/ML Design',
-    href: 'https://community.ibi.com/forums/topic/16161-enhancing-user-experience-in-webfocus-dsml/',
-    readTime: '5 min',
-  },
 ]
 
 export interface Recommendation {

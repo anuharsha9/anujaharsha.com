@@ -61,7 +61,7 @@ export default function SiteHeader() {
     setHasShadow(hasScrolled)
   }, [isLandingPage, isCaseStudyPage])
 
-  const t = getTheme(true)
+  const t = getTheme(!isLandingPage)
 
   return (
     <header
@@ -169,7 +169,7 @@ export default function SiteHeader() {
 
         {/* Mobile Menu */}
         <div className="lg:hidden absolute right-4 xs:right-5 sm:right-6 md:right-8 z-[60]">
-          <MobileMenu isLandingPage={isLandingPage} isLightBackground={true} />
+          <MobileMenu isLandingPage={isLandingPage} isLightBackground={!isLandingPage} />
         </div>
       </nav>
     </header>

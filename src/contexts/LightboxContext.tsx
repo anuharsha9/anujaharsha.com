@@ -7,10 +7,12 @@ interface LightboxImage {
   src: string
   alt: string
   caption?: string
+  actionLink?: string
+  actionLabel?: string
 }
 
 // Flexible type to handle multiple calling conventions
-type OpenLightboxArgs = 
+type OpenLightboxArgs =
   | [image: LightboxImage, images?: LightboxImage[], startIndex?: number]
   | [src: string, alt: string, caption?: string]
   | [images: LightboxImage[], startIndex: number]
@@ -61,7 +63,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
     const image = args[0] as LightboxImage
     const images = args[1] as LightboxImage[] | undefined
     const startIndex = args[2] as number | undefined
-    
+
     setCurrentImage(image)
     if (images && images.length > 0) {
       setImageSet(images)
@@ -93,7 +95,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
   return (
     <LightboxContext.Provider value={{ openLightbox, closeLightbox, isOpen }}>
       {children}
-      
+
       {/* Global Lightbox Instance */}
       {currentImage && (
         <ImageLightbox
@@ -105,6 +107,8 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
           images={imageSet.length > 1 ? imageSet : undefined}
           currentIndex={currentIndex}
           onNavigate={imageSet.length > 1 ? handleNavigate : undefined}
+          actionLink={currentImage.actionLink}
+          actionLabel={currentImage.actionLabel}
         />
       )}
     </LightboxContext.Provider>

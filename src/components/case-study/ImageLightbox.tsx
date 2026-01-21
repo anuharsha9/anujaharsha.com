@@ -21,6 +21,8 @@ interface ImageLightboxProps {
   images?: ImageItem[]
   currentIndex?: number
   onNavigate?: (index: number) => void
+  actionLink?: string
+  actionLabel?: string
 }
 
 export default function ImageLightbox({
@@ -32,6 +34,7 @@ export default function ImageLightbox({
   images,
   currentIndex = 0,
   onNavigate,
+  ...props
 }: ImageLightboxProps) {
   const containerRef = useFocusTrap(isOpen)
   const [isZoomed, setIsZoomed] = useState(false)
@@ -346,17 +349,33 @@ export default function ImageLightbox({
               </div>
 
               {/* Caption - Technical Style */}
-              {imageCaption && (
+              {(imageCaption || (props.actionLink && props.actionLabel)) && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.3 }}
-                  className="mt-6 text-center max-w-3xl"
+                  className="mt-6 text-center max-w-3xl flex flex-col items-center gap-3"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <p className="font-mono text-sm text-slate-400 leading-relaxed">
-                    {imageCaption}
-                  </p>
+                  {imageCaption && (
+                    <p className="font-mono text-sm text-slate-400 leading-relaxed">
+                      {imageCaption}
+                    </p>
+                  )}
+
+                  {props.actionLink && props.actionLabel && (
+                    <a
+                      href={props.actionLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-full text-xs font-mono border border-slate-700 hover:border-slate-600 transition-all duration-200"
+                    >
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {props.actionLabel}
+                    </a>
+                  )}
                 </motion.div>
               )}
             </motion.div>

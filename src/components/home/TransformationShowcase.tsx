@@ -43,10 +43,10 @@ export default function TransformationShowcase() {
   const handleStart = () => setIsDragging(true)
   const handleEnd = () => setIsDragging(false)
 
-  const t = getTheme(true)
+  const t = getTheme(false)
 
   return (
-    <section className="py-section-mobile md:py-section-tablet relative overflow-hidden">
+    <section className="py-section-mobile md:py-section-tablet lg:py-section-desktop relative overflow-hidden">
       <div className={`${spacing.containerFull} relative z-10`}>
         {/* Header */}
         <motion.div

@@ -9,6 +9,7 @@ import { createPortal } from 'react-dom'
 interface ImageItem {
     src: string
     alt: string
+    videoSrc?: string  // Added support for video
     caption?: string
     fullWidth?: boolean
     sensitive?: boolean
@@ -44,9 +45,14 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
     useEffect(() => {
         if (!isPlaying || isLightboxOpen) return
 
+        // If the current slide is a video, we might want to wait longer? 
+        // For now, keeping the 2s rhythm unless interacted with, to match the "Seqeunce" feel.
+        // Or specific logic: if video, maybe don't auto-advance? 
+        // User asked for "Auto Sequence" behavior so we keep it simple.
+
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % images.length)
-        }, 2000) // 2 seconds per slide
+        }, 3000) // Increased to 3s for better absorption
 
         return () => clearInterval(interval)
     }, [isPlaying, isLightboxOpen, images.length, setCurrentIndex])
@@ -92,23 +98,35 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="absolute inset-0 flex items-center justify-center p-8"
+                        className="absolute inset-0 flex items-center justify-center bg-black"
                     >
                         <div className="relative w-full h-full">
-                            <Image
-                                src={images[currentIndex].src}
-                                alt={images[currentIndex].alt}
-                                fill
-                                className="object-contain"
-                                quality={90}
-                            />
+                            {images[currentIndex].videoSrc ? (
+                                <video
+                                    src={images[currentIndex].videoSrc}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <Image
+                                    src={images[currentIndex].src}
+                                    alt={images[currentIndex].alt}
+                                    fill
+                                    className="object-contain" // Changed to contain to show full slide usually
+                                    quality={90}
+                                />
+                            )}
                         </div>
                     </motion.div>
                 </AnimatePresence>
 
                 {/* Overlay Controls */}
-                <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/50 to-transparent flex items-end justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-2">
+                <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    {/* Using pointer-events-auto for children so we can click them */}
+                    <div className="flex gap-2 pointer-events-auto">
                         {images.map((_, idx) => (
                             <button
                                 key={idx}
@@ -119,8 +137,11 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                             />
                         ))}
                     </div>
-                    <p className="text-white/80 text-xs font-mono">
-                        {currentIndex + 1} / {images.length}
+                    <p className="text-white/80 text-xs font-mono pointer-events-auto">
+                        {images[currentIndex].caption ? (
+                            <span className="mr-2 font-bold text-white shadow-black drop-shadow-md">{images[currentIndex].caption}</span>
+                        ) : null}
+                        <span className="opacity-70">{currentIndex + 1} / {images.length}</span>
                     </p>
                 </div>
             </div>
@@ -138,7 +159,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                     <svg className="w-4 h-4 text-[var(--accent-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg>
-                    View all screens in this flow
+                    View gallery
                 </button>
             </div>
 
@@ -158,7 +179,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                     {/* Navigation Buttons */}
                     <button
                         onClick={() => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 rounded-full"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 rounded-full z-50"
                     >
                         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -167,23 +188,35 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
 
                     <button
                         onClick={() => setCurrentIndex((prev) => (prev + 1) % images.length)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 rounded-full"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 rounded-full z-50"
                     >
                         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
 
-                    {/* Main Image */}
-                    <div className="relative w-full max-w-6xl h-[80vh]">
-                        <Image
-                            src={images[currentIndex].src}
-                            alt={images[currentIndex].alt}
-                            fill
-                            className="object-contain"
-                            quality={100}
-                            priority
-                        />
+                    {/* Main Image/Video */}
+                    <div className="relative w-full max-w-6xl h-[80vh] flex items-center justify-center">
+                        {images[currentIndex].videoSrc ? (
+                            <video
+                                src={images[currentIndex].videoSrc}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                controls
+                                className="w-full h-full object-contain"
+                            />
+                        ) : (
+                            <Image
+                                src={images[currentIndex].src}
+                                alt={images[currentIndex].alt}
+                                fill
+                                className="object-contain"
+                                quality={100}
+                                priority
+                            />
+                        )}
                     </div>
 
                     {/* Caption */}

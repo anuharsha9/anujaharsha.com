@@ -31,17 +31,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Anuja Harsha Nimmagadda | Principal UX Designer | Enterprise Design & AI/ML UX',
+    default: 'Anuja Harsha Nimmagadda | Senior Product Designer | Enterprise Systems Architect',
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Principal UX Designer with 13+ years experience. Modernizing enterprise systems and AI/ML UX through multi-agent AI orchestration. Designed in Figma, built with Next.js, and refined with Antigravity & Cursor.',
+    'Senior Product Designer specializing in untangling complex enterprise systems. Architecting Enterprise UX through complexity and ambiguity.',
   keywords: [
-    'UX Designer',
-    'Principal UX Designer',
+    'Design Engineer',
+    'Senior Product Designer',
     'Enterprise UX',
-    'AI/ML UX',
-    'Legacy Modernization',
+    'AI Orchestration',
+    'Systems Architect',
     'Product Design',
     'Design Systems',
     'User Experience Design',
@@ -50,7 +50,6 @@ export const metadata: Metadata = {
     'Machine Learning UX',
     'WebFOCUS',
     'ReportCaster',
-    'AI Orchestration',
     'Antigravity AI',
     'Cursor IDE',
     'Multi-Agent Workflow',
@@ -65,23 +64,23 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Anuja Harsha Nimmagadda',
-    title: 'Anuja Harsha | Principal Designer & AI Orchestrator',
+    title: 'Anuja Harsha | Senior Product Designer',
     description:
-      'Principal UX Designer with 13+ years experience. Modernizing enterprise systems and AI/ML UX through multi-agent AI orchestration.',
+      'Senior Product Designer specializing in untangling complex enterprise systems. Code-first architect and AI workflow orchestrator.',
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Anuja Harsha | Principal Designer & AI Orchestrator',
+        alt: 'Anuja Harsha | Senior Product Designer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha | Principal Designer & AI Orchestrator',
+    title: 'Anuja Harsha | Senior Product Designer',
     description:
-      'Principal UX Designer with 13+ years experience. Modernizing enterprise systems and AI/ML UX through multi-agent AI orchestration.',
+      'Senior Product Designer specializing in untangling complex enterprise systems. Code-first architect and AI workflow orchestrator.',
     images: ['/images/og-image.png'],
     creator: '@anujaharsha', // Update with actual Twitter handle if available
   },
@@ -129,7 +128,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         {/* Preload critical assets for faster LCP */}
-        <link rel="preload" href="/assets/brain-gears.svg" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/brain-gears-white.svg" as="fetch" crossOrigin="anonymous" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} font-sans antialiased`} suppressHydrationWarning>
         <LoadingScreen />
