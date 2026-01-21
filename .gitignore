@@ -39,3 +39,6 @@ lighthouse-report.html
 # Temporary screenshot assets
 assets/
 legacy-preview-tree/
+
+# Generated sitemap
+public/sitemap.xml
