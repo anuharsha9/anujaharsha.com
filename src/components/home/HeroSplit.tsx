@@ -10,6 +10,7 @@ import GearBottomSheet from '@/components/home/GearBottomSheet'
 import { GEAR_INSPECTOR, GearInspectorItem } from '@/data/gear-inspector'
 import { getTheme, spacing } from '@/lib/design-system'
 import Magnetic from '@/components/ui/Magnetic'
+import { BRAIN_GEARS_SVG } from '@/data/brain-gears-svg'
 
 // Counter Component for animated numbers
 function Counter({ value, duration = 2 }: { value: number, duration?: number }) {
@@ -90,35 +91,18 @@ export default function HeroSplit() {
   // Load SVG inline so Turbopack (no SVGR) can manipulate DOM
   // Strip width/height so SVG scales to container (like SVGR did)
   useEffect(() => {
-    let isMounted = true
-    // fetching white gears for Dark Centered Identity
-    fetch('/assets/brain-gears-white.svg')
-      .then((res) => {
-        if (!res.ok) throw new Error(`SVG Load Failed: ${res.status}`)
-        return res.text()
-      })
-      .then((text) => {
-        if (isMounted) {
-          // Remove width/height attributes (handle both single and double quotes)
-          let processed = text
-            .replace(/width=["'][^"']*["']/g, '')
-            .replace(/height=["'][^"']*["']/g, '')
+    // Process the hardcoded SVG constant
+    // Remove width/height attributes (handle both single and double quotes)
+    let processed = BRAIN_GEARS_SVG
+      .replace(/width=["'][^"']*["']/g, '')
+      .replace(/height=["'][^"']*["']/g, '')
 
-          // Add width/height 100% to the SVG element for proper scaling
-          processed = processed.replace(
-            /<svg/,
-            '<svg style="width:100%;height:auto"'
-          )
-          setSvgContent(processed)
-        }
-      })
-      .catch((err) => {
-        console.error('Brain Gears SVG Error:', err)
-        if (isMounted) setSvgContent('')
-      })
-    return () => {
-      isMounted = false
-    }
+    // Add width/height 100% to the SVG element for proper scaling
+    processed = processed.replace(
+      /<svg/,
+      '<svg style="width:100%;height:auto"'
+    )
+    setSvgContent(processed)
   }, [])
 
   useEffect(() => {
