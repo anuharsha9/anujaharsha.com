@@ -93,13 +93,17 @@ export default function HeroSplit() {
     let isMounted = true
     // fetching white gears for Dark Centered Identity
     fetch('/assets/brain-gears-white.svg')
-      .then((res) => res.text())
+      .then((res) => {
+        if (!res.ok) throw new Error(`SVG Load Failed: ${res.status}`)
+        return res.text()
+      })
       .then((text) => {
         if (isMounted) {
-          // Remove hardcoded width/height and add responsive sizing
+          // Remove width/height attributes (handle both single and double quotes)
           let processed = text
-            .replace(/width="[^"]*"/g, '')
-            .replace(/height="[^"]*"/g, '')
+            .replace(/width=["'][^"']*["']/g, '')
+            .replace(/height=["'][^"']*["']/g, '')
+
           // Add width/height 100% to the SVG element for proper scaling
           processed = processed.replace(
             /<svg/,
@@ -108,7 +112,8 @@ export default function HeroSplit() {
           setSvgContent(processed)
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('Brain Gears SVG Error:', err)
         if (isMounted) setSvgContent('')
       })
     return () => {
