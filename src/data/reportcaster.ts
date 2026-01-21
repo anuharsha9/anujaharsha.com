@@ -14,7 +14,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Sept 2022 – Nov 2023, Jan 2025 | Shipped April 2024',
   status: {
-    label: 'Live in Production',
+    label: 'Shipping to 20M+ Users',
     variant: 'live' as const,
   },
   scope: [
@@ -55,7 +55,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
       '2 clicks → 1 click for Explorer access',
       '20M+ weekly schedules impacted',
       '3 architectural directions before finding the right approach',
-      'Shipped April 2024 — live in production',
+      'Shipped April 2024 — powering 20M+ weekly schedules',
     ],
     // Public demo URL removed - legacy link no longer available
     dataSheetUrl: 'https://www.ibi.com/content/dam/ibi/documents/data-sheet/webfocus-report-caster-data-sheet.pdf',
@@ -376,7 +376,7 @@ I onboarded 2 designers mid-project and remained the knowledge hub even after tr
 • 5 subsystems → 1 unified mental model
 • 4 → 2 clicks for schedule/list creation
 • 2 → 1 click for Explorer access
-• Live in production, featured in public demos
+• Powering 20M+ weekly schedules, featured in public demos
 
 **What I'd do differently:**
 • Push harder for direct user research earlier — even in enterprise, there are ways
@@ -461,7 +461,7 @@ The architecture I created became the reference pattern for other modernization 
       {
         letter: 'N',
         title: 'Navigate Forward',
-        description: 'Shipped April 2024. Live in production. Featured in public YouTube demos.',
+        description: 'Shipped April 2024. Powering 20M+ weekly schedules. Featured in public YouTube demos.',
       },
     ],
   },
@@ -475,7 +475,7 @@ The architecture I created became the reference pattern for other modernization 
       '4 → 2 clicks for schedules and lists',
       '2 → 1 click for Explorer access',
       '20M+ weekly schedules impacted',
-      'Shipped April 2024 — live in production',
+      'Shipped April 2024 — powering 20M+ weekly schedules',
     ],
   },
   // ----------------------------

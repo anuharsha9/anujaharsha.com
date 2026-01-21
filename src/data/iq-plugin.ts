@@ -45,7 +45,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
       situation: 'Three powerful data science features existed but were scattered across the platform. Different entry points, different patterns, low adoption. Users didn\'t know they were there.',
       task: 'Unify them into one discoverable experience. Make data science accessible without hiding it.',
       action: 'Defined the architecture and base screens for all three. Established consistent interaction patterns and made everything responsive.',
-      result: 'Integrated three features into the Hub — no extra space, everything inside. NLQ and Insights live in production. DSML Hub shipping 2027.',
+      result: 'Integrated three features into the Hub — no extra space, everything inside. NLQ and Insights now powering enterprise users daily. DSML Hub shipping 2027.',
     },
     technologies: [],
     keyAchievements: [
@@ -264,7 +264,7 @@ The +25% NLQ adoption increase came from making the feature discoverable — not
       {
         letter: 'N',
         title: 'Navigate Forward',
-        description: 'NLQ and Insights are live in production. The DSML Hub ships in 2027.',
+        description: 'NLQ and Insights now powering enterprise users daily. The DSML Hub ships in 2027.',
       },
     ],
   },

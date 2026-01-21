@@ -13,7 +13,7 @@ const versions = [
         desc: 'Manual HTML/CSS. Direct S3 uploads. Took months to iterate. The "before" snapshot.',
         tech: 'HTML • CSS • S3',
         image: '/images/evolution/v1.png',
-        video: '/videos/evolution/v1.mp4'
+        video: '/videos/evolution/v1_web.mp4'
     },
     {
         id: 'v2',
@@ -22,7 +22,7 @@ const versions = [
         desc: 'Upgraded "Black Pink" design. Still manual HTML/CSS using ChatGPT. No Git yet, just raw file editing.',
         tech: 'HTML • CSS • ChatGPT',
         image: '/images/evolution/v2.png',
-        video: '/videos/evolution/v2.mp4'
+        video: '/videos/evolution/v2_web.mp4'
     },
     {
         id: 'v3',
@@ -31,7 +31,7 @@ const versions = [
         desc: 'White/Pink Redesign. Built in 24 hours using AI assistance. The first glimpse of high velocity.',
         tech: 'HTML • CSS • AIv1',
         image: '/images/evolution/v3.png',
-        video: '/videos/evolution/v3.mp4'
+        video: '/videos/evolution/v3_web.mp4'
     },
     {
         id: 'v4',
@@ -40,7 +40,7 @@ const versions = [
         desc: 'The Pivot & The System. Switched to Next.js 14 and Git. Architected the multi-agent orchestration for enterprise scalability.',
         tech: 'Next.js • Agents • AWS',
         image: '/images/evolution/v4.png',
-        video: '/videos/evolution/v4.mp4'
+        video: '/videos/evolution/v4_web.mp4'
     },
     {
         id: 'v5',

@@ -111,7 +111,7 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
           <div className="pt-6 border-t border-slate-700 text-center space-y-3">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/40">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="font-mono text-xs text-emerald-400 uppercase tracking-wider">Live in Production</span>
+              <span className="font-mono text-xs text-emerald-400 uppercase tracking-wider">Powering 20M+ Schedules Weekly</span>
             </div>
             <p className="text-slate-300 text-sm leading-relaxed max-w-2xl mx-auto">
               Shipped as part of WebFOCUS 9.3 — actively impacting millions of users daily.
