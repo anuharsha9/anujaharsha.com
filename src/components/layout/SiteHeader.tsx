@@ -141,7 +141,7 @@ export default function SiteHeader() {
           {/* Resume - Secondary CTA */}
           <Magnetic strength={0.2}>
             <a
-              href="/assets/Anuja Harsha Nimmagadda - Resume.pdf"
+              href="/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackResumeDownload()}

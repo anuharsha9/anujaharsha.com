@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Democratizing ML Case Study - LinkedIn Carousel</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* PDF/Print Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: 1080px 1350px; /* 4:5 Aspect Ratio (Portrait) */
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0F0F0F; /* Dark mode background for premium feel */
+            color: #ffffff;
+            width: 1080px;
+        }
+
+        /* Slide Container */
+        .slides-container {
+            width: 100%;
+        }
+
+        .slide {
+            width: 1080px;
+            height: 1350px;
+            position: relative;
+            background: #0F0F0F;
+            overflow: hidden;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+        }
+
+        /* Slide 1: Cover */
+        .slide-cover {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            text-align: center;
+        }
+        
+        .tag {
+            background: rgba(124, 58, 237, 0.2); /* Purple tint for ML/AI */
+            color: #A78BFA; /* Light Purple */
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 60px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 88px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 48px;
+            background: linear-gradient(90deg, #FFFFFF 0%, #A78BFA 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 100%;
+        }
+
+        .subtitle {
+            font-size: 36px;
+            color: #888888;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Slide 2: The Before */
+        .slide-before {
+            background: #111111;
+        }
+
+        /* Vertical Stack Layout */
+        .split-layout {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            gap: 60px;
+        }
+
+        .text-col {
+            flex: 0 0 auto;
+            text-align: center; /* Center text in portrait */
+        }
+
+        .img-col {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            width: 100%;
+            position: relative;
+        }
+
+        .img-col img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        h2 {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+        
+        .highlight-red {
+            color: #FF4D4D;
+        }
+
+        p.description {
+            font-size: 32px;
+            color: #cccccc;
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        .stat-grid {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 20px;
+        }
+
+        .stat-item h3 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            font-size: 24px;
+            color: #666;
+        }
+
+        /* Slide 3: The After */
+        .slide-after {
+            background: #000000;
+        }
+
+        .highlight-purple {
+            color: #A78BFA;
+        }
+
+        /* Slide 4: Impact */
+        .slide-impact {
+            background: #0F0F0F;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            width: 100%;
+            margin-top: 80px;
+            padding: 0 40px;
+        }
+
+        .impact-card {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        .impact-card .huge {
+            font-size: 80px;
+            font-weight: 800;
+            color: #A78BFA;
+            margin-bottom: 0;
+            width: 40%;
+            text-align: right;
+        }
+
+        .impact-card p {
+            font-size: 32px;
+            color: #fff;
+            font-weight: 500;
+            width: 55%;
+            padding-left: 20px;
+        }
+
+        /* Slide 5: End */
+        .slide-end {
+            background: linear-gradient(135deg, #4C1D95 0%, #000000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: #fff; 
+            margin-bottom: 40px;
+            overflow: hidden;
+            border: 4px solid #fff;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta {
+            font-size: 40px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 24px;
+            max-width: 800px;
+        }
+        
+        .link {
+            font-size: 36px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+
+        /* Download Button (Hidden in Print) */
+        .download-btn {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            background: #fff;
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: sans-serif;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        @media print {
+            .download-btn { display: none; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="#" onclick="window.print()" class="download-btn">Save as PDF (Portrait)</a>
+
+    <div class="slides-container">
+        
+        <!-- Slide 1: Hook -->
+        <div class="slide slide-cover">
+            <div class="tag">UX Case Study</div>
+            <h1>Democratizing Machine Learning for Everyone</h1>
+            <p class="subtitle">Turning a black-box data science process into a guided, 4-step workflow for non-technical users.</p>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide slide-before">
+            <div class="split-layout">
+                <div class="text-col">
+                    <h2>The <span class="highlight-red">Black Box</span></h2>
+                    <p class="description">
+                        The legacy workflow was fragmented and hostile. Hyperparameters were buried in right-click menus, and "results not generated" errors left users at dead ends.
+                    </p>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <h3>12+</h3>
+                            <p>Clicks to Train a Model</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>0</h3>
+                            <p>Guidance for Beginners</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="img-col">
+                    <!-- Before: Legacy UI -->
+                    <img src="../images/case-study/ml-functions/Legacy%20Train%20Model%20UI.png" alt="Legacy ML Interface">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Solution -->
+        <div class="slide slide-after">
+            <div class="split-layout">
+                <div class="text-col">
+                    <h2>The <span class="highlight-purple">Guided Flow</span></h2>
+                    <p class="description">
+                        I designed a structured 4-step workflow: Problem Type → Target → Predictors → Hyperparameters. It makes advanced ML accessible without dumbing it down.
+                    </p>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <h3>4</h3>
+                            <p>Clear Steps</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>Visual</h3>
+                            <p>Metrics</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="img-col">
+                    <!-- After: Confusion Matrix / Results -->
+                    <img src="../images/case-study/ml-functions/11.%20Train%20Model%20Workflow%20-%20Confusion%20Matrix.png" alt="Visualized Model Performance">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Key Workflow Win -->
+        <div class="slide slide-before">
+            <div class="split-layout">
+                <div class="text-col">
+                    <h2>Simplifying the <span class="highlight-purple">Complexity</span></h2>
+                    <p class="description">
+                        By collaborating with our Principal Data Scientist, I translated complex concepts into plain English and visual selectors.
+                    </p>
+                    <p class="description" style="font-size: 24px; opacity: 0.8; margin-top: 10px;">
+                        • <strong>Before:</strong> Hidden parameters, assumption of expert knowledge.<br>
+                        • <strong>After:</strong> Smart defaults, explanation on hover, upstream validation.
+                    </p>
+                </div>
+                <div class="img-col">
+                    <!-- Workflow: Step 1 Selection -->
+                    <img src="../images/case-study/ml-functions/4.%20Train%20Model%20Workflow%20-%20Step%201%20-%20Select%20Problem%20Type.png" alt="Guided Problem Selection">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Impact -->
+        <div class="slide slide-impact">
+            <h2>The Results</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <span class="huge">5/5</span>
+                    <p>SMEs found entry point instantly</p>
+                </div>
+                <div class="impact-card">
+                    <span class="huge">-40%</span>
+                    <p>Clicks to Train Model</p>
+                </div>
+                <div class="impact-card">
+                    <span class="huge">MIT</span>
+                    <p>Certified in AI/ML Design</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Outro -->
+        <div class="slide slide-end">
+            <div class="avatar">
+                 <img src="../images/anuja-portrait.jpg" onerror="this.src='../images/me/anuja-portrait.jpg'; this.onerror=null;" alt="Anu">
+            </div>
+            <h1>Designed & Led by<br>Anuja Harsha</h1>
+            <p class="cta">See the full case study & demo videos:</p>
+            <p class="link">anujaharsha.com</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -187,7 +187,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                   </Link>
 
                   <a
-                    href="/assets/Anuja Harsha Nimmagadda - Resume.pdf"
+                    href="/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => {
