@@ -1,17 +1,22 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export default function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement>(null)
-  const ringRef = useRef<HTMLDivElement>(null)
-  const ringPosition = useRef({ x: 0, y: 0 })
-  const targetPosition = useRef({ x: 0, y: 0 })
-  const animationFrame = useRef<number | null>(null)
   const [isPointer, setIsPointer] = useState(false)
   const [isHidden, setIsHidden] = useState(true)
   const [isClicking, setIsClicking] = useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
+
+  // Use motion values for better performance
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  // Spring physics for the trailing gear
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 }
+  const ringX = useSpring(mouseX, springConfig)
+  const ringY = useSpring(mouseY, springConfig)
 
   useEffect(() => {
     // Only enable on desktop with fine pointer (mouse)
@@ -25,31 +30,10 @@ export default function CustomCursor() {
 
     setIsEnabled(true)
 
-    // Animate ring to follow with smooth easing
-    const animateRing = () => {
-      const ease = 0.15 // Lower = slower/smoother trailing
-      ringPosition.current.x += (targetPosition.current.x - ringPosition.current.x) * ease
-      ringPosition.current.y += (targetPosition.current.y - ringPosition.current.y) * ease
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${ringPosition.current.x - 16}px, ${ringPosition.current.y - 16}px)`
-      }
-
-      animationFrame.current = requestAnimationFrame(animateRing)
-    }
-
-    animationFrame.current = requestAnimationFrame(animateRing)
-
     // Update cursor position
     const updatePosition = (e: MouseEvent) => {
-      // Dot moves instantly
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`
-      }
-
-      // Ring follows with animation (update target)
-      targetPosition.current = { x: e.clientX, y: e.clientY }
-
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
       setIsHidden(false)
 
       // Check what element is under cursor
@@ -82,20 +66,17 @@ export default function CustomCursor() {
       window.removeEventListener('mouseup', handleMouseUp)
       document.body.removeEventListener('mouseleave', handleMouseLeave)
       document.body.removeEventListener('mouseenter', handleMouseEnter)
-      if (animationFrame.current) {
-        cancelAnimationFrame(animationFrame.current)
-      }
     }
-  }, [])
+  }, [mouseX, mouseY])
 
   // Don't render anything until we know if cursor should be enabled
   if (!isEnabled) {
     return null
   }
 
-  // Calculate scale based on state
-  const dotScale = isClicking ? 0.7 : isPointer ? 1.3 : 1
-  const ringScale = isClicking ? 0.8 : isPointer ? 1.5 : 1
+  // Gear Path Data (simplified 8-tooth gear)
+  // M 12,0 L 14,4 L 18,4 L 19,8 L 23,9 L 21,13 L 23,17 L 19,18 L 18,22 L 14,22 L 12,26 L 10,22 L 6,22 L 5,18 L 1,17 L 3,13 L 1,9 L 5,8 L 6,4 L 10,4 Z
+  // Center hole: M 12,10 A 3,3 0 1,0 12,16 A 3,3 0 1,0 12,10 Z
 
   return (
     <>
@@ -108,43 +89,69 @@ export default function CustomCursor() {
         }
       `}</style>
 
-      {/* Custom cursor dot - instant movement */}
-      <div
-        ref={dotRef}
-        className="fixed top-0 left-0 z-[99999] pointer-events-none will-change-transform"
+      {/* Main Cursor (Exact Position) - Small Dot */}
+      <motion.div
+        className="fixed top-0 left-0 z-[99999] pointer-events-none"
         style={{
+          x: mouseX,
+          y: mouseY,
+          translateX: '-50%',
+          translateY: '-50%',
           opacity: isHidden ? 0 : 1,
-          transition: 'opacity 0.15s ease',
         }}
       >
         <div
-          className="w-3 h-3 rounded-full"
-          style={{
-            backgroundColor: isPointer ? 'var(--accent-teal)' : 'var(--text-heading)',
-            transform: `scale(${dotScale})`,
-            transition: 'transform 0.15s ease, background-color 0.15s ease',
-          }}
+          className={`w-2 h-2 bg-[var(--accent-teal)] rounded-full transition-transform duration-300 ${isClicking ? 'scale-75' : isPointer ? 'scale-150' : 'scale-100'
+            }`}
         />
-      </div>
+      </motion.div>
 
-      {/* Cursor ring - smooth trailing animation */}
-      <div
-        ref={ringRef}
-        className="fixed top-0 left-0 z-[99998] pointer-events-none will-change-transform"
+      {/* Trailing Gear (Smooth Follow) */}
+      <motion.div
+        className="fixed top-0 left-0 z-[99998] pointer-events-none"
         style={{
-          opacity: isHidden ? 0 : 0.5,
-          transition: 'opacity 0.15s ease',
+          x: ringX,
+          y: ringY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: isHidden ? 0 : 0.6,
         }}
       >
-        <div
-          className="w-8 h-8 rounded-full border-2"
-          style={{
-            borderColor: isPointer ? 'var(--accent-teal)' : 'var(--text-muted)',
-            transform: `scale(${ringScale})`,
-            transition: 'transform 0.2s ease, border-color 0.15s ease',
+        <motion.div
+          className="relative flex items-center justify-center"
+          animate={{
+            rotate: isPointer ? 90 : 0,
+            scale: isClicking ? 0.8 : isPointer ? 1.2 : 1,
           }}
-        />
-      </div>
+          transition={{
+            rotate: { duration: 0.8, ease: "backOut" },
+            scale: { duration: 0.2 }
+          }}
+        >
+          {/* Gear SVG */}
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className={`transition-colors duration-300 ${isPointer ? 'text-[var(--accent-teal)]' : 'text-slate-400'
+              }`}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+        </motion.div>
+      </motion.div>
     </>
   )
 }
