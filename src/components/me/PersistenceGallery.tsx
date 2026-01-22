@@ -8,47 +8,37 @@ import Image from 'next/image'
 const versions = [
     {
         id: 'v1',
-        label: 'Jan 2025',
+        label: 'Nov 10',
         title: 'The Baseline',
-        desc: 'Manual HTML/CSS. Direct S3 uploads. Took months to iterate. The "before" snapshot.',
+        desc: 'Manual HTML/CSS. Direct S3 uploads. The manual era before the AI pivot.',
         tech: 'HTML • CSS • S3',
         video: '/videos/evolution/v1_web.mp4',
         keyLearning: '"Manual coding is too slow for modern iteration."'
     },
     {
         id: 'v2',
-        label: 'Nov 14',
-        title: 'The Upgrade',
-        desc: 'Upgraded "Black Pink" design. Still manual HTML/CSS using ChatGPT. No Git yet, just raw file editing.',
-        tech: 'HTML • CSS • ChatGPT',
-        video: '/videos/evolution/v2_web.mp4',
+        label: 'Nov 15',
+        title: 'The Speedrun',
+        desc: 'White/Pink Redesign. Built in 24 hours using Agentic AI. The first glimpse of high velocity.',
+        tech: 'HTML • CSS • AIv1',
+        video: '/videos/evolution/v3_web.mp4',
         keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."'
     },
     {
         id: 'v3',
-        label: 'Nov 17',
-        title: 'The Speedrun',
-        desc: 'White/Pink Redesign. Built in 24 hours using AI assistance. The first glimpse of high velocity.',
-        tech: 'HTML • CSS • AIv1',
-        video: '/videos/evolution/v3_web.mp4',
-        keyLearning: '"Frameworks (Next.js) are not overhead; they are the scaffold for speed."'
+        label: 'Dec 1',
+        title: 'The Architecture',
+        desc: 'Switched to Next.js 14 and Git. Architected the multi-agent orchestration for enterprise scalability.',
+        tech: 'Next.js • Agents • AWS',
+        video: '/videos/evolution/v4_web.mp4',
+        keyLearning: '"Frameworks are not overhead; they are the scaffold for speed."'
     },
     {
         id: 'v4',
-        label: 'Nov 20',
-        title: 'The Architecture',
-        desc: 'The Pivot & The System. Switched to Next.js 14 and Git. Architected the multi-agent orchestration for enterprise scalability.',
-        tech: 'Next.js • Agents • AWS',
-        video: '/videos/evolution/v4_web.mp4',
-        keyLearning: '"Agents can handle the build, allowing the human to focus on \'Soul\'."'
-    },
-    {
-        id: 'v5',
-        label: 'Dec 2025',
+        label: 'Dec 8',
         title: 'The Polish',
-        desc: 'Refining the interaction layer. "Vibe Code" implementation. Achieving portfolio-market fit with the final V5 design.',
+        desc: 'Refining the interaction layer. "Vibe Code" implementation. Achieving portfolio-market fit.',
         tech: 'Framer Motion • Vibe • UX',
-        image: '/images/evolution/v5_polish.svg',
         video: '/videos/evolution/v5_web.mp4',
         keyLearning: '"The final 10% of polish takes 50% of the effort. But it\'s what sells."'
     }
@@ -191,50 +181,21 @@ export default function PersistenceGallery() {
                         </div>
 
                         {/* Image/Video Area - Full Width */}
-                        <div className="relative aspect-video bg-slate-900">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={activeTabId}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                    className="w-full h-full flex items-center justify-center bg-black"
-                                >
-                                    {activeVersion.video ? (
-                                        <video
-                                            src={activeVersion.video}
-                                            autoPlay
-                                            muted
-                                            playsInline
-                                            controls={false}
-                                            className="w-full h-full object-contain"
-                                        />
-                                    ) : activeVersion.image ? (
-                                        <div className="relative w-full h-full bg-slate-100">
-                                            <Image
-                                                src={activeVersion.image}
-                                                alt={`Portfolio version: ${activeVersion.title}`}
-                                                fill
-                                                className="object-contain p-8"
-                                            />
-                                            {activeTabId === 'v5' && (
-                                                <div className="absolute inset-0 flex items-center justify-center">
-                                                    <div className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-slate-200">
-                                                        <span className="font-serif text-slate-900 text-lg">You are here 📍</span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center bg-slate-900">
-                                            <span className="mb-2 block text-4xl">⏳</span>
-                                            <p className="text-sm font-mono">Loading Archive...</p>
-                                        </div>
-                                    )}
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
+                        {activeVersion.video ? (
+                            <video
+                                src={activeVersion.video}
+                                autoPlay
+                                muted
+                                playsInline
+                                controls={false}
+                                className="w-full h-full object-contain"
+                            />
+                        ) : (
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center bg-slate-900">
+                                <span className="mb-2 block text-4xl">⏳</span>
+                                <p className="text-sm font-mono">Loading Archive...</p>
+                            </div>
+                        )}
 
                     </div>
 
