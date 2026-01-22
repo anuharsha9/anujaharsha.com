@@ -256,10 +256,10 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                         <div className={`${isSidebarLayout ? "lg:col-span-8" : "lg:col-span-12"} ${era.id === 'origin-story' ? "grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start" : ""}`}>
                             {/* Header */}
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                                 className="mb-16 relative"
                             >
                                 <div className="flex items-baseline gap-4 mb-2">
@@ -360,10 +360,10 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                                             {era.testimonials.map((review, idx) => (
                                                 <motion.div
                                                     key={review.id}
-                                                    initial={{ opacity: 0, y: 20 }}
+                                                    initial={{ opacity: 0, y: 40 }}
                                                     whileInView={{ opacity: 1, y: 0 }}
                                                     viewport={{ once: true }}
-                                                    transition={{ delay: 0.2 + (idx * 0.1), duration: 0.5 }}
+                                                    transition={{ delay: 0.2 + (idx * 0.1), duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                                                     className="h-full"
                                                 >
                                                     <LegacyTestimonialCard review={review} />
@@ -412,10 +412,10 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                             return (
                                 <motion.div
                                     key={idx}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: 0.2 + (idx * 0.1) }}
+                                    transition={{ delay: 0.2 + (idx * 0.1), duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                                     whileHover={{ y: -5, scale: 1.02 }}
                                     className="flex flex-row md:flex-col gap-4 md:min-w-[240px] group/timeline relative cursor-pointer"
                                 >
@@ -423,7 +423,7 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                                     <div className="absolute top-[19px] -left-16 w-16 h-px bg-white/5 hidden md:block" />
 
                                     {/* MOBILE: Vertical Line Visual */}
-                                    {idx !== era.milestones.length - 1 && (
+                                    {idx !== (era.milestones?.length || 0) - 1 && (
                                         <div className="absolute top-12 left-[19px] bottom-[-32px] w-px bg-white/10 md:hidden" />
                                     )}
 

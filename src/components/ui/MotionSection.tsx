@@ -45,15 +45,15 @@ const MotionSection = forwardRef<HTMLElement, MotionSectionProps>(
     }, [animate, sectionRef])
 
     const variantClasses = {
-      'fade-up': { initial: 'opacity-0 translate-y-8', visible: 'opacity-100 translate-y-0' },
-      'fade-down': { initial: 'opacity-0 -translate-y-8', visible: 'opacity-100 translate-y-0' },
-      'fade-left': { initial: 'opacity-0 translate-x-8', visible: 'opacity-100 translate-x-0' },
-      'fade-right': { initial: 'opacity-0 -translate-x-8', visible: 'opacity-100 translate-x-0' },
-      'scale': { initial: 'opacity-0 scale-95', visible: 'opacity-100 scale-100' },
+      'fade-up': { initial: 'opacity-0 translate-y-12', visible: 'opacity-100 translate-y-0' },
+      'fade-down': { initial: 'opacity-0 -translate-y-12', visible: 'opacity-100 translate-y-0' },
+      'fade-left': { initial: 'opacity-0 translate-x-12', visible: 'opacity-100 translate-x-0' },
+      'fade-right': { initial: 'opacity-0 -translate-x-12', visible: 'opacity-100 translate-x-0' },
+      'scale': { initial: 'opacity-0 scale-90', visible: 'opacity-100 scale-100' },
     }
 
     const animationClass = animate
-      ? `transform transition-all duration-700 ease-out ${isVisible ? variantClasses[variant].visible : variantClasses[variant].initial}`
+      ? `transform transition-all duration-[1000ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${isVisible ? variantClasses[variant].visible : variantClasses[variant].initial}`
       : ''
 
     return (

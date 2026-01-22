@@ -42,10 +42,10 @@ export default function WritingSectionSimple() {
                             key={article.title}
                             href={article.href}
                             target="_blank"
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                            viewport={{ once: true, amount: 0.1 }}
+                            transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
                             className="group flex flex-col justify-between bg-white border border-slate-200 rounded-2xl p-6 md:p-8 hover:shadow-xl hover:border-[var(--accent-teal)]/30 transition-all duration-300 h-full relative overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-2 group-hover:translate-x-0">

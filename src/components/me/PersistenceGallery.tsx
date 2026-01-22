@@ -78,7 +78,14 @@ export default function PersistenceGallery() {
 
     return (
         <section className="py-10 border-t border-slate-100 bg-slate-50/50">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+
+            <motion.div
+                className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            >
 
 
 
@@ -242,7 +249,7 @@ export default function PersistenceGallery() {
 
                 </div>
 
-            </div>
+            </motion.div>
         </section>
     )
 }
