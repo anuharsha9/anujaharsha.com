@@ -8,7 +8,7 @@ import Image from 'next/image'
 const versions = [
     {
         id: 'v1',
-        label: 'Nov 10',
+        label: 'Jan 2025',
         title: 'The Baseline',
         desc: 'Manual HTML/CSS. Direct S3 uploads. The manual era before the AI pivot.',
         tech: 'HTML • CSS • S3',
@@ -17,7 +17,7 @@ const versions = [
     },
     {
         id: 'v2',
-        label: 'Nov 12',
+        label: 'Nov 10',
         title: 'The Upgrade',
         desc: 'Upgraded "Black Pink" design. Still manual HTML/CSS using ChatGPT. No Git yet, just raw file editing.',
         tech: 'HTML • CSS • ChatGPT',
