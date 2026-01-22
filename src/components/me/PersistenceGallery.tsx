@@ -10,7 +10,7 @@ const versions = [
         id: 'v1',
         label: 'Jan 2025',
         title: 'The Baseline',
-        desc: 'Manual HTML/CSS. Direct S3 uploads. The manual era before the AI pivot.',
+        desc: 'Panic-built after team layoffs. Juggling a newborn and manual HTML/CSS. Slow, painful progress.',
         tech: 'HTML • CSS • S3',
         video: '/videos/evolution/v1_web.mp4',
         keyLearning: '"Manual coding is too slow for modern iteration."'
@@ -19,7 +19,7 @@ const versions = [
         id: 'v2',
         label: 'Nov 10',
         title: 'The Upgrade',
-        desc: 'Upgraded "Black Pink" design. Still manual HTML/CSS using ChatGPT. No Git yet, just raw file editing.',
+        desc: 'Post-layoff restart. "Black Pink" design. Fighting for traction with manual code and ChatGPT.',
         tech: 'HTML • CSS • ChatGPT',
         video: '/videos/evolution/v2_web.mp4',
         keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."'
