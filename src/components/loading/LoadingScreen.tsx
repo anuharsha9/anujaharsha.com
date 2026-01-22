@@ -27,7 +27,11 @@ export default function LoadingScreen() {
         if (checkReady() || attempts >= maxAttempts) {
           // Start fade out
           setIsFading(true)
-          setTimeout(() => setIsVisible(false), 400) // Match CSS transition duration
+          setTimeout(() => {
+            setIsVisible(false)
+            // Dispatch event to signal other components (like HeroSplit) to start animating
+            window.dispatchEvent(new Event('app-ready'))
+          }, 400) // Match CSS transition duration
         } else {
           setTimeout(pollReady, 50)
         }

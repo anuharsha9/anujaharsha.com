@@ -102,115 +102,8 @@ export default function AboutPage() {
               </motion.div>
             </div>
 
-            {/* UNIFIED ARCHITECT PROFILE BLOCK (SPEC TABLE) */}
-            <div className="max-w-7xl mx-auto mb-10 sm:mb-12 px-4 text-left">
-              {/* Optional Section Title if desired, otherwise just spacing */}
-              <div className="mb-6 text-center">
-                <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-widest">The Build Process</span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-slate-900 mt-2">How this portfolio was created</h2>
-              </div>
+            {/* WRITING SECTION (MOVED) */}
 
-              <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/50">
-                {/* Header: Orchestration Stack */}
-                <div className="bg-slate-50 px-6 sm:px-10 py-5 border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-wider hidden sm:block">Orchestration Stack</span>
-                  <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2">
-                    {[
-                      { name: 'ChatGPT', desc: 'Strategy' },
-                      { name: 'Claude', desc: 'Architecture' },
-                      { name: 'Gemini', desc: 'Polish' },
-                      { name: 'Cursor', desc: 'Build' },
-                      { name: 'Antigravity', desc: 'Logic' },
-                      { name: 'AWS', desc: 'Scale' },
-                    ].map((tool) => (
-                      <span
-                        key={tool.name}
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-600 text-[10px] sm:text-xs font-mono shadow-sm"
-                      >
-                        <span className="text-slate-900 font-semibold">{tool.name}</span>
-                        <span className="text-[var(--accent-teal)] opacity-70">/ {tool.desc}</span>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Body: The Specs (Mission/Strategy/Result) */}
-                <div className="p-8 sm:p-10 space-y-12">
-                  {/* Context Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-10 border-b border-slate-100">
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">The Mission</span>
-                      <p className="text-slate-900 text-sm font-medium leading-relaxed">Build a high-performance portfolio website in 4 weeks with zero coding team.</p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">The Strategy</span>
-                      <p className="text-slate-900 text-sm font-medium leading-relaxed">Treating AI as a specialized engineering team (Cursor + Antigravity).</p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">The Result</span>
-                      <p className="text-slate-900 text-sm font-medium leading-relaxed">Version 5.0 is live. Delivered a functional MVP in week 1.</p>
-                    </div>
-                  </div>
-
-                  {/* Core Capabilities (Merged from Impact Grid) */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-10 border-b border-slate-100">
-                    {/* Metric 1 */}
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">01_Velocity</span>
-                      <h3 className="font-serif text-lg text-slate-900">Building This Portfolio: 1 Architect. 6 Weeks.</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed">
-                        Deployed the functional MVP in 7 days. Iterated through 5 full architectural pivots to reach this level of fidelity. I don&apos;t get stuck; I deliver.
-                      </p>
-                    </div>
-
-                    {/* Metric 2 */}
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">02_Modernization</span>
-                      <h3 className="font-serif text-lg text-slate-900">13 Years of Complexity Untangled.</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed">
-                        Specializing in enterprise-scale digital transformation. Bridging the gap between legacy systems and modern AI/ML user experiences as a Senior Product Designer.
-                      </p>
-                    </div>
-
-                    {/* Metric 3 */}
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">03_Orchestration</span>
-                      <h3 className="font-serif text-lg text-slate-900">Design-Engineering Bridge.</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed">
-                        Architected a custom Design Token system to ensure pixel-perfect consistency across a multi-agent automated build. I speak the language of code.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* System Specs (Typography, Env, Design) */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">Typography</span>
-                      <p className="text-slate-600 text-xs font-serif leading-relaxed">
-                        Set in <span className="text-slate-900">Playfair Display</span> for headers, <span className="text-slate-900">Inter</span> for UI, and <span className="text-slate-900">JetBrains Mono</span> for code.
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">Environment</span>
-                      <p className="text-slate-600 text-xs leading-relaxed">
-                        Built with <span className="text-slate-900">Next.js 16</span>, <span className="text-slate-900">Framer Motion</span>, and <span className="text-slate-900">Tailwind</span>. Deployed on <span className="text-slate-900">AWS</span>.
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">Design Source</span>
-                      <p className="text-slate-600 text-xs leading-relaxed">
-                        Assets & SVGs in <span className="text-slate-900">Figma</span>. Entire website orchestrated via <span className="text-slate-900">Human-AI Collaboration</span>.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
 
 
             {/* Tool pills */}
@@ -227,6 +120,119 @@ export default function AboutPage() {
 
 
       <PersistenceGallery />
+
+
+      {/* UNIFIED ARCHITECT PROFILE BLOCK (SPEC TABLE) - MOVED BELOW GALLERY */}
+      <div className="bg-slate-50/50 pb-16 pt-8">
+        <div className="max-w-7xl mx-auto px-4 text-left">
+          {/* Optional Section Title if desired, otherwise just spacing */}
+          <div className="mb-6 text-center">
+            <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-widest">The Build Process</span>
+            <h2 className="font-serif text-2xl sm:text-3xl text-slate-900 mt-2">How this portfolio was created</h2>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/50">
+            {/* Header: Orchestration Stack */}
+            <div className="bg-slate-50 px-6 sm:px-10 py-5 border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-slate-400 font-mono text-[10px] uppercase tracking-wider hidden sm:block">Orchestration Stack</span>
+              <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2">
+                {[
+                  { name: 'ChatGPT', desc: 'Strategy' },
+                  { name: 'Claude', desc: 'Architecture' },
+                  { name: 'Gemini', desc: 'Polish' },
+                  { name: 'Cursor', desc: 'Build' },
+                  { name: 'Antigravity', desc: 'Logic' },
+                  { name: 'AWS', desc: 'Scale' },
+                ].map((tool) => (
+                  <span
+                    key={tool.name}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-600 text-[10px] sm:text-xs font-mono shadow-sm"
+                  >
+                    <span className="text-slate-900 font-semibold">{tool.name}</span>
+                    <span className="text-[var(--accent-teal)] opacity-70">/ {tool.desc}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Body: The Specs (Mission/Strategy/Result) */}
+            <div className="p-8 sm:p-10 space-y-12">
+              {/* Context Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-10 border-b border-slate-100">
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">The Mission</span>
+                  <p className="text-slate-900 text-sm font-medium leading-relaxed">Build a high-performance portfolio website in 4 weeks with zero coding team.</p>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">The Strategy</span>
+                  <p className="text-slate-900 text-sm font-medium leading-relaxed">Treating AI as a specialized engineering team (Cursor + Antigravity).</p>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">The Result</span>
+                  <p className="text-slate-900 text-sm font-medium leading-relaxed">Version 5.0 is live. Delivered a functional MVP in week 1.</p>
+                </div>
+              </div>
+
+              {/* Core Capabilities (Merged from Impact Grid) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-10 border-b border-slate-100">
+                {/* Metric 1 */}
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">01_Velocity</span>
+                  <h3 className="font-serif text-lg text-slate-900">Building This Portfolio: 1 Architect. 6 Weeks.</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    Deployed the functional MVP in 7 days. Iterated through 5 full architectural pivots to reach this level of fidelity. I don&apos;t get stuck; I deliver.
+                  </p>
+                </div>
+
+                {/* Metric 2 */}
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">02_Modernization</span>
+                  <h3 className="font-serif text-lg text-slate-900">13 Years of Complexity Untangled.</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    Specializing in enterprise-scale digital transformation. Bridging the gap between legacy systems and modern AI/ML user experiences as a Senior Product Designer.
+                  </p>
+                </div>
+
+                {/* Metric 3 */}
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">03_Orchestration</span>
+                  <h3 className="font-serif text-lg text-slate-900">Design-Engineering Bridge.</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    Architected a custom Design Token system to ensure pixel-perfect consistency across a multi-agent automated build. I speak the language of code.
+                  </p>
+                </div>
+              </div>
+
+              {/* System Specs (Typography, Env, Design) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">Typography</span>
+                  <p className="text-slate-600 text-xs font-serif leading-relaxed">
+                    Set in <span className="text-slate-900">Playfair Display</span> for headers, <span className="text-slate-900">Inter</span> for UI, and <span className="text-slate-900">JetBrains Mono</span> for code.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">Environment</span>
+                  <p className="text-slate-600 text-xs leading-relaxed">
+                    Built with <span className="text-slate-900">Next.js 16</span>, <span className="text-slate-900">Framer Motion</span>, and <span className="text-slate-900">Tailwind</span>. Deployed on <span className="text-slate-900">AWS</span>.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">Design Source</span>
+                  <p className="text-slate-600 text-xs leading-relaxed">
+                    Assets & SVGs in <span className="text-slate-900">Figma</span>. Entire website orchestrated via <span className="text-slate-900">Human-AI Collaboration</span>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 4: WRITING

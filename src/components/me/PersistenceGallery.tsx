@@ -44,12 +44,12 @@ const versions = [
     },
     {
         id: 'v5',
-        label: 'Dec 01',
+        label: 'Dec 2025',
         title: 'The Polish',
         desc: 'Refining the interaction layer. "Vibe Code" implementation. Achieving portfolio-market fit with the final V5 design.',
         tech: 'Framer Motion • Vibe • UX',
         image: '/images/evolution/v5_polish.svg',
-        video: null
+        video: '/videos/evolution/v5_web.mp4'
     }
 ]
 
@@ -165,7 +165,6 @@ export default function PersistenceGallery() {
                                             src={activeVersion.video}
                                             autoPlay
                                             muted
-                                            loop
                                             playsInline
                                             controls={false}
                                             className="w-full h-full object-contain"

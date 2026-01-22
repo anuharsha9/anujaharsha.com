@@ -8,6 +8,9 @@ interface CustomVideoPlayerProps {
   poster?: string
   className?: string
   onPlay?: () => void
+  autoPlay?: boolean
+  muted?: boolean
+  loop?: boolean
 }
 
 export default function CustomVideoPlayer({
@@ -15,10 +18,16 @@ export default function CustomVideoPlayer({
   poster,
   className = '',
   onPlay,
+  autoPlay = true,
+  muted = true,
+  loop = true,
 }: CustomVideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
+  // Initialize isPlaying based on autoPlay intent, but browser policies may block it.
+  // The 'play' event listener will correct this if it fails or succeeds.
+  const [isPlaying, setIsPlaying] = useState(autoPlay)
+  const [isMuted, setIsMuted] = useState(muted)
   const [isHovered, setIsHovered] = useState(false)
   const [showControls, setShowControls] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -35,6 +44,13 @@ export default function CustomVideoPlayer({
         videoRef.current.play()
       }
       setIsPlaying(!isPlaying)
+    }
+  }
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted
+      setIsMuted(!isMuted)
     }
   }
 
@@ -219,6 +235,9 @@ export default function CustomVideoPlayer({
         poster={poster || undefined}
         preload="metadata"
         playsInline
+        autoPlay={autoPlay}
+        muted={muted}
+        loop={loop}
         onClick={togglePlay}
         style={{ display: 'block' }}
       >
@@ -290,6 +309,24 @@ export default function CustomVideoPlayer({
             <span className="text-white text-xs font-mono min-w-[80px] text-right">
               {formatTime(currentTime)} / {formatTime(duration)}
             </span>
+
+            {/* Mute Toggle */}
+            <button
+              onClick={toggleMute}
+              className="text-white hover:text-[var(--accent-teal)] transition-colors ml-2"
+              aria-label={isMuted ? 'Unmute' : 'Mute'}
+            >
+              {isMuted ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       )}

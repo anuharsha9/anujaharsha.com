@@ -13,18 +13,17 @@ import Magnetic from '@/components/ui/Magnetic'
 import { BRAIN_GEARS_SVG } from '@/data/brain-gears-svg'
 
 // Counter Component for animated numbers
-function Counter({ value, duration = 2 }: { value: number, duration?: number }) {
+function Counter({ value, duration = 2, isReady = false }: { value: number, duration?: number, isReady?: boolean }) {
   const nodeRef = useRef<HTMLSpanElement>(null)
-  const isInView = useRef(false)
 
   useEffect(() => {
     const node = nodeRef.current
-    if (!node) return
+    if (!node || !isReady) return
 
     // Delay animation slightly to sync with entrance
     const controls = animate(0, value, {
       duration,
-      delay: 1.8, // Wait for hero to settle
+      delay: 0.5, // Reduced delay since we wait for ready signal
       onUpdate(v) {
         node.textContent = Math.floor(v).toLocaleString()
       },
@@ -32,7 +31,7 @@ function Counter({ value, duration = 2 }: { value: number, duration?: number }) 
     })
 
     return () => controls.stop()
-  }, [value, duration])
+  }, [value, duration, isReady])
 
   return <span ref={nodeRef}>0</span>
 }
@@ -43,18 +42,21 @@ const GEAR_IDS = Object.keys(GEAR_INSPECTOR)
 // Memoized SVG container to prevent re-renders when activeGear state changes
 const GearsSvgContainer = memo(function GearsSvgContainer({
   svgContent,
-  containerRef
+  containerRef,
+  isReady
 }: {
   svgContent: string
   containerRef: React.RefObject<HTMLDivElement | null>
+  isReady: boolean
 }) {
   return (
     <motion.div
       ref={containerRef}
       className="gears-dark-theme w-full"
       initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      animate={isReady ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0.8, rotate: -10 }}
       transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+      style={{ willChange: 'transform, opacity' }}
       dangerouslySetInnerHTML={{ __html: svgContent }}
     />
   )
@@ -78,6 +80,35 @@ export default function HeroSplit() {
   const [mobileGear, setMobileGear] = useState<GearInspectorItem | null>(null)
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [svgContent, setSvgContent] = useState<string>('')
+  const [isAppReady, setIsAppReady] = useState(false)
+
+  // Listen for the hero-start-animation event from PortfolioVeil
+  useEffect(() => {
+    // Add requested delay to ensure veil is fully gone and user notices the start
+    const handleReady = () => {
+      setTimeout(() => setIsAppReady(true), 250)
+    }
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('hero-start-animation', handleReady)
+    }
+
+    // Check immediate state - if veil is already dismissed, trigger ready soon
+    // BUT ignore this if we are resetting the veil for testing
+    const isResetting = typeof window !== 'undefined' && window.location.search.includes('veil=reset')
+
+    if (typeof window !== 'undefined' && sessionStorage.getItem('portfolio_veil_dismissed') === 'true' && !isResetting) {
+      setTimeout(() => setIsAppReady(true), 100)
+    }
+
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('hero-start-animation', handleReady)
+      }
+    }
+  }, [])
+
+
 
   // Parallax effect for hero section
   const { scrollYProgress } = useScroll({
@@ -106,6 +137,8 @@ export default function HeroSplit() {
   }, [])
 
   useEffect(() => {
+    if (!isAppReady) return
+
     const container = containerRef.current
     if (!container) return
 
@@ -509,7 +542,7 @@ export default function HeroSplit() {
     return () => {
       if (cleanup) cleanup()
     }
-  }, [router])
+  }, [router, isAppReady])
 
   // Click outside to close the hover card
   useEffect(() => {
@@ -583,11 +616,11 @@ export default function HeroSplit() {
             <motion.div
               className="relative w-[320px] xs:w-[380px] sm:w-[480px] md:w-[580px] lg:w-[680px] xl:w-[740px] 2xl:w-[900px] max-w-full mx-auto"
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={isAppReady ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               style={{ y: gearsY }}
             >
-              <GearsSvgContainer svgContent={svgContent} containerRef={containerRef} />
+              <GearsSvgContainer svgContent={svgContent} containerRef={containerRef} isReady={isAppReady} />
 
               {/* Center hint - shown when no gear is active */}
               <AnimatePresence mode="wait">
@@ -705,7 +738,7 @@ export default function HeroSplit() {
             <motion.div
               className={`flex flex-col items-center text-center space-y-4 sm:space-y-5 mt-8 sm:mt-12 lg:mt-12 px-4`}
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               {/* Main Headline */}
@@ -729,7 +762,7 @@ export default function HeroSplit() {
         <motion.div
           className="w-full border-t border-slate-800 bg-[#020617]/80 backdrop-blur-md z-20 relative mt-auto"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
         >
           {/* Scroll Indicator Removed to prevent overlap with CTAs */}
@@ -739,7 +772,7 @@ export default function HeroSplit() {
               {/* Stat 1 */}
               <div className="flex flex-col items-center justify-center py-6 px-4 group hover:bg-white/[0.02] transition-colors border-r border-b lg:border-0 border-slate-800">
                 <div className="text-[var(--accent-teal)] font-mono text-lg sm:text-xl lg:text-2xl font-bold tracking-tight mb-1.5">
-                  <Counter value={50} />+
+                  <Counter value={50} isReady={isAppReady} />+
                 </div>
                 <div className="text-slate-600 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] text-center font-bold">
                   Projects Shipped
@@ -749,7 +782,7 @@ export default function HeroSplit() {
               {/* Stat 2 */}
               <div className="flex flex-col items-center justify-center py-6 px-4 group hover:bg-white/[0.02] transition-colors border-b lg:border-0 border-slate-800">
                 <div className="text-[var(--accent-teal)] font-mono text-lg sm:text-xl lg:text-2xl font-bold tracking-tight mb-1.5">
-                  <Counter value={25} />M+
+                  <Counter value={25} isReady={isAppReady} />M+
                 </div>
                 <div className="text-slate-600 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] text-center font-bold">
                   Users on WebFOCUS

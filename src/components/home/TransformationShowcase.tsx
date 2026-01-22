@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
 import Image from 'next/image'
 import { GripVertical, Play } from 'lucide-react'
 import Link from 'next/link'
@@ -12,17 +12,61 @@ import { getTheme, spacing } from '@/lib/design-system'
  * Shows the most impactful transformation: 50-year legacy to modern UI
  */
 export default function TransformationShowcase() {
-  const [sliderPosition, setSliderPosition] = useState(50)
+  const sliderPosition = useMotionValue(50)
   const [isDragging, setIsDragging] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const [isHovered, setIsHovered] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
+
+  // Derive styles from the motion value to avoid re-renders
+  const clipPath = useTransform(sliderPosition, (pos) => `inset(0 ${100 - pos}% 0 0)`)
+  const handleLeft = useTransform(sliderPosition, (pos) => `${pos}%`)
+
+  // Use a separate ref for intersection to avoid conflict if containerRef usage is complex, 
+  // but here containerRef is just a div, so we can use it.
+  const isInView = useInView(containerRef, { once: false, amount: 0.5 })
+  const phase = useRef(0)
+
+  // Sync phase when dragging ends to avoid jumps
+  useEffect(() => {
+    if (!isDragging && !isHovered) {
+      // Calculate phase from current position to resume smoothly
+      // pos = 50 + 35 * sin(phase)
+      // (pos - 50) / 35 = sin(phase)
+      const currentPos = sliderPosition.get()
+      const val = (currentPos - 50) / 35
+      // Clamp to avoid NaN
+      const clamped = Math.max(-1, Math.min(1, val))
+      phase.current = Math.asin(clamped)
+    }
+  }, [isDragging, isHovered, sliderPosition])
+
+  // Animation: Perform one dramatic scan when hovered, then stop
+  useEffect(() => {
+    // Only animate if hovered, in view, and hasn't been interacted with yet
+    if (!isInView || !isHovered || hasInteracted || isDragging) return
+
+    // Animate from center (50) to right (80) then left (20) then back to center (50)
+    // using keyframes for a comprehensive scan
+    const controls = animate(sliderPosition, [50, 80, 20, 50], {
+      duration: 3,
+      ease: "easeInOut",
+      onComplete: () => setHasInteracted(true) // Stop future auto-animations
+    })
+
+    return () => controls.stop()
+  }, [isInView, isHovered, hasInteracted, isDragging, sliderPosition])
 
   const handleMove = useCallback((clientX: number) => {
+    setHasInteracted(true) // User is manually controlling it
     if (!containerRef.current) return
     const rect = containerRef.current.getBoundingClientRect()
     const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
     const percentage = (x / rect.width) * 100
-    setSliderPosition(percentage)
-  }, [])
+
+    // Update MotionValue directly - no re-render!
+    sliderPosition.set(percentage)
+  }, [sliderPosition])
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
@@ -40,7 +84,10 @@ export default function TransformationShowcase() {
     [isDragging, handleMove]
   )
 
-  const handleStart = () => setIsDragging(true)
+  const handleStart = () => {
+    setIsDragging(true)
+    setHasInteracted(true)
+  }
   const handleEnd = () => setIsDragging(false)
 
   const t = getTheme(false)
@@ -77,7 +124,11 @@ export default function TransformationShowcase() {
             className={`w-full aspect-[16/10] max-h-[720px] relative overflow-hidden rounded-xl border ${t.border} shadow-2xl select-none cursor-ew-resize`}
             onMouseMove={handleMouseMove}
             onMouseUp={handleEnd}
-            onMouseLeave={handleEnd}
+            onMouseLeave={() => {
+              handleEnd()
+              setIsHovered(false)
+            }}
+            onMouseEnter={() => setIsHovered(true)}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleEnd}
           >
@@ -112,9 +163,9 @@ export default function TransformationShowcase() {
             </div>
 
             {/* Before Image (Overlay - Legacy - Clipped) */}
-            <div
+            <motion.div
               className="absolute inset-0 pt-11 overflow-hidden"
-              style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+              style={{ clipPath }}
             >
               <Image
                 src="/images/case-study/ReportCaster/Before.png"
@@ -124,12 +175,12 @@ export default function TransformationShowcase() {
                 sizes="(max-width: 1200px) 100vw, 1200px"
                 priority
               />
-            </div>
+            </motion.div>
 
             {/* Slider Handle */}
-            <div
+            <motion.div
               className="absolute top-11 bottom-0 z-10 cursor-ew-resize"
-              style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+              style={{ left: handleLeft, x: '-50%' }}
               onMouseDown={handleStart}
               onTouchStart={handleStart}
             >
@@ -140,7 +191,7 @@ export default function TransformationShowcase() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[var(--accent-teal)] rounded-full flex items-center justify-center shadow-xl shadow-[var(--accent-teal)]/30 border-2 border-white cursor-ew-resize hover:scale-110 transition-transform">
                 <GripVertical className="w-5 h-5 text-white" />
               </div>
-            </div>
+            </motion.div>
 
             {/* Labels on sides */}
             <div className="absolute bottom-space-4 left-space-4 z-20">

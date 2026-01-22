@@ -3,13 +3,15 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Play, Pause } from 'lucide-react'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 
-interface ImageItem {
+interface MediaItem {
   src: string
   alt: string
   caption?: string
+  type?: 'image' | 'video'
+  poster?: string
 }
 
 interface ImageLightboxProps {
@@ -18,11 +20,12 @@ interface ImageLightboxProps {
   imageSrc: string
   imageAlt: string
   imageCaption?: string
-  images?: ImageItem[]
+  images?: MediaItem[]
   currentIndex?: number
   onNavigate?: (index: number) => void
   actionLink?: string
   actionLabel?: string
+  autoPlayInterval?: number
 }
 
 export default function ImageLightbox({
@@ -34,12 +37,14 @@ export default function ImageLightbox({
   images,
   currentIndex = 0,
   onNavigate,
+  autoPlayInterval = 5000,
   ...props
 }: ImageLightboxProps) {
   const containerRef = useFocusTrap(isOpen)
   const [isZoomed, setIsZoomed] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true) // Auto-play by default as requested ("preview of sorts")
 
   // Store scroll position in ref to persist across re-renders
   const scrollPositionRef = useRef<number>(0)
@@ -138,6 +143,7 @@ export default function ImageLightbox({
       document.body.style.width = '100%'
       document.body.style.overflow = 'hidden'
       wasLockedRef.current = true
+      setIsPlaying(true) // Reset auto-play on open
     } else if (!isOpen && wasLockedRef.current) {
       // Closing - restore scroll position
       const scrollY = scrollPositionRef.current
@@ -146,6 +152,7 @@ export default function ImageLightbox({
       document.body.style.width = ''
       document.body.style.overflow = ''
       wasLockedRef.current = false
+      setIsPlaying(false) // Stop playing when closed
       // Use requestAnimationFrame to ensure DOM is ready before scrolling
       requestAnimationFrame(() => {
         window.scrollTo({
@@ -169,6 +176,22 @@ export default function ImageLightbox({
     }
   }, [isOpen])
 
+  // Auto-play logic
+  useEffect(() => {
+    if (!isOpen || !isPlaying || !hasNavigation || isZoomed) return
+
+    const timer = setInterval(() => {
+      if (onNavigate) {
+        onNavigate((currentIndex + 1) % (images?.length || 1))
+      }
+    }, autoPlayInterval)
+
+    return () => clearInterval(timer)
+  }, [isOpen, isPlaying, hasNavigation, currentIndex, onNavigate, images?.length, autoPlayInterval, isZoomed])
+
+  // Pause on user interaction
+  const pauseAutoPlay = () => setIsPlaying(false)
+
   // Keyboard navigation - separate effect to avoid scroll issues
   useEffect(() => {
     if (!isOpen) return
@@ -178,10 +201,15 @@ export default function ImageLightbox({
         onClose()
       } else if (e.key === 'z' || e.key === 'Z') {
         setIsZoomed(prev => !prev)
+      } else if (e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault()
+        setIsPlaying(prev => !prev)
       } else if (hasNavigation) {
         if (e.key === 'ArrowLeft' && canGoPrev) {
+          pauseAutoPlay()
           onNavigate(currentIndex - 1)
         } else if (e.key === 'ArrowRight' && canGoNext) {
+          pauseAutoPlay()
           onNavigate(currentIndex + 1)
         }
       }
@@ -196,12 +224,14 @@ export default function ImageLightbox({
 
   const handlePrev = useCallback(() => {
     if (canGoPrev && onNavigate) {
+      pauseAutoPlay()
       onNavigate(currentIndex - 1)
     }
   }, [canGoPrev, currentIndex, onNavigate])
 
   const handleNext = useCallback(() => {
     if (canGoNext && onNavigate) {
+      pauseAutoPlay()
       onNavigate(currentIndex + 1)
     }
   }, [canGoNext, currentIndex, onNavigate])
@@ -244,6 +274,16 @@ export default function ImageLightbox({
 
             {/* Controls */}
             <div className="flex items-center gap-1 md:gap-2">
+              {/* Play/Pause Toggle */}
+              {hasNavigation && (
+                <button
+                  onClick={() => setIsPlaying(prev => !prev)}
+                  className="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
+                  aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+                >
+                  {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                </button>
+              )}
               {/* Zoom Toggle - Hidden on mobile (use pinch instead) */}
               {!isMobile && (
                 <button
@@ -333,19 +373,35 @@ export default function ImageLightbox({
                 )}
 
                 {/* The Image - using img tag for natural sizing */}
-                <Image
-                  id="lightbox-image"
-                  src={imageSrc}
-                  alt={imageAlt}
-                  width={1600}
-                  height={1200}
-                  unoptimized
-                  className={`transition-all duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'} ${isZoomed
-                    ? 'max-w-none max-h-none w-auto h-auto'
-                    : 'max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw] max-h-[80vh] w-auto h-auto object-contain'
-                    }`}
-                  onLoad={() => setImageLoaded(true)}
-                />
+                {/* Content Render Logic (Image or Video) */}
+                {images?.[currentIndex]?.type === 'video' ? (
+                  <video
+                    src={images[currentIndex].src}
+                    poster={images[currentIndex].poster}
+                    controls
+                    autoPlay
+                    loop
+                    className={`transition-all duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'} ${isZoomed
+                      ? 'max-w-none max-h-none w-auto h-auto'
+                      : 'max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw] max-h-[80vh] w-auto h-auto'
+                      }`}
+                    onLoadedData={() => setImageLoaded(true)}
+                  />
+                ) : (
+                  <Image
+                    id="lightbox-image"
+                    src={imageSrc}
+                    alt={imageAlt}
+                    width={1600}
+                    height={1200}
+                    unoptimized
+                    className={`transition-all duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'} ${isZoomed
+                      ? 'max-w-none max-h-none w-auto h-auto'
+                      : 'max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw] max-h-[80vh] w-auto h-auto object-contain'
+                      }`}
+                    onLoad={() => setImageLoaded(true)}
+                  />
+                )}
               </div>
 
               {/* Caption - Technical Style */}
@@ -414,6 +470,12 @@ export default function ImageLightbox({
                   <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">Z</kbd>
                   Zoom
                 </span>
+                {hasNavigation && (
+                  <span className="flex items-center gap-2">
+                    <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">SPACE</kbd>
+                    {isPlaying ? 'Pause' : 'Play'}
+                  </span>
+                )}
                 {hasNavigation && (
                   <span className="flex items-center gap-2">
                     <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">←</kbd>

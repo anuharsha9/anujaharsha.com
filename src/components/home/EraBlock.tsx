@@ -9,6 +9,8 @@ import { CareerEra, Testimonial, WorkItem } from '@/data/career-data'
 import { getTheme, spacing } from '@/lib/design-system'
 import HeroTerminal from '@/components/case-study/HeroTerminal'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
+import ImageLightbox from '@/components/case-study/ImageLightbox'
+import { ARCHIVE_GALLERY_DATA } from '@/data/archive-gallery'
 
 interface EraBlockProps {
     era: CareerEra
@@ -154,13 +156,23 @@ const HeroWorkCard = ({ work }: { work: WorkItem }) => {
 // 3. ARCHIVE CARD (Restored from CollapsibleWorkArchive)
 // Used for Startup/Consulting eras (Wordu, Kedazzle, etc.)
 // ════════════════════════════════════════════════════════════════════
-const ArchiveWorkCard = ({ work }: { work: WorkItem }) => {
+const ArchiveWorkCard = ({ work, onOpenLightbox }: { work: WorkItem; onOpenLightbox: (id: string) => void }) => {
+    const hasGallery = !!ARCHIVE_GALLERY_DATA[work.id];
+
+    const handleClick = (e: React.MouseEvent) => {
+        if (hasGallery) {
+            e.preventDefault();
+            onOpenLightbox(work.id);
+        }
+    };
+
     return (
         <a
             href={work.link}
+            onClick={handleClick}
             target={work.link.startsWith('http') ? "_blank" : "_self"}
             rel={work.link.startsWith('http') ? "noopener noreferrer" : ""}
-            className="group/archive relative bg-slate-100 border border-slate-200 rounded-xl overflow-hidden hover:border-[#0BA2B5]/30 hover:shadow-lg transition-all duration-300 block h-full aspect-square" // Changed to aspect-square
+            className="group/archive relative bg-slate-100 border border-slate-200 rounded-xl overflow-hidden hover:border-[#0BA2B5]/30 hover:shadow-lg transition-all duration-300 block h-full aspect-square cursor-pointer" // Changed to aspect-square
         >
             {/* Preview Image */}
             {work.image && (
@@ -210,8 +222,22 @@ export default function EraBlock({ era, index }: EraBlockProps) {
     // Extract Start Year for Watermark
     const startYear = era.period.split('—')[0].trim();
 
+    // Lightbox State
+    const [lightboxOpen, setLightboxOpen] = React.useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+    const [activeProjectImages, setActiveProjectImages] = React.useState<Array<{ src: string, alt: string }>>([]);
+
+    const handleOpenLightbox = (workId: string) => {
+        const images = ARCHIVE_GALLERY_DATA[workId];
+        if (images && images.length > 0) {
+            setActiveProjectImages(images);
+            setCurrentImageIndex(0);
+            setLightboxOpen(true);
+        }
+    };
+
     return (
-        <section className="relative py-24 md:py-32 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 border-b border-dashed border-white/5 last:border-0 group/section overflow-hidden">
+        <section className="relative py-24 md:py-32 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 border-b border-dashed border-white/5 last:border-0 group/section">
             {/* Massive Year Watermark */}
             <div className="absolute top-10 right-0 md:right-20 text-[120px] md:text-[240px] font-bold text-white/[0.02] pointer-events-none select-none z-0 font-mono leading-none tracking-tighter mix-blend-overlay transition-opacity duration-700 group-hover/section:text-white/[0.04]">
                 {startYear}
@@ -259,7 +285,11 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                                         : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
                                 }>
                                     {era.workItems.map((work) => (
-                                        <HeroWorkCard key={work.id} work={work} />
+                                        era.id === 'agency-startup' || era.id === 'consultant-tech' ? (
+                                            <ArchiveWorkCard key={work.id} work={work} onOpenLightbox={handleOpenLightbox} />
+                                        ) : (
+                                            <HeroWorkCard key={work.id} work={work} />
+                                        )
                                     ))}
                                 </div>
                             )}
@@ -376,7 +406,7 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                         {era.id === 'origin-story' ? 'Timeline' : 'Life Context'}
                     </span>
 
-                    <div className="flex gap-12 md:gap-16 overflow-x-auto pt-6 pb-8 -mx-6 px-6 md:-mx-8 md:px-8 scrollbar-hide mask-linear-fade">
+                    <div className="flex flex-col md:flex-row gap-8 md:gap-16 md:overflow-x-auto pt-6 pb-8 md:-mx-8 md:px-8 md:scrollbar-hide md:mask-linear-fade">
                         {era.milestones.map((milestone, idx) => {
                             const IconComp = milestone.icon;
                             return (
@@ -387,12 +417,17 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.2 + (idx * 0.1) }}
                                     whileHover={{ y: -5, scale: 1.02 }}
-                                    className="flex flex-col gap-4 min-w-[200px] md:min-w-[240px] group/timeline relative cursor-pointer"
+                                    className="flex flex-row md:flex-col gap-4 md:min-w-[240px] group/timeline relative cursor-pointer"
                                 >
-                                    {/* Connection Line Visual */}
-                                    <div className="absolute top-[11px] -left-16 w-16 h-px bg-white/5 hidden md:block" />
+                                    {/* DESKTOP: Connection Line Visual */}
+                                    <div className="absolute top-[19px] -left-16 w-16 h-px bg-white/5 hidden md:block" />
 
-                                    <div className="flex items-center gap-4 text-slate-500 group-hover/timeline:text-[var(--accent-teal)] transition-colors">
+                                    {/* MOBILE: Vertical Line Visual */}
+                                    {idx !== era.milestones.length - 1 && (
+                                        <div className="absolute top-12 left-[19px] bottom-[-32px] w-px bg-white/10 md:hidden" />
+                                    )}
+
+                                    <div className="flex items-center gap-4 text-slate-500 group-hover/timeline:text-[var(--accent-teal)] transition-colors relative z-10">
                                         <div className="p-2 rounded-full border border-white/5 bg-slate-900/50 group-hover/timeline:border-[var(--accent-teal)]/50 group-hover/timeline:bg-[var(--accent-teal)]/10 group-hover/timeline:shadow-[0_0_15px_rgba(45,212,191,0.2)] transition-all duration-300">
                                             {typeof IconComp === 'string' ? (
                                                 <span className="text-xl">{IconComp}</span>
@@ -400,12 +435,12 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                                                 IconComp && <IconComp className="w-5 h-5" />
                                             )}
                                         </div>
-                                        {/* Dot on line */}
-                                        <div className="h-1.5 w-1.5 rounded-full bg-white/20 group-hover/timeline:bg-[var(--accent-teal)] transition-colors" />
+                                        {/* Dot on line - Desktop Only */}
+                                        <div className="hidden md:block h-1.5 w-1.5 rounded-full bg-white/20 group-hover/timeline:bg-[var(--accent-teal)] transition-colors" />
                                     </div>
 
                                     <div>
-                                        <span className="font-mono text-[var(--accent-teal)] text-[10px] uppercase tracking-wider block mb-2 opacity-80">
+                                        <span className="font-mono text-[var(--accent-teal)] text-[10px] uppercase tracking-wider block mb-1 opacity-80">
                                             {milestone.year}
                                         </span>
                                         <h4 className="text-white font-serif text-lg leading-tight mb-1 group-hover/timeline:text-white transition-colors">
@@ -423,6 +458,16 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                     </div>
                 </div>
             )}
+            {/* Lightbox Component */}
+            <ImageLightbox
+                isOpen={lightboxOpen}
+                onClose={() => setLightboxOpen(false)}
+                imageSrc={activeProjectImages[currentImageIndex]?.src || ''}
+                imageAlt={activeProjectImages[currentImageIndex]?.alt || ''}
+                images={activeProjectImages}
+                currentIndex={currentImageIndex}
+                onNavigate={setCurrentImageIndex}
+            />
         </section>
     )
 }

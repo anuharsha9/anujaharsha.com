@@ -38,6 +38,8 @@ export default function PortfolioVeil() {
     if (dismissed === 'true') {
       setShowVeil(false)
       setShouldRender(false)
+      // Dispatch immediately for returning users (small delay to ensure listeners are ready)
+      setTimeout(() => window.dispatchEvent(new Event('hero-start-animation')), 50)
     }
   }, [pathname])
 
@@ -62,6 +64,8 @@ export default function PortfolioVeil() {
 
   const handleAnimationComplete = useCallback(() => {
     setShouldRender(false)
+    // Dispatch event to start hero animations strictly AFTER veil is gone
+    window.dispatchEvent(new Event('hero-start-animation'))
   }, [])
 
   const t = getTheme(true)
@@ -85,7 +89,10 @@ export default function PortfolioVeil() {
           initial={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: '-100%' }}
           transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-          style={{ pointerEvents: showVeil ? 'auto' : 'none' }}
+          style={{
+            pointerEvents: showVeil ? 'auto' : 'none',
+            willChange: 'transform, opacity'
+          }}
         >
           {/* Full viewport container - everything must fit */}
           <div
@@ -142,7 +149,7 @@ export default function PortfolioVeil() {
                   </div>
 
                   {/* Video */}
-                  <CustomVideoPlayer src="/videos/intro-video.mp4" className="w-full h-full object-cover" />
+                  <CustomVideoPlayer src="/videos/intro-video.mp4" className="w-full h-full object-cover" loop={false} />
                 </div>
               </div>
 

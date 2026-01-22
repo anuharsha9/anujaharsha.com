@@ -51,6 +51,18 @@ export const featuredCaseStudies: FeaturedCaseStudy[] = [
 
 export const articleLinks: ArticleLink[] = [
   {
+    title: 'Never Design Blind: How Learning and Empathy Shaped My Approach to ML UX',
+    topic: 'Machine Learning UX',
+    href: 'https://medium.com/@anu.anuja/never-design-blind-how-learning-and-empathy-shaped-my-approach-to-ml-ux-822aaf422613',
+    readTime: '7 min',
+  },
+  {
+    title: 'The Real Designer Grind: Building Together, Not Alone',
+    topic: 'Design Culture',
+    href: 'https://medium.com/@anu.anuja/the-real-designer-grind-building-together-not-alone-f7ad3e7cb881',
+    readTime: '5 min',
+  },
+  {
     title: 'I Always Thought I Wasn\'t Good Enough — Until WebFOCUS Made Me Someone New',
     topic: 'Personal Growth',
     href: 'https://medium.com/@anu.anuja/i-always-thought-i-wasnt-good-enough-until-ibi-webfocus-made-me-someone-new-e1a769f15621',
