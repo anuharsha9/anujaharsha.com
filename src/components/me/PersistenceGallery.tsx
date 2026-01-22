@@ -12,7 +12,8 @@ const versions = [
         title: 'The Baseline',
         desc: 'Manual HTML/CSS. Direct S3 uploads. Took months to iterate. The "before" snapshot.',
         tech: 'HTML • CSS • S3',
-        video: '/videos/evolution/v1_web.mp4'
+        video: '/videos/evolution/v1_web.mp4',
+        keyLearning: '"Manual coding is too slow for modern iteration."'
     },
     {
         id: 'v2',
@@ -20,7 +21,8 @@ const versions = [
         title: 'The Upgrade',
         desc: 'Upgraded "Black Pink" design. Still manual HTML/CSS using ChatGPT. No Git yet, just raw file editing.',
         tech: 'HTML • CSS • ChatGPT',
-        video: '/videos/evolution/v2_web.mp4'
+        video: '/videos/evolution/v2_web.mp4',
+        keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."'
     },
     {
         id: 'v3',
@@ -28,7 +30,8 @@ const versions = [
         title: 'The Speedrun',
         desc: 'White/Pink Redesign. Built in 24 hours using AI assistance. The first glimpse of high velocity.',
         tech: 'HTML • CSS • AIv1',
-        video: '/videos/evolution/v3_web.mp4'
+        video: '/videos/evolution/v3_web.mp4',
+        keyLearning: '"Frameworks (Next.js) are not overhead; they are the scaffold for speed."'
     },
     {
         id: 'v4',
@@ -36,7 +39,8 @@ const versions = [
         title: 'The Architecture',
         desc: 'The Pivot & The System. Switched to Next.js 14 and Git. Architected the multi-agent orchestration for enterprise scalability.',
         tech: 'Next.js • Agents • AWS',
-        video: '/videos/evolution/v4_web.mp4'
+        video: '/videos/evolution/v4_web.mp4',
+        keyLearning: '"Agents can handle the build, allowing the human to focus on \'Soul\'."'
     },
     {
         id: 'v5',
@@ -45,7 +49,8 @@ const versions = [
         desc: 'Refining the interaction layer. "Vibe Code" implementation. Achieving portfolio-market fit with the final V5 design.',
         tech: 'Framer Motion • Vibe • UX',
         image: '/images/evolution/v5_polish.svg',
-        video: '/videos/evolution/v5_web.mp4'
+        video: '/videos/evolution/v5_web.mp4',
+        keyLearning: '"The final 10% of polish takes 50% of the effort. But it\'s what sells."'
     }
 ]
 
@@ -104,56 +109,86 @@ export default function PersistenceGallery() {
                     onMouseEnter={() => setIsPlaying(false)}
                     onMouseLeave={() => setIsPlaying(true)}
                 >
-                    {/* 1. Timeline / Tabs */}
-                    <div className="flex items-center gap-2 md:gap-4 mb-8 overflow-x-auto pb-4 hide-scrollbar justify-start lg:justify-center">
-                        {versions.map((v, idx) => (
-                            <button
+                    {/* 1. Timeline / Tabs - Simplified with micro-interactions */}
+                    <div className="flex items-center gap-1 md:gap-2 mb-6 overflow-x-auto pb-2 hide-scrollbar justify-start lg:justify-center">
+                        {versions.map((v) => (
+                            <motion.button
                                 key={v.id}
                                 onClick={() => handleTabClick(v.id)}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
                                 className={`
-                    relative flex-shrink-0 px-4 py-3 rounded-xl border text-left transition-all duration-300 min-w-[160px]
-                    ${activeTabId === v.id
-                                        ? 'bg-white border-[var(--accent-teal)] shadow-md scale-105 z-10'
-                                        : 'bg-white/50 border-slate-200 text-slate-500 hover:bg-white hover:border-slate-300'
+                                    relative flex-shrink-0 px-4 py-2.5 rounded-full text-left transition-all duration-300
+                                    ${activeTabId === v.id
+                                        ? 'bg-slate-900 text-white shadow-lg'
+                                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'
                                     }
-                  `}
+                                `}
                             >
-                                <div className="flex justify-between items-start mb-1">
+                                <div className="flex items-center gap-2">
                                     <span className={`font-mono text-[10px] uppercase tracking-wider ${activeTabId === v.id ? 'text-[var(--accent-teal)]' : 'text-slate-400'}`}>
                                         {v.label}
                                     </span>
-                                    {/* Progress Bar for active tab */}
-                                    {activeTabId === v.id && isPlaying && (
-                                        <motion.div
-                                            initial={{ width: '0%' }}
-                                            animate={{ width: '100%' }}
-                                            transition={{ duration: 5, ease: "linear" }}
-                                            className="h-1 bg-[var(--accent-teal)]/20 absolute bottom-0 left-0 right-0"
-                                        />
-                                    )}
+                                    <span className={`font-medium text-sm ${activeTabId === v.id ? 'text-white' : 'text-slate-700'}`}>
+                                        {v.title}
+                                    </span>
                                 </div>
-                                <span className={`block font-serif text-sm font-medium ${activeTabId === v.id ? 'text-slate-900' : 'text-slate-600'}`}>
-                                    {v.title}
-                                </span>
 
-                                {/* Active Indicator Line */}
-                                {activeTabId === v.id && (
+                                {/* Progress indicator for active tab when auto-playing */}
+                                {activeTabId === v.id && isPlaying && (
                                     <motion.div
-                                        layoutId="activeTabIndicator"
-                                        className="absolute bottom-0 left-0 right-0 h-1 bg-[var(--accent-teal)] rounded-b-xl overflow-hidden"
-                                    >
-                                        {/* The loader is the whole bar effectively */}
-                                    </motion.div>
+                                        initial={{ scaleX: 0 }}
+                                        animate={{ scaleX: 1 }}
+                                        transition={{ duration: 5, ease: "linear" }}
+                                        className="absolute bottom-0 left-2 right-2 h-0.5 bg-[var(--accent-teal)] rounded-full origin-left"
+                                    />
                                 )}
-                            </button>
+                            </motion.button>
                         ))}
                     </div>
 
                     {/* 2. Content Display */}
-                    <div className="bg-white border border-slate-200 rounded-2xl p-2 md:p-3 shadow-sm">
+                    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+
+                        {/* Context Area - ABOVE the video now */}
+                        <div className="p-6 md:p-8 border-b border-slate-100">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeTabId}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="flex flex-col md:flex-row md:items-start gap-6"
+                                >
+                                    {/* Left: Tech & Description */}
+                                    <div className="flex-1">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-slate-600 font-mono text-xs mb-3">
+                                            <span>{activeVersion.tech}</span>
+                                        </div>
+                                        <p className="text-slate-700 text-base md:text-lg leading-relaxed">
+                                            {activeVersion.desc}
+                                        </p>
+                                    </div>
+
+                                    {/* Right: Key Insight */}
+                                    <div className="md:w-[360px] p-4 bg-[var(--accent-teal)]/5 border border-[var(--accent-teal)]/20 rounded-xl">
+                                        <div className="flex gap-3">
+                                            <div className="w-0.5 bg-[var(--accent-teal)] rounded-full opacity-60 shrink-0" />
+                                            <div>
+                                                <span className="uppercase font-bold block mb-1 text-[10px] tracking-wider text-[var(--accent-teal)]">Key Learning</span>
+                                                <p className="text-slate-700 font-serif italic text-sm leading-snug">
+                                                    {activeVersion.keyLearning}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
 
                         {/* Image/Video Area - Full Width */}
-                        <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-900 border border-slate-900 group">
+                        <div className="relative aspect-video bg-slate-900">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeTabId}
@@ -194,47 +229,6 @@ export default function PersistenceGallery() {
                                             <p className="text-sm font-mono">Loading Archive...</p>
                                         </div>
                                     )}
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-
-                        {/* Context Area - Underneath (2-col grid) */}
-                        <div className="p-6 md:p-8">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={activeTabId}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="grid md:grid-cols-[1fr,1.2fr] gap-8 items-start"
-                                >
-                                    {/* Left: Description & Tech */}
-                                    <div>
-                                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-slate-600 font-mono text-xs mb-4">
-                                            <span>{activeVersion.tech}</span>
-                                        </div>
-                                        <p className="text-slate-700 text-lg leading-relaxed font-medium">
-                                            {activeVersion.desc}
-                                        </p>
-                                    </div>
-
-                                    {/* Right: Key Insight */}
-                                    <div className="p-6 bg-[var(--accent-teal)]/5 border border-[var(--accent-teal)]/20 rounded-2xl relative">
-                                        <div className="flex gap-4">
-                                            <div className="w-1 bg-[var(--accent-teal)] rounded-full opacity-40 shrink-0" />
-                                            <div>
-                                                <span className="uppercase font-bold block mb-2 text-xs tracking-wider text-[var(--accent-teal-dark)] opacity-80">Key Learning //</span>
-                                                <p className="text-slate-700 font-serif italic text-lg leading-snug">
-                                                    {activeTabId === 'v1' && "\"Manual coding is too slow for modern iteration.\""}
-                                                    {activeTabId === 'v2' && "\"AI is an accelerator, but without Architecture, it's just noise.\""}
-                                                    {activeTabId === 'v3' && "\"Frameworks (Next.js) are not overhead; they are the scaffold for speed.\""}
-                                                    {activeTabId === 'v4' && "\"Agents can handle the build, allowing the human to focus on 'Soul'.\""}
-                                                    {activeTabId === 'v5' && "\"The final 10% of polish takes 50% of the effort. But it's what sells.\""}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </motion.div>
                             </AnimatePresence>
                         </div>
