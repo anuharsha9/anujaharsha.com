@@ -181,21 +181,34 @@ export default function PersistenceGallery() {
                         </div>
 
                         {/* Image/Video Area - Full Width */}
-                        {activeVersion.video ? (
-                            <video
-                                src={activeVersion.video}
-                                autoPlay
-                                muted
-                                playsInline
-                                controls={false}
-                                className="w-full h-full object-contain"
-                            />
-                        ) : (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center bg-slate-900">
-                                <span className="mb-2 block text-4xl">⏳</span>
-                                <p className="text-sm font-mono">Loading Archive...</p>
-                            </div>
-                        )}
+                        <div className="relative aspect-video bg-slate-900">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeTabId}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="w-full h-full flex items-center justify-center bg-black"
+                                >
+                                    {activeVersion.video ? (
+                                        <video
+                                            src={activeVersion.video}
+                                            autoPlay
+                                            muted
+                                            playsInline
+                                            controls={false}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center bg-slate-900">
+                                            <span className="mb-2 block text-4xl">⏳</span>
+                                            <p className="text-sm font-mono">Loading Archive...</p>
+                                        </div>
+                                    )}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
 
                     </div>
 
