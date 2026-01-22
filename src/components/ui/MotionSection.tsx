@@ -53,7 +53,7 @@ const MotionSection = forwardRef<HTMLElement, MotionSectionProps>(
     }
 
     const animationClass = animate
-      ? `transform transition-all duration-[1000ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${isVisible ? variantClasses[variant].visible : variantClasses[variant].initial}`
+      ? `transform transition-all duration-[1200ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${isVisible ? variantClasses[variant].visible : variantClasses[variant].initial}`
       : ''
 
     return (

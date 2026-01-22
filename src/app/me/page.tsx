@@ -23,9 +23,9 @@ export default function AboutPage() {
       <MotionSection id="profile" className="py-16 sm:py-20 md:py-24 lg:py-28 relative overflow-hidden">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-center"
           >
             {/* Logo mark at top */}
@@ -123,7 +123,7 @@ export default function AboutPage() {
 
 
       {/* UNIFIED ARCHITECT PROFILE BLOCK (SPEC TABLE) - MOVED BELOW GALLERY */}
-      <div className="bg-slate-50/50 pb-16 pt-8">
+      <MotionSection animate={true} className="bg-slate-50/50 pb-16 pt-8">
         <div className="max-w-7xl mx-auto px-4 text-left">
           {/* Optional Section Title if desired, otherwise just spacing */}
           <div className="mb-6 text-center">
@@ -232,7 +232,7 @@ export default function AboutPage() {
 
           </div>
         </div>
-      </div>
+      </MotionSection>
 
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 4: WRITING
