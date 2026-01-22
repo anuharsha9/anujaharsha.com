@@ -108,7 +108,7 @@ export default function TransformationShowcase() {
             <span className="text-[var(--accent-teal)]">Modern in 18 months.</span>
           </h2>
           <p className={`${t.textSecondary} text-base md:text-lg max-w-2xl mx-auto`}>
-            I modernized WebFOCUS&apos;s core workflows—taking fragmented legacy tools and unifying them into coherent, intelligent experiences.
+            I led the modernization of WebFOCUS&apos;s core workflows—unifying fragmented legacy tools into coherent, intelligent experiences.
           </p>
         </motion.div>
 
