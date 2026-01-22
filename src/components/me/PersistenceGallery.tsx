@@ -102,6 +102,9 @@ export default function PersistenceGallery() {
                     <h3 className="font-serif text-2xl md:text-3xl text-slate-900">
                         Portfolio Evolution Log
                     </h3>
+                    <p className="text-slate-500 text-sm md:text-base mt-2">
+                        5 completely distinct portfolio websites. 30 days.
+                    </p>
                 </div>
 
                 <div
