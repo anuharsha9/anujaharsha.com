@@ -17,24 +17,33 @@ const versions = [
     },
     {
         id: 'v2',
+        label: 'Nov 12',
+        title: 'The Upgrade',
+        desc: 'Upgraded "Black Pink" design. Still manual HTML/CSS using ChatGPT. No Git yet, just raw file editing.',
+        tech: 'HTML • CSS • ChatGPT',
+        video: '/videos/evolution/v2_web.mp4',
+        keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."'
+    },
+    {
+        id: 'v3',
         label: 'Nov 15',
         title: 'The Speedrun',
         desc: 'White/Pink Redesign. Built in 24 hours using Agentic AI. The first glimpse of high velocity.',
         tech: 'HTML • CSS • AIv1',
         video: '/videos/evolution/v3_web.mp4',
-        keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."'
+        keyLearning: '"Frameworks (Next.js) are not overhead; they are the scaffold for speed."'
     },
     {
-        id: 'v3',
+        id: 'v4',
         label: 'Dec 1',
         title: 'The Architecture',
         desc: 'Switched to Next.js 14 and Git. Architected the multi-agent orchestration for enterprise scalability.',
         tech: 'Next.js • Agents • AWS',
         video: '/videos/evolution/v4_web.mp4',
-        keyLearning: '"Frameworks are not overhead; they are the scaffold for speed."'
+        keyLearning: '"Agents can handle the build, allowing the human to focus on \'Soul\'."'
     },
     {
-        id: 'v4',
+        id: 'v5',
         label: 'Dec 8',
         title: 'The Polish',
         desc: 'Refining the interaction layer. "Vibe Code" implementation. Achieving portfolio-market fit.',
