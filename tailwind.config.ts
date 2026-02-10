@@ -42,6 +42,20 @@ const config: Config = {
         'color-warning': 'var(--color-warning)',
         'color-error': 'var(--color-error)',
         'color-info': 'var(--color-info)',
+
+        // Backgrounds
+        'bg-primary': 'var(--bg-primary)',
+        'bg-secondary': 'var(--bg-secondary)',
+        'bg-tertiary': 'var(--bg-tertiary)',
+
+        // Monitor / Dark Theme (Tech)
+        'bg-monitor': 'var(--bg-monitor)',
+        'bg-monitor-alt': 'var(--bg-monitor-alt)',
+        'bg-monitor-surface': 'var(--bg-monitor-surface)',
+        'border-monitor': 'var(--border-monitor)',
+        'text-monitor': 'var(--text-monitor)',
+        'text-monitor-muted': 'var(--text-monitor-muted)',
+        'text-monitor-dim': 'var(--text-monitor-dim)',
         // Legacy support
         bg: 'var(--bg-dark)',
         surface: 'var(--bg-dark-alt)',

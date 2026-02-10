@@ -13,6 +13,7 @@ import WritingSectionSimple from '@/components/me/WritingSectionSimple'
 
 
 
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white relative overflow-hidden">
@@ -81,7 +82,8 @@ export default function AboutPage() {
             {/* Text block - narrative flow (MOVED HERE) */}
             <div className="max-w-3xl mx-auto mb-16 sm:mb-20 px-4">
               <p className="text-slate-700 text-base sm:text-lg leading-relaxed font-serif mb-8">
-                Senior Product Designer with 13 years of experience. I specialize in <span className="text-slate-900 font-semibold">untangling the most complex enterprise systems</span> through code-first architecture.
+                <strong className="block text-slate-900 mb-2">Senior Product Designer (13y) | Design Engineer | Enterprise Systems Architect</strong>
+                I specialize in <span className="text-slate-900 font-semibold">untangling the most complex enterprise systems</span> through code-first architecture.
               </p>
 
               {/* CTA - Let's Talk (Moved) */}
@@ -112,15 +114,15 @@ export default function AboutPage() {
 
           </motion.div>
         </div>
-      </MotionSection >
+      </MotionSection>
+
+
 
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 2.5: IMPACT GRID (ENTERPRISE PRINCIPAL)
       ═══════════════════════════════════════════════════════════════════════ */}
 
-
       <PersistenceGallery />
-
 
       {/* UNIFIED ARCHITECT PROFILE BLOCK (SPEC TABLE) - MOVED BELOW GALLERY */}
       <MotionSection animate={true} className="bg-slate-50/50 pb-16 pt-8">
@@ -232,16 +234,16 @@ export default function AboutPage() {
 
           </div>
         </div>
-      </MotionSection>
+      </MotionSection >
 
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 4: WRITING
       ═══════════════════════════════════════════════════════════════ */}
-      <MotionSection animate={true} className="py-10 md:py-14">
+      < MotionSection animate={true} className="py-10 md:py-14" >
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
           <WritingSectionSimple />
         </div>
-      </MotionSection>
+      </MotionSection >
 
 
 
@@ -249,7 +251,7 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 6: THE HUMAN (Compact)
       ═══════════════════════════════════════════════════════════════════════ */}
-      <MotionSection animate={true} className="py-10 md:py-14">
+      < MotionSection animate={true} className="py-10 md:py-14" >
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
 
@@ -357,14 +359,14 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </MotionSection>
+      </MotionSection >
 
 
 
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 7: CONTACT (Simplified)
       ═══════════════════════════════════════════════════════════════════════ */}
-      <MotionSection animate={true} className="py-10 md:py-14 pb-safe">
+      < MotionSection animate={true} className="py-10 md:py-14 pb-safe" >
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 text-center space-y-6">
           <h3 className="font-serif text-slate-900 text-2xl md:text-3xl">
             Let&apos;s connect.
@@ -391,10 +393,10 @@ export default function AboutPage() {
           {/* Safe area for iPhone home indicator */}
           <div className="h-safe-area-inset-bottom" />
         </div>
-      </MotionSection>
+      </MotionSection >
 
       {/* Scroll-linked rotating gear */}
-      <ScrollGear />
+      < ScrollGear />
     </main >
   )
 }

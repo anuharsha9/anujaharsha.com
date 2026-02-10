@@ -56,7 +56,7 @@ export const CAREER_DATA: CareerEra[] = [
         company: "Cloud Software Group",
         role: "Senior Product Designer",
         period: "2022 — 2025",
-        description: "Orchestrating AI-driven workflows for 25M+ users. Modernizing 50 years of legacy complexity into a unified &quot;Hub&quot; architecture.",
+        description: "Orchestrating AI-driven workflows for 25M+ users. Modernizing 50 years of legacy complexity into a unified \"Hub\" architecture.",
         testimonials: [
             {
                 id: "dave-pfeiffer",

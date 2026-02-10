@@ -265,11 +265,59 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
   const pathname = usePathname()
 
   // Scroll to top when case study loads or pathname changes
+  // Modified to respect hash links (like from Gear Inspector)
   useEffect(() => {
-    // Use requestAnimationFrame to ensure DOM is ready
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-    })
+    const hash = window.location.hash
+    if (hash) {
+      // If hash is present, try to scroll to it
+      // Use a robust retry mechanism for dynamic content (images, lazy loaded components)
+      const targetId = hash.substring(1)
+      let attempts = 0
+      const maxAttempts = 60 // 6 seconds total (at 100ms intervals)
+      let lastScrollY = -1
+
+      const scrollToTarget = () => {
+        attempts++
+        const element = document.getElementById(targetId)
+
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          // Calculate distance from top of viewport (accounting for sticky nav ~60px)
+          const targetOffset = 80 // Leave some space for nav
+          const currentTop = rect.top
+
+          // If element is not near the top of viewport, scroll to it
+          if (currentTop > targetOffset + 50 || currentTop < -50) {
+            // Use instant scroll to avoid being interrupted by layout shifts
+            element.scrollIntoView({ behavior: 'instant', block: 'start' })
+            // After scrolling, offset for the nav
+            window.scrollBy({ top: -targetOffset, behavior: 'instant' })
+          }
+        }
+
+        // Keep checking as long as:
+        // 1. We haven't exhausted attempts
+        // 2. Layout might still be settling (scrollY is changing)
+        const shouldContinue = attempts < maxAttempts &&
+          (attempts < 10 || window.scrollY !== lastScrollY) // Force first 10 attempts, then check for stability
+
+        lastScrollY = window.scrollY
+
+        if (shouldContinue) {
+          setTimeout(scrollToTarget, 100)
+        }
+      }
+
+      // Start immediately
+      requestAnimationFrame(() => {
+        scrollToTarget()
+      })
+    } else {
+      // Default behavior: scroll to top
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      })
+    }
   }, [pathname, data.slug])
 
   // Handle redirect to prototype if needed

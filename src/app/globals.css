@@ -1,4 +1,5 @@
 @import '../styles/tokens.css';
+@import '../styles/brain-ignition.css';
 
 @tailwind base;
 @tailwind components;
@@ -868,6 +869,120 @@ html {
     min-height: 44px;
   }
 }
+
+/* ============================================
+   BRAIN ENTRY EXPERIENCE - GEAR LIGHTING
+   ============================================ */
+
+/* Container for brain entry - simpler animations */
+.brain-entry-container #brain-gears,
+.brain-entry-container #brain-gears-copy {
+  transform: translateZ(0);
+}
+
+/* Default state for gears in entry experience - dimmed */
+/* CRITICAL: Must override base gear styles during quiz with !important */
+.brain-entry-container #brain-gears #main-gears>[id^="gear-"],
+.brain-entry-container #brain-gears-copy #main-gears>[id^="gear-"] {
+  opacity: 0.3 !important;
+  filter: grayscale(50%) !important;
+  transition: opacity 0.8s ease-out, filter 0.8s ease-out;
+  animation: none !important;
+  /* Prevent rotation animations during quiz */
+}
+
+/* Background gears also dimmed - must use !important to override base opacity:1 */
+.brain-entry-container #brain-gears #gears-background [id^="bg-gear-"],
+.brain-entry-container #brain-gears-copy #gears-background [id^="bg-gear-"] {
+  opacity: 0.15 !important;
+  transition: opacity 0.8s ease-out, filter 0.8s ease-out;
+  animation: none !important;
+  /* Prevent rotation animations during quiz */
+}
+
+/* Lit gear state - main gears glow bright */
+.brain-entry-container #brain-gears #main-gears>.gear-lit,
+.brain-entry-container #brain-gears-copy #main-gears>.gear-lit {
+  opacity: 1 !important;
+  filter:
+    grayscale(0%) drop-shadow(0 0 16px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 32px rgba(7, 139, 156, 0.3)) !important;
+}
+
+/* Lit gear state - background gears NOW MATCH main gears for unified progression */
+.brain-entry-container #brain-gears #gears-background .gear-lit,
+.brain-entry-container #brain-gears-copy #gears-background .gear-lit {
+  opacity: 1 !important;
+  filter:
+    grayscale(0%) drop-shadow(0 0 16px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 32px rgba(7, 139, 156, 0.3)) !important;
+}
+
+/* Quiz complete state - remove brain-entry-container constraints */
+/* When quiz is done, this class is removed to allow full animations */
+
+/* Ignition animation keyframes */
+@keyframes brain-ignition-pulse {
+  0% {
+    filter: drop-shadow(0 0 0px rgba(7, 139, 156, 0));
+  }
+
+  25% {
+    filter: drop-shadow(0 0 40px rgba(7, 139, 156, 0.6)) drop-shadow(0 0 80px rgba(7, 139, 156, 0.4));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 60px rgba(7, 139, 156, 0.8)) drop-shadow(0 0 120px rgba(7, 139, 156, 0.5));
+  }
+
+  75% {
+    filter: drop-shadow(0 0 40px rgba(7, 139, 156, 0.6)) drop-shadow(0 0 80px rgba(7, 139, 156, 0.4));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 20px rgba(7, 139, 156, 0.3)) drop-shadow(0 0 40px rgba(7, 139, 156, 0.2));
+  }
+}
+
+@keyframes brain-ignition-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(3deg) scale(1.02);
+  }
+
+  50% {
+    transform: rotate(-3deg) scale(1.03);
+  }
+
+  75% {
+    transform: rotate(2deg) scale(1.02);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Ignition state - all gears fully lit with pulse animation */
+.brain-entry-container.brain-ignition #brain-gears,
+.brain-entry-container.brain-ignition #brain-gears-copy {
+  animation: brain-ignition-pulse 2s ease-in-out, brain-ignition-rotate 2s ease-in-out;
+}
+
+.brain-entry-container.brain-ignition #brain-gears #main-gears>[id^="gear-"],
+.brain-entry-container.brain-ignition #brain-gears-copy #main-gears>[id^="gear-"] {
+  opacity: 1 !important;
+  filter:
+    grayscale(0%) drop-shadow(0 0 20px rgba(7, 139, 156, 0.6)) drop-shadow(0 0 40px rgba(7, 139, 156, 0.4)) !important;
+}
+
+.brain-entry-container.brain-ignition #brain-gears #gears-background [id^="bg-gear-"],
+.brain-entry-container.brain-ignition #brain-gears-copy #gears-background [id^="bg-gear-"] {
+  opacity: 0.8 !important;
+  filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.4)) !important;
+}
+
 
 /* ============================================
    Apple-like Animation System

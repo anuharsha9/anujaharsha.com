@@ -17,79 +17,79 @@ export interface GearInspectorItem {
 export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-scattered-workflows": {
     id: "gear-scattered-workflows",
-    thought: "These workflows are scattered; I need to organize them into clarity.",
-    link: "/work/ml-functions#section-03",
-    linkLabel: "See the ML Wizard",
+    thought: "I bridged the gap. I stopped waiting for developer handoffs and built this site to prove I can ship production code.",
+    link: "/me",
+    linkLabel: "See My Tech Stack",
     accentColor: "#0BA2B5",
-    caseStudy: "ml-functions"
+    caseStudy: "me"
   },
 
   "gear-legacy-systems": {
     id: "gear-legacy-systems",
-    thought: "Decades of complex enterprise code... I need to find the pattern and make this usable.",
-    link: "/work/reportcaster#section-01",
-    linkLabel: "See the Transformation",
+    thought: "Digital Native. I mastered Pixel Logic (MS Paint) in Grade 2 and Vector Logic (CorelDRAW) in Grade 5. Design is my native language.",
+    link: "/me",
+    linkLabel: "See My Origin",
     accentColor: "#F59E0B",
-    caseStudy: "reportcaster"
+    caseStudy: "me"
   },
 
   "gear-hidden-features": {
     id: "gear-hidden-features",
-    thought: "These features are buried. Users need them one click away.",
-    link: "/work/iq-plugin#section-01",
-    linkLabel: "See the Hub",
+    thought: "The Polymath. Violin taught me rhythm. Logic taught me structure. Design organizes the chaos.",
+    link: "/me",
+    linkLabel: "See My Story",
     accentColor: "#8B5CF6", // Violet
-    caseStudy: "iq-plugin"
+    caseStudy: "me"
   },
 
   "gear-fragmented-ui": {
     id: "gear-fragmented-ui",
-    thought: "This ecosystem is fragmented. I have to find a way to unify it.",
+    thought: "System Archaeologist. I map fragmented, undocumented legacy subsystems and unify them into coherent platforms.",
     link: "/work/reportcaster#section-04",
-    linkLabel: "See the Integration",
+    linkLabel: "See the Unification",
     accentColor: "#F59E0B",
     caseStudy: "reportcaster"
   },
 
   "gear-missing-briefs": {
     id: "gear-missing-briefs",
-    thought: "No brief? I dig, ask, research, and piece the requirements together.",
+    thought: "Fearless Adapter. Drop me in. I didn't know Machine Learning, so I embedded with Data Scientists and got MIT Certified.",
     link: "/work/ml-functions#section-02",
-    linkLabel: "See My Process",
+    linkLabel: "See the Certification",
     accentColor: "#0BA2B5",
     caseStudy: "ml-functions"
   },
 
   "gear-conflicting-teams": {
     id: "gear-conflicting-teams",
-    thought: "Too many conflicts. Let's get everyone aligned on a shared vision.",
+    thought: "Alignment Architect. I use high-fidelity prototypes to bridge the gap between Product, Engineering, and Design.",
     link: "/work/ml-functions#section-05",
-    linkLabel: "See the Collaboration",
+    linkLabel: "See the Alignment",
     accentColor: "#0BA2B5",
     caseStudy: "ml-functions"
   },
 
   "gear-shifting-priorities": {
     id: "gear-shifting-priorities",
-    thought: "Priorities just shifted again. I need to adapt the plan, fast.",
+    thought: "Strategic Debt. I know when to ship a 'hack' to unblock revenue and when to fight for a refactor. Speed matters.",
     link: "/work/reportcaster#section-04",
-    linkLabel: "See the Pivots",
+    linkLabel: "See the Strategy",
     accentColor: "#F59E0B",
     caseStudy: "reportcaster"
   },
 
   "gear-motherhood": {
     id: "gear-motherhood",
-    thought: "Designing for overwhelmed enterprise users who need clarity, not complexity.",
-    link: "/work/reportcaster#section-03",
-    linkLabel: "See the Simplification",
+    thought: "Elite Focus. Managing a household and career taught me to respect time. I don't grind; I orbit efficiently.",
+    link: "/me",
+    linkLabel: "See My Philosophy",
     accentColor: "#F59E0B",
-    caseStudy: "reportcaster"
+    caseStudy: "me"
   },
 
   "gear-career-ambition": {
     id: "gear-career-ambition",
-    thought: "Consistency at scale, not just screens. I need to build a system.",
+    thought: "Consistency at scale. I ensure one component deployed everywhere behaves identically across 50+ squads.",
     link: "/work/iq-plugin#section-03",
     linkLabel: "See the System",
     accentColor: "#8B5CF6", // Violet
@@ -98,9 +98,9 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-life": {
     id: "gear-life",
-    thought: "Career, future, family… it's a lot, but it's my life, and I love it.",
+    thought: "I don't need a manual. Drop me into ambiguity, and I will map the system, learn the language, and build the solution.",
     link: "/me",
-    linkLabel: "Get to Know Me",
+    linkLabel: "Hire the Adapter",
     accentColor: "#0BA2B5", // Teal
     caseStudy: "me"
   }

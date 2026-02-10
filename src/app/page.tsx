@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import HeroSplit from '@/components/home/HeroSplit'
-import TransformationShowcase from '@/components/home/TransformationShowcase'
 import EnergyStack from '@/components/home/EnergyStack'
 import TalkSection from '@/components/home/TalkSection'
+import DesignEngineerBlock from '@/components/work/DesignEngineerBlock'
 import ScrollGear from '@/components/ui/ScrollGear'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
@@ -40,16 +40,16 @@ export default function Home() {
       <HeroSplit />
 
       {/* 
-        TRANSFORMATION SHOWCASE (Keep as the Hook) 
-        Immediate visual proof of value before the deep dive.
+        THE ENERGY STACK (The 4 Era Blocks)
+        Replaces WorkGrid, SocialProof, GrowthStory, Archive.
       */}
-      <TransformationShowcase />
 
       {/* 
         THE ENERGY STACK (The 4 Era Blocks)
         Replaces WorkGrid, SocialProof, GrowthStory, Archive.
       */}
       <div id="work-overview">
+        <DesignEngineerBlock />
         <EnergyStack />
       </div>
 

@@ -8,16 +8,19 @@ interface CustomVideoPlayerProps {
   poster?: string
   className?: string
   onPlay?: () => void
+  onEnded?: () => void
   autoPlay?: boolean
   muted?: boolean
   loop?: boolean
 }
+
 
 export default function CustomVideoPlayer({
   src,
   poster,
   className = '',
   onPlay,
+  onEnded: onEndedCallback,
   autoPlay = true,
   muted = true,
   loop = true,
@@ -67,6 +70,7 @@ export default function CustomVideoPlayer({
       setIsPlaying(false)
       setProgress(0)
       setCurrentTime(0)
+      onEndedCallback?.()
     }
     const handleTimeUpdate = () => {
       if (video.duration) {

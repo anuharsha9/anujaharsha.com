@@ -65,7 +65,7 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 w-full ${t.bgAlt}/95 backdrop-blur-md border-b ${t.border} transition-all duration-500 ${isVisible
+      className={`fixed top-0 left-0 right-0 w-full ${t.bgAlt}/95 backdrop-blur-md border-b ${isLandingPage ? 'border-transparent' : t.border} transition-all duration-500 ${isVisible
         ? 'opacity-100 translate-y-0 h-auto'
         : 'opacity-0 -translate-y-full pointer-events-none invisible h-0 overflow-hidden'
         } ${hasShadow ? 'shadow-sm' : ''}`}
@@ -84,7 +84,7 @@ export default function SiteHeader() {
               aria-label="Go to homepage"
               className="flex items-center transition-colors group"
             >
-              <div className={`w-10 h-10 sm:w-11 sm:h-11 ${t.text} group-hover:text-[var(--accent-teal)] transition-all duration-300`}>
+              <div className={`w-10 h-10 sm:w-11 sm:h-11 ${isLandingPage ? 'text-white' : t.text} group-hover:text-[var(--accent-teal)] transition-all duration-300`}>
                 <AnimatedSignatureLogo
                   className="w-full h-full"
                   duration={16000}
