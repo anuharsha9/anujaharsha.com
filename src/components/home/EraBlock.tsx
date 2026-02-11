@@ -237,168 +237,6 @@ export default function EraBlock({ era, index }: EraBlockProps) {
         }
     };
 
-    const isSidebarLayout = era.testimonials.length > 1;
-
-    // --- RENDER HELPERS ---
-    const renderHeader = () => (
-        <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-16 relative"
-        >
-            <div className="flex items-baseline gap-4 mb-2">
-                <div className="h-px w-8 bg-[var(--accent-teal)]/50 hidden md:block" />
-                <span className="font-mono text-[var(--accent-teal)] text-sm tracking-widest uppercase">
-                    {era.period}
-                </span>
-            </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
-                {era.role} <span className="text-slate-400 block text-2xl md:text-3xl mt-2 italic">@ {era.company}</span>
-            </h2>
-            <p className="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl border-l-2 border-white/10 pl-6">
-                {era.description}
-            </p>
-        </motion.div>
-    );
-
-    const renderWorkItems = (layoutIsSidebar: boolean) => {
-        if (!era.workItems || era.workItems.length === 0) return null;
-        return (
-            <div className={
-                layoutIsSidebar
-                    ? "flex flex-col gap-12 md:gap-20"
-                    : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
-            }>
-                {era.workItems.map((work) => (
-                    era.id === 'agency-startup' || era.id === 'consultant-tech' ? (
-                        <ArchiveWorkCard key={work.id} work={work} onOpenLightbox={handleOpenLightbox} />
-                    ) : (
-                        <HeroWorkCard key={work.id} work={work} />
-                    )
-                ))}
-            </div>
-        );
-    };
-
-    const renderArticlesSection = () => {
-        if (!era.articles || era.articles.length === 0) return null;
-        return (
-            <div className="mt-16 md:mt-24 relative z-10">
-                <div className="flex items-center gap-4 mb-8 sm:mb-12">
-                    <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-widest">
-                        Selected Writing
-                    </span>
-                    <div className="h-px flex-1 bg-white/10" />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10">
-                    {era.articles.map(article => (
-                        <Link key={article.id} href={article.link} target="_blank" className="group/article flex flex-col md:flex-row gap-6 p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-[var(--accent-teal)]/30 transition-all duration-300">
-                            <div className="w-full md:w-48 aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden shrink-0">
-                                <Image src={article.image} alt={article.title} fill className="object-cover transform transition-transform duration-700 group-hover/article:scale-110" />
-                            </div>
-                            <div className="flex flex-col justify-center">
-                                <h5 className="text-white font-serif text-xl leading-tight group-hover/article:text-[var(--accent-teal)] transition-colors mb-3">
-                                    {article.title}
-                                </h5>
-                                <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">
-                                    {article.description}
-                                </p>
-                                <div className="flex items-center gap-2 text-[var(--accent-teal)] text-xs font-mono uppercase tracking-wider">
-                                    <span>Read Article</span>
-                                    <ArrowRight className="w-3 h-3 transition-transform group-hover/article:translate-x-1" />
-                                </div>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </div>
-        )
-    };
-
-    const renderSidebar = () => (
-        <div className="lg:col-span-4 flex flex-col gap-16 pt-10 md:pt-32">
-            {/* Testimonials List */}
-            {era.testimonials.length > 0 && (
-                <div className="flex flex-col gap-6">
-                    <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-1 hidden lg:block">The Proof</span>
-                    <div className="grid grid-cols-1 gap-4">
-                        {era.testimonials.map((review, idx) => (
-                            <motion.div
-                                key={review.id}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2 + (idx * 0.1), duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                                className="h-full"
-                            >
-                                <LegacyTestimonialCard review={review} />
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-
-    const renderOriginTerminal = () => (
-        era.id === 'origin-story' && era.foundations && (
-            <div className="mt-8 lg:mt-0 p-8 border border-white/10 bg-black/40 rounded-sm font-mono text-sm w-full backdrop-blur-sm relative overflow-hidden group/terminal mx-auto lg:mx-0">
-                {/* Scanline effect */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent bg-[length:100%_4px] pointer-events-none" />
-
-                <div className="flex gap-2 mb-6 border-b border-white/10 pb-4 relative z-10">
-                    <div className="w-3 h-3 rounded-full bg-red-500/20" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/20" />
-                </div>
-                <div className="text-[var(--accent-teal)] mb-6 typing-effect relative z-10">
-                    &gt; INITIALIZING_CREATIVE_KERNEL...
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 gap-y-4 text-slate-400 relative z-10">
-                    {era.foundations.map((tool, i) => (
-                        <div key={i} className="flex items-center gap-3">
-                            <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rounded-full animate-pulse" style={{ animationDelay: `${i * 200}ms` }} />
-                            <span>LOADED_MODULE: <span className="text-white font-bold">{tool}</span></span>
-                        </div>
-                    ))}
-                </div>
-                <div className="mt-6 text-[var(--accent-teal)] animate-blink text-lg">_</div>
-            </div>
-        )
-    );
-
-    const renderSingleTestimonial = () => (
-        !isSidebarLayout && era.testimonials.length === 1 && (
-            <div className="mt-20 border-t border-white/5 pt-12">
-                <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block">Endorsement</span>
-                <div className="bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group/quote">
-                    <Quote className="absolute top-8 right-8 w-12 h-12 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
-                    <blockquote className="relative z-10">
-                        <p className="font-serif text-2xl md:text-3xl text-slate-200 leading-relaxed mb-6">
-                            &ldquo;{era.testimonials[0].quote}&rdquo;
-                        </p>
-                        <cite className="not-italic flex items-center gap-4">
-                            <div className="flex flex-col">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-white font-bold text-lg">{era.testimonials[0].name}</span>
-                                    {era.testimonials[0].linkedInProfile && (
-                                        <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
-                                            <Linkedin className="w-4 h-4" />
-                                        </Link>
-                                    )}
-                                </div>
-                                <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-wider">{era.testimonials[0].role}, {era.testimonials[0].company}</span>
-                            </div>
-                        </cite>
-                    </blockquote>
-                </div>
-            </div>
-        )
-    );
-
     return (
         <section className="relative py-24 md:py-32 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 border-b border-dashed border-white/5 last:border-0 group/section">
             {/* Massive Year Watermark */}
@@ -407,45 +245,166 @@ export default function EraBlock({ era, index }: EraBlockProps) {
             </div>
 
             {/* ADAPTIVE LAYOUT LOGIC */}
-            {era.id === 'csg-architect' ? (
-                // 1. CSG SPECIAL LAYOUT
-                <>
-                    {/* Header Row */}
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24 mb-12">
-                        <div className="lg:col-span-8">
-                            {renderHeader()}
-                        </div>
-                    </div>
+            {/* If we have > 1 testimonial, use the Sidebar Layout (8/4 split). Otherwise, use Full Width Layout. */}
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24">
 
-                    {/* Content Row */}
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24">
-                        <div className="lg:col-span-8">
-                            {renderWorkItems(true)}
-                        </div>
-                        {renderSidebar()}
-                    </div>
+                {/* ONE MAIN COLUMN for logic simplification, utilizing CSS grid for internal layout if needed */}
+                {/* Actually, let's keep the split logic but cleaner */}
+                {(() => {
+                    const isSidebarLayout = era.testimonials.length > 1;
 
-                    {/* Articles Section (Full Width) */}
-                    {renderArticlesSection()}
+                    return (
+                        <>
+                            {/* MAIN CONTENT COLUMN */}
+                            <div className={`${isSidebarLayout ? "lg:col-span-8" : "lg:col-span-12"} ${era.id === 'origin-story' ? "grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start" : ""}`}>
+                                {/* Header */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                                    className="mb-16 relative"
+                                >
+                                    <div className="flex items-baseline gap-4 mb-2">
+                                        <div className="h-px w-8 bg-[var(--accent-teal)]/50 hidden md:block" />
+                                        <span className="font-mono text-[var(--accent-teal)] text-sm tracking-widest uppercase">
+                                            {era.period}
+                                        </span>
+                                    </div>
+                                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+                                        {era.role} <span className="text-slate-600 block text-2xl md:text-3xl mt-2 italic">@ {era.company}</span>
+                                    </h2>
+                                    <p className="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl border-l-2 border-white/10 pl-6">
+                                        {era.description}
+                                    </p>
+                                </motion.div>
 
-                    {/* Full Width Showcase (Moved to Bottom) */}
-                    <div className="mt-24 mb-12 relative z-10 -mx-4 sm:-mx-6 md:-mx-8 border-t border-white/5 pt-24">
-                        <TransformationShowcase />
-                    </div>
-                </>
-            ) : (
-                // 2. STANDARD LAYOUT
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24">
-                    {/* MAIN CONTENT COLUMN */}
-                    <div className={`${isSidebarLayout ? "lg:col-span-8" : "lg:col-span-12"} ${era.id === 'origin-story' ? "grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start" : ""}`}>
-                        {renderHeader()}
-                        {renderWorkItems(isSidebarLayout)}
-                        {renderSingleTestimonial()}
-                        {renderOriginTerminal()}
-                    </div>
+                                {/* Work Items Display */}
+                                {era.workItems.length > 0 && (
+                                    <div className={
+                                        isSidebarLayout
+                                            ? "flex flex-col gap-12 md:gap-20"
+                                            : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
+                                    }>
+                                        {era.workItems.map((work) => (
+                                            era.id === 'agency-startup' || era.id === 'consultant-tech' ? (
+                                                <ArchiveWorkCard key={work.id} work={work} onOpenLightbox={handleOpenLightbox} />
+                                            ) : (
+                                                <HeroWorkCard key={work.id} work={work} />
+                                            )
+                                        ))}
+                                    </div>
+                                )}
 
-                    {/* SIDEBAR COLUMN */}
-                    {isSidebarLayout && renderSidebar()}
+                                {/* Single Testimonial (Full Mode Only) */}
+                                {!isSidebarLayout && era.testimonials.length === 1 && (
+                                    <div className="mt-20 border-t border-white/5 pt-12">
+                                        <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block">Endorsement</span>
+                                        <div className="bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group/quote">
+                                            <Quote className="absolute top-8 right-8 w-12 h-12 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
+                                            <blockquote className="relative z-10">
+                                                <p className="font-serif text-2xl md:text-3xl text-slate-200 leading-relaxed mb-6">
+                                                    &ldquo;{era.testimonials[0].quote}&rdquo;
+                                                </p>
+                                                <cite className="not-italic flex items-center gap-4">
+                                                    <div className="flex flex-col">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-white font-bold text-lg">{era.testimonials[0].name}</span>
+                                                            {era.testimonials[0].linkedInProfile && (
+                                                                <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                                    <Linkedin className="w-4 h-4" />
+                                                                </Link>
+                                                            )}
+                                                        </div>
+                                                        <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-wider">{era.testimonials[0].role}, {era.testimonials[0].company}</span>
+                                                    </div>
+                                                </cite>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* ORIGIN STORY: FOUNDATIONS TERMINAL */}
+                                {era.id === 'origin-story' && era.foundations && (
+                                    <div className="mt-8 lg:mt-0 p-8 border border-white/10 bg-black/40 rounded-sm font-mono text-sm w-full backdrop-blur-sm relative overflow-hidden group/terminal mx-auto lg:mx-0">
+                                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent bg-[length:100%_4px] pointer-events-none" />
+                                        <div className="flex gap-2 mb-6 border-b border-white/10 pb-4 relative z-10">
+                                            <div className="w-3 h-3 rounded-full bg-red-500/20" />
+                                            <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
+                                            <div className="w-3 h-3 rounded-full bg-green-500/20" />
+                                        </div>
+                                        <div className="text-[var(--accent-teal)] mb-6 typing-effect relative z-10">
+                                            &gt; INITIALIZING_CREATIVE_KERNEL...
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 gap-y-4 text-slate-400 relative z-10">
+                                            {era.foundations.map((tool, i) => (
+                                                <div key={i} className="flex items-center gap-3">
+                                                    <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rounded-full animate-pulse" style={{ animationDelay: `${i * 200}ms` }} />
+                                                    <span>LOADED_MODULE: <span className="text-white font-bold">{tool}</span></span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="mt-6 text-[var(--accent-teal)] animate-blink text-lg">_</div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* SIDEBAR COLUMN (Only for Sidebar Layout) */}
+                            {isSidebarLayout && (
+                                <div className="lg:col-span-4 flex flex-col gap-16 pt-10 md:pt-32">
+                                    {/* Testimonials List */}
+                                    {era.testimonials.length > 0 && (
+                                        <div className="flex flex-col gap-6">
+                                            <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-1 hidden lg:block">The Proof</span>
+                                            <div className="grid grid-cols-1 gap-4">
+                                                {era.testimonials.map((review, idx) => (
+                                                    <motion.div
+                                                        key={review.id}
+                                                        initial={{ opacity: 0, y: 40 }}
+                                                        whileInView={{ opacity: 1, y: 0 }}
+                                                        viewport={{ once: true }}
+                                                        transition={{ delay: 0.2 + (idx * 0.1), duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                                                        className="h-full"
+                                                    >
+                                                        <LegacyTestimonialCard review={review} />
+                                                    </motion.div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* Note: Articles removed from sidebar as requested */}
+                                </div>
+                            )}
+                        </>
+                    );
+                })()}
+
+            </div>
+
+            {/* CSG Era: Articles (Horizontal Layout below everything - FULL WIDTH) */}
+            {era.articles && era.articles.length > 0 && (
+                <div className="mt-20 pt-12 border-t border-dashed border-white/5 w-full relative z-10">
+                    <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block pl-1 text-[var(--accent-teal)]">Selected Writing</span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12">
+                        {era.articles.map((article) => (
+                            <Link key={article.id} href={article.link} target="_blank" className="group/article flex md:block lg:flex gap-6 items-start">
+                                <div className="w-32 md:w-full lg:w-48 aspect-video relative rounded-lg overflow-hidden shrink-0 border border-white/5">
+                                    <Image src={article.image} alt={article.title} fill className="object-cover transform transition-transform duration-500 group-hover/article:scale-105" />
+                                </div>
+                                <div>
+                                    <h5 className="text-white font-serif text-xl leading-tight group-hover/article:text-[var(--accent-teal)] transition-colors mb-2 mt-1">{article.title}</h5>
+                                    <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 md:line-clamp-3">{article.description}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Transformation Showcase - CSG Era Only (FULL WIDTH) */}
+            {era.id === 'csg-architect' && (
+                <div className="mt-20 mb-20 md:mt-28 md:mb-28 w-full relative z-10 transition-opacity duration-1000">
+                    <TransformationShowcase />
                 </div>
             )}
 
@@ -510,6 +469,7 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                     </div>
                 </div>
             )}
+
             {/* Lightbox Component */}
             <ImageLightbox
                 isOpen={lightboxOpen}
@@ -520,6 +480,6 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                 currentIndex={currentImageIndex}
                 onNavigate={setCurrentImageIndex}
             />
-        </section>
+        </section >
     )
 }

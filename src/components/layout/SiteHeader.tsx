@@ -11,9 +11,11 @@ import MobileMenu from './MobileMenu'
 import CaseStudiesDropdown from './CaseStudiesDropdown'
 import Magnetic from '@/components/ui/Magnetic'
 import { getTheme, spacing } from '@/lib/design-system'
+import { usePdf } from '@/contexts/PdfContext'
 
 export default function SiteHeader() {
   const pathname = usePathname()
+  const { openPdf } = usePdf()
   const isLandingPage = pathname === '/'
   const isCaseStudyPage = pathname?.startsWith('/work/') ?? false
   const isAboutPage = pathname === '/me' || pathname === '/me/'
@@ -140,13 +142,13 @@ export default function SiteHeader() {
 
           {/* Resume - Secondary CTA */}
           <Magnetic strength={0.2}>
-            <a
-              href="/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackResumeDownload()}
+            <button
+              onClick={() => {
+                trackResumeDownload()
+                openPdf('/assets/Anuja_Harsha_Resume.pdf', 'Anuja Harsha - Senior Product Designer')
+              }}
               className={`inline-flex items-center gap-space-1.5 px-space-4 py-space-2 rounded-full border ${t.borderSecondary} ${t.textMuted} text-sm font-medium transition-[background-color,border-color,color] duration-300 hover:border-slate-400 hover:${t.bgAccent} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]`}
-              aria-label="Download Resume PDF"
+              aria-label="View Resume PDF"
             >
               <span>Resume</span>
               <svg
@@ -160,10 +162,16 @@ export default function SiteHeader() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                 />
               </svg>
-            </a>
+            </button>
           </Magnetic>
         </div>
 

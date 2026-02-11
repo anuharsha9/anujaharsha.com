@@ -43,6 +43,8 @@ const config: Config = {
         'color-error': 'var(--color-error)',
         'color-info': 'var(--color-info)',
 
+
+
         // Backgrounds
         'bg-primary': 'var(--bg-primary)',
         'bg-secondary': 'var(--bg-secondary)',
@@ -62,6 +64,9 @@ const config: Config = {
         accent: 'var(--accent-teal)',
         muted: 'var(--text-muted-dark)',
         text: 'var(--text-primary-dark)',
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
       },
       boxShadow: {
         'sm': 'var(--shadow-sm)',

@@ -7,6 +7,7 @@ import GoogleAnalytics from '@/components/analytics/GoogleAnalytics'
 import StructuredData from '@/components/structured-data/StructuredData'
 import LoadingScreen from '@/components/loading/LoadingScreen'
 import { LightboxProvider } from '@/contexts/LightboxContext'
+import { PdfProvider } from '@/contexts/PdfContext'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -138,7 +139,9 @@ export default function RootLayout({
         <StructuredData type="website" />
         <StructuredData type="person" />
         <LightboxProvider>
-          <PageShell>{children}</PageShell>
+          <PdfProvider>
+            <PageShell>{children}</PageShell>
+          </PdfProvider>
         </LightboxProvider>
         {/* Service worker cleanup - unregister any existing service workers */}
         <script

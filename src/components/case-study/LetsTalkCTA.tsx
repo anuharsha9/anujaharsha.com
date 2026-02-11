@@ -2,6 +2,8 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { usePdf } from '@/contexts/PdfContext'
+import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 
 interface LetsTalkCTAProps {
   className?: string
@@ -9,6 +11,7 @@ interface LetsTalkCTAProps {
 }
 
 export default function LetsTalkCTA({ className = '', variant = 'card' }: LetsTalkCTAProps) {
+  const { openPdf } = usePdf()
   if (variant === 'inline') {
     return (
       <div className={className}>
@@ -56,13 +59,16 @@ export default function LetsTalkCTA({ className = '', variant = 'card' }: LetsTa
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
-            <Link
-              href="/resume.html"
+            <button
+              onClick={() => {
+                trackResumeDownload()
+                openPdf('/assets/Anuja_Harsha_Resume.pdf', 'Anuja Harsha - Senior Product Designer')
+              }}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-600 text-sm font-medium hover:border-slate-900 hover:text-slate-900 transition-colors"
-              aria-label="Read resume"
+              aria-label="Read Resume PDF"
             >
               Resume
-            </Link>
+            </button>
           </div>
         </div>
       </div>

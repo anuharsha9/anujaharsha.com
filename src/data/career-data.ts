@@ -123,7 +123,7 @@ export const CAREER_DATA: CareerEra[] = [
         workItems: [
             {
                 id: "reportcaster",
-                title: "ReportCaster",
+                title: "Modernizing a 50-Year-Old Enterprise Scheduler",
                 subtitle: '50yr Legacy → Modern Hub',
                 description: 'Modernized a 50-year-old platform\'s scheduler powering 20M+ schedules weekly. Integrated 5 legacy subsystems intelligently into the main product hub.',
                 image: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
@@ -138,7 +138,7 @@ export const CAREER_DATA: CareerEra[] = [
             },
             {
                 id: "ml-functions",
-                title: "ML Functions",
+                title: "Democratizing Machine Learning for Everyone",
                 subtitle: 'Black Box → Guided Flow',
                 description: 'Transformed complex 12-step ML training into a guided 4-step visual workflow. Zero dead-end errors in testing.',
                 image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
@@ -152,7 +152,7 @@ export const CAREER_DATA: CareerEra[] = [
             },
             {
                 id: "iq-plugin",
-                title: "DSML Hub", // Changed from IQ Plugin to match legacy title
+                title: "Driving Data Science Adoption in Enterprise BI",
                 subtitle: '3 Tools + Discover Page',
                 description: 'Unified 3 DSML tools into one Hub plugin with a custom Discover page—featuring tutorials, documentation, and tool descriptions.',
                 image: '/images/case-study/iq-plugin/Final Look.png',

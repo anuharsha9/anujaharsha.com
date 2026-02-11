@@ -2,9 +2,12 @@
 
 import { motion } from 'framer-motion'
 import { getTheme, spacing } from '@/lib/design-system'
+import { usePdf } from '@/contexts/PdfContext'
+import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 
 export default function TalkSection() {
   const t = getTheme(false)
+  const { openPdf } = usePdf()
 
   return (
     <section
@@ -69,17 +72,19 @@ export default function TalkSection() {
               <span>LinkedIn</span>
             </a>
 
-            <a
-              href="/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => {
+                trackResumeDownload()
+                openPdf('/assets/Anuja_Harsha_Resume.pdf', 'Anuja Harsha - Senior Product Designer')
+              }}
               className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-800 text-slate-400 font-medium text-sm hover:bg-amber-500/10 hover:text-amber-500 hover:border-amber-500/50 transition-all duration-300`}
+              aria-label="View Resume PDF"
             >
               <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <span>Resume (PDF)</span>
-            </a>
+            </button>
 
             <a
               href="https://medium.com/@anu.anuja"

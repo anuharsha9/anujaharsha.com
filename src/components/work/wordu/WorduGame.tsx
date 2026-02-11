@@ -1,17 +1,26 @@
 'use client'
 
 import { useState, useEffect, useRef, FormEvent } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion"
 import {
-    ArrowBigRight,
+    ArrowRight,
     Trophy,
-    Search,
     RotateCcw,
     Flame,
     Infinity as InfinityIcon,
     Crosshair,
     Swords,
-    ChevronLeft
+    Sparkles,
+    BotMessageSquare,
+    UserCircle,
+    BookOpen,
+    Lightbulb,
+    Volume2,
+    Loader2,
+    X,
+    CheckCircle2,
+    AlertCircle,
+    Send
 } from "lucide-react"
 
 // --- Helper for Class Names ---
@@ -19,7 +28,7 @@ const clsx = (...classes: (string | undefined | null | false)[]) => classes.filt
 
 // --- Types ---
 type Turn = "you" | "opponent"
-type GameState = "menu" | "mode_select" | "playing" | "gameover"
+type GameState = "menu" | "playing" | "gameover"
 type GameMode = "rapid_fire" | "endless" | "target" | "rally"
 
 type WordEntry = {
@@ -30,14 +39,26 @@ type WordEntry = {
     id: string
 }
 
+type DefinitionData = {
+    word: string
+    phonetic?: string
+    meanings: {
+        partOfSpeech: string
+        definitions: { definition: string, example?: string }[]
+    }[]
+    phonetics?: { audio?: string }[]
+}
+
 // --- Constants ---
-const MODES: { id: GameMode; title: string; desc: string; icon: any; color: string; duration?: number; target?: number }[] = [
+const MODES: { id: GameMode; title: string; desc: string; icon: any; color: string; hover: string; accent: string; duration?: number; target?: number }[] = [
     {
         id: "rapid_fire",
         title: "Rapid-Fire",
         desc: "180s. Build as many words as possible.",
         icon: Flame,
-        color: "bg-[#F7941D]", // was bg-orange
+        color: "bg-orange-500",
+        hover: "hover:bg-orange-600",
+        accent: "text-orange-500",
         duration: 180
     },
     {
@@ -45,7 +66,9 @@ const MODES: { id: GameMode; title: string; desc: string; icon: any; color: stri
         title: "Endless",
         desc: "No time limit. Play until you're stuck.",
         icon: InfinityIcon,
-        color: "bg-teal-500", // Standard Tailwind
+        color: "bg-blue-500",
+        hover: "hover:bg-blue-600",
+        accent: "text-blue-500",
         duration: 0
     },
     {
@@ -53,7 +76,9 @@ const MODES: { id: GameMode; title: string; desc: string; icon: any; color: stri
         title: "Target Mode",
         desc: "Reach 500 points in limited moves.",
         icon: Crosshair,
-        color: "bg-emerald-500", // Standard Tailwind
+        color: "bg-emerald-500",
+        hover: "hover:bg-emerald-600",
+        accent: "text-emerald-500",
         duration: 0,
         target: 500
     },
@@ -62,10 +87,166 @@ const MODES: { id: GameMode; title: string; desc: string; icon: any; color: stri
         title: "Rally",
         desc: "Compete 1v1 for the leaderboard.",
         icon: Swords,
-        color: "bg-rose-500", // Standard Tailwind
+        color: "bg-rose-500",
+        hover: "hover:bg-rose-600",
+        accent: "text-rose-500",
         duration: 180
     }
 ]
+
+// --- Components ---
+
+const AnimatedCounter = ({ value }: { value: number }) => {
+    const spring = useSpring(value, { mass: 0.8, stiffness: 75, damping: 15 });
+    const display = useTransform(spring, (current) => Math.round(current));
+
+    useEffect(() => {
+        spring.set(value);
+    }, [value, spring]);
+
+    return <motion.span>{display}</motion.span>;
+};
+
+const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () => void }) => {
+    const [data, setData] = useState<DefinitionData | null>(null)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+
+    useEffect(() => {
+        if (!word) {
+            setData(null)
+            return
+        }
+        setLoading(true)
+        setError(false)
+        setData(null)
+
+        // Clean word (remove spacing, punctuation if any slipped in)
+        const cleanWord = word.trim().toLowerCase().replace(/[^a-z]/g, '')
+
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${cleanWord}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Not found')
+                return res.json()
+            })
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    setData(data[0])
+                } else {
+                    setError(true)
+                }
+            })
+            .catch((err) => {
+                console.error("Dictionary lookup failed:", err)
+                setError(true)
+            })
+            .finally(() => setLoading(false))
+    }, [word])
+
+    const playAudio = () => {
+        const audioUrl = data?.phonetics?.find(p => p.audio && p.audio.length > 0)?.audio
+        if (audioUrl) {
+            new Audio(audioUrl).play()
+        }
+    }
+
+    // Don't render anything if no word is selected
+    if (!word) return null
+
+    return (
+        <>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={onClose}
+                className="absolute inset-0 bg-zinc-900/20 backdrop-blur-sm z-40 transition-all"
+            />
+            <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-2xl z-50 h-[85%] flex flex-col overflow-hidden border-t border-zinc-100 ring-1 ring-zinc-900/5"
+            >
+                <div className="w-full flex justify-center pt-3 pb-1 shrink-0" onClick={onClose}>
+                    <div className="w-12 h-1.5 bg-zinc-300 rounded-full" />
+                </div>
+
+                <div className="flex items-start justify-between px-8 py-6 shrink-0">
+                    <div>
+                        <h3 className="text-4xl font-bold capitalize text-zinc-900 tracking-tight">{word}</h3>
+                        {data?.phonetic && (
+                            <div className="flex items-center gap-3 mt-2">
+                                <span className="text-zinc-500 font-mono text-lg">{data.phonetic}</span>
+                                {data.phonetics?.some(p => p.audio) && (
+                                    <button
+                                        onClick={playAudio}
+                                        className="p-2 bg-[#00ADEE]/10 text-[#00ADEE] rounded-full hover:bg-[#00ADEE]/20 hover:scale-105 transition-all"
+                                    >
+                                        <Volume2 size={18} />
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                    <button
+                        onClick={onClose}
+                        className="p-2 bg-zinc-100 text-zinc-500 rounded-full hover:bg-zinc-200 transition-colors"
+                    >
+                        <X size={24} />
+                    </button>
+                </div>
+
+                <div className="px-8 pb-12 overflow-y-auto flex-1 overscroll-contain">
+                    {loading && (
+                        <div className="flex flex-col items-center justify-center py-20 space-y-4 opacity-50">
+                            <Loader2 size={40} className="animate-spin text-[#00ADEE]" />
+                            <p className="text-zinc-400 font-medium tracking-wide">Searching Dictionary...</p>
+                        </div>
+                    )}
+
+                    {!loading && error && (
+                        <div className="flex flex-col items-center justify-center py-20 space-y-4">
+                            <div className="w-20 h-20 bg-zinc-50 rounded-full flex items-center justify-center">
+                                <AlertCircle size={40} className="text-zinc-300" />
+                            </div>
+                            <p className="text-zinc-500 font-medium">Definition not found for "{word}"</p>
+                        </div>
+                    )}
+
+                    {!loading && data && (
+                        <div className="space-y-8 pb-12">
+                            {data.meanings.map((m, i) => (
+                                <div key={i} className="space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <span className="px-3 py-1 bg-zinc-100 text-zinc-600 rounded-md text-xs font-bold uppercase tracking-wider">
+                                            {m.partOfSpeech}
+                                        </span>
+                                        <div className="h-px bg-zinc-100 flex-1" />
+                                    </div>
+                                    <ul className="space-y-6">
+                                        {m.definitions.slice(0, 3).map((d, j) => (
+                                            <li key={j} className="text-zinc-700 leading-relaxed text-lg">
+                                                <span className="text-zinc-400 mr-2">{j + 1}.</span>
+                                                {d.definition}
+                                                {d.example && (
+                                                    <div className="mt-2 pl-4 border-l-2 border-[#00ADEE]/30 text-zinc-500 italic text-base">
+                                                        "{d.example}"
+                                                    </div>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </motion.div>
+        </>
+    )
+}
 
 export default function WorduGame() {
     // Game State
@@ -76,14 +257,17 @@ export default function WorduGame() {
     const [isLoading, setIsLoading] = useState(true)
 
     // Play State
-    const [turn, setTurn] = useState<Turn>("you")
+    const [turn, setTurn] = useState<Turn>("opponent")
     const [wordChain, setWordChain] = useState<WordEntry[]>([])
     const [currentInput, setCurrentInput] = useState("")
     const [score, setScore] = useState(0)
     const [multiplier, setMultiplier] = useState(1)
     const [timeLeft, setTimeLeft] = useState(0)
-    const [movesLeft, setMovesLeft] = useState(0) // For Target mode
+    const [movesLeft, setMovesLeft] = useState(0)
     const [errorMsg, setErrorMsg] = useState("")
+    const [hint, setHint] = useState<string | null>(null)
+    const [inspectWord, setInspectWord] = useState<string | null>(null)
+
     const inputRef = useRef<HTMLInputElement>(null)
     const bottomRef = useRef<HTMLDivElement>(null)
 
@@ -124,7 +308,7 @@ export default function WorduGame() {
     // --- 2. Timer (Rapid Fire & Rally) ---
     useEffect(() => {
         if (gameState !== "playing") return
-        if (selectedMode === "endless" || selectedMode === "target") return // No timer
+        if (selectedMode === "endless" || selectedMode === "target") return
 
         if (timeLeft <= 0) {
             setGameState("gameover")
@@ -139,16 +323,16 @@ export default function WorduGame() {
         if (gameState === "playing") {
             bottomRef.current?.scrollIntoView({ behavior: "smooth" })
         }
-    }, [wordChain, gameState])
+    }, [wordChain, gameState, hint])
 
     // --- 4. AI Opponent ---
     useEffect(() => {
         if (gameState !== "playing" || turn !== "opponent") return
 
+        const delay = wordChain.length === 0 ? 800 : 1200 + Math.random() * 800
         const timeout = setTimeout(() => {
             playOpponentTurn()
-        }, 1200 + Math.random() * 800)
-
+        }, delay)
         return () => clearTimeout(timeout)
     }, [turn, gameState, wordChain])
 
@@ -161,9 +345,7 @@ export default function WorduGame() {
 
 
     // --- Logic ---
-    const enterModeSelect = () => {
-        setGameState("mode_select")
-    }
+
 
     const startGame = (mode: GameMode) => {
         const config = MODES.find(m => m.id === mode)
@@ -172,11 +354,12 @@ export default function WorduGame() {
         setScore(0)
         setMultiplier(1)
         setWordChain([])
-        setTurn("you")
+        setTurn("opponent")
         setErrorMsg("")
+        setHint(null)
 
         if (mode === "target") {
-            setMovesLeft(20) // 20 moves to hit target
+            setMovesLeft(20)
         }
 
         if (config?.duration) {
@@ -184,32 +367,83 @@ export default function WorduGame() {
         }
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        if (turn !== "you" || !currentInput) return
+        if (turn !== "you" || !currentInput || isSubmitting) return
 
         const word = currentInput.trim().toLowerCase()
+        setIsSubmitting(true)
 
-        // Validation
-        if (!dictionary.has(word)) {
-            showError(`"${word}" is not in the dictionary.`)
-            return
-        }
+        // Pre-Validation (Chain rules)
         if (wordChain.length > 0) {
             const lastWord = wordChain[wordChain.length - 1].word
             const targetChar = lastWord[lastWord.length - 1]
             if (word[0] !== targetChar) {
                 showError(`Word must start with '${targetChar.toUpperCase()}'`)
+                setIsSubmitting(false)
                 return
             }
         }
         if (wordChain.some((w) => w.word === word)) {
             showError("Word already used!")
+            setIsSubmitting(false)
+            return
+        }
+
+        // Dictionary Validation (Hybrid: Local -> API)
+        let isValid = dictionary.has(word)
+
+        if (!isValid) {
+            try {
+                const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+                if (res.ok) {
+                    isValid = true
+                    // Optional: Add to local dictionary for this session
+                    setDictionary(prev => new Set(prev).add(word))
+                }
+            } catch (e) {
+                // API fail or network error, fallback to strictly local
+                console.error("Dictionary API check failed", e)
+            }
+        }
+
+        if (!isValid) {
+            showError(`"${word}" is not in the dictionary.`)
+            setIsSubmitting(false)
             return
         }
 
         submitMove(word, "you")
         setCurrentInput("")
+        setHint(null)
+        setIsSubmitting(false)
+    }
+
+    const getHint = () => {
+        if (wordChain.length === 0) return
+        if (hint) return
+
+        const lastWord = wordChain[wordChain.length - 1].word
+        const targetChar = lastWord[lastWord.length - 1]
+        const potentialWords = wordMap.get(targetChar)
+
+        if (!potentialWords) {
+            showError("No words available!")
+            return
+        }
+
+        const validWords = potentialWords.filter(w => !wordChain.some(used => used.word === w))
+
+        if (validWords.length === 0) {
+            showError("No words left!")
+            return
+        }
+
+        const randomWord = validWords[Math.floor(Math.random() * validWords.length)]
+        setHint(`Try "${randomWord}"`)
+        setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100)
     }
 
     const showError = (msg: string) => {
@@ -236,16 +470,15 @@ export default function WorduGame() {
             newScore = score + points
             setScore(newScore)
 
-            // Target Mode Logic
             if (selectedMode === "target") {
                 setMovesLeft(prev => {
                     const left = prev - 1
-                    if (left <= 0 && newScore < 500) { // Failed target
+                    if (left <= 0 && newScore < 500) {
                         setTimeout(() => setGameState("gameover"), 500)
                     }
                     return left
                 })
-                if (newScore >= 500) { // Won target
+                if (newScore >= 500) {
                     setTimeout(() => setGameState("gameover"), 500)
                 }
             }
@@ -260,40 +493,44 @@ export default function WorduGame() {
     }
 
     const playOpponentTurn = () => {
-        if (wordChain.length === 0) return
-        const lastWord = wordChain[wordChain.length - 1].word
-        const targetChar = lastWord[lastWord.length - 1]
-        const potentialWords = wordMap.get(targetChar)
-
-        if (!potentialWords || potentialWords.length === 0) {
-            console.log("AI Stuck")
-            // Endless mode: User wins?
-            if (selectedMode === 'endless') setGameState("gameover")
-            return
-        }
-
         let pick = ""
-        // Smarter AI for Rally mode?
-        const attempts = selectedMode === 'rally' ? 10 : 50
 
-        for (let i = 0; i < attempts; i++) {
-            const r = potentialWords[Math.floor(Math.random() * potentialWords.length)]
-            if (!wordChain.some(w => w.word === r)) {
-                pick = r
-                break
+        if (wordChain.length === 0) {
+            const keys = Array.from(wordMap.keys())
+            if (keys.length > 0) {
+                const randomKey = keys[Math.floor(Math.random() * keys.length)]
+                const possibleStarts = wordMap.get(randomKey)
+                if (possibleStarts && possibleStarts.length > 0) {
+                    pick = possibleStarts[Math.floor(Math.random() * possibleStarts.length)]
+                }
             }
+        } else {
+            const lastWord = wordChain[wordChain.length - 1].word
+            const targetChar = lastWord[lastWord.length - 1]
+            const potentialWords = wordMap.get(targetChar)
+
+            if (!potentialWords || potentialWords.length === 0) {
+                if (selectedMode === 'endless') setGameState("gameover")
+                return
+            }
+
+            const attempts = selectedMode === 'rally' ? 10 : 50
+            for (let i = 0; i < attempts; i++) {
+                const r = potentialWords[Math.floor(Math.random() * potentialWords.length)]
+                if (!wordChain.some(w => w.word === r)) {
+                    pick = r
+                    break
+                }
+            }
+
+            if (!pick) {
+                pick = potentialWords.find(w => !wordChain.some(used => used.word === w)) || ""
+            }
+            if (!pick && potentialWords.length > 0) pick = potentialWords[0];
         }
 
-        if (!pick) {
-            if (selectedMode === 'endless') {
-                // AI dies, user keeps playing? Or game over.
-                // Simplification: Pick random used.
-                pick = potentialWords[0]
-            } else {
-                pick = potentialWords[0]
-            }
-        }
-        submitMove(pick, "opponent")
+        if (pick) submitMove(pick, "opponent")
+        else setGameState("gameover")
     }
 
     const formatTime = (s: number) => {
@@ -303,9 +540,8 @@ export default function WorduGame() {
     }
 
     // --- Render ---
-    // Using relative h-full w-full instead of min-h-screen to fit in container
     return (
-        <div className="flex w-full h-full flex-col items-center justify-center bg-zinc-50 font-sans text-zinc-900 overflow-hidden relative rounded-xl">
+        <div className="flex w-full h-full flex-col items-center justify-center bg-[#F7F7F7] font-sans text-zinc-900 overflow-hidden relative selection:bg-[#00ADEE]/30">
             <AnimatePresence mode="wait">
 
                 {/* === MENU STATE === */}
@@ -315,18 +551,16 @@ export default function WorduGame() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className="flex flex-col items-center justify-center w-full px-6"
+                        className="flex flex-col items-center justify-center w-full px-4 text-center h-full pt-8 pb-4"
                     >
-                        {/* Logo */}
-                        {/* Logo */}
-                        <div className="flex items-center mb-12">
+                        <div className="flex items-center mb-6 scale-110 shrink-0">
                             {['W', 'O', 'R', 'D'].map((letter, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="w-12 h-12 bg-zinc-900 text-white rounded-full flex items-center justify-center text-xl font-bold mx-1 shadow-lg"
+                                    className="w-12 h-12 bg-white text-zinc-900 rounded-lg flex items-center justify-center text-2xl font-bold mx-1 shadow-sm border border-zinc-200"
                                 >
                                     {letter}
                                 </motion.div>
@@ -335,65 +569,53 @@ export default function WorduGame() {
                                 initial={{ y: 20, opacity: 0, rotate: -180 }}
                                 animate={{ y: 0, opacity: 1, rotate: 0 }}
                                 transition={{ delay: 0.5, type: "spring" }}
-                                className="w-12 h-12 bg-[#00ADEE] text-white rounded-full flex items-center justify-center text-xl font-bold mx-1 shadow-xl shadow-[#00ADEE]/30"
+                                className="w-12 h-12 bg-[#00ADEE] text-white rounded-lg flex items-center justify-center text-2xl font-bold mx-1 shadow-lg shadow-blue-500/25 relative z-10"
                             >
                                 U
                             </motion.div>
                         </div>
 
-                        <h2 className="text-zinc-500 mb-12 font-medium tracking-widest text-sm uppercase">The Ultimate Word Chain Game</h2>
+                        <h2 className="text-zinc-400 mb-6 font-bold tracking-[0.2em] text-[10px] uppercase bg-white px-3 py-1.5 rounded-lg shadow-sm border border-zinc-100 shrink-0">
+                            Select a mode to start
+                        </h2>
 
-                        <button
-                            onClick={enterModeSelect}
-                            disabled={isLoading}
-                            className="w-full max-w-xs bg-[#00ADEE] hover:bg-[#008bbd] text-white text-lg font-bold py-4 rounded-2xl shadow-xl shadow-[#00ADEE]/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
-                        >
-                            {isLoading ? "LOADING..." : "PLAY NOW"}
-                            {!isLoading && <ArrowBigRight fill="currentColor" />}
-                        </button>
-                    </motion.div>
-                )}
-
-                {/* === MODE SELECT STATE === */}
-                {gameState === "mode_select" && (
-                    <motion.div
-                        key="mode_select"
-                        initial={{ x: "100%" }}
-                        animate={{ x: 0 }}
-                        exit={{ x: "-100%" }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="w-full max-w-md h-full flex flex-col px-6 pt-12 pb-6"
-                    >
-                        <button onClick={() => setGameState("menu")} className="self-start mb-6 text-zinc-400 hover:text-zinc-800 transition-colors">
-                            <ChevronLeft size={32} />
-                        </button>
-
-                        <h2 className="text-3xl font-black text-zinc-900 mb-2">Game Modes</h2>
-                        <p className="text-zinc-500 mb-8">Select your challenge.</p>
-
-                        <div className="grid gap-4 flex-1 overflow-y-auto pb-4">
-                            {MODES.map((mode, i) => (
-                                <motion.button
-                                    key={mode.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.05 }}
-                                    onClick={() => startGame(mode.id)}
-                                    className="group relative overflow-hidden bg-white hover:bg-zinc-50 border-2 border-zinc-100 hover:border-[#00ADEE]/30 rounded-3xl p-6 text-left shadow-sm hover:shadow-xl transition-all active:scale-98"
-                                >
-                                    <div className={clsx("absolute top-0 right-0 w-24 h-24 -mr-6 -mt-6 rounded-full opacity-10 group-hover:opacity-20 transition-opacity", mode.color)} />
-
-                                    <div className="flex items-start justify-between relative z-10">
-                                        <div>
-                                            <h3 className="text-xl font-bold text-zinc-900 mb-1 group-hover:text-[#00ADEE] transition-colors">{mode.title}</h3>
-                                            <p className="text-sm text-zinc-500 leading-snug max-w-[80%]">{mode.desc}</p>
+                        <div className="grid gap-3 w-full max-w-sm flex-1 overflow-y-auto px-2 pb-2 scrollbar-hide content-center">
+                            {isLoading ? (
+                                <div className="flex flex-col items-center justify-center h-40 space-y-4">
+                                    <div className="w-10 h-10 border-4 border-[#00ADEE] border-t-transparent rounded-full animate-spin" />
+                                    <p className="text-zinc-400 font-bold text-sm tracking-wide uppercase">Loading Dictionary...</p>
+                                </div>
+                            ) : (
+                                MODES.map((mode, i) => (
+                                    <motion.button
+                                        key={mode.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: i * 0.08 }}
+                                        onClick={() => startGame(mode.id)}
+                                        className={clsx(
+                                            "group relative overflow-hidden rounded-xl p-4 text-left transition-all border",
+                                            "bg-white hover:bg-white hover:border-[#00ADEE]/50 shadow-sm hover:shadow-lg hover:shadow-blue-500/5"
+                                        )}
+                                    >
+                                        <div className="flex items-center gap-4 relative z-10">
+                                            <div className={clsx("w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-inner shrink-0", mode.color)}>
+                                                <mode.icon size={22} strokeWidth={2.5} />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center justify-between mb-0.5">
+                                                    <h3 className="text-base font-black text-zinc-700 group-hover:text-zinc-900 truncate">{mode.title}</h3>
+                                                    {mode.id === 'rapid_fire' && <span className="text-[10px] font-bold bg-orange-100 text-orange-500 px-2 py-0.5 rounded-full uppercase tracking-wide">Popular</span>}
+                                                </div>
+                                                <p className="text-xs text-zinc-400 font-bold leading-tight truncate">{mode.desc}</p>
+                                            </div>
+                                            <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center text-zinc-400 group-hover:bg-[#00ADEE] group-hover:text-white transition-colors">
+                                                <ArrowRight size={18} />
+                                            </div>
                                         </div>
-                                        <div className={clsx("w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg", mode.color)}>
-                                            <mode.icon size={24} />
-                                        </div>
-                                    </div>
-                                </motion.button>
-                            ))}
+                                    </motion.button>
+                                ))
+                            )}
                         </div>
                     </motion.div>
                 )}
@@ -402,47 +624,69 @@ export default function WorduGame() {
                 {gameState === "playing" && (
                     <motion.div
                         key="playing"
-                        className="w-full h-full flex flex-col bg-white shadow-2xl overflow-hidden relative"
+                        className="w-full h-full flex flex-col bg-white relative"
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
                     >
                         {/* Header */}
-                        <header className="flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-md border-b border-zinc-100 sticky top-0 z-10 shrink-0">
-                            <div className="flex flex-col">
-                                <span className="text-[10px] font-bold text-zinc-400 tracking-wider">SCORE</span>
-                                <span className="text-2xl font-bold text-[#00ADEE]">{score}</span>
+                        <header className="flex items-center justify-between px-4 py-3 bg-white border-b-2 border-zinc-100 z-20 shrink-0">
+                            <button
+                                onClick={() => setGameState('menu')}
+                                className="w-10 h-10 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors"
+                            >
+                                <X size={24} strokeWidth={2.5} />
+                            </button>
+
+                            {/* Progress Bar Style Score */}
+                            <div className="flex-1 px-4 flex flex-col items-center">
+                                <div className="text-[10px] font-black tracking-widest text-zinc-300 uppercase mb-1">Score</div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-2xl font-black text-[#00ADEE] tracking-tight">
+                                        <AnimatedCounter value={score} />
+                                    </span>
+                                    {multiplier > 1 && (
+                                        <div className="bg-[#00ADEE]/10 text-[#00ADEE] text-xs font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
+                                            {multiplier}x Combo
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className="flex items-center justify-center">
-                                <motion.div
-                                    key={multiplier}
-                                    initial={{ scale: 1.5, rotate: -10 }}
-                                    animate={{ scale: 1, rotate: 0 }}
-                                    className="w-12 h-12 bg-[#F7941D] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg shadow-[#F7941D]/30"
-                                >
-                                    {multiplier}x
-                                </motion.div>
-                            </div>
-
-                            <div className="flex flex-col items-end min-w-[60px]">
-                                <span className="text-[10px] font-bold text-zinc-400 tracking-wider uppercase">
-                                    {selectedMode === 'target' ? 'MOVES' : (selectedMode === 'endless' ? 'WORDS' : 'TIME')}
-                                </span>
-                                <span className={clsx("text-2xl font-bold tabular-nums",
-                                    (selectedMode !== 'endless' && timeLeft < 30) ? "text-red-500 animate-pulse" : "text-zinc-800"
-                                )}>
-                                    {selectedMode === 'target'
-                                        ? movesLeft
-                                        : (selectedMode === 'endless' ? wordChain.length : formatTime(timeLeft))
-                                    }
-                                </span>
+                            <div className="w-10 flex justify-end">
+                                {selectedMode !== 'endless' && (
+                                    <div className="relative w-10 h-10 flex items-center justify-center">
+                                        <div className="absolute inset-0 rounded-full border-4 border-zinc-100" />
+                                        <div
+                                            className={clsx("absolute inset-0 rounded-full border-4 border-t-transparent animate-spin duration-[3s]",
+                                                timeLeft < 10 ? "border-red-500" : "border-[#00ADEE]")}
+                                        />
+                                        <span className={clsx("text-xs font-black", timeLeft < 10 ? "text-red-500" : "text-zinc-400")}>
+                                            {selectedMode === 'target' ? movesLeft : timeLeft}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </header>
 
-                        {/* Scroll Area */}
-                        <div className="flex-1 overflow-y-auto p-6 pb-32 space-y-6">
+                        {/* Chat Area */}
+                        <div className="flex-1 overflow-y-scroll p-4 pb-48 space-y-4 scroll-smooth bg-zinc-50/50">
+
+                            {/* Start Message - AI */}
+                            {wordChain.length === 0 && (
+                                <div className="flex flex-col items-center justify-center h-48 text-center space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                    <div className="w-16 h-16 rounded-xl bg-zinc-100 flex items-center justify-center mb-2">
+                                        <BotMessageSquare size={32} className="text-zinc-400" strokeWidth={2} />
+                                    </div>
+                                    <div className="bg-white border border-zinc-200 px-5 py-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[240px] relative">
+                                        <p className="text-zinc-600 font-medium text-sm">
+                                            I'll start! Get ready to match my last letter.
+                                        </p>
+                                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t-2 border-l-2 border-zinc-200 rotate-45" />
+                                    </div>
+                                </div>
+                            )}
+
                             <AnimatePresence initial={false}>
                                 {wordChain.map((entry, i) => {
                                     const isUser = entry.player === "you"
@@ -450,101 +694,158 @@ export default function WorduGame() {
                                     return (
                                         <motion.div
                                             key={entry.id}
-                                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                                            initial={{ opacity: 0, y: 20, scale: 0.8 }}
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            className={clsx("flex flex-col relative", isUser ? "items-end" : "items-start")}
+                                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                                            className={clsx("flex w-full mb-2", isUser ? "justify-end" : "justify-start")}
                                         >
-                                            {i > 0 && (
-                                                <div className="absolute top-[-24px] left-1/2 -translate-x-1/2 text-zinc-200 z-0">↓</div>
-                                            )}
-
-                                            <div className={clsx(
-                                                "relative px-6 py-3 rounded-2xl text-lg font-medium shadow-sm max-w-[85%] z-10 border transition-all",
-                                                isUser
-                                                    ? "bg-[#00ADEE] text-white border-[#00ADEE] rounded-tr-none shadow-[#00ADEE]/10"
-                                                    : "bg-white text-zinc-800 border-zinc-200 rounded-tl-none"
-                                            )}>
-                                                <span className={clsx(
-                                                    "absolute -top-5 text-[10px] font-bold tracking-widest text-zinc-400",
-                                                    isUser ? "right-0" : "left-0"
+                                            <div
+                                                onClick={() => setInspectWord(entry.word)}
+                                                className={clsx(
+                                                    "relative px-5 py-3 text-lg max-w-[80%] break-all group cursor-pointer hover:scale-[1.01] transition-transform select-none border",
+                                                    isUser
+                                                        ? "bg-[#00ADEE] border-[#00ADEE] text-white rounded-2xl rounded-tr-sm shadow-md shadow-blue-500/10"
+                                                        : "bg-white border-zinc-200 text-zinc-700 rounded-2xl rounded-tl-sm shadow-sm"
                                                 )}>
-                                                    {isUser ? "YOU" : "OPPONENT"}
-                                                </span>
-
-                                                <div className="tracking-wide break-words">
-                                                    {entry.word.split('').map((char, charIdx) => (
-                                                        <span key={charIdx}>{char}</span>
-                                                    ))}
+                                                <div className="font-bold tracking-normal flex items-center gap-2">
+                                                    <span>
+                                                        {entry.player === "opponent" ? (
+                                                            <>
+                                                                {entry.word.slice(0, -1)}
+                                                                <span className="text-[#00ADEE] underline decoration-2 underline-offset-4">{entry.word.slice(-1)}</span>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <span className="opacity-60">{entry.word.slice(0, 1)}</span>
+                                                                {entry.word.slice(1)}
+                                                            </>
+                                                        )}
+                                                    </span>
+                                                    {/* Dictionary Icon on Hover */}
+                                                    <BookOpen size={16} className="opacity-50 group-hover:opacity-100 transition-opacity ml-1" />
                                                 </div>
 
-                                                {isUser && (
-                                                    <motion.div
-                                                        initial={{ scale: 0 }}
-                                                        animate={{ scale: 1 }}
-                                                        className="absolute -bottom-3 -right-2 bg-[#F7941D] text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm border-2 border-white"
-                                                    >
-                                                        +{entry.score}
-                                                    </motion.div>
+                                                {/* Floating Avatar */}
+                                                {!isUser && (
+                                                    <div className="absolute -left-2 -top-2 w-6 h-6 rounded-full bg-zinc-100 flex items-center justify-center border border-zinc-200 shadow-sm">
+                                                        <BotMessageSquare size={14} className="text-zinc-500" strokeWidth={2.5} />
+                                                    </div>
                                                 )}
+                                                {isUser && (
+                                                    <div className="absolute -right-2 -top-2 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-zinc-100 shadow-sm">
+                                                        <UserCircle size={14} className="text-[#00ADEE]" strokeWidth={2} />
+                                                    </div>
+                                                )}
+
                                             </div>
                                         </motion.div>
                                     )
                                 })}
                             </AnimatePresence>
 
-                            {wordChain.length === 0 && (
-                                <div className="flex flex-col items-center justify-center h-full text-zinc-300 space-y-4 pt-20">
-                                    <Search size={48} className="opacity-20" />
-                                    <p>Type any word to start!</p>
-                                    {selectedMode === 'target' && (
-                                        <div className="bg-emerald-50 text-emerald-600 px-4 py-2 rounded-lg text-sm font-bold">Target: 500pts</div>
-                                    )}
-                                </div>
+                            {/* Hint Bubble */}
+                            <AnimatePresence>
+                                {hint && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 10 }}
+                                        className="flex w-full justify-center my-4"
+                                    >
+                                        <button
+                                            onClick={() => {
+                                                const word = hint.split('"')[1]
+                                                setCurrentInput(word)
+                                                inputRef.current?.focus()
+                                            }}
+                                            className="bg-white border border-amber-200 text-amber-600 px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:shadow-md hover:bg-amber-50 transition-all flex items-center gap-2"
+                                        >
+                                            <Lightbulb size={18} strokeWidth={3} />
+                                            {hint}
+                                        </button>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            {/* Opponent Thinking Indicator */}
+                            {turn === 'opponent' && wordChain.length > 0 && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="flex justify-start pl-8 mt-4"
+                                >
+                                    <div className="bg-zinc-100 rounded-xl rounded-tl-sm px-4 py-3 flex gap-1.5">
+                                        <div className="w-1.5 h-1.5 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                        <div className="w-1.5 h-1.5 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                        <div className="w-1.5 h-1.5 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                    </div>
+                                </motion.div>
                             )}
-                            <div ref={bottomRef} />
+
+                            <div ref={bottomRef} className="h-4" />
                         </div>
 
                         {/* Input Area */}
-                        <div className="absolute bottom-0 w-full bg-white/90 backdrop-blur-xl p-4 border-t border-zinc-100 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+
+                        {/* Points Preview Bubble - Floating above Input */}
+                        <AnimatePresence>
+                            {currentInput.length > 2 && dictionary.has(currentInput.toLowerCase()) && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute bottom-[100px] left-0 right-0 mx-auto w-max z-30"
+                                >
+                                    <div className="bg-[#00ADEE] text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-500/30 animate-bounce">
+                                        Excellent! +{currentInput.length * multiplier} pts
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        <div className="absolute bottom-0 w-full bg-white px-4 py-6 border-t-2 border-zinc-100 z-30">
                             {errorMsg && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0 }}
-                                    className="absolute -top-14 left-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg text-center"
+                                    className="absolute -top-14 left-0 right-0 mx-auto w-max max-w-[90%] bg-rose-500 text-white px-5 py-2.5 rounded-xl font-medium shadow-lg shadow-rose-500/20 text-center flex items-center gap-3"
                                 >
+                                    <X size={20} className="stroke-[4px]" />
                                     {errorMsg}
                                 </motion.div>
                             )}
 
-                            <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
+                            <form onSubmit={handleSubmit} className="flex gap-3 max-w-lg mx-auto relative cursor-text" onClick={() => inputRef.current?.focus()}>
+                                <button
+                                    type="button"
+                                    onClick={getHint}
+                                    disabled={turn !== 'you'}
+                                    className="w-12 h-12 shrink-0 flex items-center justify-center rounded-xl bg-white border border-zinc-200 text-zinc-400 hover:bg-zinc-50 hover:text-zinc-600 transition-all disabled:opacity-50"
+                                >
+                                    <Lightbulb size={24} strokeWidth={2.5} />
+                                </button>
+
                                 <input
                                     ref={inputRef}
                                     value={currentInput}
                                     onChange={(e) => setCurrentInput(e.target.value)}
                                     disabled={turn === "opponent"}
                                     placeholder={turn === "you"
-                                        ? (wordChain.length ? `Starts with ${wordChain[wordChain.length - 1].word.slice(-1).toUpperCase()}...` : "Start the chain...")
-                                        : "Opponent is thinking..."}
-                                    className="flex-1 bg-zinc-100 border-2 border-transparent focus:border-[#00ADEE] focus:bg-white outline-none rounded-xl px-4 py-3 text-lg transition-all disabled:opacity-50 text-zinc-900"
+                                        ? (wordChain.length ? `Start with ${wordChain[wordChain.length - 1].word.slice(-1).toUpperCase()}...` : "Type first word...")
+                                        : "Waiting..."}
+                                    className="flex-1 bg-zinc-50 border border-zinc-200 focus:bg-white focus:border-[#00ADEE] focus:ring-4 focus:ring-[#00ADEE]/10 outline-none rounded-xl px-4 py-3 text-lg font-bold text-zinc-800 placeholder:text-zinc-400 transition-all disabled:opacity-70"
+                                    autoComplete="off"
                                 />
                                 <button
                                     type="submit"
-                                    disabled={turn === "opponent" || !currentInput}
-                                    className="bg-zinc-900 text-white rounded-xl px-6 font-bold disabled:opacity-30 disabled:scale-95 transition-all shadow-lg active:scale-90"
+                                    disabled={turn === "opponent" || !currentInput || isSubmitting}
+                                    className="w-14 h-12 shrink-0 bg-[#00ADEE] text-white rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20 hover:bg-[#0095CC] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm transition-all disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
                                 >
-                                    GO
+                                    {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} strokeWidth={2.5} className="ml-0.5" />}
                                 </button>
                             </form>
                         </div>
-
-                        {/* Quit Button */}
-                        <button
-                            onClick={() => setGameState('mode_select')}
-                            className="absolute top-4 left-2 p-2 text-zinc-300 hover:text-zinc-600 transition-colors z-20"
-                        >
-                            <ChevronLeft size={24} />
-                        </button>
                     </motion.div>
                 )}
 
@@ -561,50 +862,51 @@ export default function WorduGame() {
                             animate={{ scale: 1, opacity: 1 }}
                             className="mb-8"
                         >
-                            {selectedMode === 'target' && score >= 500 ? (
-                                <>
-                                    <Trophy size={80} className="text-emerald-500 mx-auto mb-4 animate-bounce" />
-                                    <h2 className="text-4xl font-black text-emerald-500 mb-2">TARGET HIT!</h2>
-                                    <p className="text-zinc-500">You cleared the level.</p>
-                                </>
-                            ) : (
-                                <>
-                                    <Trophy size={80} className={clsx("mx-auto mb-4", score > 0 ? "text-[#F7941D]" : "text-zinc-300")} />
-                                    <h2 className="text-4xl font-black text-zinc-900 mb-2">GAME OVER</h2>
-                                    <p className="text-zinc-500">
-                                        {selectedMode === 'target' ? 'Failed to reach target.' : 'Great effort!'}
-                                    </p>
-                                </>
-                            )}
+                            <div className="relative mb-6">
+                                <div className="absolute inset-0 bg-yellow-400 blur-2xl opacity-20 animate-pulse" />
+                                <Trophy size={100} className="text-yellow-400 mx-auto relative z-10 drop-shadow-lg" strokeWidth={1.5} fill="currentColor" />
+                                <Sparkles size={40} className="text-yellow-400 absolute top-0 right-10 animate-spin-slow" />
+                            </div>
+
+                            <h2 className="text-4xl font-black text-zinc-800 mb-2 uppercase tracking-wide">
+                                {score >= 500 && selectedMode === 'target' ? "Level Complete!" : "Game Over"}
+                            </h2>
+                            <p className="text-zinc-400 font-bold text-lg">
+                                You scored
+                            </p>
                         </motion.div>
 
-                        <div className="bg-zinc-50 border-2 border-zinc-100 rounded-3xl p-8 shadow-xl w-full max-w-xs mb-8">
-                            <div className="text-sm font-bold text-zinc-400 tracking-widest mb-1">FINAL SCORE</div>
-                            <div className="text-6xl font-black text-[#00ADEE]">{score}</div>
-
-                            {selectedMode === 'target' && (
-                                <div className="mt-2 text-sm text-zinc-400">Target: 500</div>
-                            )}
+                        <div className="bg-white border-2 border-zinc-100 rounded-3xl p-8 w-full max-w-xs mb-8 flex flex-col items-center">
+                            <div className="text-6xl font-black text-[#00ADEE] tracking-tighter mb-2">
+                                <AnimatedCounter value={score} />
+                            </div>
+                            <div className="text-zinc-400 text-xs font-bold uppercase tracking-widest bg-zinc-100 px-3 py-1 rounded-full">
+                                Total Points
+                            </div>
                         </div>
 
                         <div className="flex flex-col gap-3 w-full max-w-xs">
                             <button
                                 onClick={() => startGame(selectedMode)}
-                                className="flex items-center justify-center gap-2 bg-zinc-900 text-white px-8 py-4 rounded-2xl text-lg font-bold shadow-xl hover:scale-105 transition-transform"
+                                className="w-full bg-[#00ADEE] hover:bg-[#0095CC] text-white text-lg font-black tracking-wide py-4 rounded-xl shadow-[0_4px_0_#008DBD] active:shadow-none active:translate-y-[4px] transition-all border-b-4 border-[#008DBD] active:border-b-0 uppercase flex items-center justify-center gap-2"
                             >
-                                <RotateCcw size={20} />
-                                PLAY AGAIN
+                                <RotateCcw size={20} strokeWidth={3} />
+                                Play Again
                             </button>
                             <button
-                                onClick={() => setGameState('mode_select')}
-                                className="flex items-center justify-center gap-2 bg-white border-2 border-zinc-200 text-zinc-500 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-zinc-50 transition-colors"
+                                onClick={() => setGameState('menu')}
+                                className="w-full bg-white hover:bg-zinc-50 text-zinc-400 hover:text-zinc-600 text-lg font-bold tracking-wide py-4 rounded-xl shadow-[0_4px_0_theme(colors.zinc.200)] border-2 border-zinc-200 active:shadow-none active:translate-y-[4px] transition-all uppercase"
                             >
-                                CHANGE MODE
+                                Exit
                             </button>
                         </div>
                     </motion.div>
                 )}
+
+                {/* === DICTIONARY SHEET === */}
+                <DictionarySheet word={inspectWord} onClose={() => setInspectWord(null)} />
+
             </AnimatePresence>
-        </div>
+        </div >
     )
 }
