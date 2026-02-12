@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 import ImageLightbox from './ImageLightbox'
 
 interface VersionData {
@@ -26,7 +27,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
   const [lightboxImages, setLightboxImages] = useState<Array<{ src: string; alt: string; caption?: string }>>([])
   const [lightboxCurrentIndex, setLightboxCurrentIndex] = useState(0)
 
-  const imageBorderRadius = 'rounded-xl'
+  const imageBorderRadius = ''
   const imageShadow = 'shadow-md'
   const imageOutline = 'outline outline-1 outline-slate-200/50 outline-offset-[-1px]'
 
@@ -122,17 +123,16 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center space-y-3"
       >
-        <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-          {'// DESIGN_EVOLUTION'}
-        </span>
-        <h3 className="text-[var(--text-heading)] text-2xl md:text-3xl font-serif">
-          The Iteration Journey
-        </h3>
-        <p className="text-[var(--text-muted)] text-base md:text-lg max-w-2xl mx-auto">
-          Three architectural approaches. Two rejections. One shipped solution that balanced platform constraints with user needs.
-        </p>
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag="// DESIGN_EVOLUTION"
+          title="The Iteration Journey"
+          description="Three architectural approaches. Two rejections. One shipped solution that balanced platform constraints with user needs."
+          color="teal"
+          className="mb-0"
+        />
       </motion.div>
 
       {/* Vertical Timeline */}
@@ -141,405 +141,208 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
         <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-slate-200" />
 
         {/* Version Cards */}
-        <div className="space-y-0">
+        <div className="space-y-16 md:space-y-24">
           {versions.map((version, index) => {
             const isSuccess = version.status === 'shipped'
             const isLast = index === versions.length - 1
 
             return (
-              <div key={version.id}>
-                {/* Version Card */}
+              <div key={version.id} className="relative">
+                {/* Timeline Node */}
+                <div className="absolute left-4 md:left-8 top-0 flex flex-col items-center h-full -ml-[9px] md:-ml-[1px]">
+                  <div className={`w-4 h-4 rounded-full border-[3px] bg-white z-10 ${isSuccess ? 'border-emerald-500' : 'border-slate-300'
+                    }`} />
+                </div>
+
+                {/* Content Container */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: 0.1 + index * 0.15 }}
-                  className="relative pl-12 md:pl-20"
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="pl-12 md:pl-24"
                 >
-                  {/* Timeline Node */}
-                  <div className={`absolute left-2 md:left-6 w-5 h-5 rounded-full border-2 ${isSuccess
-                    ? 'bg-emerald-500 border-emerald-500'
-                    : 'bg-white border-slate-300'
-                    } z-10 flex items-center justify-center`}>
-                    {isSuccess && (
-                      <svg aria-hidden="true" className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
-                  </div>
+                  <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
 
-                  {/* Card */}
-                  <div className={`
-                    rounded-2xl overflow-hidden transition-all duration-300
-                    ${isSuccess
-                      ? 'bg-white border-2 border-emerald-100 shadow-lg md:ml-4'
-                      : 'bg-slate-50 border border-slate-200'
-                    }
-                  `}>
-                    <div className="p-6 md:p-8 lg:p-10">
-                      {/* Side-by-Side Layout */}
-                      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+                    {/* Left Column: Narrative */}
+                    <div className="lg:w-[40%] space-y-8">
 
-                        {/* Left Column - Narrative (40%) */}
-                        <div className="lg:w-[40%] space-y-4">
-                          {/* Header */}
-                          <div className="flex items-start justify-between gap-3 flex-wrap">
-                            <div>
-                              <span className="text-[var(--text-muted)] text-xs font-mono uppercase tracking-widest">
-                                {version.label}
-                              </span>
-                              <h4 className="text-[var(--text-heading)] text-xl md:text-2xl font-serif mt-1">
-                                {version.approach}
-                              </h4>
-                            </div>
-
-                            {/* Badge */}
-                            {version.status === 'shipped' ? (
-                              <span className="bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full">
-                                Launched
-                              </span>
-                            ) : (
-                              <span className="bg-red-50 text-red-600 border border-red-100 text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full">
-                                Rejected
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Description */}
-                          <p className="text-[var(--text-body)] text-sm md:text-base">
-                            {version.description}
-                          </p>
-
-                          {/* Rationale Block */}
-                          <div className="bg-white rounded-lg p-4 border border-slate-200 space-y-3">
-                            <div>
-                              <p className="text-slate-400 text-xs font-mono uppercase tracking-wider mb-1">
-                                Rationale
-                              </p>
-                              <p className="text-[var(--text-heading)] text-sm">
-                                {version.rationale}
-                              </p>
-                            </div>
-
-                            {version.rejection && (
-                              <div className="pt-3 border-t border-slate-100">
-                                <p className="text-red-400 text-xs font-mono uppercase tracking-wider mb-1">
-                                  Why Rejected
-                                </p>
-                                <p className="text-[var(--text-body)] text-sm italic">
-                                  {version.rejection}
-                                </p>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Body Text */}
-                          <div className="text-[var(--text-muted)] text-sm leading-relaxed space-y-2">
-                            {version.section.body.split('\n\n').slice(0, 2).map((paragraph, idx) => (
-                              <p key={idx}>{paragraph}</p>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Right Column - Visual (60%) */}
-                        <div className="lg:w-[60%]">
-                          {version.section.images && version.section.images.length > 0 && (
-                            <>
-                              {/* Mobile: Horizontal Scroll */}
-                              <div className="lg:hidden -mx-6 md:-mx-8 px-6 md:px-8">
-                                <div className="overflow-x-auto scrollbar-hide">
-                                  <div className="flex gap-4 min-w-max pb-2">
-                                    {version.section.images.slice(0, 4).map((image, idx) => (
-                                      <div
-                                        key={idx}
-                                        className="w-[260px] flex-shrink-0 cursor-pointer"
-                                        onClick={() => openLightbox(
-                                          image.src,
-                                          image.alt,
-                                          image.caption,
-                                          version.section.images?.map((img) => ({
-                                            src: img.src,
-                                            alt: img.alt,
-                                            caption: img.caption
-                                          })),
-                                          idx
-                                        )}
-                                      >
-                                        <div className={`
-                                          relative w-full aspect-[16/10] ${imageBorderRadius} overflow-hidden 
-                                          border border-slate-200 ${imageShadow} bg-slate-100
-                                        `}>
-                                          <Image
-                                            src={image.src}
-                                            alt={image.alt}
-                                            fill
-                                            className="object-contain"
-                                            sizes="260px"
-                                          />
-                                          <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm rounded px-2 py-1">
-                                            <span className="font-mono text-[9px] text-slate-500 uppercase">Tap</span>
-                                          </div>
-                                        </div>
-                                        {image.caption && (
-                                          <p className="text-[var(--text-muted)] text-[10px] leading-relaxed mt-2 line-clamp-2">
-                                            {image.caption}
-                                          </p>
-                                        )}
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                                {version.section.images.length > 1 && (
-                                  <p className="text-center text-slate-400 text-xs mt-1">← Swipe →</p>
-                                )}
-                              </div>
-
-                              {/* Desktop: Grid */}
-                              <div className={`hidden lg:grid gap-4 ${version.section.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-                                {version.section.images.slice(0, 4).map((image, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="space-y-2 cursor-pointer group"
-                                    onClick={() => openLightbox(
-                                      image.src,
-                                      image.alt,
-                                      image.caption,
-                                      version.section.images?.map((img) => ({
-                                        src: img.src,
-                                        alt: img.alt,
-                                        caption: img.caption
-                                      })),
-                                      idx
-                                    )}
-                                  >
-                                    <div className={`
-                                      relative w-full aspect-[16/10] ${imageBorderRadius} overflow-hidden 
-                                      border border-slate-200 ${imageShadow} ${imageOutline}
-                                      cursor-pointer transition-all duration-300 
-                                      hover:scale-[1.02] hover:shadow-lg bg-slate-100
-                                    `}>
-                                      <Image
-                                        src={image.src}
-                                        alt={image.alt}
-                                        fill
-                                        className="object-contain group-hover:scale-105 transition-transform duration-300"
-                                        sizes="(max-width: 1024px) 60vw, 40vw"
-                                      />
-                                    </div>
-                                    {image.caption && (
-                                      <p className="text-[var(--text-muted)] text-xs leading-relaxed">
-                                        {image.caption}
-                                      </p>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            </>
-                          )}
-
-                          {/* Subsections for V3 (Shipped) */}
-                          {isSuccess && version.section.subsections && version.section.subsections.length > 0 && (
-                            <div className="mt-6 pt-6 border-t border-slate-200">
-                              <p className="text-slate-400 text-xs font-mono uppercase tracking-wider mb-4">
-                                Key Screens ({version.section.subsections.length} workflows)
-                              </p>
-
-                              {/* Mobile: Horizontal Scroll */}
-                              <div className="lg:hidden -mx-6 md:-mx-8 px-6 md:px-8">
-                                <div className="overflow-x-auto scrollbar-hide">
-                                  <div className="flex gap-3 min-w-max pb-2">
-                                    {version.section.subsections.slice(0, 6).map((sub, subIdx) => (
-                                      <div
-                                        key={subIdx}
-                                        className="w-[140px] flex-shrink-0 text-center"
-                                      >
-                                        {sub.images && sub.images[0] && (
-                                          <div
-                                            className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-slate-200 cursor-pointer bg-slate-100"
-                                            onClick={() => openLightbox(
-                                              sub.images![0].src,
-                                              sub.images![0].alt,
-                                              sub.title
-                                            )}
-                                          >
-                                            <Image
-                                              src={sub.images[0].src}
-                                              alt={sub.title}
-                                              fill
-                                              className="object-contain"
-                                              sizes="140px"
-                                            />
-                                          </div>
-                                        )}
-                                        <p className="text-[var(--text-muted)] text-[10px] mt-2 line-clamp-1">
-                                          {sub.title}
-                                        </p>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Desktop: Grid */}
-                              <div className="hidden lg:grid grid-cols-3 gap-3">
-                                {version.section.subsections.slice(0, 6).map((sub, subIdx) => (
-                                  <div
-                                    key={subIdx}
-                                    className="text-center"
-                                  >
-                                    {sub.images && sub.images[0] && (
-                                      <div
-                                        className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-slate-200 cursor-pointer hover:shadow-md transition-all duration-300 bg-slate-100"
-                                        onClick={() => openLightbox(
-                                          sub.images![0].src,
-                                          sub.images![0].alt,
-                                          sub.title
-                                        )}
-                                      >
-                                        <Image
-                                          src={sub.images[0].src}
-                                          alt={sub.title}
-                                          fill
-                                          className="object-contain"
-                                          sizes="20vw"
-                                        />
-                                      </div>
-                                    )}
-                                    <p className="text-[var(--text-muted)] text-xs mt-2 truncate">
-                                      {sub.title}
-                                    </p>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
+                      {/* Header Group */}
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-4">
+                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                            {version.label}
+                          </span>
+                          {version.status === 'shipped' ? (
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                              Shipped
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-100 px-2 py-1 rounded-full">
+                              Rejected
+                            </span>
                           )}
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
 
-                {/* Extensibility Callout (for V3) */}
-                {'extensibility' in version && version.extensibility && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="relative pl-12 md:pl-20 py-4"
-                  >
-                    {/* Extensibility Node */}
-                    <div className="absolute left-2 md:left-6 w-5 h-5 rounded-full bg-violet-100 border-2 border-violet-500 z-10 flex items-center justify-center">
-                      <svg aria-hidden="true" className="w-3 h-3 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
+                        <h3 className="text-3xl md:text-4xl font-serif text-slate-900 leading-tight">
+                          {version.approach}
+                        </h3>
 
-                    {/* Extensibility Card */}
-                    <div className="bg-gradient-to-r from-violet-50 to-indigo-50 border border-violet-200 rounded-xl p-5 md:p-6 ml-2">
-                      <div className="flex items-start gap-3 mb-3">
-                        <span className="bg-violet-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
-                          Future-Proof
-                        </span>
-                        <h5 className="text-violet-900 font-serif text-lg md:text-xl font-semibold">
-                          {version.extensibility.headline}
-                        </h5>
-                      </div>
-                      <p className="text-violet-800 text-sm md:text-base mb-4">
-                        {version.extensibility.body}
-                      </p>
-
-                      {/* Future Integrations Grid */}
-                      <div className="bg-white/60 rounded-lg p-4 border border-violet-100 mb-4">
-                        <p className="font-mono text-violet-600 text-xs uppercase tracking-wider mb-3">
-                          {'// FUTURE_INTEGRATIONS'}
+                        <p className="text-lg text-slate-600 font-light leading-relaxed">
+                          {version.description}
                         </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          {version.extensibility.futureIntegrations.map((item: string, idx: number) => (
-                            <div key={idx} className="flex items-center gap-2">
-                              <span className="text-violet-400">→</span>
-                              <span className="text-slate-700 text-sm">{item}</span>
+                      </div>
+
+                      {/* Rationale & Insights - No Boxes */}
+                      <div className="space-y-6 pt-4 border-t border-slate-100">
+                        <div>
+                          <h5 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Rationale</h5>
+                          <p className="text-sm text-slate-600 leading-relaxed font-light">
+                            {version.rationale}
+                          </p>
+                        </div>
+
+                        {version.rejection && (
+                          <div>
+                            <h5 className="text-[10px] font-bold uppercase tracking-wider text-red-400 mb-2">Constraint</h5>
+                            <p className="text-sm text-slate-600 leading-relaxed italic font-light">
+                              {version.rejection}
+                            </p>
+                          </div>
+                        )}
+
+                        {version.pivotReason && !isLast && (
+                          <div className="pt-4">
+                            <div className="flex items-center gap-2 text-amber-600">
+                              <ArrowDown className="w-3 h-3" />
+                              <span className="text-[10px] font-bold uppercase tracking-wider">
+                                {version.pivotReason}
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Version Body Text */}
+                      <div className="text-slate-500 font-light text-sm leading-relaxed space-y-4">
+                        {version.section.body.split('\n\n').slice(0, 2).map((paragraph, idx) => (
+                          <p key={idx}>{paragraph}</p>
+                        ))}
+                      </div>
+
+                    </div>
+
+                    {/* Right Column: Visuals */}
+                    <div className="lg:w-[60%] space-y-8">
+                      {/* Main Images */}
+                      {version.section.images && version.section.images.length > 0 && (
+                        <div className={`grid gap-6 ${version.section.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                          {version.section.images.slice(0, 4).map((image, idx) => (
+                            <div
+                              key={idx}
+                              className="group cursor-pointer space-y-3"
+                              onClick={() => openLightbox(
+                                image.src,
+                                image.alt,
+                                image.caption,
+                                version.section.images?.map(img => ({ src: img.src, alt: img.alt, caption: img.caption })),
+                                idx
+                              )}
+                            >
+                              <div className="relative aspect-[16/10] overflow-hidden bg-slate-50 border border-slate-100 transition-all duration-500 group-hover:shadow-lg">
+                                <Image
+                                  src={image.src}
+                                  alt={image.alt}
+                                  fill
+                                  className="object-contain transition-transform duration-700 group-hover:scale-105"
+                                />
+                              </div>
+                              {image.caption && (
+                                <p className="text-[10px] text-slate-400 text-center uppercase tracking-wider">
+                                  {image.caption}
+                                </p>
+                              )}
                             </div>
                           ))}
                         </div>
-                      </div>
+                      )}
 
-                      {/* Design Principle */}
-                      <div className="bg-slate-900 rounded-lg p-4">
-                        <p className="font-mono text-violet-400 text-xs uppercase tracking-wider mb-2">
-                          {'// DESIGN_PRINCIPLE'}
-                        </p>
-                        <p className="text-slate-300 text-sm leading-relaxed">
-                          {version.extensibility.principle}
-                        </p>
+                      {/* Shipped Subsections (Key Screens) */}
+                      {isSuccess && version.section.subsections && version.section.subsections.length > 0 && (
+                        <div className="pt-8 border-t border-slate-100">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6">
+                            Shipped Workflows
+                          </p>
+                          <div className="grid grid-cols-3 gap-4">
+                            {version.section.subsections.slice(0, 6).map((sub, subIdx) => (
+                              <div key={subIdx} className="space-y-2 cursor-pointer group">
+                                {sub.images?.[0] && (
+                                  <div
+                                    className="relative aspect-[4/3] bg-slate-50 border border-slate-100 overflow-hidden transition-all duration-300 group-hover:border-slate-300"
+                                    onClick={() => openLightbox(sub.images![0].src, sub.images![0].alt, sub.title)}
+                                  >
+                                    <Image
+                                      src={sub.images[0].src}
+                                      alt={sub.title}
+                                      fill
+                                      className="object-contain"
+                                    />
+                                  </div>
+                                )}
+                                <p className="text-[10px] text-slate-500 text-center truncate px-2">
+                                  {sub.title}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                  </div>
+                </motion.div>
+
+                {/* Extra Callouts (Validation / Extensibility) - Cleaned Up */}
+                {('extensibility' in version && version.extensibility) && (
+                  <div className="pl-12 md:pl-24 mt-12 mb-12">
+                    <div className="bg-violet-50/30 p-8 md:p-10 border-l-2 border-violet-200">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-violet-400 block mb-4">
+                        Looking Forward
+                      </span>
+                      <h4 className="text-2xl md:text-3xl font-serif text-violet-900 mb-4">
+                        {version.extensibility.headline}
+                      </h4>
+                      <p className="text-violet-800/80 font-light leading-relaxed max-w-2xl mb-8">
+                        {version.extensibility.body}
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8">
+                        {version.extensibility.futureIntegrations.map((item, i) => (
+                          <div key={i} className="flex items-center gap-3 text-sm text-violet-700/70">
+                            <span className="w-1.5 h-1.5 rounded-full bg-violet-300" />
+                            {item}
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
-                {/* Validation Callout (for V1) */}
-                {'validation' in version && version.validation && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="relative pl-12 md:pl-20 py-4"
-                  >
-                    {/* Validation Node */}
-                    <div className="absolute left-2 md:left-6 w-5 h-5 rounded-full bg-emerald-100 border-2 border-emerald-500 z-10 flex items-center justify-center">
-                      <svg aria-hidden="true" className="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-
-                    {/* Validation Card */}
-                    <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-5 md:p-6 ml-2">
-                      <div className="flex items-start gap-3 mb-3">
-                        <span className="bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
-                          Validated
-                        </span>
-                        <h5 className="text-emerald-900 font-serif text-lg md:text-xl font-semibold">
-                          {version.validation.headline}
-                        </h5>
-                      </div>
-                      <p className="text-emerald-800 text-sm md:text-base mb-4">
+                {('validation' in version && version.validation) && (
+                  <div className="pl-12 md:pl-24 mt-12 mb-12">
+                    <div className="bg-emerald-50/30 p-8 md:p-10 border-l-2 border-emerald-200">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400 block mb-4">
+                        Validation
+                      </span>
+                      <h4 className="text-2xl md:text-3xl font-serif text-emerald-900 mb-4">
+                        {version.validation.headline}
+                      </h4>
+                      <p className="text-emerald-800/80 font-light leading-relaxed max-w-2xl">
                         {version.validation.body}
                       </p>
-                      <div className="bg-white/60 rounded-lg p-4 border border-emerald-100">
-                        <p className="text-slate-600 text-sm leading-relaxed">
-                          <span className="font-mono text-emerald-600 text-xs uppercase tracking-wider block mb-2">
-                            {'// DESIGN_INSTINCT'}
-                          </span>
-                          {version.validation.insight}
-                        </p>
-                      </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
-                {/* Pivot Connector (between cards) */}
-                {!isLast && version.pivotReason && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.3 }}
-                    className="relative pl-12 md:pl-20 py-6"
-                  >
-                    {/* Pivot Node */}
-                    <div className="absolute left-2 md:left-6 w-5 h-5 rounded-full bg-amber-100 border-2 border-amber-400 z-10 flex items-center justify-center">
-                      <ArrowDown className="w-3 h-3 text-amber-600" />
-                    </div>
-
-                    {/* Pivot Label */}
-                    <div className="flex items-center gap-3 ml-2">
-                      <span className="text-slate-400 text-sm font-mono">
-                        {version.pivotReason}
-                      </span>
-                    </div>
-                  </motion.div>
-                )}
               </div>
             )
           })}

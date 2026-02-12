@@ -15,6 +15,38 @@ export interface ArticleLink {
   readTime?: string
 }
 
+export interface ExecutiveSummaryItem {
+  slug: string
+  problem: string
+  caseStudyType: 'Flagship' | 'Secondary' | 'Third'
+  status: 'Live' | 'Shipping 2026' | 'Not shipped yet' | 'Not shipped yet — in production pipeline'
+  impactDirectional: string
+}
+
+export const executiveSummary: ExecutiveSummaryItem[] = [
+  {
+    slug: 'reportcaster',
+    problem: '50-year-old scheduling system with 5 fragmented sub-products.',
+    caseStudyType: 'Flagship',
+    status: 'Live',
+    impactDirectional: 'Consolidated into 1 unified hub; powering 20M+ weekly schedules.'
+  },
+  {
+    slug: 'ml-functions',
+    problem: 'Engineers struggled to train models without deep Python knowledge.',
+    caseStudyType: 'Secondary',
+    status: 'Shipping 2026',
+    impactDirectional: 'Reduced 12-step coding task to a 4-step visual wizard.'
+  },
+  {
+    slug: 'iq-plugin',
+    problem: 'Data science tools were siloed from business intelligence users.',
+    caseStudyType: 'Third',
+    status: 'Not shipped yet — in production pipeline',
+    impactDirectional: 'Unified 3 tools into one discovery hub.'
+  }
+]
+
 export const featuredCaseStudies: FeaturedCaseStudy[] = [
   {
     slug: 'reportcaster',

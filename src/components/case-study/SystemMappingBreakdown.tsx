@@ -3,7 +3,10 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Workflow, Cpu, ShieldAlert, Search, Maximize2 } from 'lucide-react'
 import ImageLightbox from './ImageLightbox'
+import ComponentHeading from '@/components/ui/ComponentHeading'
+
 
 interface SystemMappingBreakdownProps {
   isLightBackground?: boolean
@@ -14,8 +17,10 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
 
   const categories = [
     {
-      category: 'WORKFLOWS & NAVIGATION',
-      glyph: '//',
+      category: 'Workflows & Navigation',
+      icon: Workflow,
+      color: 'text-blue-500',
+      bg: 'bg-blue-50',
       items: [
         { label: 'Every scheduling workflow', detail: 'From schedule creation to distribution to monitoring' },
         { label: 'Every entry point', detail: 'Where users could access RC features (inconsistent across product)' },
@@ -23,8 +28,10 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
       ],
     },
     {
-      category: 'SYSTEM CAPABILITIES',
-      glyph: '{ }',
+      category: 'System Capabilities',
+      icon: Cpu,
+      color: 'text-indigo-500',
+      bg: 'bg-indigo-50',
       items: [
         { label: 'Every admin capability', detail: 'System configuration, permissions, settings' },
         { label: 'Every explorer interaction', detail: 'How users viewed and filtered existing schedules' },
@@ -32,8 +39,10 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
       ],
     },
     {
-      category: 'RELIABILITY & LOGIC',
-      glyph: '⚠️',
+      category: 'Reliability & Logic',
+      icon: ShieldAlert,
+      color: 'text-amber-500',
+      bg: 'bg-amber-50',
       items: [
         { label: 'Every failure & recovery rule', detail: 'Critical for enterprise reliability' },
         { label: 'Burst, retention, blackout logic', detail: 'Undocumented rules users relied on' },
@@ -42,160 +51,139 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
     },
   ]
 
+  // ... existing code ...
   return (
-    <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-primary)] overflow-hidden shadow-sm">
+    <div className="space-y-12 py-8">
 
-      {/* System Map Image with Overlay */}
+      {/* Header Section */}
+      {/* Header Section */}
+      <div>
+        <ComponentHeading
+          variant="block"
+          tag="// SYSTEM_ARCHITECTURE"
+          title="The Complete Map"
+          description="The categories below show the scope of mapping required to understand the complete 50-year-old system."
+          align="center"
+          color="slate"
+        />
+      </div>
+
+      {/* Hero Image - Emphasized */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, scale: 0.98 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="relative w-full h-64 md:h-96 bg-[var(--bg-tertiary)] cursor-pointer group"
+        transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+        className="relative w-full h-[500px] md:h-[600px] bg-slate-50 rounded-2xl border border-slate-100 shadow-xl overflow-hidden group cursor-zoom-in"
         onClick={() => setLightboxOpen(true)}
       >
+        <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 shadow-sm flex items-center gap-2 border border-slate-200">
+            <Maximize2 className="w-3 h-3" /> Expand Map
+          </span>
+        </div>
+
         <Image
           src="/images/case-study/ReportCaster/ReportCaster Basic Map Workflow.png"
           alt="RC mental-model map: Complete system diagram"
           fill
-          className="object-contain p-4 transition-transform duration-300 group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+          className="object-contain p-8 transition-transform duration-700 group-hover:scale-105"
+          sizes="100vw"
+          priority
         />
 
-        {/* Click to Explore Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-            <span className="text-lg">🔍</span>
-            <span className="text-[var(--text-heading)] font-medium text-sm">Explore Architecture</span>
+        {/* Subtle Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/5 to-transparent pointer-events-none" />
+      </motion.div>
+
+
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {categories.map((cat, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+            className="bg-white rounded-xl border border-slate-100 p-6 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className={`w-10 h-10 rounded-full ${cat.bg} flex items-center justify-center`}>
+                <cat.icon className={`w-5 h-5 ${cat.color}`} strokeWidth={1.5} />
+              </div>
+              <h4 className="text-sm font-bold uppercase tracking-widest text-slate-900 group-hover:text-[var(--accent-teal)] transition-colors">
+                {cat.category}
+              </h4>
+            </div>
+
+            <ul className="space-y-4">
+              {cat.items.map((item, j) => (
+                <li key={j} className="group/item">
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-200 mt-2 shrink-0 group-hover/item:bg-[var(--accent-teal)] transition-colors" />
+                    <div>
+                      <p className="text-slate-900 text-sm font-medium leading-snug">
+                        {item.label}
+                      </p>
+                      <p className="text-slate-500 text-xs mt-1 leading-relaxed font-light">
+                        {item.detail}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Terminal Output - Sleek & Modern */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="rounded-xl overflow-hidden bg-[#1D1D20] shadow-2xl ring-1 ring-white/10"
+      >
+        {/* Header */}
+        <div className="h-9 bg-[#2A2A2D] flex items-center px-4 gap-2 border-b border-white/5">
+          <div className="flex gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57] opacity-80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E] opacity-80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#28C840] opacity-80" />
+          </div>
+          <div className="flex-1 text-center">
+            <span className="text-[10px] font-mono text-slate-500 opacity-60">system_status.log</span>
           </div>
         </div>
 
-        {/* Caption */}
-        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg">
-          <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-wider">
-            {'// SYSTEM_MAP'}
-          </span>
+        {/* Body */}
+        <div className="p-6 font-mono text-xs md:text-sm leading-relaxed overflow-x-auto">
+          <div className="flex gap-3 text-emerald-400/90 mb-2">
+            <span className="opacity-50 select-none">➜</span>
+            <span>SYSTEM_STATUS: Analysis Complete</span>
+          </div>
+          <p className="text-slate-300 pl-6 mb-4 font-light">
+            This mapping produced the first complete mental model in RC&apos;s 50-year history — a foundation that enabled the unified architecture.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pl-6 border-t border-white/5 pt-4">
+            <div>
+              <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">Subsystems Mapped</span>
+              <span className="text-emerald-400 font-bold">5 Complete</span>
+            </div>
+            <div>
+              <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">Undocumented Rules</span>
+              <span className="text-emerald-400 font-bold">12+ Identified</span>
+            </div>
+            <div>
+              <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">Transfer Status</span>
+              <span className="text-emerald-400 font-bold">100% SUCCESS</span>
+            </div>
+          </div>
         </div>
       </motion.div>
 
-      {/* Content Section */}
-      <div className="p-8 md:p-12 space-y-8">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-3"
-        >
-          <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-            {'// SYSTEM_ARCHITECTURE'}
-          </span>
-          <h3 className="text-[var(--text-heading)] text-xl md:text-2xl font-serif">
-            What I Mapped: The Complete System
-          </h3>
-          <p className="text-[var(--text-body)] text-sm md:text-base max-w-2xl mx-auto">
-            The categories below show the scope of mapping required to understand the complete system.
-          </p>
-        </motion.div>
-
-        {/* Spec Cards Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
-        >
-          {categories.map((cat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.15 + i * 0.1 }}
-              whileHover={{ y: -4 }}
-              className="bg-white border border-[var(--border-primary)] rounded-xl p-5 hover:shadow-md hover:border-[var(--accent-teal)]/30 transition-all duration-300"
-            >
-              <div className="space-y-4">
-                {/* Header with Glyph */}
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-2xl text-[var(--accent-teal)] flex-shrink-0">
-                    {cat.glyph}
-                  </span>
-                  <h4 className="font-mono text-sm uppercase tracking-widest text-[var(--accent-teal)]">
-                    {cat.category}
-                  </h4>
-                </div>
-
-                {/* Items */}
-                <div className="space-y-3">
-                  {cat.items.map((item, j) => (
-                    <div key={j} className="flex items-start gap-2">
-                      <span className="text-[var(--border-secondary)] font-mono text-xs flex-shrink-0 mt-1">→</span>
-                      <div className="flex-1">
-                        <p className="text-[var(--text-heading)] text-sm font-medium leading-tight">
-                          {item.label}
-                        </p>
-                        <p className="text-[var(--text-muted)] text-xs mt-0.5 leading-relaxed">
-                          {item.detail}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Terminal Output Block */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-slate-900 rounded-xl p-5 md:p-6 border border-slate-700"
-        >
-          <div className="flex items-start gap-3">
-            {/* Terminal Icon */}
-            <div className="w-6 h-6 rounded bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-              <svg aria-hidden="true" className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-
-            {/* Terminal Output */}
-            <div className="flex-1">
-              <p className="font-mono text-sm text-emerald-400 leading-relaxed">
-                <span className="text-slate-500">&gt;</span>{' '}
-                <span className="text-amber-400">SYSTEM_STATUS:</span>{' '}
-                This mapping produced the first complete mental model in RC&apos;s 50-year history — a foundation that enabled the unified architecture.
-              </p>
-
-              {/* Additional Terminal Lines */}
-              <div className="mt-3 pt-3 border-t border-slate-700/50 space-y-1">
-                <p className="font-mono text-xs text-slate-400">
-                  <span className="text-slate-500">&gt;</span>{' '}
-                  <span className="text-emerald-400">subsystems_mapped:</span> 5
-                </p>
-                <p className="font-mono text-xs text-slate-400">
-                  <span className="text-slate-500">&gt;</span>{' '}
-                  <span className="text-emerald-400">undocumented_rules_identified:</span> 12+
-                </p>
-                <p className="font-mono text-xs text-slate-400">
-                  <span className="text-slate-500">&gt;</span>{' '}
-                  <span className="text-emerald-400">knowledge_transfer_status:</span>{' '}
-                  <span className="text-emerald-300">COMPLETE</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Lightbox */}
       <ImageLightbox
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}

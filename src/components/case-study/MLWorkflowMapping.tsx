@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight, AlertCircle } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface MLWorkflowMappingProps {
   isLightBackground?: boolean
@@ -38,21 +39,21 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
   return (
     <div className="space-y-8">
       {/* Section Header */}
+      {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center space-y-3"
       >
-        <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
-          {'// WORKFLOW_MAPPING'}
-        </span>
-        <h3 className="font-serif text-slate-900 text-2xl md:text-3xl">
-          Mapping the Existing Black-Box Workflow
-        </h3>
-        <p className="text-slate-600 text-base max-w-2xl mx-auto">
-          I documented every workflow step, every user decision point, and every place where users got stuck.
-        </p>
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag="// WORKFLOW_MAPPING"
+          title="Mapping the Existing Black-Box Workflow"
+          description="I documented every workflow step, every user decision point, and every place where users got stuck."
+          color="slate"
+          className="mb-8"
+        />
       </motion.div>
 
       {/* 4-Step Flow with Connectors */}
@@ -65,7 +66,7 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="flex-1 bg-white border border-slate-200 rounded-xl p-5 hover:border-teal-400 transition-colors"
+              className="flex-1 bg-white border border-slate-200 p-5 hover:border-teal-400 transition-colors rounded-xl"
             >
               <div className="space-y-4">
                 {/* Step Number - Monospace Index */}
@@ -107,7 +108,7 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
         className="space-y-4"
       >
         <div className="flex items-center gap-2 pb-2 border-b border-slate-200">
-          <span className="w-2 h-2 rounded-full bg-red-500"></span>
+          <span className="w-2 h-2 bg-red-500"></span>
           <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest">
             CORE_PROBLEMS_IDENTIFIED
           </span>
@@ -121,7 +122,7 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: 0.5 + i * 0.05 }}
-              className="bg-red-50 border border-red-100 rounded-md px-3 py-2 flex items-center gap-2"
+              className="bg-red-50 border border-red-100 px-3 py-2 flex items-center gap-2 rounded-full"
             >
               <AlertCircle className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
               <span className="text-red-700 font-mono text-xs">{p}</span>
@@ -136,17 +137,24 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="bg-slate-900 rounded-xl p-6"
+        className="bg-[#1D1D20] rounded-xl overflow-hidden shadow-lg border border-white/10 font-mono"
       >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest flex-shrink-0">
-            {'// INSIGHT'}
-          </span>
-          <p className="text-slate-300 text-sm leading-relaxed">
-            Even after I understood it, I found it frustrating and unintuitive. If a designer who knows the system finds it irritating,
-            <span className="text-emerald-400 font-medium"> a new user trying to adopt ML for the first time has almost no chance.</span>
-            That realization directly pushed me toward inventing a guided, step-based workflow.
-          </p>
+        {/* Terminal Header */}
+        <div className="bg-[#2D2D30] px-4 py-2 flex gap-2 items-center border-b border-white/5">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+          <span className="ml-2 text-[10px] text-slate-500 font-sans">system_insight.log</span>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 text-slate-300 text-sm leading-relaxed font-mono">
+          <div className="flex items-start gap-3">
+            <span className="font-mono text-emerald-400 flex-shrink-0 mt-0.5">$</span>
+            <p>
+              <strong className="text-emerald-400 font-medium">Insight:</strong> The core problem wasn't the algorithm—it was the <span className="text-white">fragmented workflow</span>. Users didn't know *where* to start or *how* to finish without error.
+            </p>
+          </div>
         </div>
       </motion.div>
     </div>

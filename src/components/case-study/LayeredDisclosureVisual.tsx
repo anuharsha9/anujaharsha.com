@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { User, Sliders, Code, CheckCircle2 } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface LayeredDisclosureVisualProps {
   isLightBackground?: boolean
@@ -65,25 +66,18 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
   return (
     <div className="space-y-6">
       {/* Section Header - More Compact */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center space-y-2"
-      >
-        <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest">
-          {'// CONFIGURATION_MATRIX'}
-        </span>
-        <h3 className="font-serif text-slate-900 text-2xl md:text-3xl">
-          Balancing Model Control with Simplicity
-        </h3>
-        <p className="text-slate-500 text-sm max-w-2xl mx-auto">
-          Layered disclosure: serve multiple user types within a single experience.
-        </p>
-      </motion.div>
+      <ComponentHeading
+        variant="block"
+        tag="// CONFIGURATION_MATRIX"
+        title="Balancing Model Control with Simplicity"
+        description="Layered disclosure: serve multiple user types within a single experience."
+        color="teal"
+        align="center"
+        className="mb-8"
+      />
 
-      {/* Configuration Matrix - 3 User Levels - More Compact */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Configuration Matrix - 3 User Levels - Modern Clean Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {layers.map((l, i) => {
           const IconComponent = l.icon
           return (
@@ -93,26 +87,28 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg hover:border-[var(--accent-teal-300)] transition-all duration-300"
+              className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {/* Top: Icon + Headline */}
-                <div className="flex items-center gap-3">
-                  <IconComponent className="w-6 h-6 text-[var(--accent-teal)]" />
+                <div className="flex flex-col gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[var(--accent-teal-50)] flex items-center justify-center">
+                    <IconComponent className="w-5 h-5 text-[var(--accent-teal)]" />
+                  </div>
                   <div>
-                    <h4 className="font-serif text-lg text-slate-900">{l.level}</h4>
-                    <p className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
+                    <h4 className="font-medium text-lg text-slate-900">{l.level}</h4>
+                    <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">
                       {l.user}
                     </p>
                   </div>
                 </div>
 
-                {/* Features List - Compact */}
-                <ul className="space-y-1.5 pt-3 border-t border-slate-100">
+                {/* Features List - Clean */}
+                <ul className="space-y-2 pt-2">
                   {l.features.map((f, j) => (
-                    <li key={j} className="text-slate-600 text-xs flex items-start gap-2">
-                      <span className="text-[var(--accent-teal)] mt-0.5 font-mono text-[10px]">+</span>
-                      <span className="leading-snug">{f}</span>
+                    <li key={j} className="text-slate-600 text-sm flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] mt-1.5 flex-shrink-0 opacity-50"></span>
+                      <span className="leading-relaxed">{f}</span>
                     </li>
                   ))}
                 </ul>
@@ -122,48 +118,51 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
         })}
       </div>
 
-      {/* Compact Two-Column Layout for Safety + Backlog */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* System Safety Checks - Compact */}
+      {/* Modern Two-Column Layout for Safety + Backlog */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+        {/* System Safety Checks - Clean */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-5"
+          className="bg-emerald-50/30 border border-emerald-100/50 p-6 rounded-2xl"
         >
-          <div className="flex items-center gap-2 mb-3">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            <span className="font-mono text-[10px] text-emerald-700 uppercase tracking-widest">
-              {'// SAFETY_CHECKS'}
-            </span>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 rounded-full bg-emerald-100/50 flex items-center justify-center">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            </div>
+            <h5 className="font-medium text-emerald-900 text-sm uppercase tracking-wider">Safety guardrails</h5>
           </div>
-          <ul className="space-y-2">
+          <ul className="grid grid-cols-1 gap-3">
             {safetyChecks.map((check, i) => (
-              <li key={i} className="text-emerald-900 text-xs flex items-start gap-2">
-                <span className="text-emerald-500 font-mono mt-0.5">✓</span>
-                <span className="leading-snug">{check}</span>
+              <li key={i} className="text-slate-700 text-sm flex items-start gap-3">
+                <span className="text-emerald-400 mt-0.5">•</span>
+                <span className="leading-relaxed">{check}</span>
               </li>
             ))}
           </ul>
         </motion.div>
 
-        {/* Architectural Backlog - Compact */}
+        {/* Architectural Backlog - Clean */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-slate-50 border border-dashed border-slate-300 rounded-xl p-5"
+          className="bg-slate-50/50 border border-slate-100 p-6 rounded-2xl"
         >
-          <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest block mb-3">
-            {'// POST_LAUNCH_ROADMAP'}
-          </span>
-          <ul className="space-y-2">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 rounded-full bg-slate-200/50 flex items-center justify-center">
+              <span className="font-mono text-xs font-bold text-slate-500">..</span>
+            </div>
+            <h5 className="font-medium text-slate-900 text-sm uppercase tracking-wider">Future Roadmap</h5>
+          </div>
+          <ul className="grid grid-cols-1 gap-3">
             {backlog.map((item, i) => (
-              <li key={i} className="text-slate-600 text-xs flex items-start gap-2">
-                <span className="text-slate-400 font-mono mt-0.5">→</span>
-                <span className="leading-snug">{item}</span>
+              <li key={i} className="text-slate-500 text-sm flex items-start gap-3">
+                <span className="text-slate-300 mt-0.5">→</span>
+                <span className="leading-relaxed italic">{item}</span>
               </li>
             ))}
           </ul>
@@ -176,7 +175,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-slate-900 rounded-xl p-4"
+        className="bg-slate-900 p-4"
       >
         <div className="flex items-start gap-3">
           <span className="font-mono text-xs text-emerald-400 flex-shrink-0">

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
 import PageShell from '@/components/layout/PageShell'
@@ -13,12 +13,6 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
-})
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-serif',
 })
 
 const jetbrains = JetBrains_Mono({
@@ -131,7 +125,7 @@ export default function RootLayout({
         {/* Preload critical assets for faster LCP */}
         <link rel="preload" href="/assets/brain-gears-white.svg" as="fetch" crossOrigin="anonymous" />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${jetbrains.variable} font-sans antialiased`} suppressHydrationWarning>
         <LoadingScreen />
         <Suspense fallback={null}>
           <GoogleAnalytics />

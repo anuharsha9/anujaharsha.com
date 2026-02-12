@@ -3,13 +3,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { MousePointer, Workflow, Layout, BarChart3, Sparkles } from 'lucide-react'
+import { MousePointer, Workflow, Layout, BarChart3, Sparkles, Terminal } from 'lucide-react'
 import { getTheme } from '@/lib/design-system'
 import AutoSequenceDataViewer from './AutoSequenceDataViewer'
-
-interface DesignIterationLogProps {
-  isLightBackground?: boolean
-}
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 export interface TabImage {
   src: string
@@ -120,7 +117,7 @@ export default function DesignIterationLog({
         },
         {
           src: '/images/case-study/ml-functions/7. Train Model Workflow - Step 4 - Configure Hyperparameters.png',
-          alt: 'Step 4 - Configure Hyperparameters',
+          alt: 'Step 4 - Configure Hyperparameters (optional for experts)',
           caption: 'Step 4: Configure Hyperparameters (optional for experts)',
           figNumber: 'FIG_11',
         },
@@ -227,131 +224,145 @@ export default function DesignIterationLog({
   const activeTabData = tabs.find(t => t.id === activeTab)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 py-12">
+      {/* Section Header */}
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center space-y-4"
+        className="max-w-4xl mx-auto"
       >
-        <span className={`font-mono text-xs ${t.textAccent} uppercase tracking-widest`}>
-          {'// DESIGN_EVOLUTION'}
-        </span>
-        <h3 className={`font-serif ${t.text} text-3xl md:text-4xl lg:text-5xl`}>
-          {title}
-        </h3>
-        <p className={`${t.textMuted} text-lg max-w-3xl mx-auto leading-relaxed`}>
-          {description}
-        </p>
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag="// ARTIFACT_GALLERY"
+          title={title}
+          description={description}
+          color="slate"
+          className="mb-12"
+        />
       </motion.div>
 
-      {/* Streaming Platform Layout */}
+      {/* Interactive Gallery */}
       <div className="space-y-8">
-        {/* 1. Top Navigation Pills */}
-        <div className="flex items-center justify-center">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide max-w-full px-4 snap-x">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`
-                   flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 snap-center
-                   ${activeTab === tab.id
-                    ? `${t.bgAccent === 'bg-[var(--accent-teal-soft)]' ? 'bg-[var(--accent-teal)]' : t.bgAccent} text-white shadow-md transform scale-105`
-                    : `${t.bgAlt} pl-3 border ${t.border} ${t.textMuted} hover:border-[var(--border-secondary)]`}
-                 `}
-              >
-                <span className={activeTab === tab.id ? 'text-white' : t.textMuted}>
-                  {tab.icon}
-                </span>
-                <span>{tab.label}</span>
-                {tab.isKey && activeTab !== tab.id && (
-                  <span className="ml-1 flex-shrink-0 bg-amber-100 text-amber-700 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded">
-                    Key
+        {/* Navigation Tabs */}
+        <div className="flex justify-center">
+          <div className="inline-flex bg-slate-100 p-1.5 rounded-full overflow-x-auto max-w-full">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`
+                                relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
+                                ${isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-700'}
+                            `}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 bg-white shadow-sm rounded-full"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    {tab.icon}
+                    <span>{tab.label}</span>
                   </span>
-                )}
-              </button>
-            ))}
+                </button>
+              )
+            })}
           </div>
         </div>
 
-        {/* 2. Content Stage */}
+        {/* Content Stage */}
         <AnimatePresence mode="wait">
           {activeTabData && (
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4 }}
-              className="space-y-6"
+              className="space-y-8"
             >
-              {/* Feature Title */}
-              <div className="text-center max-w-4xl mx-auto space-y-3">
-                <div className="flex items-center justify-center gap-3">
-                  {activeTabData.specCaption && (
-                    <span className={`font-mono text-xs ${t.textAccent} uppercase tracking-widest`}>
-                      {'// '}{activeTabData.specCaption}
-                    </span>
-                  )}
+              {/* Context Header */}
+              <div className="text-center max-w-3xl mx-auto space-y-4">
+                <div>
+                  <h4 className="text-2xl font-light text-slate-900 mb-2">
+                    {activeTabData.title}
+                  </h4>
+                  <p className="text-slate-600 leading-relaxed font-light">
+                    {activeTabData.description}
+                  </p>
                 </div>
-                <h4 className={`font-serif text-2xl md:text-3xl ${t.text}`}>
-                  {activeTabData.title}
-                </h4>
-                <p className={`${t.textMuted} leading-relaxed`}>
-                  {activeTabData.description}
-                </p>
 
-                {/* Quote Block */}
+                {/* Featured Quote */}
                 {activeTabData.quote && (
-                  <div className={`mt-4 inline-block ${t.bgAccent} border-l-4 ${t.borderAccent === 'border-[var(--accent-teal)]/30' ? 'border-[var(--accent-teal)]' : t.borderAccent} px-6 py-3 rounded-r-lg max-w-2xl mx-auto text-left`}>
-                    <p className={`font-serif italic text-lg ${t.text} opacity-80 mb-1`}>
-                      &quot;{activeTabData.quote.text}&quot;
-                    </p>
-                    <span className={`font-mono text-xs ${t.textAccent} uppercase tracking-widest block text-right`}>
+                  <div className="mt-6">
+                    <blockquote className="text-xl font-serif italic text-slate-800 leading-relaxed">
+                      &ldquo;{activeTabData.quote.text}&rdquo;
+                    </blockquote>
+                    <cite className="block mt-2 text-xs font-bold uppercase tracking-widest text-slate-400 not-italic">
                       — {activeTabData.quote.attribution}
-                    </span>
+                    </cite>
                   </div>
                 )}
               </div>
 
-              {/* The Viewer */}
-              <AutoSequenceDataViewer
-                images={activeTabData.images.map(img => ({
-                  src: img.src,
-                  alt: img.alt,
-                  caption: `// ${img.figNumber}: ${img.caption}`
-                }))}
-                title={activeTabData.title}
-              />
+              {/* Viewer Component */}
+              <div className="rounded-2xl overflow-hidden shadow-xl bg-white border border-slate-100">
+                <AutoSequenceDataViewer
+                  images={activeTabData.images.map(img => ({
+                    src: img.src,
+                    alt: img.alt,
+                    caption: `// ${img.figNumber}: ${img.caption}`
+                  }))}
+                  title={activeTabData.title}
+                />
+              </div>
+
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* System Outcome Footer */}
+      {/* Footer Insight */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className={`${t.monitor.bg} rounded-xl p-6`}
+        transition={{ delay: 0.2 }}
+        className="bg-[#1D1D20] rounded-xl p-6 shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
       >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-sm text-emerald-400 flex-shrink-0">
-            {footerContent ? footerContent.label : '> ITERATION_INSIGHT:'}
-          </span>
-          {footerContent ? (
-            <div className="text-slate-300 text-sm leading-relaxed">
-              {footerContent.text}
-            </div>
-          ) : (
-            <p className="text-slate-300 text-sm leading-relaxed">
-              The tension between <span className="text-emerald-400 font-medium">data scientist depth</span> and <span className="text-emerald-400 font-medium">user clarity</span> produced the best results.
-              From hand-drawn wireframes to pixel-perfect specs — 21 key artifacts documenting 6–8 months of cross-functional iteration.
-            </p>
-          )}
+        {/* Terminal Header */}
+        <div className="flex gap-2 mb-4 opacity-50">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+        </div>
+
+        <div className="flex items-start gap-4">
+          <div className="bg-emerald-500/10 p-2 rounded-lg">
+            <Terminal className="w-5 h-5 text-emerald-400" />
+          </div>
+          <div className="space-y-1">
+            <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest block mb-1">
+              {footerContent ? footerContent.label : 'Iteration Insight'}
+            </span>
+            {footerContent ? (
+              <div className="text-slate-300 text-sm font-light leading-relaxed font-sans">
+                {footerContent.text}
+              </div>
+            ) : (
+              <p className="text-slate-300 text-sm font-light leading-relaxed font-sans">
+                The tension between <strong className="text-emerald-300 font-medium">data scientist depth</strong> and <strong className="text-emerald-300 font-medium">user clarity</strong> produced the best results.
+                From hand-drawn wireframes to pixel-perfect specs — 21 key artifacts documenting 6–8 months of cross-functional iteration.
+              </p>
+            )}
+          </div>
         </div>
       </motion.div>
 

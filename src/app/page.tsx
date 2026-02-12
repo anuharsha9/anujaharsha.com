@@ -43,11 +43,6 @@ export default function Home() {
         THE ENERGY STACK (The 4 Era Blocks)
         Replaces WorkGrid, SocialProof, GrowthStory, Archive.
       */}
-
-      {/* 
-        THE ENERGY STACK (The 4 Era Blocks)
-        Replaces WorkGrid, SocialProof, GrowthStory, Archive.
-      */}
       <div id="work-overview">
         <DesignEngineerBlock />
         <EnergyStack />

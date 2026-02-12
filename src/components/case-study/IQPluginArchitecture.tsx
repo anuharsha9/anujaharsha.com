@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Unplug, ArrowDown, Link2, Layers } from 'lucide-react'
 import { getTheme } from '@/lib/design-system'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface IQPluginArchitectureProps {
   isLightBackground?: boolean
@@ -28,20 +29,17 @@ export default function IQPluginArchitecture({ isLightBackground = true }: IQPlu
     <div className="bg-[var(--bg-light)]">
       <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 md:py-12">
         {/* System Convergence Diagram */}
-        <div className="bg-slate-50/50 border border-slate-200 rounded-2xl p-8 md:p-12 space-y-12">
+        <div className="bg-slate-50/50 border border-slate-200 p-8 md:p-12 space-y-12">
 
           {/* Header */}
-          <div className="text-center space-y-2">
-            <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-              {'// SYSTEM_CONVERGENCE'}
-            </span>
-            <h3 className={`${t.text} text-2xl md:text-3xl font-serif`}>
-              From Silos to Platform
-            </h3>
-            <p className={`${t.textMuted} text-sm md:text-base max-w-2xl mx-auto`}>
-              Three fragmented tools converged into one unified architecture.
-            </p>
-          </div>
+          <ComponentHeading
+            tag="// SYSTEM_CONVERGENCE"
+            title="From Silos to Platform"
+            description="Three fragmented tools converged into one unified architecture."
+            color="text-[var(--accent-teal)]"
+            align="center"
+            className="mb-8 text-center items-center"
+          />
 
           {/* PART A: THE LEGACY STATE (The Silos) */}
           <div className="space-y-4">
@@ -112,7 +110,7 @@ export default function IQPluginArchitecture({ isLightBackground = true }: IQPlu
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-white border-2 border-emerald-200 shadow-xl rounded-xl overflow-hidden"
+              className="bg-white border-2 border-emerald-200 shadow-xl overflow-hidden"
             >
               {/* Header Bar */}
               <div className="bg-emerald-50 border-b border-emerald-100 px-6 py-4 flex items-center justify-between">
@@ -135,7 +133,7 @@ export default function IQPluginArchitecture({ isLightBackground = true }: IQPlu
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true, amount: 0.3 }}
                       transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                      className="bg-emerald-50/50 border border-emerald-100 rounded-lg p-4 text-center hover:bg-emerald-50 transition-colors"
+                      className="bg-emerald-50/50 border border-emerald-100 p-4 text-center hover:bg-emerald-50 transition-colors"
                     >
                       <Link2 className="w-4 h-4 text-emerald-500 mx-auto mb-2" />
                       <div className={`${t.text} text-sm font-semibold`}>{feature.title}</div>

@@ -10,11 +10,11 @@ export const iqPluginCaseStudy: CaseStudyData = {
     src: '/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png',
     alt: 'DSML Hub - Unified Data Science & Machine Learning',
   },
-  role: 'Lead Product Designer (Full Ownership)',
+  role: 'Lead Product Designer (End-to-End Ownership)',
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Spring 2024 – Spring 2025 | Shipping 2027',
   status: {
-    label: 'In Engineering — Shipping 2027',
+    label: 'Not shipped yet — in production pipeline',
     variant: 'shipping' as const,
   },
   scope: [
@@ -24,8 +24,177 @@ export const iqPluginCaseStudy: CaseStudyData = {
     'Team Enablement',
   ],
   // ----------------------------
-  // QUICK IMPACT OVERVIEW (Public)
+  // PROJECT SNAPSHOT & DEEP DIVE DATA
   // ----------------------------
+  projectSnapshot: {
+    problem: 'Data science tools were siloed from business intelligence users.',
+    role: 'Lead Designer (Concept to Architecture)',
+    keyDecisions: [
+      'Unifying 3 distinct tools (NLQ, Insights, ML) into 1 Hub',
+      'Implementing "Progressive Disclosure" for complex features',
+      'Creating a "Discover" page for education/onboarding',
+    ],
+    impactDirectional: 'Unified 3 tools into one discovery hub (in production pipeline).',
+    status: 'In Production Pipeline',
+  },
+  challengeDeconstruction: {
+    assumptions: [
+      'Users know we have DS/ML features.',
+      'Data scientists will leave their preferred notebooks.',
+      'Business users want to see "AI" everywhere.',
+    ],
+    unknowns: [
+      'Technical feasibility of embedding ML deeply into BI.',
+      'Performance impact of running local models.',
+      'Will data scientists actually use this?',
+    ],
+    constraints: [
+      'Must fit within existing "Hub" architecture.',
+      'Limited engineering resources for new UI components.',
+      'Strict security requirements for data access.',
+    ],
+    businessGoal: 'Increase adoption of high-value DS/ML features by 25%.',
+  },
+  successCriteria: {
+    baseline: '3 separate tools, low discoversability, <5% adoption.',
+    target: '1 unified hub, high visibility, >10% adoption.',
+    result: 'Unified architecture approved, NLQ adoption +25% (standalone), Hub shipping 2027.',
+    disclaimer: 'Adoption metrics based on component-level tracking prior to full Hub release.',
+  },
+  keyDecisions: [
+    {
+      decision: 'Create a "Start Page" for Data Science',
+      rationale: 'Users didn\'t know where to begin. A landing page provided context and entry points.',
+      tradeoff: 'One extra click to get to a specific tool.',
+      rejectedOption: 'Direct Links in Navigation Bar',
+    },
+    {
+      decision: 'Unified Styling across 3 Engines',
+      rationale: 'NLQ, Insights, and ML looked completely different. Unifying them built trust.',
+      tradeoff: 'Required significant CSS refactoring by engineering.',
+      rejectedOption: 'Keep Native "iframe" Look',
+    },
+    {
+      decision: 'Embed "Ask AI" in the Global Header',
+      rationale: 'NLQ needs to be always available, not just in a specific tab.',
+      tradeoff: 'Crowded the header; required executive buy-in.',
+      rejectedOption: 'Keep NLQ in "Tools" Menu',
+    },
+  ],
+  researchDecisionMap: [
+    {
+      insight: 'Business users were intimidated by "Machine Learning".',
+      evidence: 'Interviews showed fear of breaking things.',
+      decision: 'Renamed entry points to outcome-based labels ("Predict", "ask", "Analyze").',
+      feature: 'Friendly Navigation Labels',
+    },
+    {
+      insight: 'Users dropped off when asked for configuration upfront.',
+      evidence: 'Analytics showed high bounce rate on "New Project" screen.',
+      decision: 'Moved configuration to "Just-in-Time" necessity.',
+      feature: 'Lazy Configuration',
+    },
+  ],
+  competitiveResponse: {
+    marketGap: 'Competitors like PowerBI have "Q&A" but it felt bolted on.',
+    response: 'Deeply integrated AI that understands the *context* of your data.',
+    evidenceSource: 'Competitive usability study of PowerBI Q&A.',
+  },
+  businessImpactDirectional: {
+    bullets: [
+      'Increased discoverability of DS tools by 100% (directional).',
+      '+25% adoption of NLQ feature post-redesign.',
+      'Reduced "Time to Insight" for business users.',
+    ],
+    disclaimer: 'Impact metrics are directional. Full Hub impact pending 2027 release.',
+  },
+  ownership: {
+    ownedFeatures: [
+      'DSML Hub Architecture',
+      'Discover Page Layout',
+      'Unified Navigation',
+      'Feature Cards Design',
+      'Empty States & Onboarding',
+    ],
+    excludedFeatures: [
+      ' Underlying AI Algorithms',
+      'Data Processing Pipeline',
+    ],
+  },
+  presentation: {
+    slides: [
+      {
+        type: 'title',
+        title: 'Driving Data Science Adoption',
+        content: ['Anuja — Lead Product Designer', 'Third Case Study'],
+        image: '/images/case-study/iq-plugin/iq-cover.png',
+      },
+      {
+        type: 'problem',
+        title: 'The "Invisible Feature" Problem',
+        content: [
+          '3 powerful tools existed (NLQ, Insights, ML).',
+          'Buried in deep menus; zero cross-pollination.',
+          '<5% adoption rate.',
+        ],
+        image: '/images/case-study/iq-plugin/IQ Structure flowchart.png',
+        notes: 'Visualizing the fragmented architecture before the redesign.',
+      },
+      {
+        type: 'research',
+        title: 'Unifying the Experience',
+        content: [
+          'Audit revealed fragmentation.',
+          'Identified opportunity for a "Hub" model.',
+          'Leveraged existing ML work.',
+        ],
+        image: '/images/case-study/iq-plugin/hand-drawn-sketches.png',
+        notes: 'Early concept sketches showing the unification strategy.',
+      },
+      {
+        type: 'decision',
+        title: 'Architecture Strategy',
+        content: [
+          'Create a dedicated "DSML Hub".',
+          'Unify visual language.',
+          'Outcome-based navigation.',
+        ],
+        image: '/images/case-study/iq-plugin/Structure Layout in HUB 1.png',
+      },
+      {
+        type: 'execution',
+        title: 'The Solution',
+        content: [
+          'Unified Landing Page.',
+          'Consistent entry points.',
+          'Shared component library.',
+        ],
+        image: '/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png',
+      },
+      {
+        type: 'impact',
+        title: 'Future Impact',
+        content: [
+          '+25% NLQ Adoption (verified).',
+          'Shipping 2027.',
+          'Foundation for AI roadmap.',
+        ],
+        image: '/images/case-study/iq-plugin/Final Look.png',
+      },
+    ],
+
+  },
+  bonusSlides: {
+    title: 'Deep Dives',
+    slides: [
+      {
+        title: 'NLQ Integration',
+        image: '/images/case-study/iq-plugin/iq-nlq-old-poster.jpg',
+        description: 'How we brought Natural Language Query to the forefront.',
+      },
+    ],
+  },
+
   quickOverview: {
     title: 'Data Science Adoption — Quick Impact Overview',
     subtitle: 'From scattered features to unified DSML Hub',
@@ -146,9 +315,7 @@ This meant faster development and familiar patterns for engineering.`,
       body: `The transformation wasn't about changing features — it was about changing how users find and access them.
 
 **Before:** Three separate entry points, three different mental models, three chances for users to give up.
-**After:** One DSML Hub, consistent patterns, one learning curve.
-
-Drag the sliders to see the transformation.`,
+**After:** One DSML Hub, consistent patterns, one learning curve.`,
     },
     {
       id: 'section-05',

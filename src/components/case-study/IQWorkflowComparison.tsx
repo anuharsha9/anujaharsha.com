@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import ImpactDiff from './ImpactDiff'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface IQWorkflowComparisonProps {
   isLightBackground?: boolean
@@ -57,23 +58,21 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
   ]
 
   return (
-    <div className={`w-full py-10 md:py-12 ${isLightBackground ? 'bg-white' : 'bg-slate-50'}`}>
+    <div className={`w-full py-16 md:py-24 ${isLightBackground ? 'bg-white' : 'bg-slate-50'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-12">
-          <span className="font-mono text-[10px] text-[var(--accent-teal)] uppercase tracking-widest mb-3 block">
-            {'// BEFORE_AFTER: WORKFLOW_COMPARISON'}
-          </span>
-          <h3 className="font-serif text-2xl md:text-3xl text-slate-900 mb-4">
-            Current vs. IQ Plugin
-          </h3>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            Three features, three different entry points → One unified hub. Drag the slider to compare.
-          </p>
-        </div>
+        <ComponentHeading
+          variant="block"
+          tag="// BEFORE_&_AFTER"
+          title="Unifying Fragmented Workflows"
+          description="Three features, three different entry points → One unified hub. Drag the slider to compare."
+          color="teal"
+          align="center"
+          className="mb-16"
+        />
 
         {/* Comparison Sliders */}
-        <div className="space-y-16">
+        <div className="space-y-20">
           {comparisons.map((comparison) => (
             <motion.div
               key={comparison.id}
@@ -81,28 +80,31 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="space-y-6"
+              className="space-y-8"
             >
               {/* Comparison Title & Metric */}
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 px-1">
-                <h4 className="font-serif text-xl text-slate-900">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1">
+                <h4 className="text-2xl text-slate-900 font-light tracking-tight">
                   {comparison.title}
                 </h4>
-                <div className="font-mono text-xs text-[var(--accent-teal)] border-l-2 border-[var(--accent-teal)] pl-3">
+                <div className="flex items-center gap-3 text-sm font-medium text-[var(--accent-teal)]">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)]" />
                   {comparison.insight}
                 </div>
               </div>
 
               {/* The Styled Impact Slider */}
-              <ImpactDiff
-                beforeImage={comparison.beforeImage}
-                afterImage={comparison.afterImage}
-                beforeLabel={comparison.beforeLabel}
-                afterLabel={comparison.afterLabel}
-                beforeAlt={comparison.beforeAlt}
-                afterAlt={comparison.afterAlt}
-                isLightBackground={true} // Always light inside this container for now
-              />
+              <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+                <ImpactDiff
+                  beforeImage={comparison.beforeImage}
+                  afterImage={comparison.afterImage}
+                  beforeLabel={comparison.beforeLabel}
+                  afterLabel={comparison.afterLabel}
+                  beforeAlt={comparison.beforeAlt}
+                  afterAlt={comparison.afterAlt}
+                  isLightBackground={true}
+                />
+              </div>
             </motion.div>
           ))}
         </div>

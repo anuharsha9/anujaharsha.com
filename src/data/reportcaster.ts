@@ -10,9 +10,9 @@ export const reportcasterCaseStudy: CaseStudyData = {
     src: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
     alt: 'ReportCaster Explorer - Unified Schedule Management',
   },
-  role: 'UX Lead / UX Owner (End-to-End Ownership)',
+  role: 'UX Owner',
   company: 'Cloud Software Group — WebFOCUS',
-  timeframe: 'Sept 2022 – Nov 2023, Jan 2025 | Shipped April 2024',
+  timeframe: 'Sept 2022 – Nov 2023 | Shipped April 2024',
   status: {
     label: 'Shipping to 20M+ Users',
     variant: 'live' as const,
@@ -27,6 +27,196 @@ export const reportcasterCaseStudy: CaseStudyData = {
   // ----------------------------
   // QUICK IMPACT OVERVIEW (Public)
   // ----------------------------
+  // ----------------------------
+  // PROJECT SNAPSHOT & DEEP DIVE DATA
+  // ----------------------------
+  projectSnapshot: {
+    problem: '50-year-old scheduling system with 5 fragmented sub-products.',
+    role: 'Lead Designer (Research to Production)',
+    keyDecisions: [
+      'Rejecting independent product strategy (silo)',
+      'Abandoning plugin approach (technical constraints)',
+      'Adopting modal-based "Hub" architecture',
+    ],
+    impactDirectional: 'Consolidated 5 tools into 1 unified hub; powering 20M+ weekly schedules.',
+    status: 'Live',
+    scale: '20M+ Schedules',
+  },
+  challengeDeconstruction: {
+    assumptions: [
+      'Users want a separate scheduling tool.',
+      'We can rewrite the legacy backend.',
+      'Power users need every legacy setting exposed.',
+    ],
+    unknowns: [
+      'Full scope of legacy features (undocumented).',
+      'Technical feasibility of Hub integration.',
+      'Real user workflows (no direct access).',
+    ],
+    constraints: [
+      'No backend rewrite allowed.',
+      'Must support all legacy schedule types.',
+      'No direct access to end users.',
+    ],
+    businessGoal: 'Modernize the interface without breaking 50 years of backward compatibility.',
+  },
+  successCriteria: {
+    baseline: '5 fragmented tools, 4 clicks to start, no centralized view.',
+    target: '1 unified hub, 2 clicks to start, integrated dashboard.',
+    result: 'Achieved 1 hub, 2 clicks, full integration.',
+    disclaimer: 'Metrics are directional based on internal testing and architectural analysis.',
+  },
+  keyDecisions: [
+    {
+      decision: 'Pivot from Standalone App to Hub Modal',
+      rationale: 'Standalone app reinforced silos. Hub modal met users where they were.',
+      tradeoff: 'Less screen real estate for complex forms.',
+      rejectedOption: 'Standalone Application (V1)',
+    },
+    {
+      decision: 'Consolidate 5 Sub-products into 1 View',
+      rationale: 'Users shouldn\'t care which "tool" powers their schedule.',
+      tradeoff: 'Higher initial complexity in the main list view.',
+      rejectedOption: 'Keep distinct tabs for Lists vs Schedules',
+    },
+    {
+      decision: 'Use "Progressive Disclosure" for Recurrence',
+      rationale: 'Most schedules are simple (daily/weekly). Advanced options scared new users.',
+      tradeoff: 'Power users need one extra click for advanced settings.',
+      rejectedOption: 'Show all recurrence options upfront',
+    },
+  ],
+  researchDecisionMap: [
+    {
+      insight: 'Users hacked the UI to manage distribution lists.',
+      evidence: 'Support tickets showing "workarounds".',
+      decision: 'Elevated Distribution Lists to a first-class citizen.',
+      feature: 'Dedicated Distribution List Manager',
+    },
+    {
+      insight: 'Users got lost navigating between scheduling and reporting.',
+      evidence: 'Observed "tab switching" fatigue in demos.',
+      decision: 'Integrated scheduling directly into the Report context menu.',
+      feature: 'Context-aware "Schedule This" action',
+    },
+  ],
+  competitiveResponse: {
+    marketGap: 'Competitors offered modern UI but lacked our depth of recurrence options.',
+    response: 'Wrapped our powerful legacy engine in a modern, simple UI.',
+    evidenceSource: 'Competitive analysis of Tableau/PowerBI scheduling.',
+  },
+  businessImpactDirectional: {
+    bullets: [
+      'Reduced schedule creation time by ~50% (directional).',
+      'Zero loss of legacy functionality (100% parity).',
+      'Adopted by major enterprise clients within 3 months of launch.',
+    ],
+    disclaimer: 'Impact metrics are directional estimates based on workflow analysis and internal adoption data. Specific revenue or engagement numbers are confidential.',
+  },
+  ownership: {
+    ownedFeatures: [
+      'Task/Distribution List Controls',
+      'Recurrence Summaries',
+      'Log Reports Filters + Search + Copy/Download',
+      'Email Chips',
+      'Test Connection Button',
+      'Unified Schedule Dialog',
+      'Distribution List Manager',
+      'Access List Manager',
+      'Explorer View',
+      'Admin Dashboard',
+    ],
+    excludedFeatures: [
+      'OAuth Support (Backend)',
+      'SMTP/FTP Server Configuration',
+    ],
+  },
+  scaleAndResponsibility: {
+    metrics: [
+      { value: 'Millions', label: 'of end users' },
+      { value: 'Hundreds', label: 'of enterprise customers' },
+      { value: '20M+', label: 'schedules / week' },
+    ],
+    status: 'Powering 20M+ Schedules Weekly',
+    description: 'Shipped as part of WebFOCUS 9.3 — actively impacting millions of users daily. Mission-critical system that couldn\'t afford to break.',
+  },
+  presentation: {
+    slides: [
+      {
+        type: 'title',
+        title: 'Modernizing a 50-Year-Old Enterprise Scheduler',
+        content: ['Anuja — Senior Product Designer', 'Flagship Case Study'],
+        image: '/images/case-study/ReportCaster/rc-cover.png',
+      },
+      {
+        type: 'problem',
+        title: 'The Challenge',
+        content: [
+          '50-year-old legacy system.',
+          '5 fragmented sub-products.',
+          'Undocumented and complex.',
+          'Powering 20M+ weekly schedules.',
+        ],
+      },
+      {
+        type: 'research',
+        title: 'Discovery & Research',
+        content: [
+          'No direct user access.',
+          'Embedded in support calls.',
+          'Mapped the "undocumented" system.',
+          'Identified 3 key architectural pivots.',
+        ],
+        image: '/images/case-study/ReportCaster/rc-old-workflow-poster.jpg',
+      },
+      {
+        type: 'decision',
+        title: 'Architectural Decisions',
+        content: [
+          'Rejected V1: Independent Product (Siloed).',
+          'Rejected V2: Plugin (Technical Debt).',
+          'Shipped V3: Modal-based Hub Integration.',
+        ],
+      },
+      {
+        type: 'execution',
+        title: 'The Solution: Unified Hub',
+        content: [
+          'Consolidated 5 tools into 1 view.',
+          'Reduced creation clicks from 4 to 2.',
+          'introduced "Test Connection" button.',
+          'Simplified recurrence logic.',
+        ],
+        image: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
+      },
+      {
+        type: 'impact',
+        title: 'Business Impact',
+        content: [
+          'Shipped to 20M+ users.',
+          'Zero regression in functionality.',
+          'Set the pattern for all future Hub integrations.',
+          'Directionally improved time-on-task by 50%.',
+        ],
+      },
+    ],
+  },
+  bonusSlides: {
+    title: 'Deep Dives',
+    slides: [
+      {
+        title: 'Recurrence Logic',
+        image: '/images/case-study/ReportCaster/New SD - Recurrence - Weekly.png',
+        description: 'How we simplified complex recurrence patterns.',
+      },
+      {
+        title: 'Distribution Lists',
+        image: '/images/case-study/ReportCaster/Distribution List - Populated List view.png',
+        description: 'First-class management for distribution groups.',
+      },
+    ],
+  },
+
   quickOverview: {
     title: 'ReportCaster — Quick Impact Overview',
     subtitle: 'Enterprise scheduling system modernization',
@@ -59,13 +249,13 @@ export const reportcasterCaseStudy: CaseStudyData = {
     ],
     // Public demo URL removed - legacy link no longer available
     dataSheetUrl: 'https://www.ibi.com/content/dam/ibi/documents/data-sheet/webfocus-report-caster-data-sheet.pdf',
-    dataSheetLabel: 'View ReportCaster Data Sheet',
+    dataSheetLabel: 'ReportCaster Data Sheet',
     demoVideoUrl: 'https://www.youtube.com/watch?v=NvNFN6sz41M',
     demoVideoLabel: 'ReportCaster Public Demo',
     validationLinks: [
       {
         url: 'https://www.ibi.com/blog/introducing-webfocus-9-3',
-        label: 'WebFOCUS 9.3 Release Blog',
+        label: '9.3 Release Blog',
       },
       {
         url: 'https://community.ibi.com/articles/enhancing-the-ux-of-webfocus-reportcaster-a-path-to-improved-efficiency-and-user-satisfaction-r38/',

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ImageLightbox from './ImageLightbox'
-import HeroTerminal from './HeroTerminal'
+import { CalendarClock, ChartSpline, Bot } from 'lucide-react'
 import SignatureLogo from '@/components/brand/SignatureLogo'
 import CaseStudyNav from './CaseStudyNav'
 import SocialShareButtons from '@/components/sharing/SocialShareButtons'
@@ -49,7 +49,7 @@ export default function HeroMeta({
   heroTitle,
   heroSubheading,
   heroSubtitle,
-  coverImage,
+
   role,
   company,
   timeframe,
@@ -95,52 +95,55 @@ export default function HeroMeta({
   return (
     <>
       <motion.header
-        className="relative min-h-[60vh] sm:min-h-[65vh] flex items-center py-6 sm:py-8 md:py-10 bg-white"
+        className="relative min-h-[60vh] flex items-center py-12 md:py-16 lg:py-20 bg-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-
-
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-          {/* Case Study Navigation - Above Blueprint */}
-          <div className="text-center mb-6 md:mb-8">
+        <div className="w-full max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+          {/* Navigation - Centered at the top */}
+          <div className="mb-14 md:mb-20 flex justify-center">
             <CaseStudyNav />
           </div>
 
-          {/* ============================================
-              PHASE 1: THE BLUEPRINT CONTAINER
-              ============================================ */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-slate-50 rounded-2xl border border-slate-200 p-6 md:p-8 lg:p-12 mx-0 md:mx-4 shadow-sm"
-          >
-            {/* 2-Column Grid: Text Left (45%), Laptop Right (55%) */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12 xl:gap-16 items-center">
+          {/* Content lifted from inner card */}
+          {/* Top Section: Intro & Image */}
+          <div className="max-w-6xl mx-auto">
+            <div className="relative mb-16 isolate min-h-[400px] flex items-center">
 
-              {/* Left Column: Typography */}
-              <div className="space-y-5 md:space-y-6">
-                {/* Eyebrow */}
+              {/* Background Icon - Enlarged & Subtle Blue */}
+              <motion.div
+                className="absolute -right-[20%] md:-right-[10%] top-1/2 -translate-y-1/2 -z-10 select-none pointer-events-none opacity-[0.05] mix-blend-multiply"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 0.05, scale: 1 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+              >
+                {caseStudySlug === 'reportcaster' ? (
+                  <CalendarClock strokeWidth={0.5} className="w-[600px] h-[600px] md:w-[800px] md:h-[800px] text-blue-400" />
+                ) : caseStudySlug === 'ml-functions' ? (
+                  <ChartSpline strokeWidth={0.5} className="w-[600px] h-[600px] md:w-[800px] md:h-[800px] text-blue-400" />
+                ) : (
+                  <Bot strokeWidth={0.5} className="w-[600px] h-[600px] md:w-[800px] md:h-[800px] text-blue-400" />
+                )}
+              </motion.div>
+
+              {/* Left: Title & Intro (Main Content) */}
+              <div className="relative z-10 max-w-2xl lg:max-w-4xl space-y-8">
                 <motion.div
                   variants={heroSubVariant}
                   initial="hidden"
                   animate="visible"
-                  className="flex items-center gap-3"
+                  className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-600 text-sm font-medium border border-slate-200 rounded-full"
                 >
-                  <span className="font-mono text-[var(--accent-teal)] text-xs uppercase tracking-widest font-semibold">
-                    Case Study {getCaseStudyNumber()}
-                  </span>
-                  <div className="h-px flex-1 bg-slate-200 max-w-[100px]"></div>
+                  <span className="w-2 h-2 bg-[var(--accent-color)]" />
+                  <span>Case Study {getCaseStudyNumber()}</span>
                 </motion.div>
 
-                {/* H1 - Primary Headline */}
                 <motion.h1
                   variants={heroTitleVariant}
                   initial="hidden"
                   animate="visible"
-                  className="text-slate-900 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-serif leading-tight tracking-tight"
+                  className="text-4xl md:text-5xl lg:text-7xl font-serif font-medium text-slate-900 leading-[1.1] tracking-tight"
                 >
                   {caseStudySlug === 'reportcaster'
                     ? 'Modernizing a 50-Year-Old Enterprise Scheduler'
@@ -151,12 +154,11 @@ export default function HeroMeta({
                         : heroTitle}
                 </motion.h1>
 
-                {/* Sub-headline */}
                 <motion.p
                   variants={heroSubVariant}
                   initial="hidden"
                   animate="visible"
-                  className="text-slate-600 text-base md:text-lg leading-relaxed"
+                  className="text-lg md:text-xl text-slate-600 leading-relaxed font-light max-w-2xl"
                 >
                   {caseStudySlug === 'reportcaster'
                     ? 'Consolidating 5 disparate subsystems into one unified experience for 20M+ weekly schedules.'
@@ -170,165 +172,99 @@ export default function HeroMeta({
                       )
                   }
                 </motion.p>
+              </div>
+            </div>
 
-                {/* System Status Bar */}
-                {status && (
-                  <motion.div
-                    variants={heroSubVariant}
-                    initial="hidden"
-                    animate="visible"
-                    className="flex items-center gap-2 pt-2"
-                  >
-                    {status.variant === 'shipping' ? (
-                      // Shipping status - Amber badge style (signals "In Progress")
-                      <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-full px-3 py-1.5">
-                        <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                        <span className="font-mono text-xs text-amber-700 uppercase tracking-wider">
-                          {'// STATUS: '}{status.label.toUpperCase().replace(/\s+/g, '_')}
-                        </span>
-                      </div>
-                    ) : (
-                      // Live or other status - Default style
-                      <>
-                        <span className={`w-2 h-2 rounded-full ${status.variant === 'live' ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
-                          }`}></span>
-                        <span className="font-mono text-xs text-slate-500 uppercase tracking-wider">
-                          {status.label}
-                        </span>
-                      </>
-                    )}
-                  </motion.div>
-                )}
+            <motion.div
+              variants={heroSubVariant}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-10 border-t border-slate-200"
+            >
+              {/* Col 1: Role & Expertise */}
+              <div className="space-y-4">
+                <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest">Role & Expertise</h3>
+                <div className="space-y-3">
+                  <p className="font-medium text-slate-900 text-lg">{role}</p>
+                  {scope.length > 0 && (
+                    <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                      {scope.join(' • ')}
+                    </p>
+                  )}
+                </div>
+              </div>
 
-                {/* Data Sheet Link */}
-                {dataSheetUrl && (
-                  <motion.div
-                    variants={heroSubVariant}
-                    initial="hidden"
-                    animate="visible"
-                  >
+              {/* Col 2: Timeline */}
+              <div className="space-y-4">
+                <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest">Timeline</h3>
+                <div className="space-y-2">
+                  <p className="font-medium text-slate-900 text-lg">{timeframe.split('|')[0].trim()}</p>
+
+                  {/* Status Display: Priority to Timeframe pipe, else Status object */}
+                  {timeframe.includes('|') ? (
+                    <div className="inline-flex items-center gap-2 bg-[var(--accent-teal-soft)]/10 px-3 py-1 w-fit border border-[var(--accent-teal)]/20 rounded-full">
+                      <span className="w-2 h-2 bg-[var(--accent-teal)]"></span>
+                      <p className="text-sm text-[var(--accent-teal)] font-bold tracking-wide">
+                        {timeframe.split('|')[1].trim().toUpperCase()}
+                      </p>
+                    </div>
+                  ) : status && (
+                    <div className="inline-flex items-center gap-2 bg-slate-100 px-3 py-1 w-fit border border-slate-200 rounded-full">
+                      <span className={`w-2 h-2 ${status.variant === 'live' ? 'bg-[var(--accent-teal)]' : 'bg-amber-500'}`}></span>
+                      <p className="text-xs text-slate-600 font-bold tracking-wide font-mono uppercase">
+                        {status.label}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Col 3: Assets */}
+              {/* Col 3: Assets */}
+              <div className="space-y-4">
+                <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest">Assets</h3>
+                <div className="flex flex-col gap-3">
+                  {dataSheetUrl && (
                     <a
                       href={dataSheetUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-slate-500 hover:text-[var(--accent-teal)] transition-colors text-sm font-mono"
+                      className="group flex items-center gap-3 p-3 -ml-3 hover:bg-slate-50 border border-transparent hover:border-slate-200 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                     >
-                      <svg aria-hidden="true" className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                      <span>{dataSheetLabel || 'View Data Sheet'}</span>
-                    </a>
-                  </motion.div>
-                )}
-
-                {/* Validation Links - Third-party proof */}
-                {validationLinks && validationLinks.length > 0 && (
-                  <motion.div
-                    variants={heroSubVariant}
-                    initial="hidden"
-                    animate="visible"
-                    className="flex flex-wrap gap-x-4 gap-y-1"
-                  >
-                    {validationLinks.map((link, index) => (
-                      <a
-                        key={index}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-slate-500 hover:text-[var(--accent-teal)] transition-colors text-sm font-mono"
-                      >
-                        <svg aria-hidden="true" className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <div className="w-8 h-8 bg-slate-100 flex items-center justify-center text-slate-500 rounded-lg group-hover:bg-[var(--accent-teal)] group-hover:text-white transition-colors duration-300">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        <span>{link.label}</span>
-                      </a>
-                    ))}
-                  </motion.div>
-                )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-slate-700 group-hover:text-slate-900">{dataSheetLabel || 'View Data Sheet'}</p>
+                      </div>
+                    </a>
+                  )}
 
-                {/* Technical Spec Tags */}
-                {scope.length > 0 && (
-                  <motion.div
-                    variants={heroSubVariant}
-                    initial="hidden"
-                    animate="visible"
-                    className="flex flex-wrap gap-2 pt-2"
-                  >
-                    {scope.map((item, index) => (
-                      <span
-                        key={index}
-                        className="font-mono text-[10px] text-slate-500 uppercase tracking-wider px-2 py-1 bg-white border border-slate-200 rounded"
-                      >
-                        {item.replace(/\s+/g, '_')}
-                      </span>
-                    ))}
-                  </motion.div>
-                )}
+                  {validationLinks?.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3 p-3 -ml-3 hover:bg-slate-50 border border-transparent hover:border-slate-200 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+                    >
+                      <div className="w-8 h-8 bg-slate-100 flex items-center justify-center text-slate-500 rounded-lg group-hover:bg-[var(--accent-teal)] group-hover:text-white transition-colors duration-300">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-slate-700 group-hover:text-slate-900">{link.label}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
+            </motion.div>
 
-              {/* Right Column: System Window with Bleed Effect */}
-              {coverImage && (
-                <motion.div
-                  className="relative h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] overflow-hidden rounded-xl"
-                  variants={fadeIn}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {/* The "Cut" Effect - Terminal bleeds off edges */}
-                  <div
-                    className="absolute top-0 left-0 transform translate-y-2 sm:translate-y-4 lg:translate-y-6 translate-x-2 sm:translate-x-4 lg:translate-x-8 scale-[1.02] sm:scale-105 lg:scale-110 origin-top-left"
-                    style={{ width: 'calc(100% + 40px)' }}
-                  >
-                    <HeroTerminal
-                      imageSrc={coverImage.src}
-                      fileName={
-                        caseStudySlug === 'iq-plugin'
-                          ? 'iq_hub_unified_view.tsx'
-                          : caseStudySlug === 'ml-functions'
-                            ? 'ml_wizard_pipeline.py'
-                            : 'legacy_scheduler_refactor.js'
-                      }
-                      accentColor={
-                        caseStudySlug === 'iq-plugin'
-                          ? 'var(--accent-violet)' // Violet for IQ
-                          : caseStudySlug === 'ml-functions'
-                            ? 'var(--accent-teal)' // Teal for ML
-                            : 'var(--accent-amber)' // Amber for RC
-                      }
-                      alt={coverImage.alt}
-                    />
-                  </div>
-                </motion.div>
-              )}
-            </div>
-
-            {/* Project Meta Strip - Compact single line */}
-            <div className="mt-6 pt-4 border-t border-slate-200 space-y-4">
-              <div className="flex items-center gap-3 text-xs md:text-sm text-slate-600">
-                <span>{role}</span>
-                <span className="text-slate-300">·</span>
-                <span>{company}</span>
-                <span className="text-slate-300">·</span>
-                <span>{timeframe}</span>
-              </div>
-
-              {/* Social Share Buttons */}
-              {shareUrl && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.5 }}
-                >
-                  <SocialShareButtons
-                    title={heroTitle}
-                    url={shareUrl}
-                    description={heroSubtitle}
-                  />
-                </motion.div>
-              )}
-            </div>
-          </motion.div>
+          </div>
         </div>
       </motion.header>
 

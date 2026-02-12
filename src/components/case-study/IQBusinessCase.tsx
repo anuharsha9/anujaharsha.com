@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { getTheme } from '@/lib/design-system'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface IQBusinessCaseProps {
   isLightBackground?: boolean
@@ -28,23 +29,15 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
   return (
     <div className="space-y-10">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center space-y-3"
-      >
-        <span className="font-mono text-xs text-[var(--accent-violet)] uppercase tracking-widest">
-          {'// BUSINESS_CONTEXT'}
-        </span>
-        <h3 className={`${t.text} text-2xl md:text-3xl font-serif`}>
-          Why IQ Plugin Exists
-        </h3>
-        <p className={`${t.textMuted} text-sm md:text-base max-w-3xl mx-auto`}>
-          Three powerful features. Scattered across the platform. Low adoption.
-          <span className="font-semibold text-slate-700"> The business needed a unified DSML hub.</span>
-        </p>
-      </motion.div>
+      <ComponentHeading
+        variant="block"
+        tag="// BUSINESS_CASE"
+        title="Why Design A New Plugin?"
+        description="The existing plugin was functional but created significant friction in the analyst workflow, leading to potential revenue loss."
+        color="indigo"
+        align="center"
+        className="mb-12"
+      />
 
       {/* The Split-Screen Visual */}
       <motion.div
@@ -52,7 +45,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-slate-200 rounded-xl overflow-hidden"
+        className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-slate-200 overflow-hidden"
       >
         {/* Left Pane - The Problem */}
         <div className="bg-slate-50 p-6 md:p-8 border-b md:border-b-0 md:border-r border-slate-200">
@@ -145,7 +138,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-              className="bg-white border border-slate-200 p-6 rounded-lg hover:shadow-md transition-shadow"
+              className="bg-white border border-slate-200 p-6 hover:shadow-md transition-shadow"
             >
               <span className="font-mono text-[10px] text-[var(--accent-violet)] uppercase tracking-widest block mb-3">
                 &gt; {driver.tag}
@@ -164,7 +157,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="bg-slate-900 rounded-xl p-6"
+        className="bg-slate-900 p-6"
       >
         <div className="flex items-start gap-3">
           <span className="font-mono text-sm text-[var(--accent-violet)] flex-shrink-0">

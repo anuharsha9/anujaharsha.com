@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface Project {
   id: string
@@ -66,16 +67,14 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
     >
       <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         {/* Header - Inline with cards */}
-        <div className="flex items-center justify-between mb-6">
-          <h2
-            id="system-index-heading"
-            className="text-lg md:text-xl font-serif text-white"
-          >
-            Explore Other Architectures
-          </h2>
-          <span className="font-mono text-slate-600 text-xs tracking-widest uppercase hidden sm:block">
-            {'// SYSTEM_INDEX'}
-          </span>
+        <div className="mb-6">
+          <ComponentHeading
+            tag="// SYSTEM_INDEX"
+            title="Explore Other Architectures"
+            color="text-slate-500"
+            align="center"
+            className="mb-0 [&_h3]:text-white [&_p]:text-slate-400"
+          />
         </div>
 
         {/* Cards Grid - 2 Column, Compact */}
@@ -85,7 +84,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
               key={project.id}
               href={project.link}
               className={`
-                group relative bg-slate-900 border border-slate-800 p-5 rounded-xl overflow-hidden
+                group relative bg-slate-900 border border-slate-800 p-5 overflow-hidden
                 transition-all duration-300 ${project.hoverColor}
                 hover:bg-slate-800/50
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white

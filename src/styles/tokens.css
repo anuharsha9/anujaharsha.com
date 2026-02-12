@@ -1,69 +1,57 @@
 :root {
   /* ============================================
-     LIGHT THEME - ARCHITECTURAL/INDUSTRIAL DESIGN
-     Swiss Style: High whitespace, sharp typography, clean lines
+     LIGHT THEME - APPLE MINIMALISM
+     Clean, Soft, Human-Centric
      ============================================ */
 
   /* ============================================
-     BACKGROUND COLORS - Paper White Palette
+     BACKGROUND COLORS - Soft & Clean
      ============================================ */
-  /* Primary background - Paper white, not harsh */
-  --bg-primary: #f8fafc;
-  /* slate-50 */
-  --bg-secondary: #ffffff;
-  /* Pure white for cards */
-  --bg-tertiary: #f1f5f9;
-  /* slate-100 for subtle sections */
+  /* Primary background - Pure White */
+  --bg-primary: #ffffff;
+  /* Secondary - Apple's Light Gray */
+  --bg-secondary: #F5F5F7;
+  /* Tertiary - Very subtle for differentiation */
+  --bg-tertiary: #FAFAFA;
 
-  /* Legacy dark backgrounds (kept for compatibility during transition) */
-  --bg-dark: #f8fafc;
-  /* Now maps to light */
+  /* Legacy dark backgrounds (kept for compatibility) */
+  --bg-dark: #F5F5F7;
   --bg-dark-alt: #ffffff;
-  /* Now maps to white */
-  --bg-light: #f8fafc;
-  /* slate-50 */
+  --bg-light: #F5F5F7;
   --bg-light-alt: #ffffff;
-  /* Pure white */
 
   /* ============================================
-     TEXT COLORS - High Contrast Typography
+     TEXT COLORS - High Legibility
      ============================================ */
-  /* Headings - Almost black, high contrast */
-  --text-heading: #0f172a;
-  /* slate-900 */
-  --text-primary: #0f172a;
-  /* slate-900 */
+  /* Headings - Soft Black */
+  --text-heading: #1d1d1f;
+  --text-primary: #1d1d1f;
 
-  /* Body text - Readable, softer gray */
-  --text-body: #475569;
-  /* slate-600 */
-  --text-muted: #64748b;
-  /* slate-500 */
-  --text-dim: #94a3b8;
-  /* slate-400 */
+  /* Body text - Dark Gray for readability */
+  --text-body: #424245;
+  --text-muted: #86868b;
+  --text-dim: #d2d2d7;
 
-  /* Legacy support - remap to light theme values */
-  --text-primary-dark: #0f172a;
-  --text-muted-dark: #64748b;
-  --text-primary-light: #0f172a;
-  --text-muted-light: #475569;
+  /* Legacy support */
+  --text-primary-dark: #1d1d1f;
+  --text-muted-dark: #86868b;
+  --text-primary-light: #1d1d1f;
+  --text-muted-light: #424245;
 
   /* ============================================
      ACCENT COLORS - Teal (#0BA2B5)
-     Primary accent for "Tech Edge" and interactive elements
+     Refined for the new aesthetic
      ============================================ */
   --accent: #078B9C;
-  /* Primary teal accent - WCAG AA compliant */
   --accent-light: #0990A2;
   --accent-dark: #077D8E;
-  --accent-soft: rgba(7, 139, 156, 0.1);
-  --accent-hover: rgba(7, 139, 156, 0.15);
+  --accent-soft: rgba(7, 139, 156, 0.08);
+  /* More subtle */
+  --accent-hover: rgba(7, 139, 156, 0.12);
 
-  /* Teal palette - WCAG AA Compliant 
-     Primary teal updated to #078B9C for 4.5:1 contrast on white */
+  /* Teal palette */
   --accent-teal: #078B9C;
-  /* WCAG AA compliant - 4.5:1 contrast ratio */
-  --accent-teal-soft: rgba(7, 139, 156, 0.1);
+  --accent-teal-soft: rgba(7, 139, 156, 0.08);
   --accent-teal-50: #E6F7F9;
   --accent-teal-100: #CCEFF3;
   --accent-teal-200: #99DFE7;
@@ -71,34 +59,28 @@
   --accent-teal-400: #33BFCF;
   --accent-teal-500: #0DB5CA;
   --accent-teal-600: #0BA2B5;
-  /* Original brand teal - for backgrounds/decorative only */
   --accent-teal-700: #0990A2;
   --accent-teal-800: #077D8E;
   --accent-teal-900: #056A7A;
 
   /* ============================================
-     SECONDARY ACCENT - Blue (#2563EB)
-     Complementary accent for:
-     - Goals/aspirations in personas
-     - Informational callouts
-     - Links needing distinction from primary CTA
-     - Data visualization secondary color
+     SECONDARY ACCENT - Blue (#0071e3 - Apple Blue)
      ============================================ */
-  --accent-blue: #2563EB;
-  --accent-blue-soft: rgba(37, 99, 235, 0.1);
+  --accent-blue: #0071e3;
+  --accent-blue-soft: rgba(0, 113, 227, 0.1);
   --accent-blue-50: #EFF6FF;
   --accent-blue-100: #DBEAFE;
   --accent-blue-200: #BFDBFE;
   --accent-blue-300: #93C5FD;
   --accent-blue-400: #60A5FA;
-  --accent-blue-500: #3B82F6;
-  --accent-blue-600: #2563EB;
-  --accent-blue-700: #1D4ED8;
+  --accent-blue-500: #2997ff;
+  --accent-blue-600: #0071e3;
+  --accent-blue-700: #0056b3;
   --accent-blue-800: #1E40AF;
   --accent-blue-900: #1E3A8A;
 
   /* ============================================
-     AMBER ACCENT - For ReportCaster case study
+     AMBER ACCENT
      ============================================ */
   --accent-amber: #F59E0B;
   --accent-amber-soft: rgba(245, 158, 11, 0.1);
@@ -106,7 +88,7 @@
   --accent-amber-700: #B45309;
 
   /* ============================================
-     VIOLET ACCENT - For IQ Plugin case study
+     VIOLET ACCENT
      ============================================ */
   --accent-violet: #8B5CF6;
   --accent-violet-soft: rgba(139, 92, 246, 0.1);
@@ -114,121 +96,115 @@
   --accent-violet-700: #6D28D9;
 
   /* ============================================
-     HIGHLIGHT COLOR - For active/focus states
+     HIGHLIGHT COLOR
      ============================================ */
   --highlight: #078B9C;
-  /* Teal accent - WCAG AA compliant */
-  --highlight-soft: rgba(7, 139, 156, 0.1);
-  --highlight-hover: rgba(7, 139, 156, 0.15);
-  --highlight-active: rgba(7, 139, 156, 0.2);
+  --highlight-soft: rgba(7, 139, 156, 0.08);
+  --highlight-hover: rgba(7, 139, 156, 0.12);
+  --highlight-active: rgba(7, 139, 156, 0.16);
 
   /* ============================================
      SEMANTIC COLORS
      ============================================ */
-  --color-success: #059669;
-  /* emerald-600 */
-  --color-warning: #d97706;
-  /* amber-600 */
-  --color-error: #dc2626;
-  /* red-600 */
+  --color-success: #34c759;
+  /* Apple Green */
+  --color-warning: #ff9f0a;
+  /* Apple Orange */
+  --color-error: #ff3b30;
+  /* Apple Red */
   --color-info: #078B9C;
-  /* teal accent - WCAG AA compliant */
 
-  /* Semantic Surfaces (Light Theme) */
+  /* Semantic Surfaces */
   --bg-success: #ecfdf5;
-  /* emerald-50 */
   --bg-warning: #fffbeb;
-  /* amber-50 */
   --bg-error: #fef2f2;
-  /* red-50 */
   --bg-info: #f0f9ff;
-  /* sky-50 - softer than teal for bg */
 
   /* ============================================
-     BORDER COLORS - Subtle, clean lines
+     BORDER COLORS - Clean & Minimal
      ============================================ */
-  --border-primary: #e2e8f0;
-  /* slate-200 */
-  --border-secondary: #cbd5e1;
-  /* slate-300 */
-  --border-subtle: #f1f5f9;
-  /* slate-100 */
+  --border-primary: #d2d2d7;
+  --border-secondary: #e5e5e5;
+  --border-subtle: #f5f5f7;
 
   /* Legacy support */
-  --border-light: #e2e8f0;
-  --border-dark: #e2e8f0;
-  --border-refined-light: #e2e8f0;
+  --border-light: #e5e5e5;
+  --border-dark: #d2d2d7;
+  --border-refined-light: #e5e5e5;
 
   /* ============================================
      STATE COLORS
      ============================================ */
-  --hover-overlay: rgba(7, 139, 156, 0.05);
-  --active-overlay: rgba(7, 139, 156, 0.08);
-  --focus-ring: rgba(7, 139, 156, 0.4);
-  --focus-ring-width: 2px;
-  --focus-ring-offset: 2px;
+  --hover-overlay: rgba(0, 0, 0, 0.02);
+  --active-overlay: rgba(0, 0, 0, 0.04);
+  --focus-ring: rgba(0, 113, 227, 0.4);
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 1px;
 
   /* ============================================
-     ELEVATION SYSTEM (SHADOWS) - Subtle depth
+     ELEVATION SYSTEM (SHADOWS) - Soft & Diffused
      ============================================ */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.08);
 
-  /* Card-specific shadow for depth */
-  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
-  --shadow-card-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  /* Card-specific shadow */
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 12px 24px rgba(0, 0, 0, 0.08);
 
   /* ============================================
-     BORDER RADIUS - Clean, precise
+     BORDER RADIUS - Friendly & Modern
      ============================================ */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
 
   /* ============================================
-     TYPOGRAPHY SCALE (1.25 ratio)
+     TYPOGRAPHY SCALE
      ============================================ */
   --text-xs: 0.75rem;
   /* 12px */
   --text-sm: 0.875rem;
   /* 14px */
-  --text-base: 1rem;
-  /* 16px */
-  --text-lg: 1.125rem;
-  /* 18px */
-  --text-xl: 1.25rem;
-  /* 20px */
-  --text-2xl: 1.563rem;
-  /* 25px */
-  --text-3xl: 1.953rem;
-  /* 31px */
-  --text-4xl: 2.441rem;
-  /* 39px */
-  --text-5xl: 3.052rem;
-  /* 49px */
-  --text-6xl: 3.815rem;
-  /* 61px */
+  --text-base: 1.0625rem;
+  /* 17px - Standard Body */
+  --text-lg: 1.1875rem;
+  /* 19px */
+  --text-xl: 1.3125rem;
+  /* 21px */
+  --text-2xl: 1.75rem;
+  /* 28px */
+  --text-3xl: 2.1875rem;
+  /* 35px */
+  --text-4xl: 2.5rem;
+  /* 40px */
+  --text-5xl: 3rem;
+  /* 48px */
+  --text-6xl: 4rem;
+  /* 64px */
 
   /* ============================================
      LINE HEIGHTS
      ============================================ */
-  --leading-tight: 1.2;
-  --leading-snug: 1.3;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
-  --leading-loose: 1.75;
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.47059;
+  /* Apple Standard */
+  --leading-relaxed: 1.6;
+  --leading-loose: 1.8;
 
   /* ============================================
-     LETTER SPACING - Swiss Style precision
+     LETTER SPACING
      ============================================ */
   --tracking-tighter: -0.05em;
-  --tracking-tight: -0.025em;
-  --tracking-normal: 0;
+  --tracking-tight: -0.022em;
+  /* Apple Headline */
+  --tracking-normal: -0.011em;
+  /* Apple Body */
   --tracking-wide: 0.025em;
   --tracking-wider: 0.05em;
   --tracking-widest: 0.1em;
@@ -237,98 +213,68 @@
      SPACING SYSTEM (4px base)
      ============================================ */
   --space-1: 0.25rem;
-  /* 4px */
   --space-2: 0.5rem;
-  /* 8px */
   --space-3: 0.75rem;
-  /* 12px */
   --space-4: 1rem;
-  /* 16px */
   --space-5: 1.25rem;
-  /* 20px */
   --space-6: 1.5rem;
-  /* 24px */
   --space-8: 2rem;
-  /* 32px */
   --space-10: 2.5rem;
-  /* 40px */
   --space-12: 3rem;
-  /* 48px */
   --space-16: 4rem;
-  /* 64px */
   --space-20: 5rem;
-  /* 80px */
   --space-24: 6rem;
-  /* 96px */
   --space-32: 8rem;
-  /* 128px */
 
-  /* Section Spacing (Vertical Rhythm) */
+  /* Section Spacing */
   --section-padding-mobile: var(--space-20);
-  /* 80px */
   --section-padding-tablet: var(--space-24);
-  /* 96px */
   --section-padding-desktop: var(--space-32);
-  /* 128px */
 
   /* ============================================
      CONTENT WIDTHS
      ============================================ */
   --content-width-narrow: 65ch;
-  /* Optimal reading */
   --content-width-medium: 75ch;
-  /* Extended reading */
   --content-width-wide: 90ch;
-  /* Maximum readable */
-  --content-width-container: 1200px;
-  /* Container max */
+  --content-width-container: 1024px;
+  /* Tighter container for readability */
 
   /* ============================================
      ANIMATION SYSTEM
      ============================================ */
-  /* Easing Functions (Spring-like) */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-  /* Timing */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
 
   /* ============================================
-     FONTS - Swiss Style Typography
+     FONTS - Unified Sans-Serif
      ============================================ */
-  --font-serif: 'Playfair Display', 'DM Serif Display', ui-serif;
-  --font-sans: 'Inter', 'Inter Tight', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', ui-monospace, monospace;
+  /* Removed Serif distinctness - mapped to Sans */
+  --font-serif: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
 
   /* ============================================
-     GEAR COLORS - Matte Aluminum for Light Theme
+     GEAR COLORS
      ============================================ */
-  --gear-color: #e2e8f0;
-  /* slate-200 - Matte Aluminum */
-  --gear-color-dark: #cbd5e1;
-  /* slate-300 */
-  --gear-color-highlight: #f1f5f9;
-  /* slate-100 */
+  --gear-color: #d1d5db;
+  --gear-color-dark: #9ca3af;
+  --gear-color-highlight: #f3f4f6;
   --gear-shadow: rgba(0, 0, 0, 0.1);
 
   /* ============================================
-     TECHNICAL DARK THEME - For "The Monitors" / Video Stage
-     Used when displaying high-tech/director commentary sections
+     TECHNICAL DARK THEME
      ============================================ */
-  --bg-monitor: #020617;
-  /* slate-950 */
-  --bg-monitor-alt: #0f172a;
-  /* slate-900 */
-  --bg-monitor-surface: rgba(15, 23, 42, 0.5);
-  /* slate-900/50 */
-  --border-monitor: #1e293b;
-  /* slate-800 */
+  --bg-monitor: #000000;
+  --bg-monitor-alt: #1c1c1e;
+  --bg-monitor-surface: rgba(28, 28, 30, 0.8);
+  --border-monitor: #333333;
   --text-monitor: #ffffff;
-  --text-monitor-muted: #94a3b8;
-  /* slate-400 */
-  --text-monitor-dim: #64748b;
-  /* slate-500 */
+  --text-monitor-muted: #86868b;
+  --text-monitor-dim: #6e6e73;
 }

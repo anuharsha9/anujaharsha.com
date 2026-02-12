@@ -24,6 +24,7 @@ interface SectionBlockProps {
 }
 
 import { extractMetrics, parseBodyWithAhaMoments, renderFormattedContent, createImageGroups } from '@/lib/content-utils'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 // Helper to create image groups based on content
 // (Moved to content-utils.tsx)
@@ -182,7 +183,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
 
   // Light shadow for depth, minimal design
   const imageShadow = 'shadow-sm'
-  const imageBorderRadius = 'rounded-lg'
+  const imageBorderRadius = ''
   const imageOutline = ''
 
   const images = section.images || []
@@ -227,43 +228,30 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
   // Header Section (always visible) - Senior energy: no letter badges
 
   const sectionHeader = (
-    <div className="space-y-6 relative">
-      {/* Section Title - Clean, confident, no academic badges */}
+    <div className="space-y-8 relative mb-12">
+      {/* Section Title - Apple Style: Clean, Sans-Serif, Light */}
       <div className="relative">
-        <h2 className={`${t.text} text-3xl md:text-4xl lg:text-5xl font-serif leading-tight tracking-tight`}>
-          {section.title}
-          {section.id === 'version-3' && (
-            <span className="block mt-2 text-xl md:text-2xl font-normal italic text-[var(--accent-teal)]">
-              The solution that balanced everything
-            </span>
-          )}
-        </h2>
+        <ComponentHeading
+          variant="section"
+          tag={undefined}
+          title={section.title}
+          description={section.summary || (section.id === 'version-3' ? "The solution that balanced everything" : undefined)}
+          color={frameworkMapping?.[section.id] ? "teal" : "slate"}
+          className="mb-0"
+        />
       </div>
 
-      {/* Section Summary (TL;DR) - System Note style */}
-      {section.summary && (
-        <div className={`border-l-2 ${t.border} pl-space-4 py-space-2 mt-space-6`}>
-          <span className={`font-mono text-xs uppercase tracking-widest ${t.textMuted} block mb-space-2`}>
-            TL;DR
-          </span>
-          <p className={`font-mono text-sm ${t.text} leading-relaxed`}>
-            {section.summary}
-          </p>
-        </div>
-      )}
+      {/* Extract and Display Metrics - Minimal Tags */}
 
-      {/* Methodology Tags removed - at Principal level, methods are assumed */}
-
-      {/* Extract and Display Metrics */}
+      {/* Extract and Display Metrics - Minimal Tags */}
       {section.body && (() => {
         const metrics = extractMetrics(section.body)
         return metrics.length > 0 ? (
-          <div className="flex flex-wrap items-center gap-2 pt-2">
-            <span className={`${mutedColor} text-xs font-mono uppercase tracking-wider`}>Key Metrics:</span>
+          <div className="flex flex-wrap items-center gap-3 pt-2">
             {metrics.slice(0, 5).map((metric, index) => (
               <span
                 key={index}
-                className="bg-[var(--accent-teal-soft)] text-[var(--accent-teal)] text-xs px-3 py-1 font-semibold"
+                className="inline-flex items-center px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full border border-slate-200"
               >
                 {metric}
               </span>
@@ -281,7 +269,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
 
       {/* Body Text - Render at top only if no visual content */}
       {renderBodyAtTop && section.body && (
-        <div className={`${bgColor} rounded-md p-space-6 md:p-space-8 border ${borderColor}`}>
+        <div className="">
           <div className={`${mutedColor} leading-relaxed text-base md:text-lg space-y-space-4`}>
             {caseStudySlug === 'reportcaster' ? (
               parseBodyWithAhaMoments(section.body).map((part, index) => {
@@ -535,7 +523,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                 {subsection.images.length > 6 && (
                                   <button
                                     onClick={() => setShowAllScheduleDialogImages(!showAllScheduleDialogImages)}
-                                    className={`px-4 py-2 ${bgColor} ${textColor} text-sm font-medium hover:opacity-90 transition-opacity duration-300 flex items-center gap-2`}
+                                    className={`px-4 py-2 ${bgColor} ${textColor} text-sm font-medium hover:opacity-90 transition-opacity duration-300 flex items-center gap-2 rounded-full`}
                                   >
                                     <span>{showAllScheduleDialogImages ? 'Show Less' : `Show All ${subsection.images.length}`}</span>
                                     <svg
@@ -737,61 +725,43 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                   ) : (
                     // Regular collapsible subsection
                     <>
-                      {/* Collapsible Subsection Header */}
+                      {/* Collapsible Subsection Header - Minimal Row */}
                       <button
                         onClick={() => toggleSubsection(subIndex)}
                         aria-label={`${isExpanded ? 'Collapse' : 'Expand'} subsection: ${subsection.title}`}
                         aria-expanded={isExpanded}
-                        className={`w-full text-left ${bgColor} p-6 transition-opacity duration-300 hover:opacity-90`}
+                        className={`w-full text-left group border-b border-slate-100 py-6 transition-all duration-300 hover:bg-slate-50/50 -mx-6 px-6 md:-mx-8 md:px-8`}
                       >
-                        <div className="flex items-center justify-between gap-4">
-                          <div className="flex-1 space-y-3">
+                        <div className="flex items-center justify-between gap-6">
+                          <div className="flex-1 space-y-2">
                             <div className="flex items-center gap-3">
-                              <h3 className={`${textColor} text-lg md:text-xl font-serif`}>{subsection.title}</h3>
+                              <h3 className={`${textColor} text-lg md:text-xl font-medium tracking-tight group-hover:text-[var(--accent-teal)] transition-colors`}>
+                                {subsection.title}
+                              </h3>
                               {subsection.images && subsection.images.length > 0 && (
-                                <span className={`px-3 py-1 text-xs font-semibold`} style={{
-                                  backgroundColor: isExpanded ? 'var(--accent-teal)' : 'transparent',
-                                  color: isExpanded ? 'white' : 'var(--accent-teal)',
-                                  borderColor: 'var(--accent-teal)'
-                                }}>
-                                  {subsection.images.length} {subsection.images.length === 1 ? 'screen' : 'screens'}
-                                </span>
-                              )}
-                              {isTextOnlySubsection && (
-                                <span className={`px-3 py-1 text-xs font-semibold`} style={{
-                                  backgroundColor: 'transparent',
-                                  color: 'var(--accent-teal)',
-                                  borderColor: 'var(--accent-teal)'
-                                }}>
-                                  Text Content
+                                <span className={`flex items-center justify-center w-6 h-6 rounded-full text-[10px] font-bold transition-colors ${isExpanded
+                                  ? 'bg-[var(--accent-teal)] text-white'
+                                  : 'bg-slate-100 text-slate-500 group-hover:bg-[var(--accent-teal-soft)] group-hover:text-[var(--accent-teal)]'
+                                  }`}>
+                                  {subsection.images.length}
                                 </span>
                               )}
                             </div>
                             {subsection.description && (
-                              <p className={`${mutedColor} text-sm leading-relaxed line-clamp-3 ${!isExpanded ? '' : ''}`}>
+                              <p className={`${mutedColor} text-sm leading-relaxed line-clamp-2 pr-8`}>
                                 {subsection.description}
                               </p>
                             )}
-                            {!isExpanded && subsection.images && subsection.images.length > 0 && (
-                              <p className={`text-xs font-medium`} style={{ color: 'var(--accent-teal)' }}>
-                                Click to view {subsection.images.length} {subsection.images.length === 1 ? 'screen' : 'screens'}
-                              </p>
-                            )}
-                            {!isExpanded && isTextOnlySubsection && (
-                              <p className={`text-xs font-medium`} style={{ color: 'var(--accent-teal)' }}>
-                                Click to expand and read full content
-                              </p>
-                            )}
                           </div>
-                          <div className="flex flex-col items-center gap-2 flex-shrink-0">
-                            <span
-                              className={`text-2xl font-mono transition-all duration-300`}
-                              style={{
-                                color: isExpanded ? 'var(--accent-teal)' : 'var(--text-muted)'
-                              }}
-                            >
-                              {isExpanded ? '−' : '+'}
-                            </span>
+
+                          {/* Chevron Icon */}
+                          <div className={`flex flex-col items-center justify-center w-8 h-8 rounded-full border transition-all duration-300 ${isExpanded
+                            ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)] text-white rotate-180'
+                            : 'border-slate-200 text-slate-400 group-hover:border-[var(--accent-teal)] group-hover:text-[var(--accent-teal)]'
+                            }`}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="m6 9 6 6 6-6" />
+                            </svg>
                           </div>
                         </div>
                       </button>
@@ -1005,7 +975,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                   </div>
                   <button
                     onClick={() => setShowAllLegacyImages(!showAllLegacyImages)}
-                    className={`px-4 py-2 rounded-lg border ${borderColor} ${bgColor} ${textColor} text-sm font-medium hover:opacity-90 transition-all duration-300 flex items-center gap-2`}
+                    className={`px-4 py-2 border ${borderColor} ${bgColor} ${textColor} text-sm font-medium hover:opacity-90 transition-all duration-300 flex items-center gap-2`}
                   >
                     <span>{showAllLegacyImages ? 'Show Less' : `Show All ${images.length}`}</span>
                     <svg
@@ -1763,7 +1733,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
   return (
     <div
       id={section.id}
-      className="space-y-6 scroll-mt-24"
+      className="scroll-mt-24"
     >
       {sectionHeader}
       {sectionBody}

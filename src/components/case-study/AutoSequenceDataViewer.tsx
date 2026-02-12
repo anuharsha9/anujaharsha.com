@@ -87,7 +87,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
         <div className="w-full my-8">
             {/* Viewer Window */}
             <div
-                className="relative aspect-video w-full bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm group"
+                className="relative aspect-video w-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm group"
                 onMouseEnter={() => setIsPlaying(false)}
                 onMouseLeave={() => setIsPlaying(true)}
             >
@@ -131,7 +131,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                             <button
                                 key={idx}
                                 onClick={() => setCurrentIndex(idx)}
-                                className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex ? 'bg-white w-4' : 'bg-white/50 hover:bg-white/80'
+                                className={`w-2 h-2 transition-all ${idx === currentIndex ? 'bg-white w-4' : 'bg-white/50 hover:bg-white/80'
                                     }`}
                                 aria-label={`Go to image ${idx + 1}`}
                             />
@@ -151,7 +151,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                 <button
                     onClick={() => setIsLightboxOpen(true)}
                     className={`
-            group flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all
+            group flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all
             bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-600
             dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700 dark:text-slate-300
           `}
@@ -169,7 +169,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                     {/* Close Button */}
                     <button
                         onClick={() => setIsLightboxOpen(false)}
-                        className="absolute top-6 right-6 p-2 text-white/70 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
+                        className="absolute top-6 right-6 p-2 text-white/70 hover:text-white transition-colors z-50 hover:bg-white/10"
                     >
                         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -179,7 +179,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                     {/* Navigation Buttons */}
                     <button
                         onClick={() => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 rounded-full z-50"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 z-50"
                     >
                         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -188,7 +188,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
 
                     <button
                         onClick={() => setCurrentIndex((prev) => (prev + 1) % images.length)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 rounded-full z-50"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white/50 hover:text-white transition-colors hover:bg-white/10 z-50"
                     >
                         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -233,7 +233,7 @@ export default function AutoSequenceDataViewer({ images, title, externalIndex, o
                             <button
                                 key={idx}
                                 onClick={() => setCurrentIndex(idx)}
-                                className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex ? 'bg-[var(--accent-teal)] w-6' : 'bg-white/30 hover:bg-white/60'
+                                className={`w-2 h-2 transition-all ${idx === currentIndex ? 'bg-[var(--accent-teal)] w-6' : 'bg-white/30 hover:bg-white/60'
                                     }`}
                             />
                         ))}

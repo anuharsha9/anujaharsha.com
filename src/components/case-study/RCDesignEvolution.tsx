@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, Clock, Mail, Users, FolderTree, Settings } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 import AutoSequenceDataViewer from './AutoSequenceDataViewer'
 
 interface RCDesignEvolutionProps {
@@ -277,17 +278,15 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center space-y-4"
       >
-        <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest">
-          {'// V3_MODAL_ARCHITECTURE'}
-        </span>
-        <h3 className="font-serif text-slate-900 text-3xl md:text-4xl lg:text-5xl">
-          The Final System: Modal-Based Workflows
-        </h3>
-        <p className="text-slate-500 text-lg max-w-3xl mx-auto leading-relaxed">
-          400+ screens across six subsystems unified into platform-native modals. I designed 250+; onboarded 2 designers who completed 150+. Shipped in WebFOCUS 9.3.
-        </p>
+        <ComponentHeading
+          variant="block"
+          tag="// V3_MODAL_ARCHITECTURE"
+          title="The Final System: Modal-Based Workflows"
+          description="400+ screens across six subsystems unified into platform-native modals. I designed 250+; onboarded 2 designers who completed 150+. Shipped in WebFOCUS 9.3."
+          align="center"
+          color="teal"
+        />
       </motion.div>
 
       {/* IDE Layout - Large Feature Display */}
@@ -299,30 +298,43 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
           <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none md:hidden" />
           <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none md:hidden" />
 
-          <div className="flex items-center justify-start md:justify-center overflow-x-auto pb-4 scrollbar-hide px-4 -mx-4 md:mx-0 snap-x">
-            <div className="flex gap-2 min-w-min">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`
-                    flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 snap-center
-                    ${activeTab === tab.id
-                      ? 'bg-[var(--accent-teal)] text-white shadow-md transform scale-105'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'}
-                  `}
-                >
-                  <span className={activeTab === tab.id ? 'text-white' : 'text-slate-400'}>
-                    {tab.icon}
-                  </span>
-                  <span>{tab.label}</span>
-                  {tab.id === '02_RECURRENCE' && activeTab !== tab.id && (
-                    <span className="ml-1 flex-shrink-0 bg-amber-100 text-amber-700 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded">
-                      Key
+          <div className="flex justify-center pb-8">
+            <div className="inline-flex bg-slate-100 p-1.5 rounded-full overflow-x-auto max-w-full scrollbar-hide">
+              {tabs.map((tab) => {
+                const isActive = activeTab === tab.id
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`
+                      relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap
+                      ${isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-700'}
+                    `}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 bg-white shadow-sm rounded-full"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                    <span className="relative z-10 flex items-center gap-2">
+                      {tab.icon}
+                      <span>{tab.label}</span>
+                      {tab.id === '02_RECURRENCE' && !isActive && (
+                        <span className="flex-shrink-0 bg-amber-100 text-amber-700 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full">
+                          Key
+                        </span>
+                      )}
+                      {tab.id === '02_RECURRENCE' && isActive && (
+                        <span className="flex-shrink-0 bg-amber-50 text-amber-600 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-amber-100">
+                          Key
+                        </span>
+                      )}
                     </span>
-                  )}
-                </button>
-              ))}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
@@ -353,7 +365,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
                 </p>
                 {/* Highlight Block (for Recurrence) */}
                 {activeTabData.highlight && (
-                  <div className="inline-block mt-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg">
+                  <div className="inline-block mt-2 bg-amber-50 border border-amber-200 px-4 py-2">
                     <span className="font-mono text-[10px] text-amber-700 uppercase tracking-widest mr-2">
                       {activeTabData.highlight.label}:
                     </span>
@@ -384,7 +396,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 md:p-8"
+        className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 p-6 md:p-8 rounded-2xl"
       >
         <div className="flex flex-col md:flex-row gap-6 md:gap-10">
           {/* Left - The Problem */}
@@ -403,8 +415,8 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
 
           {/* Center - Arrow */}
           <div className="flex items-center justify-center md:flex-shrink-0">
-            <div className="w-12 h-12 rounded-full bg-white border border-amber-300 flex items-center justify-center shadow-sm">
-              <svg aria-hidden="true" className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-white border border-amber-300 flex items-center justify-center shadow-sm rounded-full">
+              <svg aria-hidden="true" className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </div>
@@ -432,13 +444,20 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-slate-900 rounded-xl p-6"
+        className="bg-[#1D1D20] rounded-xl p-6 shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
       >
+        {/* Terminal Header */}
+        <div className="flex gap-2 mb-4 opacity-50">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+        </div>
+
         <div className="flex items-start gap-3">
-          <span className="font-mono text-sm text-emerald-400 flex-shrink-0">
+          <span className="text-emerald-400 flex-shrink-0 mt-0.5">
             &gt; V3_OUTCOME:
           </span>
-          <p className="text-slate-300 text-sm leading-relaxed">
+          <p className="text-slate-300 text-sm leading-relaxed font-sans">
             400+ screens across 6 subsystems — unified into platform-native modals.
             <span className="text-emerald-400 font-medium"> significantly reduced entry steps</span>,
             <span className="text-emerald-400 font-medium"> zero new tabs</span>, and

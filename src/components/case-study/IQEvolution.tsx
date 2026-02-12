@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AutoSequenceDataViewer from './AutoSequenceDataViewer'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface IQEvolutionProps {
   isLightBackground?: boolean
@@ -53,17 +54,15 @@ export default function IQEvolution({ isLightBackground = false }: IQEvolutionPr
     <div className={`w-full py-10 md:py-12 ${isLightBackground ? 'bg-white' : 'bg-slate-50'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-10">
-          <span className="font-mono text-[10px] text-[var(--accent-teal)] uppercase tracking-widest mb-3 block">
-            {'// DESIGN_EVOLUTION'}
-          </span>
-          <h3 className="font-serif text-2xl md:text-3xl text-slate-900 mb-4">
-            From Concept to Production
-          </h3>
-          <p className="text-slate-500 max-w-2xl mx-auto">
-            Watch the design mature through 4 major iterations.
-          </p>
-        </div>
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag="// DESIGN_EVOLUTION"
+          title="From Concept to Production"
+          description="Watch the design mature through 4 major iterations."
+          color="teal"
+          className="mb-10"
+        />
 
         {/* Streaming Platform Layout */}
         <div className="space-y-8">
@@ -80,7 +79,7 @@ export default function IQEvolution({ isLightBackground = false }: IQEvolutionPr
                     key={stage.id}
                     onClick={() => setActiveStage(index)}
                     className={`
-                      flex flex-col items-center px-5 py-2 rounded-full text-xs font-medium transition-all duration-300 snap-center min-w-[120px]
+                      flex flex-col items-center px-5 py-2 text-xs font-medium transition-all duration-300 snap-center min-w-[120px]
                       ${activeStage === index
                         ? 'bg-[var(--accent-teal)] text-white shadow-md transform scale-105'
                         : 'bg-white border border-slate-200 text-slate-500 hover:bg-slate-50'}

@@ -162,7 +162,7 @@ export default function BeforeAfterComparison({
   // Use design system tokens (Architect aesthetic)
   const borderColor = 'border-[var(--border-primary)]'
   const imageShadow = 'shadow-[var(--shadow-md)]'
-  const imageBorderRadius = 'rounded-[var(--radius-lg)]'
+  const imageBorderRadius = ''
   const imageOutline = 'outline outline-1 outline-[var(--border-subtle)] outline-offset-[-1px]'
   const labelColor = 'text-[var(--text-heading)]'
   const mutedColor = 'text-[var(--text-body)]'
@@ -183,15 +183,15 @@ export default function BeforeAfterComparison({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className={`${mutedColor} text-xs font-mono uppercase tracking-wider`}>View:</span>
-              <div className={`${bgColor} rounded-lg p-1 border ${borderColor} flex gap-1`}>
+              <div className={`${bgColor} p-1 border ${borderColor} flex gap-1`}>
                 <button
-                  className={`px-3 py-1.5 rounded text-xs font-medium ${labelColor}`}
+                  className={`px-3 py-1.5 text-xs font-medium ${labelColor}`}
                   disabled
                 >
                   Slider
                 </button>
                 <button
-                  className={`px-3 py-1.5 rounded text-xs font-medium ${labelColor}`}
+                  className={`px-3 py-1.5 text-xs font-medium ${labelColor}`}
                   disabled
                 >
                   Side-by-Side
@@ -226,10 +226,10 @@ export default function BeforeAfterComparison({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className={`${mutedColor} text-xs font-mono uppercase tracking-wider`}>View:</span>
-          <div className={`${bgColor} rounded-lg p-1 border ${borderColor} flex gap-1`}>
+          <div className={`${bgColor} p-1 border ${borderColor} flex gap-1`}>
             <button
               onClick={() => setViewMode('slider')}
-              className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${viewMode === 'slider'
+              className={`px-3 py-1.5 text-xs font-medium transition-all duration-200 ${viewMode === 'slider'
                 ? 'bg-[var(--accent-teal)] text-white'
                 : `${labelColor} hover:bg-black/5`
                 }`}
@@ -239,7 +239,7 @@ export default function BeforeAfterComparison({
             </button>
             <button
               onClick={() => setViewMode('side-by-side')}
-              className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${viewMode === 'side-by-side'
+              className={`px-3 py-1.5 text-xs font-medium transition-all duration-200 ${viewMode === 'side-by-side'
                 ? 'bg-[var(--accent-teal)] text-white'
                 : `${labelColor} hover:bg-black/5`
                 }`}
@@ -313,7 +313,7 @@ export default function BeforeAfterComparison({
           >
             {/* Slider Handle */}
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border-2 border-[var(--accent-teal)] shadow-lg flex items-center justify-center pointer-events-auto cursor-grab active:cursor-grabbing"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white border-2 border-[var(--accent-teal)] shadow-lg flex items-center justify-center pointer-events-auto cursor-grab active:cursor-grabbing"
               style={{ transform: 'translate(-50%, -50%)' }}
             >
               <div className="flex items-center gap-1">
@@ -354,10 +354,10 @@ export default function BeforeAfterComparison({
           </div>
 
           {/* Labels */}
-          <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded text-white text-sm font-medium">
+          <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 text-white text-sm font-medium">
             {beforeLabel}
           </div>
-          <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded text-white text-sm font-medium">
+          <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 text-white text-sm font-medium">
             {afterLabel}
           </div>
         </div>
@@ -365,7 +365,7 @@ export default function BeforeAfterComparison({
         /* Side-by-Side View */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div className="space-y-3">
-            <div className={`${bgColor} rounded-lg px-4 py-2 border ${borderColor} inline-block`}>
+            <div className={`${bgColor} px-4 py-2 border ${borderColor} inline-block`}>
               <span className={`${labelColor} text-sm font-semibold`}>{beforeLabel}</span>
             </div>
             {isBeforeLocked ? (
@@ -407,7 +407,7 @@ export default function BeforeAfterComparison({
             )}
           </div>
           <div className="space-y-3">
-            <div className={`${bgColor} rounded-lg px-4 py-2 border ${borderColor} inline-block`}>
+            <div className={`${bgColor} px-4 py-2 border ${borderColor} inline-block`}>
               <span className={`${labelColor} text-sm font-semibold`}>{afterLabel}</span>
             </div>
             {isAfterLocked ? (
@@ -453,7 +453,7 @@ export default function BeforeAfterComparison({
 
       {/* Comparison Notes */}
       {comparisonNotes && (
-        <div className={`${bgColor} rounded-lg p-4 md:p-5 border ${borderColor} border-l-4`} style={{ borderLeftColor: 'var(--accent-teal)' }}>
+        <div className={`${bgColor} p-4 md:p-5 border ${borderColor} border-l-4`} style={{ borderLeftColor: 'var(--accent-teal)' }}>
           <div className="flex items-start gap-3">
             <svg aria-hidden="true" className="w-5 h-5 text-[var(--accent-teal)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

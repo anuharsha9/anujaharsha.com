@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Ban, Users } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface MLUserAccessStrategyProps {
   isLightBackground?: boolean
@@ -11,21 +12,21 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
   return (
     <div className="space-y-8">
       {/* Section Header */}
+      {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center space-y-3"
       >
-        <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
-          {'// USER_RESEARCH_STRATEGY'}
-        </span>
-        <h3 className="font-serif text-slate-900 text-2xl md:text-3xl">
-          Gathering Insights Without Direct Access
-        </h3>
-        <p className="text-slate-600 text-base max-w-2xl mx-auto">
-          How I built user empathy through proxy networks when direct research wasn&apos;t possible.
-        </p>
+        <ComponentHeading
+          variant="block"
+          tag="// RESEARCH_METHODOLOGY"
+          title="Gathering Insights Without Direct Access"
+          description="How I built user empathy through proxy networks when direct research wasn't possible."
+          color="slate"
+          align="center"
+          className="mb-8"
+        />
       </motion.div>
 
       {/* 2-Column Constraint vs Strategy Grid */}
@@ -36,11 +37,11 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-amber-50 border-l-4 border-amber-400 p-8 rounded-r-xl"
+          className="bg-amber-50 border-l-4 border-amber-400 p-8 rounded-xl"
         >
           <div className="space-y-4">
             {/* Icon */}
-            <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
+            <div className="w-12 h-12 bg-amber-100 flex items-center justify-center rounded-lg">
               <Ban className="w-6 h-6 text-amber-600" />
             </div>
 
@@ -83,11 +84,11 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-[var(--accent-teal-50)] border-l-4 border-[var(--accent-teal)] p-8 rounded-r-xl"
+          className="bg-[var(--accent-teal-50)] border-l-4 border-[var(--accent-teal)] p-8 rounded-xl"
         >
           <div className="space-y-4">
             {/* Icon */}
-            <div className="w-12 h-12 rounded-xl bg-[var(--accent-teal-100)] flex items-center justify-center">
+            <div className="w-12 h-12 bg-[var(--accent-teal-100)] flex items-center justify-center rounded-lg">
               <Users className="w-6 h-6 text-[var(--accent-teal)]" />
             </div>
 
@@ -135,15 +136,20 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="bg-slate-900 rounded-xl p-6"
+        className="bg-[#1D1D20] rounded-xl overflow-hidden shadow-lg border border-white/10 font-mono"
       >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest flex-shrink-0">
-            {'// INSIGHT'}
-          </span>
-          <p className="text-slate-300 text-sm leading-relaxed">
-            The proxy network revealed patterns that direct interviews might have missed: <span className="text-emerald-400 font-medium">support tickets exposed the real friction points</span> — not what users said they wanted, but where they actually got stuck.
-          </p>
+        {/* Terminal Header */}
+        <div className="bg-[#2D2D30] px-4 py-2 flex gap-2 items-center border-b border-white/5">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+          <span className="ml-2 text-[10px] text-slate-500 font-sans">research_insight.log</span>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 text-slate-300 text-sm leading-relaxed font-mono">
+          <span className="text-emerald-400 font-bold mr-2">&gt;</span>
+          The proxy network revealed friction points that direct interviews might have missed. <span className="text-emerald-400">Support tickets</span> exposed where users *actually* got stuck, not just where they *said* they did.
         </div>
       </motion.div>
     </div>

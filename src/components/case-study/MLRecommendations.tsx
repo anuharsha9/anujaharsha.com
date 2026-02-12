@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface MLRecommendationsProps {
   isLightBackground?: boolean
@@ -48,15 +49,15 @@ export default function MLRecommendations({ isLightBackground = false, showHeade
           viewport={{ once: true }}
           className="text-center space-y-3"
         >
-          <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
-            {'// CROSS_FUNCTIONAL_EVIDENCE'}
-          </span>
-          <h3 className="font-serif text-slate-900 text-2xl md:text-3xl">
-            Validation from Cross-Functional Team
-          </h3>
-          <p className="text-slate-600 text-base max-w-3xl mx-auto">
-            Verified testimonials from key stakeholders across domain expertise, product strategy, executive leadership, and customer-facing roles.
-          </p>
+          <ComponentHeading
+            variant="block"
+            tag="// CROSS_FUNCTIONAL_EVIDENCE"
+            title="Validation from Cross-Functional Team"
+            description="Verified testimonials from key stakeholders across domain expertise, product strategy, executive leadership, and customer-facing roles."
+            color="blue"
+            align="center"
+            className="mb-0"
+          />
         </motion.div>
       )}
 
@@ -69,7 +70,7 @@ export default function MLRecommendations({ isLightBackground = false, showHeade
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="bg-white border border-slate-200 rounded-2xl p-8 h-full relative hover:shadow-lg transition-all duration-300"
+            className="bg-white border border-slate-200 p-8 h-full relative hover:shadow-lg transition-all duration-300"
           >
             {/* Large Quotation Mark Decoration */}
             <span className="absolute top-4 left-6 text-5xl text-blue-100 font-serif leading-none select-none pointer-events-none">
@@ -110,7 +111,7 @@ export default function MLRecommendations({ isLightBackground = false, showHeade
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-slate-900 rounded-xl p-6"
+        className="bg-slate-900 p-6"
       >
         <div className="flex items-start gap-3">
           <span className="font-mono text-sm text-emerald-400 flex-shrink-0">

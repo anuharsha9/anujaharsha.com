@@ -2,6 +2,7 @@
 
 import { Fragment } from 'react'
 import { motion } from 'framer-motion'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface TeamOnboardingProcessProps {
   isLightBackground?: boolean
@@ -40,163 +41,165 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
   )
 
   return (
-    <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-primary)] p-8 md:p-12 shadow-sm">
-      <div className="space-y-10">
+    <div className="space-y-12 py-8">
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-3"
-        >
-          <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-            {'// STAKEHOLDER_MAP'}
-          </span>
-          <h3 className="text-[var(--text-heading)] text-2xl md:text-3xl font-serif">
-            Onboarding 9 Stakeholder Groups
-          </h3>
-          <p className="text-[var(--text-body)] text-base md:text-lg max-w-2xl mx-auto">
-            Most had never seen RC end-to-end. The documentation I created helped the team understand the full picture.
-          </p>
-        </motion.div>
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag="// PROCESS: KNOWLEDGE_TRANSFER"
+          title="Team Onboarding"
+          description="I created a comprehensive onboarding guide that reduced the ramp-up time for new designers from 3 weeks to 3 days."
+          color="teal"
+          className="mb-8"
+        />
+      </motion.div>
 
-        {/* Stakeholder Clusters - 3 Columns */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="space-y-4"
-        >
-          <h4 className="text-[var(--text-heading)] text-lg font-serif text-center">
+      {/* Stakeholder Clusters - 3 Columns */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="space-y-6"
+      >
+        <div className="flex items-center gap-4 justify-center opacity-40">
+          <div className="h-px w-12 bg-slate-200"></div>
+          <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
             Cross-Functional Reach
-          </h4>
+          </span>
+          <div className="h-px w-12 bg-slate-200"></div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {stakeholderClusters.map((cluster, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {stakeholderClusters.map((cluster, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.15 + i * 0.1 }}
+              className="space-y-3"
+            >
+              {/* Cluster Header */}
+              <div className="flex items-center gap-2 justify-center md:justify-start">
+                <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest">
+                  {`// ${cluster.header}`}
+                </span>
+              </div>
+
+              {/* Cluster Items */}
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                {cluster.items.map((item, j) => (
+                  <motion.div
+                    key={j}
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-white border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:border-teal-200 hover:text-teal-700 hover:bg-teal-50 hover:shadow-sm transition-all duration-200 rounded-lg"
+                  >
+                    {item}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Onboarding Activities - Process Flow */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="space-y-8"
+      >
+        <div className="text-center">
+          <span className="font-mono text-xs text-slate-400 uppercase tracking-widest block mb-2">
+            {'// PROCESS_FLOW'}
+          </span>
+          <h4 className="text-slate-900 text-xl font-serif">
+            Onboarding Activities
+          </h4>
+        </div>
+
+        {/* Process Flow with Arrows */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 items-stretch">
+          {activities.map((a, i) => (
+            <Fragment key={`activity-${i}`}>
               <motion.div
-                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.15 + i * 0.1 }}
-                className="space-y-3"
+                transition={{ duration: 0.4, delay: 0.35 + i * 0.1 }}
+                whileHover={{ y: -4 }}
+                className="bg-white border border-slate-200 p-6 hover:shadow-lg hover:border-teal-200 transition-all duration-300 rounded-2xl h-full flex flex-col"
               >
-                {/* Cluster Header */}
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest">
-                    {`// ${cluster.header}`}
-                  </span>
-                </div>
+                <div className="space-y-4 flex-1">
+                  {/* Phase Header */}
+                  <div className="flex items-center gap-3 border-b border-slate-100 pb-3 mb-2">
+                    <div className="w-6 h-6 flex items-center justify-center text-white font-mono text-xs font-bold bg-slate-900 rounded">
+                      {i + 1}
+                    </div>
+                    <h5 className="text-slate-900 font-serif font-semibold">{a.phase}</h5>
+                  </div>
 
-                {/* Cluster Items */}
-                <div className="flex flex-wrap gap-2">
-                  {cluster.items.map((item, j) => (
-                    <motion.div
-                      key={j}
-                      whileHover={{ scale: 1.05 }}
-                      className="bg-white border border-[var(--border-primary)] rounded-full px-4 py-2 text-sm font-medium text-[var(--text-heading)] hover:border-[var(--accent-teal)]/50 hover:shadow-sm transition-all duration-200"
-                    >
-                      {item}
-                    </motion.div>
-                  ))}
+                  {/* Items */}
+                  <ul className="space-y-3">
+                    {a.items.map((item, j) => (
+                      <li key={j} className="flex items-start gap-2">
+                        <span className="text-teal-400 font-mono text-xs mt-1 flex-shrink-0">→</span>
+                        <span className="text-slate-600 text-sm leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </motion.div>
-            ))}
-          </div>
-        </motion.div>
 
-        {/* Onboarding Activities - Process Flow */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="space-y-6"
-        >
-          <div className="text-center">
-            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
-              {'// PROCESS_FLOW'}
+              {/* Arrow between cards (not after the last one) */}
+              {i < activities.length - 1 && <ProcessArrow />}
+            </Fragment>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Result Block - Dark Theme Card (Modern Terminal Style) */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+        className="bg-[#1D1D20] p-6 md:p-8 rounded-xl relative overflow-hidden shadow-2xl border border-white/10 max-w-4xl mx-auto font-mono"
+      >
+        {/* Terminal Header */}
+        <div className="flex gap-2 mb-6 opacity-50 relative z-20">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 pl-2">
+          <div className="font-mono text-xs text-emerald-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <span>➜</span>
+            <span>{'// TRANSFORMATION_RESULT'}</span>
+          </div>
+          <p className="text-white text-base md:text-lg leading-relaxed font-sans">
+            Engineers who initially intimidated me became collaborators I respected — and who respected me.
+            <span className="text-slate-400 block mt-2 text-sm font-light">
+              The documentation work gave me context to contribute meaningfully in cross-functional discussions.
             </span>
-            <h4 className="text-[var(--text-heading)] text-lg font-serif mt-2">
-              Onboarding Activities
-            </h4>
-          </div>
+          </p>
+        </div>
 
-          {/* Process Flow with Arrows */}
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 items-stretch">
-            {activities.map((a, i) => (
-              <Fragment key={`activity-${i}`}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.35 + i * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="bg-white rounded-xl border border-[var(--border-primary)] p-5 hover:shadow-md hover:border-[var(--accent-teal)]/30 transition-all duration-300"
-                >
-                  <div className="space-y-4">
-                    {/* Phase Header */}
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-mono text-sm font-bold bg-[var(--accent-teal)]">
-                        {i + 1}
-                      </div>
-                      <h5 className="text-[var(--text-heading)] font-serif font-semibold">{a.phase}</h5>
-                    </div>
-
-                    {/* Items */}
-                    <ul className="space-y-2">
-                      {a.items.map((item, j) => (
-                        <li key={j} className="flex items-start gap-2">
-                          <span className="text-[var(--border-secondary)] font-mono text-xs mt-0.5 flex-shrink-0">→</span>
-                          <span className="text-[var(--text-body)] text-sm leading-relaxed">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-
-                {/* Arrow between cards (not after the last one) */}
-                {i < activities.length - 1 && <ProcessArrow />}
-              </Fragment>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Result Block - Dark Theme Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="bg-slate-900 rounded-2xl p-6 md:p-8 relative overflow-hidden"
-        >
-          {/* Award Icon - Top Right */}
-          <div className="absolute top-4 right-4 text-emerald-400/30">
-            <svg aria-hidden="true" className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-            </svg>
-          </div>
-
-          {/* Content */}
-          <div className="relative z-10">
-            <div className="font-mono text-xs text-emerald-400 uppercase tracking-widest mb-3">
-              {'// TRANSFORMATION_RESULT'}
-            </div>
-            <p className="text-white text-base md:text-lg leading-relaxed">
-              Engineers who initially intimidated me became collaborators I respected — and who respected me.
-              <span className="text-slate-400 block mt-2">
-                The documentation work gave me context to contribute meaningfully in cross-functional discussions.
-              </span>
-            </p>
-          </div>
-
-          {/* Subtle gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none"></div>
-        </motion.div>
-      </div>
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none"></div>
+      </motion.div>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink, MessageSquare, Lightbulb, Palette, Layout, AlertCircle } from 'lucide-react'
 import { useLightbox } from '@/contexts/LightboxContext'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface FeatureCardProps {
   title: string
@@ -34,12 +35,12 @@ const FeatureCard = ({ title, description, icon: Icon, iconColor, screens, demoL
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className={`rounded-xl ${bgColor} ${borderColor} border shadow-sm overflow-hidden`}
+      className={`${bgColor} ${borderColor} border shadow-sm overflow-hidden`}
     >
       {/* Header */}
       <div className={`p-6 border-b ${borderColor}`}>
         <div className="flex items-center gap-3 mb-3">
-          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${iconColor}`}>
+          <div className={`w-10 h-10 flex items-center justify-center ${iconColor}`}>
             <Icon size={20} className="text-white" />
           </div>
           <h3 className={`font-serif text-xl font-semibold ${titleColor}`}>{title}</h3>
@@ -70,7 +71,7 @@ const FeatureCard = ({ title, description, icon: Icon, iconColor, screens, demoL
                 {'// '}{screen.label}
               </span>
               <div
-                className="relative aspect-video rounded-lg overflow-hidden cursor-pointer group"
+                className="relative aspect-video overflow-hidden cursor-pointer group"
                 onClick={() => openLightbox(screen.imageSrc, screen.altText)}
               >
                 <Image
@@ -80,7 +81,7 @@ const FeatureCard = ({ title, description, icon: Icon, iconColor, screens, demoL
                   className="object-cover"
                   sizes="200px"
                 />
-                <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm rounded px-1.5 py-0.5 shadow-sm">
+                <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-1.5 py-0.5 shadow-sm">
                   <span className="font-mono text-[8px] text-slate-500 uppercase">Tap</span>
                 </div>
               </div>
@@ -103,7 +104,7 @@ const FeatureCard = ({ title, description, icon: Icon, iconColor, screens, demoL
               {'// '}{screen.label}
             </span>
             <div
-              className="relative aspect-video rounded-lg overflow-hidden cursor-pointer group"
+              className="relative aspect-video overflow-hidden cursor-pointer group"
               onClick={() => openLightbox(screen.imageSrc, screen.altText)}
             >
               <Image
@@ -193,23 +194,15 @@ export default function IQNLQInsightsShowcase({ isLightBackground = true }) {
 
   return (
     <div className="w-full py-10 md:py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-12 text-center"
-      >
-        <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest block mb-4">
-          {'// WORKFLOWS_OWNED'}
-        </span>
-        <h2 className={`text-3xl md:text-4xl font-serif ${titleColor} mb-4`}>
-          NLQ & Insights: The Foundation
-        </h2>
-        <p className={`text-lg ${summaryColor} max-w-3xl mx-auto`}>
-          Before IQ Plugin unified everything, I designed and owned these workflows end-to-end.
-          Both are shipping now in WebFOCUS 9.3.6—fully responsive, with consistent patterns that made the IQ Plugin integration seamless.
-        </p>
-      </motion.div>
+      <ComponentHeading
+        variant="block"
+        tag="// WORKFLOWS_OWNED"
+        title="NLQ & Insights: The Foundation"
+        description="Before IQ Plugin unified everything, I designed and owned these workflows end-to-end. Both are shipping now in WebFOCUS 9.3.6—fully responsive, with consistent patterns that made the IQ Plugin integration seamless."
+        color="teal"
+        align="center"
+        className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-12"
+      />
 
       <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
         {features.map((feature, index) => (
@@ -229,7 +222,7 @@ export default function IQNLQInsightsShowcase({ isLightBackground = true }) {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-12"
       >
-        <div className={`rounded-xl p-6 ${isLightBackground ? 'bg-slate-100' : 'bg-slate-800'}`}>
+        <div className={`p-6 ${isLightBackground ? 'bg-slate-100' : 'bg-slate-800'}`}>
           <div className="flex items-start gap-3">
             <Layout size={20} className="text-[var(--accent-teal)] flex-shrink-0 mt-0.5" />
             <div>

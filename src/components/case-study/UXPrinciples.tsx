@@ -24,7 +24,7 @@ export default function UXPrinciples({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8"
+      className="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-2xl"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
@@ -42,7 +42,7 @@ export default function UXPrinciples({
         {principles.map((principle, index) => (
           <span
             key={index}
-            className="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 rounded-full text-slate-700 text-sm font-medium"
+            className="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-full"
           >
             {principle.title}
           </span>

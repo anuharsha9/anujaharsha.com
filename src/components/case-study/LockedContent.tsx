@@ -140,7 +140,7 @@ export default function LockedContent({ children, isUnlocked: propIsUnlocked, on
         className={
           fullWidth
             ? `w-full bg-[var(--accent-teal-50)] border-y border-[var(--accent-teal-100)] py-12 my-12 ${className}`
-            : `bg-[var(--accent-teal-50)] border-l-4 border-[var(--accent-teal)] p-4 my-8 rounded-lg ${className}`
+            : `bg-[var(--accent-teal-50)] border-l-4 border-[var(--accent-teal)] p-4 my-8 ${className}`
         }
       >
         <div className={fullWidth ? 'max-w-6xl mx-auto px-4 sm:px-6' : ''}>
@@ -162,7 +162,7 @@ export default function LockedContent({ children, isUnlocked: propIsUnlocked, on
               {/* Ghost Button */}
               <button
                 onClick={() => setShowPasswordModal(true)}
-                className="inline-flex items-center gap-2 px-4 py-2 mt-2 text-sm font-medium text-[var(--accent-teal)] border border-[var(--accent-teal)]/30 rounded-lg hover:bg-[var(--accent-teal-soft)] transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 mt-2 text-sm font-medium text-[var(--accent-teal)] border border-[var(--accent-teal)]/30 hover:bg-[var(--accent-teal-soft)] transition-colors"
               >
                 <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
@@ -180,7 +180,7 @@ export default function LockedContent({ children, isUnlocked: propIsUnlocked, on
             <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowPasswordModal(false)} className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
-              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative bg-white rounded-2xl border-2 border-slate-200 p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative bg-white border-2 border-slate-200 p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
                 <button onClick={() => setShowPasswordModal(false)} className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 transition-colors">
                   <svg aria-hidden="true" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -215,7 +215,7 @@ export default function LockedContent({ children, isUnlocked: propIsUnlocked, on
                         placeholder="Enter password"
                         aria-label="Enter password to unlock content"
                         aria-describedby={error ? 'password-error' : undefined}
-                        className={`w-full px-4 py-3 rounded-lg border-2 transition-colors bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none ${error ? 'border-red-400' : success ? 'border-green-400' : 'border-slate-200 focus:border-[var(--accent-teal)]'}`}
+                        className={`w-full px-4 py-3 border-2 transition-colors bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none ${error ? 'border-red-400' : success ? 'border-green-400' : 'border-slate-200 focus:border-[var(--accent-teal)]'}`}
                         autoFocus
                         disabled={success}
                       />
@@ -237,7 +237,7 @@ export default function LockedContent({ children, isUnlocked: propIsUnlocked, on
                       )}
                     </div>
 
-                    <button type="submit" disabled={success} className={`w-full text-white px-6 py-3 rounded-lg font-medium transition-colors disabled:opacity-75 disabled:cursor-not-allowed ${success ? 'bg-green-500 hover:bg-green-600' : 'bg-[var(--accent-teal)] hover:bg-[var(--accent-teal)]/90'}`}>
+                    <button type="submit" disabled={success} className={`w-full text-white px-6 py-3 font-medium transition-colors disabled:opacity-75 disabled:cursor-not-allowed ${success ? 'bg-green-500 hover:bg-green-600' : 'bg-[var(--accent-teal)] hover:bg-[var(--accent-teal)]/90'}`}>
                       {success ? 'Unlocking...' : 'Unlock Content'}
                     </button>
                   </form>

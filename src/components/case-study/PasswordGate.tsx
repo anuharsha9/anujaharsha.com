@@ -111,7 +111,7 @@ export default function PasswordGate({
             </div>
 
             {/* What you'll learn preview */}
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10 text-left">
+            <div className="bg-white/5 p-6 border border-white/10 text-left">
               <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">
                 What you&apos;ll learn
               </h3>
@@ -146,12 +146,12 @@ export default function PasswordGate({
                 }}
                 placeholder="Enter password"
                 aria-label="Enter password to unlock case study"
-                className="px-6 py-3 rounded-full border border-white/20 bg-white/5 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-colors flex-1 max-w-md"
+                className="px-6 py-3 border border-white/20 bg-white/5 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-colors flex-1 max-w-md"
                 autoFocus
               />
               <button
                 type="submit"
-                className="px-8 py-3 rounded-full border border-white/20 text-white hover:border-white/40 hover:bg-white/10 transition-all duration-300 whitespace-nowrap group inline-flex items-center gap-2"
+                className="px-8 py-3 border border-white/20 text-white hover:border-white/40 hover:bg-white/10 transition-all duration-300 whitespace-nowrap group inline-flex items-center gap-2"
               >
                 {redirectToPrototype ? 'Unlock and view prototype' : 'Unlock full case study'}
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>

@@ -12,6 +12,9 @@ export interface GearInspectorItem {
   linkLabel: string
   accentColor: string
   caseStudy?: 'reportcaster' | 'ml-functions' | 'iq-plugin' | 'me'
+  image?: string
+  title?: string
+  insight?: string
 }
 
 export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {

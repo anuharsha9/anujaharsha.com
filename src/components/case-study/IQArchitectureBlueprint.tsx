@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useLightbox } from '@/contexts/LightboxContext'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface BlueprintItemProps {
   imageSrc: string
@@ -26,7 +27,7 @@ const BlueprintItem = ({ imageSrc, altText, label, caption, isLightBackground, s
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-col rounded-xl ${bgColor} ${borderColor} border shadow-sm overflow-hidden ${size === 'full' ? 'col-span-1 md:col-span-2' : ''}`}
+      className={`flex flex-col ${bgColor} ${borderColor} border shadow-sm overflow-hidden ${size === 'full' ? 'col-span-1 md:col-span-2' : ''}`}
     >
       <div className={`px-4 py-3 border-b ${borderColor} ${isLightBackground ? 'bg-slate-50' : 'bg-slate-900'}`}>
         <span className={`font-mono text-[10px] uppercase tracking-widest ${labelColor}`}>
@@ -46,7 +47,7 @@ const BlueprintItem = ({ imageSrc, altText, label, caption, isLightBackground, s
           sizes={size === 'full' ? '100vw' : '(max-width: 768px) 100vw, 50vw'}
         />
         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity flex items-center justify-center">
-          <span className="text-white text-opacity-0 group-hover:text-opacity-100 transition-opacity text-sm font-medium bg-black/50 px-3 py-1 rounded">
+          <span className="text-white text-opacity-0 group-hover:text-opacity-100 transition-opacity text-sm font-medium bg-black/50 px-3 py-1 ">
             View Full Size
           </span>
         </div>
@@ -102,22 +103,14 @@ export default function IQArchitectureBlueprint({ isLightBackground = true }) {
 
   return (
     <div className="w-full py-10 md:py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+      <ComponentHeading
+        tag="// SYSTEM_ARCHITECTURE"
+        title="Building the System"
+        description="From flowcharts to responsive mockups—the structural foundation that makes three complex features feel like one unified experience."
+        color="text-[var(--accent-violet)]"
+        align="center"
         className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-12"
-      >
-        <span className="font-mono text-xs text-[var(--accent-violet)] uppercase tracking-widest block mb-4">
-          {'// SYSTEM_ARCHITECTURE'}
-        </span>
-        <h2 className={`text-3xl md:text-4xl font-serif ${titleColor} mb-4`}>
-          Building the System
-        </h2>
-        <p className={`text-lg ${summaryColor} max-w-3xl`}>
-          From flowcharts to responsive mockups—the structural foundation that makes three complex features feel like one unified experience.
-        </p>
-      </motion.div>
+      />
 
       <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 grid grid-cols-1 md:grid-cols-2 gap-6">
         {blueprintItems.map((item, index) => (
@@ -137,7 +130,7 @@ export default function IQArchitectureBlueprint({ isLightBackground = true }) {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-12"
       >
-        <div className="bg-slate-900 rounded-xl p-6">
+        <div className="bg-slate-900 p-6">
           <div className="flex items-start gap-3">
             <span className="font-mono text-sm text-[var(--accent-violet)] flex-shrink-0">
               &gt; DESIGN_PRINCIPLE:

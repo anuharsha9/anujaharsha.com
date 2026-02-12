@@ -11,7 +11,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     src: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
     alt: 'ML Functions Confusion Matrix - Model Performance Visualization',
   },
-  role: 'UX Lead / UX Owner (End-to-End Ownership)',
+  role: 'Lead Product Designer (End-to-End Ownership)',
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Jan 2023 – Jan 2025 | Shipping 2026',
   status: {
@@ -28,6 +28,175 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   // ----------------------------
   // QUICK IMPACT OVERVIEW (Public)
   // ----------------------------
+  // ----------------------------
+  // PROJECT SNAPSHOT & DEEP DIVE DATA
+  // ----------------------------
+  projectSnapshot: {
+    problem: 'Engineers struggled to train models without deep Python knowledge.',
+    role: 'Lead Designer & Researcher',
+    keyDecisions: [
+      'Moving from 12-step code to 4-step wizard',
+      'Implementing "Dual Experience" (Guided vs Advanced)',
+      'Visualizing confusion matrix for non-statisticians',
+    ],
+    impactDirectional: 'Reduced 12-step coding task to a 4-step visual wizard.',
+    status: 'Shipping 2026',
+  },
+  challengeDeconstruction: {
+    assumptions: [
+      'Users know what "hyperparameters" are.',
+      'Business analysts can code in Python.',
+      'Errors should be technical stack traces.',
+    ],
+    unknowns: [
+      'Which ML algorithms are most used?',
+      'How much customization do business users actually need?',
+      'Can we abstract the backend without breaking flexibility?',
+    ],
+    constraints: [
+      'Cannot rewrite the underlying ML engine (Python based).',
+      'Must support legacy "Advanced Mode" for data scientists.',
+      'Limited frontend engineering resources.',
+    ],
+    businessGoal: 'Democratize ML training for non-technical business analysts.',
+  },
+  successCriteria: {
+    baseline: '12+ clicks, requires Python knowledge, high error rate.',
+    target: '<10 clicks, no coding required, guided error handling.',
+    result: '7-9 clicks, zero code, 5/5 success rate in usability testing.',
+    disclaimer: 'Results based on internal usability testing with 5 SMEs.',
+  },
+  keyDecisions: [
+    {
+      decision: 'Implement "Dual Experience" Mode',
+      rationale: 'Experts needed control; novices needed guidance. One UI couldn\'t serve both.',
+      tradeoff: 'Double the maintenance for two distinct flows.',
+      rejectedOption: 'Force everyone into the "Simple" Wizard',
+    },
+    {
+      decision: 'Linear 4-Step Wizard',
+      rationale: 'Broke complex ML training into digestable chunks: Type -> Target -> Predictors -> Params.',
+      tradeoff: 'Less flexibility to jump around steps.',
+      rejectedOption: 'Single-page "Dashboard" Configuration',
+    },
+    {
+      decision: 'Visual Confusion Matrix',
+      rationale: 'Standard tables were unreadable to non-data scientists.',
+      tradeoff: 'High engineering effort to build custom visualization.',
+      rejectedOption: 'Standard Numerical Table',
+    },
+  ],
+  researchDecisionMap: [
+    {
+      insight: 'Users didn\'t know which algorithm to pick.',
+      evidence: 'Usability tests showed hesitation at "Select Algorithm".',
+      decision: 'Added "Auto-Select" based on data type analysis.',
+      feature: 'Smart Defaults',
+    },
+    {
+      insight: 'Error messages like "Error 500" were useless.',
+      evidence: 'Users abandoned tasks upon first error.',
+      decision: 'Translated backend errors into "Try changing [X]" suggestions.',
+      feature: 'Human-Readable Error Layer',
+    },
+  ],
+  competitiveResponse: {
+    marketGap: 'DataRobot and H2O.ai are powerful but too complex for ad-hoc business users.',
+    response: 'Built a "Lightweight ML" experience embedded directly in their BI tool.',
+    evidenceSource: 'Competitor teardowns of DataRobot/H2O.',
+  },
+  businessImpactDirectional: {
+    bullets: [
+      'Reduced training time from ~20 mins to ~5 mins (directional).',
+      'Enabled non-technical users to build valid models.',
+      'Zero dead-end errors in final usability testing.',
+    ],
+    disclaimer: 'Impact metrics are based on pre-release usability testing and time-on-task measurements.',
+  },
+  ownership: {
+    ownedFeatures: [
+      '4-Step Training Wizard',
+      'Confusion Matrix Visualization',
+      'Smart Defaults Logic',
+      'Error Handling Layer',
+      'Dual-Mode Toggle',
+    ],
+    excludedFeatures: [
+      'Python Backend Execution',
+      'Algorithm Implementation',
+    ],
+  },
+  presentation: {
+    slides: [
+      {
+        type: 'title',
+        title: 'Democratizing Machine Learning',
+        content: ['Anuja — Senior Product Designer', 'Secondary Case Study'],
+        image: '/images/case-study/ml-functions/ml-functions-cover.png',
+      },
+      {
+        type: 'problem',
+        title: 'The "Black Box" Problem',
+        content: [
+          'ML was reserved for data scientists.',
+          'Required Python scripting.',
+          '12+ steps to train a simple model.',
+          'Opaque error messages.',
+        ],
+      },
+      {
+        type: 'research',
+        title: 'Bridging the Gap',
+        content: [
+          'Earned MIT Certification to understand the domain.',
+          'Embedded with Principal Data Scientist.',
+          'Identified the "Dual Persona" need.',
+        ],
+        image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
+      },
+      {
+        type: 'decision',
+        title: 'Key Design Decisions',
+        content: [
+          'Dual Experience: Wizard vs Advanced.',
+          'Linear 4-Step Flow.',
+          'Visual Confusion Matrix.',
+        ],
+      },
+      {
+        type: 'execution',
+        title: 'The Guided Solution',
+        content: [
+          'Step 1: Define Problem.',
+          'Step 2: select Target.',
+          'Step 3: Choose Predictors.',
+          'Step 4: Tune Parameters.',
+        ],
+        image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
+      },
+      {
+        type: 'impact',
+        title: 'Impact & Validation',
+        content: [
+          '5/5 SMEs succeeded without help.',
+          'Reduced clicks from 12+ to 7-9.',
+          'Validated by Principal Data Scientist.',
+          'Shipping 2026.',
+        ],
+      },
+    ],
+  },
+  bonusSlides: {
+    title: 'Deep Dives',
+    slides: [
+      {
+        title: 'Confusion Matrix iteration',
+        image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
+        description: 'Evolution of the model performance visualization.',
+      },
+    ],
+  },
+
   quickOverview: {
     title: 'Democratizing ML — Quick Impact Overview',
     subtitle: 'Predictive analytics for non-technical users',

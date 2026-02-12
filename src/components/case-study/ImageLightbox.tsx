@@ -278,7 +278,7 @@ export default function ImageLightbox({
               {hasNavigation && (
                 <button
                   onClick={() => setIsPlaying(prev => !prev)}
-                  className="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
+                  className="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
                   aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
                 >
                   {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
@@ -288,7 +288,7 @@ export default function ImageLightbox({
               {!isMobile && (
                 <button
                   onClick={() => setIsZoomed(prev => !prev)}
-                  className="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
+                  className="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
                   aria-label={isZoomed ? 'Zoom out' : 'Zoom in'}
                 >
                   {isZoomed ? <ZoomOut className="w-5 h-5" /> : <ZoomIn className="w-5 h-5" />}
@@ -298,7 +298,7 @@ export default function ImageLightbox({
               {/* Close Button - Larger tap target on mobile */}
               <button
                 onClick={onClose}
-                className="p-3 md:p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200"
+                className="p-3 md:p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
                 aria-label="Close lightbox"
               >
                 <X className="w-6 h-6 md:w-5 md:h-5" />
@@ -321,7 +321,7 @@ export default function ImageLightbox({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 onClick={handlePrev}
-                className="absolute left-4 md:left-8 z-10 p-3 md:p-4 text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 rounded-xl border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-all duration-200 group"
+                className="absolute left-4 md:left-8 z-10 p-3 md:p-4 text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-all duration-200 group"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 group-hover:-translate-x-0.5 transition-transform" />
@@ -334,7 +334,7 @@ export default function ImageLightbox({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 onClick={handleNext}
-                className="absolute right-4 md:right-8 z-10 p-3 md:p-4 text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 rounded-xl border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-all duration-200 group"
+                className="absolute right-4 md:right-8 z-10 p-3 md:p-4 text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-all duration-200 group"
                 aria-label="Next image"
               >
                 <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-0.5 transition-transform" />
@@ -362,13 +362,13 @@ export default function ImageLightbox({
             >
               {/* Image Wrapper with Border */}
               <div
-                className={`relative bg-slate-900 rounded-xl overflow-auto border border-slate-700/50 shadow-2xl shadow-black/50 transition-all duration-500 ${isZoomed ? 'max-w-none max-h-[95vh]' : 'max-w-[95vw] max-h-[85vh]'
+                className={`relative bg-slate-900 overflow-auto border border-slate-700/50 shadow-2xl shadow-black/50 transition-all duration-500 ${isZoomed ? 'max-w-none max-h-[95vh]' : 'max-w-[95vw] max-h-[85vh]'
                   }`}
               >
                 {/* Loading State */}
                 {!imageLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center bg-slate-900 min-h-[200px] min-w-[300px]">
-                    <div className="w-8 h-8 border-2 border-slate-700 border-t-[var(--accent-teal)] rounded-full animate-spin" />
+                    <div className="w-8 h-8 border-2 border-slate-700 border-t-[var(--accent-teal)] animate-spin" />
                   </div>
                 )}
 
@@ -424,7 +424,7 @@ export default function ImageLightbox({
                       href={props.actionLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-full text-xs font-mono border border-slate-700 hover:border-slate-600 transition-all duration-200"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-mono border border-slate-700 hover:border-slate-600 transition-all duration-200"
                     >
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17" strokeLinecap="round" strokeLinejoin="round" />
@@ -463,23 +463,23 @@ export default function ImageLightbox({
               /* Desktop hints */
               <div className="flex items-center gap-6 font-mono text-[10px] text-slate-500 uppercase tracking-widest">
                 <span className="flex items-center gap-2">
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">ESC</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-slate-400">ESC</kbd>
                   Close
                 </span>
                 <span className="flex items-center gap-2">
-                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">Z</kbd>
+                  <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-slate-400">Z</kbd>
                   Zoom
                 </span>
                 {hasNavigation && (
                   <span className="flex items-center gap-2">
-                    <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">SPACE</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-slate-400">SPACE</kbd>
                     {isPlaying ? 'Pause' : 'Play'}
                   </span>
                 )}
                 {hasNavigation && (
                   <span className="flex items-center gap-2">
-                    <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">←</kbd>
-                    <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-400">→</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-slate-400">←</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-slate-400">→</kbd>
                     Navigate
                   </span>
                 )}

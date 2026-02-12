@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface PatternConnectionsProps {
   isLightBackground?: boolean
@@ -95,7 +96,7 @@ export default function PatternConnections({ isLightBackground = true }: Pattern
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-slate-50 border border-slate-200 rounded-xl p-8 h-full flex flex-col hover:-translate-y-1 hover:shadow-lg hover:border-[var(--accent-teal)]/30 transition-all duration-300 group"
+        className="bg-slate-50 border border-slate-200 p-8 h-full flex flex-col hover:-translate-y-1 hover:shadow-lg hover:border-[var(--accent-teal)]/30 transition-all duration-300 group rounded-2xl"
       >
         {/* Schematic Icon */}
         <div className="mb-6">
@@ -144,51 +145,55 @@ export default function PatternConnections({ isLightBackground = true }: Pattern
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-8 md:p-12 shadow-sm">
-      <div className="space-y-10">
+    <div className="space-y-12">
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-3"
-        >
-          <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-            {'// PATTERN_LIBRARY'}
-          </span>
-          <h3 className="text-slate-900 text-2xl md:text-3xl font-serif">
-            Patterns That Became Reusable
-          </h3>
-          <p className="text-slate-500 text-base md:text-lg max-w-2xl mx-auto">
-            Architectural patterns that scaled across multiple enterprise products.
-          </p>
-        </motion.div>
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag="// PATTERN_LIBRARY"
+          title="Patterns That Became Reusable"
+          description="Architectural patterns that scaled across multiple enterprise products."
+          color="teal"
+          className="mb-12"
+        />
+      </motion.div>
 
-        {/* Pattern Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {patterns.map((pattern, index) => (
-            <PatternCard key={pattern.id} pattern={pattern} index={index} />
-          ))}
+      {/* Pattern Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {patterns.map((pattern, index) => (
+          <PatternCard key={pattern.id} pattern={pattern} index={index} />
+        ))}
+      </div>
+
+      {/* System Efficiency Footer - Terminal Style */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="bg-[#1D1D20] p-6 rounded-xl shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
+      >
+        {/* Terminal Header */}
+        <div className="flex gap-2 mb-4 opacity-50">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
         </div>
 
-        {/* System Efficiency Footer */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-slate-900 rounded-xl p-6"
-        >
-          <div className="font-mono text-sm">
-            <span className="text-emerald-400">&gt; SYSTEM_EFFICIENCY:</span>
-            <p className="text-slate-300 mt-2 leading-relaxed">
-              These weren&apos;t just one-off solutions — they became reusable patterns for handling enterprise complexity across multiple products. Design once, deploy everywhere.
-            </p>
-          </div>
-        </motion.div>
-      </div>
+        <div className="text-sm">
+          <span className="text-emerald-400">&gt; SYSTEM_EFFICIENCY:</span>
+          <p className="text-slate-300 mt-2 leading-relaxed font-sans">
+            These weren&apos;t just one-off solutions — they became reusable patterns for handling enterprise complexity across multiple products. Design once, deploy everywhere.
+          </p>
+        </div>
+      </motion.div>
     </div>
   )
 }

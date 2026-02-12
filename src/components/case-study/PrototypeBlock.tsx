@@ -4,7 +4,7 @@ import MotionSection from '@/components/ui/MotionSection'
 import CustomVideoPlayer from '@/components/video/CustomVideoPlayer'
 import BeforeAfterVideo from './BeforeAfterVideo'
 import MultiBeforeAfterVideo from './MultiBeforeAfterVideo'
-import { getTheme } from '@/lib/design-system'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface PrototypeBlockProps {
   prototypeMedia?: {
@@ -32,10 +32,9 @@ interface PrototypeBlockProps {
 
 export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightBackground = true, password = 'anu-access' }: PrototypeBlockProps) {
   if (!prototypeMedia) return null
-  const t = getTheme(true)
 
   return (
-    <MotionSection id="prototype" className={`py-10 md:py-14 ${t.bgAlt} border-t ${t.border}`}>
+    <MotionSection id="prototype" className="py-10 md:py-14 bg-white">
       <div className="space-y-8">
         {prototypeMedia.multiBeforeAfter ? (
           <MultiBeforeAfterVideo before={prototypeMedia.multiBeforeAfter.before} after={prototypeMedia.multiBeforeAfter.after} isLightBackground={true} comparisonNotes={prototypeMedia.multiBeforeAfter.comparisonNotes} password={password} caseStudySlug={caseStudySlug} />
@@ -45,24 +44,29 @@ export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightB
           <>
             <div className="text-center space-y-4">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className={`h-px flex-1 ${t.textAccent}/20`}></div>
-                <h2 className={`${t.text} text-4xl md:text-5xl font-serif`}>{prototypeMedia.title}</h2>
-                <div className={`h-px flex-1 ${t.textAccent}/20`}></div>
+                <div className="h-px flex-1 bg-slate-200"></div>
+                <h2 className="text-slate-900 text-4xl md:text-5xl font-serif">{prototypeMedia.title}</h2>
+                <div className="h-px flex-1 bg-slate-200"></div>
               </div>
-              {prototypeMedia.description && <p className={`${t.textMuted} text-lg md:text-xl leading-relaxed max-w-3xl mx-auto`}>{prototypeMedia.description}</p>}
+              {prototypeMedia.description && <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">{prototypeMedia.description}</p>}
             </div>
           </>
         )}
 
         {!prototypeMedia.beforeAfter && !prototypeMedia.multiBeforeAfter && prototypeMedia.videoUrl && (
           <div className="space-y-6">
-            <div className="text-center space-y-2">
-              <h3 className={`${t.text} text-2xl font-serif font-semibold`}>Video Walkthrough</h3>
-              <p className={`${t.textMuted} text-base max-w-2xl mx-auto`}>This is an actual video walkthrough created and narrated by me. Watch to see how the final design works in practice.</p>
-            </div>
+            <ComponentHeading
+              variant="block"
+              tag="// DEMO"
+              title="Video Walkthrough"
+              description="This is an actual video walkthrough created and narrated by me. Watch to see how the final design works in practice."
+              className="mb-6"
+              align="center"
+              color="teal"
+            />
             <div className="max-w-[1440px] mx-auto">
-              <div className={`relative w-full aspect-video rounded-2xl border-2 ${t.borderAccent} ${t.bg} overflow-hidden shadow-xl`}>
-                <CustomVideoPlayer src={prototypeMedia.videoUrl} className="rounded-2xl" />
+              <div className="relative w-full aspect-video border border-slate-200 bg-white overflow-hidden shadow-sm rounded-2xl">
+                <CustomVideoPlayer src={prototypeMedia.videoUrl} className="" />
               </div>
             </div>
           </div>
@@ -70,12 +74,17 @@ export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightB
 
         {!prototypeMedia.beforeAfter && prototypeMedia.videoEmbedUrl && !prototypeMedia.videoUrl && (
           <div className="space-y-6">
-            <div className="text-center space-y-2">
-              <h3 className={`${t.text} text-2xl font-serif font-semibold`}>Video Walkthrough</h3>
-              <p className={`${t.textMuted} text-base max-w-2xl mx-auto`}>Watch the walkthrough to see how the final design works in practice.</p>
-            </div>
+            <ComponentHeading
+              variant="block"
+              tag="// DEMO"
+              title="Video Walkthrough"
+              description="Watch the walkthrough to see how the final design works in practice."
+              className="mb-6"
+              align="center"
+              color="teal"
+            />
             <div className="max-w-[1440px] mx-auto">
-              <div className={`relative w-full aspect-video rounded-2xl border-2 ${t.borderAccent} ${t.bg} overflow-hidden shadow-xl`}>
+              <div className="relative w-full aspect-video border border-slate-200 bg-white overflow-hidden shadow-sm rounded-2xl">
                 <iframe src={prototypeMedia.videoEmbedUrl} className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title="Video Walkthrough" />
               </div>
             </div>

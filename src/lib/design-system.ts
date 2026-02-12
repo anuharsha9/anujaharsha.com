@@ -295,33 +295,33 @@ export const spacing = {
 // =============================================================================
 
 export const effects = {
-  // Border radius
+  // Border radius — Apple minimalism: sharp edges
   rounded: {
-    sm: 'rounded-lg',       // 16px
-    md: 'rounded-xl',       // 24px
-    lg: 'rounded-2xl',      // 32px
-    full: 'rounded-full',
+    sm: '',                   // sharp
+    md: '',                   // sharp
+    lg: '',                   // sharp
+    full: 'rounded-full',     // keep for dots/avatars only
   },
 
-  // Shadows
+  // Shadows — Apple diffused
   shadow: {
     sm: 'shadow-sm',
     md: 'shadow-md',
     lg: 'shadow-lg',
   },
 
-  // Transitions
+  // Transitions — Amazon Design-inspired smooth
   transition: {
-    fast: 'transition-all duration-150',
-    normal: 'transition-all duration-300',
-    slow: 'transition-all duration-500',
+    fast: 'transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+    normal: 'transition-all duration-350 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+    slow: 'transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
   },
 
-  // Hover effects
+  // Hover effects — refined, Amazon Design-style
   hover: {
-    lift: 'hover:-translate-y-1 hover:shadow-lg',
-    scale: 'hover:scale-[1.02]',
-    glow: 'hover:shadow-[0_8px_16px_rgba(0,162,183,0.15)]',
+    lift: 'hover:-translate-y-[2px] hover:shadow-lg',
+    scale: 'hover:scale-[1.015]',
+    glow: 'hover:shadow-[0_4px_24px_rgba(0,162,183,0.12)]',
   },
 } as const
 
@@ -330,11 +330,11 @@ export const effects = {
 // =============================================================================
 
 export const components = {
-  // Card styles
+  // Card styles — sharp-edge windows
   card: (isLight: boolean) => ({
-    base: `${isLight ? BG.surface.light : BG.surface.dark} rounded-lg border ${isLight ? BORDER.light : BORDER.dark}`,
-    interactive: `${isLight ? BG.surface.light : BG.surface.dark} rounded-lg border ${isLight ? BORDER.light : BORDER.dark} ${effects.transition.normal} ${effects.hover.scale} hover:shadow-lg`,
-    accent: `${isLight ? BG.surface.light : BG.surface.dark} rounded-lg border-2 ${effects.transition.normal}`,
+    base: `${isLight ? BG.surface.light : BG.surface.dark} border ${isLight ? BORDER.light : BORDER.dark}`,
+    interactive: `${isLight ? BG.surface.light : BG.surface.dark} border ${isLight ? BORDER.light : BORDER.dark} ${effects.transition.normal} ${effects.hover.scale} hover:shadow-lg`,
+    accent: `${isLight ? BG.surface.light : BG.surface.dark} border-2 ${effects.transition.normal}`,
   }),
 
   // Section header
@@ -344,11 +344,11 @@ export const components = {
     subtitle: `${isLight ? TEXT.mutedLight : TEXT.mutedDark} ${typography.body} max-w-2xl mx-auto`,
   }),
 
-  // Button styles
+  // Button styles — sharp edges
   button: {
-    primary: 'bg-accent-teal text-white px-6 py-3 rounded-lg font-medium transition-colors hover:bg-accent-teal-700',
-    secondary: 'bg-black/5 text-slate-900 px-6 py-3 rounded-lg font-medium transition-colors hover:bg-black/10',
-    ghost: 'text-accent-teal hover:text-accent-teal-700 transition-colors',
+    primary: 'bg-accent-teal text-white px-6 py-3 font-medium transition-all duration-300 hover:bg-accent-teal-700 hover:shadow-md',
+    secondary: 'bg-black/5 text-slate-900 px-6 py-3 font-medium transition-all duration-300 hover:bg-black/10',
+    ghost: 'text-accent-teal hover:text-accent-teal-700 transition-colors duration-300',
   },
 } as const
 

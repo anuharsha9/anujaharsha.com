@@ -89,7 +89,7 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-slate-50 border border-slate-200 rounded-xl p-8 h-full flex flex-col hover:-translate-y-1 hover:shadow-lg hover:border-[var(--accent-violet)]/30 transition-all duration-300 group"
+        className="bg-slate-50 border border-slate-200 p-8 h-full flex flex-col hover:-translate-y-1 hover:shadow-lg hover:border-[var(--accent-violet)]/30 transition-all duration-300 group rounded-2xl"
       >
         {/* Schematic Icon */}
         <div className="mb-6">
@@ -138,8 +138,8 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-8 md:p-12 shadow-sm">
-      <div className="space-y-10">
+    <div className="space-y-12">
+      <div className="space-y-12">
 
         {/* Header */}
         <motion.div
@@ -167,17 +167,24 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
           ))}
         </div>
 
-        {/* System Efficiency Footer */}
+        {/* System Efficiency Footer - Terminal Style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-slate-900 rounded-xl p-6"
+          className="bg-[#1D1D20] p-6 rounded-xl shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
         >
-          <div className="font-mono text-sm">
+          {/* Terminal Header */}
+          <div className="flex gap-2 mb-4 opacity-50">
+            <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+            <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+            <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+          </div>
+
+          <div className="text-sm">
             <span className="text-purple-400">&gt; SYSTEM_EFFICIENCY:</span>
-            <p className="text-slate-300 mt-2 leading-relaxed">
+            <p className="text-slate-300 mt-2 leading-relaxed font-sans">
               The IQ Plugin isn&apos;t just a feature — it&apos;s the foundation for how WebFOCUS approaches DSML capabilities. One hub, three engines, infinite possibilities.
             </p>
           </div>

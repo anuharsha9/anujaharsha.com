@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface ImpactVisualProps {
   isLightBackground?: boolean
@@ -106,7 +107,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
   ]
 
   return (
-    <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-primary)] p-8 md:p-12 shadow-sm">
+    <div className="space-y-12 py-8">
       <div className="space-y-12">
 
         {/* Header */}
@@ -115,17 +116,16 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center space-y-3"
         >
-          <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-            {'// IMPACT_METRICS'}
-          </span>
-          <h3 className="text-[var(--text-heading)] text-2xl md:text-3xl font-serif">
-            Entry Points, Workflows & Validation
-          </h3>
-          <p className="text-[var(--text-body)] text-base md:text-lg max-w-2xl mx-auto">
-            Unified entry points, streamlined workflows, and validation from multiple sources.
-          </p>
+          <ComponentHeading
+            variant="block"
+            align="center"
+            tag="// VISUAL_EVIDENCE"
+            title="Visible Impact"
+            description="We didn't just clean up the UI; we fundamentally restructured the information hierarchy to prioritize clarity and task completion."
+            color="teal"
+            className="mb-12"
+          />
         </motion.div>
 
         {/* Click Reduction Data Strip */}
@@ -144,44 +144,44 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="bg-white border border-[var(--border-primary)] rounded-xl p-4 md:p-5 text-center hover:shadow-md hover:border-[var(--accent-teal)]/30 transition-all duration-300"
+              className="bg-white border border-slate-100 p-4 md:p-6 text-center hover:shadow-lg hover:border-teal-100 transition-all duration-300 rounded-2xl group"
             >
               {/* Icon */}
-              <div className="text-[var(--border-secondary)] mb-3 flex justify-center">
+              <div className="text-slate-300 mb-4 flex justify-center group-hover:text-teal-500 transition-colors">
                 {item.icon}
               </div>
 
               {/* Hero Reduction */}
-              <div className="font-mono font-bold text-3xl md:text-4xl text-[var(--accent-teal)] leading-none">
+              <div className="font-mono font-bold text-3xl md:text-4xl text-teal-600 leading-none mb-3">
                 {item.reduction}
               </div>
 
               {/* Task */}
-              <p className="text-[var(--text-heading)] text-sm font-medium mt-2">
+              <p className="text-slate-900 text-sm font-medium">
                 {item.task}
               </p>
 
               {/* Before/After */}
-              <div className="flex items-center justify-center gap-2 mt-3 text-xs">
-                <span className="text-[var(--text-muted)] line-through">{item.oldClicks}</span>
-                <span className="text-[var(--text-muted)]">→</span>
-                <span className="text-[var(--accent-teal)] font-semibold">{item.newClicks}</span>
+              <div className="flex items-center justify-center gap-2 mt-3 text-xs opacity-60">
+                <span className="text-slate-500 line-through">{item.oldClicks}</span>
+                <span className="text-slate-400">→</span>
+                <span className="text-teal-600 font-semibold">{item.newClicks}</span>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Entry Points: Before/After */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-[var(--border-primary)]"></div>
-            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
+        <div className="space-y-8 pt-8">
+          <div className="flex items-center gap-4 justify-center opacity-40">
+            <div className="h-px w-24 bg-slate-200"></div>
+            <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
               Entry Point Consolidation
             </span>
-            <div className="h-px flex-1 bg-[var(--border-primary)]"></div>
+            <div className="h-px w-24 bg-slate-200"></div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
 
             {/* BEFORE: Scattered */}
             <motion.div
@@ -189,15 +189,15 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-3"
+              className="space-y-4"
             >
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-error)]">
+                <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-error)] bg-red-50 px-2 py-1 rounded">
                   ⚠ SCATTERED
                 </span>
               </div>
 
-              <div className="relative space-y-2">
+              <div className="relative space-y-2 py-4">
                 {entryPoints.old.map((p, i) => (
                   <motion.div
                     key={i}
@@ -205,12 +205,12 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
                     whileInView={{ opacity: 1, rotate: scatteredPositions[i].rotate }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.25 + i * 0.05 }}
-                    whileHover={{ rotate: 0, scale: 1.02 }}
+                    whileHover={{ rotate: 0, scale: 1.02, zIndex: 10 }}
                     style={{ transform: `translateY(${scatteredPositions[i].translateY}px)` }}
-                    className="bg-white border border-[var(--border-primary)] rounded-lg p-3 shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white border border-slate-200 p-4 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg relative"
                   >
-                    <p className="text-[var(--text-heading)] text-sm font-medium">{p.feature}</p>
-                    <p className="text-[var(--text-muted)] text-xs mt-1 italic">{p.location}</p>
+                    <p className="text-slate-700 text-sm font-medium">{p.feature}</p>
+                    <p className="text-slate-400 text-xs mt-0.5 italic">{p.location}</p>
                   </motion.div>
                 ))}
               </div>
@@ -222,18 +222,18 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="space-y-3"
+              className="space-y-4"
             >
               <div className="flex items-center gap-2">
-                <svg aria-hidden="true" className="w-4 h-4 text-[var(--accent-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-mono text-xs uppercase tracking-widest text-[var(--accent-teal)]">
+                <span className="font-mono text-xs uppercase tracking-widest text-teal-600 bg-teal-50 px-2 py-1 rounded flex items-center gap-2">
+                  <svg aria-hidden="true" className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                   UNIFIED
                 </span>
               </div>
 
-              <div className="bg-[var(--accent-teal-50)] rounded-xl p-4 border-2 border-[var(--accent-teal)]/30 space-y-2">
+              <div className="bg-teal-50/50 p-6 rounded-2xl border border-teal-100/50 space-y-3">
                 {entryPoints.new.map((p, i) => (
                   <motion.div
                     key={i}
@@ -242,10 +242,12 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: 0.35 + i * 0.05 }}
                     whileHover={{ x: 4 }}
-                    className="bg-white border-2 border-[var(--accent-teal)]/40 rounded-lg p-3 hover:shadow-sm transition-all duration-200"
+                    className="bg-white border border-teal-100 p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex justify-between items-center group"
                   >
-                    <p className="text-[var(--text-heading)] text-sm font-medium">{p.feature}</p>
-                    <p className="text-[var(--accent-teal)] text-xs mt-1 font-medium">{p.location}</p>
+                    <p className="text-slate-800 text-sm font-medium">{p.feature}</p>
+                    <span className="text-teal-600 text-xs bg-teal-50 px-2 py-0.5 rounded-full group-hover:bg-teal-100 transition-colors">
+                      {p.location}
+                    </span>
                   </motion.div>
                 ))}
               </div>
@@ -254,7 +256,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
         </div>
 
         {/* Validation Sources */}
-        <div className="space-y-6 pt-8 border-t border-[var(--border-primary)]">
+        <div className="space-y-8 pt-12 border-t border-slate-100">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -262,15 +264,15 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center space-y-2"
           >
-            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
+            <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
               {'// VALIDATION_SOURCES'}
             </span>
-            <h4 className="text-[var(--text-heading)] text-xl font-serif">
+            <h4 className="text-slate-900 text-xl font-serif">
               Feedback Confirms Impact
             </h4>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {validations.map((v, i) => (
               <motion.div
                 key={i}
@@ -279,18 +281,18 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.45 + i * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="bg-white border border-[var(--border-primary)] rounded-xl p-5 hover:shadow-md hover:border-[var(--accent-teal)]/30 transition-all duration-300"
+                className="bg-white border border-slate-100 p-6 hover:shadow-lg hover:border-teal-200 transition-all duration-300 rounded-2xl"
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-[var(--accent-teal-50)] flex items-center justify-center text-xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-teal-50 rounded-full flex items-center justify-center text-xl shadow-sm">
                     {v.icon}
                   </div>
                   <div>
-                    <h5 className="text-[var(--text-heading)] text-sm font-semibold">{v.title}</h5>
-                    <p className="text-[var(--text-muted)] text-xs">{v.source}</p>
+                    <h5 className="text-slate-900 text-sm font-bold">{v.title}</h5>
+                    <p className="text-slate-500 text-xs">{v.source}</p>
                   </div>
                 </div>
-                <p className="text-[var(--text-body)] text-sm leading-relaxed italic">
+                <p className="text-slate-600 text-sm leading-relaxed italic border-l-2 border-teal-100 pl-4">
                   &ldquo;{v.quote}&rdquo;
                 </p>
               </motion.div>

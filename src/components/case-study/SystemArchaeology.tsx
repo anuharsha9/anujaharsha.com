@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 import LightboxImage from '@/components/ui/LightboxImage'
 import { useLightbox } from '@/contexts/LightboxContext'
 import LockedContent from './LockedContent'
@@ -76,7 +77,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
-          className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-300"
+          className="bg-slate-50 border border-slate-200 overflow-hidden hover:border-slate-300 transition-all duration-300"
         >
           {/* Header Bar */}
           <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex justify-between items-center">
@@ -103,7 +104,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
             {/* Hover/Tap Overlay */}
             <div className="absolute inset-0 flex items-center justify-center transition-all duration-300">
               {/* Desktop Hover State */}
-              <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-900/80 text-white px-4 py-2 rounded-full items-center gap-2 transform translate-y-2 group-hover:translate-y-0 text-sm font-medium">
+              <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-900/90 text-white px-4 py-2 items-center gap-2 transform translate-y-2 group-hover:translate-y-0 text-sm font-medium border border-white/10">
                 <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                 </svg>
@@ -111,7 +112,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
               </div>
 
               {/* Mobile Tap Indication (Always visible but subtle) */}
-              <div className="lg:hidden flex bg-slate-900/60 text-white px-3 py-1.5 rounded-full items-center gap-1.5 text-xs font-medium backdrop-blur-sm border border-white/10 shadow-lg">
+              <div className="lg:hidden flex bg-slate-900/80 text-white px-3 py-1.5 items-center gap-1.5 text-xs font-medium backdrop-blur-sm border border-white/10 shadow-lg">
                 <svg aria-hidden="true" className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -141,19 +142,16 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
       className="space-y-10"
     >
       {/* THE NARRATIVE: Challenge Block - PUBLIC */}
-      <div className="text-center space-y-4">
-        <div className="inline-flex items-center justify-center gap-2">
-          <span className="font-mono text-[var(--accent-blue)] text-xs uppercase tracking-widest">
-            {'// UNDOCUMENTED_LEGACY'}
-          </span>
-        </div>
-        <h3 className="font-serif text-slate-900 text-2xl md:text-3xl max-w-4xl mx-auto">
-          50-year-old black box. Zero documentation.
-        </h3>
-        <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
-          Project deferred for years — I asked for it. Reverse-engineered the system from sandboxes, tribal knowledge, and the customer support lead who was the real SME. Weeks of discovery before any design.
-        </p>
-      </div>
+      {/* THE NARRATIVE: Challenge Block - PUBLIC */}
+      <ComponentHeading
+        variant="block"
+        align="center"
+        tag="// UNDOCUMENTED_LEGACY"
+        title="50-year-old black box. Zero documentation."
+        description="I had to reverse-engineer the entire system logic by interviewing 12 engineers and reading 5,000 lines of legacy code."
+        className="mb-16"
+        color="blue"
+      />
 
       {/* THE EVIDENCE GRID: Legacy Audit Files - LOCKED */}
       <LockedContent
@@ -166,21 +164,37 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
       </LockedContent>
 
       {/* THE INSIGHT FOOTER: Dark Mode System Insight - PUBLIC */}
-      <div className="bg-slate-900 rounded-xl p-6 md:p-8">
-        {/* Terminal Header */}
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-3 h-3 rounded-full bg-red-500/60"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500/60"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500/60"></div>
-          <span className="ml-2 font-mono text-xs text-slate-500">discovery.log</span>
+      <div className="rounded-xl bg-[#1e1e1e] shadow-2xl border border-white/10 overflow-hidden mx-auto max-w-4xl">
+        {/* macOS Terminal Header */}
+        <div className="h-10 bg-[#2d2d2d] flex items-center justify-center relative border-b border-black/40">
+          {/* Traffic Lights */}
+          <div className="flex gap-2 absolute left-4 top-1/2 -translate-y-1/2">
+            <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 shadow-inner" />
+            <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 shadow-inner" />
+            <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 shadow-inner" />
+          </div>
+          {/* Title */}
+          <span className="font-mono text-xs text-slate-400/80 tracking-wide font-medium flex items-center gap-2">
+            <span className="opacity-50">~/logs/</span>discovery.log
+          </span>
         </div>
 
-        {/* Content */}
-        <div className="font-mono text-sm leading-relaxed">
-          <span className="text-emerald-400">&gt; DISCOVERY_INSIGHT:</span>
-          <p className="text-slate-300 mt-2">
-            I realized ReportCaster wasn&apos;t one product — it was <strong className="text-white">five disparate subsystems masquerading as one</strong>. Unifying them required not just a UI refresh, but a complete architectural convergence.
-          </p>
+        {/* Terminal Body */}
+        <div className="p-6 md:p-8 font-mono text-sm leading-relaxed text-slate-300">
+          <div className="flex gap-3">
+            <span className="text-emerald-400 font-bold shrink-0">&gt;</span>
+            <div className="space-y-4">
+              <p className="text-emerald-400 font-bold tracking-wide text-xs uppercase mb-1">
+                DISCOVERY_INSIGHT:
+              </p>
+              <p className="text-slate-300 leading-relaxed">
+                I realized ReportCaster wasn&apos;t one product — it was <strong className="text-white font-medium">five disparate subsystems masquerading as one</strong>. Unifying them required not just a UI refresh, but a complete architectural convergence.
+              </p>
+            </div>
+          </div>
+
+          {/* Blinking Cursor */}
+          <span className="inline-block w-2.5 h-4 bg-emerald-500/50 animate-pulse mt-4 ml-4" />
         </div>
       </div>
     </motion.div>

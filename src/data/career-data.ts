@@ -27,6 +27,9 @@ export interface WorkItem {
     fileName?: string;
     locked?: boolean;
     video?: string;
+    statusLabel?: string;
+    impactDirectional?: string;
+    caseStudyType?: 'Flagship' | 'Secondary' | 'Third';
 }
 
 export interface Milestone {
@@ -134,7 +137,10 @@ export const CAREER_DATA: CareerEra[] = [
                 metricLabel: 'fewer clicks',
                 fileName: 'legacy_scheduler_refactor.js',
                 accentColor: '#F59E0B',
-                locked: false
+                locked: false,
+                statusLabel: 'Live',
+                impactDirectional: 'Consolidated into 1 unified hub; powering 20M+ weekly schedules.',
+                caseStudyType: 'Flagship'
             },
             {
                 id: "ml-functions",
@@ -148,7 +154,10 @@ export const CAREER_DATA: CareerEra[] = [
                 metricLabel: 'discoverability',
                 fileName: 'ml_wizard_pipeline.py',
                 accentColor: '#0BA2B5',
-                locked: false
+                locked: false,
+                statusLabel: 'Shipping 2026',
+                impactDirectional: 'Reduced 12-step coding task to a 4-step visual wizard.',
+                caseStudyType: 'Secondary'
             },
             {
                 id: "iq-plugin",
@@ -162,7 +171,10 @@ export const CAREER_DATA: CareerEra[] = [
                 metricLabel: 'unified hub',
                 fileName: 'iq_hub_unified_view.tsx',
                 accentColor: '#8B5CF6',
-                locked: true
+                locked: true,
+                statusLabel: 'Not shipped yet — in production pipeline',
+                impactDirectional: 'Unified 3 tools into one discovery hub (in production pipeline).',
+                caseStudyType: 'Third'
             }
         ],
         articles: [

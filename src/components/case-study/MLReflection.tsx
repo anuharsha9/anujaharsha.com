@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface MLReflectionProps {
     isLightBackground?: boolean
@@ -10,26 +11,21 @@ export default function MLReflection({ isLightBackground = true }: MLReflectionP
     return (
         <div className="space-y-8">
             {/* Header */}
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center space-y-3"
-            >
-                <span className="font-mono text-[var(--accent-teal)] text-xs uppercase tracking-widest">
-                    {'// REFLECTION'}
-                </span>
-                <h3 className="font-serif text-slate-900 text-2xl md:text-3xl">
-                    Retrospective
-                </h3>
-            </motion.div>
+            <ComponentHeading
+                variant="block"
+                tag="// REFLECTION"
+                title="Retrospective"
+                color="teal"
+                align="center"
+                className="mb-8"
+            />
 
             {/* Row 1: Testimonials (Marcus & Anita) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Marcus Horbach */}
-                <div className="bg-white border border-slate-200 rounded-xl p-6 h-full hover:shadow-lg transition-all duration-300">
+                <div className="bg-white border border-slate-200 p-6 h-full hover:shadow-lg transition-all duration-300 rounded-2xl">
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 text-sm font-mono font-bold">MH</div>
+                        <div className="w-10 h-10 bg-slate-100 flex items-center justify-center text-slate-500 text-sm font-mono font-bold">MH</div>
                         <div>
                             <div className="text-slate-900 text-sm font-bold">Marcus Horbach</div>
                             <div className="text-slate-400 text-xs uppercase tracking-wide">Principal Data Scientist</div>
@@ -41,9 +37,9 @@ export default function MLReflection({ isLightBackground = true }: MLReflectionP
                 </div>
 
                 {/* Anita George */}
-                <div className="bg-white border border-slate-200 rounded-xl p-6 h-full hover:shadow-lg transition-all duration-300">
+                <div className="bg-white border border-slate-200 p-6 h-full hover:shadow-lg transition-all duration-300 rounded-2xl">
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 text-sm font-mono font-bold">AG</div>
+                        <div className="w-10 h-10 bg-slate-100 flex items-center justify-center text-slate-500 text-sm font-mono font-bold">AG</div>
                         <div>
                             <div className="text-slate-900 text-sm font-bold">Anita George</div>
                             <div className="text-slate-400 text-xs uppercase tracking-wide">Principal Account Tech Strategist</div>
@@ -63,7 +59,7 @@ export default function MLReflection({ isLightBackground = true }: MLReflectionP
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="bg-amber-50 border border-amber-200 rounded-xl p-6 h-full hover:shadow-lg transition-all duration-300"
+                    className="bg-amber-50 border border-amber-200 p-6 h-full hover:shadow-lg transition-all duration-300 rounded-2xl"
                 >
                     <div className="flex items-center gap-2 mb-3">
                         <span className="text-amber-500 text-xl">↩</span>
@@ -82,7 +78,7 @@ export default function MLReflection({ isLightBackground = true }: MLReflectionP
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="bg-[var(--accent-teal-50)] border border-[var(--accent-teal-200)] rounded-xl p-6 h-full hover:shadow-lg transition-all duration-300"
+                    className="bg-[var(--accent-teal-50)] border border-[var(--accent-teal-200)] p-6 h-full hover:shadow-lg transition-all duration-300 rounded-2xl"
                 >
                     <div className="flex items-center gap-2 mb-3">
                         <span className="text-[var(--accent-teal)] text-xl">→</span>

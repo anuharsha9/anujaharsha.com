@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useState } from 'react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 import ImageLightbox from './ImageLightbox'
 
 interface MLChallengeBreakdownProps {
@@ -78,26 +79,15 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
   return (
     <div className="space-y-8">
       {/* System Audit Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center space-y-3"
-      >
-        <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 rounded-full px-4 py-2">
-          <span className="w-2 h-2 rounded-full bg-red-500"></span>
-          <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
-            {'// SYSTEM_AUDIT'}
-          </span>
-        </div>
-        <h3 className="text-slate-900 text-2xl md:text-3xl font-serif">
-          System Audit: The Baseline
-        </h3>
-        <p className="text-slate-500 text-base md:text-lg max-w-2xl mx-auto">
-          Identified critical friction points in the legacy 9.2 workflow.
-        </p>
-      </motion.div>
+      <ComponentHeading
+        variant="block"
+        tag="// SYSTEM_AUDIT"
+        title="System Audit: The Baseline"
+        description="Identified critical friction points in the legacy 9.2 workflow."
+        color="red"
+        align="center"
+        className="mb-12"
+      />
 
       {/* Audit Cards Grid - Locked */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -108,7 +98,7 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-slate-50 border border-red-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group"
+            className="bg-slate-50 border border-red-200 overflow-hidden hover:shadow-lg transition-shadow group rounded-2xl"
           >
             {/* Screenshot Area */}
             <div
@@ -124,12 +114,12 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
               />
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-black/60 px-3 py-1 rounded-full">
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-black/60 px-3 py-1">
                   🔍 Inspect Legacy UI
                 </span>
               </div>
               {/* Error Badge */}
-              <div className="absolute top-3 left-3 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded">
+              <div className="absolute top-0 left-0 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-br-lg">
                 <span className="font-mono text-[10px] text-white uppercase tracking-wider">
                   LEGACY 9.2
                 </span>
@@ -140,7 +130,7 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
             <div className="p-6 space-y-4">
               {/* Error Code */}
               <div className="flex items-center gap-3">
-                <code className="font-mono text-xs text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100">
+                <code className="font-mono text-xs text-red-600 bg-red-50 px-2 py-1 border border-red-100 rounded-full">
                   {card.code}
                 </code>
               </div>
@@ -172,7 +162,7 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-slate-900 rounded-xl p-6"
+        className="bg-slate-900 p-6 rounded-2xl"
       >
         <div className="font-mono text-sm">
           <span className="text-red-400">&gt; AUDIT_CONCLUSION:</span>

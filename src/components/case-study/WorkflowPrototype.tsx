@@ -139,7 +139,7 @@ export default function WorkflowPrototype({ title, description, steps, workflowT
 
   if (!steps || !Array.isArray(steps) || steps.length === 0) {
     return (
-      <div className="p-4 border border-red-500 rounded-lg">
+      <div className="p-4 border border-red-500">
         <p className="text-red-500 text-sm">Workflow prototype has no valid steps</p>
       </div>
     )
@@ -161,21 +161,21 @@ export default function WorkflowPrototype({ title, description, steps, workflowT
         <p className={`${t.textMuted} text-xs mt-2`}>Keyboard shortcuts: ← → to navigate, Space to play/pause, Home/End to jump to first/last step</p>
       </div>
 
-      <div className={`${t.bg} rounded-lg border ${t.border} p-6 md:p-8`} role="region" aria-label={`${workflowType === 'train' ? 'Train Model' : 'Run Model'} workflow prototype`}>
+      <div className={`${t.bg} border ${t.border} p-6 md:p-8`} role="region" aria-label={`${workflowType === 'train' ? 'Train Model' : 'Run Model'} workflow prototype`}>
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <span className={`${t.textMuted} text-sm font-mono`}>Step {currentStep + 1} of {steps.length}</span>
-            <div className="h-2 flex-1 max-w-xs bg-[var(--border-primary)] rounded-full overflow-hidden">
+            <div className="h-2 flex-1 max-w-xs bg-[var(--border-primary)] overflow-hidden">
               <div className="h-full bg-[var(--accent-teal)] transition-all duration-300 ease-in-out" style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }} />
             </div>
           </div>
           <div className="flex items-center gap-2">
             {!isPlaying ? (
-              <button onClick={startAutoPlay} aria-label="Start auto-play workflow" className={`${buttonBg} ${t.text} px-4 py-2 rounded-lg text-sm font-medium transition-all`}>
+              <button onClick={startAutoPlay} aria-label="Start auto-play workflow" className={`${buttonBg} ${t.text} px-4 py-2 text-sm font-medium transition-all`}>
                 ▶ Auto-play
               </button>
             ) : (
-              <button onClick={stopAutoPlay} aria-label="Pause auto-play workflow" className={`${buttonBg} ${t.text} px-4 py-2 rounded-lg text-sm font-medium transition-all`}>
+              <button onClick={stopAutoPlay} aria-label="Pause auto-play workflow" className={`${buttonBg} ${t.text} px-4 py-2 text-sm font-medium transition-all`}>
                 ⏸ Pause
               </button>
             )}
@@ -184,7 +184,7 @@ export default function WorkflowPrototype({ title, description, steps, workflowT
 
         <div className="relative mb-6">
           <div
-            className={`relative w-full rounded-[10px] overflow-hidden border ${t.border} ${imageShadow} ${imageOutline} cursor-pointer hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-[var(--accent-teal)] focus:ring-offset-2`}
+            className={`relative w-full  overflow-hidden border ${t.border} ${imageShadow} ${imageOutline} cursor-pointer hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-[var(--accent-teal)] focus:ring-offset-2`}
             onClick={() => openLightbox(currentStepData.src, currentStepData.alt, currentStepData.caption)}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(currentStepData.src, currentStepData.alt, currentStepData.caption) } }}
             tabIndex={0}
@@ -205,17 +205,17 @@ export default function WorkflowPrototype({ title, description, steps, workflowT
         </div>
 
         <div className="flex items-center justify-between gap-4">
-          <button onClick={prevStep} disabled={currentStep === 0} aria-label="Go to previous step" className={`${buttonBg} ${t.text} px-6 py-3 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}>
+          <button onClick={prevStep} disabled={currentStep === 0} aria-label="Go to previous step" className={`${buttonBg} ${t.text} px-6 py-3 font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}>
             ← Previous
           </button>
 
           <div className="flex items-center gap-2 flex-1 justify-center max-w-md overflow-x-auto px-4">
             {steps.map((_, index) => (
-              <button key={index} onClick={() => goToStep(index)} className={`w-2 h-2 rounded-full transition-all ${index === currentStep ? 'bg-[var(--accent-teal)] w-8' : 'bg-[var(--border-secondary)] hover:bg-[var(--text-muted)]'}`} aria-label={`Go to step ${index + 1}`} />
+              <button key={index} onClick={() => goToStep(index)} className={`w-2 h-2 transition-all ${index === currentStep ? 'bg-[var(--accent-teal)] w-8' : 'bg-[var(--border-secondary)] hover:bg-[var(--text-muted)]'}`} aria-label={`Go to step ${index + 1}`} />
             ))}
           </div>
 
-          <button onClick={nextStep} disabled={currentStep === steps.length - 1} aria-label="Go to next step" className={`${buttonBg} ${t.text} px-6 py-3 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}>
+          <button onClick={nextStep} disabled={currentStep === steps.length - 1} aria-label="Go to next step" className={`${buttonBg} ${t.text} px-6 py-3 font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}>
             Next →
           </button>
         </div>
@@ -224,7 +224,7 @@ export default function WorkflowPrototype({ title, description, steps, workflowT
           <summary className={`${t.text} text-sm font-medium cursor-pointer list-none`}>View all steps ({steps.length})</summary>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {steps.map((step, index) => (
-              <button key={index} onClick={() => goToStep(index)} className={`text-left p-3 rounded-lg border transition-all ${index === currentStep ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)]/10' : `${t.border} ${t.bg} hover:opacity-90`}`}>
+              <button key={index} onClick={() => goToStep(index)} className={`text-left p-3 border transition-all ${index === currentStep ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)]/10' : `${t.border} ${t.bg} hover:opacity-90`}`}>
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-xs font-mono ${index === currentStep ? 'text-[var(--accent-teal)]' : t.textMuted}`}>{step.number}</span>
                   <span className={`text-xs ${index === currentStep ? t.text : t.textMuted} font-medium`}>{step.caption}</span>

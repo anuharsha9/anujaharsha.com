@@ -118,6 +118,14 @@ const HeroWorkCard = ({ work }: { work: WorkItem }) => {
 
                 {/* Content - Below Media (No Card) */}
                 <div className="mt-6 pl-1">
+                    {/* Status Badge - New Addition */}
+                    {work.statusLabel && (
+                        <div className="mb-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest font-mono text-slate-400 group-hover/work:border-[var(--accent-teal)]/30 transition-colors">
+                            <span className={`w-1.5 h-1.5 rounded-full ${work.statusLabel === 'Live' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-amber-500'}`} />
+                            {work.statusLabel}
+                        </div>
+                    )}
+
                     <div className="flex items-start justify-between">
                         <div>
                             <h3 className="font-serif text-2xl text-white group-hover/work:text-[var(--accent-teal)] transition-colors mb-2">
@@ -143,6 +151,18 @@ const HeroWorkCard = ({ work }: { work: WorkItem }) => {
                             />
                         )}
                     </div>
+
+                    {/* Impact Summary / Executive Summary Line */}
+                    {work.impactDirectional && (
+                        <div className="mt-2 mb-4 pl-3 border-l sm:border-l-2 border-[var(--accent-teal)]/50">
+                            <p className="font-mono text-xs text-slate-300 leading-relaxed">
+                                <span className="text-[var(--accent-teal)] opacity-70 mr-2">► IMPACT:</span>
+                                {work.impactDirectional}
+                            </p>
+                        </div>
+                    )}
+
+
 
                     <p className="text-slate-400 text-base leading-relaxed max-w-xl group-hover/work:text-slate-300 transition-colors">
                         {work.description}

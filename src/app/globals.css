@@ -58,7 +58,7 @@
 ::-webkit-scrollbar-thumb {
   background-color: var(--accent-teal);
   /* Teal color */
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   border: 3px solid #020617;
   /* Padding effect */
   background-clip: content-box;
@@ -145,36 +145,24 @@ html {
 
 @layer components {
 
-  /* Light Theme Surfaces - Swiss Style */
-  .surface-dark {
-    background: var(--bg-primary);
-    color: var(--text-heading);
-  }
-
-  .surface-dark-alt {
-    background: var(--bg-secondary);
-    color: var(--text-heading);
-  }
-
-  .surface-light {
-    background: var(--bg-primary);
-    color: var(--text-heading);
-  }
-
+  /* Light Theme Surfaces - Pure White Canvas */
+  .surface-dark,
+  .surface-dark-alt,
+  .surface-light,
   .surface-light-alt {
-    background: var(--bg-secondary);
+    background: #ffffff;
     color: var(--text-heading);
   }
 
-  /* Card component - white with subtle border and shadow */
+  /* Card component - transparent, no chrome */
   .surface-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-card);
+    background: transparent;
+    border: none;
+    box-shadow: none;
   }
 
   .surface-card:hover {
-    box-shadow: var(--shadow-card-hover);
+    box-shadow: none;
   }
 
   /* Accessibility: Screen reader only */
@@ -266,7 +254,7 @@ html {
   *:focus-visible {
     outline: var(--focus-ring-width) solid var(--focus-ring);
     outline-offset: var(--focus-ring-offset);
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
   }
 
   /* ============================================

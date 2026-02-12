@@ -25,7 +25,7 @@ export default function VitalSigns({ metrics, className = '' }: VitalSignsProps)
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className={`w-full border-y border-slate-200 bg-slate-50/50 ${className}`}
+      className={`w-full border-y border-slate-200 ${className}`}
     >
       <div className="max-w-[1440px] mx-auto">
         {/* Desktop: 4 columns with dividers, 2 rows if needed */}
@@ -277,7 +277,7 @@ export const mlFunctionsVitalSigns = [
     label: 'WORKFLOW',
     value: '12→4',
     context: 'Steps simplified',
-    color: 'text-emerald-600',
+    color: 'text-[var(--accent-teal)]',
   },
   {
     label: 'ENTRY_POINT',
@@ -288,7 +288,7 @@ export const mlFunctionsVitalSigns = [
     label: 'DEAD_ENDS',
     value: 'Zero',
     context: 'Eliminated in testing',
-    color: 'text-emerald-600',
+    color: 'text-[var(--accent-teal)]',
   },
   {
     label: 'VALIDATION',
@@ -313,12 +313,13 @@ export const reportCasterVitalSigns = [
     label: 'COMPLEXITY',
     value: '5 → 1',
     context: 'Unified system',
-    color: 'text-emerald-600',
+    color: 'text-[var(--accent-teal)]',
   },
   {
-    label: 'VALIDATION',
-    value: 'SME+Eng',
-    context: 'Reviewed & validated',
+    label: 'EFFICIENCY',
+    value: '4 → 2',
+    context: 'Clicks to create',
+    color: 'text-[var(--accent-teal)]',
   },
 ]
 
@@ -333,7 +334,7 @@ export const iqPluginVitalSigns = [
     label: 'PATTERN_PARITY',
     value: 'Full',
     context: 'Same Structure Across All 3',
-    color: 'text-emerald-600',
+    color: 'text-[var(--accent-teal)]',
   },
   {
     label: 'RESPONSIVE',

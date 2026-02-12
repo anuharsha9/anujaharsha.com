@@ -33,6 +33,8 @@ const iconMap: Record<number, React.ComponentType<{ className?: string; strokeWi
   5: UserPlus,
 }
 
+import ComponentHeading from '@/components/ui/ComponentHeading'
+
 export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCollaborationProps) {
   const { sectionTag, title, subtitle, columns, highlight } = data
 
@@ -67,17 +69,16 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center space-y-3"
       >
-        <span className={`font-mono text-xs tracking-widest uppercase ${accent.tag}`}>
-          {'// '}{sectionTag}
-        </span>
-        <h3 className="text-slate-900 text-2xl md:text-3xl font-serif">
-          {title}
-        </h3>
-        <p className="text-slate-600 text-base md:text-lg max-w-2xl mx-auto">
-          {subtitle}
-        </p>
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag={`// ${sectionTag}`}
+          title={title}
+          description={subtitle}
+          className="mb-8"
+          color={accentColor === 'violet' ? 'indigo' : accentColor}
+        />
       </motion.div>
 
       {/* Grid of Collaboration Areas */}
@@ -91,20 +92,20 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
-              className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-md hover:border-slate-300 transition-all duration-300"
+              className="bg-white border border-slate-200 p-6 hover:border-slate-300 hover:shadow-lg transition-all duration-300 rounded-2xl group"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className={`w-8 h-8 rounded-lg ${accent.bg} flex items-center justify-center`}>
-                  <IconComponent className={`w-4 h-4 ${accent.text}`} strokeWidth={1.5} />
+                <div className={`w-10 h-10 ${accent.bg} flex items-center justify-center rounded-full group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className={`w-5 h-5 ${accent.text}`} strokeWidth={1.5} />
                 </div>
-                <h4 className="font-mono text-xs uppercase tracking-widest text-slate-500">
+                <h4 className="font-mono text-xs uppercase tracking-widest text-slate-500 font-bold">
                   {column.title}
                 </h4>
               </div>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {column.items.map((item, j) => (
                   <li key={j} className="flex items-start gap-2 text-sm text-slate-600 leading-relaxed">
-                    <span className="text-slate-300 mt-1">•</span>
+                    <span className={`mt-1.5 w-1 h-1 rounded-full ${accent.bg === 'bg-amber-50' ? 'bg-amber-400' : 'bg-teal-400'}`}></span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -121,13 +122,13 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className={`${accent.bg} border-l-4 ${accent.border} p-5 rounded-r-lg`}
+          className={`${accent.bg} border ${accent.border} p-6 md:p-8 rounded-2xl shadow-sm`}
         >
-          <p className={`font-mono text-xs uppercase tracking-widest ${accent.tag} mb-2`}>
-            {highlight.label}
+          <p className={`font-mono text-xs uppercase tracking-widest ${accent.tag} mb-3 flex items-center gap-2`}>
+            <span>★</span> {highlight.label}
           </p>
-          <p className="text-slate-700 text-sm leading-relaxed italic">
-            {highlight.text}
+          <p className="text-slate-800 text-sm md:text-base leading-relaxed italic font-medium">
+            &ldquo;{highlight.text}&rdquo;
           </p>
         </motion.div>
       )}

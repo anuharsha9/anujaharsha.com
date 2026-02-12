@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useLightbox } from '@/contexts/LightboxContext'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface SystemTopologyBlueprintProps {
   isLightBackground?: boolean
@@ -56,19 +57,16 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
       className="space-y-8"
     >
       {/* Section Header - Centered */}
-      <div className="space-y-4 text-center">
-        <span className="inline-block font-mono text-xs text-[var(--accent-blue)] uppercase tracking-widest">
-          {'// ARTIFACT_SET: ARCHITECTURE_MAPS'}
-        </span>
-        <h3 className="text-slate-900 text-2xl md:text-3xl font-serif leading-tight">
-          System Topology & Logic
-        </h3>
-        <p className="text-slate-600 text-base leading-relaxed max-w-3xl mx-auto">
-          Before designing pixels, I mapped the physical constraints of the WebFOCUS platform.
-          These blueprints defined how the new ML wizard would inherit responsive behaviors
-          from the existing 3rd-level navigation system.
-        </p>
-      </div>
+      {/* Section Header - Centered */}
+      <ComponentHeading
+        variant="block"
+        align="center"
+        tag="// ARTIFACT_SET: ARCHITECTURE_MAPS"
+        title="System Topology & Logic"
+        description="Before designing pixels, I mapped the physical constraints of the WebFOCUS platform. These blueprints defined how the new ML wizard would inherit responsive behaviors from the existing 3rd-level navigation system."
+        color="blue"
+        className="mb-8"
+      />
 
       {/* Blueprint Grid - Technical Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -81,7 +79,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden h-full">
+          <div className="bg-slate-50 border border-slate-200 overflow-hidden h-full rounded-2xl">
             {/* Blueprint Image */}
             <div
               className="relative aspect-[16/10] cursor-zoom-in group"
@@ -96,7 +94,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
               />
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full font-mono text-xs text-slate-600 shadow-sm">
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm px-3 py-1.5 font-mono text-xs text-slate-600 shadow-sm">
                   Click to inspect
                 </span>
               </div>
@@ -122,7 +120,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           {/* Card 1 - Information Architecture */}
-          <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden flex-1">
+          <div className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl">
             <div
               className="relative aspect-[4/3] cursor-zoom-in group"
               onClick={() => openLightbox(blueprints.flowchart1, allImages, 2)}
@@ -144,7 +142,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
           </div>
 
           {/* Card 2 - Logic Branching */}
-          <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden flex-1">
+          <div className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl">
             <div
               className="relative aspect-[4/3] cursor-zoom-in group"
               onClick={() => openLightbox(blueprints.flowchart2, allImages, 3)}
@@ -173,7 +171,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden"
+        className="bg-slate-50 border border-slate-200 overflow-hidden rounded-2xl"
       >
         <div
           className="relative aspect-[21/9] cursor-zoom-in group"
@@ -187,7 +185,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-300 flex items-center justify-center">
-            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full font-mono text-xs text-slate-600 shadow-sm">
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm px-3 py-1.5 font-mono text-xs text-slate-600 shadow-sm">
               Click to inspect full taxonomy
             </span>
           </div>
@@ -213,18 +211,22 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="bg-slate-900 rounded-lg p-5"
+        className="bg-[#1D1D20] rounded-xl overflow-hidden shadow-lg border border-white/10 font-mono"
       >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-emerald-400 text-sm">&gt;</span>
-          <div>
-            <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest block mb-2">
-              {'// SYSTEM_INSIGHT'}
-            </span>
-            <p className="font-mono text-sm text-slate-300 leading-relaxed">
-              These architecture maps weren&apos;t just documentation—they became the shared language
-              between UX, Engineering, and Data Science. Every design decision could be traced
-              back to a constraint identified in these blueprints.
+        {/* Terminal Header */}
+        <div className="bg-[#2D2D30] px-4 py-2 flex gap-2 items-center border-b border-white/5">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+          <span className="ml-2 text-[10px] text-slate-500 font-sans">architecture_summary.log</span>
+        </div>
+
+        {/* Maximum Contrast Content */}
+        <div className="p-6 text-slate-300 text-sm leading-relaxed font-mono">
+          <div className="flex items-start gap-3">
+            <span className="font-mono text-emerald-400 flex-shrink-0 mt-0.5">&gt;</span>
+            <p>
+              <span className="text-emerald-400 font-bold">INSIGHT:</span> We didn't just redesign screens; we re-architected the <span className="text-white font-medium">user's mental model</span>. From scattershot tasks to a linear, coherent journey.
             </p>
           </div>
         </div>

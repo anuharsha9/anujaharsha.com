@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { TrendingUp, ShieldCheck, Layout, Users } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface MLImpactMetricsProps {
   isLightBackground?: boolean
@@ -56,15 +57,15 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
         viewport={{ once: true }}
         className="text-center space-y-3"
       >
-        <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
-          {'// IMPACT_METRICS'}
-        </span>
-        <h3 className="font-serif text-slate-900 text-2xl md:text-3xl">
-          Impact & Validation
-        </h3>
-        <p className="text-slate-600 text-base max-w-3xl mx-auto">
-          Beyond usability metrics — these outcomes demonstrate how design decisions translated into tangible business value, system trust, and market expansion.
-        </p>
+        <ComponentHeading
+          variant="block"
+          tag="// IMPACT_METRICS"
+          title="Impact & Validation"
+          description="Beyond usability metrics — these outcomes demonstrate how design decisions translated into tangible business value, system trust, and market expansion."
+          color="teal"
+          align="center"
+          className="mb-0"
+        />
       </motion.div>
 
       {/* Outcome Cards - 2x2 Grid */}
@@ -78,10 +79,10 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white border border-slate-200 p-6 md:p-8 rounded-xl h-full flex flex-col hover:shadow-lg hover:border-slate-300 transition-all duration-300"
+              className="bg-white border border-slate-200 p-6 md:p-8 h-full flex flex-col hover:shadow-lg hover:border-slate-300 transition-all duration-300 rounded-2xl"
             >
               {/* Icon */}
-              <div className={`w-12 h-12 rounded-xl ${o.iconBg} flex items-center justify-center mb-4`}>
+              <div className={`w-12 h-12 ${o.iconBg} flex items-center justify-center mb-4 rounded-xl`}>
                 <IconComponent className={`w-6 h-6 ${o.iconColor}`} />
               </div>
 
@@ -110,7 +111,7 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-slate-900 rounded-xl p-6 md:p-8 mt-12"
+        className="bg-slate-900 p-6 md:p-8 mt-12 rounded-2xl"
       >
         <div className="flex items-start gap-3">
           <span className="font-mono text-sm text-emerald-400 flex-shrink-0">

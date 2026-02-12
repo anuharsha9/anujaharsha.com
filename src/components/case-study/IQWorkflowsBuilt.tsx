@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink, ArrowRight } from 'lucide-react'
 import { useLightbox } from '@/contexts/LightboxContext'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface IQWorkflowsBuiltProps {
   isLightBackground?: boolean
@@ -65,18 +66,15 @@ export default function IQWorkflowsBuilt({ isLightBackground = false }: IQWorkfl
     <div className={`w-full py-10 md:py-12 ${isLightBackground ? 'bg-white' : 'bg-slate-50'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-12">
-          <span className="font-mono text-[10px] text-[var(--accent-teal)] uppercase tracking-widest mb-3 block">
-            {'// FOUNDATION: WHAT_I_BUILT'}
-          </span>
-          <h3 className="font-serif text-2xl md:text-3xl text-slate-900 mb-4">
-            Three Workflows. Three Entry Points.
-          </h3>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            Before IQ Plugin unified them, I designed each of these workflows independently.
-            NLQ and Insights are shipping now. ML launches 2026.
-          </p>
-        </div>
+        <ComponentHeading
+          variant="block"
+          tag="// FOUNDATION: WHAT_I_BUILT"
+          title="Three Workflows. Three Entry Points."
+          description="Before IQ Plugin unified them, I designed each of these workflows independently. NLQ and Insights are shipping now. ML launches 2026."
+          color="teal"
+          align="center"
+          className="mb-12"
+        />
 
         {/* Workflows Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -87,15 +85,15 @@ export default function IQWorkflowsBuilt({ isLightBackground = false }: IQWorkfl
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all group"
+              className="bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all group"
             >
               {/* Header */}
               <div className="bg-slate-900 px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                    <div className="w-2.5 h-2.5 bg-red-500/80" />
+                    <div className="w-2.5 h-2.5 bg-yellow-500/80" />
+                    <div className="w-2.5 h-2.5 bg-green-500/80" />
                   </div>
                   <span className="font-mono text-[9px] text-white/70 uppercase tracking-wider">
                     {workflow.label}
@@ -162,7 +160,7 @@ export default function IQWorkflowsBuilt({ isLightBackground = false }: IQWorkfl
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-12 text-center"
         >
-          <div className="inline-flex items-center gap-4 bg-slate-900 rounded-full px-6 py-3">
+          <div className="inline-flex items-center gap-4 bg-slate-900 px-6 py-3">
             <span className="font-mono text-xs text-emerald-400">
               {`>`} THEN_I_UNIFIED_THEM:
             </span>

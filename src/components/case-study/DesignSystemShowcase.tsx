@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 import LockedContent from './LockedContent'
 import ImageLightbox from './ImageLightbox'
 
@@ -45,6 +46,8 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
   const [lightboxCurrentIndex, setLightboxCurrentIndex] = useState(0)
 
   const openLightbox = (src: string, alt: string, title?: string, index?: number) => {
+    // ... functional logic same as before ... 
+    // Re-implementing simplified for brevity in replacement, essentially mapping logic
     setLightboxImage({ src, alt, title })
     setLightboxImages(designSystemImages.map((img) => ({ src: img.src, alt: img.alt, title: img.title })))
     setLightboxCurrentIndex(index ?? designSystemImages.findIndex((img) => img.src === src))
@@ -57,89 +60,98 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
 
   const handleLightboxNavigate = (index: number) => {
     setLightboxCurrentIndex(index)
-    if (lightboxImages[index]) setLightboxImage(lightboxImages[index])
+    if (lightboxImages[index]) {
+      const img = lightboxImages[index];
+      setLightboxImage({ src: img.src, alt: img.alt, title: img.title })
+    }
   }
 
   return (
-    <LockedContent 
-      password="anu-access" 
-      caseStudySlug={caseStudySlug} 
-      unlockMessage="Password required to view design system documentation" 
+    <LockedContent
+      password="anu-access"
+      caseStudySlug={caseStudySlug}
+      unlockMessage="Password required to view design system documentation"
       isLightBackground={true}
     >
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-3">
-          <div className="flex items-center gap-3 justify-center">
-            <div className="h-px w-12 bg-[var(--accent-teal)]"></div>
-            <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-              Component Library
-            </span>
-            <div className="h-px w-12 bg-[var(--accent-teal)]"></div>
-          </div>
-          <h3 className="text-[var(--text-heading)] text-lg md:text-xl font-serif font-medium">
-            Design System Components
-          </h3>
-          <p className="text-[var(--text-muted)] text-sm md:text-base max-w-2xl mx-auto">
-            Shared design system used across all three case studies. Click any component to enlarge.
-          </p>
-        </div>
+      <div className="space-y-12 py-8">
+        {/* Header - Minimal & Clean */}
+        {/* Header - Minimal & Clean */}
+        <ComponentHeading
+          variant="block"
+          tag="Component Library"
+          title="Design System Components"
+          description="Shared design system used across all three case studies. A unified language for coherence."
+          align="center"
+          color="slate"
+        />
 
-        {/* Bento Grid - Sticker Sheet Layout */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        {/* Bento Grid - Clean & Edgeless */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {designSystemImages.map((image, index) => {
-            // Determine span based on size
-            const spanClass = image.size === 'lg' 
-              ? 'md:col-span-2 md:row-span-2' 
-              : image.size === 'md' 
-                ? 'md:col-span-1 md:row-span-1' 
-                : ''
-            
+            const spanClass =
+              image.size === 'lg' ? 'md:col-span-2 md:row-span-2'
+                : image.size === 'md' ? 'md:col-span-1 md:row-span-1'
+                  : ''
+
             return (
               <motion.div
                 key={image.src}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.4, delay: Math.min(index * 0.02, 0.3) }}
-                className={`bg-[var(--bg-secondary)] rounded-lg border border-[var(--border-primary)] p-2 cursor-pointer overflow-hidden group hover:shadow-[var(--shadow-lg)] hover:border-[var(--accent-teal)]/30 hover:-translate-y-0.5 transition-all duration-300 ${spanClass}`}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                className={`
+                  group relative cursor-zoom-in rounded-2xl overflow-hidden bg-slate-50
+                  hover:shadow-lg transition-all duration-500 hover:-translate-y-1
+                  ${spanClass}
+                `}
                 onClick={() => openLightbox(image.src, image.alt, image.title, index)}
               >
-                <div className="relative w-full h-full min-h-[100px] bg-[var(--bg-primary)] rounded overflow-hidden">
-                  <Image 
-                    src={image.src} 
-                    alt={image.alt} 
-                    fill 
-                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-300" 
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw" 
+                {/* Image Container */}
+                <div className="relative w-full h-full min-h-[160px] flex items-center justify-center p-6">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-contain transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
+
+                  {/* Subtle overlay on hover */}
+                  <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/[0.02] transition-colors duration-300" />
                 </div>
-                <p className="text-[var(--text-body)] text-[10px] md:text-xs font-medium text-center truncate mt-2 group-hover:text-[var(--accent-teal)] transition-colors">
-                  {image.title}
-                </p>
+
+                {/* Caption - Floating clean label */}
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+                  <span className="inline-block bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-700 shadow-sm border border-slate-100">
+                    {image.title}
+                  </span>
+                </div>
               </motion.div>
             )
           })}
         </div>
 
-        {/* Footer Note */}
-        <div className="text-center pt-4">
-          <p className="font-mono text-slate-400 text-xs">
-            {designSystemImages.length} components · Click to explore
-          </p>
+        {/* Footer Note - Clean */}
+        <div className="border-t border-slate-100 pt-8 flex items-center gap-3 text-slate-400">
+          <span className="text-[10px] uppercase tracking-widest font-bold">
+            {designSystemImages.length} Artifacts
+          </span>
+          <span className="w-1 h-1 rounded-full bg-slate-200" />
+          <span className="text-sm font-light">Interact to view details</span>
         </div>
       </div>
 
       {lightboxImage && (
-        <ImageLightbox 
-          isOpen={!!lightboxImage} 
-          onClose={closeLightbox} 
-          imageSrc={lightboxImage.src} 
-          imageAlt={lightboxImage.alt} 
-          imageCaption={lightboxImage.title} 
-          images={lightboxImages} 
-          currentIndex={lightboxCurrentIndex} 
-          onNavigate={handleLightboxNavigate} 
+        <ImageLightbox
+          isOpen={!!lightboxImage}
+          onClose={closeLightbox}
+          imageSrc={lightboxImage.src}
+          imageAlt={lightboxImage.alt}
+          imageCaption={lightboxImage.title}
+          images={lightboxImages}
+          currentIndex={lightboxCurrentIndex}
+          onNavigate={handleLightboxNavigate}
         />
       )}
     </LockedContent>

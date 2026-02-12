@@ -43,9 +43,9 @@ export default function CaseStudyNav() {
             key={cs.slug}
             href={`/work/${cs.slug}`}
             className={`
-              group flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 rounded-full border transition-all duration-300
+              group flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 border transition-all duration-300
               ${isActive
-                ? 'bg-[var(--accent-teal)] border-[var(--accent-teal)] text-white shadow-md'
+                ? 'bg-[var(--accent-teal)] border-[var(--accent-teal)] text-white'
                 : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
               }
             `}

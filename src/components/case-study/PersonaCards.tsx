@@ -1,6 +1,5 @@
-'use client'
-
 import { motion } from 'framer-motion'
+import { User, Code, Terminal, Briefcase, Zap, Shield, Search } from 'lucide-react'
 
 interface PersonaCardsProps {
   isLightBackground?: boolean
@@ -11,62 +10,82 @@ export default function PersonaCards({ isLightBackground = true }: PersonaCardsP
     {
       name: 'BI Developer',
       type: 'TECHNICAL',
+      icon: Code,
       description: 'Developers who schedule reports but struggle with fragmented interfaces and unclear system behavior.',
     },
     {
       name: 'Reporting Guru',
       type: 'POWER USER',
+      icon: Zap,
       description: 'Power users who understand the system deeply but waste time context-switching between multiple tabs.',
     },
   ]
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8"
-    >
+    <div className="space-y-12 py-8">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="font-mono text-slate-400 text-xs tracking-widest uppercase">
-          {'// USER_PERSONAS'}
-        </span>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center space-y-4 max-w-2xl mx-auto"
+      >
+        <div className="flex justify-center">
+          <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">
+            User Personas
+          </span>
+        </div>
+        <h3 className="text-3xl md:text-4xl font-light text-slate-900 tracking-tight">
+          Understanding the User
+        </h3>
+        <p className="text-slate-600 text-lg font-light leading-relaxed">
+          Inherited foundational research. Used to guide architectural decisions.
+        </p>
+      </motion.div>
 
-      <h3 className="text-slate-900 text-lg md:text-xl font-serif font-semibold mb-2">
-        User Personas
-      </h3>
-      <p className="text-slate-500 text-sm mb-5">
-        Inherited foundational research. Used to guide architectural decisions.
-      </p>
-
-      {/* Compact Persona List */}
-      <div className="space-y-3">
+      {/* Personas Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         {personas.map((p, i) => (
-          <div
+          <motion.div
             key={i}
-            className="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 group"
           >
-            <span className="inline-flex items-center px-2 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-500 text-[10px] font-mono uppercase tracking-wider flex-shrink-0">
-              {p.type}
-            </span>
-            <div>
-              <span className="text-slate-900 font-medium text-sm">{p.name}</span>
-              <span className="text-slate-500 text-sm"> — {p.description}</span>
+            <div className="flex items-start gap-5">
+              <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <p.icon className="w-6 h-6 text-slate-400 group-hover:text-[var(--accent-teal)] transition-colors" strokeWidth={1.5} />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <h4 className="text-lg font-medium text-slate-900">{p.name}</h4>
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full">
+                    {p.type}
+                  </span>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed font-light">
+                  {p.description}
+                </p>
+              </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      {/* Design Implication */}
-      <div className="mt-5 pt-4 border-t border-slate-200">
-        <p className="text-slate-600 text-sm">
-          <span className="font-mono text-[var(--accent-teal)] text-xs mr-2">→</span>
-          Both personas share the same pain: <span className="font-medium text-slate-900">fragmented interfaces and context switching</span>. Solution unified scheduling into a single, predictable workflow.
+      {/* Insight */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="max-w-3xl mx-auto bg-slate-50 rounded-xl p-6 text-center border border-slate-100"
+      >
+        <p className="text-slate-600 text-base font-light leading-relaxed">
+          Both personas share the same pain: <strong className="font-medium text-slate-900">fragmented interfaces and context switching</strong>.
+          Solution unified scheduling into a single, predictable workflow.
         </p>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }

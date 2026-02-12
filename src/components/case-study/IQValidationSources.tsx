@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { FlaskConical, GitMerge, Compass } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface IQValidationSourcesProps {
   isLightBackground?: boolean
@@ -41,22 +42,15 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
   return (
     <div className="space-y-8">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center space-y-3"
-      >
-        <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
-          {'// IMPACT_ASSESSMENT'}
-        </span>
-        <h3 className="text-slate-900 text-2xl md:text-3xl font-serif">
-          Strategic Outcomes
-        </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-3xl mx-auto leading-relaxed">
-          How architectural unification drove organizational alignment before a single line of code was shipped.
-        </p>
-      </motion.div>
+      <ComponentHeading
+        variant="block"
+        tag="// VALIDATION_SOURCES"
+        title="Research & Validation"
+        description="We didn't just guess. We validated every major decision with real users from our target demographic."
+        color="slate"
+        align="center"
+        className="mb-12"
+      />
 
       {/* Outcome Matrix - 3 Column Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -69,10 +63,10 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white border border-slate-200 p-6 md:p-8 rounded-xl h-full flex flex-col hover:shadow-lg hover:border-slate-300 transition-all duration-300"
+              className="bg-white border border-slate-200 p-6 md:p-8 h-full flex flex-col hover:shadow-lg hover:border-slate-300 transition-all duration-300"
             >
               {/* Icon */}
-              <div className={`w-12 h-12 rounded-xl ${outcome.iconBg} flex items-center justify-center mb-4`}>
+              <div className={`w-12 h-12 ${outcome.iconBg} flex items-center justify-center mb-4`}>
                 <IconComponent className={`w-6 h-6 ${outcome.iconColor}`} />
               </div>
 
@@ -101,7 +95,7 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-slate-900 rounded-xl p-6 md:p-8 mt-12"
+        className="bg-slate-900 p-6 md:p-8 mt-12"
       >
         <div className="flex items-start gap-3">
           <span className="font-mono text-sm text-amber-400 flex-shrink-0">

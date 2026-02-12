@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useLightbox } from '@/contexts/LightboxContext'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface IQEmptyStateShowcaseProps {
   isLightBackground?: boolean
@@ -44,16 +45,15 @@ export default function IQEmptyStateShowcase({ isLightBackground = false }: IQEm
     <div className={`w-full py-10 md:py-12 ${isLightBackground ? 'bg-white' : 'bg-slate-50'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-12">
-          <span className="font-mono text-[10px] text-[var(--accent-teal)] uppercase tracking-widest mb-3 block">
-            {'// UX_DECISION: EMPTY_STATES'}
-          </span>
-          <h3 className="font-serif text-2xl md:text-3xl text-slate-900 mb-4">
-            Intuitive Empty States for Guidance
-          </h3>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            Every empty state teaches. Clear visual cues guide users to their first action—reducing friction, increasing adoption.
-          </p>
+        <div className="mb-12">
+          <ComponentHeading
+            variant="block"
+            align="center"
+            tag="// UX_DECISION: EMPTY_STATES"
+            title="Intuitive Empty States for Guidance"
+            description="Every empty state teaches. Clear visual cues guide users to their first action—reducing friction, increasing adoption."
+            color="teal"
+          />
         </div>
 
         {/* Empty States Grid */}
@@ -65,7 +65,7 @@ export default function IQEmptyStateShowcase({ isLightBackground = false }: IQEm
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group"
+              className="bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group"
               onClick={() => openLightbox(allImages, index)}
             >
               {/* Header */}
@@ -101,7 +101,7 @@ export default function IQEmptyStateShowcase({ isLightBackground = false }: IQEm
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 bg-slate-900 rounded-xl p-6 text-center"
+          className="mt-12 bg-slate-900 p-6 text-center"
         >
           <span className="font-mono text-xs text-emerald-400 mb-2 block">
             {`>`} DESIGN_PRINCIPLE:

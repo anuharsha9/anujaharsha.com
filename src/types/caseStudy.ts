@@ -205,6 +205,81 @@ export interface CaseStudyData {
     label: string
     variant?: 'live' | 'shipping' | 'development'
   }
+  projectSnapshot: {
+    problem: string
+    role: string
+    keyDecisions: string[]
+    impactDirectional: string
+    status: string
+    scale?: string
+  }
+  challengeDeconstruction: {
+    assumptions: string[]
+    unknowns: string[]
+    constraints: string[]
+    businessGoal: string
+  }
+  successCriteria: {
+    baseline: string
+    target: string
+    result: string
+    disclaimer?: string
+  }
+  keyDecisions: {
+    decision: string
+    rationale: string
+    tradeoff: string
+    rejectedOption: string
+  }[]
+  researchDecisionMap: {
+    insight: string
+    evidence: string
+    decision: string
+    feature: string
+  }[]
+  competitiveResponse: {
+    marketGap: string
+    response: string
+    evidenceSource: string
+  }
+  notShipped?: {
+    reason: string
+    learning: string
+    nextStep: string
+  }
+  businessImpactDirectional: {
+    bullets: string[]
+    disclaimer: string
+  }
+  presentation: {
+    slides: {
+      type: 'title' | 'problem' | 'research' | 'decision' | 'execution' | 'collaboration' | 'impact' | 'lesson'
+      title: string
+      content: string[] // Bullet points
+      image?: string
+      notes?: string // Speaker notes
+    }[]
+  }
+  bonusSlides?: {
+    title: string
+    slides: {
+      title: string
+      image: string
+      description: string
+    }[]
+  }
+  ownership: {
+    ownedFeatures: string[]
+    excludedFeatures: string[]
+  }
+
+  scaleAndResponsibility?: {
+    metrics: { value: string; label: string }[]
+    status: string
+    description: string
+  }
+
+  // Original fields below
   quickOverview: QuickOverview
   versionTimeline: VersionNode[]
   uxPrinciples?: {

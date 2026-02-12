@@ -1,6 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { MousePointer2, Layers, ArrowRight, ExternalLink } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
+
 
 interface ScheduleWorkflowComparisonProps {
   isLightBackground?: boolean
@@ -15,31 +18,26 @@ export default function ScheduleWorkflowComparison({ isLightBackground = true }:
       { step: 'Drill down in context menu', clicks: 1 },
       { step: 'Select create schedule', clicks: 1 },
       { step: 'Scheduler opens in new tab', clicks: 0, isNewTab: true },
-      { step: 'Configure (properties, task, distribution, recurrence)', clicks: 0, isNote: true },
     ],
     new: [
       { step: '+ menu → Create Schedule', clicks: 2 },
       { step: 'Configure (task, distribution, recurrence) — same context', clicks: 0, isNote: true },
     ],
-    reduction: 'No new tabs, unified context',
   }
 
   // Positions for "chaotic" step cards on the left
   const chaosPositions = [
-    { rotate: -3, x: -5, y: 0 },
-    { rotate: 2, x: 8, y: 2 },
+    { rotate: -2, x: -5, y: 0 },
+    { rotate: 1.5, x: 8, y: 2 },
     { rotate: -1, x: -3, y: -1 },
-    { rotate: 3, x: 5, y: 3 },
-    { rotate: -2, x: -8, y: 1 },
-    { rotate: 4, x: 10, y: -2 },
-    { rotate: -4, x: -6, y: 4 },
-    { rotate: 1, x: 3, y: -3 },
-    { rotate: -2, x: -4, y: 2 },
+    { rotate: 2, x: 5, y: 3 },
+    { rotate: -1.5, x: -8, y: 1 },
+    { rotate: 3, x: 10, y: -2 },
   ]
 
   return (
-    <div className="bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-primary)] p-6 md:p-10 mt-6 shadow-sm">
-      <div className="space-y-8">
+    <div className="py-12">
+      <div className="space-y-12">
 
         {/* Header */}
         <motion.div
@@ -47,58 +45,47 @@ export default function ScheduleWorkflowComparison({ isLightBackground = true }:
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center space-y-3"
         >
-          <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase">
-            {'// CORE_WORKFLOW: SCHEDULE_CREATION'}
-          </span>
-          <h4 className="text-[var(--text-heading)] text-xl md:text-2xl font-serif">
-            Entry Point: 5+ Clicks → 2 Clicks
-          </h4>
-          <p className="text-[var(--text-body)] text-sm max-w-2xl mx-auto">
-            Getting to the schedule dialog: the old path required 5+ clicks + a new tab opening. The new unified modal is accessible in 2 clicks from the Hub. Configuration steps are similar, but now happen in the same context.
-          </p>
+          <ComponentHeading
+            variant="block"
+            tag="// CORE_WORKFLOW"
+            title="Schedule Creation: 5+ Clicks vs 2 Clicks"
+            description="The old path required 5+ clicks and a context-switching new tab. The new modal is accessible in 2 clicks directly from the Hub."
+            align="center"
+            color="slate"
+          />
         </motion.div>
 
         {/* Comparison Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
 
           {/* BEFORE: Chaotic Steps */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="space-y-4"
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
           >
             {/* Header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-error)]">
-                  ⚠ FRAGMENTED
-                </span>
-              </div>
-              <div className="font-mono text-2xl font-bold text-[var(--text-heading)]">
-                5+<span className="text-sm text-[var(--text-muted)] ml-1">clicks to dialog</span>
+            <div className="flex items-center justify-between border-b border-rose-100 pb-3">
+              <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-rose-50 text-rose-600 text-[10px] uppercase tracking-widest font-bold border border-rose-100">
+                Fragmented
+              </span>
+              <div className="text-rose-900/40 font-mono text-sm">
+                5+ clicks to dialog
               </div>
             </div>
 
             {/* Chaotic Steps Container */}
-            <div className="relative min-h-[420px] bg-[var(--bg-tertiary)] rounded-xl p-4 border border-[var(--border-primary)] overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 opacity-5">
-                <svg aria-hidden="true" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="chaos-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#chaos-grid)" />
-                </svg>
+            <div className="relative min-h-[460px] bg-slate-50/50 rounded-2xl border border-slate-100 overflow-hidden p-8">
+              {/* Background Grid */}
+              <div className="absolute inset-0 opacity-[0.03]"
+                style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, black 1px, transparent 0)', backgroundSize: '20px 20px' }}>
               </div>
 
               {/* Steps */}
-              <div className="relative space-y-2">
+              <div className="relative flex flex-col items-center justify-center h-full pt-4">
                 {scheduleWorkflow.old.map((item, idx) => (
                   <motion.div
                     key={idx}
@@ -106,136 +93,146 @@ export default function ScheduleWorkflowComparison({ isLightBackground = true }:
                     whileInView={{ opacity: 1, scale: 1, rotate: chaosPositions[idx]?.rotate || 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.15 + idx * 0.05 }}
-                    whileHover={{ rotate: 0, scale: 1.02, zIndex: 10 }}
+                    whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
                     style={{
                       transform: `translateX(${chaosPositions[idx]?.x || 0}px) translateY(${chaosPositions[idx]?.y || 0}px)`,
                     }}
-                    className={`relative bg-white border rounded-lg p-3 shadow-sm transition-all duration-200 ${item.isNewTab
-                      ? 'border-[var(--color-warning)] bg-[var(--bg-warning)]'
-                      : 'border-[var(--border-primary)]'
-                      }`}
+                    className={`
+                      w-full max-w-sm relative mb-3 p-4 rounded-xl shadow-sm border backdrop-blur-sm transition-all duration-300
+                      ${item.isNewTab ? 'bg-amber-50/90 border-amber-200/60' : 'bg-white/90 border-slate-200/60'}
+                    `}
                   >
                     <div className="flex items-center gap-3">
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white font-mono text-xs font-bold flex-shrink-0 ${item.isNewTab ? 'bg-[var(--color-warning)]' : item.isNote ? 'bg-slate-300' : 'bg-[var(--border-secondary)]'
-                        }`}>
-                        {item.isNewTab ? '↗' : item.isNote ? '…' : idx + 1}
+                      <div className={`
+                        w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shadow-sm
+                        ${item.isNewTab ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-500'}
+                      `}>
+                        {item.isNewTab ? <ExternalLink className="w-3 h-3" /> : idx + 1}
                       </div>
+
                       <div className="flex-1 min-w-0">
-                        <p className={`text-xs font-medium truncate ${item.isNote ? 'text-[var(--text-muted)] italic' : 'text-[var(--text-heading)]'}`}>{item.step}</p>
+                        <p className={`text-sm ${item.isNewTab ? 'text-amber-900' : 'text-slate-600'}`}>
+                          {item.step}
+                        </p>
                       </div>
+
                       {item.clicks > 0 && (
-                        <span className="font-mono text-[10px] text-[var(--text-muted)] flex-shrink-0">
-                          +{item.clicks}
-                        </span>
-                      )}
-                      {item.isNote && (
-                        <span className="font-mono text-[10px] text-[var(--text-muted)] flex-shrink-0 italic">
-                          varies
-                        </span>
+                        <div className="flex items-center gap-1 text-[10px] text-slate-400 font-mono">
+                          <MousePointer2 className="w-3 h-3" /> +{item.clicks}
+                        </div>
                       )}
                     </div>
-                    {item.isNewTab && (
-                      <div className="mt-1 text-[10px] text-[var(--color-warning)] font-mono">
-                        ⚠ NEW TAB OPENS
-                      </div>
-                    )}
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* Summary */}
-            <div className="bg-[var(--bg-tertiary)] rounded-lg p-3 border border-[var(--border-primary)]">
-              <p className="text-[var(--text-muted)] text-xs text-center">
-                New tab opens • Menu drilling • Context switching • Properties scattered
-              </p>
-            </div>
+            <p className="text-center text-xs text-slate-400 italic">
+              Result: Context switching fatigue & high cognitive load
+            </p>
           </motion.div>
 
           {/* AFTER: Clean Steps */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-4"
+            className="space-y-6"
           >
             {/* Header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <svg aria-hidden="true" className="w-4 h-4 text-[var(--accent-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-mono text-xs uppercase tracking-widest text-[var(--accent-teal)]">
-                  UNIFIED
-                </span>
-              </div>
-              <div className="font-mono text-2xl font-bold text-[var(--accent-teal)]">
-                2<span className="text-sm text-[var(--text-muted)] ml-1">clicks to dialog</span>
+            <div className="flex items-center justify-between border-b border-blue-100 pb-3">
+              <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] uppercase tracking-widest font-bold border border-blue-100">
+                Unified
+              </span>
+              <div className="text-blue-900/40 font-mono text-sm">
+                2 clicks total
               </div>
             </div>
 
             {/* Clean Steps Container */}
-            <div className="bg-[var(--accent-teal-50)] rounded-xl p-4 border-2 border-[var(--accent-teal)]/30 min-h-[420px] flex flex-col justify-center">
-              <div className="space-y-4">
-                {scheduleWorkflow.new.map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.3 + idx * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    className={`border-2 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 ${item.isNote ? 'bg-[var(--bg-tertiary)] border-[var(--border-primary)]' : 'bg-white border-[var(--accent-teal)]/40'}`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-mono font-bold flex-shrink-0 ${item.isNote ? 'bg-[var(--border-secondary)]' : 'bg-[var(--accent-teal)]'}`}>
-                        {item.isNote ? '…' : idx + 1}
-                      </div>
-                      <div className="flex-1">
-                        <p className={`text-sm ${item.isNote ? 'text-[var(--text-muted)] italic' : 'text-[var(--text-heading)] font-semibold'}`}>{item.step}</p>
-                      </div>
-                      <span className={`font-mono text-sm font-bold ${item.isNote ? 'text-slate-400 italic' : 'text-[var(--accent-teal)]'}`}>
-                        {item.isNote ? 'varies' : `${item.clicks} clicks`}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+            <div className="relative min-h-[460px] bg-blue-50/30 rounded-2xl border border-blue-100/50 p-8 flex flex-col justify-center">
+              <div className="space-y-6">
 
-            {/* Summary */}
-            <div className="bg-[var(--accent-teal)] rounded-lg p-3">
-              <p className="text-white text-xs text-center font-medium">
-                {scheduleWorkflow.reduction}
-              </p>
+                {/* Step 1: Action */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="bg-white rounded-xl p-6 shadow-md border border-blue-100 group hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">1</span>
+                      <span className="text-xs font-bold uppercase tracking-wider text-blue-500">Action</span>
+                    </div>
+                    <span className="text-xs font-mono text-blue-400 flex items-center gap-1">
+                      <MousePointer2 className="w-3 h-3" /> 2 clicks
+                    </span>
+                  </div>
+                  <p className="text-lg text-slate-900 font-medium">
+                    + Menu <ArrowRight className="inline w-4 h-4 text-blue-300 mx-1" /> Create Schedule
+                  </p>
+                </motion.div>
+
+                {/* Step 2: Context */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="bg-white/60 rounded-xl p-6 border-2 border-dashed border-blue-100/60"
+                >
+                  <div className="flex items-center gap-2 mb-2 opacity-60">
+                    <span className="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold">2</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Context</span>
+                  </div>
+                  <p className="text-slate-500 leading-relaxed">
+                    Configure (task, distribution, recurrence) — <span className="text-slate-700 font-medium font-serif italic">happens in same context</span>
+                  </p>
+                </motion.div>
+
+              </div>
+
+              {/* Floating Benefit Badge */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6, type: "spring" }}
+                className="mt-8 bg-emerald-50 border border-emerald-100 rounded-lg p-3 flex items-center justify-center gap-2 text-emerald-700 text-sm"
+              >
+                <Layers className="w-4 h-4" />
+                <span>Zero context switching required</span>
+              </motion.div>
             </div>
+            <p className="text-center text-xs text-emerald-600/60 font-medium">
+              Result: Streamlined flow & retained focus
+            </p>
           </motion.div>
         </div>
 
-        {/* Impact Badge */}
+        {/* Stats Summary */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col items-center gap-3"
+          className="flex justify-center"
         >
-          <div className="inline-flex items-center gap-3 bg-[var(--bg-tertiary)] rounded-full px-6 py-3 border border-[var(--border-primary)]">
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-2xl font-bold text-[var(--text-heading)]">5+ → 2</span>
-              <span className="text-[var(--text-muted)] text-sm">clicks to entry</span>
+          <div className="inline-flex divide-x divide-slate-100 bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+            <div className="px-8 py-4 flex flex-col items-center">
+              <span className="text-3xl font-light text-slate-900">60%</span>
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold mt-1">Faster Entry</span>
             </div>
-            <div className="w-px h-6 bg-[var(--border-primary)]"></div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-2xl font-bold text-[var(--accent-teal)]">0</span>
-              <span className="text-[var(--text-muted)] text-sm">new tabs</span>
+            <div className="px-8 py-4 flex flex-col items-center bg-emerald-50/30">
+              <span className="text-3xl font-light text-emerald-600">0</span>
+              <span className="text-[10px] uppercase tracking-wider text-emerald-600/60 font-bold mt-1">New Tabs</span>
             </div>
           </div>
-          <p className="text-[var(--text-muted)] text-xs max-w-md text-center">
-            Configuration steps vary by schedule type. The key improvement: unified context, no tab switching.
-          </p>
         </motion.div>
+
       </div>
     </div>
   )
