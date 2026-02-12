@@ -171,22 +171,26 @@ export default function ThreeCriticalPivots({ isLightBackground = false }: Three
         })}
       </div>
 
-      {/* Summary Footer */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-slate-900 p-6 rounded-2xl"
+        className="bg-[#1D1D20] rounded-xl overflow-hidden shadow-lg border border-white/10 font-mono"
       >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest flex-shrink-0">
-            {'// BREAKTHROUGH'}
-          </span>
-          <p className="text-slate-300 text-sm leading-relaxed">
-            These pivots weren&apos;t just UX decisions — they were <span className="text-emerald-400 font-medium">architectural choices</span> that simplified implementation while improving user experience. The structured guided flow emerged from our domain expert&apos;s answer to
-            <span className="text-emerald-400 font-medium"> &quot;What do you absolutely need?&quot;</span> → problem type, target, predictors, hyperparameters.
-          </p>
+        {/* Terminal Header */}
+        <div className="bg-[#2D2D30] px-4 py-2 flex gap-2 items-center border-b border-white/5">
+          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+          <span className="ml-2 text-[10px] text-slate-500 font-sans">pivot_analysis.log</span>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 text-slate-300 text-sm leading-relaxed font-mono">
+          <span className="text-emerald-400 font-bold mr-2">&gt;</span>
+          These pivots weren&apos;t just UX decisions — they were <span className="text-emerald-400 font-medium">architectural choices</span> that simplified implementation. The structured flow emerged from asking:
+          <span className="block mt-2 pl-4 text-emerald-300">"What do you absolutely need?" → Problem Type + Target + Predictors + Params.</span>
         </div>
       </motion.div>
     </div>
