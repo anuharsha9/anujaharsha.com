@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface FrameworkPrinciple {
@@ -37,23 +38,35 @@ export default function FrameworkMatrix({
         className="mb-10"
       />
 
-      {/* The Matrix Grid - Clean & Open */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {/* The Matrix Grid - Clean & Open - Animated Stagger */}
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.1
+            }
+          }
+        }}
+      >
         {principles.map((principle, index) => {
           const sectionId = sectionMappings?.[principle.letter]
 
-          // Determine borders based on grid position (assuming 3 columns on large screens)
-          const isLastRow = index >= principles.length - (principles.length % 3 || 3)
-          // For simplicity in responsive, we'll just use simple borders and remove them on last items via CSS :last-child if needed, 
-          // or just generic borders that look good. 
-          // Let's use a standard bordered grid approach where every item has border-b and border-r, and we hide where needed.
-
-          const CellWrapper = sectionId ? 'div' : 'div'
+          // Use motion.div for the cell wrapper
+          const CellWrapper = motion.div
 
           return (
             <CellWrapper
               key={principle.letter}
               onClick={sectionId ? () => handleNavigation(sectionId) : undefined}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+              }}
               className={`
                 relative p-8 group transition-all duration-300
                 border-b border-slate-100
@@ -88,7 +101,7 @@ export default function FrameworkMatrix({
             </CellWrapper>
           )
         })}
-      </div>
+      </motion.div>
     </div>
   )
 }

@@ -1,5 +1,7 @@
 'use client'
 
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import MotionSection from '@/components/ui/MotionSection'
 import CustomVideoPlayer from '@/components/video/CustomVideoPlayer'
 import BeforeAfterVideo from './BeforeAfterVideo'
@@ -31,11 +33,20 @@ interface PrototypeBlockProps {
 }
 
 export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightBackground = true, password = 'anu-access' }: PrototypeBlockProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+
+  // Parallax effect for video container
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50])
+
   if (!prototypeMedia) return null
 
   return (
     <MotionSection id="prototype" className="py-10 md:py-14 bg-white">
-      <div className="space-y-8">
+      <div className="space-y-8" ref={ref}>
         {prototypeMedia.multiBeforeAfter ? (
           <MultiBeforeAfterVideo before={prototypeMedia.multiBeforeAfter.before} after={prototypeMedia.multiBeforeAfter.after} isLightBackground={true} comparisonNotes={prototypeMedia.multiBeforeAfter.comparisonNotes} password={password} caseStudySlug={caseStudySlug} />
         ) : prototypeMedia.beforeAfter ? (
@@ -64,10 +75,13 @@ export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightB
               align="center"
               color="teal"
             />
-            <div className="max-w-[1440px] mx-auto">
-              <div className="relative w-full aspect-video border border-slate-200 bg-white overflow-hidden shadow-sm rounded-2xl">
+            <div className="max-w-[1440px] mx-auto overflow-hidden rounded-2xl">
+              <motion.div
+                style={{ y }}
+                className="relative w-full aspect-video border border-slate-200 bg-white shadow-sm"
+              >
                 <CustomVideoPlayer src={prototypeMedia.videoUrl} className="" />
-              </div>
+              </motion.div>
             </div>
           </div>
         )}
@@ -83,10 +97,13 @@ export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightB
               align="center"
               color="teal"
             />
-            <div className="max-w-[1440px] mx-auto">
-              <div className="relative w-full aspect-video border border-slate-200 bg-white overflow-hidden shadow-sm rounded-2xl">
+            <div className="max-w-[1440px] mx-auto overflow-hidden rounded-2xl">
+              <motion.div
+                style={{ y }}
+                className="relative w-full aspect-video border border-slate-200 bg-white shadow-sm"
+              >
                 <iframe src={prototypeMedia.videoEmbedUrl} className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title="Video Walkthrough" />
-              </div>
+              </motion.div>
             </div>
           </div>
         )}

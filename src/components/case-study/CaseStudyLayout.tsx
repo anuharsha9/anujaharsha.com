@@ -901,7 +901,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
               return (
                 <div key={section.id}>
                   {/* Special handling for section-04 (version iteration) for ReportCaster */}
-                  {section.id === 'section-04' && data.slug === 'reportcaster' && (section as any).v1Data && (section as any).v2Data && (section as any).v3Data ? (
+                  {section.id === 'section-04' && data.slug === 'reportcaster' ? (
                     <>
                       {/* Render as proper section with header */}
                       <MotionSection
@@ -954,12 +954,6 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                             <div className="mt-16 pt-12 border-t border-slate-200">
                               <RCDesignEvolution isLightBackground={sectionBg === 'surface-light'} />
                             </div>
-
-                            {/* Impact Metrics & Validation - Moved from Section 06 */}
-                            <div className="mt-16 pt-12 border-t border-slate-200">
-                              <ImpactVisual isLightBackground={sectionBg === 'surface-light'} />
-                            </div>
-
                           </div>
                         </CaseStudyCard>
                       </MotionSection>
@@ -1097,6 +1091,13 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <IQWorkflowsAndFoundation isLightBackground={true} />
                               </div>
                             </>
+                          )}
+
+                          {/* RC Section 06: ImpactVisual (The 'Slider' user missed) */}
+                          {section.id === 'section-06' && data.slug === 'reportcaster' && (
+                            <div className="mt-12 pt-12 border-t border-slate-100">
+                              <ImpactVisual isLightBackground={true} />
+                            </div>
                           )}
 
                           {/* RC Section 02: Research + Strategy + Market + Personas */}

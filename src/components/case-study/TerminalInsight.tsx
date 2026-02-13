@@ -36,16 +36,10 @@ export default function TerminalInsight({
             className={`w-full ${className}`}
         >
             <div className="rounded-xl bg-[#0F172A] shadow-2xl border border-white/10 overflow-hidden w-full">
-                {/* macOS Terminal Header */}
-                <div className="h-10 bg-[#1E293B] flex items-center px-4 relative border-b border-black/40 w-full">
-                    {/* Traffic Lights */}
-                    <div className="flex gap-2 shrink-0">
-                        <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 shadow-inner" />
-                        <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 shadow-inner" />
-                        <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 shadow-inner" />
-                    </div>
-                    {/* Title - Left aligned for these insights */}
-                    <span className="ml-4 font-mono text-xs text-slate-400/80 tracking-wide font-medium flex items-center gap-2 truncate">
+                {/* Header - Simplified */}
+                <div className="h-10 bg-slate-900/50 flex items-center px-4 relative border-b border-white/5 w-full">
+                    {/* Title */}
+                    <span className="font-mono text-xs text-slate-400/80 tracking-wide font-medium flex items-center gap-2 truncate">
                         {title}
                     </span>
                 </div>

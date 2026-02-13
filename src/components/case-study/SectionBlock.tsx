@@ -115,45 +115,6 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
   const [showAllLegacyImages, setShowAllLegacyImages] = useState(false) // For Section 01 collapsible gallery
   const [showAllScheduleDialogImages, setShowAllScheduleDialogImages] = useState(false) // For Schedule Dialog collapsible gallery
 
-  // Ensure section is visible after mount (fallback for animation edge cases)
-  // Must be called before early return to follow Rules of Hooks
-  useEffect(() => {
-    if (!section?.id || typeof window === 'undefined') return
-
-    // Wait for DOM to be ready
-    const checkAndFixVisibility = () => {
-      const element = document.getElementById(section.id!)
-      if (!element) return
-
-      // Check if element is hidden (opacity 0 or visibility hidden)
-      const computedStyle = window.getComputedStyle(element)
-      const isHidden = computedStyle.opacity === '0' || computedStyle.visibility === 'hidden'
-
-      // Also check parent MotionSection
-      const parentSection = element.closest('section')
-      if (parentSection) {
-        const parentStyle = window.getComputedStyle(parentSection)
-        if (parentStyle.opacity === '0' || parentStyle.visibility === 'hidden') {
-          parentSection.style.opacity = '1'
-          parentSection.style.visibility = 'visible'
-        }
-      }
-
-      if (isHidden) {
-        element.style.opacity = '1'
-        element.style.visibility = 'visible'
-      }
-    }
-
-    // Check immediately and after delays to catch animation timing issues
-    requestAnimationFrame(() => {
-      checkAndFixVisibility()
-      setTimeout(checkAndFixVisibility, 100)
-      setTimeout(checkAndFixVisibility, 500)
-      setTimeout(checkAndFixVisibility, 1000)
-    })
-  }, [section?.id])
-
   // Safety check: ensure section exists (after hooks)
   if (!section) {
     return null

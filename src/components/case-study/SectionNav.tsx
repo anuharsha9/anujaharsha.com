@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { CaseStudySection } from '@/types/caseStudy'
 import { useScrollManager } from '@/hooks/useScrollManager'
+import { motion } from 'framer-motion'
 
 interface SectionNavProps {
   sections: CaseStudySection[]
@@ -11,6 +12,7 @@ interface SectionNavProps {
 export default function SectionNav({ sections }: SectionNavProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
+  // Initialize with first section if none active to avoid layout jump, or handle locally
   const [showLeftIndicator, setShowLeftIndicator] = useState(false)
   const [showRightIndicator, setShowRightIndicator] = useState(false)
   const [mainNavHeight, setMainNavHeight] = useState(64)
@@ -19,16 +21,21 @@ export default function SectionNav({ sections }: SectionNavProps) {
   // Show nav after scrolling past hero
   useScrollManager((scrollY) => {
     const hasScrolled = scrollY > 300
-    setIsVisible(hasScrolled)
-  }, [])
+    if (hasScrolled !== isVisible) {
+      setIsVisible(hasScrolled)
+    }
+  }, [isVisible])
 
   // Track active section based on scroll position
   useEffect(() => {
+    // Threshold 0.2 means 20% of section needs to be visible
     const observerOptions = { root: null, rootMargin: '-20% 0px -60% 0px', threshold: 0 }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) setActiveSection(entry.target.id)
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id)
+        }
       })
     }, observerOptions)
 
@@ -50,6 +57,9 @@ export default function SectionNav({ sections }: SectionNavProps) {
   const scrollToSection = (sectionId: string) => {
     if (typeof window === 'undefined') return
     const element = document.getElementById(sectionId)
+    // Update active immediately for responsiveness
+    setActiveSection(sectionId)
+
     if (element) {
       const header = document.querySelector('header')
       const sectionNav = navRef.current
@@ -85,6 +95,11 @@ export default function SectionNav({ sections }: SectionNavProps) {
   }, [isVisible])
 
   // Track main nav height for positioning
+  // ... (keep existing logic) ... 
+  // Simplified for brevity in replacement, but I must keep the logic if I replace the whole file. 
+  // Actually, I should use `replace_file_content` more surgically if I can to avoid rewriting logic I don't fully see.
+  // But I have the whole file in view.
+
   useEffect(() => {
     if (typeof window === 'undefined') return
 
@@ -109,6 +124,10 @@ export default function SectionNav({ sections }: SectionNavProps) {
     }
   }, [isVisible])
 
+  if (!isVisible && !activeSection) return null // Only return null if not visible AND not initialized? No, keep isVisible logic.
+
+  // Wait, if !isVisible, we return null? 
+  // The original returned null.
   if (!isVisible) return null
 
   return (
@@ -120,7 +139,7 @@ export default function SectionNav({ sections }: SectionNavProps) {
         bg-white/90 backdrop-blur-md 
         border-b border-slate-200
         transition-all duration-300
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}
+        opacity-100 translate-y-0
       `}
       style={{ top: `${mainNavHeight}px` }}
       aria-label="Case study section navigation"
@@ -128,7 +147,7 @@ export default function SectionNav({ sections }: SectionNavProps) {
       <div className="relative h-full">
         {/* Scrollable Container */}
         <div
-          className="overflow-x-auto scrollbar-hide h-full"
+          className="overflow-x-auto scrollbar-hide h-full no-scrollbar"
           onScroll={(e) => {
             if (typeof window === 'undefined') return
             const target = e.currentTarget
@@ -138,11 +157,10 @@ export default function SectionNav({ sections }: SectionNavProps) {
           }}
         >
           {/* Tab Links - Centered */}
-          <div className="flex items-center justify-center gap-6 md:gap-8 px-4 md:px-8 h-full min-w-max max-w-[1440px] mx-auto">
+          <div className="flex items-center justify-start md:justify-center gap-6 md:gap-8 px-4 md:px-8 h-full min-w-max max-w-[1440px] mx-auto">
             {sections.map((section) => {
               const isActive = activeSection === section.id
               const rawFirstWord = section.title.split(' ')[0]
-              // Remove any trailing colon so nav shows DISCOVER not DISCOVER:
               const cleanedWord = rawFirstWord.replace(/:$/, '')
               const firstLetter = cleanedWord.charAt(0)
               const restOfWord = cleanedWord.slice(1)
@@ -151,17 +169,11 @@ export default function SectionNav({ sections }: SectionNavProps) {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      scrollToSection(section.id)
-                    }
-                  }}
                   className={`
                     relative
                     font-mono text-xs uppercase tracking-widest
                     whitespace-nowrap
-                    transition-all duration-200
+                    transition-colors duration-200
                     h-full flex items-center
                     focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/50
                     ${isActive
@@ -172,13 +184,18 @@ export default function SectionNav({ sections }: SectionNavProps) {
                   aria-label={`Navigate to ${section.title}`}
                   aria-current={isActive ? 'true' : 'false'}
                 >
-                  {/* Bold first letter, rest normal */}
-                  <span className="font-bold">{firstLetter}</span>
-                  <span>{restOfWord}</span>
+                  <span className="relative z-10 flex">
+                    <span className="font-bold">{firstLetter}</span>
+                    <span>{restOfWord}</span>
+                  </span>
 
-                  {/* Active Indicator - Bottom Border */}
+                  {/* Animated Active Indicator */}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-teal)]" />
+                    <motion.span
+                      layoutId="activeSectionIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent-teal)]"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
                   )}
                 </button>
               )
@@ -187,18 +204,14 @@ export default function SectionNav({ sections }: SectionNavProps) {
         </div>
 
         {/* Scroll Indicators (for mobile) */}
-        {showLeftIndicator && (
-          <div
-            className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none"
-            style={{ background: 'linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent)' }}
-          />
-        )}
-        {showRightIndicator && (
-          <div
-            className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none"
-            style={{ background: 'linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent)' }}
-          />
-        )}
+        <div
+          className={`absolute left-0 top-0 bottom-0 w-8 pointer-events-none transition-opacity duration-300 ${showLeftIndicator ? 'opacity-100' : 'opacity-0'}`}
+          style={{ background: 'linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent)' }}
+        />
+        <div
+          className={`absolute right-0 top-0 bottom-0 w-8 pointer-events-none transition-opacity duration-300 ${showRightIndicator ? 'opacity-100' : 'opacity-0'}`}
+          style={{ background: 'linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent)' }}
+        />
       </div>
     </nav>
   )

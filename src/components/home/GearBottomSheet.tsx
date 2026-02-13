@@ -67,18 +67,29 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
               <X className="w-5 h-5" />
             </button>
 
-            {/* Content */}
-            <div className="px-space-5 pb-space-8 pt-space-2">
-              {/* Thought Quote */}
-              <div className="mb-space-4">
-                <p className={`${t.textMuted} text-sm italic leading-relaxed`}>
-                  &quot;{gear.thought}&quot;
+            <div className="px-6 pb-12 pt-4 flex flex-col gap-6">
+
+              {/* Header: Title & Accent */}
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold tracking-tight text-white font-sans">
+                  {gear.title}
+                </h3>
+                <div
+                  className="w-2 h-2 rounded-full shadow-[0_0_12px_currentColor]"
+                  style={{ backgroundColor: gear.accentColor, color: gear.accentColor }}
+                />
+              </div>
+
+              {/* Thought Quote - Clean Sans */}
+              <div className="relative pl-4 border-l-2 border-white/10">
+                <p className="text-white/80 text-[15px] leading-relaxed font-medium">
+                  {gear.thought}
                 </p>
               </div>
 
-              {/* Preview Image */}
+              {/* Preview Image - If exists */}
               {gear.image && (
-                <div className={`relative w-full aspect-video rounded-xl overflow-hidden mb-space-5 border ${t.border}`}>
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10">
                   <Image
                     src={gear.image}
                     alt={gear.title}
@@ -86,40 +97,35 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
                     className="object-cover"
                     sizes="100vw"
                   />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>
               )}
 
-              {/* Title & Insight */}
-              <div className="space-y-space-2 mb-space-6">
-                <h3
-                  className={`font-serif text-xl font-medium`}
-                  style={{ color: gear.accentColor }}
-                >
-                  {gear.title}
-                </h3>
-                <p className={`${t.textSecondary} text-sm leading-relaxed`}>
-                  {gear.insight}
-                </p>
-              </div>
+              {/* Insight Text */}
+              <p className="text-white/60 text-sm leading-relaxed">
+                {gear.insight}
+              </p>
 
-              {/* CTA Button */}
+              {/* CTA Button - Premium Pill */}
               <Link
                 href={gear.link}
                 onClick={onClose}
-                className="flex items-center justify-center gap-space-2 w-full py-space-3.5 px-space-6 rounded-xl text-white font-medium transition-all active:scale-[0.98]"
-                style={{ backgroundColor: gear.accentColor }}
+                className="group flex items-center justify-center gap-3 w-full py-4 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-[0.98] transition-all backdrop-blur-md border border-white/5"
               >
-                <span>{gear.linkLabel}</span>
-                <ArrowRight className="w-4 h-4" />
+                <span className="text-sm font-bold tracking-wide uppercase text-white">
+                  {gear.linkLabel}
+                </span>
+                <ArrowRight className="w-4 h-4 text-white/70 group-hover:text-white transition-colors group-hover:translate-x-1" />
               </Link>
 
               {/* Case Study Badge */}
               {gear.caseStudy && gear.caseStudy !== 'me' && (
-                <p className={`text-center ${t.textDim} text-xs mt-space-4 font-mono uppercase tracking-widest`}>
-                  {`// ${gear.caseStudy.replace('-', '_').toUpperCase()}`}
-                </p>
+                <div className="flex justify-center">
+                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30">
+                    {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
+                    // {gear.caseStudy.replace('-', ' ').toUpperCase()}
+                  </p>
+                </div>
               )}
             </div>
 

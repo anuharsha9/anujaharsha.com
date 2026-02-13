@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import ImageLightbox from './ImageLightbox'
-import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
+import AutoSequenceDataViewer from './AutoSequenceDataViewer'
 
 interface VersionData {
   id: string
@@ -237,7 +237,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                     <div className="lg:w-[60%] space-y-8">
                       {/* Main Images */}
                       {version.section.images && version.section.images.length > 0 && (
-                        <MacWindowCarousel
+                        <AutoSequenceDataViewer
                           images={version.section.images.map(img => ({
                             src: img.src,
                             alt: img.alt,

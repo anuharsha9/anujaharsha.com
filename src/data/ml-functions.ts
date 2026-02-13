@@ -357,6 +357,21 @@ Breakthrough: I asked our Principal Data Scientist, "What do you absolutely need
 The confusion matrix screen alone went through 10+ iterations. Our Principal Data Scientist pushed for advanced metrics; I pushed for clarity. That productive tension produced what he called "the best screen in the entire UX revamp."
 
 **What I'd do differently:** Earlier, cleaner alignment with our Data Scientist. He surfaced insights late in the process that were harder to incorporate — some we did, but it cost us time.`,
+      beforeAfter: {
+        before: {
+          src: '/images/case-study/ml-functions/ml-old-workflow-poster.jpg',
+          alt: 'Legacy ML Workflow - Fragmented and technical',
+          caption: 'Original Interface: Fragmented 4+ step workflow hidden behind context menus',
+        },
+        after: {
+          src: '/images/case-study/ml-functions/ml-prototype-poster.jpg',
+          alt: 'New Guided ML Workflow - Linear and accessible',
+          caption: 'Redesign: Guided 4-step wizard with clear error handling',
+        },
+        beforeLabel: 'Legacy Workflow',
+        afterLabel: 'Guided Workflow',
+        comparisonNotes: 'Transformed a fragmented, error-prone technical process into a guided, linear wizard accessible to business users.',
+      },
     },
     {
       id: 'section-05',

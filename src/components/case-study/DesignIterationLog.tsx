@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MousePointer, Workflow, Layout, BarChart3, Sparkles, Terminal } from 'lucide-react'
 import { getTheme } from '@/lib/design-system'
 import ComponentHeading from '@/components/ui/ComponentHeading'
-import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
+import AutoSequenceDataViewer from './AutoSequenceDataViewer'
 
 export interface TabImage {
   src: string
@@ -314,7 +314,7 @@ export default function DesignIterationLog({
 
               {/* Viewer Component */}
               <div className="rounded-2xl overflow-hidden shadow-xl bg-white border border-slate-100">
-                <MacWindowCarousel
+                <AutoSequenceDataViewer
                   images={activeTabData.images.map(img => ({
                     src: img.src,
                     alt: img.alt,
@@ -337,14 +337,8 @@ export default function DesignIterationLog({
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
-        className="bg-[#1D1D20] rounded-xl p-6 shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
+        className="bg-slate-50 rounded-xl p-8 shadow-sm border border-slate-200 max-w-4xl mx-auto"
       >
-        {/* Terminal Header */}
-        <div className="flex gap-2 mb-4 opacity-50">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-        </div>
 
         <div className="flex items-start gap-4">
           <div className="bg-emerald-500/10 p-2 rounded-lg">

@@ -41,16 +41,27 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
     <div className="space-y-8 w-full min-h-[200px] py-6 px-4 md:px-6">
       {data.star && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
         >
           {/* 4-Column STAR Grid - Linear Flow with Dividers */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-0 mb-10 pb-8 border-b border-slate-100">
             {items.map((item, index) => (
-              <div
+              <motion.div
                 key={item.label}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                }}
                 className={`
                   flex flex-col gap-3 md:px-6 first:pl-0 last:pr-0
                   ${index !== items.length - 1 ? 'md:border-r border-slate-100' : ''}
@@ -63,7 +74,7 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
                 <p className="text-slate-700 text-sm leading-relaxed font-light">
                   {item.content}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -71,14 +82,21 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
           {data.impactMetrics && data.impactMetrics.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-2">
               {data.impactMetrics.map((metric, index) => (
-                <div key={index} className="flex flex-col gap-1 md:px-6 first:pl-0">
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                  }}
+                  className="flex flex-col gap-1 md:px-6 first:pl-0"
+                >
                   <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 font-feature-settings-tnum">
                     {metric.value}
                   </span>
                   <span className="text-[10px] uppercase tracking-[0.15em] font-semibold text-slate-400">
                     {metric.label}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}

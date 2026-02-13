@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Layers, LayoutGrid, CreditCard } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import { LucideIcon } from 'lucide-react'
-import TerminalInsight from './TerminalInsight'
+
 
 interface ThreeCriticalPivotsProps {
   isLightBackground?: boolean
@@ -173,15 +173,25 @@ export default function ThreeCriticalPivots({ isLightBackground = false }: Three
       </div>
 
       <div className="w-full">
-        <TerminalInsight
-          title="pivot_analysis.log"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-slate-50 border border-slate-200 rounded-xl p-8 relative overflow-hidden"
         >
-          <div className="text-slate-300 text-sm leading-relaxed font-mono">
-            <span className="text-emerald-400 font-bold mr-2">&gt;</span>
-            These pivots weren&apos;t just UX decisions — they were <span className="text-emerald-400 font-medium">architectural choices</span> that simplified implementation. The structured flow emerged from asking:
-            <span className="block mt-2 pl-4 text-emerald-300">"What do you absolutely need?" → Problem Type + Target + Predictors + Params.</span>
+          <div className="flex items-start gap-4 relative z-10">
+            <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
+              <Layers className="w-5 h-5 text-slate-400" />
+            </div>
+            <div className="space-y-2">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400">Architectural Insight</h4>
+              <p className="text-slate-600 leading-relaxed font-light max-w-3xl">
+                These pivots weren&apos;t just UX decisions — they were <strong className="font-medium text-slate-900">architectural choices</strong> that simplified implementation. The structured flow emerged from asking:
+                <em className="block mt-2 text-slate-800 not-italic">"What do you absolutely need?" → Problem Type + Target + Predictors + Params.</em>
+              </p>
+            </div>
           </div>
-        </TerminalInsight>
+        </motion.div>
       </div>
     </div>
   )

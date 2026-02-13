@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, Clock, Mail, Users, FolderTree, Settings } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
-import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
+import AutoSequenceDataViewer from './AutoSequenceDataViewer'
 
 interface RCDesignEvolutionProps {
   isLightBackground?: boolean
@@ -377,7 +377,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
               </div>
 
               {/* The Viewer */}
-              <MacWindowCarousel
+              <AutoSequenceDataViewer
                 images={activeTabData.images.map(img => ({
                   src: img.src,
                   alt: img.alt,
@@ -446,14 +446,8 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-[#1D1D20] rounded-xl p-6 shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
+        className="bg-slate-900 rounded-xl p-6 shadow-lg border border-slate-800 max-w-4xl mx-auto font-sans"
       >
-        {/* Terminal Header */}
-        <div className="flex gap-2 mb-4 opacity-50">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-        </div>
 
         <div className="flex items-start gap-3">
           <span className="text-emerald-400 flex-shrink-0 mt-0.5">

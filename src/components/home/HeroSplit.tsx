@@ -10,7 +10,7 @@ import { GEAR_INSPECTOR, GearInspectorItem } from '@/data/gear-inspector'
 import { getTheme, spacing } from '@/lib/design-system'
 import Magnetic from '@/components/ui/Magnetic'
 import { BRAIN_GEARS_SVG } from '@/data/brain-gears-svg'
-import { ArrowRight, Sparkles, Brain } from 'lucide-react'
+import { ArrowRight, Sparkles, Brain, Check } from 'lucide-react'
 
 // --- QUIZ DATA & TYPES ---
 
@@ -26,6 +26,7 @@ type QuizQuestion = {
     label: string
     val: string
     emoji: string
+    nextId: string | 'end' // Branching logic
     reveal: {
       title: string
       content: string
@@ -37,32 +38,25 @@ type QuizQuestion = {
   }
 }
 
-const QUIZ_QUESTIONS: QuizQuestion[] = [
-  {
-    id: 'q1',
+const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
+  'start': {
+    id: 'start',
     statement: "Let's align our neural networks.",
-    question: "Are you a recruiter or a founder?",
-    activeGear: 'gear-scattered-workflows',
+    question: "What are you looking for right now?",
+    activeGear: 'gear-scattered-workflows', // Restored
     options: [
       {
-        id: 'recruiter', label: 'Recruiter', val: 'recruiter', emoji: '🕵️‍♀️',
+        id: 'hiring', label: 'A Business Problem Solver', val: 'hiring', emoji: '🤝', nextId: 'hire_1',
         reveal: {
           title: "Efficiency Expert",
-          content: "I speak business value. I reduce development cycles and time-to-hire by architecting systems that scale from Day 1."
+          content: "Excellent. I speak business value—reducing development cycles and ensuring scalability from Day 1."
         }
       },
       {
-        id: 'founder', label: 'Founder/Builder', val: 'founder', emoji: '🏗️',
+        id: 'browsing', label: 'Design Inspiration', val: 'browsing', emoji: '🔭', nextId: 'explore_1',
         reveal: {
-          title: "0-to-1 Builder",
-          content: "I don't just design Mocks; I ship. I built this entire digital brain using AI agents in under 2 weeks."
-        }
-      },
-      {
-        id: 'both', label: 'Just Browsing', val: 'both', emoji: '🚀',
-        reveal: {
-          title: "Design Engineer",
-          content: "I bridge the gap between Code and Design. I'm a Product Designer who commits to GitHub."
+          title: "Welcome, Explorer",
+          content: "I built this site to push the boundaries of what a portfolio can be. Let's peek under the hood."
         }
       }
     ],
@@ -71,31 +65,25 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
       secondary: ['bg-gear-16', 'bg-gear-17', 'bg-gear-18', 'bg-gear-19', 'bg-gear-20']
     }
   },
-  {
-    id: 'q2',
-    statement: "Defining the impact.",
-    question: "What matters most in Enterprise Design?",
-    activeGear: 'gear-conflicting-teams',
+  // --- HIRING TRACK ---
+  'hire_1': {
+    id: 'hire_1',
+    statement: "First principles thinking.",
+    question: "How do you handle a legacy system that's slowing down 20M+ users?",
+    activeGear: 'gear-conflicting-teams', // Restored
     options: [
       {
-        id: 'scale', label: 'Massive Scale', val: 'scale', emoji: '🌍',
+        id: 'ui', label: 'Do you just reskin the UI?', val: 'ui', emoji: '🎨', nextId: 'hire_2',
         reveal: {
-          title: "20 Million+ Users",
-          content: "My scheduling systems at UKG power over 20 million shifts every single week without breaking."
+          title: "Yes, and...",
+          content: "A fresh UI helps, but I dig deeper. I map the data flow to solve the root cause, not just the symptom."
         }
       },
       {
-        id: 'consistency', label: 'Consistency', val: 'consistency', emoji: '📐',
-        reveal: {
-          title: "50+ Product Squads",
-          content: "I build Design Systems that unify 50+ fragmented product squads into one cohesive experience."
-        }
-      },
-      {
-        id: 'legacy', label: 'Modernization', val: 'legacy', emoji: '🏛️',
+        id: 'audit', label: 'Do you audit the architecture?', val: 'audit', emoji: '🔍', nextId: 'hire_2',
         reveal: {
           title: "Code Archaeologist",
-          content: "I specialize in transforming 10-year-old legacy codebases into modern revenue drivers."
+          content: "Exactly. I audit the component library and API calls to find the bottleneck before touching a pixel."
         }
       }
     ],
@@ -104,31 +92,24 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
       secondary: ['bg-gear-11', 'bg-gear-12', 'bg-gear-13', 'bg-gear-14', 'bg-gear-15']
     }
   },
-  {
-    id: 'q3',
-    statement: "The methodology.",
-    question: "How do I bridge Design & Engineering?",
-    activeGear: 'gear-motherhood',
+  'hire_2': {
+    id: 'hire_2',
+    statement: "Execution matters.",
+    question: "Engineering says a critical feature is 'too complex'. What do you do?",
+    activeGear: 'gear-motherhood', // Restored
     options: [
       {
-        id: 'code', label: 'I write Code', val: 'code', emoji: '💻',
+        id: 'spec', label: 'Write a spec doc?', val: 'spec', emoji: '📄', nextId: 'hire_3',
         reveal: {
-          title: "Production Ready",
-          content: "I don't stop at Figma. I write the React components to ensure the final product matches the vision."
+          title: "Documentation + Code",
+          content: "Specs are vital. But I go further: I prototype the interaction in React so engineers have a working reference."
         }
       },
       {
-        id: 'system', label: 'Systems Thinking', val: 'system', emoji: '🔄',
+        id: 'build', label: 'Build it nicely in React?', val: 'build', emoji: '⚛️', nextId: 'hire_3',
         reveal: {
-          title: "Atomic Design",
-          content: "I treat design as a dependency graph. Changing one token should predictably update the entire OS."
-        }
-      },
-      {
-        id: 'speed', label: 'Ship Faster', val: 'speed', emoji: '⚡',
-        reveal: {
-          title: "No Handoff Friction",
-          content: "By speaking the developers' language, I eliminate the 'translation layer' that slows teams down."
+          title: "The Polymath Move",
+          content: "Exactly. I built this portfolio myself to prove that complex UX is possible when Design and Engineering are one."
         }
       }
     ],
@@ -137,31 +118,110 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
       secondary: ['bg-gear-6', 'bg-gear-7', 'bg-gear-8', 'bg-gear-9', 'bg-gear-10']
     }
   },
-  {
-    id: 'q4',
-    statement: "The secret weapon.",
-    question: "How was this digital brain built?",
-    activeGear: 'gear-life',
+  'hire_3': {
+    id: 'hire_3',
+    statement: "The multiplier effect.",
+    question: "What is your biggest impact as a Principal Designer?",
+    activeGear: 'gear-life', // Restored
     options: [
       {
-        id: 'ai', label: 'AI Agents', val: 'ai', emoji: '🤖',
+        id: 'lead', label: 'Is it leading teams?', val: 'lead', emoji: '👑', nextId: 'end',
         reveal: {
-          title: "AI as a Partner",
-          content: "I architected the UX and directed AI agents to write the code. It's a glimpse into the future of work."
+          title: "Servant Leadership",
+          content: "I lead by doing. My code sets the standard, and my systems empower the team to ship faster and better."
         }
       },
       {
-        id: 'solo', label: 'Solo Dev', val: 'solo', emoji: '👨‍💻',
+        id: 'strategy', label: 'Is it defining strategy?', val: 'strategy', emoji: '🎯', nextId: 'end',
         reveal: {
-          title: "Design Engineering",
-          content: "Designed in Figma, built in VS Code. I own the full stack of the user experience."
+          title: "Strategic Execution",
+          content: "Strategy without execution is hallucination. I define the roadmap and then write the code to validate it."
+        }
+      }
+    ],
+    gearCascade: {
+      primary: ['gear-life', 'gear-career-ambition'],
+      secondary: ['bg-gear-1', 'bg-gear-2', 'bg-gear-3', 'bg-gear-4', 'bg-gear-5']
+    }
+  },
+  // --- EXPLORER TRACK ---
+  'explore_1': {
+    id: 'explore_1',
+    statement: "Behind the curtain.",
+    question: "This site feels different. How exactly was it built?",
+    activeGear: 'gear-conflicting-teams', // Matches Hire_1
+    options: [
+      {
+        id: 'nocode', label: 'Did you use Framer/Webflow?', val: 'nocode', emoji: '🎨', nextId: 'explore_2',
+        reveal: {
+          title: "Pixel Perfect",
+          content: "It has that polish, doesn't it? But this is a custom Next.js app. I need full control over the state and animation stack."
         }
       },
       {
-        id: 'magic', label: 'Magic', val: 'magic', emoji: '✨',
+        id: 'code', label: 'Did you write the code?', val: 'code', emoji: '💻', nextId: 'explore_2',
         reveal: {
-          title: "The Third State",
-          content: "It feels like magic, but it's just rigorous engineering applied to ambiguous design problems."
+          title: "Hand-Crafted",
+          content: "Correct. I built this with TypeScript, React, and Framer Motion. I believe designers should own their medium."
+        }
+      },
+      {
+        id: 'ai', label: 'Did you use AI?', val: 'ai', emoji: '🤖', nextId: 'explore_2',
+        reveal: {
+          title: "The Secret Sauce",
+          content: "Spot on. I orchestrated autonomous AI agents to handle the boilerplate, acting as the Architect while they laid the bricks."
+        }
+      }
+    ],
+    gearCascade: {
+      primary: ['gear-conflicting-teams', 'gear-missing-briefs'],
+      secondary: ['bg-gear-11', 'bg-gear-12', 'bg-gear-13', 'bg-gear-14', 'bg-gear-15']
+    }
+  },
+  'explore_2': {
+    id: 'explore_2',
+    statement: "Looking forward.",
+    question: "Where do you see the future of Product Design going?",
+    activeGear: 'gear-motherhood', // Matches Hire_2
+    options: [
+      {
+        id: 'tools', label: 'Better UI Tools?', val: 'tools', emoji: '🖌️', nextId: 'explore_3',
+        reveal: {
+          title: "Tools Empower Us",
+          content: "Figma is great, but the browser is the final canvas. I bet on code as the ultimate design tool."
+        }
+      },
+      {
+        id: 'systems', label: 'System Orchestration?', val: 'systems', emoji: '🧠', nextId: 'explore_3',
+        reveal: {
+          title: "The Architect",
+          content: "As AI handles the pixels, designers will become System Architects. That's the playground I'm building in."
+        }
+      }
+    ],
+    gearCascade: {
+      primary: ['gear-motherhood', 'gear-shifting-priorities'],
+      secondary: ['bg-gear-6', 'bg-gear-7', 'bg-gear-8', 'bg-gear-9', 'bg-gear-10']
+    }
+  },
+  'explore_3': {
+    id: 'explore_3',
+    statement: "The hidden craft.",
+    question: "How do you make an interface feel this 'premium'?",
+    activeGear: 'gear-life', // Matches Hire_3
+    options: [
+      {
+        id: 'motion', label: 'Is it the motion?', val: 'motion', emoji: '🌊', nextId: 'end',
+        reveal: {
+          title: "Alive Interfaces",
+          content: "It's not just animation; it's physics. I use spring physics (like in this card) to make Ui feel organic."
+        }
+      },
+      {
+        id: 'details', label: 'Is it the micro-interactions?', val: 'details', emoji: '✨', nextId: 'end',
+        reveal: {
+          title: "Sweat the Details",
+          content: "The difference between good and great is in the details. I obsess over the 1% that others ignore."
         }
       }
     ],
@@ -170,7 +230,8 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
       secondary: ['bg-gear-1', 'bg-gear-2', 'bg-gear-3', 'bg-gear-4', 'bg-gear-5']
     }
   }
-]
+}
+
 
 // Counter Component for animated numbers
 function Counter({ value, duration = 2, isReady = false }: { value: number, duration?: number, isReady?: boolean }) {
@@ -238,7 +299,6 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   const [activeGear, setActiveGear] = useState<GearInspectorItem | null>(null)
   const [activeCoords, setActiveCoords] = useState<{ x: number, y: number, side: 'left' | 'right' } | null>(null)
   const [hasInteracted, setHasInteracted] = useState(false)
-  const [isCardHovered, setIsCardHovered] = useState(false)
   const [showMobileSheet, setShowMobileSheet] = useState(false)
   const [mobileGear, setMobileGear] = useState<GearInspectorItem | null>(null)
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -247,11 +307,72 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   const [isAppReady, setIsAppReady] = useState(false)
   const [shouldSkipEntrance, setShouldSkipEntrance] = useState(false)
   const [quizState, setQuizState] = useState<'loading' | 'quiz' | 'complete'>('loading')
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+
+  // MAIN QUIZ STATE
+  const [currentQuestionId, setCurrentQuestionId] = useState<string>('start')
   const [litGears, setLitGears] = useState<string[]>([])
   const [showReveal, setShowReveal] = useState(false)
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null)
-  const currentQuestion = QUIZ_QUESTIONS[currentQuestionIndex]
+
+  // INSPECTOR STATE
+  const [isGearHovered, setIsGearHovered] = useState(false)
+  const [isCardHovered, setIsCardHovered] = useState(false)
+
+  // INSPECTOR QUIZ STATE
+  const [inspectorQuizSelection, setInspectorQuizSelection] = useState<string | null>(null)
+
+  // REFS
+  const isCardHoveredRef = useRef(isCardHovered)
+  const inspectorQuizSelectionRef = useRef(inspectorQuizSelection)
+
+  // Refs for event listeners
+  useEffect(() => {
+    isCardHoveredRef.current = isCardHovered
+    inspectorQuizSelectionRef.current = inspectorQuizSelection
+  }, [isCardHovered, inspectorQuizSelection])
+
+  // MASTER VISIBILITY EFFECT
+  // Declaratively manage when to close the gear inspector
+  useEffect(() => {
+    // If hovering anything or answering quiz, STAY OPEN.
+    // Also check if we just opened it (activeGear exists but no hover entries yet? 
+    // Actually, on desktop, enter sets hover true immediately.
+
+    // We only care about CLOSING here. Opening is handled by events.
+    if (!activeGear) return
+
+    if (isGearHovered || isCardHovered || inspectorQuizSelection) {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current)
+        hideTimeoutRef.current = null
+      }
+    } else {
+      // Neither hovered nor answering. Close after delay.
+      if (!hideTimeoutRef.current) {
+        hideTimeoutRef.current = setTimeout(() => {
+          setActiveGear(null)
+          // Also clear selection to be safe
+          setInspectorQuizSelection(null)
+          inspectorQuizSelectionRef.current = null
+        }, 300) // 300ms grace period
+      }
+    }
+
+    return () => {
+      // Don't clear activeGear on unmount, just timeout
+      // Timeout cleanup handled by ref usage pattern
+    }
+  }, [activeGear, isGearHovered, isCardHovered, inspectorQuizSelection])
+
+  // Reset quiz selection when gear changes
+  useEffect(() => {
+    setInspectorQuizSelection(null)
+    inspectorQuizSelectionRef.current = null
+  }, [activeGear?.id])
+
+  // CHANGED: Lookup by ID
+  const currentQuestion = QUIZ_QUESTIONS_DATA[currentQuestionId]
+
   const selectedOption = useMemo(() =>
     currentQuestion?.options.find(o => o.id === selectedOptionId),
     [currentQuestion, selectedOptionId]
@@ -266,7 +387,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     // Allow forcing via URL/Prop
     if (forceQuiz || window.location.search.includes('force=quiz')) {
       setQuizState('quiz')
-      setLitGears([QUIZ_QUESTIONS[0].activeGear])
+      setLitGears([QUIZ_QUESTIONS_DATA['start'].activeGear]) // Use start
       return
     }
 
@@ -288,8 +409,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     }
 
     // Reset state for fresh run
-    setCurrentQuestionIndex(0)
-    setLitGears([QUIZ_QUESTIONS[0].activeGear])
+    setCurrentQuestionId('start') // User start ID
+    setLitGears([QUIZ_QUESTIONS_DATA['start'].activeGear])
     setShowReveal(false)
     setSelectedOptionId(null)
 
@@ -355,6 +476,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     })
   }, [baseSvg, litGears, currentQuestion, quizState])
 
+  const nextQuestionRef = useRef<string | null>(null)
+
   // -- QUIZ HANDLERS --
   const handleContinue = useCallback(() => {
     if (autoAdvanceTimeoutRef.current) {
@@ -363,10 +486,19 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     }
 
     setShowReveal(false)
-    setSelectedOptionId(null)
 
-    if (currentQuestionIndex < QUIZ_QUESTIONS.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1)
+    // Logic for next question - Use Ref to avoid closure staleness
+    const nextId = nextQuestionRef.current || 'end'
+
+    // Reset selection state
+    setSelectedOptionId(null)
+    nextQuestionRef.current = null
+
+    if (nextId !== 'end' && QUIZ_QUESTIONS_DATA[nextId]) {
+      // Small delay to allow exit animation of previous card
+      setTimeout(() => {
+        setCurrentQuestionId(nextId)
+      }, 200)
     } else {
       // Finish Quiz -> Transition to Hero
       localStorage.setItem(ENTRY_SESSION_KEY, 'true')
@@ -375,10 +507,17 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       setIsAppReady(true)
       // Trigger rotations will happen via useEffect(isAppReady)
     }
-  }, [currentQuestionIndex])
+  }, [])
 
   const handleAnswer = useCallback((optionId: string) => {
+    const option = currentQuestion.options.find(o => o.id === optionId)
+    if (!option) return
+
     setSelectedOptionId(optionId)
+
+    // Store next ID immediately to avoid state closure issues
+    nextQuestionRef.current = option.nextId
+
     const cascade = currentQuestion.gearCascade
     setLitGears(prev => {
       const newGears = [...cascade.primary, ...cascade.secondary]
@@ -386,15 +525,13 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     })
 
     // For the last question, we want a smoother, faster transition to the hero
-    // No need to show the reveal card for long, but enough to read (bumped from 600ms)
-    // Standard questions increased to 5000ms as requested
-    const isLastQuestion = currentQuestionIndex === QUIZ_QUESTIONS.length - 1
-    const delay = isLastQuestion ? 2000 : 5000
+    const isLastQuestion = option.nextId === 'end'
+    const delay = isLastQuestion ? 2000 : 4000 // 4s reading time for reveal
 
     setShowReveal(true)
     if (autoAdvanceTimeoutRef.current) clearTimeout(autoAdvanceTimeoutRef.current)
     autoAdvanceTimeoutRef.current = setTimeout(handleContinue, delay)
-  }, [currentQuestion, currentQuestionIndex, handleContinue])
+  }, [currentQuestion, handleContinue])
 
   // Lock scroll during quiz
   useEffect(() => {
@@ -703,6 +840,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
               // Apply accent color to the gear
               gearGroup.style.setProperty('--gear-accent', gearData.accentColor)
+              setIsGearHovered(true)
               setActiveGear(gearData)
               setHasInteracted(true)
             }
@@ -715,24 +853,11 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
               allHoverTimeouts.set(gearId, null)
             }
 
-            // Short delay to allow user to move to the inspector card
-            hoverTimeout = setTimeout(() => {
-              gearGroup.classList.remove('gear-main--active')
-              const activeGears = Array.from(brainGearsGroup!.querySelectorAll<SVGGElement>('.gear-main--active'))
-              if (activeGears.length === 0) {
-                // Use the ref to schedule hiding (will be cancelled if card is hovered)
-                if (hideTimeoutRef.current) {
-                  clearTimeout(hideTimeoutRef.current)
-                }
-                hideTimeoutRef.current = setTimeout(() => {
-                  setActiveGear((current) => current)
-                }, 150)
-              }
-              hoverTimeout = null
-              allHoverTimeouts.set(gearId, null)
-            }, 80)
+            // Tell React we left the gear. Master Effect handles closing.
+            setIsGearHovered(false)
 
-            allHoverTimeouts.set(gearId, hoverTimeout)
+            // Visual cleanup
+            gearGroup.classList.remove('gear-main--active')
           }
 
           const overlay = gearGroup.querySelector<SVGCircleElement>('.gear-hover-overlay')
@@ -882,7 +1007,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       const isClickOnCard = target.closest('[data-gear-card]') !== null
 
       // If click is not on a gear and not on the card, close the active gear
-      if (!isClickOnGear && !isClickOnCard && activeGear) {
+      // CRITICAL: Don't close if we just made a quiz selection (ref tracks this instantly)
+      if (!isClickOnGear && !isClickOnCard && activeGear && !inspectorQuizSelectionRef.current) {
         // Clear any pending timeouts
         if (hideTimeoutRef.current) {
           clearTimeout(hideTimeoutRef.current)
@@ -890,6 +1016,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         }
         // Close the active gear card
         setActiveGear(null)
+        setHasInteracted(false)
+        setIsGearHovered(false)
+        setIsCardHovered(false)
+
         // Also remove active class from all gears
         if (containerRef.current) {
           const activeGears = containerRef.current.querySelectorAll('.gear-main--active')
@@ -980,104 +1110,86 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
               <AnimatePresence>
                 {quizState === 'quiz' && (
                   <motion.div
-                    key={`question-${currentQuestionIndex}`}
+                    key={`question-${currentQuestionId}`}
                     className="absolute z-[9999] pointer-events-auto left-1/2 top-1/2"
-                    style={{
-                      maxWidth: '320px',
-                      width: '90%',
-                      x: "-50%", // Base centering
-                      y: "-50%"  // Base centering
-                    }}
-                    initial={{ opacity: 0, scale: 0.9, y: "calc(-50% + 20px)" }}
+                    style={{ x: "-50%", y: "-50%" }}
+                    initial={{ opacity: 0, scale: 0.9, y: "-40%" }}
                     animate={{ opacity: 1, scale: 1, y: "-50%" }}
-                    exit={{ opacity: 0, scale: 0.9, y: "calc(-50% - 20px)" }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-5 shadow-2xl overflow-hidden relative min-h-[160px] flex flex-col justify-center">
-                      <AnimatePresence mode="wait">
-                        <motion.div
-                          key={`statement-${currentQuestionIndex}`}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <p className="text-white/60 text-sm mb-2 font-medium">
-                            {currentQuestion.statement}
-                          </p>
-                          <h3 className="text-white text-lg font-semibold mb-4">
-                            {currentQuestion.question}
-                          </h3>
-                        </motion.div>
-                      </AnimatePresence>
+                    <div className="text-white bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl max-w-xl w-[90vw] relative overflow-hidden">
 
-                      {/* Reveal - Moved ABOVE options as requested */}
-                      <AnimatePresence>
-                        {showReveal && selectedOption && (
-                          <motion.div
-                            key="reveal"
-                            initial={{ opacity: 0, height: 0, marginTop: 0, marginBottom: 0 }}
-                            animate={{ opacity: 1, height: 'auto', marginTop: 0, marginBottom: 16 }}
-                            exit={{ opacity: 0, height: 0, marginTop: 0, marginBottom: 0 }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pt-4 border-t border-white/10">
-                              <div className="flex items-center gap-2 mb-3">
-                                <div className="p-1.5 rounded-full bg-accent-teal/20">
-                                  <Sparkles className="w-4 h-4 text-accent-teal" />
-                                </div>
-                                <span className="text-accent-teal text-sm font-bold uppercase tracking-wide">
-                                  {selectedOption.reveal.title}
-                                </span>
-                              </div>
-
-                              <p className="text-white/90 text-[15px] leading-relaxed mb-4 font-medium">
-                                {selectedOption.reveal.content}
-                              </p>
-
-                              <div className="flex justify-between items-center text-xs text-white/40">
-                                <span>Auto-advancing...</span>
-                                <motion.button
-                                  onClick={handleContinue}
-                                  className="flex items-center gap-1 text-white/60 hover:text-white transition-colors"
-                                  whileHover={{ x: 2 }}
-                                >
-                                  Skip <ArrowRight className="w-3 h-3" />
-                                </motion.button>
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      {/* Options */}
                       <motion.div
-                        key={`options-${currentQuestionIndex}`}
-                        className={`space-y-2 ${showReveal ? 'pointer-events-none' : ''}`}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: showReveal ? 0.4 : 1, x: 0 }}
-                        transition={{ duration: 0.2 }}
+                        key={`statement-${currentQuestionId}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="mb-3 text-center"
                       >
-                        {currentQuestion.options.map((option) => (
-                          <motion.button
-                            key={option.id}
-                            onClick={() => handleAnswer(option.id)}
-                            className="w-full text-left p-3 rounded-xl bg-white/5 hover:bg-white/15 
-                                                                       border border-white/10 hover:border-accent-teal/50
-                                                                       transition-all duration-300 group"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <span className="mr-2">{option.emoji}</span>
-                            <span className="text-white/90 group-hover:text-white">
-                              {option.label}
-                            </span>
-                          </motion.button>
-                        ))}
+                        <h3 className="text-lg md:text-xl font-light text-white leading-tight">
+                          {currentQuestion.question}
+                        </h3>
                       </motion.div>
 
-
+                      <div className="space-y-3">
+                        <AnimatePresence mode="wait">
+                          {!showReveal ? (
+                            <motion.div
+                              key={`options-${currentQuestionId}`}
+                              className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${showReveal ? 'pointer-events-none' : ''}`}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -10 }}
+                              transition={{ delay: 0.2 }}
+                            >
+                              {currentQuestion.options.map((option) => (
+                                <button
+                                  key={option.id}
+                                  onClick={() => handleAnswer(option.id)}
+                                  className={`text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 
+                                             border border-white/5 hover:border-white/20 transition-all duration-300
+                                             flex items-center gap-3 group h-full ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
+                                >
+                                  <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
+                                  <span className="text-sm text-white/90 font-light">{option.label}</span>
+                                  <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                </button>
+                              ))}
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="reveal"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -10 }}
+                              className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl"
+                            >
+                              <div className="flex items-start gap-3">
+                                <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
+                                  <Check className="w-4 h-4 text-emerald-400" />
+                                </div>
+                                <div>
+                                  <h4 className="text-emerald-400 font-medium mb-0.5 text-sm">{selectedOption?.reveal.title}</h4>
+                                  <p className="text-white/80 text-xs leading-relaxed">
+                                    {selectedOption?.reveal.content}
+                                  </p>
+                                </div>
+                              </div>
+                              <motion.div
+                                className="mt-3 h-1 bg-emerald-500/30 rounded-full overflow-hidden"
+                              >
+                                <motion.div
+                                  className="h-full bg-emerald-500"
+                                  initial={{ width: "0%" }}
+                                  animate={{ width: "100%" }}
+                                  transition={{ duration: selectedOption?.nextId === 'end' ? 2 : 4, ease: "linear" }}
+                                />
+                              </motion.div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -1134,10 +1246,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                       />
 
                       {/* The Card */}
-                      <motion.div
-                        className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden`}
-                        initial={{ x: activeCoords.side === 'left' ? 10 : -10 }}
-                        animate={{ x: 0 }}
+                      <div
+                        className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
                         onMouseEnter={() => {
                           setIsCardHovered(true)
                           if (hideTimeoutRef.current) {
@@ -1147,6 +1257,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                         }}
                         onMouseLeave={() => {
                           setIsCardHovered(false)
+                          // Use Ref to ensure we catch the updated state
+                          // If answered, DO NOT AUTO-HIDE. Wait for manual dismiss or click-away.
+                          if (inspectorQuizSelectionRef.current !== null) return
+
                           hideTimeoutRef.current = setTimeout(() => {
                             setActiveGear(null)
                           }, 150)
@@ -1158,37 +1272,83 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                           style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
                         />
 
-                        <Link
-                          href={activeGear.link}
-                          data-gear-card
-                          className="block text-left group"
+                        {/* DISMISS BUTTON */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            e.preventDefault()
+                            setActiveGear(null)
+                          }}
+                          className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
                         >
-                          <div className="space-y-3">
-                            {/* Thought - The Hero Content */}
-                            <p className="text-white text-[15px] font-medium leading-relaxed font-serif italic">
-                              "{activeGear.thought}"
-                            </p>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                          </svg>
+                        </button>
 
-                            {/* CTA Link */}
-                            <div className="flex items-center gap-2 pt-1">
-                              <span
-                                className="text-xs font-bold tracking-wide uppercase border-b border-transparent group-hover:border-current transition-all"
-                                style={{ color: activeGear.accentColor }}
-                              >
-                                {activeGear.linkLabel}
-                              </span>
-                              <svg
-                                className="w-3 h-3 transition-transform group-hover:translate-x-1"
-                                fill="none"
-                                stroke={activeGear.accentColor}
-                                viewBox="0 0 24 24"
-                              >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                              </svg>
+                        {/* QUIZ MODE */}
+                        {activeGear.quiz && !inspectorQuizSelection ? (
+                          <div className="space-y-3">
+                            <p className="text-white text-sm font-medium leading-snug">
+                              {activeGear.quiz.question}
+                            </p>
+                            <div className="space-y-2">
+                              {activeGear.quiz.options.map((opt) => (
+                                <button
+                                  key={opt.id}
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    // IMMEDIATE REF UPDATE: Prevent race condition where mouseleave fires before effect
+                                    inspectorQuizSelectionRef.current = opt.id
+                                    setInspectorQuizSelection(opt.id)
+                                  }}
+                                  className="w-full text-left text-xs p-2.5 rounded-lg bg-white/5 hover:bg-white/10 
+                                             border border-white/5 hover:border-white/20 transition-all text-slate-300 hover:text-white
+                                             flex items-center gap-2 group/btn"
+                                >
+                                  <span className={`w-1.5 h-1.5 rounded-full ${opt.isCorrect ? 'bg-emerald-400' : 'bg-slate-500'} opacity-0 group-hover/btn:opacity-100 transition-opacity`} />
+                                  {opt.label}
+                                </button>
+                              ))}
                             </div>
                           </div>
-                        </Link>
-                      </motion.div>
+                        ) : (
+                          <div className="block text-left group">
+                            {/* REVEAL / DEFAULT MODE */}
+                            <div className="flex flex-col h-full justify-between gap-4">
+                              {/* Content - NOT Clickable for nav, select text allowed */}
+                              <div className="space-y-2 select-text cursor-auto">
+                                {inspectorQuizSelection && activeGear.quiz && (
+                                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-emerald-400/90">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+                                    {activeGear.quiz.reveal.title}
+                                  </div>
+                                )}
+                                <p className="text-white/90 text-[14px] leading-relaxed font-medium">
+                                  {inspectorQuizSelection && activeGear.quiz ? activeGear.quiz.reveal.content : activeGear.thought}
+                                </p>
+                              </div>
+
+                              {/* CTA Link - CLICKABLE */}
+                              <div
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  e.stopPropagation()
+                                  router.push(activeGear.link)
+                                }}
+                                className="group/cta flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 hover:text-white transition-colors cursor-pointer self-start py-1"
+                              >
+                                <span className="uppercase border-b border-transparent group-hover/cta:border-white/20 transition-all">
+                                  {activeGear.linkLabel}
+                                </span>
+                                <ArrowRight className="w-3 h-3 transition-transform group-hover/cta:translate-x-0.5" />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -1275,7 +1435,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
 
           </div>
-        </div>
+        </div >
 
         <motion.div
           className="w-full relative mt-space-16 sm:mt-space-24 z-20 pb-space-8 sm:pb-space-12"
@@ -1330,7 +1490,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
             </div>
           </div>
         </motion.div>
-      </section>
+      </section >
 
 
 
@@ -1341,7 +1501,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         onClose={() => {
           setShowMobileSheet(false)
           setMobileGear(null)
-        }}
+        }
+        }
       />
     </>
   )
