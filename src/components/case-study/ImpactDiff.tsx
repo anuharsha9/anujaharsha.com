@@ -62,6 +62,7 @@ export default function ImpactDiff({
       <div
         ref={containerRef}
         className="relative w-full aspect-video max-h-[700px] overflow-hidden rounded-2xl cursor-col-resize group bg-slate-100"
+        style={{ aspectRatio: '16/9' }}
         onMouseMove={handleMouseMove}
         onMouseUp={handleEnd}
         onMouseLeave={handleEnd}
