@@ -75,7 +75,7 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
                   <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 font-feature-settings-tnum">
                     {metric.value}
                   </span>
-                  <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
+                  <span className="text-[10px] uppercase tracking-[0.15em] font-semibold text-slate-400">
                     {metric.label}
                   </span>
                 </div>
