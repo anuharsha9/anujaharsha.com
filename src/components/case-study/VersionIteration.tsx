@@ -251,32 +251,22 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
 
                       {/* Shipped Subsections (Key Screens) */}
                       {isSuccess && version.section.subsections && version.section.subsections.length > 0 && (
-                        <div className="pt-8 border-t border-slate-100">
+                        <div className="pt-12 border-t border-slate-100">
                           <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6">
                             Shipped Workflows
                           </p>
-                          <div className="grid grid-cols-3 gap-4">
-                            {version.section.subsections.slice(0, 6).map((sub, subIdx) => (
-                              <div key={subIdx} className="space-y-2 cursor-pointer group">
-                                {sub.images?.[0] && (
-                                  <div
-                                    className="relative aspect-[4/3] bg-slate-50 border border-slate-100 overflow-hidden transition-all duration-300 group-hover:border-slate-300"
-                                    onClick={() => openLightbox(sub.images![0].src, sub.images![0].alt, sub.title)}
-                                  >
-                                    <Image
-                                      src={sub.images[0].src}
-                                      alt={sub.title}
-                                      fill
-                                      className="object-contain"
-                                    />
-                                  </div>
-                                )}
-                                <p className="text-[10px] text-slate-500 text-center truncate px-2">
-                                  {sub.title}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
+                          <AutoSequenceDataViewer
+                            images={version.section.subsections.flatMap(sub =>
+                              sub.images ? sub.images.map(img => ({
+                                src: img.src,
+                                alt: img.alt,
+                                caption: `${sub.title}: ${img.caption || img.alt}`
+                              })) : []
+                            )}
+                            title={`${version.title} - Shipped Workflows`}
+                            className="w-full"
+                            aspectRatio="aspect-video"
+                          />
                         </div>
                       )}
                     </div>
