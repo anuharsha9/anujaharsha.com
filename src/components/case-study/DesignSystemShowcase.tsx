@@ -158,7 +158,7 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
                 <motion.div
                   key={image.src}
                   className={`
-                            absolute w-[80%] md:w-[650px] lg:w-[750px] aspect-[16/10] 
+                            absolute w-[80%] md:w-[650px] lg:w-[750px] aspect-video 
                             bg-white rounded-lg shadow-2xl border border-slate-100 overflow-hidden
                             ${state.zIndex === 10 ? 'cursor-zoom-in' : 'cursor-pointer'}
                         `}
