@@ -175,7 +175,8 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
         className="bg-slate-50 border border-slate-200 overflow-hidden rounded-2xl"
       >
         <div
-          className="relative aspect-[21/9] cursor-zoom-in group"
+          className="relative w-full cursor-zoom-in group"
+          style={{ aspectRatio: '21/9' }}
           onClick={() => openLightbox(blueprints.systemMap, allImages, 4)}
         >
           <Image
