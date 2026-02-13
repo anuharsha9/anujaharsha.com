@@ -99,11 +99,12 @@ export default function AutoSequenceDataViewer({
         <>
             <div
                 className={`w-full ${aspectRatio} relative overflow-hidden rounded-xl border border-slate-200 shadow-md select-none bg-slate-50 group/carousel ${className}`}
+                style={{ aspectRatio: aspectRatio === 'aspect-video' ? '16/9' : '16/10' }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
                 {/* Content Area - No Chrome Header */}
-                <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 overflow-hidden">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.div
                             key={currentIndex}

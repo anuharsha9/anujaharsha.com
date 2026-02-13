@@ -245,7 +245,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                           }))}
                           title={version.title}
                           className="w-full"
-                          aspectRatio="aspect-[16/10]"
+                          aspectRatio="aspect-video"
                         />
                       )}
 
