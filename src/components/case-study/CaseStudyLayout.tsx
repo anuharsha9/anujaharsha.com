@@ -25,7 +25,7 @@ import StructuredData from '@/components/structured-data/StructuredData'
 import FrameworkMatrix from './FrameworkMatrix'
 import LockedContent from './LockedContent'
 import LetsTalkCTA from './LetsTalkCTA'
-import { mlFunctionsVitalSigns, reportCasterVitalSigns, iqPluginVitalSigns } from './VitalSigns'
+
 import { reportCasterMarketAnalysis, mlFunctionsMarketAnalysis, iqPluginMarketAnalysis } from '@/data/market-analysis'
 import { researchApproachData } from '@/data/research-approach'
 import { teamCollaborationData } from '@/data/team-collaboration'
@@ -35,14 +35,8 @@ import { iqTabs, iqFooterContent } from '@/components/case-study/iq-plugin-data'
 // RetrospectiveCard and EvolutionSplit removed - personal growth content now on /me page
 
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
-import { ProjectSnapshot } from './ProjectSnapshot'
-import { ChallengeDeconstruction } from './ChallengeDeconstruction'
-import { SuccessCriteria } from './SuccessCriteria'
 
-import { CompetitiveResponse } from './CompetitiveResponse'
-import { DirectionalImpact } from './DirectionalImpact'
-import { NotShipped } from './NotShipped'
-import { PresentationToggle } from './PresentationToggle'
+
 import { PresentationFlow, Slide } from './PresentationFlow'
 import { ScaleAndResponsibility } from './ScaleAndResponsibility'
 import { CaseStudyCard } from './CaseStudyCard'
@@ -58,11 +52,6 @@ const EmpathizeStrategyGrid = dynamic(() => import('./EmpathizeStrategyGrid'), {
   loading: () => <LoadingSpinner />
 })
 const PersonaCards = dynamic(() => import('./PersonaCards'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-// DiscoveryVisual removed - replaced by SystemArchaeology
-const TeamOnboardingProcess = dynamic(() => import('./TeamOnboardingProcess'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
@@ -134,22 +123,12 @@ const MLWorkflowMapping = dynamic(() => import('./MLWorkflowMapping'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
-const KeyDecisions = dynamic(() => import('./KeyDecisions'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const ResearchDecisionMap = dynamic(() => import('./ResearchDecisionMap').then(mod => mod.ResearchDecisionMap), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+
 const MLExplainabilityHighlight = dynamic(() => import('./MLExplainabilityHighlight'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
-const VitalSigns = dynamic(() => import('./VitalSigns'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+
 const SystemTopologyBlueprint = dynamic(() => import('./SystemTopologyBlueprint'), {
   ssr: false,
   loading: () => <LoadingSpinner />
@@ -174,10 +153,7 @@ const MLPersonaCards = dynamic(() => import('./MLPersonaCards'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
-const MLRecommendations = dynamic(() => import('./MLRecommendations'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+
 
 
 const IQPersonaCards = dynamic(() => import('./IQPersonaCards'), {
@@ -1207,14 +1183,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <MLWorkflowMapping isLightBackground={true} />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                <LockedContent
-                                  password={data.passwordGate?.password || 'anu-access'}
-                                  caseStudySlug={data.slug}
-                                  unlockMessage="Password required to view architectural decisions"
-                                  isLightBackground={true}
-                                >
-                                  {data.keyDecisions && <KeyDecisions data={data.keyDecisions} />}
-                                </LockedContent>
+
                               </div>
                               {data.uxPrinciples && (
                                 <div className="mt-12 pt-12 border-t border-slate-100">
@@ -1425,7 +1394,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <MLImpactMetrics isLightBackground={true} />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                {data.researchDecisionMap && <ResearchDecisionMap data={data.researchDecisionMap} />}
+
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={true} />}
