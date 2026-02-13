@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ImageLightbox from './ImageLightbox'
 import { CalendarClock, ChartSpline, Bot } from 'lucide-react'
+import { PresentationToggle } from './PresentationToggle'
 import SignatureLogo from '@/components/brand/SignatureLogo'
 import CaseStudyNav from './CaseStudyNav'
 import SocialShareButtons from '@/components/sharing/SocialShareButtons'
@@ -43,6 +44,8 @@ interface HeroMetaProps {
   }
   shareUrl?: string
   testimonialName?: string // Name of testimonial to feature in hero
+  viewMode?: 'full' | 'presentation'
+  setViewMode?: (mode: 'full' | 'presentation') => void
 }
 
 export default function HeroMeta({
@@ -68,6 +71,8 @@ export default function HeroMeta({
   status,
   shareUrl,
   testimonialName,
+  viewMode = 'full',
+  setViewMode,
 }: HeroMetaProps) {
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null)
 
@@ -133,10 +138,23 @@ export default function HeroMeta({
                   variants={heroSubVariant}
                   initial="hidden"
                   animate="visible"
-                  className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-600 text-sm font-medium border border-slate-200 rounded-full"
                 >
-                  <span className="w-2 h-2 bg-[var(--accent-color)]" />
-                  <span>Case Study {getCaseStudyNumber()}</span>
+                  {/* Presentation Mode Toggle (Replaces Case Study Number) */}
+                  {setViewMode && (
+                    <PresentationToggle
+                      mode={viewMode}
+                      setMode={setViewMode}
+                      variant="inline"
+                      className="ml-0" // Ensure left aligned
+                    />
+                  )}
+                  {/* Fallback if no setViewMode (e.g. static preview) */}
+                  {!setViewMode && (
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-600 text-sm font-medium border border-slate-200 rounded-full">
+                      <span className="w-2 h-2 bg-[var(--accent-color)]" />
+                      <span>Case Study {getCaseStudyNumber()}</span>
+                    </div>
+                  )}
                 </motion.div>
 
                 <motion.h1

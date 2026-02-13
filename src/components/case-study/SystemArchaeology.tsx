@@ -6,6 +6,7 @@ import ComponentHeading from '@/components/ui/ComponentHeading'
 import LightboxImage from '@/components/ui/LightboxImage'
 import { useLightbox } from '@/contexts/LightboxContext'
 import LockedContent from './LockedContent'
+import TerminalInsight from './TerminalInsight'
 
 interface SystemArchaeologyProps {
   isLightBackground?: boolean
@@ -164,38 +165,22 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
       </LockedContent>
 
       {/* THE INSIGHT FOOTER: Dark Mode System Insight - PUBLIC */}
-      <div className="rounded-xl bg-[#1e1e1e] shadow-2xl border border-white/10 overflow-hidden mx-auto max-w-4xl">
-        {/* macOS Terminal Header */}
-        <div className="h-10 bg-[#2d2d2d] flex items-center justify-center relative border-b border-black/40">
-          {/* Traffic Lights */}
-          <div className="flex gap-2 absolute left-4 top-1/2 -translate-y-1/2">
-            <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 shadow-inner" />
-            <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 shadow-inner" />
-            <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 shadow-inner" />
-          </div>
-          {/* Title */}
-          <span className="font-mono text-xs text-slate-400/80 tracking-wide font-medium flex items-center gap-2">
-            <span className="opacity-50">~/logs/</span>discovery.log
-          </span>
-        </div>
-
-        {/* Terminal Body */}
-        <div className="p-6 md:p-8 font-mono text-sm leading-relaxed text-slate-300">
+      <div className="mx-auto w-full">
+        <TerminalInsight
+          title="~/logs/discovery.log"
+          insightLabel="DISCOVERY_INSIGHT:"
+        >
           <div className="flex gap-3">
             <span className="text-emerald-400 font-bold shrink-0">&gt;</span>
             <div className="space-y-4">
-              <p className="text-emerald-400 font-bold tracking-wide text-xs uppercase mb-1">
-                DISCOVERY_INSIGHT:
-              </p>
               <p className="text-slate-300 leading-relaxed">
                 I realized ReportCaster wasn&apos;t one product — it was <strong className="text-white font-medium">five disparate subsystems masquerading as one</strong>. Unifying them required not just a UI refresh, but a complete architectural convergence.
               </p>
             </div>
           </div>
-
           {/* Blinking Cursor */}
           <span className="inline-block w-2.5 h-4 bg-emerald-500/50 animate-pulse mt-4 ml-4" />
-        </div>
+        </TerminalInsight>
       </div>
     </motion.div>
   )

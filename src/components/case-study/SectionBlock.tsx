@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import ParallaxImage from '@/components/ui/ParallaxImage'
 import { CaseStudySection } from '@/types/caseStudy'
 import WorkflowPrototype from './WorkflowPrototype'
 import ImageLightbox from './ImageLightbox'
@@ -420,7 +421,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                             className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} cursor-pointer transition-opacity duration-300 hover:opacity-90`}
                                             onClick={() => openLightbox(image.src, image.alt, image.caption, subsection.images?.filter(img => !img.fullWidth), imgIndex)}
                                           >
-                                            <Image
+                                            <ParallaxImage
                                               src={image.src}
                                               alt={image.alt}
                                               width={1200}
@@ -469,7 +470,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                       className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} cursor-pointer transition-opacity duration-300 hover:opacity-90`}
                                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                     >
-                                      <Image
+                                      <ParallaxImage
                                         src={image.src}
                                         alt={image.alt}
                                         width={1200}
@@ -628,7 +629,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                       className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} cursor-pointer transition-opacity duration-300 hover:opacity-90`}
                                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                     >
-                                      <Image
+                                      <ParallaxImage
                                         src={image.src}
                                         alt={image.alt}
                                         width={1200}
@@ -679,7 +680,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                       className={`relative w-full max-w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                     >
-                                      <Image
+                                      <ParallaxImage
                                         src={image.src}
                                         alt={image.alt}
                                         width={1200}
@@ -700,7 +701,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                       className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} cursor-pointer transition-opacity duration-300 hover:opacity-90`}
                                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                     >
-                                      <Image
+                                      <ParallaxImage
                                         src={image.src}
                                         alt={image.alt}
                                         width={1200}
@@ -839,7 +840,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                       className={`relative w-full max-w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                     >
-                                      <Image
+                                      <ParallaxImage
                                         src={image.src}
                                         alt={image.alt}
                                         width={1200}
@@ -860,7 +861,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                       className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} cursor-pointer transition-opacity duration-300 hover:opacity-90`}
                                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                     >
-                                      <Image
+                                      <ParallaxImage
                                         src={image.src}
                                         alt={image.alt}
                                         width={1200}
@@ -1002,11 +1003,12 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                           className={`relative w-full aspect-[4/3] ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.03] hover:shadow-xl bg-black/5`}
                           onClick={() => openLightbox(image.src, image.alt, image.caption)}
                         >
-                          <Image
+                          <ParallaxImage
                             src={image.src}
                             alt={image.alt}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            containerClassName="w-full h-full"
                             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 300px"
                             loading="lazy"
                           />
@@ -1071,7 +1073,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                       className="relative w-full cursor-pointer transition-opacity duration-300 hover:opacity-90"
                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                     >
-                      <Image
+                      <ParallaxImage
                         src={image.src}
                         alt={image.alt}
                         width={1920}
@@ -1092,13 +1094,13 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                       className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                       onClick={() => openLightbox(image.src, image.alt, image.caption)}
                     >
-                      <Image
+                      <ParallaxImage
                         src={image.src}
                         alt={image.alt}
                         width={1200}
                         height={800}
                         className="w-full h-auto object-contain"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                       />
                     </div>
                     {image.caption && (
@@ -1287,7 +1289,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                   className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                                   onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                 >
-                                  <Image
+                                  <ParallaxImage
                                     src={image.src}
                                     alt={image.alt}
                                     width={1200}
@@ -1370,7 +1372,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                             className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                             onClick={() => openLightbox(image.src, image.alt, image.caption)}
                           >
-                            <Image
+                            <ParallaxImage
                               src={image.src}
                               alt={image.alt}
                               width={1200}
@@ -1414,7 +1416,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                             className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                             onClick={() => openLightbox(image.src, image.alt, image.caption)}
                           >
-                            <Image
+                            <ParallaxImage
                               src={image.src}
                               alt={image.alt}
                               width={1200}
@@ -1445,7 +1447,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                         className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                         onClick={() => openLightbox(images[0].src, images[0].alt, images[0].caption)}
                       >
-                        <Image
+                        <ParallaxImage
                           src={images[0].src}
                           alt={images[0].alt}
                           width={1200}
@@ -1483,7 +1485,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                           className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                           onClick={() => openLightbox(images[1].src, images[1].alt, images[1].caption)}
                         >
-                          <Image
+                          <ParallaxImage
                             src={images[1].src}
                             alt={images[1].alt}
                             width={1200}
@@ -1519,7 +1521,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                           className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                           onClick={() => openLightbox(images[2].src, images[2].alt, images[2].caption)}
                         >
-                          <Image
+                          <ParallaxImage
                             src={images[2].src}
                             alt={images[2].alt}
                             width={1200}
@@ -1561,7 +1563,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                         className="relative w-full max-w-full cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg"
                         onClick={() => openLightbox(image.src, image.alt, image.caption)}
                       >
-                        <Image
+                        <ParallaxImage
                           src={image.src}
                           alt={image.alt}
                           width={1200}
@@ -1582,7 +1584,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                         className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                         onClick={() => openLightbox(image.src, image.alt, image.caption)}
                       >
-                        <Image
+                        <ParallaxImage
                           src={image.src}
                           alt={image.alt}
                           width={1200}

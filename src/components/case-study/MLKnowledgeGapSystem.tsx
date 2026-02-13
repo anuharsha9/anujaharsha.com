@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { GraduationCap, UserCheck, Bot } from 'lucide-react'
 import { LucideIcon } from 'lucide-react'
+import TerminalInsight from './TerminalInsight'
 
 interface MLKnowledgeGapSystemProps {
   isLightBackground?: boolean
@@ -49,84 +50,83 @@ export default function MLKnowledgeGapSystem({ isLightBackground = true }: MLKno
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full max-w-5xl mx-auto"
+      className="w-full max-w-5xl mx-auto space-y-12"
     >
-      <div className="rounded-2xl overflow-hidden border border-slate-200">
-        {/* HEADER: Concise Challenge */}
-        <div className="bg-[var(--accent-teal-50)] border-b border-[var(--accent-teal-200)] p-6">
-          <span className="font-mono text-xs text-[var(--accent-teal-700)] uppercase tracking-widest">
-            {'// CHALLENGE: ZERO_ML_KNOWLEDGE'}
-          </span>
-          <p className="mt-3 text-slate-700 text-lg leading-relaxed">
-            I entered this project knowing nothing about machine learning. <strong className="text-slate-900">So I got obsessed.</strong>
-          </p>
-        </div>
+      {/* Intro Block - Open */}
+      <div className="text-center max-w-3xl mx-auto space-y-4">
+        <span className="font-mono text-xs text-[var(--accent-teal-700)] uppercase tracking-widest block">
+          {'// CHALLENGE: ZERO_ML_KNOWLEDGE'}
+        </span>
+        <h3 className="text-2xl md:text-3xl font-light text-slate-900 leading-tight">
+          I entered this project knowing nothing about machine learning. <strong className="font-medium">So I got obsessed.</strong>
+        </h3>
+      </div>
 
-        {/* BODY: 3 High-Impact Methods */}
-        <div className="bg-white p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {methods.map((m, i) => {
-              const IconComponent = m.icon
-              return (
-                <motion.div
-                  key={m.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: i * 0.1 }}
-                  className="bg-slate-50 border border-slate-200 p-5 hover:border-[var(--accent-teal-300)] transition-colors rounded-xl"
-                >
-                  {/* Icon + ID */}
-                  <div className="flex items-center justify-between mb-4">
-                    <IconComponent className="w-8 h-8 text-[var(--accent-teal)]" />
-                    <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest">
-                      {'// '}{m.id}
-                    </span>
-                  </div>
+      {/* Methods - Open Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+        {methods.map((m, i) => {
+          const IconComponent = m.icon
+          return (
+            <motion.div
+              key={m.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="group"
+            >
+              {/* Icon */}
+              <div className="mb-6 relative">
+                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[var(--accent-teal-50)] text-[var(--accent-teal)] group-hover:scale-110 transition-transform duration-300">
+                  <IconComponent className="w-6 h-6" strokeWidth={1.5} />
+                </div>
+                <span className="absolute -top-3 -right-3 font-mono text-[10px] text-slate-300 opacity-50">
+                  {m.id}
+                </span>
+              </div>
 
-                  {/* Method Name */}
-                  <h4 className="font-serif text-lg text-slate-900 mb-1">
-                    {m.method}
-                  </h4>
+              {/* Content */}
+              <div className="space-y-3">
+                <h4 className="font-serif text-xl text-slate-900 leading-snug">
+                  {m.method}
+                </h4>
 
-                  {/* Highlight Badge */}
-                  {m.highlight && (
-                    <span className="inline-block font-mono text-[10px] text-[var(--accent-teal)] bg-[var(--accent-teal-50)] px-2 py-1 mb-3 rounded-full">
-                      {m.highlight}
-                    </span>
-                  )}
+                {m.highlight && (
+                  <span className="inline-block px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-medium text-slate-600 uppercase tracking-wider mb-1">
+                    {m.highlight}
+                  </span>
+                )}
 
-                  {/* Description */}
-                  <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                    {m.description}
-                  </p>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {m.description}
+                </p>
 
-                  {/* Details */}
-                  <div className="space-y-1.5 pt-3 border-t border-slate-200">
-                    {m.details.map((d, j) => (
-                      <div key={j} className="flex items-start gap-2">
-                        <span className="font-mono text-[10px] text-[var(--accent-teal)] mt-0.5 select-none">+</span>
-                        <span className="text-xs text-slate-500 leading-relaxed">{d}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )
-            })}
+                {/* Open List with simple markers */}
+                <ul className="space-y-2 pt-2">
+                  {m.details.map((d, j) => (
+                    <li key={j} className="text-slate-500 text-xs flex items-start gap-2.5">
+                      <span className="w-1 h-1 rounded-full bg-[var(--accent-teal)] mt-1.5 flex-shrink-0"></span>
+                      <span className="leading-relaxed">{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )
+        })}
+      </div>
+
+      {/* Outcome - Apple Terminal Style */}
+      <div className="w-full mt-12">
+        <TerminalInsight
+          title="outcome_log.txt"
+        >
+          <div className="text-sm">
+            <span className="text-emerald-400 font-bold mr-2">&gt;</span>
+            <span className="text-emerald-400 font-bold">RESULT:</span> Within weeks, I could challenge technical assumptions, translate DS requirements into UX patterns, and earn the trust needed to redesign the entire workflow.
           </div>
-        </div>
-
-        {/* FOOTER: Outcome */}
-        <div className="bg-slate-900 p-5">
-          <div className="font-mono text-sm">
-            <span className="text-emerald-400">&gt; OUTCOME:</span>
-            <p className="text-slate-300 mt-2 leading-relaxed">
-              Within weeks, I could challenge technical assumptions, translate DS requirements into UX patterns, and earn the trust needed to redesign the entire workflow.
-            </p>
-          </div>
-        </div>
+        </TerminalInsight>
       </div>
     </motion.div>
   )
 }
-

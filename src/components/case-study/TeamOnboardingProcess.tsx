@@ -3,6 +3,7 @@
 import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import TerminalInsight from './TerminalInsight'
 
 interface TeamOnboardingProcessProps {
   isLightBackground?: boolean
@@ -169,37 +170,22 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
       </motion.div>
 
       {/* Result Block - Dark Theme Card (Modern Terminal Style) */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        className="bg-[#1D1D20] p-6 md:p-8 rounded-xl relative overflow-hidden shadow-2xl border border-white/10 max-w-4xl mx-auto font-mono"
-      >
-        {/* Terminal Header */}
-        <div className="flex gap-2 mb-6 opacity-50 relative z-20">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 pl-2">
-          <div className="font-mono text-xs text-emerald-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-            <span>➜</span>
-            <span>{'// TRANSFORMATION_RESULT'}</span>
+      <div className="w-full">
+        <TerminalInsight
+          title="onboarding_result.log"
+          insightLabel="TRANSFORMATION_RESULT"
+        >
+          <div className="flex gap-3">
+            <span className="text-emerald-400/90 font-bold shrink-0 mt-0.5">&gt;</span>
+            <p className="opacity-90 leading-7">
+              Engineers who initially intimidated me became collaborators I respected — and who respected me.
+              <span className="text-slate-400 block mt-2 text-sm font-light">
+                The documentation work gave me context to contribute meaningfully in cross-functional discussions.
+              </span>
+            </p>
           </div>
-          <p className="text-white text-base md:text-lg leading-relaxed font-sans">
-            Engineers who initially intimidated me became collaborators I respected — and who respected me.
-            <span className="text-slate-400 block mt-2 text-sm font-light">
-              The documentation work gave me context to contribute meaningfully in cross-functional discussions.
-            </span>
-          </p>
-        </div>
-
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none"></div>
-      </motion.div>
+        </TerminalInsight>
+      </div>
     </div>
   )
 }

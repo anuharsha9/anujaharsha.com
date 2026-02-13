@@ -11,103 +11,116 @@ interface IQValidationSourcesProps {
 export default function IQValidationSources({ isLightBackground = false }: IQValidationSourcesProps) {
   const outcomes = [
     {
+      id: "concept",
       tag: 'OUTCOME_01: CONCEPT_VALIDATION',
       tagColor: 'text-emerald-600',
       headline: "The 'Dual-Layer' Proof.",
       body: "Usability testing settled the internal 'Power vs. Ease' debate. We proved that a single interface could serve both personas via progressive disclosure, ending months of circular design arguments.",
       icon: FlaskConical,
-      iconBg: 'bg-emerald-100',
-      iconColor: 'text-emerald-600',
+      accent: 'emerald',
     },
     {
+      id: "roadmap",
       tag: 'OUTCOME_02: ROADMAP_CONVERGENCE',
       tagColor: 'text-blue-600',
       headline: '3 Roadmaps → 1.',
       body: "The visual prototype was so convincing that 3 distinct Product Managers (NLQ, Insights, Predict) agreed to abandon their standalone roadmaps and commit to the unified IQ Plugin strategy.",
       icon: GitMerge,
-      iconBg: 'bg-blue-100',
-      iconColor: 'text-blue-600',
+      accent: 'blue',
     },
     {
+      id: "system",
       tag: 'OUTCOME_03: SYSTEM_STANDARDIZATION',
       tagColor: 'text-purple-600',
       headline: "The New 'North Star'.",
       body: "The patterns defined for IQ (Guided Wizards, Dual-Layer configs) were formally adopted into the WebFOCUS Design System as the standard for all future Data Science tools.",
       icon: Compass,
-      iconBg: 'bg-purple-100',
-      iconColor: 'text-purple-600',
+      accent: 'purple',
     },
   ]
 
+  const accentMap: Record<string, { bg: string, text: string, border: string }> = {
+    emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-200' },
+    blue: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-200' },
+    purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-200' },
+  }
+
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <ComponentHeading
-        variant="block"
-        tag="// VALIDATION_SOURCES"
-        title="Research & Validation"
-        description="We didn't just guess. We validated every major decision with real users from our target demographic."
-        color="slate"
-        align="center"
-        className="mb-12"
-      />
+    <div className="w-full py-12 md:py-20">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
+        {/* Header */}
+        <ComponentHeading
+          tag="// VALIDATION_SOURCES"
+          title="Research & Validation"
+          description="We didn't just guess. We validated every major decision with real users from our target demographic."
+          color="slate"
+          align="center"
+          className="mb-16 md:mb-24 max-w-3xl mx-auto"
+        />
 
-      {/* Outcome Matrix - 3 Column Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {outcomes.map((outcome, index) => {
-          const IconComponent = outcome.icon
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white border border-slate-200 p-6 md:p-8 h-full flex flex-col hover:shadow-lg hover:border-slate-300 transition-all duration-300"
-            >
-              {/* Icon */}
-              <div className={`w-12 h-12 ${outcome.iconBg} flex items-center justify-center mb-4`}>
-                <IconComponent className={`w-6 h-6 ${outcome.iconColor}`} />
-              </div>
+        {/* Outcome Matrix - Clean Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 relative">
+          {/* Dividers for Desktop */}
+          <div className="hidden md:block absolute top-0 bottom-0 left-1/3 w-px bg-slate-100" />
+          <div className="hidden md:block absolute top-0 bottom-0 right-1/3 w-px bg-slate-100" />
 
-              {/* Tag */}
-              <span className={`font-mono text-[10px] ${outcome.tagColor} uppercase tracking-widest mb-3`}>
-                {'// '}{outcome.tag}
-              </span>
+          {outcomes.map((outcome, index) => {
+            const IconComponent = outcome.icon
+            const style = accentMap[outcome.accent]
+            return (
+              <motion.div
+                key={outcome.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex flex-col h-full group"
+              >
+                {/* Icon - Minimal */}
+                <div className={`w-12 h-12 rounded-xl ${style.bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className={`w-5 h-5 ${style.text}`} strokeWidth={1.5} />
+                </div>
 
-              {/* Headline */}
-              <h4 className="text-slate-900 text-lg font-serif font-semibold mb-3">
-                {outcome.headline}
-              </h4>
+                {/* Header */}
+                <div className="space-y-4 mb-4">
+                  <span className={`font-mono text-[10px] ${outcome.tagColor} uppercase tracking-widest block`}>
+                    {outcome.tag}
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
+                    {outcome.headline}
+                  </h3>
+                </div>
 
-              {/* Body */}
-              <p className="text-slate-600 text-sm leading-relaxed">
-                {outcome.body}
-              </p>
-            </motion.div>
-          )
-        })}
-      </div>
-
-      {/* Architect's Log Footer */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-slate-900 p-6 md:p-8 mt-12"
-      >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-sm text-amber-400 flex-shrink-0">
-            &gt; ARCHITECT&apos;S_LOG: THE_PRINCIPAL_SHIFT
-          </span>
+                {/* Body */}
+                <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-sm">
+                  {outcome.body}
+                </p>
+              </motion.div>
+            )
+          })}
         </div>
-        <p className="text-slate-300 text-sm md:text-base leading-relaxed mt-3">
-          IQ Plugin taught me that the hardest part of Enterprise UX isn&apos;t designing the pixels—it&apos;s designing the
-          <span className="text-emerald-400 font-semibold"> consensus</span>. By visualizing a unified future, I gave the organization
-          the confidence to stop building silos and start building a platform.
-        </p>
-      </motion.div>
+
+        {/* Architect's Log - Refined Dark Block */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-24 max-w-5xl mx-auto"
+        >
+          <div className="bg-[#1D1D20] rounded-xl overflow-hidden border border-white/10 relative">
+            <div className="absolute top-0 left-0 w-1 h-full bg-amber-400" />
+            <div className="p-8 md:p-12">
+              <span className="font-mono text-xs text-amber-400 block mb-4 tracking-widest">
+                &gt; ARCHITECT&apos;S_LOG: THE_PRINCIPAL_SHIFT
+              </span>
+              <p className="text-xl md:text-2xl font-light text-slate-200 leading-relaxed font-serif">
+                "IQ Plugin taught me that the hardest part of Enterprise UX isn&apos;t designing the pixels—it&apos;s designing the <span className="text-emerald-400 font-normal italic">consensus</span>. By visualizing a unified future, I gave the organization the confidence to stop building silos and start building a platform."
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </div>
   )
 }

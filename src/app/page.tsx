@@ -4,6 +4,7 @@ import EnergyStack from '@/components/home/EnergyStack'
 import TalkSection from '@/components/home/TalkSection'
 import DesignEngineerBlock from '@/components/work/DesignEngineerBlock'
 import ScrollGear from '@/components/ui/ScrollGear'
+import UnifiedTimelineLayout from '@/components/home/UnifiedTimelineLayout'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -44,8 +45,10 @@ export default function Home() {
         Replaces WorkGrid, SocialProof, GrowthStory, Archive.
       */}
       <div id="work-overview">
-        <DesignEngineerBlock />
-        <EnergyStack />
+        <UnifiedTimelineLayout>
+          <DesignEngineerBlock />
+          <EnergyStack />
+        </UnifiedTimelineLayout>
       </div>
 
       <TalkSection />

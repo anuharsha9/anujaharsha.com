@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { TrendingUp, ShieldCheck, Layout, Users } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import TerminalInsight from './TerminalInsight'
 
 interface MLImpactMetricsProps {
   isLightBackground?: boolean
@@ -106,23 +107,19 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
       </div>
 
       {/* System Outcome Footer */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="bg-slate-900 p-6 md:p-8 mt-12 rounded-2xl"
-      >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-sm text-emerald-400 flex-shrink-0">
-            &gt; OUTCOME:
-          </span>
-          <p className="text-slate-300 text-sm leading-relaxed">
-            ML Functions became a <span className="text-emerald-400 font-medium">gateway for broader ML adoption</span> across teams,
-            rather than a niche expert-only feature. Seamless workflow integration meant users stayed inside WebFOCUS instead of bouncing between tools.
-          </p>
-        </div>
-      </motion.div>
+      <div className="w-full mt-12">
+        <TerminalInsight
+          title="system_outcome.log"
+        >
+          <div className="text-sm">
+            <span className="text-emerald-400 font-bold mr-2">&gt; OUTCOME:</span>
+            <span className="text-slate-300">
+              ML Functions became a <span className="text-emerald-400 font-bold">gateway for broader ML adoption</span> across teams,
+              rather than a niche expert-only feature. Seamless workflow integration meant users stayed inside WebFOCUS instead of bouncing between tools.
+            </span>
+          </div>
+        </TerminalInsight>
+      </div>
     </div>
   )
 }

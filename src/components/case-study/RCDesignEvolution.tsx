@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, Clock, Mail, Users, FolderTree, Settings } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
-import AutoSequenceDataViewer from './AutoSequenceDataViewer'
+import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
 
 interface RCDesignEvolutionProps {
   isLightBackground?: boolean
@@ -377,13 +377,15 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
               </div>
 
               {/* The Viewer */}
-              <AutoSequenceDataViewer
+              <MacWindowCarousel
                 images={activeTabData.images.map(img => ({
                   src: img.src,
                   alt: img.alt,
                   caption: `// ${img.figNumber}: ${img.caption}`
                 }))}
                 title={activeTabData.title}
+                autoPlay={true}
+                className="w-full"
               />
             </motion.div>
           )}

@@ -188,7 +188,32 @@ export interface FrameworkConnection {
   }[]
 }
 
+
+export interface ReflectionData {
+  people: {
+    id: string
+    name: string
+    role: string
+    quote: string
+    initials: string
+  }[]
+  retrospective: {
+    pushHarder: {
+      title: string
+      subtitle: string
+      content: string
+    }
+    doNext: {
+      title: string
+      subtitle: string
+      content: string
+    }
+  }
+}
+
 export interface CaseStudyData {
+  reflection?: ReflectionData;
+
   slug: string
   heroTitle: string
   heroSubheading?: string
@@ -254,10 +279,12 @@ export interface CaseStudyData {
   presentation: {
     slides: {
       type: 'title' | 'problem' | 'research' | 'decision' | 'execution' | 'collaboration' | 'impact' | 'lesson'
+      layout?: 'split' | 'center' | 'full' | 'quote' | 'grid'
       title: string
       content: string[] // Bullet points
       image?: string
       notes?: string // Speaker notes
+      signal?: string // FAANG-style footer signal (e.g. "CONSTRAINT: LEGACY DEBT")
     }[]
   }
   bonusSlides?: {

@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { Code, Zap, Smartphone, Sparkles, Play } from 'lucide-react'
 import GameLightbox from './GameLightbox'
+import { getTheme } from '@/lib/design-system'
 
 // Animation variants
 const fadeInUp = {
@@ -17,142 +19,121 @@ const fadeInUp = {
 
 export default function DesignEngineerBlock() {
     const [isGameOpen, setIsGameOpen] = useState(false)
+    const t = getTheme(false)
+
+    // Spine Logic (Start Node)
+    // We want the line to start from the node and go down.
 
     return (
-        <section className="py-16 md:py-24 w-full relative overflow-hidden bg-monitor border-t border-white/5">
-            {/* Ambient Background Elements - Toned down */}
-            <div className="absolute top-0 right-0 w-full h-[600px] bg-gradient-to-b from-monitor via-monitor-alt to-monitor opacity-40 pointer-events-none -z-10" />
+        <section className="py-24 md:py-32 w-full relative border-t border-white/5 group">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
 
-            <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* ════════════════════════════════════════════════════════════════════
+                   TIMELINE SPINE (START NODE)
+                   Matches EraBlock positioning: left-4 md:left-8
+                ════════════════════════════════════════════════════════════════════ */}
+                {/* ════════════════════════════════════════════════════════════════
+                   TIMELINE SPINE (START NODE)
+                   Matches EraBlock positioning: Line at left-[30px] (4px wide), Node centered at 32px.
+                ════════════════════════════════════════════════════════════════ */}
+                <div className="absolute left-0 top-0 bottom-0 pointer-events-none hidden md:block z-0">
+                    {/* The Node (Origin) - Centered at 32px (left-24px + 8px) */}
+                    <div className="absolute left-[24px] top-[8.5rem] w-4 h-4 rounded-full bg-[var(--accent-teal)] shadow-[0_0_12px_var(--accent-teal)] z-20">
+                        <div className="absolute inset-0 animate-ping rounded-full bg-[var(--accent-teal)] opacity-50"></div>
+                    </div>
 
-                    {/* Left Column: Text Content */}
-                    <div>
+                    {/* The Line (Track) - REMOVED (Handled by UnifiedTimelineLayout) */}
+                </div>
+
+                {/* Massive Year Watermark (2026) */}
+                <div className="absolute top-10 right-0 md:right-20 text-[120px] md:text-[240px] font-bold text-white/[0.02] pointer-events-none select-none z-0 font-mono leading-none tracking-tighter mix-blend-overlay transition-opacity duration-700 group-hover:text-white/[0.04]">
+                    2026
+                </div>
+
+                {/* ════════════════════════════════════════════════════════════════════
+                   CONTENT (Updated to Single Column Layout)
+                ════════════════════════════════════════════════════════════════════ */}
+                <div className="flex flex-col lg:flex-row gap-16 items-start pl-8 md:pl-16">
+
+                    {/* Content Column */}
+                    <div className="flex-1">
                         <motion.div
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
-                            className="flex items-center gap-3 mb-6"
+                            variants={fadeInUp}
                         >
-                            <motion.span
-                                variants={{ hidden: { width: 0 }, visible: { width: 32 } }}
-                                className="h-[2px] bg-accent-teal"
-                            />
-                            <span className="text-accent-teal uppercase tracking-widest text-xs font-bold">
-                                Design Engineering
+                            <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase font-semibold mb-6 block">
+                                The Discipline
                             </span>
+
+                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 tracking-tight leading-[1.1]">
+                                Design Engineering.
+                            </h2>
+
+                            <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-lg mb-10 font-light">
+                                Connecting the structural integrity of code with the emotional resonance of design.
+                                <span className="text-slate-300 block mt-4">
+                                    I don't just mock interactions—I build them.
+                                </span>
+                            </p>
                         </motion.div>
 
-                        <motion.h2
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={fadeInUp}
-                            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight"
-                        >
-                            Frontend logic meets <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-teal via-cyan-400 to-white">
-                                pixel-perfect UI.
-                            </span>
-                        </motion.h2>
-
-                        <motion.p
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={fadeInUp}
-                            className="text-slate-400 text-base md:text-lg leading-relaxed mb-8 max-w-lg"
-                        >
-                            I don't just mock interactions—I build them. Bridging the gap between
-                            Figma prototyping and production-ready React code.
-                        </motion.p>
-
-                        {/* Feature Points - Compact */}
+                        {/* Feature Points - Minimalist */}
                         <motion.div
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-                            className="flex flex-col gap-4 mb-8"
+                            className="flex flex-col gap-6 mb-10"
                         >
                             <motion.div variants={fadeInUp} className="flex items-center gap-4 group">
-                                <div className="p-2 rounded-lg bg-white/5 text-accent-teal border border-white/10 group-hover:bg-accent-teal group-hover:text-white transition-colors">
-                                    <Code size={18} />
+                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-white/10 transition-colors">
+                                    <Code size={18} strokeWidth={1.5} />
                                 </div>
                                 <div>
                                     <h4 className="text-white font-medium text-sm">Production-Grade React</h4>
-                                    <p className="text-slate-500 text-xs">TypeScript, Next.js, and clean component architecture.</p>
+                                    <p className="text-slate-500 text-xs mt-0.5">TypeScript, Next.js, Architecture</p>
                                 </div>
                             </motion.div>
 
                             <motion.div variants={fadeInUp} className="flex items-center gap-4 group">
-                                <div className="p-2 rounded-lg bg-white/5 text-cyan-400 border border-white/10 group-hover:bg-cyan-500 group-hover:text-white transition-colors">
-                                    <Zap size={18} />
+                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-white group-hover:bg-white/10 transition-colors">
+                                    <Zap size={18} strokeWidth={1.5} />
                                 </div>
                                 <div>
-                                    <h4 className="text-white font-medium text-sm">60fps Animations</h4>
-                                    <p className="text-slate-500 text-xs">Complex physics and gestures powered by Framer Motion.</p>
+                                    <h4 className="text-white font-medium text-sm">60fps Interaction</h4>
+                                    <p className="text-slate-500 text-xs mt-0.5">Framer Motion, Physics, Gestures</p>
                                 </div>
                             </motion.div>
                         </motion.div>
 
-                        <motion.button
-                            onClick={() => setIsGameOpen(true)}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="hidden lg:inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent-teal text-white font-bold text-sm shadow-[0_0_20px_rgba(45,212,191,0.2)] hover:shadow-[0_0_30px_rgba(45,212,191,0.4)] transition-all"
-                        >
-                            <Smartphone size={16} />
-                            <span>Launch WordU Demo</span>
-                        </motion.button>
-                    </div>
-
-                    {/* Right Column: Game Preview Card */}
-                    <div className="relative flex justify-center lg:justify-end">
+                        {/* Game Preview Card (Moved here to replace button) */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
-                            whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
-                            className="relative group cursor-pointer"
+                            className="relative group cursor-pointer inline-block"
                             onClick={() => setIsGameOpen(true)}
                         >
-                            {/* Card Container */}
-                            <div className="relative w-[300px] sm:w-[340px] aspect-[4/5] bg-zinc-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
-                                {/* Gradient Bg */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-black opacity-50" />
+                            <div className="relative w-[300px] sm:w-[340px] aspect-square rounded-3xl overflow-hidden shadow-2xl border border-white/10 group-hover:-translate-y-2 transition-transform duration-500">
+                                <Image
+                                    src="/images/wordu-cover.png"
+                                    alt="WordU Game Design"
+                                    fill
+                                    className="object-cover"
+                                />
 
-                                {/* Game UI Mockup (Abstracted) */}
-                                <div className="absolute inset-0 p-6 flex flex-col items-center justify-center text-center">
-                                    <div className="mb-6 relative">
-                                        <div className="absolute inset-0 bg-accent-teal/20 blur-xl rounded-full animate-pulse" />
-                                        <div className="relative w-24 h-24 bg-zinc-950 rounded-2xl border border-white/10 flex items-center justify-center shadow-2xl">
-                                            <div className="flex font-black text-2xl tracking-tighter">
-                                                <span className="text-white">W</span>
-                                                <span className="text-[#00ADEE]">U</span>
-                                            </div>
+                                {/* Hover State: "Play" Overlay */}
+                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-[2px]">
+                                    <div className="flex flex-col items-center gap-3">
+                                        <div className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.3)] transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                                            <Play fill="currentColor" className="ml-1" size={24} />
                                         </div>
+                                        <span className="text-white text-xs font-mono tracking-widest uppercase font-semibold">Play Demo</span>
                                     </div>
-
-                                    <h3 className="text-2xl font-bold text-white mb-2">WordU</h3>
-                                    <p className="text-slate-400 text-sm mb-6 max-w-[200px]">
-                                        A fast-paced word chain game with AI opponents.
-                                    </p>
-
-                                    {/* Play Button Visual */}
-                                    <div className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                        <Play fill="currentColor" className="ml-1" size={24} />
-                                    </div>
-                                    <p className="mt-4 text-[10px] text-slate-500 font-mono tracking-widest uppercase">Click to Play</p>
                                 </div>
-
-                                {/* Shine Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                            </div>
-
-                            {/* Floating Badge */}
-                            <div className="absolute -top-4 -right-4 bg-accent-teal text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg border-2 border-zinc-950 animate-bounce">
-                                EXPERIMENT
                             </div>
                         </motion.div>
                     </div>

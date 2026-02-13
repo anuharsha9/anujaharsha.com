@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import ImageLightbox from './ImageLightbox'
+import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
 
 interface VersionData {
   id: string
@@ -236,35 +237,16 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                     <div className="lg:w-[60%] space-y-8">
                       {/* Main Images */}
                       {version.section.images && version.section.images.length > 0 && (
-                        <div className={`grid gap-6 ${version.section.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-                          {version.section.images.slice(0, 4).map((image, idx) => (
-                            <div
-                              key={idx}
-                              className="group cursor-pointer space-y-3"
-                              onClick={() => openLightbox(
-                                image.src,
-                                image.alt,
-                                image.caption,
-                                version.section.images?.map(img => ({ src: img.src, alt: img.alt, caption: img.caption })),
-                                idx
-                              )}
-                            >
-                              <div className="relative aspect-[16/10] overflow-hidden bg-slate-50 border border-slate-100 transition-all duration-500 group-hover:shadow-lg">
-                                <Image
-                                  src={image.src}
-                                  alt={image.alt}
-                                  fill
-                                  className="object-contain transition-transform duration-700 group-hover:scale-105"
-                                />
-                              </div>
-                              {image.caption && (
-                                <p className="text-[10px] text-slate-400 text-center uppercase tracking-wider">
-                                  {image.caption}
-                                </p>
-                              )}
-                            </div>
-                          ))}
-                        </div>
+                        <MacWindowCarousel
+                          images={version.section.images.map(img => ({
+                            src: img.src,
+                            alt: img.alt,
+                            caption: img.caption
+                          }))}
+                          title={version.title}
+                          className="w-full"
+                          aspectRatio="aspect-[16/10]"
+                        />
                       )}
 
                       {/* Shipped Subsections (Key Screens) */}

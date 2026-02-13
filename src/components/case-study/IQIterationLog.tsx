@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { useLightbox } from '@/contexts/LightboxContext'
 import { MessageSquare, Lightbulb, Brain, Database } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
 
 interface IQIterationLogProps {
   isLightBackground?: boolean
@@ -32,7 +32,7 @@ interface Tab {
 
 export default function IQIterationLog({ isLightBackground = false }: IQIterationLogProps) {
   const [activeTab, setActiveTab] = useState('01_NLQ_WORKFLOW')
-  const { openLightbox } = useLightbox()
+
 
   const tabs: Tab[] = [
     {
@@ -275,117 +275,19 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
                     </p>
                   </div>
 
-                  {/* Mobile: Horizontal Scroll Images */}
-                  <div className="md:hidden -mx-4 px-4">
-                    <div className="overflow-x-auto scrollbar-hide">
-                      <div className="flex gap-4 min-w-max pb-4">
-                        {activeTabData.images.map((img, i) => {
-                          const galleryImages = activeTabData.images.map(image => ({
-                            src: image.src,
-                            alt: image.alt,
-                            caption: `// ${image.figNumber}: ${image.caption}`
-                          }))
-
-                          return (
-                            <div
-                              key={i}
-                              className="group cursor-pointer w-[280px] flex-shrink-0"
-                              onClick={() => openLightbox(
-                                { src: img.src, alt: img.alt, caption: `// ${img.figNumber}: ${img.caption}` },
-                                galleryImages,
-                                i
-                              )}
-                              role="button"
-                              tabIndex={0}
-                              aria-label={`View ${img.alt} in fullscreen`}
-                            >
-                              <div className="border border-slate-200 shadow-sm overflow-hidden bg-slate-50">
-                                <div className="relative aspect-[4/3]">
-                                  <Image
-                                    src={img.src}
-                                    alt={img.alt}
-                                    fill
-                                    className="object-cover"
-                                    sizes="280px"
-                                  />
-                                  <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 shadow-sm">
-                                    <span className="font-mono text-[9px] text-slate-500 uppercase tracking-wider">
-                                      Tap to expand
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                              <p className="font-mono text-[10px] text-slate-400 uppercase tracking-wider mt-2 line-clamp-2">
-                                {'// '}{img.figNumber}: {img.caption}
-                              </p>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
-                    {activeTabData.images.length > 1 && (
-                      <p className="text-center text-slate-400 text-xs mt-1">← Swipe to see more →</p>
-                    )}
-                  </div>
-
-                  {/* Desktop: Grid Display */}
-                  <div className={`hidden md:grid gap-5 ${activeTabData.images.length <= 3 ? 'grid-cols-3' : 'grid-cols-2 xl:grid-cols-3'}`}>
-                    {activeTabData.images.map((img, i) => {
-                      const galleryImages = activeTabData.images.map(image => ({
-                        src: image.src,
-                        alt: image.alt,
-                        caption: `// ${image.figNumber}: ${image.caption}`
-                      }))
-
-                      return (
-                        <div
-                          key={i}
-                          className="group cursor-pointer"
-                          onClick={() => openLightbox(
-                            { src: img.src, alt: img.alt, caption: `// ${img.figNumber}: ${img.caption}` },
-                            galleryImages,
-                            i
-                          )}
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault()
-                              openLightbox(
-                                { src: img.src, alt: img.alt, caption: `// ${img.figNumber}: ${img.caption}` },
-                                galleryImages,
-                                i
-                              )
-                            }
-                          }}
-                          aria-label={`View ${img.alt} in fullscreen`}
-                        >
-                          <div className="border border-slate-200 shadow-sm overflow-hidden bg-slate-50 group-hover:shadow-lg group-hover:border-[var(--accent-teal-300)] transition-all duration-300">
-                            <div className="relative aspect-[4/3]">
-                              <Image
-                                src={img.src}
-                                alt={img.alt}
-                                fill
-                                className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                                sizes="(max-width: 1200px) 50vw, 33vw"
-                              />
-                              <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors duration-300 flex items-center justify-center">
-                                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                  <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 shadow-lg">
-                                    <span className="font-mono text-[10px] text-slate-600 uppercase tracking-widest">
-                                      Click to expand
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <p className="font-mono text-[10px] text-slate-400 uppercase tracking-widest mt-2.5">
-                            {'// '}{img.figNumber}: {img.caption}
-                          </p>
-                        </div>
-                      )
-                    })}
+                  {/* Standardized Slider Component */}
+                  <div className="rounded-xl overflow-hidden shadow-sm border border-slate-200">
+                    <MacWindowCarousel
+                      images={activeTabData.images.map(img => ({
+                        src: img.src,
+                        alt: img.alt,
+                        caption: `// ${img.figNumber}: ${img.caption}`
+                      }))}
+                      title={activeTabData.title}
+                      autoPlay={false}
+                      className="w-full bg-slate-50"
+                      aspectRatio="aspect-[4/3]"
+                    />
                   </div>
                 </motion.div>
               )}

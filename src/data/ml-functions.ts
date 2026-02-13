@@ -131,58 +131,96 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
       {
         type: 'title',
         title: 'Democratizing Machine Learning',
-        content: ['Anuja — Senior Product Designer', 'Secondary Case Study'],
+        content: ['Anuja Harsha — Senior Product Designer', 'Secondary Case Study'],
         image: '/images/case-study/ml-functions/ml-functions-cover.png',
       },
       {
-        type: 'problem',
-        title: 'The "Black Box" Problem',
+        type: 'title',
+        layout: 'center',
+        title: 'Executive Summary',
         content: [
-          'ML was reserved for data scientists.',
-          'Required Python scripting.',
-          '12+ steps to train a simple model.',
-          'Opaque error messages.',
+          'Situation: ML tools were blocked by code-heavy barriers.',
+          'Action: I designed a 4-step wizard with "Dual Persona" support.',
+          'Result: Reduced complexity (12+ steps → 4). 5/5 validation success.',
         ],
+        signal: 'EXECUTIVE SUMMARY',
+      },
+      {
+        type: 'problem',
+        layout: 'split',
+        title: 'Critical Workflows Were Inaccessible',
+        content: [
+          'Goal: Train a churn prediction model.',
+          'Reality: Hidden behind code editors and cryptic errors.',
+          'Result: <5% adoption by business users.',
+        ],
+        image: '/images/case-study/ml-functions/Legacy Train Model UI.png',
+        signal: 'CONSTRAINT: LEGACY DEBT',
       },
       {
         type: 'research',
-        title: 'Bridging the Gap',
+        title: 'Users Were Blocked by Code Barriers',
         content: [
           'Earned MIT Certification to understand the domain.',
           'Embedded with Principal Data Scientist.',
           'Identified the "Dual Persona" need.',
         ],
-        image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
-      },
-      {
-        type: 'decision',
-        title: 'Key Design Decisions',
-        content: [
-          'Dual Experience: Wizard vs Advanced.',
-          'Linear 4-Step Flow.',
-          'Visual Confusion Matrix.',
-        ],
+        signal: 'EVIDENCE: USER RESEARCH',
       },
       {
         type: 'execution',
-        title: 'The Guided Solution',
+        title: 'A Unified Workflow for All Skill Levels',
         content: [
           'Step 1: Define Problem.',
-          'Step 2: select Target.',
+          'Step 2: Select Target.',
           'Step 3: Choose Predictors.',
           'Step 4: Tune Parameters.',
         ],
         image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
+        signal: 'STRATEGY: DUAL PERSONA',
+      },
+      {
+        type: 'decision',
+        title: 'Simplifying Complexity via Architecture',
+        content: [
+          'Dual Experience: Wizard vs Advanced.',
+          'Linear 4-Step Flow.',
+          'Redesigned Confusion Matrix UX.',
+        ],
+        notes: 'Significantly improved the visual and user experience of the existing visualization.',
+        signal: 'DECISION: ARCHITECTURE',
+      },
+      {
+        type: 'execution',
+        title: 'Preventing Errors Before They Happen',
+        content: [
+          'Error Handling: Translated technical errors to human guidance.',
+          'Smart Defaults: Prevented invalid configurations upstream.',
+          'Empty States: Guided entry for zero-data scenarios.',
+        ],
+        signal: 'QUALITY: ERROR STATES',
       },
       {
         type: 'impact',
-        title: 'Impact & Validation',
+        layout: 'full',
+        title: '5/5 Validation Success',
         content: [
-          '5/5 SMEs succeeded without help.',
-          'Reduced clicks from 12+ to 7-9.',
-          'Validated by Principal Data Scientist.',
-          'Shipping 2026.',
+          'Validation: 5/5 SMEs completed the flow without help.',
+          'Support: "The best screen in the entire UX revamp." — Principal Scientist.',
+          'Adoption: Patterns now used across the entire platform.',
         ],
+        image: '/images/case-study/ml-functions/ml-functions-reflections.jpg',
+        signal: 'OUTCOME: 5/5 SUCCESS',
+      },
+      {
+        type: 'lesson',
+        title: 'End-to-End Ownership & Future Vision',
+        content: [
+          'Role: End-to-End Ownership (Research to Delivery).',
+          'Collaboration: Partnership with Principal Data Scientist.',
+          'Next: Real-time model training visualization.',
+        ],
+        signal: 'RETROSPECTIVE',
       },
     ],
   },
@@ -422,6 +460,7 @@ The patterns I developed here — structured flows, upstream validation, right-c
   // ----------------------------
   // IMPACT SUMMARY
   // ----------------------------
+
   impactSummary: {
     heading: 'Pre-launch impact at a glance',
     bullets: [
@@ -431,6 +470,36 @@ The patterns I developed here — structured flows, upstream validation, right-c
       'Confusion matrix: "the best screen in the entire UX revamp"',
       'Patterns became foundation for IQ Plugin',
     ],
+  },
+  reflection: {
+    people: [
+      {
+        id: 'mh',
+        name: 'Marcus Horbach',
+        role: 'Principal Data Scientist',
+        quote: 'The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive and has greatly contributed to the success of our products. Her design solutions are rooted in a deep understanding of the purpose of the product.',
+        initials: 'MH'
+      },
+      {
+        id: 'ag',
+        name: 'Anita George',
+        role: 'Principal Account Tech Strategist',
+        quote: 'During a User Acceptance Test session, Anuja observed me navigating the screen. I was highly impressed with Anuja\'s approach. Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels.',
+        initials: 'AG'
+      }
+    ],
+    retrospective: {
+      pushHarder: {
+        title: 'Early Data Science Alignment',
+        subtitle: 'Git_Diff: What I\'d Push Harder For',
+        content: '<span class="text-amber-500/80">Early Data Science Alignment:</span> I would have established the "productive tension" earlier. By the time I challenged the Principal DS on the confusion matrix, we had already lost sprint cycles on less effective visualizations. Bringing design into the definition phase—not just the execution phase—would have saved ~3 weeks.'
+      },
+      doNext: {
+        title: 'Real-Time Visualization',
+        subtitle: 'Roadmap_v2: What I\'d Do Next',
+        content: '<span class="text-[var(--accent-teal)]/80">Real-Time Visualization:</span> Currently, users must finish training to see results. I\'d implement streaming websocket updates to show the confusion matrix <em>evolving</em> during training. This would turn a passive wait time into an active monitoring experience, allowing users to abort bad runs early (saving compute costs).'
+      }
+    }
   },
   // ----------------------------
   // FINAL SUMMARY - Removed (duplicates impactSummary)

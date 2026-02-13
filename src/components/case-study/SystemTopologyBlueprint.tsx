@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useLightbox } from '@/contexts/LightboxContext'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import TerminalInsight from '@/components/case-study/TerminalInsight'
 
 interface SystemTopologyBlueprintProps {
   isLightBackground?: boolean
@@ -206,31 +207,19 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
       </motion.div>
 
       {/* Technical Note Footer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="bg-[#1D1D20] rounded-xl overflow-hidden shadow-lg border border-white/10 font-mono"
-      >
-        {/* Terminal Header */}
-        <div className="bg-[#2D2D30] px-4 py-2 flex gap-2 items-center border-b border-white/5">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-          <span className="ml-2 text-[10px] text-slate-500 font-sans">architecture_summary.log</span>
-        </div>
-
-        {/* Maximum Contrast Content */}
-        <div className="p-6 text-slate-300 text-sm leading-relaxed font-mono">
+      <div className="w-full">
+        <TerminalInsight
+          title="architecture_summary.log"
+          insightLabel="INSIGHT:"
+        >
           <div className="flex items-start gap-3">
             <span className="font-mono text-emerald-400 flex-shrink-0 mt-0.5">&gt;</span>
             <p>
-              <span className="text-emerald-400 font-bold">INSIGHT:</span> We didn't just redesign screens; we re-architected the <span className="text-white font-medium">user's mental model</span>. From scattershot tasks to a linear, coherent journey.
+              We didn't just redesign screens; we re-architected the <span className="text-white font-medium">user's mental model</span>. From scattershot tasks to a linear, coherent journey.
             </p>
           </div>
-        </div>
-      </motion.div>
+        </TerminalInsight>
+      </div>
     </motion.div>
   )
 }

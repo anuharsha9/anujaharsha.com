@@ -144,60 +144,139 @@ export const reportcasterCaseStudy: CaseStudyData = {
     slides: [
       {
         type: 'title',
-        title: 'Modernizing a 50-Year-Old Enterprise Scheduler',
-        content: ['Anuja — Senior Product Designer', 'Flagship Case Study'],
+        layout: 'center',
+        title: 'Modernizing a 50-Year-Old OS',
+        content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'],
         image: '/images/case-study/ReportCaster/rc-cover.png',
       },
       {
-        type: 'problem',
-        title: 'The Challenge',
+        type: 'title',
+        layout: 'center',
+        title: 'Executive Summary',
         content: [
-          '50-year-old legacy system.',
-          '5 fragmented sub-products.',
-          'Undocumented and complex.',
-          'Powering 20M+ weekly schedules.',
+          'Situation: 5 fragmented subsystems. 20M+ weekly schedules. Zero documentation.',
+          'Action: I mapped the "invisible" system and consolidated 3 workflows into 1 unified Hub.',
+          'Result: 4 clicks → 2. Scaling to 20M+ weekly schedules with zero regression.',
         ],
+        signal: 'EXECUTIVE SUMMARY',
+      },
+      {
+        type: 'problem',
+        layout: 'split',
+        title: 'The 50-Year-Old Workhorse',
+        content: [
+          '5 fragmented sub-products (Schedules, Distribution Lists, Access Lists, Explorer, Admin).',
+          'Zero documentation. No specs.',
+          '4 clicks just to start a task.',
+        ],
+        image: '/images/case-study/ReportCaster/rc-old-workflow-poster.jpg',
+        signal: 'CONSTRAINT: FRAGMENTATION',
       },
       {
         type: 'research',
-        title: 'Discovery & Research',
+        layout: 'split',
+        title: 'The Detective Work',
         content: [
-          'No direct user access.',
-          'Embedded in support calls.',
-          'Mapped the "undocumented" system.',
-          'Identified 3 key architectural pivots.',
+          'User access was blocked by specialized security policies.',
+          'I embedded in support calls to hear real complaints.',
+          'Discovered users were "hacking" the UI to manage lists.',
         ],
-        image: '/images/case-study/ReportCaster/rc-old-workflow-poster.jpg',
+        signal: 'EVIDENCE: SUPPORT CALLS',
       },
       {
         type: 'decision',
-        title: 'Architectural Decisions',
+        layout: 'split',
+        title: 'Three Pivots to Clarity',
         content: [
-          'Rejected V1: Independent Product (Siloed).',
-          'Rejected V2: Plugin (Technical Debt).',
-          'Shipped V3: Modal-based Hub Integration.',
+          'V1: Independent Product. Rejected (Siloed).',
+          'V2: Plugin. Rejected (Technical Debt).',
+          'V3: Modal-Based Hub Integration. The Winner.',
         ],
+        notes: 'We failed twice fast. We couldn\'t rewrite the backend, so we brought the UI to the user where they already were—in the Hub.',
+        image: '/images/case-study/ReportCaster/Initiating ReportCaster from the HUB.png',
+        signal: 'DECISION: ITERATION',
       },
       {
         type: 'execution',
-        title: 'The Solution: Unified Hub',
+        layout: 'center',
+        title: 'The Solution: Unified Hub Architecture',
         content: [
-          'Consolidated 5 tools into 1 view.',
+          'Consolidated 3 workflows (Scheduler, Lists, Access) into one "+" menu.',
           'Reduced creation clicks from 4 to 2.',
-          'introduced "Test Connection" button.',
-          'Simplified recurrence logic.',
+          'Unified view: Managing assets requires zero context switching.',
         ],
         image: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
+        signal: 'STRATEGY: UNIFIED HUB',
+      },
+      {
+        type: 'execution',
+        layout: 'split',
+        title: 'Simplifying Recurrence',
+        content: [
+          'Moved from cryptic codes to natural language summaries.',
+          'Progressive disclosure for advanced options.',
+          'Built-in error prevention for complex patterns.',
+        ],
+        image: '/images/case-study/ReportCaster/New SD - Recurrence - Monthly - Days of the week.png',
+        signal: 'DECISION: PROGRESSIVE DISCLOSURE',
+      },
+      {
+        type: 'execution',
+        layout: 'split',
+        title: 'First-Class Distribution Lists',
+        content: [
+          'Elevated "Distribution Lists" to a primary asset type.',
+          'Manage members with drag-and-drop simplicity.',
+          'Direct integration with corporate directories.',
+        ],
+        image: '/images/case-study/ReportCaster/Distribution List - Populated List view.png',
+        signal: 'FEATURE: ASSET MANAGEMENT',
+      },
+      {
+        type: 'execution',
+        layout: 'split',
+        title: 'Integrated Job Logs',
+        content: [
+          'Old: Logs opened in new browser tabs. Zero context.',
+          'New: Embedded viewer. Filter, Search, & Share inside the Scheduler.',
+          'Result: Instant diagnostics without window management chaos.',
+        ],
+        image: '/images/case-study/ReportCaster/Job log dialog.png',
+        signal: 'FEATURE: CONTEXTUAL LOGS',
       },
       {
         type: 'impact',
-        title: 'Business Impact',
+        layout: 'full',
+        title: 'Powering 20M+ Schedules',
         content: [
-          'Shipped to 20M+ users.',
-          'Zero regression in functionality.',
-          'Set the pattern for all future Hub integrations.',
-          'Directionally improved time-on-task by 50%.',
+          'Launched April 2024.',
+          '100% Legacy Parity achieved.',
+          'Zero Regression reported.',
+          'Adopted by major enterprise clients immediately.',
         ],
+        image: '/images/case-study/ReportCaster/ReportCaster Status (Admin).png',
+        signal: 'OUTCOME: 20M+ SCHEDULES',
+      },
+      {
+        type: 'impact',
+        layout: 'center',
+        title: 'Validation',
+        content: [
+          '"She impressed everyone. She took a 50-year-old system and made it look like it was built yesterday."',
+          '— Principal Engineer',
+        ],
+        signal: 'VALIDATION: PEER REVIEW',
+      },
+      {
+        type: 'lesson',
+        layout: 'center',
+        title: 'Roadmap: Product-Wide Integration',
+        content: [
+          'Next: Integrate scheduling directly into Designer & Reporting Server.',
+          'Vision: Generate an insight → Schedule it immediately.',
+          'Goal: Remove "Scheduling" as a separate task entirely.',
+        ],
+        signal: 'ROADMAP: INTEGRATION',
       },
     ],
   },
@@ -658,6 +737,7 @@ The architecture I created became the reference pattern for other modernization 
   // ----------------------------
   // IMPACT + REFLECTION SUMMARY
   // ----------------------------
+
   impactSummary: {
     heading: 'Shipping impact at a glance',
     bullets: [
@@ -667,6 +747,36 @@ The architecture I created became the reference pattern for other modernization 
       '20M+ weekly schedules impacted',
       'Shipped April 2024 — powering 20M+ weekly schedules',
     ],
+  },
+  reflection: {
+    people: [
+      {
+        id: 'yc',
+        name: 'Yingchun Chen',
+        role: 'Principal System Software Engineer',
+        quote: 'She impressed everyone with how quickly she grasped all aspects of a highly intricate system and translated that understanding into a clear, modern, and user-centered design.',
+        initials: 'YC'
+      },
+      {
+        id: 'dp',
+        name: 'Dave Pfeiffer',
+        role: 'Director of Design',
+        quote: 'Anuja brings energy and determination to tackling complex design challenges. She approaches her work with a fearless attitude and is never afraid to explore new ideas.',
+        initials: 'DP'
+      }
+    ],
+    retrospective: {
+      pushHarder: {
+        title: 'Embedded Explorer View',
+        subtitle: 'Git_Diff: What I\'d Push Harder For',
+        content: '<span class="text-amber-500/80">Embedded Explorer View:</span> Embedding the RC Explorer view directly into Hub workspaces instead of a separate filtered view. This would have expanded the pattern to Designer, Reporting Server—everything. That\'s my biggest regret.'
+      },
+      doNext: {
+        title: 'Product-Wide Integration',
+        subtitle: 'Roadmap_v2: What I\'d Do Next',
+        content: '<span class="text-[var(--accent-teal)]/80">Product-Wide Integration:</span> Integrate ReportCaster product-wide—schedule from Designer, Reporting Server, IQ Plugin. Imagine generating an insight and immediately scheduling it. That\'s the vision.'
+      }
+    }
   },
   // ----------------------------
   // FINAL SUMMARY (Now combined with Section 08)

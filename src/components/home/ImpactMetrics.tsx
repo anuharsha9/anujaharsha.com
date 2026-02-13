@@ -7,7 +7,7 @@ const metrics = [
   {
     value: '50+',
     label: 'Projects Shipped',
-    source: 'Work archive & portfolio'
+    source: 'Work archive & experience'
   },
   {
     value: '25M+',

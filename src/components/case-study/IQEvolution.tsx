@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import AutoSequenceDataViewer from './AutoSequenceDataViewer'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
 
 interface IQEvolutionProps {
   isLightBackground?: boolean
@@ -100,11 +100,13 @@ export default function IQEvolution({ isLightBackground = false }: IQEvolutionPr
 
           {/* 2. Full Screen Viewer (Controlled) */}
           <div className="max-w-5xl mx-auto">
-            <AutoSequenceDataViewer
+            <MacWindowCarousel
               images={sequenceImages}
               title="Design Evolution"
-              externalIndex={activeStage}
+              currentIndex={activeStage}
               onIndexChange={setActiveStage}
+              autoPlay={true}
+              className="w-full"
             />
 
             {/* Dynamic Caption */}

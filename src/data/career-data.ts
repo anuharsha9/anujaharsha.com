@@ -138,7 +138,7 @@ export const CAREER_DATA: CareerEra[] = [
                 fileName: 'legacy_scheduler_refactor.js',
                 accentColor: '#F59E0B',
                 locked: false,
-                statusLabel: 'Live',
+                statusLabel: 'Live in Production',
                 impactDirectional: 'Consolidated into 1 unified hub; powering 20M+ weekly schedules.',
                 caseStudyType: 'Flagship'
             },

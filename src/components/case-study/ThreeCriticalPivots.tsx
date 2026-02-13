@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Layers, LayoutGrid, CreditCard } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import { LucideIcon } from 'lucide-react'
+import TerminalInsight from './TerminalInsight'
 
 interface ThreeCriticalPivotsProps {
   isLightBackground?: boolean
@@ -171,28 +172,17 @@ export default function ThreeCriticalPivots({ isLightBackground = false }: Three
         })}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-[#1D1D20] rounded-xl overflow-hidden shadow-lg border border-white/10 font-mono"
-      >
-        {/* Terminal Header */}
-        <div className="bg-[#2D2D30] px-4 py-2 flex gap-2 items-center border-b border-white/5">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-          <span className="ml-2 text-[10px] text-slate-500 font-sans">pivot_analysis.log</span>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 text-slate-300 text-sm leading-relaxed font-mono">
-          <span className="text-emerald-400 font-bold mr-2">&gt;</span>
-          These pivots weren&apos;t just UX decisions — they were <span className="text-emerald-400 font-medium">architectural choices</span> that simplified implementation. The structured flow emerged from asking:
-          <span className="block mt-2 pl-4 text-emerald-300">"What do you absolutely need?" → Problem Type + Target + Predictors + Params.</span>
-        </div>
-      </motion.div>
+      <div className="w-full">
+        <TerminalInsight
+          title="pivot_analysis.log"
+        >
+          <div className="text-slate-300 text-sm leading-relaxed font-mono">
+            <span className="text-emerald-400 font-bold mr-2">&gt;</span>
+            These pivots weren&apos;t just UX decisions — they were <span className="text-emerald-400 font-medium">architectural choices</span> that simplified implementation. The structured flow emerged from asking:
+            <span className="block mt-2 pl-4 text-emerald-300">"What do you absolutely need?" → Problem Type + Target + Predictors + Params.</span>
+          </div>
+        </TerminalInsight>
+      </div>
     </div>
   )
 }

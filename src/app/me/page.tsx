@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import MotionSection from '@/components/ui/MotionSection'
@@ -8,6 +9,7 @@ import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
 import ScrollGear from '@/components/ui/ScrollGear'
 import PersistenceGallery from '@/components/me/PersistenceGallery'
 import WritingSectionSimple from '@/components/me/WritingSectionSimple'
+import ParallaxImage from '@/components/ui/ParallaxImage'
 
 
 
@@ -15,6 +17,8 @@ import WritingSectionSimple from '@/components/me/WritingSectionSimple'
 
 
 export default function AboutPage() {
+  const [isPoemExpanded, setIsPoemExpanded] = useState(false)
+
   return (
     <main className="min-h-screen bg-white relative overflow-hidden">
       {/* ═══════════════════════════════════════════════════════════════════════
@@ -46,13 +50,25 @@ export default function AboutPage() {
             </motion.div>
 
             {/* Main headline */}
-            <h1 className="font-serif text-slate-900 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-5xl leading-tight mb-4 sm:mb-6 px-4">
-              52 seconds.<br />
-              <span className="text-slate-600">That&apos;s all I ask.</span>
-            </h1>
+            {/* Main headline */}
+            <motion.div
+              initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
+              animate={{ clipPath: 'inset(0 0% 0 0)', opacity: 1 }}
+              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            >
+              <h1 className="font-serif text-slate-900 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-5xl leading-tight mb-4 sm:mb-6 px-4">
+                52 seconds.<br />
+                <span className="text-slate-600">That&apos;s all I ask.</span>
+              </h1>
+            </motion.div>
 
-            {/* Video - THE HERO (compact) */}
-            <div className="max-w-[280px] xs:max-w-[320px] sm:max-w-sm mx-auto mb-6 sm:mb-8 px-4">
+            {/* Video - THE HERO (compact) - with Apple-style scale in */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+              className="max-w-[280px] xs:max-w-[320px] sm:max-w-sm mx-auto mb-6 sm:mb-8 px-4"
+            >
               <div className="relative bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xl">
                 {/* Window Header Bar */}
                 <div className="flex items-center justify-between px-3 py-2 bg-slate-100 border-b border-slate-200">
@@ -77,7 +93,7 @@ export default function AboutPage() {
                   className="w-full"
                 />
               </div>
-            </div>
+            </motion.div>
 
             {/* Text block - narrative flow (MOVED HERE) */}
             <div className="max-w-3xl mx-auto mb-16 sm:mb-20 px-4">
@@ -252,93 +268,106 @@ export default function AboutPage() {
           SECTION 6: THE HUMAN (Compact)
       ═══════════════════════════════════════════════════════════════════════ */}
       < MotionSection animate={true} className="py-10 md:py-14" >
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 space-y-12">
+          {/* Main Layout: Bento (Left) | Poem (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start h-auto lg:h-[1080px]">
 
-            {/* Left - Context */}
-            <div className="lg:col-span-1 space-y-4">
-              <h2 className="font-serif text-slate-900 text-2xl md:text-3xl leading-tight">
-                Life Outside the Terminal
-              </h2>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Parent of two — a 4-year-old boy and 1-year-old girl — with the most supportive husband.
-                Motherhood shapes my discipline, resilience, and systems thinking more than anything else.
-              </p>
-            </div>
+            {/* LEFT COLUMN: Bento Grid (5 Images) */}
+            <div className="h-[800px] lg:h-full grid grid-cols-2 grid-rows-5 gap-4 overflow-hidden">
 
-            {/* Right - Hobbies Grid (Bento Box) */}
-            <div className="lg:col-span-2 h-[800px] md:h-[720px] grid grid-cols-2 md:grid-cols-4 grid-rows-4 md:grid-rows-3 gap-4">
-              {/* 1. BAKING (2x2) */}
+              {/* 1. Cake (Top - Full Width) */}
               <div className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden group border border-slate-200">
-                <Image
+                <ParallaxImage
                   src="/images/life/Bake4.jpg"
                   alt="Pink Cake Patisserie"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  containerClassName="w-full h-full"
+                  sizes="50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-                <div className="absolute bottom-4 left-4">
-                  <span className="font-mono text-xs text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded border border-white/10">
-                    Patisserie
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="font-mono text-xs text-white uppercase tracking-widest mb-1 block">
+                    Baking
                   </span>
+                  <p className="text-white/90 text-[10px] leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Perfecting the sponge.
+                  </p>
                 </div>
               </div>
 
-              {/* 2. POETRY (1x3) - Tall Pillar */}
-              <div className="col-span-1 row-span-2 md:row-span-3 relative rounded-2xl overflow-hidden group border border-slate-200 order-last md:order-none hidden md:block">
-                <Image
-                  src="/images/life/Poem on life.png"
-                  alt="Poetry"
-                  fill
-                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                  sizes="25vw"
-                />
-                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/0 transition-colors duration-500" />
-                <div className="absolute bottom-4 left-4">
-                  <span className="font-mono text-xs text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded border border-white/10">
-                    Poetry
-                  </span>
-                </div>
-              </div>
-
-              {/* 3. PAINTING (1x1) */}
-              <div className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden group border border-slate-200">
-                <Image
+              {/* Middle Row: Painting (Left) & Foods (Right) */}
+              {/* 2. Painting (Left Vertical) */}
+              <div className="col-span-1 row-span-2 relative rounded-2xl overflow-hidden group border border-slate-200">
+                <ParallaxImage
                   src="/images/life/Painting1.jpg"
-                  alt="Oil Painting"
+                  alt="Painting"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  containerClassName="w-full h-full"
                   sizes="25vw"
                 />
-                <div className="absolute bottom-4 left-4">
-                  <span className="font-mono text-xs text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded border border-white/10">
-                    Oil Painting
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="font-mono text-xs text-white uppercase tracking-widest mb-1 block">
+                    Painting
                   </span>
+                  <p className="text-white/90 text-[10px] leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Visual patience.
+                  </p>
                 </div>
               </div>
 
-              {/* 4. CULINARY 1 (1x1) */}
-              <div className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden group border border-slate-200">
-                <Image
-                  src="/images/life/Food1.jpeg"
-                  alt="Culinary Arts"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  sizes="25vw"
-                />
+              {/* 3. Food Stack (Right Vertical) */}
+              <div className="col-span-1 row-span-2 flex flex-col gap-4 min-h-0">
+                {/* Food 1 */}
+                <div className="relative flex-1 rounded-2xl overflow-hidden group border border-slate-200">
+                  <ParallaxImage
+                    src="/images/life/Food1.jpeg"
+                    alt="Culinary Arts"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    containerClassName="w-full h-full"
+                    sizes="25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="font-mono text-xs text-white uppercase tracking-widest">
+                      Cooking
+                    </span>
+                  </div>
+                </div>
+
+                {/* Food 2 */}
+                <div className="relative flex-1 rounded-2xl overflow-hidden group border border-slate-200">
+                  <ParallaxImage
+                    src="/images/life/Food3.jpeg"
+                    alt="Culinary Arts"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    containerClassName="w-full h-full"
+                    sizes="25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="font-mono text-xs text-white uppercase tracking-widest">
+                      Flavor
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              {/* 5. FAMILY (2x1) - The Foundation */}
-              <div className="col-span-2 md:col-span-2 row-span-1 relative rounded-2xl overflow-hidden group border border-slate-200">
-                <Image
+              {/* 4. Family (Bottom - Full Width) */}
+              <div className="col-span-2 row-span-1 relative rounded-2xl overflow-hidden group border border-slate-200">
+                <ParallaxImage
                   src="/images/life/family.jpeg"
                   alt="My Family"
                   fill
                   className="object-cover object-[50%_40%] group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  containerClassName="w-full h-full"
+                  sizes="50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
                 <div className="absolute bottom-4 left-4">
                   <span className="font-mono text-xs text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded border border-white/10">
                     My World
@@ -346,20 +375,117 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* 6. CULINARY 2 (1x1) */}
-              <div className="col-span-1 row-span-1 relative rounded-2xl overflow-hidden group border border-slate-200">
-                <Image
-                  src="/images/life/Food3.jpeg"
-                  alt="Culinary Arts"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  sizes="25vw"
-                />
+            </div>
+
+            {/* RIGHT COLUMN: Poem (Clean, Apple Style) */}
+            <div className="h-full flex flex-col pl-0 lg:pl-12 border-l-0 lg:border-l border-slate-200 min-h-0 overflow-hidden">
+              {/* Header */}
+              <div className="mb-8 md:mb-12">
+                <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest mb-4 block font-bold">
+                  Life Outside the Terminal
+                </span>
+                <h2 className="font-serif text-slate-900 text-3xl md:text-4xl leading-tight mb-6">
+                  Poetry & Precision
+                </h2>
+                <p className="text-slate-600 text-sm leading-relaxed max-w-md">
+                  Parent of two — a 4-year-old boy and 1-year-old girl. Motherhood shapes my discipline, resilience, and systems thinking. I write poetry to master the economy of language.
+                </p>
+              </div>
+
+              {/* Poem Content - Vertical Scroll or Static? User said "Entire bento section wide". "Poem out of bento". "Vertical painting matching height". */}
+              {/* I will make the poem scrollable within this column height to match the bento height */}
+
+              <div className="flex-grow overflow-y-auto no-scrollbar pr-4 pb-12">
+                <div className="space-y-8 text-base md:text-lg font-serif leading-relaxed text-slate-800">
+                  <h4 className="font-medium text-black">Gifts from Life</h4>
+
+                  <div className="space-y-6">
+                    <p>
+                      Opening my eyes to this beautiful world<br />
+                      I see the creator of my life,<br />
+                      Life gave me the gift of mother;<br />
+                      To be loved, nurtured, and cared for,
+                    </p>
+                    <p>
+                      In the struggle to get up after a fall<br />
+                      I see the person who lifts me up,<br />
+                      Life gave me the gift of a father;<br />
+                      To be loved and feel secure,
+                    </p>
+                    <p>
+                      When I’m a blank canvas and lost<br />
+                      I see what helps me build my existence,<br />
+                      Life gave me the gift of a teacher;<br />
+                      To guide me through it’s path,
+                    </p>
+                    <p>
+                      Try to cope with the ups and downs of life<br />
+                      I see the person who’s always with me,<br />
+                      Life gave me the gift of a sister;<br />
+                      To share my happiness and sadness,
+                    </p>
+                    <p>
+                      When love loses its meaning, and I’m fading<br />
+                      I see what helps me to hold on to it,<br />
+                      Life gave me the gift of motherhood;<br />
+                      To teach me the meaning of love,
+                    </p>
+                    <p>
+                      In a world where everyone comes and goes alone<br />
+                      I see what helps me through this forsaken journey,<br />
+                      Life gave me the gift of a husband;<br />
+                      To have someone to belong to,
+                    </p>
+                    <p>
+                      In the moments when I feel nothing is right<br />
+                      I see what brings me comfort,<br />
+                      Life gave me the gift of a friend;<br />
+                      To have a shoulder to cry on,
+                    </p>
+                    <p>
+                      In the midst of all that is happening<br />
+                      I see a smile on my face, trying to push through,<br />
+                      Life gave me the gift of joy;<br />
+                      To enjoy it’s beauty and gifts,
+                    </p>
+                    <p>
+                      When I start becoming scornful<br />
+                      I see what teaches me a lesson,<br />
+                      Life gave me the gift of pain;<br />
+                      To make me grounded and grateful,
+                    </p>
+                    <p>
+                      When I go blind with my fantasies<br />
+                      I see what opens my eyes,<br />
+                      Life gave me the gift of loss;<br />
+                      To enlighten me of the world,
+                    </p>
+                    <p>
+                      When agony and grief overwhelm me<br />
+                      I see what cuts through my bitterness,<br />
+                      Life gave me the gift of love;<br />
+                      To make me kind and benevolent,
+                    </p>
+                    <p>
+                      Where everything and everyone is just temporary<br />
+                      I see what helps me treasure the evanescent,<br />
+                      Life gave me the gift of art;<br />
+                      To be able to express myself.
+                    </p>
+                  </div>
+
+                  <div className="pt-8 border-t border-slate-100 mt-8">
+                    <p className="text-xs italic text-[var(--accent-teal)]">
+                      "If you can’t say it in a poem, you probably haven't simplified the UI enough."
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
-      </MotionSection >
+      </MotionSection>
 
 
 

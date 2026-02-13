@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, AlertCircle } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import TerminalInsight from './TerminalInsight'
 
 interface MLWorkflowMappingProps {
   isLightBackground?: boolean
@@ -132,31 +133,19 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
       </motion.div>
 
       {/* Insight Footer */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-        className="bg-[#1D1D20] rounded-xl overflow-hidden shadow-lg border border-white/10 font-mono"
-      >
-        {/* Terminal Header */}
-        <div className="bg-[#2D2D30] px-4 py-2 flex gap-2 items-center border-b border-white/5">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-          <span className="ml-2 text-[10px] text-slate-500 font-sans">system_insight.log</span>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 text-slate-300 text-sm leading-relaxed font-mono">
+      <div className="w-full">
+        <TerminalInsight
+          title="system_insight.log"
+          insightLabel="Insight:"
+        >
           <div className="flex items-start gap-3">
             <span className="font-mono text-emerald-400 flex-shrink-0 mt-0.5">$</span>
             <p>
-              <strong className="text-emerald-400 font-medium">Insight:</strong> The core problem wasn't the algorithm—it was the <span className="text-white">fragmented workflow</span>. Users didn't know *where* to start or *how* to finish without error.
+              The core problem wasn't the algorithm—it was the <span className="text-white">fragmented workflow</span>. Users didn't know *where* to start or *how* to finish without error.
             </p>
           </div>
-        </div>
-      </motion.div>
+        </TerminalInsight>
+      </div>
     </div>
   )
 }

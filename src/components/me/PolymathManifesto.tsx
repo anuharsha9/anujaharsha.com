@@ -55,7 +55,7 @@ export default function PolymathManifesto() {
                         Realized the gap between &quot;Designing&quot; and &quot;Building&quot; was slowing me down.
                     </p>
                     <p>
-                        Built this portfolio in React/Next.js in weeks by treating AI as my engineering team.
+                        Built this digital brain in React/Next.js in weeks by treating AI as my engineering team.
                         I leverage 13 years of design intuition to direct the code.
                     </p>
                 </>

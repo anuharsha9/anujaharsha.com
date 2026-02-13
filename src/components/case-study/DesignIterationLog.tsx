@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { MousePointer, Workflow, Layout, BarChart3, Sparkles, Terminal } from 'lucide-react'
 import { getTheme } from '@/lib/design-system'
-import AutoSequenceDataViewer from './AutoSequenceDataViewer'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import MacWindowCarousel from '@/components/ui/MacWindowCarousel'
 
 export interface TabImage {
   src: string
@@ -314,13 +314,15 @@ export default function DesignIterationLog({
 
               {/* Viewer Component */}
               <div className="rounded-2xl overflow-hidden shadow-xl bg-white border border-slate-100">
-                <AutoSequenceDataViewer
+                <MacWindowCarousel
                   images={activeTabData.images.map(img => ({
                     src: img.src,
                     alt: img.alt,
                     caption: `// ${img.figNumber}: ${img.caption}`
                   }))}
                   title={activeTabData.title}
+                  autoPlay={true}
+                  className="w-full"
                 />
               </div>
 

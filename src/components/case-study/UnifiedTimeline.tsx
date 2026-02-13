@@ -49,21 +49,21 @@ export default function UnifiedTimeline({
   const accentClasses = {
     teal: {
       tag: 'teal',
-      line: 'from-slate-200 via-slate-200 to-[var(--accent-teal)]',
+      line: 'from-teal-300 via-teal-500 to-teal-400',
       completed: 'bg-emerald-500',
       inProgress: 'bg-amber-400',
       rejected: 'bg-rose-400',
     },
     amber: {
       tag: 'amber',
-      line: 'from-slate-200 via-slate-200 to-amber-400',
+      line: 'from-amber-200 via-amber-400 to-amber-500',
       completed: 'bg-emerald-500',
       inProgress: 'bg-amber-400',
       rejected: 'bg-rose-400',
     },
     violet: {
       tag: 'indigo',
-      line: 'from-slate-200 via-slate-200 to-violet-400',
+      line: 'from-violet-300 via-violet-500 to-violet-400',
       completed: 'bg-emerald-500',
       inProgress: 'bg-violet-500',
       rejected: 'bg-rose-400',
@@ -76,11 +76,11 @@ export default function UnifiedTimeline({
 
   const getStatusDot = (status: string, isCriticalPivot?: boolean) => {
     // Critical Pivot gets a special ring
-    if (isCriticalPivot) return `${accent.inProgress} ring-4 ring-amber-100`
+    if (isCriticalPivot) return `${accent.inProgress} ring-4 ring-amber-100 shadow-[0_0_10px_rgba(251,191,36,0.5)]`
 
     // Standard statuses
-    if (status === 'COMPLETED') return accent.completed
-    if (status === 'IN_PROGRESS') return `${accent.inProgress} ring-4 ring-amber-50`
+    if (status === 'COMPLETED') return `${accent.completed} shadow-[0_0_8px_rgba(16,185,129,0.4)]`
+    if (status === 'IN_PROGRESS') return `${accent.inProgress} ring-4 ring-amber-50 shadow-[0_0_8px_rgba(251,191,36,0.4)]`
     if (status === 'REJECTED') return accent.rejected
     return 'bg-slate-200'
   }
@@ -116,8 +116,8 @@ export default function UnifiedTimeline({
 
         {/* Timeline Container */}
         <div className="relative pl-4 md:pl-0">
-          {/* Vertical Guide Line */}
-          <div className={`absolute left-[7px] md:left-[8px] top-4 bottom-4 w-px bg-gradient-to-b ${accent.line}`}></div>
+          {/* Vertical Guide Line - Lively & Pulsing - Extended */}
+          <div className={`absolute left-[6px] md:left-[6px] -top-24 -bottom-24 w-1 bg-gradient-to-b ${accent.line} animate-pulse rounded-full opacity-80 shadow-[0_0_8px_rgba(0,0,0,0.1)]`}></div>
 
           {/* Phase Nodes */}
           <div className="space-y-12">

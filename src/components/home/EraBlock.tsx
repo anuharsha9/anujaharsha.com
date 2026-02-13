@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Lock, Quote, Linkedin } from 'lucide-react'
@@ -11,7 +11,8 @@ import HeroTerminal from '@/components/case-study/HeroTerminal'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import ImageLightbox from '@/components/case-study/ImageLightbox'
 import { ARCHIVE_GALLERY_DATA } from '@/data/archive-gallery'
-import TransformationShowcase from '@/components/home/TransformationShowcase'
+import TransformationShowcase, { TransformationSlider } from '@/components/home/TransformationShowcase'
+import TerminalInsight from '@/components/case-study/TerminalInsight'
 
 interface EraBlockProps {
     era: CareerEra
@@ -22,6 +23,11 @@ interface EraBlockProps {
 // 1. LEGACY TESTIMONIAL CARD (Restored from TestimonialsWall)
 // ════════════════════════════════════════════════════════════════════
 const LegacyTestimonialCard = ({ review }: { review: Testimonial }) => {
+    // Split by sentence delimiters but keep them
+    const parts = review.quote.split(/([.!?])/);
+    const headline = parts[0] + (parts[1] || "");
+    const body = parts.slice(2).join("").trim();
+
     return (
         <div className="py-8 border-b border-white/10 relative group/testimonial hover:bg-white/5 transition-colors duration-300 rounded-lg px-4 -mx-4">
             {/* Watermark Quote Icon - More subtle in dark mode */}
@@ -32,11 +38,13 @@ const LegacyTestimonialCard = ({ review }: { review: Testimonial }) => {
             {/* Pull Quote / Headline */}
             <div className="relative z-10 mb-6">
                 <h3 className="font-serif text-white text-lg leading-relaxed mb-3">
-                    &ldquo;{review.quote.split('.')[0]}.&rdquo;
+                    &ldquo;{headline}&rdquo;
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 group-hover/testimonial:text-slate-300 transition-colors">
-                    {review.quote}
-                </p>
+                {body && (
+                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 group-hover/testimonial:text-slate-300 transition-colors">
+                        {body}
+                    </p>
+                )}
             </div>
 
             <div className="flex items-center gap-3 relative z-10">
@@ -64,114 +72,9 @@ const LegacyTestimonialCard = ({ review }: { review: Testimonial }) => {
 }
 
 // ════════════════════════════════════════════════════════════════════
-// 2. HERO WORK CARD (Restored from WorkGrid)
-// Used for CSG Era items (ReportCaster, ML Functions, etc.)
-// ════════════════════════════════════════════════════════════════════
-const HeroWorkCard = ({ work }: { work: WorkItem }) => {
-    const isExternal = work.link === '#'
-    const [hovered, setHovered] = React.useState(false)
-
-    return (
-        <React.Fragment>
-            <Link
-                href={work.link}
-                className={`block group/work ${isExternal ? 'cursor-default pointer-events-none' : ''}`}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-            >
-                {/* Media Container - Floating, no card borders */}
-                <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-900/50 shadow-sm group-hover/work:shadow-2xl group-hover/work:shadow-[var(--accent-teal)]/10 transition-all duration-500 border border-white/5 group-hover/work:border-[var(--accent-teal)]/20">
-
-                    {/* VIDEO Support (ReportCaster) */}
-                    {work.video ? (
-                        <video
-                            src={work.video}
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
-                        />
-                    ) : (
-                        /* HeroTerminal fallback for others */
-                        <div className="w-full h-full bg-slate-800/50 pt-6 pl-6">
-                            <div className="w-full h-full transform transition-transform duration-500 group-hover/work:-translate-y-2 group-hover/work:-translate-x-2">
-                                <HeroTerminal
-                                    imageSrc={work.image}
-                                    fileName={work.fileName || 'app.tsx'}
-                                    accentColor={work.accentColor || '#64748b'}
-                                    alt={work.title}
-                                />
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Locked Badge */}
-                    {work.locked && (
-                        <div className="absolute top-4 right-4 z-10">
-                            <div className="bg-black/60 backdrop-blur-md rounded-full p-2 border border-white/10">
-                                <Lock className="w-4 h-4 text-white/70" />
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Content - Below Media (No Card) */}
-                <div className="mt-6 pl-1">
-                    {/* Status Badge - New Addition */}
-                    {work.statusLabel && (
-                        <div className="mb-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest font-mono text-slate-400 group-hover/work:border-[var(--accent-teal)]/30 transition-colors">
-                            <span className={`w-1.5 h-1.5 rounded-full ${work.statusLabel === 'Live' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-amber-500'}`} />
-                            {work.statusLabel}
-                        </div>
-                    )}
-
-                    <div className="flex items-start justify-between">
-                        <div>
-                            <h3 className="font-serif text-2xl text-white group-hover/work:text-[var(--accent-teal)] transition-colors mb-2">
-                                {work.title}
-                            </h3>
-                            {/* Metric - Floating next to title or below */}
-                            {work.metric && (
-                                <div className="inline-flex items-baseline gap-2 mb-3">
-                                    <span className="font-mono text-lg font-bold text-[var(--accent-teal)]">
-                                        <AnimatedCounter value={work.metric} duration={1.2} />
-                                    </span>
-                                    <span className="font-mono text-[10px] text-slate-500 uppercase tracking-wider border-l border-white/10 pl-2">
-                                        {work.metricLabel}
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-
-                        {!isExternal && (
-                            <ArrowRight
-                                className={`w-5 h-5 text-slate-500 group-hover/work:text-[var(--accent-teal)] transition-all duration-300 mt-1 ${hovered ? 'translate-x-1' : ''
-                                    }`}
-                            />
-                        )}
-                    </div>
-
-                    {/* Impact Summary / Executive Summary Line */}
-                    {work.impactDirectional && (
-                        <div className="mt-2 mb-4 pl-3 border-l sm:border-l-2 border-[var(--accent-teal)]/50">
-                            <p className="font-mono text-xs text-slate-300 leading-relaxed">
-                                <span className="text-[var(--accent-teal)] opacity-70 mr-2">► IMPACT:</span>
-                                {work.impactDirectional}
-                            </p>
-                        </div>
-                    )}
-
-
-
-                    <p className="text-slate-400 text-base leading-relaxed max-w-xl group-hover/work:text-slate-300 transition-colors">
-                        {work.description}
-                    </p>
-                </div>
-            </Link>
-        </React.Fragment>
-    )
-}
+// 2. HERO WORK CARD MOVED TO EXTERNAL COMPONENT
+// See: src/components/work/MotionWorkCard.tsx
+import { MotionWorkCard } from '@/components/work/MotionWorkCard'
 
 // ════════════════════════════════════════════════════════════════════
 // 3. ARCHIVE CARD (Restored from CollapsibleWorkArchive)
@@ -238,10 +141,26 @@ const ArchiveWorkCard = ({ work, onOpenLightbox }: { work: WorkItem; onOpenLight
     )
 }
 
+interface EraBlockProps {
+    era: CareerEra
+    index: number
+    isLast?: boolean
+}
 
-export default function EraBlock({ era, index }: EraBlockProps) {
+export default function EraBlock({ era, index, isLast }: EraBlockProps) {
     // Extract Start Year for Watermark
     const startYear = era.period.split('—')[0].trim();
+
+    // Timeline Interaction refs
+    const sectionRef = React.useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"]
+    });
+
+    // Apple-style Micro-animations for Spine (REMOVED - Handled by UnifiedTimelineLayout)
+    // const height = useTransform(scrollYProgress, [0, 0.8], ["0%", isLast ? "9rem" : "110%"]); 
+    // const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
     // Lightbox State
     const [lightboxOpen, setLightboxOpen] = React.useState(false);
@@ -258,7 +177,28 @@ export default function EraBlock({ era, index }: EraBlockProps) {
     };
 
     return (
-        <section className="relative py-24 md:py-32 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 border-b border-dashed border-white/5 last:border-0 group/section">
+        <section ref={sectionRef} className="relative py-24 md:py-32 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:pl-24 md:pr-8 border-b border-dashed border-white/5 last:border-0 group/section">
+
+            {/* ════════════════════════════════════════════════════════════════
+             TIMELINE SPINE (Apple Style)
+            ════════════════════════════════════════════════════════════════ */}
+            {/* ════════════════════════════════════════════════════════════════
+             TIMELINE SPINE (Handled by UnifiedTimelineLayout)
+             Only keeping the Node/Dot here.
+            ════════════════════════════════════════════════════════════════ */}
+            <div className="absolute left-4 md:left-[30px] top-0 bottom-0 w-1 hidden md:block z-0 pointer-events-none">
+                {/* Era Node (Top) */}
+                <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className="absolute top-[8.5rem] -left-[6px] w-4 h-4 rounded-full bg-slate-900 border border-[var(--accent-teal)] shadow-[0_0_10px_rgba(45,212,191,0.6)] z-10 flex items-center justify-center"
+                >
+                    <div className="absolute inset-0 bg-[var(--accent-teal)] rounded-full animate-ping opacity-20" />
+                    <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rounded-full" />
+                </motion.div>
+            </div>
+
             {/* Massive Year Watermark */}
             <div className="absolute top-10 right-0 md:right-20 text-[120px] md:text-[240px] font-bold text-white/[0.02] pointer-events-none select-none z-0 font-mono leading-none tracking-tighter mix-blend-overlay transition-opacity duration-700 group-hover/section:text-white/[0.04]">
                 {startYear}
@@ -271,7 +211,7 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                 {/* ONE MAIN COLUMN for logic simplification, utilizing CSS grid for internal layout if needed */}
                 {/* Actually, let's keep the split logic but cleaner */}
                 {(() => {
-                    const isSidebarLayout = era.testimonials.length > 1;
+                    const isSidebarLayout = era.testimonials.length > 1 && era.id !== 'csg-architect';
 
                     return (
                         <>
@@ -279,46 +219,220 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                             <div className={`${isSidebarLayout ? "lg:col-span-8" : "lg:col-span-12"} ${era.id === 'origin-story' ? "grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start" : ""}`}>
                                 {/* Header */}
                                 <motion.div
-                                    initial={{ opacity: 0, y: 50 }}
+                                    initial={{ opacity: 0, y: 30 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                                     className="mb-16 relative"
                                 >
-                                    <div className="flex items-baseline gap-4 mb-2">
-                                        <div className="h-px w-8 bg-[var(--accent-teal)]/50 hidden md:block" />
-                                        <span className="font-mono text-[var(--accent-teal)] text-sm tracking-widest uppercase">
+                                    {/* Apple Style: Date Badge */}
+                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6 shadow-sm">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] mr-2 animate-pulse" />
+                                        <span className="font-mono text-[var(--accent-teal)] text-[10px] md:text-xs tracking-widest uppercase font-semibold">
                                             {era.period}
                                         </span>
                                     </div>
-                                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
-                                        {era.role} <span className="text-slate-600 block text-2xl md:text-3xl mt-2 italic">@ {era.company}</span>
+
+                                    {/* Apple Style: Clean Sans-Serif Typography */}
+                                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-3 tracking-tight leading-[1.1]">
+                                        {era.role}
                                     </h2>
-                                    <p className="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl border-l-2 border-white/10 pl-6">
+
+                                    <div className="text-xl md:text-2xl text-slate-400 font-light mb-8 flex items-baseline gap-2">
+                                        <span className="text-slate-600 font-normal text-lg">at</span>
+                                        <span className="text-slate-200 font-medium">{era.company}</span>
+                                    </div>
+
+                                    <p className="text-lg md:text-xl text-slate-400/90 leading-relaxed max-w-2xl font-normal">
                                         {era.description}
                                     </p>
                                 </motion.div>
 
                                 {/* Work Items Display */}
                                 {era.workItems.length > 0 && (
-                                    <div className={
-                                        isSidebarLayout
-                                            ? "flex flex-col gap-12 md:gap-20"
-                                            : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
-                                    }>
-                                        {era.workItems.map((work) => (
-                                            era.id === 'agency-startup' || era.id === 'consultant-tech' ? (
-                                                <ArchiveWorkCard key={work.id} work={work} onOpenLightbox={handleOpenLightbox} />
-                                            ) : (
-                                                <HeroWorkCard key={work.id} work={work} />
-                                            )
-                                        ))}
-                                    </div>
+                                    <>
+                                        {era.id === 'csg-architect' ? (
+                                            <div className="flex flex-col gap-12 md:gap-16">
+                                                {/* 1. Flagship: ReportCaster (Full Width) */}
+                                                {era.workItems.filter(w => w.id === 'reportcaster').map((work) => (
+                                                    <React.Fragment key={work.id}>
+                                                        <motion.div
+                                                            className="group/work w-full mb-12"
+                                                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                                            viewport={{ once: true, margin: "-50px" }}
+                                                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                                        >
+                                                            {/* CONTENT (Moved Above Media) */}
+                                                            <div className="mb-6 pl-1">
+                                                                {/* Status Badge */}
+                                                                {work.statusLabel && (
+                                                                    <div className="mb-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest font-mono text-slate-400 group-hover/work:border-[var(--accent-teal)]/30 transition-colors">
+                                                                        <span className={`w-1.5 h-1.5 rounded-full ${work.statusLabel?.includes('Live') ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-amber-500'}`} />
+                                                                        {work.statusLabel}
+                                                                    </div>
+                                                                )}
+
+                                                                <div className="flex items-end justify-between">
+                                                                    <div>
+                                                                        <Link href={work.link} className="block group/title">
+                                                                            <h3 className="font-serif text-3xl md:text-4xl text-white group-hover/title:text-[var(--accent-teal)] transition-colors mb-2 leading-tight">
+                                                                                {work.title}
+                                                                            </h3>
+                                                                        </Link>
+                                                                        {/* Metric */}
+                                                                        {work.metric && (
+                                                                            <div className="inline-flex items-baseline gap-2 mt-1">
+                                                                                <span className="font-sans text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-teal)] to-blue-400">
+                                                                                    <AnimatedCounter value={work.metric} duration={1.2} />
+                                                                                </span>
+                                                                                <span className="font-medium text-sm text-slate-500 tracking-wide">
+                                                                                    {work.metricLabel}
+                                                                                </span>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+
+                                                                    {work.link !== '#' && (
+                                                                        <Link href={work.link} className="mb-2 p-2 rounded-full bg-white/5 border border-white/10 group-hover/work:bg-[var(--accent-teal)]/10 group-hover/work:border-[var(--accent-teal)]/30 transition-all duration-300">
+                                                                            <ArrowRight
+                                                                                className="w-5 h-5 text-slate-400 group-hover/work:text-[var(--accent-teal)] transition-colors duration-300"
+                                                                            />
+                                                                        </Link>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+
+                                                            {/* CUSTOM MEDIA: Transformation Slider */}
+                                                            <div className="relative rounded-xl overflow-hidden bg-slate-900/50 shadow-sm group-hover/work:shadow-2xl group-hover/work:shadow-[var(--accent-teal)]/10 transition-all duration-500 border border-white/5 group-hover/work:border-[var(--accent-teal)]/20">
+                                                                <TransformationSlider />
+
+                                                                {/* Locked Badge (Just in case, though usually unlocked) */}
+                                                                {work.locked && (
+                                                                    <div className="absolute top-4 right-4 z-10">
+                                                                        <div className="bg-black/60 backdrop-blur-md rounded-full p-2 border border-white/10">
+                                                                            <Lock className="w-4 h-4 text-white/70" />
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </motion.div>
+                                                    </React.Fragment>
+                                                ))}
+
+                                                {/* 2. Director's Quote (Dave Pfeiffer) */}
+                                                {era.testimonials.filter(t => t.name.includes('Dave Pfeiffer')).map(review => (
+                                                    <motion.div
+                                                        key={review.id}
+                                                        className="border-y border-dashed border-white/10 py-12"
+                                                        initial={{ opacity: 0, scale: 0.95 }}
+                                                        whileInView={{ opacity: 1, scale: 1 }}
+                                                        viewport={{ once: true, margin: "-50px" }}
+                                                        transition={{ duration: 0.8, delay: 0.2 }}
+                                                    >
+                                                        <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block pl-1">Endorsement</span>
+                                                        <div className="bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group/quote">
+                                                            <Quote className="absolute top-8 right-8 w-12 h-12 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
+                                                            <blockquote className="relative z-10">
+                                                                <p className="font-serif text-2xl md:text-3xl text-slate-200 leading-relaxed mb-6">
+                                                                    &ldquo;{review.quote}&rdquo;
+                                                                </p>
+                                                                <cite className="not-italic flex items-center gap-4">
+                                                                    <div className="flex flex-col">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <span className="text-white font-bold text-lg">{review.name}</span>
+                                                                            {review.linkedInProfile && (
+                                                                                <Link href={review.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                                                    <Linkedin className="w-4 h-4" />
+                                                                                </Link>
+                                                                            )}
+                                                                        </div>
+                                                                        <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-wider">{review.role}, {review.company}</span>
+                                                                    </div>
+                                                                </cite>
+                                                            </blockquote>
+                                                        </div>
+                                                    </motion.div>
+                                                ))}
+
+                                                {/* 3. Secondary: ML & DSML (2 Columns) */}
+                                                <motion.div
+                                                    initial="hidden"
+                                                    whileInView="show"
+                                                    viewport={{ once: true, margin: "-100px" }}
+                                                    variants={{
+                                                        hidden: {},
+                                                        show: {
+                                                            transition: {
+                                                                staggerChildren: 0.2
+                                                            }
+                                                        }
+                                                    }}
+                                                    className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+                                                >
+                                                    {era.workItems.filter(w => w.id === 'ml-functions' || w.id === 'iq-plugin').map(work => (
+                                                        <motion.div
+                                                            key={work.id}
+                                                            variants={{
+                                                                hidden: { opacity: 0, y: 30, scale: 0.95 },
+                                                                show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+                                                            }}
+                                                        >
+                                                            <MotionWorkCard
+                                                                work={work.id === 'iq-plugin' ? { ...work, locked: false } : work}
+                                                            />
+                                                        </motion.div>
+                                                    ))}
+                                                </motion.div>
+                                            </div>
+                                        ) : (
+                                            <motion.div
+                                                initial="hidden"
+                                                whileInView="show"
+                                                viewport={{ once: true, margin: "-100px" }}
+                                                variants={{
+                                                    hidden: {},
+                                                    show: {
+                                                        transition: {
+                                                            staggerChildren: 0.1
+                                                        }
+                                                    }
+                                                }}
+                                                className={
+                                                    isSidebarLayout
+                                                        ? "flex flex-col gap-12 md:gap-20"
+                                                        : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
+                                                }
+                                            >
+                                                {era.workItems.map((work) => (
+                                                    <motion.div
+                                                        key={work.id}
+                                                        variants={{
+                                                            hidden: { opacity: 0, y: 30, scale: 0.95 },
+                                                            show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+                                                        }}
+                                                    >
+                                                        {era.id === 'agency-startup' || era.id === 'consultant-tech' ? (
+                                                            <ArchiveWorkCard work={work} onOpenLightbox={handleOpenLightbox} />
+                                                        ) : (
+                                                            <MotionWorkCard work={work} />
+                                                        )}
+                                                    </motion.div>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </>
                                 )}
 
-                                {/* Single Testimonial (Full Mode Only) */}
-                                {!isSidebarLayout && era.testimonials.length === 1 && (
-                                    <div className="mt-20 border-t border-white/5 pt-12">
+                                {/* Single Testimonial (Full Mode Only - Standard Era) */}
+                                {!isSidebarLayout && era.id !== 'csg-architect' && era.testimonials.length === 1 && (
+                                    <motion.div
+                                        className="mt-20 border-t border-white/5 pt-12"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{ duration: 0.8 }}
+                                    >
                                         <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block">Endorsement</span>
                                         <div className="bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group/quote">
                                             <Quote className="absolute top-8 right-8 w-12 h-12 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
@@ -341,30 +455,31 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                                                 </cite>
                                             </blockquote>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 )}
 
                                 {/* ORIGIN STORY: FOUNDATIONS TERMINAL */}
                                 {era.id === 'origin-story' && era.foundations && (
-                                    <div className="mt-8 lg:mt-0 p-8 border border-white/10 bg-black/40 rounded-sm font-mono text-sm w-full backdrop-blur-sm relative overflow-hidden group/terminal mx-auto lg:mx-0">
-                                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent bg-[length:100%_4px] pointer-events-none" />
-                                        <div className="flex gap-2 mb-6 border-b border-white/10 pb-4 relative z-10">
-                                            <div className="w-3 h-3 rounded-full bg-red-500/20" />
-                                            <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
-                                            <div className="w-3 h-3 rounded-full bg-green-500/20" />
-                                        </div>
-                                        <div className="text-[var(--accent-teal)] mb-6 typing-effect relative z-10">
-                                            &gt; INITIALIZING_CREATIVE_KERNEL...
-                                        </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 gap-y-4 text-slate-400 relative z-10">
-                                            {era.foundations.map((tool, i) => (
-                                                <div key={i} className="flex items-center gap-3">
-                                                    <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rounded-full animate-pulse" style={{ animationDelay: `${i * 200}ms` }} />
-                                                    <span>LOADED_MODULE: <span className="text-white font-bold">{tool}</span></span>
+                                    <div className="mt-8 lg:mt-0 w-full mx-auto lg:mx-0">
+                                        <TerminalInsight
+                                            title="kernel_init.sh"
+                                            className="shadow-2xl"
+                                        >
+                                            <div className="relative z-10">
+                                                <div className="text-[var(--accent-teal)] mb-6 typing-effect">
+                                                    &gt; INITIALIZING_CREATIVE_KERNEL...
                                                 </div>
-                                            ))}
-                                        </div>
-                                        <div className="mt-6 text-[var(--accent-teal)] animate-blink text-lg">_</div>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4 gap-y-4 text-slate-400">
+                                                    {era.foundations.map((tool, i) => (
+                                                        <div key={i} className="flex items-center gap-3">
+                                                            <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rounded-full animate-pulse" style={{ animationDelay: `${i * 200}ms` }} />
+                                                            <span>LOADED_MODULE: <span className="text-white font-bold">{tool}</span></span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className="mt-6 text-[var(--accent-teal)] animate-blink text-lg">_</div>
+                                            </div>
+                                        </TerminalInsight>
                                     </div>
                                 )}
                             </div>
@@ -421,10 +536,33 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                 </div>
             )}
 
-            {/* Transformation Showcase - CSG Era Only (FULL WIDTH) */}
+            {/* CSG: OTHER TESTIMONIALS (Moved to bottom as requested) */}
             {era.id === 'csg-architect' && (
-                <div className="mt-20 mb-20 md:mt-28 md:mb-28 w-full relative z-10 transition-opacity duration-1000">
-                    <TransformationShowcase />
+                <div className="w-full relative z-10 transition-opacity duration-1000">
+                    {/* Filter out Dave Pfeiffer who is already shown above */}
+                    {era.testimonials.filter(t => !t.name.includes('Dave Pfeiffer')).length > 0 && (
+                        <div className="mt-24 pt-12 border-t border-white/5">
+                            <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block pl-1">Team Feedback</span>
+                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                                {era.testimonials.filter(t => !t.name.includes('Dave Pfeiffer')).map((review, idx) => (
+                                    <motion.div
+                                        key={review.id}
+                                        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{
+                                            duration: 0.8,
+                                            delay: idx * 0.1,
+                                            ease: [0.22, 1, 0.36, 1]
+                                        }}
+                                        className="h-full"
+                                    >
+                                        <LegacyTestimonialCard review={review} />
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
 
@@ -436,6 +574,27 @@ export default function EraBlock({ era, index }: EraBlockProps) {
                     <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block pl-1">
                         {era.id === 'origin-story' ? 'Timeline' : 'Life Context'}
                     </span>
+
+                    {/* TERMINATOR: For the last block, put a dot here and block the rest of the spine */}
+                    {isLast && (
+                        <div className="absolute -left-[22px] md:-left-[66px] top-12 pointer-events-none z-30 hidden md:block">
+                            {/* The Terminal Dot - Animated to match others */}
+                            <motion.div
+                                initial={{ scale: 0, opacity: 0 }}
+                                whileInView={{ scale: 1, opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                className="relative w-4 h-4 rounded-full bg-[var(--accent-teal)] shadow-[0_0_12px_var(--accent-teal)]"
+                            >
+                                <div className="absolute inset-0 animate-ping rounded-full bg-[var(--accent-teal)] opacity-50"></div>
+                            </motion.div>
+
+                            {/* The Blocker (Hides spine below dot) */}
+                            {/* Wide enough to cover spine glow, but narrow enough not to cover content */}
+                            {/* Reduced from w-32 to w-12 to avoid covering "BA in Animation" */}
+                            <div className="absolute top-3 -left-4 w-12 h-[500px] bg-[#020617]" />
+                        </div>
+                    )}
 
                     <div className="flex flex-col md:flex-row gap-8 md:gap-16 md:overflow-x-auto pt-6 pb-8 md:-mx-8 md:px-8 md:scrollbar-hide md:mask-linear-fade">
                         {era.milestones.map((milestone, idx) => {

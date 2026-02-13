@@ -38,8 +38,7 @@ import LoadingSpinner from '@/components/ui/LoadingSpinner'
 import { ProjectSnapshot } from './ProjectSnapshot'
 import { ChallengeDeconstruction } from './ChallengeDeconstruction'
 import { SuccessCriteria } from './SuccessCriteria'
-import { KeyDecisions } from './KeyDecisions'
-import { ResearchDecisionMap } from './ResearchDecisionMap'
+
 import { CompetitiveResponse } from './CompetitiveResponse'
 import { DirectionalImpact } from './DirectionalImpact'
 import { NotShipped } from './NotShipped'
@@ -76,10 +75,7 @@ const SystemMappingBreakdown = dynamic(() => import('./SystemMappingBreakdown'),
   loading: () => <LoadingSpinner />
 })
 // LearningAndTransformation removed - redundant with EvolutionSplit
-const NavigateForwardContent = dynamic(() => import('./NavigateForwardContent'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+const NavigateForwardContent = dynamic(() => import('./NavigateForwardContent'), { ssr: false, loading: () => <LoadingSpinner /> })
 const VersionIteration = dynamic(() => import('./VersionIteration'), {
   ssr: false,
   loading: () => <LoadingSpinner />
@@ -111,6 +107,10 @@ const TeamCollaboration = dynamic(() => import('./TeamCollaboration'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
+const CaseStudyReflection = dynamic(() => import('./CaseStudyReflection'), {
+  ssr: false,
+  loading: () => <LoadingSpinner />
+})
 
 // ML Functions specific components
 const PatternConnections = dynamic(() => import('./PatternConnections'), {
@@ -134,7 +134,11 @@ const MLWorkflowMapping = dynamic(() => import('./MLWorkflowMapping'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
-const ThreeCriticalPivots = dynamic(() => import('./ThreeCriticalPivots'), {
+const KeyDecisions = dynamic(() => import('./KeyDecisions'), {
+  ssr: false,
+  loading: () => <LoadingSpinner />
+})
+const ResearchDecisionMap = dynamic(() => import('./ResearchDecisionMap').then(mod => mod.ResearchDecisionMap), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
@@ -174,14 +178,8 @@ const MLRecommendations = dynamic(() => import('./MLRecommendations'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
-const MLReflection = dynamic(() => import('./MLReflection'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQReflection = dynamic(() => import('./IQReflection'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+
+
 const IQPersonaCards = dynamic(() => import('./IQPersonaCards'), {
   ssr: false,
   loading: () => <LoadingSpinner />
@@ -214,7 +212,7 @@ const IQArchitectureBlueprint = dynamic(() => import('./IQArchitectureBlueprint'
   ssr: false,
   loading: () => <LoadingSpinner />
 })
-const IQNLQInsightsShowcase = dynamic(() => import('./IQNLQInsightsShowcase'), {
+const IQWorkflowsAndFoundation = dynamic(() => import('./IQWorkflowsAndFoundation'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
@@ -238,10 +236,17 @@ const IQEvolution = dynamic(() => import('./IQEvolution'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
-const IQWorkflowsBuilt = dynamic(() => import('./IQWorkflowsBuilt'), {
+
+const IQBuildingSystem = dynamic(() => import('./IQBuildingSystem'), {
   ssr: false,
   loading: () => <LoadingSpinner />
 })
+
+const IQIdeaLab = dynamic(() => import('./IQIdeaLab'), {
+  ssr: false,
+  loading: () => <LoadingSpinner />
+})
+
 const IQPatternConnections = dynamic(() => import('./IQPatternConnections'), {
   ssr: false,
   loading: () => <LoadingSpinner />
@@ -334,82 +339,9 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
     }
   }, [pathname, data.slug])
 
-  // Handle redirect to prototype if needed
-  // Create enhanced presentation slides by injecting deep-dive components
-  const enhancedSlides = useMemo(() => {
-    if (!data.presentation?.slides) return []
-
-    // Type checking for safety
-    const baseSlides = data.presentation.slides as Slide[]
-    const newSlides = [...baseSlides]
-
-    // Helper to insert after a specific slide type
-    const insertAfter = (targetType: string, component: React.ReactNode, title: string) => {
-      // Find index of the LAST occurrence of the target type to append after
-      let index = -1
-      for (let i = newSlides.length - 1; i >= 0; i--) {
-        if (newSlides[i].type === targetType) {
-          index = i;
-          break;
-        }
-      }
-
-      if (index !== -1) {
-        newSlides.splice(index + 1, 0, {
-          type: 'component',
-          title,
-          content: [],
-          component: (
-            <div className="bg-white text-slate-900 rounded-xl p-8 md:p-12 overflow-y-auto max-h-[80vh] w-full max-w-7xl mx-auto shadow-2xl relative isolate filter drop-shadow-2xl">
-              {component}
-            </div>
-          )
-        } as Slide)
-      } else {
-        newSlides.push({
-          type: 'component',
-          title,
-          content: [],
-          component: (
-            <div className="bg-white text-slate-900 rounded-xl p-8 md:p-12 overflow-y-auto max-h-[80vh] w-full max-w-7xl mx-auto shadow-2xl relative isolate filter drop-shadow-2xl">
-              {component}
-            </div>
-          )
-        } as Slide)
-      }
-    }
-
-    // A - Problem Analysis
-    if (data.challengeDeconstruction) {
-      insertAfter('problem', <ChallengeDeconstruction data={data.challengeDeconstruction} />, 'Challenge Deconstruction')
-    }
-    if (data.successCriteria) {
-      insertAfter('problem', <SuccessCriteria data={data.successCriteria} />, 'Success Criteria')
-    }
-
-    // B - Strategic Decisions
-    if (data.keyDecisions) {
-      insertAfter('decision', <KeyDecisions data={data.keyDecisions} />, 'Key Strategic Decisions')
-    }
-
-    if (data.researchDecisionMap) {
-      insertAfter('research', <ResearchDecisionMap data={data.researchDecisionMap} />, 'Research Decision Map')
-    }
-
-    // C - Execution & Market
-    if (data.competitiveResponse) {
-      insertAfter('execution', <CompetitiveResponse data={data.competitiveResponse} />, 'Competitive Response')
-    }
-
-    // D - Impact & Lessons
-    if (data.notShipped) {
-      insertAfter('impact', <NotShipped data={data.notShipped} />, 'What Did Not Ship')
-    }
-    if (data.businessImpactDirectional) {
-      insertAfter('impact', <DirectionalImpact data={data.businessImpactDirectional} />, 'Directional Impact')
-    }
-
-    return newSlides
+  // Use standard presentation slides without injected deep-dive components
+  const presentationSlides = useMemo(() => {
+    return (data.presentation?.slides || []) as Slide[]
   }, [data])
 
   useEffect(() => {
@@ -496,16 +428,13 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
       {/* Presentation Mode Overlay */}
       {viewMode === 'presentation' && data.presentation && (
         <PresentationFlow
-          slides={enhancedSlides}
+          slides={presentationSlides}
           bonusSlides={data.bonusSlides}
           onExit={() => setViewMode('full')}
         />
       )}
 
-      {/* Floating Toggle (only visible when unlocked) */}
-      {(showPasswordContent || !data.passwordGate) && (
-        <PresentationToggle mode={viewMode} setMode={setViewMode} />
-      )}
+
 
       {/* Table of Contents - Sticky Navigation */}
       {/* Section Navigation - shows on all case study pages (Full Mode Only) */}
@@ -708,6 +637,8 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           publicDemoUrl={data.quickOverview.publicDemoUrl}
           publicDemoLabel={data.quickOverview.publicDemoLabel}
           shareUrl={`${typeof window !== 'undefined' ? window.location.origin : ''}/work/${data.slug}`}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
         />
       )
       }
@@ -1187,10 +1118,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <IQBusinessCase isLightBackground={true} />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                <IQWorkflowsBuilt isLightBackground={true} />
-                              </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <IQNLQInsightsShowcase isLightBackground={true} />
+                                <IQWorkflowsAndFoundation isLightBackground={true} />
                               </div>
                             </>
                           )}
@@ -1282,10 +1210,10 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <LockedContent
                                   password={data.passwordGate?.password || 'anu-access'}
                                   caseStudySlug={data.slug}
-                                  unlockMessage="Password required to view design pivot details"
+                                  unlockMessage="Password required to view architectural decisions"
                                   isLightBackground={true}
                                 >
-                                  <ThreeCriticalPivots isLightBackground={true} />
+                                  {data.keyDecisions && <KeyDecisions data={data.keyDecisions} />}
                                 </LockedContent>
                               </div>
                               {data.uxPrinciples && (
@@ -1305,25 +1233,15 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                           {section.id === 'section-03' && data.slug === 'iq-plugin' && (
                             <>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                <ProcessArtifactViewer
-                                  artifacts={iqArtifacts}
-                                  title="The Idea Lab"
-                                  description="3 products in 1 plugin. From napkin sketches to high-fidelity wireframes, mapping out how Natural Language, Insights, and Analysis would coexist."
-                                />
+                                <IQIdeaLab isLightBackground={true} />
+                              </div>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                <IQBuildingSystem isLightBackground={true} />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <IQPluginArchitecture isLightBackground={true} />
                               </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <LockedContent
-                                  password={data.passwordGate?.password || 'anu-access'}
-                                  caseStudySlug={data.slug}
-                                  unlockMessage="Password required to view architecture blueprint"
-                                  isLightBackground={true}
-                                >
-                                  <IQArchitectureBlueprint isLightBackground={true} />
-                                </LockedContent>
-                              </div>
+
                               {data.uxPrinciples && (
                                 <div className="mt-12 pt-12 border-t border-slate-100">
                                   <UXPrinciples
@@ -1446,13 +1364,14 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                           {section.id === 'section-06' && data.slug === 'reportcaster' && (
                             <>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                <div className="text-center mb-8">
-                                  <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase block mb-2">
-                                    {'// VISUAL_DIFF'}
-                                  </span>
-                                  <h4 className="font-serif text-slate-900 text-xl md:text-2xl">
-                                    Side-by-Side Comparison
-                                  </h4>
+                                <div className="mb-8">
+                                  <ComponentHeading
+                                    variant="block"
+                                    align="center"
+                                    tag="VISUAL_DIFF"
+                                    title="Side-by-Side Comparison"
+                                    color="teal"
+                                  />
                                 </div>
                                 <ImpactDiff
                                   beforeImage="/images/case-study/ReportCaster/Before.png"
@@ -1463,7 +1382,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                <NavigateForwardContent isLightBackground={true} />
+                                <NavigateForwardContent isLightBackground={true} reflection={data.reflection} />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <PatternConnections isLightBackground={true} />
@@ -1506,7 +1425,10 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <MLImpactMetrics isLightBackground={true} />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                <MLReflection isLightBackground={true} />
+                                {data.researchDecisionMap && <ResearchDecisionMap data={data.researchDecisionMap} />}
+                              </div>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={true} />}
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <MLPatternConnections isLightBackground={true} />
@@ -1531,7 +1453,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <IQValidationSources isLightBackground={true} />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
-                                <IQReflection isLightBackground={true} />
+                                {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={true} />}
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <IQPatternConnections isLightBackground={true} />

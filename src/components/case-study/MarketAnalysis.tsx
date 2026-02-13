@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Check, X } from 'lucide-react'
+import ComponentHeading from '@/components/ui/ComponentHeading'
 
 // Types for different display modes
 interface Competitor {
@@ -117,27 +118,15 @@ export default function MarketAnalysis({
   return (
     <div className="space-y-12 py-8">
       {/* Header - Minimal & Clean */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="space-y-4 text-center max-w-3xl mx-auto"
-      >
-        <div className="flex items-center justify-center gap-3">
-          <span className={`text-[10px] uppercase tracking-[0.2em] font-bold ${accent.tag}`}>
-            {sectionTag}
-          </span>
-        </div>
-        <h3 className="text-slate-900 text-3xl md:text-4xl font-light tracking-tight leading-tight">
-          {title}
-        </h3>
-        {subtitle && (
-          <p className="text-slate-600 text-lg font-light leading-relaxed">
-            {subtitle}
-          </p>
-        )}
-      </motion.div>
+      <ComponentHeading
+        variant="block"
+        align="center"
+        tag={sectionTag}
+        title={title}
+        description={subtitle}
+        color={accentColor}
+        className="max-w-3xl mx-auto"
+      />
 
       {/* Content - Cards or Matrix */}
       {displayMode === 'cards' ? (
@@ -320,7 +309,7 @@ export default function MarketAnalysis({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 text-center max-w-2xl mx-auto space-y-4"
+          className="mt-12 text-center max-w-4xl mx-auto space-y-4"
         >
           <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${accent.bgLight} border ${accent.borderLight}`}>
             <span className={`text-[10px] font-bold uppercase tracking-widest ${accent.textAccent}`}>

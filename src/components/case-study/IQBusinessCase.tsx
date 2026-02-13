@@ -3,31 +3,41 @@
 import { motion } from 'framer-motion'
 import { getTheme } from '@/lib/design-system'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import { ArrowRight, X } from 'lucide-react'
 
 interface IQBusinessCaseProps {
   isLightBackground?: boolean
 }
 
 export default function IQBusinessCase({ isLightBackground = false }: IQBusinessCaseProps) {
-  const t = getTheme(true) // Force light background
+  const t = getTheme(true)
 
   const businessDrivers = [
     {
-      tag: 'DRIVER_01: COMPETITIVE_PRESSURE',
+      tag: 'COMPETITIVE_PRESSURE',
       body: 'The BI market is moving fast toward AI/ML. WebFOCUS needed DSML as a first-class feature, not a hidden capability buried in menus.',
+      color: 'text-indigo-600',
+      bg: 'bg-indigo-50',
+      border: 'border-indigo-100'
     },
     {
-      tag: 'DRIVER_02: HUB_ADOPTION',
+      tag: 'HUB_ADOPTION',
       body: 'Users weren\'t living in the Hub. IQ Plugin gives them a reason to—a single destination for all data science workflows.',
+      color: 'text-violet-600',
+      bg: 'bg-violet-50',
+      border: 'border-violet-100'
     },
     {
-      tag: 'DRIVER_03: DSML_DISCOVERABILITY',
+      tag: 'DSML_DISCOVERABILITY',
       body: 'NLQ, Insights, and ML existed but adoption was low. Users didn\'t know they were there. One-click access changes that.',
+      color: 'text-fuchsia-600',
+      bg: 'bg-fuchsia-50',
+      border: 'border-fuchsia-100'
     },
   ]
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       {/* Header */}
       <ComponentHeading
         variant="block"
@@ -39,98 +49,96 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
         className="mb-12"
       />
 
-      {/* The Split-Screen Visual */}
+      {/* The Split-Screen Visual - Clean Rounded Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-slate-200 overflow-hidden"
+        className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col md:flex-row"
       >
         {/* Left Pane - The Problem */}
-        <div className="bg-slate-50 p-6 md:p-8 border-b md:border-b-0 md:border-r border-slate-200">
-          <div className="space-y-5">
-            <span className="font-mono text-[10px] text-red-500 uppercase tracking-widest">
-              {'// THE_PROBLEM'}
+        <div className="flex-1 p-8 md:p-12 border-b md:border-b-0 md:border-r border-slate-100 relative group">
+          {/* Decorative Red Line/Glow */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-rose-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          <div className="space-y-6">
+            <span className="font-mono text-[10px] text-red-500 uppercase tracking-widest bg-red-50 px-2 py-1 rounded-md inline-block">
+              // THE_PROBLEM
             </span>
-            <h4 className="text-slate-900 text-xl font-serif font-semibold">
-              Scattered & Hidden
-            </h4>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              DSML capabilities existed but lived in <span className="font-semibold text-slate-900">different places</span> with different interaction patterns.
-            </p>
+            <div className="space-y-2">
+              <h4 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
+                Scattered & Hidden
+              </h4>
+              <p className="text-slate-500 text-sm leading-relaxed">
+                DSML capabilities existed but lived in <span className="font-medium text-slate-900">different places</span> with different patterns.
+              </p>
+            </div>
 
             {/* Problem List */}
-            <div className="space-y-3 pt-4 border-t border-slate-200">
-              <div className="flex items-start gap-2">
-                <span className="text-red-400 text-sm mt-0.5">×</span>
-                <p className="text-slate-600 text-sm">NLQ & Insights buried in Plus menu (2+ clicks)</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-red-400 text-sm mt-0.5">×</span>
-                <p className="text-slate-600 text-sm">ML Functions in separate Reporting Server context</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-red-400 text-sm mt-0.5">×</span>
-                <p className="text-slate-600 text-sm">No unified data selection across features</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-red-400 text-sm mt-0.5">×</span>
-                <p className="text-slate-600 text-sm">Users didn&apos;t know these capabilities existed</p>
-              </div>
+            <div className="space-y-4 pt-2">
+              {[
+                "NLQ & Insights buried in Plus menu (2+ clicks)",
+                "ML Functions in separate Reporting Server context",
+                "No unified data selection across features",
+                "Users didn't know these capabilities existed"
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 group/item">
+                  <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-red-100 transition-colors">
+                    <X className="w-3 h-3 text-red-500" />
+                  </div>
+                  <p className="text-slate-600 text-sm">{item}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         {/* Right Pane - The Solution */}
-        <div className="bg-white p-6 md:p-8">
-          <div className="space-y-5">
-            <span className="font-mono text-[10px] text-emerald-600 uppercase tracking-widest">
-              {'// THE_SOLUTION'}
+        <div className="flex-1 p-8 md:p-12 bg-white relative group">
+          {/* Decorative Green Line/Glow */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          <div className="space-y-6">
+            <span className="font-mono text-[10px] text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded-md inline-block">
+              // THE_SOLUTION
             </span>
-            <h4 className="text-slate-900 text-xl font-serif font-semibold">
-              Unified IQ Hub
-            </h4>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              One destination for all DSML. <span className="font-semibold text-slate-900">One click</span> from the Hub homepage.
-            </p>
+            <div className="space-y-2">
+              <h4 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
+                Unified IQ Hub
+              </h4>
+              <p className="text-slate-500 text-sm leading-relaxed">
+                One destination for all DSML. <span className="font-medium text-slate-900">One click</span> from the Hub homepage.
+              </p>
+            </div>
 
             {/* Solution List */}
-            <div className="space-y-3 pt-4 border-t border-slate-200">
-              <div className="flex items-start gap-2">
-                <span className="text-emerald-500 text-sm mt-0.5">→</span>
-                <p className="text-slate-600 text-sm">NLQ, Insights, and Predict Data in one place</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-emerald-500 text-sm mt-0.5">→</span>
-                <p className="text-slate-600 text-sm">Unified dataset selection across all features</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-emerald-500 text-sm mt-0.5">→</span>
-                <p className="text-slate-600 text-sm">Built-in tutorials, documentation, video guides</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-emerald-500 text-sm mt-0.5">→</span>
-                <p className="text-slate-600 text-sm">Consistent patterns: learn one, know them all</p>
-              </div>
+            <div className="space-y-4 pt-2">
+              {[
+                "NLQ, Insights, and Predict Data in one place",
+                "Unified dataset selection across all features",
+                "Built-in tutorials, documentation, video guides",
+                "Consistent patterns: learn one, know them all"
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 group/item">
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-100 transition-colors">
+                    <ArrowRight className="w-3 h-3 text-emerald-500" />
+                  </div>
+                  <p className="text-slate-600 text-sm">{item}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </motion.div>
 
       {/* Business Drivers Grid */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="space-y-4"
-      >
-        <span className="font-mono text-xs text-slate-400 uppercase tracking-widest block text-center">
-          {'// BUSINESS_DRIVERS'}
+      <div className="space-y-6">
+        <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest block text-center">
+          // BUSINESS_DRIVERS
         </span>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {businessDrivers.map((driver, i) => (
             <motion.div
               key={i}
@@ -138,36 +146,42 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-              className="bg-white border border-slate-200 p-6 hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
-              <span className="font-mono text-[10px] text-[var(--accent-violet)] uppercase tracking-widest block mb-3">
-                &gt; {driver.tag}
-              </span>
+              <div className={`inline-block px-2 py-1 rounded mb-4 ${driver.bg}`}>
+                <span className={`font-mono text-[10px] uppercase tracking-widest ${driver.color}`}>
+                  &gt; {driver.tag}
+                </span>
+              </div>
               <p className="text-slate-600 text-sm leading-relaxed">
                 {driver.body}
               </p>
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Outcome Footer */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.98 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        className="bg-slate-900 p-6"
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="bg-[#1D1D20] rounded-2xl p-8 shadow-2xl relative overflow-hidden"
       >
-        <div className="flex items-start gap-3">
-          <span className="font-mono text-sm text-[var(--accent-violet)] flex-shrink-0">
+        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-violet-500" />
+        <div className="flex flex-col md:flex-row items-start gap-4 relative z-10">
+          <span className="font-mono text-xs text-indigo-400 flex-shrink-0 mt-1 uppercase tracking-widest">
             &gt; STRATEGIC_OUTCOME:
           </span>
-          <p className="text-slate-300 text-sm leading-relaxed">
-            Three features unified. One-click discoverability. <span className="text-[var(--accent-violet)] font-medium">A DSML hub</span> that
+          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-3xl">
+            Three features unified. One-click discoverability. <span className="text-white font-medium">A DSML hub</span> that
             positions WebFOCUS competitively in the AI-driven BI market. NLQ & Insights shipping now. ML Functions in 2026. IQ Plugin brings it all together in 2027.
           </p>
         </div>
+        {/* Subtle grid pattern background */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
       </motion.div>
     </div>
   )

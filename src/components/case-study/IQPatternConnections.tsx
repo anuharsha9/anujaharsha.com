@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import ComponentHeading from '@/components/ui/ComponentHeading'
+import TerminalInsight from './TerminalInsight'
 
 interface IQPatternConnectionsProps {
   isLightBackground?: boolean
@@ -142,23 +144,15 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
       <div className="space-y-12">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-3"
-        >
-          <span className="font-mono text-[var(--accent-violet)] text-xs tracking-widest uppercase">
-            {'// PATTERN_LIBRARY'}
-          </span>
-          <h3 className="text-slate-900 text-2xl md:text-3xl font-serif">
-            Patterns That Became Reusable
-          </h3>
-          <p className="text-slate-500 text-base md:text-lg max-w-2xl mx-auto">
-            Architectural patterns that brought NLQ, Insights, and ML under one roof.
-          </p>
-        </motion.div>
+        {/* Header */}
+        <ComponentHeading
+          tag="// PATTERN_LIBRARY"
+          title="Patterns That Became Reusable"
+          description="Architectural patterns that brought NLQ, Insights, and ML under one roof."
+          color="slate"
+          align="center"
+          className="mb-12"
+        />
 
         {/* Pattern Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -168,27 +162,18 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
         </div>
 
         {/* System Efficiency Footer - Terminal Style */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-[#1D1D20] p-6 rounded-xl shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
-        >
-          {/* Terminal Header */}
-          <div className="flex gap-2 mb-4 opacity-50">
-            <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-            <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-            <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-          </div>
-
-          <div className="text-sm">
-            <span className="text-purple-400">&gt; SYSTEM_EFFICIENCY:</span>
-            <p className="text-slate-300 mt-2 leading-relaxed font-sans">
-              The IQ Plugin isn&apos;t just a feature — it&apos;s the foundation for how WebFOCUS approaches DSML capabilities. One hub, three engines, infinite possibilities.
-            </p>
-          </div>
-        </motion.div>
+        <div className="w-full">
+          <TerminalInsight
+            title="system_efficiency.log"
+          >
+            <div className="text-sm">
+              <span className="text-purple-400 font-bold">&gt; SYSTEM_EFFICIENCY:</span>
+              <p className="text-slate-300 mt-2 leading-relaxed font-sans">
+                The IQ Plugin isn&apos;t just a feature — it&apos;s the foundation for how WebFOCUS approaches DSML capabilities. One hub, three engines, infinite possibilities.
+              </p>
+            </div>
+          </TerminalInsight>
+        </div>
       </div>
     </div>
   )

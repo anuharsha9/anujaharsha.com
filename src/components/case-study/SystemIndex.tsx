@@ -71,9 +71,9 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
           <ComponentHeading
             tag="// SYSTEM_INDEX"
             title="Explore Other Architectures"
-            color="text-slate-500"
+            color="slate"
             align="center"
-            className="mb-0 [&_h3]:text-white [&_p]:text-slate-400"
+            className="mb-0 [&_h2]:text-white [&_p]:text-slate-400 [&_span]:text-slate-500"
           />
         </div>
 

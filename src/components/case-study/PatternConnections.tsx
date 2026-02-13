@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import TerminalInsight from './TerminalInsight'
 
 interface PatternConnectionsProps {
   isLightBackground?: boolean
@@ -173,27 +174,18 @@ export default function PatternConnections({ isLightBackground = true }: Pattern
       </div>
 
       {/* System Efficiency Footer - Terminal Style */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="bg-[#1D1D20] p-6 rounded-xl shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
-      >
-        {/* Terminal Header */}
-        <div className="flex gap-2 mb-4 opacity-50">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-        </div>
-
-        <div className="text-sm">
-          <span className="text-emerald-400">&gt; SYSTEM_EFFICIENCY:</span>
-          <p className="text-slate-300 mt-2 leading-relaxed font-sans">
-            These weren&apos;t just one-off solutions — they became reusable patterns for handling enterprise complexity across multiple products. Design once, deploy everywhere.
-          </p>
-        </div>
-      </motion.div>
+      <div className="w-full">
+        <TerminalInsight
+          title="system_efficiency.log"
+          insightLabel="SYSTEM_EFFICIENCY"
+        >
+          <div className="text-sm">
+            <p className="text-slate-300 mt-2 leading-relaxed font-sans">
+              These weren&apos;t just one-off solutions — they became reusable patterns for handling enterprise complexity across multiple products. Design once, deploy everywhere.
+            </p>
+          </div>
+        </TerminalInsight>
+      </div>
     </div>
   )
 }

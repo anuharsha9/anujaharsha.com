@@ -55,7 +55,7 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
         id: 'founder', label: 'Founder/Builder', val: 'founder', emoji: '🏗️',
         reveal: {
           title: "0-to-1 Builder",
-          content: "I don't just design Mocks; I ship. I built this entire portfolio using AI agents in under 2 weeks."
+          content: "I don't just design Mocks; I ship. I built this entire digital brain using AI agents in under 2 weeks."
         }
       },
       {
@@ -140,7 +140,7 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'q4',
     statement: "The secret weapon.",
-    question: "How was this portfolio built?",
+    question: "How was this digital brain built?",
     activeGear: 'gear-life',
     options: [
       {
@@ -282,6 +282,11 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   }, [forceQuiz])
 
   const startQuiz = useCallback(() => {
+    // Scroll to top immediately to ensure quiz is visible before locking scroll
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+
     // Reset state for fresh run
     setCurrentQuestionIndex(0)
     setLitGears([QUIZ_QUESTIONS[0].activeGear])
@@ -381,9 +386,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     })
 
     // For the last question, we want a smoother, faster transition to the hero
-    // No need to show the reveal card for long
+    // No need to show the reveal card for long, but enough to read (bumped from 600ms)
+    // Standard questions increased to 5000ms as requested
     const isLastQuestion = currentQuestionIndex === QUIZ_QUESTIONS.length - 1
-    const delay = isLastQuestion ? 600 : 3000
+    const delay = isLastQuestion ? 2000 : 5000
 
     setShowReveal(true)
     if (autoAdvanceTimeoutRef.current) clearTimeout(autoAdvanceTimeoutRef.current)
@@ -1090,11 +1096,11 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                       <p className={`text-slate-400 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed`}>
                         <span className="hidden lg:block">
                           Hover &amp; click on the rotating gears<br />
-                          <span className="text-slate-500">to explore my portfolio</span>
+                          <span className="text-slate-500">to explore my mind</span>
                         </span>
                         <span className="lg:hidden">
                           Tap on the rotating gears<br />
-                          <span className="text-slate-500">to explore my portfolio</span>
+                          <span className="text-slate-500">to explore my mind</span>
                         </span>
                       </p>
                     </div>
@@ -1191,26 +1197,77 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
             {/* Text Content - Below Gears */}
             <motion.div
-              className={`flex flex-col items-center text-center space-y-4 sm:space-y-5 mt-8 sm:mt-12 lg:mt-12 px-4`}
+              className={`flex flex-col items-center text-center space-y-4 sm:space-y-5 mt-space-12 sm:mt-space-16 lg:mt-space-20 px-4`}
               initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
-              animate={isAppReady && quizState === 'complete' ? { clipPath: 'inset(0 0% 0 0)', opacity: 1 } : { clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
+              animate={isAppReady ? { clipPath: 'inset(0 0% 0 0)', opacity: 1 } : { clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
               transition={{ duration: 2.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
+              {/* Subtext - Job Title / Experience */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-accent-teal font-mono text-sm xs:text-base sm:text-lg tracking-wider font-medium mb-0"
+              >
+                Senior Product Designer · 13+ Years Experience · AI-Adept Prototyper · Enterprise UX
+              </motion.div>
+
               {/* Main Headline */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight w-full max-w-7xl mx-auto">
-                Architecting Enterprise UX through
-                <span className="relative inline-block ml-2 md:ml-3">
-                  <span className="absolute -inset-1 bg-gradient-to-r from-accent-teal/20 to-cyan-500/20 blur-lg opacity-50"></span>
-                  <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-accent-teal via-cyan-400 to-white">
-                    ambiguity.
-                  </span>
+              {/* Main Headline */}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight w-full max-w-7xl mx-auto font-sans !mt-space-2">
+                <span className="block mb-2">
+                  {"I design so users never have to wonder".split('').map((char, i) => (
+                    <motion.span
+                      key={`h1-Line1-${i}`}
+                      initial={{ opacity: 0 }}
+                      animate={isAppReady ? { opacity: 1 } : { opacity: 0 }}
+                      transition={{ duration: 0, delay: 0.5 + i * 0.06 }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+                <span className="inline-block bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white bg-clip-text text-transparent pb-1">
+                  {"\"how do I use this?\"".split('').map((char, i) => (
+                    <motion.span
+                      key={`h1-Line2-${i}`}
+                      initial={{ opacity: 0 }}
+                      animate={isAppReady ? { opacity: 1 } : { opacity: 0 }}
+                      transition={{ duration: 0, delay: 0.5 + (38 + i) * 0.06 }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
                 </span>
               </h1>
 
-              {/* Professional Title */}
-              <p className="text-accent-teal font-mono text-xs xs:text-sm sm:text-base md:text-lg tracking-wide leading-relaxed md:whitespace-nowrap">
-                Senior Product Designer · 13+ Years Experience · Design Engineer
-              </p>
+              {/* CTA Buttons - Moved here from bottom bar */}
+              <div className="flex flex-row gap-4 mt-8 sm:mt-10 justify-center w-full flex-wrap">
+                <a
+                  href="#work-overview"
+                  className="group inline-flex items-center justify-center gap-2 px-6 py-2 rounded-full bg-white/90 hover:bg-white text-black text-sm sm:text-base font-light transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap backdrop-blur-sm"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const section = document.getElementById('work-overview')
+                    if (section) {
+                      section.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }}
+                >
+                  <span>See Work</span>
+                  <svg aria-hidden="true" className="w-4 h-4 transition-transform group-hover:translate-x-0.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </a>
+
+                <button
+                  onClick={startQuiz}
+                  className="group inline-flex items-center justify-center gap-2 px-6 py-2 rounded-full border border-white/10 hover:border-white/20 text-white/90 hover:text-white text-sm sm:text-base font-light bg-white/5 hover:bg-white/10 transition-all duration-300 whitespace-nowrap backdrop-blur-sm"
+                >
+                  <Brain className="w-4 h-4 opacity-70 group-hover:scale-110 transition-transform" />
+                  <span>Take a quiz to know more about me</span>
+                </button>
+              </div>
 
 
 
@@ -1221,84 +1278,55 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         </div>
 
         <motion.div
-          className="w-full border-t border-white/10 bg-[#020617]/80 backdrop-blur-md z-20 relative mt-auto"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
+          className="w-full relative mt-space-16 sm:mt-space-24 z-20 pb-space-8 sm:pb-space-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
         >
-          {/* Scroll Indicator Removed to prevent overlap with CTAs */}
+          <div className="max-w-6xl mx-auto w-full px-space-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-space-8 md:gap-y-0 divide-white/10 md:divide-x">
 
-          <div className="max-w-7xl mx-auto w-full">
-            <div className="grid grid-cols-2 lg:grid-cols-5 divide-x-0 lg:divide-x divide-white/10">
               {/* Stat 1 */}
-              <div className="flex flex-col items-center justify-center py-6 px-4 group hover:bg-white/[0.02] transition-colors border-r border-b lg:border-0 border-white/10">
-                <div className="text-accent-teal font-mono text-lg sm:text-xl lg:text-2xl font-bold tracking-tight mb-1.5">
+              <div className="flex flex-col items-center justify-center px-space-4 group">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
                   <Counter value={50} isReady={isAppReady} />+
                 </div>
-                <div className="text-slate-400 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] text-center font-bold">
+                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
                   Projects Shipped
                 </div>
               </div>
 
               {/* Stat 2 */}
-              <div className="flex flex-col items-center justify-center py-6 px-4 group hover:bg-white/[0.02] transition-colors border-b lg:border-0 border-white/10">
-                <div className="text-accent-teal font-mono text-lg sm:text-xl lg:text-2xl font-bold tracking-tight mb-1.5">
+              <div className="flex flex-col items-center justify-center px-space-4 group">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
                   <Counter value={25} isReady={isAppReady} />M+
                 </div>
-                <div className="text-slate-400 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] text-center font-bold">
+                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
                   Users on WebFOCUS
                 </div>
               </div>
 
-              {/* Center CTAs */}
-              <div className="col-span-2 lg:col-span-1 flex flex-col items-center justify-center p-2 lg:p-0 border-b lg:border-0 border-white/10 bg-white/[0.02]">
-                <div className="flex flex-row lg:flex-col gap-2 w-full h-full">
-                  <a
-                    href="#work-overview"
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 lg:py-0 rounded-lg lg:rounded-none bg-accent-teal-800 text-white text-sm font-bold hover:bg-accent-teal-700 transition-all duration-300 shadow-[0_0_15px_rgba(7,139,156,0.2)] hover:shadow-[0_0_25px_rgba(7,139,156,0.4)] whitespace-nowrap border-r-0 lg:border-b border-transparent"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      const section = document.getElementById('work-overview')
-                      if (section) {
-                        section.scrollIntoView({ behavior: 'smooth' })
-                      }
-                    }}
-                  >
-                    <span>See Work</span>
-                    <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </a>
-
-                  <button
-                    onClick={startQuiz}
-                    className="flex-1 group inline-flex items-center justify-center gap-2 px-4 py-3 lg:py-0 rounded-lg lg:rounded-none border-2 lg:border-0 border-slate-700 lg:border-t lg:border-white/10 text-slate-400 text-sm font-bold hover:bg-accent-teal/10 hover:text-white transition-all duration-300 whitespace-nowrap"
-                  >
-                    <Brain className="w-4 h-4 text-accent-teal group-hover:scale-110 transition-transform" />
-                    <span>Run Diagnostics</span>
-                  </button>
-                </div>
-              </div>
-
               {/* Stat 3 */}
-              <div className="flex flex-col items-center justify-center py-6 px-4 group hover:bg-white/[0.02] transition-colors border-r lg:border-0 border-white/10">
-                <div className="text-accent-teal font-mono text-lg sm:text-xl lg:text-2xl font-bold tracking-tight mb-1.5">
+              <div className="flex flex-col items-center justify-center px-space-4 group">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
                   Fortune 500
                 </div>
-                <div className="text-slate-400 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] text-center font-bold">
-                  Enterprise Clients
+                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
+                  Clients
                 </div>
               </div>
 
               {/* Stat 4 */}
-              <div className="flex flex-col items-center justify-center py-6 px-4 group hover:bg-white/[0.02] transition-colors">
-                <div className="text-accent-teal font-mono text-lg sm:text-xl lg:text-2xl font-bold tracking-tight mb-1.5">
+              <div className="flex flex-col items-center justify-center px-space-4 group">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
                   Best-in-Class
                 </div>
-                <div className="text-slate-400 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] text-center font-bold">
+                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
                   2025 Dresner Award
                 </div>
               </div>
+
             </div>
           </div>
         </motion.div>
@@ -1312,17 +1340,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         isOpen={showMobileSheet}
         onClose={() => {
           setShowMobileSheet(false)
-          // Clear the active gear highlight after a short delay
-          setTimeout(() => {
-            const container = containerRef.current
-            if (container) {
-              const allActiveGears = container.querySelectorAll<SVGGElement>('.gear-main--active')
-              allActiveGears.forEach((ag) => {
-                ag.classList.remove('gear-main--active')
-                ag.style.removeProperty('--gear-accent')
-              })
-            }
-          }, 300)
+          setMobileGear(null)
         }}
       />
     </>

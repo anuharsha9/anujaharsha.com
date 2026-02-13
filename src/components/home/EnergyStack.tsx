@@ -7,11 +7,11 @@ import EraBlock from './EraBlock'
 export default function EnergyStack() {
     return (
         <div className="relative">
-            {/* Container Background - subtle separation */}
-            <div className="absolute inset-0 bg-[#020617] opacity-50 pointer-events-none" />
+            {/* Container Background - REMOVED for unified timeline spine visibility */}
+            {/* <div className="absolute inset-0 bg-[#020617] opacity-50 pointer-events-none" /> */}
 
             {CAREER_DATA.map((era, index) => (
-                <EraBlock key={era.id} era={era} index={index} />
+                <EraBlock key={era.id} era={era} index={index} isLast={index === CAREER_DATA.length - 1} />
             ))}
         </div>
     )

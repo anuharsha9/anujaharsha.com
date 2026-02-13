@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import ImageLightbox from './ImageLightbox'
+import TerminalInsight from './TerminalInsight'
 
 interface MLChallengeBreakdownProps {
   isLightBackground?: boolean
@@ -90,7 +91,7 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
       />
 
       {/* Audit Cards Grid - Locked */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
         {auditCards.map((card, index) => (
           <motion.div
             key={card.code}
@@ -98,56 +99,56 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-slate-50 border border-red-200 overflow-hidden hover:shadow-lg transition-shadow group rounded-2xl"
+            className="group"
           >
-            {/* Screenshot Area */}
+            {/* Screenshot Area - Standalone Rounded */}
             <div
-              className="relative aspect-video cursor-pointer overflow-hidden"
+              className="relative aspect-video cursor-pointer overflow-hidden rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300"
               onClick={() => openLightbox(card.screenshot, card.screenshotAlt, card.title)}
             >
               <Image
                 src={card.screenshot}
                 alt={card.screenshotAlt}
                 fill
-                className="object-cover filter grayscale-[30%] opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                className="object-cover filter grayscale-[30%] opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-black/60 px-3 py-1">
-                  🔍 Inspect Legacy UI
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-xs font-medium bg-black/60 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                  Zoom Image
                 </span>
               </div>
               {/* Error Badge */}
-              <div className="absolute top-0 left-0 bg-red-500/90 backdrop-blur-sm px-2 py-1 rounded-br-lg">
-                <span className="font-mono text-[10px] text-white uppercase tracking-wider">
-                  LEGACY 9.2
+              <div className="absolute top-3 left-3">
+                <span className="inline-block px-2 py-1 bg-red-500/90 text-white text-[10px] font-mono uppercase tracking-wider rounded backdrop-blur-sm shadow-sm">
+                  Legacy 9.2
                 </span>
               </div>
             </div>
 
-            {/* Content Area */}
-            <div className="p-6 space-y-4">
-              {/* Error Code */}
-              <div className="flex items-center gap-3">
-                <code className="font-mono text-xs text-red-600 bg-red-50 px-2 py-1 border border-red-100 rounded-full">
-                  {card.code}
-                </code>
+            {/* Content Area - Open (No Background) */}
+            <div className="pt-5 space-y-3">
+              {/* Title & Code */}
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-slate-900 text-lg font-medium">
+                    {card.title}
+                  </h4>
+                  <code className="font-mono text-[10px] text-red-400 opacity-60">
+                    {card.code}
+                  </code>
+                </div>
               </div>
 
-              {/* Title */}
-              <h4 className="text-slate-900 text-lg font-serif font-semibold">
-                {card.title}
-              </h4>
-
-              {/* Pain Points List */}
+              {/* Pain Points - Clean List */}
               <ul className="space-y-2">
                 {card.painPoints.map((point, j) => (
-                  <li key={j} className="text-slate-600 text-sm leading-relaxed flex items-start gap-2">
-                    <span className="text-red-500 font-mono text-xs mt-0.5 flex-shrink-0">
+                  <li key={j} className="text-slate-600 text-sm flex items-start gap-2.5">
+                    <span className="text-red-400 font-mono text-[10px] mt-1 flex-shrink-0">
                       {point.startsWith('x') ? '✕' : '>'}
                     </span>
-                    <span>{point.replace(/^x\s/, '')}</span>
+                    <span className="leading-relaxed">{point.replace(/^x\s/, '')}</span>
                   </li>
                 ))}
               </ul>
@@ -156,22 +157,19 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
         ))}
       </div>
 
-      {/* Audit Summary Footer */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="bg-slate-900 p-6 rounded-2xl"
-      >
-        <div className="font-mono text-sm">
-          <span className="text-red-400">&gt; AUDIT_CONCLUSION:</span>
-          <p className="text-slate-300 mt-2 leading-relaxed">
-            The legacy ML workflow wasn&apos;t just hard for beginners — it was fragmented, opaque, and frustrating even for power users.
-            <span className="text-emerald-400 font-semibold"> The mandate:</span> Make predictive modeling usable, understandable, and trustworthy — for analysts and everyday business users.
-          </p>
-        </div>
-      </motion.div>
+      {/* Audit Conclusion - Apple Terminal Style */}
+      <div className="w-full mt-12">
+        <TerminalInsight
+          title="audit_summary.log"
+        >
+          <span className="text-red-400 font-bold mr-2">&gt; AUDIT_CONCLUSION:</span>
+          The legacy ML workflow wasn&apos;t just hard for beginners — it was fragmented, opaque, and frustrating.
+          <div className="mt-3 pl-4 border-l-2 border-emerald-500/30">
+            <span className="text-emerald-400 font-semibold block mb-1">NEW MANDATE:</span>
+            Make predictive modeling usable, understandable, and trustworthy — for analysts and everyday business users.
+          </div>
+        </TerminalInsight>
+      </div>
 
       {/* Lightbox */}
       {lightboxImage && (

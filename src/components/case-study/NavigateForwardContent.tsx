@@ -1,12 +1,17 @@
 'use client'
 
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import TerminalInsight from './TerminalInsight'
+import { ReflectionData } from '@/types/caseStudy'
+import CaseStudyReflection from './CaseStudyReflection'
+
 
 interface NavigateForwardContentProps {
   isLightBackground?: boolean
+  reflection?: ReflectionData
 }
 
-export default function NavigateForwardContent({ isLightBackground = true }: NavigateForwardContentProps) {
+export default function NavigateForwardContent({ isLightBackground = true, reflection }: NavigateForwardContentProps) {
   return (
     <div className="space-y-12">
 
@@ -100,91 +105,27 @@ export default function NavigateForwardContent({ isLightBackground = true }: Nav
       </div>
 
       {/* Customer Recognition - Standalone Terminal Block */}
-      <div className="bg-[#1D1D20] p-6 md:p-8 rounded-xl relative overflow-hidden shadow-2xl border border-white/10 text-center font-mono">
-        {/* Terminal Header */}
-        <div className="flex gap-2 mb-6 opacity-50 justify-center">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-        </div>
-
-        <span className="font-mono text-emerald-400 text-xs uppercase tracking-widest">
-          {'// CUSTOMER_RECOGNITION'}
-        </span>
-        <blockquote className="mt-6 mb-6">
-          <p className="font-serif text-2xl md:text-3xl text-white italic leading-relaxed">
-            &ldquo;So what are you going to do next?&rdquo;
-          </p>
-        </blockquote>
-        <p className="text-slate-400 text-sm max-w-xl mx-auto font-sans">
-          A customer publicly praised the redesign during a Virtual User Group and asked what I planned next. Shipped 5 months after I transitioned—now demoed on the public YouTube channel.
-        </p>
+      <div className="w-full">
+        <TerminalInsight
+          title="customer_feedback.log"
+          insightLabel="CUSTOMER_RECOGNITION"
+        >
+          <div className="text-center">
+            <blockquote className="mt-2 mb-6">
+              <p className="font-serif text-2xl md:text-3xl text-white italic leading-relaxed">
+                &ldquo;So what are you going to do next?&rdquo;
+              </p>
+            </blockquote>
+            <p className="text-slate-400 text-sm max-w-xl mx-auto font-sans">
+              A customer publicly praised the redesign during a Virtual User Group and asked what I planned next. Shipped 5 months after I transitioned—now demoed on the public YouTube channel.
+            </p>
+          </div>
+        </TerminalInsight>
       </div>
 
-      {/* Retrospective Section (Validation + Reflection) */}
-      <div className="space-y-8 mt-24 md:mt-32 pt-12 border-t border-slate-100">
-        {/* Header */}
-        <ComponentHeading
-          variant="block"
-          tag="// REFLECTION"
-          title="Retrospective"
-          color="teal"
-          align="center"
-          className="mb-8"
-        />
-
-        {/* Team Validation - Row 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white border border-slate-200 p-8 h-full hover:shadow-lg transition-all duration-300 rounded-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-slate-100 flex items-center justify-center text-slate-500 text-sm font-mono font-bold rounded-full">YC</div>
-              <div>
-                <div className="text-slate-900 text-sm font-bold">Yingchun Chen</div>
-                <div className="text-slate-400 text-xs uppercase tracking-wide">Principal System Software Engineer</div>
-              </div>
-            </div>
-            <p className="text-slate-600 text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4">
-              &ldquo;She impressed everyone with how quickly she grasped all aspects of a highly intricate system and translated that understanding into a clear, modern, and user-centered design.&rdquo;
-            </p>
-          </div>
-          <div className="bg-white border border-slate-200 p-8 h-full hover:shadow-lg transition-all duration-300 rounded-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-slate-100 flex items-center justify-center text-slate-500 text-sm font-mono font-bold rounded-full">DP</div>
-              <div>
-                <div className="text-slate-900 text-sm font-bold">Dave Pfeiffer</div>
-                <div className="text-slate-400 text-xs uppercase tracking-wide">Director of Design</div>
-              </div>
-            </div>
-            <p className="text-slate-600 text-sm leading-relaxed italic border-l-2 border-slate-100 pl-4">
-              &ldquo;Anuja brings energy and determination to tackling complex design challenges. She approaches her work with a fearless attitude and is never afraid to explore new ideas.&rdquo;
-            </p>
-          </div>
-        </div>
-
-        {/* Reflection - Row 2 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* What I'd push harder for */}
-          <div className="bg-amber-50 border border-amber-200 p-8 h-full hover:shadow-lg transition-all duration-300 rounded-2xl">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-amber-500 text-xl">↩</span>
-              <span className="font-mono text-amber-700 text-xs uppercase tracking-wide font-bold">What I&apos;d push harder for</span>
-            </div>
-            <p className="text-slate-700 text-sm leading-relaxed">
-              Embedding the RC Explorer view directly into Hub workspaces instead of a separate filtered view. This would have expanded the pattern to Designer, Reporting Server—everything. That&apos;s my biggest regret.
-            </p>
-          </div>
-
-          {/* What I'd want to do next */}
-          <div className="bg-[var(--accent-teal-50)] border border-[var(--accent-teal-200)] p-8 h-full hover:shadow-lg transition-all duration-300 rounded-2xl">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-[var(--accent-teal)] text-xl">→</span>
-              <span className="font-mono text-[var(--accent-teal-700)] text-xs uppercase tracking-wide font-bold">What I&apos;d want to do next</span>
-            </div>
-            <p className="text-slate-700 text-sm leading-relaxed">
-              Integrate ReportCaster product-wide—schedule from Designer, Reporting Server, IQ Plugin. Imagine generating an insight and immediately scheduling it. That&apos;s the vision.
-            </p>
-          </div>
-        </div>
+      {/* Retrospective Section (Shared Component) */}
+      <div className="mt-24 md:mt-32 pt-12 border-t border-slate-100">
+        {reflection && <CaseStudyReflection data={reflection} isLightBackground={isLightBackground} />}
       </div>
 
       {/* Compact footer */}
