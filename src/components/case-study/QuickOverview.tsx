@@ -1,10 +1,5 @@
 import { motion } from 'framer-motion'
 import { QuickOverview as QuickOverviewType } from '@/types/caseStudy'
-import VitalSigns, {
-  mlFunctionsVitalSigns,
-  reportCasterVitalSigns,
-  iqPluginVitalSigns
-} from './VitalSigns'
 import { MapPin, Layers, Zap, Trophy } from 'lucide-react'
 
 interface QuickOverviewProps {
@@ -14,12 +9,6 @@ interface QuickOverviewProps {
 }
 
 export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: QuickOverviewProps) {
-  // Determine which metrics to show based on slug
-  const metrics =
-    caseStudySlug === 'reportcaster' ? reportCasterVitalSigns :
-      caseStudySlug === 'ml-functions' ? mlFunctionsVitalSigns :
-        caseStudySlug === 'iq-plugin' ? iqPluginVitalSigns : []
-
   // Map STAR steps to icons and colors
   const items = [
     {
@@ -45,7 +34,7 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
       content: data.star?.result || '',
       icon: Trophy,
       iconColor: 'text-teal-500',
-    }
+    },
   ];
 
   return (
@@ -79,12 +68,18 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
           </div>
 
           {/* Metrics Row — Clean & Minimal */}
-          {metrics.length > 0 && (
-            <div>
-              <VitalSigns
-                metrics={metrics}
-                className="!border-y-0 !bg-transparent !py-0"
-              />
+          {data.impactMetrics && data.impactMetrics.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-2">
+              {data.impactMetrics.map((metric, index) => (
+                <div key={index} className="flex flex-col gap-1 md:px-6 first:pl-0">
+                  <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 font-feature-settings-tnum">
+                    {metric.value}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
+                    {metric.label}
+                  </span>
+                </div>
+              ))}
             </div>
           )}
         </motion.div>
