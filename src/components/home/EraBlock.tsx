@@ -11,7 +11,7 @@ import HeroTerminal from '@/components/case-study/HeroTerminal'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import ImageLightbox from '@/components/case-study/ImageLightbox'
 import { ARCHIVE_GALLERY_DATA } from '@/data/archive-gallery'
-import TransformationShowcase, { TransformationSlider } from '@/components/home/TransformationShowcase'
+import ImageComparisonSlider from '@/components/ui/ImageComparisonSlider'
 import TerminalInsight from '@/components/case-study/TerminalInsight'
 
 interface EraBlockProps {
@@ -305,7 +305,15 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
 
                                                             {/* CUSTOM MEDIA: Transformation Slider */}
                                                             <div className="relative rounded-xl overflow-hidden bg-slate-900/50 shadow-sm group-hover/work:shadow-2xl group-hover/work:shadow-[var(--accent-teal)]/10 transition-all duration-500 border border-white/5 group-hover/work:border-[var(--accent-teal)]/20">
-                                                                <TransformationSlider />
+                                                                <ImageComparisonSlider
+                                                                    beforeImage="/images/case-study/ReportCaster/Before.png"
+                                                                    afterImage="/images/case-study/ReportCaster/After.png"
+                                                                    beforeLabel="LEGACY"
+                                                                    afterLabel="MODERN"
+                                                                    beforeTitle="rc_legacy.exe"
+                                                                    afterTitle="rc_modern.tsx"
+                                                                    aspectRatio="aspect-video"
+                                                                />
 
                                                                 {/* Locked Badge (Just in case, though usually unlocked) */}
                                                                 {work.locked && (
