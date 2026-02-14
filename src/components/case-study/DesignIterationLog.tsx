@@ -390,7 +390,7 @@ export default function DesignIterationLog({
                 <p className="text-slate-300 text-sm font-mono leading-relaxed">
                   <span className="text-emerald-300 font-bold">USER_OUTCOME:</span> The tension between data scientist depth and user clarity produced the best results.
                   <span className="block mt-2 text-slate-500 italic">
-                    // 21 key artifacts documenting 6–8 months of cross-functional iteration.
+                    {'//'} 21 key artifacts documenting 6–8 months of cross-functional iteration.
                   </span>
                 </p>
               )}

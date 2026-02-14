@@ -97,7 +97,9 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
             if (e.key === 'Escape') onExit();
         };
         window.addEventListener('keydown', handleKeyDown);
+
         return () => window.removeEventListener('keydown', handleKeyDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex]);
 
     return (
@@ -143,13 +145,13 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
             {/* Main Content Area */}
             <div className="absolute inset-0 flex items-center justify-center p-4 md:p-12 pointer-events-none">
                 <div className="w-full h-full max-w-7xl mx-auto flex flex-col justify-center pointer-events-auto">
-                    <AnimatePresence mode="wait">
+                    <AnimatePresence mode="sync">
                         <motion.div
                             key={currentIndex}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            transition={{ duration: 0.3 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0, position: 'absolute' as const }}
+                            transition={{ duration: 0.25, ease: 'easeInOut' }}
                             className="w-full h-full flex flex-col justify-center"
                             onClick={(e) => e.stopPropagation()}
                         >

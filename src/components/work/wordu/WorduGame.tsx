@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, FormEvent } from "react"
+import { useState, useEffect, useRef, FormEvent, useCallback } from "react"
 import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion"
 import {
     ArrowRight,
@@ -211,7 +211,7 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                             <div className="w-20 h-20 bg-zinc-50 rounded-full flex items-center justify-center">
                                 <AlertCircle size={40} className="text-zinc-300" />
                             </div>
-                            <p className="text-zinc-500 font-medium">Definition not found for "{word}"</p>
+                            <p className="text-zinc-500 font-medium">Definition not found for &quot;{word}&quot;</p>
                         </div>
                     )}
 
@@ -232,7 +232,7 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                                                 {d.definition}
                                                 {d.example && (
                                                     <div className="mt-2 pl-4 border-l-2 border-[#00ADEE]/30 text-zinc-500 italic text-base">
-                                                        "{d.example}"
+                                                        &quot;{d.example}&quot;
                                                     </div>
                                                 )}
                                             </li>
@@ -318,6 +318,88 @@ export default function WorduGame() {
         return () => clearInterval(interval)
     }, [gameState, timeLeft, selectedMode])
 
+    const submitMove = useCallback((word: string, player: Turn) => {
+        let newMult = 1
+        if (wordChain.length > 0) {
+            const lastWord = wordChain[wordChain.length - 1].word
+            if (lastWord.length === word.length) {
+                newMult = Math.min(8, multiplier + 1)
+            } else {
+                newMult = 1
+            }
+        }
+        setMultiplier(newMult)
+
+        const points = word.length * newMult
+        let newScore = score
+
+        if (player === "you") {
+            newScore = score + points
+            setScore(newScore)
+
+            if (selectedMode === "target") {
+                setMovesLeft(prev => {
+                    const left = prev - 1
+                    if (left <= 0 && newScore < 500) {
+                        setTimeout(() => setGameState("gameover"), 500)
+                    }
+                    return left
+                })
+                if (newScore >= 500) {
+                    setTimeout(() => setGameState("gameover"), 500)
+                }
+            }
+        }
+
+        setWordChain((prev) => [
+            ...prev,
+            { word, player, score: points, multiplier: newMult, id: Math.random().toString(36).substring(7) },
+        ])
+
+        setTurn(player === "you" ? "opponent" : "you")
+    }, [wordChain, multiplier, score, selectedMode])
+
+    const playOpponentTurn = useCallback(() => {
+        let pick = ""
+
+        if (wordChain.length === 0) {
+            const keys = Array.from(wordMap.keys())
+            if (keys.length > 0) {
+                const randomKey = keys[Math.floor(Math.random() * keys.length)]
+                const possibleStarts = wordMap.get(randomKey)
+                if (possibleStarts && possibleStarts.length > 0) {
+                    pick = possibleStarts[Math.floor(Math.random() * possibleStarts.length)]
+                }
+            }
+        } else {
+            const lastWord = wordChain[wordChain.length - 1].word
+            const targetChar = lastWord[lastWord.length - 1]
+            const potentialWords = wordMap.get(targetChar)
+
+            if (!potentialWords || potentialWords.length === 0) {
+                if (selectedMode === 'endless') setGameState("gameover")
+                return
+            }
+
+            const attempts = selectedMode === 'rally' ? 10 : 50
+            for (let i = 0; i < attempts; i++) {
+                const r = potentialWords[Math.floor(Math.random() * potentialWords.length)]
+                if (!wordChain.some(w => w.word === r)) {
+                    pick = r
+                    break
+                }
+            }
+
+            if (!pick) {
+                pick = potentialWords.find(w => !wordChain.some(used => used.word === w)) || ""
+            }
+            if (!pick && potentialWords.length > 0) pick = potentialWords[0];
+        }
+
+        if (pick) submitMove(pick, "opponent")
+        else setGameState("gameover")
+    }, [wordChain, wordMap, selectedMode, submitMove])
+
     // --- 3. Scroll to bottom ---
     useEffect(() => {
         if (gameState === "playing") {
@@ -334,7 +416,7 @@ export default function WorduGame() {
             playOpponentTurn()
         }, delay)
         return () => clearTimeout(timeout)
-    }, [turn, gameState, wordChain])
+    }, [turn, gameState, wordChain, playOpponentTurn])
 
     // Focus input
     useEffect(() => {
@@ -451,87 +533,7 @@ export default function WorduGame() {
         setTimeout(() => setErrorMsg(""), 2500)
     }
 
-    const submitMove = (word: string, player: Turn) => {
-        let newMult = 1
-        if (wordChain.length > 0) {
-            const lastWord = wordChain[wordChain.length - 1].word
-            if (lastWord.length === word.length) {
-                newMult = Math.min(8, multiplier + 1)
-            } else {
-                newMult = 1
-            }
-        }
-        setMultiplier(newMult)
 
-        const points = word.length * newMult
-        let newScore = score
-
-        if (player === "you") {
-            newScore = score + points
-            setScore(newScore)
-
-            if (selectedMode === "target") {
-                setMovesLeft(prev => {
-                    const left = prev - 1
-                    if (left <= 0 && newScore < 500) {
-                        setTimeout(() => setGameState("gameover"), 500)
-                    }
-                    return left
-                })
-                if (newScore >= 500) {
-                    setTimeout(() => setGameState("gameover"), 500)
-                }
-            }
-        }
-
-        setWordChain((prev) => [
-            ...prev,
-            { word, player, score: points, multiplier: newMult, id: Math.random().toString(36).substring(7) },
-        ])
-
-        setTurn(player === "you" ? "opponent" : "you")
-    }
-
-    const playOpponentTurn = () => {
-        let pick = ""
-
-        if (wordChain.length === 0) {
-            const keys = Array.from(wordMap.keys())
-            if (keys.length > 0) {
-                const randomKey = keys[Math.floor(Math.random() * keys.length)]
-                const possibleStarts = wordMap.get(randomKey)
-                if (possibleStarts && possibleStarts.length > 0) {
-                    pick = possibleStarts[Math.floor(Math.random() * possibleStarts.length)]
-                }
-            }
-        } else {
-            const lastWord = wordChain[wordChain.length - 1].word
-            const targetChar = lastWord[lastWord.length - 1]
-            const potentialWords = wordMap.get(targetChar)
-
-            if (!potentialWords || potentialWords.length === 0) {
-                if (selectedMode === 'endless') setGameState("gameover")
-                return
-            }
-
-            const attempts = selectedMode === 'rally' ? 10 : 50
-            for (let i = 0; i < attempts; i++) {
-                const r = potentialWords[Math.floor(Math.random() * potentialWords.length)]
-                if (!wordChain.some(w => w.word === r)) {
-                    pick = r
-                    break
-                }
-            }
-
-            if (!pick) {
-                pick = potentialWords.find(w => !wordChain.some(used => used.word === w)) || ""
-            }
-            if (!pick && potentialWords.length > 0) pick = potentialWords[0];
-        }
-
-        if (pick) submitMove(pick, "opponent")
-        else setGameState("gameover")
-    }
 
     const formatTime = (s: number) => {
         const min = Math.floor(s / 60)
@@ -680,7 +682,7 @@ export default function WorduGame() {
                                     </div>
                                     <div className="bg-white border border-zinc-200 px-5 py-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[240px] relative">
                                         <p className="text-zinc-600 font-medium text-sm">
-                                            I'll start! Get ready to match my last letter.
+                                            I&apos;ll start! Get ready to match my last letter.
                                         </p>
                                         <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t-2 border-l-2 border-zinc-200 rotate-45" />
                                     </div>

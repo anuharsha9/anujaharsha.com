@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -61,11 +62,16 @@ export const BonusSlides: React.FC<BonusSlidesProps> = ({ data }) => {
                             </div>
 
                             <div className="md:col-span-2 bg-zinc-900/50 border border-zinc-800 p-8 flex flex-col items-center justify-center relative">
-                                <img
-                                    src={data.slides[activeSlide].image}
-                                    alt={data.slides[activeSlide].title}
-                                    className="max-h-full max-w-full object-contain shadow-2xl"
-                                />
+                                <div className="relative w-full h-full flex items-center justify-center">
+                                    <Image
+                                        src={data.slides[activeSlide].image}
+                                        alt={data.slides[activeSlide].title}
+                                        fill
+                                        className="object-contain shadow-2xl"
+                                        unoptimized
+                                        priority
+                                    />
+                                </div>
                                 <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md p-4 border border-white/10">
                                     <p className="text-white text-sm md:text-base text-center">
                                         {data.slides[activeSlide].description}

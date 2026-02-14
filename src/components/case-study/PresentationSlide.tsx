@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface SlideData {
     type: 'title' | 'problem' | 'research' | 'decision' | 'execution' | 'collaboration' | 'impact' | 'lesson' | 'component';
@@ -76,24 +77,26 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                 <div className="flex flex-col items-center justify-center text-center h-full space-y-8 relative z-10 p-8 md:p-12 overflow-y-auto custom-scrollbar">
                     {data.image && (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5 }}
+                            transition={{ duration: 0.3 }}
                             className="relative mb-8 shrink-0"
                         >
                             <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-xl rounded-full" />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={data.image}
                                 alt={data.title}
                                 className="w-auto max-h-[30vh] max-w-4xl shadow-2xl rounded-lg border border-white/10 relative z-10"
+                                loading="eager"
                             />
                         </motion.div>
                     )}
                     <div className="max-w-4xl">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
+                            transition={{ delay: 0.05, duration: 0.25 }}
                         >
                             <span className={`inline-block px-3 py-1 mb-6 ${getTypeColor(data.type).replace('bg-', 'bg-')}/10 ${getTextColor(data.type)} text-sm font-mono uppercase tracking-widest border ${getBorderColor(data.type)}/20 rounded-full`}>
                                 {data.type === 'title' ? 'Case Study' : data.type}
@@ -107,7 +110,7 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.4 }}
+                            transition={{ delay: 0.1, duration: 0.2 }}
                             className="space-y-4"
                         >
                             {data.content.map((line, idx) => (
@@ -136,15 +139,17 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
             <div className={containerClasses}>
                 <div className="flex flex-col items-center justify-center text-center h-full max-w-5xl mx-auto p-8 md:p-12 overflow-y-auto custom-scrollbar">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.2 }}
                         className="text-6xl md:text-8xl text-blue-500/20 font-serif mb-8"
                     >
                         &ldquo;
                     </motion.div>
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.05, duration: 0.25 }}
                         className="text-3xl md:text-5xl font-light text-white leading-tight mb-12 font-serif italic"
                     >
                         {data.title}
@@ -152,11 +157,11 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
+                        transition={{ delay: 0.1, duration: 0.2 }}
                         className="flex flex-col items-center gap-4"
                     >
                         {data.image && (
-                            <img src={data.image} alt="Speaker" className="w-16 h-16 rounded-full border-2 border-white/10" />
+                            <Image width={64} height={64} src={data.image} alt="Speaker" className="rounded-full border-2 border-white/10" unoptimized priority />
                         )}
                         <div className="space-y-1">
                             {data.content.map((line, idx) => (
@@ -185,10 +190,13 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                 <div className="relative w-full h-full flex flex-col justify-end p-8 md:p-12">
                     {data.image && (
                         <div className="absolute inset-0 z-0">
-                            <img
+                            <Image
                                 src={data.image}
                                 alt={data.title}
-                                className="w-full h-full object-cover opacity-40 mix-blend-overlay"
+                                fill
+                                className="object-cover opacity-40 mix-blend-overlay"
+                                unoptimized
+                                priority
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
                         </div>
@@ -249,9 +257,9 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                         {data.content.map((point, idx) => (
                             <motion.li
                                 key={idx}
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 + 0.2 }}
+                                transition={{ delay: idx * 0.05 + 0.05, duration: 0.2 }}
                                 className="flex items-start gap-4"
                             >
                                 <span className={`mt-2.5 w-1.5 h-1.5 rounded-full ${getTypeColor(data.type)} shrink-0 opacity-60`} />
@@ -266,7 +274,7 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5 }}
+                            transition={{ delay: 0.15, duration: 0.2 }}
                             className="pt-8 mt-8 border-t border-white/5"
                         >
                             <p className="text-zinc-500 text-sm font-mono leading-relaxed">
@@ -280,16 +288,18 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                 {hasImage && (
                     <div className="order-1 lg:order-2 h-full max-h-[40vh] lg:max-h-full flex items-center justify-center relative group">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                            transition={{ duration: 0.6 }}
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.3 }}
                             className="relative rounded-lg overflow-hidden shadow-2xl border border-white/10 bg-zinc-900 w-full"
                         >
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={data.image}
                                 alt={data.title}
                                 className="w-full h-auto max-h-[60vh] object-contain"
+                                loading="eager"
                             />
                         </motion.div>
                     </div>

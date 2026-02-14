@@ -231,7 +231,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
           <div className="flex items-start gap-3">
             <span className="font-mono text-emerald-400 flex-shrink-0 mt-0.5">&gt;</span>
             <p>
-              We didn't just redesign screens; we re-architected the <span className="text-white font-medium">user's mental model</span>. From scattershot tasks to a linear, coherent journey.
+              We didn&apos;t just redesign screens; we re-architected the <span className="text-white font-medium">user&apos;s mental model</span>. From scattershot tasks to a linear, coherent journey.
             </p>
           </div>
         </TerminalInsight>

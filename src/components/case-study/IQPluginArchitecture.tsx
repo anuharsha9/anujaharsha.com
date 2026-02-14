@@ -46,7 +46,7 @@ export default function IQPluginArchitecture({ isLightBackground = true }: IQPlu
           <div className="space-y-6 relative group">
             <div className="text-center">
               <span className="font-mono text-slate-400 text-[10px] uppercase tracking-widest px-2 py-1">
-                  // ORIGIN: DISJOINTED_CLI
+                {'//'} ORIGIN: DISJOINTED_CLI
               </span>
             </div>
             <div className="space-y-4 relative z-10">
@@ -98,7 +98,7 @@ export default function IQPluginArchitecture({ isLightBackground = true }: IQPlu
           <div className="space-y-6 relative">
             <div className="text-center">
               <span className="font-mono text-emerald-600 text-[10px] uppercase tracking-widest px-2 py-1">
-                  // TARGET: UNIFIED_ECOSYSTEM
+                {'//'} TARGET: UNIFIED_ECOSYSTEM
               </span>
             </div>
 

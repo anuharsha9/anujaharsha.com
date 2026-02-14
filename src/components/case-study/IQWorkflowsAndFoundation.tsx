@@ -203,7 +203,7 @@ const FeatureSection = ({ title, description, icon: Icon, iconColor, status, scr
                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                         </div>
                         <p className="font-mono text-[10px] text-slate-400 uppercase tracking-widest pl-1">
-              // {screen.label}
+                            {'//'} {screen.label}
                         </p>
                     </div>
                 ))}

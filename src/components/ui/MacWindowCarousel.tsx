@@ -68,6 +68,7 @@ export default function MacWindowCarousel({
         }, autoPlayInterval)
 
         return () => clearInterval(timer)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, isHovered, lightboxOpen, images.length, autoPlayInterval, currentIndex, isControlled])
 
     const paginate = (newDirection: number) => {
@@ -164,7 +165,7 @@ export default function MacWindowCarousel({
                                     fill
                                     className="object-contain"
                                     sizes="(max-width: 1200px) 100vw, 1200px"
-                                    priority={currentIndex === 0}
+                                    priority
                                 />
                             )}
                         </motion.div>

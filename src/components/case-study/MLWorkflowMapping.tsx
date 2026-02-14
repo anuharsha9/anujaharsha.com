@@ -141,7 +141,7 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
           <div className="flex items-start gap-3">
             <span className="font-mono text-emerald-400 flex-shrink-0 mt-0.5">$</span>
             <p>
-              The core problem wasn't the algorithm—it was the <span className="text-white">fragmented workflow</span>. Users didn't know *where* to start or *how* to finish without error.
+              The core problem wasn&apos;t the algorithm—it was the <span className="text-white">fragmented workflow</span>. Users didn&apos;t know *where* to start or *how* to finish without error.
             </p>
           </div>
         </TerminalInsight>

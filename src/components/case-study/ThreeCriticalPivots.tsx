@@ -187,7 +187,7 @@ export default function ThreeCriticalPivots({ isLightBackground = false }: Three
               <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400">Architectural Insight</h4>
               <p className="text-slate-600 leading-relaxed font-light max-w-3xl">
                 These pivots weren&apos;t just UX decisions — they were <strong className="font-medium text-slate-900">architectural choices</strong> that simplified implementation. The structured flow emerged from asking:
-                <em className="block mt-2 text-slate-800 not-italic">"What do you absolutely need?" → Problem Type + Target + Predictors + Params.</em>
+                <em className="block mt-2 text-slate-800 not-italic">&quot;What do you absolutely need?&quot; → Problem Type + Target + Predictors + Params.</em>
               </p>
             </div>
           </div>

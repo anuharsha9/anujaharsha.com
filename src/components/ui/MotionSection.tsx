@@ -12,12 +12,12 @@ interface MotionSectionProps extends HTMLMotionProps<'section'> {
 }
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.6,
       ease: [0.22, 1, 0.36, 1] // Custom cubic-bezier for smooth feeling
     }
   }

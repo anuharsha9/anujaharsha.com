@@ -64,7 +64,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
 
           <div className="space-y-6">
             <span className="font-mono text-[10px] text-red-500 uppercase tracking-widest bg-red-50 px-2 py-1 rounded-md inline-block">
-              // THE_PROBLEM
+              {'//'} THE_PROBLEM
             </span>
             <div className="space-y-2">
               <h4 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
@@ -101,7 +101,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
 
           <div className="space-y-6">
             <span className="font-mono text-[10px] text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded-md inline-block">
-              // THE_SOLUTION
+              {'//'} THE_SOLUTION
             </span>
             <div className="space-y-2">
               <h4 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
@@ -135,7 +135,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
       {/* Business Drivers Grid */}
       <div className="space-y-6">
         <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest block text-center">
-          // BUSINESS_DRIVERS
+          {'//'} BUSINESS_DRIVERS
         </span>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -476,7 +476,7 @@ export default function AboutPage() {
 
                   <div className="pt-8 border-t border-slate-100 mt-8">
                     <p className="text-xs italic text-[var(--accent-teal)]">
-                      "If you can’t say it in a poem, you probably haven't simplified the UI enough."
+                      &quot;If you can&rsquo;t say it in a poem, you probably haven&apos;t simplified the UI enough.&quot;
                     </p>
                   </div>
                 </div>

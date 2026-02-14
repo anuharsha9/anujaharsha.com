@@ -119,7 +119,7 @@ export default function IQChallengesBreakdown({ isLightBackground = false }: IQC
             insightLabel="ADR_INSIGHT:"
           >
             <p className="opacity-90 leading-7">
-              "Every architectural decision created downstream consequences. The choice to standardize <span className="text-emerald-400">sacrificed short-term speed</span> but <span className="text-emerald-400">created a compounding velocity advantage</span> that paid dividends across all 3 feature teams."
+              &quot;Every architectural decision created downstream consequences. The choice to standardize <span className="text-emerald-400">sacrificed short-term speed</span> but <span className="text-emerald-400">created a compounding velocity advantage</span> that paid dividends across all 3 feature teams.&quot;
               <span className="inline-block w-2 h-4 bg-amber-500/50 align-middle ml-2 animate-pulse" />
             </p>
           </TerminalInsight>

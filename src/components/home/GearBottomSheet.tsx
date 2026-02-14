@@ -122,8 +122,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
               {gear.caseStudy && gear.caseStudy !== 'me' && (
                 <div className="flex justify-center">
                   <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30">
-                    {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-                    // {gear.caseStudy.replace('-', ' ').toUpperCase()}
+                    {'//'} {gear.caseStudy.replace('-', ' ').toUpperCase()}
                   </p>
                 </div>
               )}

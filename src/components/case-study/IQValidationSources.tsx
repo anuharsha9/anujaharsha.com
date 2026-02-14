@@ -144,7 +144,7 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
                 &gt; ARCHITECT&apos;S_LOG: THE_PRINCIPAL_SHIFT
               </span>
               <p className="text-xl md:text-2xl font-light text-slate-200 leading-relaxed font-serif">
-                "IQ Plugin taught me that the hardest part of Enterprise UX isn&apos;t designing the pixels—it&apos;s designing the <span className="text-emerald-400 font-normal italic">consensus</span>. By visualizing a unified future, I gave the organization the confidence to stop building silos and start building a platform."
+                &quot;IQ Plugin taught me that the hardest part of Enterprise UX isn&apos;t designing the pixels—it&apos;s designing the <span className="text-emerald-400 font-normal italic">consensus</span>. By visualizing a unified future, I gave the organization the confidence to stop building silos and start building a platform.&quot;
               </p>
             </div>
           </div>

@@ -15,7 +15,7 @@ export default function WritingSectionSimple() {
                 <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
                     <div className="max-w-2xl">
                         <span className="font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest mb-2 block">
-                            // THOUGHT_LEADERSHIP
+                            {'//'} THOUGHT_LEADERSHIP
                         </span>
                         <h2 className="font-serif text-3xl md:text-4xl text-slate-900 mb-4">Writing</h2>
                         <p className="text-slate-600 text-base leading-relaxed">

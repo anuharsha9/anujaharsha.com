@@ -74,7 +74,7 @@ export default function DesignEngineerBlock() {
                             <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-lg mb-10 font-light">
                                 Connecting the structural integrity of code with the emotional resonance of design.
                                 <span className="text-slate-300 block mt-4">
-                                    I don't just mock interactions—I build them.
+                                    I don&apos;t just mock interactions—I build them.
                                 </span>
                             </p>
                         </motion.div>
