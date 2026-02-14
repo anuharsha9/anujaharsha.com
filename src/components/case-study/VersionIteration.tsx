@@ -120,10 +120,10 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
     <div className="space-y-8">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+        }}
       >
         <ComponentHeading
           variant="block"
@@ -157,10 +157,14 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
 
                 {/* Content Container */}
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      transition: { duration: 0.6, delay: index * 0.1 }
+                    }
+                  }}
                   className="pl-12 md:pl-24"
                 >
                   <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import ImageLightbox from './ImageLightbox'
 import LockedContent from './LockedContent'
+import ImageComparisonSlider from '@/components/ui/ImageComparisonSlider'
 
 interface BeforeAfterComparisonProps {
   beforeImage: {
@@ -256,110 +257,18 @@ export default function BeforeAfterComparison({
         )}
       </div>
       {viewMode === 'slider' ? (
-        <div
-          ref={containerRef}
-          className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-col-resize select-none`}
-          style={{ minHeight: '400px' }}
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleMouseDown}
-          tabIndex={0}
-        >
-          {/* After Image (background) - determines container size */}
-          <div
-            className="relative w-full cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation()
-              openLightbox(afterImage.src, afterImage.alt, afterImage.caption, 1)
-            }}
-            onDoubleClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={afterImage.src}
-              alt={afterImage.alt}
-              width={1200}
-              height={800}
-              className="w-full h-auto object-contain"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-            />
-          </div>
-
-          {/* Before Image (clipped overlay) */}
-          <div
-            className="absolute inset-0 overflow-hidden pointer-events-none"
-            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-          >
-            <div
-              className="w-full h-full cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation()
-                openLightbox(beforeImage.src, beforeImage.alt, beforeImage.caption, 0)
-              }}
-            >
-              <Image
-                src={beforeImage.src}
-                alt={beforeImage.alt}
-                width={1200}
-                height={800}
-                className="w-full h-auto object-contain"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-              />
-            </div>
-          </div>
-
-          {/* Slider Line */}
-          <div
-            className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.2)] z-10 pointer-events-none"
-            style={{ left: `${sliderPosition}%` }}
-          >
-            {/* Slider Handle */}
-            <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white border-2 border-[var(--accent-teal)] shadow-lg flex items-center justify-center pointer-events-auto cursor-grab active:cursor-grabbing"
-              style={{ transform: 'translate(-50%, -50%)' }}
-            >
-              <div className="flex items-center gap-1">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="text-[var(--accent-teal)]"
-                >
-                  <path
-                    d="M8 2L4 6L8 10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="text-[var(--accent-teal)]"
-                >
-                  <path
-                    d="M4 2L8 6L4 10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Labels */}
-          <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 text-white text-sm font-medium">
-            {beforeLabel}
-          </div>
-          <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 text-white text-sm font-medium">
-            {afterLabel}
-          </div>
+        <div className="rounded-xl overflow-hidden shadow-2xl">
+          <ImageComparisonSlider
+            beforeImage={beforeImage.src}
+            afterImage={afterImage.src}
+            beforeAlt={beforeImage.alt}
+            afterAlt={afterImage.alt}
+            beforeLabel={beforeLabel}
+            afterLabel={afterLabel}
+            beforeTitle="legacy.exe"
+            afterTitle="modern.tsx"
+            aspectRatio="aspect-[16/10]"
+          />
         </div>
       ) : (
         /* Side-by-Side View */

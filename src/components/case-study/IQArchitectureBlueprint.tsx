@@ -21,12 +21,18 @@ const BlueprintItem = ({ imageSrc, altText, label, caption, isLightBackground, s
   const labelColor = isLightBackground ? 'text-slate-400' : 'text-slate-500'
   const captionColor = isLightBackground ? 'text-slate-600' : 'text-slate-300'
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      variants={itemVariants}
       className={`flex flex-col ${bgColor} ${borderColor} border shadow-sm overflow-hidden ${size === 'full' ? 'col-span-1 md:col-span-2' : ''}`}
     >
       <div className={`px-4 py-3 border-b ${borderColor} ${isLightBackground ? 'bg-slate-50' : 'bg-slate-900'}`}>
@@ -101,47 +107,73 @@ export default function IQArchitectureBlueprint({ isLightBackground = true }) {
   const titleColor = isLightBackground ? 'text-slate-900' : 'text-white'
   const summaryColor = isLightBackground ? 'text-slate-600' : 'text-slate-300'
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
     <div className="w-full py-10 md:py-12">
-      <ComponentHeading
-        tag="// SYSTEM_ARCHITECTURE"
-        title="Building the System"
-        description="From flowcharts to responsive mockups—the structural foundation that makes three complex features feel like one unified experience."
-        color="text-[var(--accent-violet)]"
-        align="center"
-        className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-12"
-      />
-
-      <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {blueprintItems.map((item, index) => (
-          <BlueprintItem
-            key={index}
-            {...item}
-            isLightBackground={isLightBackground}
-          />
-        ))}
-      </div>
-
-      {/* Architecture Insight Footer */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-12"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
       >
-        <div className="bg-slate-900 p-6">
-          <div className="flex items-start gap-3">
-            <span className="font-mono text-sm text-[var(--accent-violet)] flex-shrink-0">
-              &gt; DESIGN_PRINCIPLE:
-            </span>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Every architectural decision optimized for <span className="text-[var(--accent-violet)] font-medium">pattern consistency</span>.
-              Same navigation logic, same data selection flow, same error handling—regardless of which feature you&apos;re using.
-              Learn one workflow, know them all.
-            </p>
-          </div>
+        <motion.div variants={itemVariants}>
+          <ComponentHeading
+            tag="// SYSTEM_ARCHITECTURE"
+            title="Building the System"
+            description="From flowcharts to responsive mockups—the structural foundation that makes three complex features feel like one unified experience."
+            color="text-[var(--accent-violet)]"
+            align="center"
+            className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-12"
+          />
+        </motion.div>
+
+        <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {blueprintItems.map((item, index) => (
+            <BlueprintItem
+              key={index}
+              {...item}
+              isLightBackground={isLightBackground}
+            />
+          ))}
         </div>
+
+        {/* Architecture Insight Footer */}
+        <motion.div
+          variants={itemVariants}
+          className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-12"
+        >
+          <div className="bg-slate-900 p-6">
+            <div className="flex items-start gap-3">
+              <span className="font-mono text-sm text-[var(--accent-violet)] flex-shrink-0">
+                &gt; DESIGN_PRINCIPLE:
+              </span>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Every architectural decision optimized for <span className="text-[var(--accent-violet)] font-medium">pattern consistency</span>.
+                Same navigation logic, same data selection flow, same error handling—regardless of which feature you&apos;re using.
+                Learn one workflow, know them all.
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   )

@@ -51,7 +51,7 @@ export default function CaseStudyReflection({ data, isLightBackground = true }: 
                         <div className="space-y-3">
                             <div className="flex items-center gap-3 text-amber-500">
                                 <span className="text-lg">➔</span>
-                                <h4 className="text-sm font-extrabold uppercase tracking-widest truncate">
+                                <h4 className="text-amber-100 text-sm font-extrabold uppercase tracking-widest truncate">
                                     {data.retrospective.pushHarder.subtitle}
                                 </h4>
                             </div>
@@ -66,7 +66,7 @@ export default function CaseStudyReflection({ data, isLightBackground = true }: 
                         <div className="space-y-3">
                             <div className="flex items-center gap-3 text-[var(--accent-teal)]">
                                 <span className="text-lg">➔</span>
-                                <h4 className="text-sm font-bold uppercase tracking-widest truncate">
+                                <h4 className="text-teal-100 text-sm font-bold uppercase tracking-widest truncate">
                                     {data.retrospective.doNext.subtitle}
                                 </h4>
                             </div>

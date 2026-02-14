@@ -12,6 +12,8 @@ interface ImpactDiffProps {
   className?: string
   beforeTitle?: string
   afterTitle?: string
+  beforeAlt?: string
+  afterAlt?: string
 }
 
 export default function ImpactDiff({
@@ -22,7 +24,9 @@ export default function ImpactDiff({
   isLightBackground = false, // Kept for prop compatibility, though unused
   className = '',
   beforeTitle = 'legacy_view', // Default titles for browser bar
-  afterTitle = 'modern_view'
+  afterTitle = 'modern_view',
+  beforeAlt = 'Before',
+  afterAlt = 'After'
 }: ImpactDiffProps) {
   return (
     <div className={`w-full select-none ${className}`}>
@@ -33,6 +37,8 @@ export default function ImpactDiff({
         afterLabel={afterLabel}
         beforeTitle={beforeTitle}
         afterTitle={afterTitle}
+        beforeAlt={beforeAlt}
+        afterAlt={afterAlt}
         aspectRatio="aspect-video" // Use aspect-video for consistency
       />
     </div>

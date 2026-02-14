@@ -54,7 +54,6 @@ export default function Section({
             id={id}
             className={`${bgClass} ${paddingClasses} ${className}`}
             animate={animate}
-            variant={variant}
             delay={delay}
         >
             <div className={containerClasses}>

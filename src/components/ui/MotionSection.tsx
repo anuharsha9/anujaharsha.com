@@ -36,7 +36,7 @@ export default function MotionSection({
   className = '',
   delay = 0,
   staggerChildren = 0,
-  viewportAmount = 0.2,
+  viewportAmount = 0.1,
   ...props
 }: MotionSectionProps) {
 

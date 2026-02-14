@@ -29,10 +29,18 @@ export default function TerminalInsight({
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 30 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, ease: smoothEase }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+                hidden: { opacity: 0, scale: 0.95, y: 30 },
+                visible: {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: { duration: 1.2, ease: smoothEase }
+                }
+            }}
             className={`w-full ${className}`}
         >
             <div className="rounded-xl bg-[#0F172A] shadow-2xl border border-white/10 overflow-hidden w-full">

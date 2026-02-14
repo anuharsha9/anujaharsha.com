@@ -151,6 +151,7 @@ export default function ImageComparisonSlider({
             <motion.div
                 className="absolute inset-0 pt-11 overflow-hidden"
                 style={{ clipPath }}
+                variants={{}}
             >
                 <Image
                     src={beforeImage}
@@ -166,6 +167,7 @@ export default function ImageComparisonSlider({
             <motion.div
                 className="absolute top-11 bottom-0 z-10 cursor-ew-resize"
                 style={{ left: handleLeft, x: '-50%' }}
+                variants={{}}
                 onMouseDown={handleStart}
                 onTouchStart={handleStart}
             >

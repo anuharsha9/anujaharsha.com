@@ -63,18 +63,45 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
     'Heavier onboarding overlays / carousels'
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
-    <div className="space-y-6">
+    <motion.div
+      className="space-y-6"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
       {/* Section Header - More Compact */}
-      <ComponentHeading
-        variant="block"
-        tag="// CONFIGURATION_MATRIX"
-        title="Balancing Model Control with Simplicity"
-        description="Layered disclosure: serve multiple user types within a single experience."
-        color="teal"
-        align="center"
-        className="mb-8"
-      />
+      <motion.div variants={itemVariants}>
+        <ComponentHeading
+          variant="block"
+          tag="// CONFIGURATION_MATRIX"
+          title="Balancing Model Control with Simplicity"
+          description="Layered disclosure: serve multiple user types within a single experience."
+          color="teal"
+          align="center"
+          className="mb-8"
+        />
+      </motion.div>
 
       {/* Configuration Matrix - 3 User Levels - Modern Clean Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -83,10 +110,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
           return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              variants={itemVariants}
               className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
               <div className="space-y-4">
@@ -122,10 +146,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
         {/* System Safety Checks - Clean */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          variants={itemVariants}
           className="bg-emerald-50/30 border border-emerald-100/50 p-6 rounded-2xl"
         >
           <div className="flex items-center gap-3 mb-4">
@@ -146,10 +167,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
 
         {/* Architectural Backlog - Clean */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          variants={itemVariants}
           className="bg-slate-50/50 border border-slate-100 p-6 rounded-2xl"
         >
           <div className="flex items-center gap-3 mb-4">
@@ -171,10 +189,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
 
       {/* System Outcome Footer - Compact */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        variants={itemVariants}
         className="bg-slate-900 p-4"
       >
         <div className="flex items-start gap-3">
@@ -186,6 +201,6 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
           </p>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }

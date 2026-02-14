@@ -168,20 +168,51 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
 
   const activeTabData = tabs.find(t => t.id === activeTab)
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
-    <div className="space-y-8">
+    <motion.div
+      className="space-y-8"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+    >
       {/* Section Header */}
-      <ComponentHeading
-        tag="// DESIGN_ITERATION_LOG"
-        title="System Inspection: The Design Artifacts"
-        description="Navigate through the key design deliverables across all 4 IQ Plugin pillars."
-        color="text-[var(--accent-teal)]"
-        align="center"
-        className="mb-8"
-      />
+      <motion.div variants={itemVariants}>
+        <ComponentHeading
+          tag="// DESIGN_ITERATION_LOG"
+          title="System Inspection: The Design Artifacts"
+          description="Navigate through the key design deliverables across all 4 IQ Plugin pillars."
+          color="text-[var(--accent-teal)]"
+          align="center"
+          className="mb-8"
+        />
+      </motion.div>
 
       {/* IDE Layout - Large Feature Display */}
-      <div className="bg-white border border-slate-200 overflow-hidden shadow-lg rounded-xl">
+      <motion.div
+        variants={itemVariants}
+        className="bg-white border border-slate-200 overflow-hidden shadow-lg rounded-xl"
+      >
         <div className="flex flex-col lg:flex-row">
 
           {/* Mobile Tabs - Horizontal Scrollable Pills */}
@@ -294,14 +325,11 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
             </AnimatePresence>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Validation Outcome Footer - Terminal Style */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        variants={itemVariants}
         className="bg-[#1D1D20] p-6 rounded-xl shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
       >
         {/* Terminal Header */}
@@ -322,6 +350,6 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
           </p>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }

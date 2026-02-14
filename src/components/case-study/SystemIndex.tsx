@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 
@@ -60,14 +61,38 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
   // Filter to show only the 2 projects that aren't the current one
   const otherProjects = projects.filter((project) => project.id !== currentId)
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
-    <section
+    <motion.section
       className="w-full bg-slate-950 py-10 md:py-12 border-t border-slate-900"
       aria-labelledby="system-index-heading"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
     >
       <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         {/* Header - Inline with cards */}
-        <div className="mb-6">
+        <motion.div className="mb-6" variants={itemVariants}>
           <ComponentHeading
             tag="// SYSTEM_INDEX"
             title="Explore Other Architectures"
@@ -75,45 +100,46 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
             align="center"
             className="mb-0 [&_h2]:text-white [&_p]:text-slate-400 [&_span]:text-slate-500"
           />
-        </div>
+        </motion.div>
 
         {/* Cards Grid - 2 Column, Compact */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {otherProjects.map((project) => (
-            <Link
-              key={project.id}
-              href={project.link}
-              className={`
-                group relative bg-slate-900 border border-slate-800 p-5 overflow-hidden
-                transition-all duration-300 ${project.hoverColor}
-                hover:bg-slate-800/50
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
-                flex items-center gap-4
-              `}
-            >
-              {/* Content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-lg font-serif text-white group-hover:text-white/90 transition-colors">
-                    {project.title}
-                  </h3>
-                  <span className={`font-mono text-[10px] tracking-widest uppercase ${project.tagColor}`}>
-                    {project.tag.replace('[SYS_ID: ', '').replace(']', '')}
-                  </span>
+            <motion.div key={project.id} variants={itemVariants}>
+              <Link
+                href={project.link}
+                className={`
+                    group relative bg-slate-900 border border-slate-800 p-5 overflow-hidden
+                    transition-all duration-300 ${project.hoverColor}
+                    hover:bg-slate-800/50
+                    focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
+                    flex items-center gap-4
+                `}
+              >
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-lg font-serif text-white group-hover:text-white/90 transition-colors">
+                      {project.title}
+                    </h3>
+                    <span className={`font-mono text-[10px] tracking-widest uppercase ${project.tagColor}`}>
+                      {project.tag.replace('[SYS_ID: ', '').replace(']', '')}
+                    </span>
+                  </div>
+                  <p className="text-slate-400 text-sm leading-relaxed line-clamp-2">
+                    {project.hook}
+                  </p>
                 </div>
-                <p className="text-slate-400 text-sm leading-relaxed line-clamp-2">
-                  {project.hook}
-                </p>
-              </div>
 
-              {/* Arrow Icon */}
-              <ArrowRight
-                className={`w-5 h-5 text-slate-600 ${project.arrowColor} transition-all duration-300 group-hover:translate-x-1 flex-shrink-0`}
-              />
-            </Link>
+                {/* Arrow Icon */}
+                <ArrowRight
+                  className={`w-5 h-5 text-slate-600 ${project.arrowColor} transition-all duration-300 group-hover:translate-x-1 flex-shrink-0`}
+                />
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }

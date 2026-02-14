@@ -49,25 +49,46 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
     blueprints.systemMap,
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
       className="space-y-8"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
     >
       {/* Section Header - Centered */}
-      {/* Section Header - Centered */}
-      <ComponentHeading
-        variant="block"
-        align="center"
-        tag="// ARTIFACT_SET: ARCHITECTURE_MAPS"
-        title="System Topology & Logic"
-        description="Before designing pixels, I mapped the physical constraints of the WebFOCUS platform. These blueprints defined how the new ML wizard would inherit responsive behaviors from the existing 3rd-level navigation system."
-        color="blue"
-        className="mb-8"
-      />
+      <motion.div variants={itemVariants}>
+        <ComponentHeading
+          variant="block"
+          align="center"
+          tag="// ARTIFACT_SET: ARCHITECTURE_MAPS"
+          title="System Topology & Logic"
+          description="Before designing pixels, I mapped the physical constraints of the WebFOCUS platform. These blueprints defined how the new ML wizard would inherit responsive behaviors from the existing 3rd-level navigation system."
+          color="blue"
+          className="mb-8"
+        />
+      </motion.div>
 
       {/* Blueprint Grid - Technical Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -75,10 +96,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
         {/* Left Column - Master Spec (spans 2 columns on large screens) */}
         <motion.div
           className="lg:col-span-2"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          variants={itemVariants}
         >
           <div className="bg-slate-50 border border-slate-200 overflow-hidden h-full rounded-2xl">
             {/* Blueprint Image */}
@@ -113,15 +131,12 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
         </motion.div>
 
         {/* Right Column - Logic Stack */}
-        <motion.div
-          className="flex flex-col gap-6"
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <div className="flex flex-col gap-6">
           {/* Card 1 - Information Architecture */}
-          <div className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl">
+          <motion.div
+            variants={itemVariants}
+            className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl"
+          >
             <div
               className="relative aspect-[4/3] cursor-zoom-in group"
               onClick={() => openLightbox(blueprints.flowchart1, allImages, 2)}
@@ -140,10 +155,13 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
                 {blueprints.flowchart1.caption}
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2 - Logic Branching */}
-          <div className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl">
+          <motion.div
+            variants={itemVariants}
+            className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl"
+          >
             <div
               className="relative aspect-[4/3] cursor-zoom-in group"
               onClick={() => openLightbox(blueprints.flowchart2, allImages, 3)}
@@ -162,16 +180,13 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
                 {blueprints.flowchart2.caption}
               </span>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Full-Width System Map */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+        variants={itemVariants}
         className="bg-slate-50 border border-slate-200 overflow-hidden rounded-2xl"
       >
         <div
@@ -208,7 +223,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
       </motion.div>
 
       {/* Technical Note Footer */}
-      <div className="w-full">
+      <motion.div variants={itemVariants} className="w-full">
         <TerminalInsight
           title="architecture_summary.log"
           insightLabel="INSIGHT:"
@@ -220,7 +235,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
             </p>
           </div>
         </TerminalInsight>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }

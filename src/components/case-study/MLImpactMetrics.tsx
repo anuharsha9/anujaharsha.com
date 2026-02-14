@@ -53,9 +53,10 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
     <div className="space-y-8">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0, y: 10 },
+          visible: { opacity: 1, y: 0 }
+        }}
         className="text-center space-y-3"
       >
         <ComponentHeading
@@ -76,10 +77,10 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
           return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } }
+              }}
               className="bg-white border border-slate-200 p-6 md:p-8 h-full flex flex-col hover:shadow-lg hover:border-slate-300 transition-all duration-300 rounded-2xl"
             >
               {/* Icon */}

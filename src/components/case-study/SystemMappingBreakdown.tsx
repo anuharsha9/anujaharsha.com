@@ -52,12 +52,45 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
   ]
 
   // ... existing code ...
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
+  const heroVariants = {
+    hidden: { opacity: 0, scale: 0.98 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }
+    }
+  }
+
   return (
-    <div className="space-y-12 py-8">
+    <motion.div
+      className="space-y-12 py-8"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
 
       {/* Header Section */}
-      {/* Header Section */}
-      <div>
+      <motion.div variants={itemVariants}>
         <ComponentHeading
           variant="block"
           tag="// SYSTEM_ARCHITECTURE"
@@ -66,14 +99,11 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
           align="center"
           color="slate"
         />
-      </div>
+      </motion.div>
 
       {/* Hero Image - Emphasized */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+        variants={heroVariants}
         className="relative w-full h-[500px] md:h-[600px] bg-slate-50 rounded-2xl border border-slate-100 shadow-xl overflow-hidden group cursor-zoom-in"
         onClick={() => setLightboxOpen(true)}
       >
@@ -102,10 +132,7 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
         {categories.map((cat, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            variants={itemVariants}
             className="bg-white rounded-xl border border-slate-100 p-6 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"
           >
             <div className="flex items-center gap-3 mb-6">
@@ -140,9 +167,7 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
 
       {/* Terminal Output - Sleek & Modern */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        variants={itemVariants}
         className="rounded-xl overflow-hidden bg-[#1D1D20] shadow-2xl ring-1 ring-white/10"
       >
         {/* Header */}
@@ -191,6 +216,6 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
         imageAlt="RC mental-model map: Complete system diagram"
         imageCaption="The complete system diagram showing the unified workflow that replaced five independent subsystems with one coherent mental model."
       />
-    </div>
+    </motion.div>
   )
 }

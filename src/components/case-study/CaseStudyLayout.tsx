@@ -15,6 +15,8 @@ import UXPrinciples from './UXPrinciples'
 import SectionBlock from './SectionBlock'
 import PrototypeBlock from './PrototypeBlock'
 import PasswordGate from './PasswordGate'
+import ImpactDiff from './ImpactDiff'
+import IQWorkflowComparison from './IQWorkflowComparison'
 import SignatureLogo from '@/components/brand/SignatureLogo'
 import SectionDivider from '@/components/brand/SectionDivider'
 import SocialShareButtons from '@/components/sharing/SocialShareButtons'
@@ -43,194 +45,61 @@ import { CaseStudyCard } from './CaseStudyCard'
 
 // Dynamic imports for heavy components - loaded on demand with loading states
 // Note: Next.js requires options to be object literals, not variables
-const ImpactVisual = dynamic(() => import('./ImpactVisual'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const EmpathizeStrategyGrid = dynamic(() => import('./EmpathizeStrategyGrid'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const PersonaCards = dynamic(() => import('./PersonaCards'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+// Static imports for better stability (no layout shift)
+import ImpactVisual from './ImpactVisual'
+import EmpathizeStrategyGrid from './EmpathizeStrategyGrid'
+import PersonaCards from './PersonaCards'
 import ProcessArtifactViewer from './ProcessArtifactViewer'
 import { reportCasterArtifacts } from '@/data/reportcaster-artifacts'
 import { mlArtifacts } from '@/data/ml-artifacts'
 import { iqArtifacts } from '@/data/iq-artifacts'
-const SystemMappingBreakdown = dynamic(() => import('./SystemMappingBreakdown'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-// LearningAndTransformation removed - redundant with EvolutionSplit
-const NavigateForwardContent = dynamic(() => import('./NavigateForwardContent'), { ssr: false, loading: () => <LoadingSpinner /> })
-const VersionIteration = dynamic(() => import('./VersionIteration'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const ScheduleWorkflowComparison = dynamic(() => import('./ScheduleWorkflowComparison'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const ImpactDiff = dynamic(() => import('./ImpactDiff'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const SystemArchaeology = dynamic(() => import('./SystemArchaeology'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const RCDesignEvolution = dynamic(() => import('./RCDesignEvolution'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-// TestimonialCard removed - testimonials now integrated into NavigateForwardContent
+import SystemMappingBreakdown from './SystemMappingBreakdown'
 
-// Unified Research & Collaboration Components
-const ResearchApproach = dynamic(() => import('./ResearchApproach'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const TeamCollaboration = dynamic(() => import('./TeamCollaboration'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const CaseStudyReflection = dynamic(() => import('./CaseStudyReflection'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+import NavigateForwardContent from './NavigateForwardContent'
+import VersionIteration from './VersionIteration'
+import ScheduleWorkflowComparison from './ScheduleWorkflowComparison'
 
-// ML Functions specific components
-const PatternConnections = dynamic(() => import('./PatternConnections'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const ReadingProgress = dynamic(() => import('./ReadingProgress'), { ssr: false }) // No loading state needed for progress bar
-const MLChallengeBreakdown = dynamic(() => import('./MLChallengeBreakdown'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MLKnowledgeGapSystem = dynamic(() => import('./MLKnowledgeGapSystem'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MLUserAccessStrategy = dynamic(() => import('./MLUserAccessStrategy'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MLWorkflowMapping = dynamic(() => import('./MLWorkflowMapping'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+import SystemArchaeology from './SystemArchaeology'
+import RCDesignEvolution from './RCDesignEvolution'
 
-const MLExplainabilityHighlight = dynamic(() => import('./MLExplainabilityHighlight'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+import ResearchApproach from './ResearchApproach'
+import TeamCollaboration from './TeamCollaboration'
+import CaseStudyReflection from './CaseStudyReflection'
 
-const SystemTopologyBlueprint = dynamic(() => import('./SystemTopologyBlueprint'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const DesignIterationLog = dynamic(() => import('./DesignIterationLog'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const LayeredDisclosureVisual = dynamic(() => import('./LayeredDisclosureVisual'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MLImpactMetrics = dynamic(() => import('./MLImpactMetrics'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MLPatternConnections = dynamic(() => import('./MLPatternConnections'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MLPersonaCards = dynamic(() => import('./MLPersonaCards'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+import PatternConnections from './PatternConnections'
+import ReadingProgress from './ReadingProgress'
+import MLChallengeBreakdown from './MLChallengeBreakdown'
+import MLKnowledgeGapSystem from './MLKnowledgeGapSystem'
+import MLUserAccessStrategy from './MLUserAccessStrategy'
+import MLWorkflowMapping from './MLWorkflowMapping'
 
+import MLExplainabilityHighlight from './MLExplainabilityHighlight'
+import SystemTopologyBlueprint from './SystemTopologyBlueprint'
+import DesignIterationLog from './DesignIterationLog'
+import LayeredDisclosureVisual from './LayeredDisclosureVisual'
+import MLImpactMetrics from './MLImpactMetrics'
+import MLPatternConnections from './MLPatternConnections'
+import MLPersonaCards from './MLPersonaCards'
 
+import IQPersonaCards from './IQPersonaCards'
+import IQBusinessCase from './IQBusinessCase'
+import IQChallengesBreakdown from './IQChallengesBreakdown'
+import IQValidationSources from './IQValidationSources'
+import ReportCasterTimeline from './ReportCasterTimeline'
+import MLFunctionsTimeline from './MLFunctionsTimeline'
+import IQPluginTimeline from './IQPluginTimeline'
+import IQArchitectureBlueprint from './IQArchitectureBlueprint'
+import IQWorkflowsAndFoundation from './IQWorkflowsAndFoundation'
+import IQPluginArchitecture from './IQPluginArchitecture'
+import IQIterationLog from './IQIterationLog'
 
-const IQPersonaCards = dynamic(() => import('./IQPersonaCards'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQBusinessCase = dynamic(() => import('./IQBusinessCase'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQChallengesBreakdown = dynamic(() => import('./IQChallengesBreakdown'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQValidationSources = dynamic(() => import('./IQValidationSources'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const ReportCasterTimeline = dynamic(() => import('./ReportCasterTimeline'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MLFunctionsTimeline = dynamic(() => import('./MLFunctionsTimeline'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQPluginTimeline = dynamic(() => import('./IQPluginTimeline'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQArchitectureBlueprint = dynamic(() => import('./IQArchitectureBlueprint'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQWorkflowsAndFoundation = dynamic(() => import('./IQWorkflowsAndFoundation'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQPluginArchitecture = dynamic(() => import('./IQPluginArchitecture'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQIterationLog = dynamic(() => import('./IQIterationLog'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQWorkflowComparison = dynamic(() => import('./IQWorkflowComparison'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQEmptyStateShowcase = dynamic(() => import('./IQEmptyStateShowcase'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const IQEvolution = dynamic(() => import('./IQEvolution'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+import IQEmptyStateShowcase from './IQEmptyStateShowcase'
+import IQEvolution from './IQEvolution'
+import IQBuildingSystem from './IQBuildingSystem'
 
-const IQBuildingSystem = dynamic(() => import('./IQBuildingSystem'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-
-const IQIdeaLab = dynamic(() => import('./IQIdeaLab'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-
-const IQPatternConnections = dynamic(() => import('./IQPatternConnections'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
-const MarketAnalysis = dynamic(() => import('./MarketAnalysis'), {
-  ssr: false,
-  loading: () => <LoadingSpinner />
-})
+import IQIdeaLab from './IQIdeaLab'
+import IQPatternConnections from './IQPatternConnections'
+import MarketAnalysis from './MarketAnalysis'
 
 interface CaseStudyLayoutProps {
   data: CaseStudyData
@@ -258,6 +127,42 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
   const [viewMode, setViewMode] = useState<'full' | 'presentation'>('full')
 
   const pathname = usePathname()
+
+  // Memoize framework mappings to prevent unnecessary re-renders of the Matrix component
+  const frameworkSectionMappings = useMemo(() => {
+    if (!data.frameworkConnection) return {}
+
+    const mapping: Record<string, string> = {}
+    data.frameworkConnection.principles.forEach((principle) => {
+      let sectionId = ''
+      if (data.slug === 'reportcaster') {
+        if (principle.letter === 'D') sectionId = 'section-01'
+        else if (principle.letter === 'E') sectionId = 'section-02'
+        else if (principle.letter === 'S') sectionId = 'section-03'
+        else if (principle.letter === 'I') sectionId = 'section-04' // Fixed from 'version-iteration'
+        else if (principle.letter === 'G') sectionId = 'section-05'
+        else if (principle.letter === 'N') sectionId = 'section-06'
+      } else if (data.slug === 'ml-functions') {
+        if (principle.letter === 'D') sectionId = 'section-01'
+        else if (principle.letter === 'E') sectionId = 'section-02'
+        else if (principle.letter === 'S') sectionId = 'section-03'
+        else if (principle.letter === 'I') sectionId = 'section-04'
+        else if (principle.letter === 'G') sectionId = 'section-05'
+        else if (principle.letter === 'N') sectionId = 'section-06'
+      } else if (data.slug === 'iq-plugin') {
+        if (principle.letter === 'D') sectionId = 'section-01'
+        else if (principle.letter === 'E') sectionId = 'section-02'
+        else if (principle.letter === 'S') sectionId = 'section-03'
+        else if (principle.letter === 'I') sectionId = 'section-04'
+        else if (principle.letter === 'G') sectionId = 'section-05'
+        else if (principle.letter === 'N') sectionId = 'section-06'
+      }
+      if (sectionId) {
+        mapping[principle.letter] = sectionId
+      }
+    })
+    return mapping
+  }, [data.frameworkConnection, data.slug])
 
   // Scroll to top when case study loads or pathname changes
   // Modified to respect hash links (like from Gear Inspector)
@@ -800,39 +705,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                   <FrameworkMatrix
                     principles={data.frameworkConnection.principles}
                     caseStudyContext={data.slug.toUpperCase().replace(/-/g, '_')}
-                    sectionMappings={(() => {
-                      // Create mapping: framework letter -> sectionId
-                      const mapping: Record<string, string> = {}
-                      data.frameworkConnection.principles.forEach((principle) => {
-                        let sectionId = ''
-                        if (data.slug === 'reportcaster') {
-                          if (principle.letter === 'D') sectionId = 'section-01'
-                          else if (principle.letter === 'E') sectionId = 'section-02'
-                          else if (principle.letter === 'S') sectionId = 'section-03'
-                          else if (principle.letter === 'I') sectionId = 'version-iteration'
-                          else if (principle.letter === 'G') sectionId = 'section-05'
-                          else if (principle.letter === 'N') sectionId = 'section-06'
-                        } else if (data.slug === 'ml-functions') {
-                          if (principle.letter === 'D') sectionId = 'section-01'
-                          else if (principle.letter === 'E') sectionId = 'section-02'
-                          else if (principle.letter === 'S') sectionId = 'section-03'
-                          else if (principle.letter === 'I') sectionId = 'section-04'
-                          else if (principle.letter === 'G') sectionId = 'section-05'
-                          else if (principle.letter === 'N') sectionId = 'section-06'
-                        } else if (data.slug === 'iq-plugin') {
-                          if (principle.letter === 'D') sectionId = 'section-01'
-                          else if (principle.letter === 'E') sectionId = 'section-02'
-                          else if (principle.letter === 'S') sectionId = 'section-03'
-                          else if (principle.letter === 'I') sectionId = 'section-04'
-                          else if (principle.letter === 'G') sectionId = 'section-05'
-                          else if (principle.letter === 'N') sectionId = 'section-06'
-                        }
-                        if (sectionId) {
-                          mapping[principle.letter] = sectionId
-                        }
-                      })
-                      return mapping
-                    })()}
+                    sectionMappings={frameworkSectionMappings}
                   />
                 </CaseStudyCard>
               </MotionSection>
@@ -1346,8 +1219,10 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <ImpactDiff
                                   beforeImage="/images/case-study/ReportCaster/Before.png"
                                   afterImage="/images/case-study/ReportCaster/After.png"
-                                  beforeAlt="Before: Legacy RC interface — fragmented, multi-tab workflow"
-                                  afterAlt="After: New RC interface — unified, modal-based workflow"
+                                  beforeLabel="Legacy"
+                                  afterLabel="Redesign"
+                                  beforeTitle="legacy_report.exe"
+                                  afterTitle="modern_dashboard.tsx"
                                   isLightBackground={true}
                                 />
                               </div>
@@ -1375,8 +1250,10 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <ImpactDiff
                                   beforeImage="/images/case-study/ml-functions/Legacy Train Model UI.png"
                                   afterImage="/images/case-study/ml-functions/4. Train Model Workflow - Step 1 - Select Problem Type.png"
-                                  beforeAlt="Before: Legacy ML interface — fragmented drag-and-drop workflow"
-                                  afterAlt="After: New ML interface — guided 4-step workflow"
+                                  beforeLabel="Legacy"
+                                  afterLabel="Redesign"
+                                  beforeTitle="legacy_ui.exe"
+                                  afterTitle="workflow_step_1.tsx"
                                   isLightBackground={true}
                                 />
                               </div>
@@ -1384,18 +1261,15 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                 <ImpactDiff
                                   beforeImage="/images/case-study/ml-functions/Legacy Train Model Results UI.png"
                                   afterImage="/images/case-study/ml-functions/8. Train Model Workflow - Compare Models.png"
-                                  beforeAlt="Before: Legacy Results - fragmented table"
-                                  afterAlt="After: New Comparison View - visualized metrics"
-                                  beforeLabel="// LEGACY"
-                                  afterLabel="// REDESIGN"
+                                  beforeLabel="Legacy"
+                                  afterLabel="Redesign"
+                                  beforeTitle="legacy_results.exe"
+                                  afterTitle="model_comparison.tsx"
                                   isLightBackground={true}
                                 />
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <MLImpactMetrics isLightBackground={true} />
-                              </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={true} />}

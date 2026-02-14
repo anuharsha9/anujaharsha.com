@@ -1,12 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { MousePointer, Workflow, Layout, BarChart3, Sparkles, Terminal } from 'lucide-react'
 import { getTheme } from '@/lib/design-system'
 import ComponentHeading from '@/components/ui/ComponentHeading'
-import AutoSequenceDataViewer from './AutoSequenceDataViewer'
+import ImageLightbox from './ImageLightbox'
 
 export interface TabImage {
   src: string
@@ -53,6 +54,8 @@ export default function DesignIterationLog({
 }: DesignIterationLogProps) {
   const t = getTheme(true)
   const [activeTab, setActiveTab] = useState(propTabs ? propTabs[0].id : '01_ENTRY_POINTS')
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   const defaultTabs: Tab[] = [
     {
@@ -223,14 +226,20 @@ export default function DesignIterationLog({
   const tabs = propTabs || defaultTabs
   const activeTabData = tabs.find(t => t.id === activeTab)
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  }
+
   return (
     <div className="space-y-12 py-12">
       {/* Section Header */}
-      {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        variants={headerVariants}
         className="max-w-4xl mx-auto"
       >
         <ComponentHeading
@@ -312,18 +321,36 @@ export default function DesignIterationLog({
                 )}
               </div>
 
-              {/* Viewer Component */}
-              <div className="rounded-2xl overflow-hidden shadow-xl bg-white border border-slate-100">
-                <AutoSequenceDataViewer
-                  images={activeTabData.images.map(img => ({
-                    src: img.src,
-                    alt: img.alt,
-                    caption: `// ${img.figNumber}: ${img.caption}`
-                  }))}
-                  title={activeTabData.title}
-                  autoPlay={true}
-                  className="w-full"
-                />
+              {/* Static Grid View (Replacing Slider) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {activeTabData.images.map((img, index) => (
+                  <div
+                    key={index}
+                    className="group relative rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white cursor-pointer hover:shadow-md transition-all duration-300"
+                    onClick={() => {
+                      setLightboxIndex(index)
+                      setLightboxOpen(true)
+                    }}
+                  >
+                    <div className="aspect-video relative bg-slate-50">
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                    <div className="p-4 bg-white border-t border-slate-50 flex items-start gap-3">
+                      <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mt-0.5 whitespace-nowrap">
+                        {img.figNumber}
+                      </span>
+                      <p className="text-sm text-slate-600 font-light leading-snug">
+                        {img.caption}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
 
             </motion.div>
@@ -331,36 +358,65 @@ export default function DesignIterationLog({
         </AnimatePresence>
       </div>
 
-      {/* Footer Insight */}
+      {/* Footer Insight - Terminal Style */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
-        className="bg-slate-50 rounded-xl p-8 shadow-sm border border-slate-200 max-w-4xl mx-auto"
+        className="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl border border-white/10 max-w-4xl mx-auto"
       >
+        {/* Terminal Window Controls */}
+        <div className="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-white/5">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+          <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+        </div>
 
-        <div className="flex items-start gap-4">
-          <div className="bg-emerald-500/10 p-2 rounded-lg">
-            <Terminal className="w-5 h-5 text-emerald-400" />
-          </div>
-          <div className="space-y-1">
-            <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest block mb-1">
-              {footerContent ? footerContent.label : 'Iteration Insight'}
-            </span>
-            {footerContent ? (
-              <div className="text-slate-300 text-sm font-light leading-relaxed font-sans">
-                {footerContent.text}
-              </div>
-            ) : (
-              <p className="text-slate-300 text-sm font-light leading-relaxed font-sans">
-                The tension between <strong className="text-emerald-300 font-medium">data scientist depth</strong> and <strong className="text-emerald-300 font-medium">user clarity</strong> produced the best results.
-                From hand-drawn wireframes to pixel-perfect specs — 21 key artifacts documenting 6–8 months of cross-functional iteration.
-              </p>
-            )}
+        <div className="p-8">
+          <div className="flex items-start gap-4">
+            <div className="bg-emerald-500/10 p-2 rounded-lg shrink-0">
+              <Terminal className="w-5 h-5 text-emerald-400" />
+            </div>
+            <div className="space-y-2">
+              <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest block">
+                {footerContent ? footerContent.label : '> IDENTIFIED_PATTERN:'}
+              </span>
+              {footerContent ? (
+                <div className="text-slate-300 text-sm font-mono leading-relaxed">
+                  {footerContent.text}
+                </div>
+              ) : (
+                <p className="text-slate-300 text-sm font-mono leading-relaxed">
+                  <span className="text-emerald-300 font-bold">USER_OUTCOME:</span> The tension between data scientist depth and user clarity produced the best results.
+                  <span className="block mt-2 text-slate-500 italic">
+                    // 21 key artifacts documenting 6–8 months of cross-functional iteration.
+                  </span>
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </motion.div>
+
+      {/* Lightbox */}
+      {lightboxOpen && activeTabData && (
+        <ImageLightbox
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          imageSrc={activeTabData.images[lightboxIndex].src}
+          imageAlt={activeTabData.images[lightboxIndex].alt}
+          imageCaption={activeTabData.images[lightboxIndex].caption}
+          images={activeTabData.images.map(img => ({
+            src: img.src,
+            alt: img.alt,
+            caption: img.caption,
+            type: 'image'
+          }))}
+          currentIndex={lightboxIndex}
+          onNavigate={(index) => setLightboxIndex(index)}
+        />
+      )}
 
     </div>
   )

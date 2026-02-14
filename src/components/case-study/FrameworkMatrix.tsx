@@ -41,9 +41,6 @@ export default function FrameworkMatrix({
       {/* The Matrix Grid - Clean & Open - Animated Stagger */}
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
         variants={{
           hidden: {},
           visible: {
@@ -56,11 +53,8 @@ export default function FrameworkMatrix({
         {principles.map((principle, index) => {
           const sectionId = sectionMappings?.[principle.letter]
 
-          // Use motion.div for the cell wrapper
-          const CellWrapper = motion.div
-
           return (
-            <CellWrapper
+            <motion.div
               key={principle.letter}
               onClick={sectionId ? () => handleNavigation(sectionId) : undefined}
               variants={{
@@ -98,7 +92,7 @@ export default function FrameworkMatrix({
                   </div>
                 )}
               </div>
-            </CellWrapper>
+            </motion.div>
           )
         })}
       </motion.div>

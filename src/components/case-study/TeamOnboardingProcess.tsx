@@ -41,16 +41,30 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
     </div>
   )
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
   return (
     <div className="space-y-12 py-8">
 
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <motion.div variants={cardVariants}>
         <ComponentHeading
           variant="block"
           align="center"
@@ -64,10 +78,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
 
       {/* Stakeholder Clusters - 3 Columns */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+        variants={containerVariants}
         className="space-y-6"
       >
         <div className="flex items-center gap-4 justify-center opacity-40">
@@ -82,10 +93,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
           {stakeholderClusters.map((cluster, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.15 + i * 0.1 }}
+              variants={cardVariants}
               className="space-y-3"
             >
               {/* Cluster Header */}
@@ -114,10 +122,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
 
       {/* Onboarding Activities - Process Flow */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+        variants={containerVariants}
         className="space-y-8"
       >
         <div className="text-center">
@@ -134,10 +139,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
           {activities.map((a, i) => (
             <Fragment key={`activity-${i}`}>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.35 + i * 0.1 }}
+                variants={cardVariants}
                 whileHover={{ y: -4 }}
                 className="bg-white border border-slate-200 p-6 hover:shadow-lg hover:border-teal-200 transition-all duration-300 rounded-2xl h-full flex flex-col"
               >

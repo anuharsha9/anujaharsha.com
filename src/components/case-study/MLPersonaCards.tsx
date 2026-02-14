@@ -24,6 +24,15 @@ export default function MLPersonaCards({ isLightBackground = false }: MLPersonaC
     },
   ]
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" }
+    })
+  }
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -42,12 +51,11 @@ export default function MLPersonaCards({ isLightBackground = false }: MLPersonaC
         {personas.map((p, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
+            custom={i}
+            variants={itemVariants}
             className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 group"
           >
+
             <div className="flex items-start gap-5">
               <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                 <p.icon className="w-6 h-6 text-slate-400 group-hover:text-[var(--accent-teal)] transition-colors" strokeWidth={1.5} />
@@ -56,8 +64,8 @@ export default function MLPersonaCards({ isLightBackground = false }: MLPersonaC
                 <div className="flex items-center gap-3">
                   <h4 className="text-lg font-medium text-slate-900">{p.name}</h4>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${p.type === 'TECHNICAL'
-                      ? 'bg-[var(--accent-teal-50)] text-[var(--accent-teal)]'
-                      : 'bg-emerald-50 text-emerald-600'
+                    ? 'bg-[var(--accent-teal-50)] text-[var(--accent-teal)]'
+                    : 'bg-emerald-50 text-emerald-600'
                     }`}>
                     {p.type}
                   </span>
@@ -73,9 +81,10 @@ export default function MLPersonaCards({ isLightBackground = false }: MLPersonaC
 
       {/* Design Implication */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { delay: 0.3 } }
+        }}
         className="max-w-3xl mx-auto bg-slate-50 rounded-xl p-6 text-center border border-slate-100"
       >
         <p className="text-slate-600 text-sm font-light leading-relaxed">

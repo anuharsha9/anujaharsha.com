@@ -583,76 +583,76 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                         {era.id === 'origin-story' ? 'Timeline' : 'Life Context'}
                     </span>
 
-                    {/* TERMINATOR: For the last block, put a dot here and block the rest of the spine */}
-                    {isLast && (
-                        <div className="absolute -left-[22px] md:-left-[66px] top-12 pointer-events-none z-30 hidden md:block">
-                            {/* The Terminal Dot - Animated to match others */}
-                            <motion.div
-                                initial={{ scale: 0, opacity: 0 }}
-                                whileInView={{ scale: 1, opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                                className="relative w-4 h-4 rounded-full bg-[var(--accent-teal)] shadow-[0_0_12px_var(--accent-teal)]"
-                            >
-                                <div className="absolute inset-0 animate-ping rounded-full bg-[var(--accent-teal)] opacity-50"></div>
-                            </motion.div>
 
-                            {/* The Blocker (Hides spine below dot) */}
-                            {/* Wide enough to cover spine glow, but narrow enough not to cover content */}
-                            {/* Reduced from w-32 to w-12 to avoid covering "BA in Animation" */}
-                            <div className="absolute top-3 -left-4 w-12 h-[500px] bg-[#020617]" />
-                        </div>
-                    )}
 
-                    <div className="flex flex-col md:flex-row gap-8 md:gap-16 md:overflow-x-auto pt-6 pb-8 md:-mx-8 md:px-8 md:scrollbar-hide md:mask-linear-fade">
-                        {era.milestones.map((milestone, idx) => {
-                            const IconComp = milestone.icon;
-                            return (
+                    <div className="relative">
+                        {/* TERMINATOR DOT: Aligned with the first item's connector line */}
+                        {isLast && (
+                            <div className="absolute top-[30px] -left-[22px] md:top-[35px] md:-left-[72px] z-30 hidden md:block pointer-events-none">
                                 <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, x: -30 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
+                                    initial={{ scale: 0, opacity: 0 }}
+                                    whileInView={{ scale: 1, opacity: 1 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: 0.2 + (idx * 0.1), duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                                    whileHover={{ y: -5, scale: 1.02 }}
-                                    className="flex flex-row md:flex-col gap-4 md:min-w-[240px] group/timeline relative cursor-pointer"
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                    className="relative w-4 h-4 rounded-full bg-[var(--accent-teal)] shadow-[0_0_12px_var(--accent-teal)] z-20"
                                 >
-                                    {/* DESKTOP: Connection Line Visual */}
-                                    <div className="absolute top-[19px] -left-16 w-16 h-px bg-white/5 hidden md:block" />
+                                    <div className="absolute inset-0 animate-ping rounded-full bg-[var(--accent-teal)] opacity-50"></div>
+                                </motion.div>
+                                {/* Blocker to hide spine below */}
+                                <div className="absolute top-2 -left-4 w-12 h-[500px] bg-[#020617] z-10" />
+                            </div>
+                        )}
 
-                                    {/* MOBILE: Vertical Line Visual */}
-                                    {idx !== (era.milestones?.length || 0) - 1 && (
-                                        <div className="absolute top-12 left-[19px] bottom-[-32px] w-px bg-white/10 md:hidden" />
-                                    )}
+                        <div className="flex flex-col md:flex-row gap-8 md:gap-16 md:overflow-x-auto pt-6 pb-8 md:-mx-8 md:px-8 md:scrollbar-hide md:mask-linear-fade">
+                            {era.milestones.map((milestone, idx) => {
+                                const IconComp = milestone.icon;
+                                return (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, x: -30 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.2 + (idx * 0.1), duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                                        whileHover={{ y: -5, scale: 1.02 }}
+                                        className="flex flex-row md:flex-col gap-4 md:min-w-[240px] group/timeline relative cursor-pointer"
+                                    >
+                                        {/* DESKTOP: Connection Line Visual */}
+                                        <div className="absolute top-[19px] -left-16 w-16 h-px bg-white/5 hidden md:block" />
 
-                                    <div className="flex items-center gap-4 text-slate-500 group-hover/timeline:text-[var(--accent-teal)] transition-colors relative z-10">
-                                        <div className="p-2 rounded-full border border-white/5 bg-slate-900/50 group-hover/timeline:border-[var(--accent-teal)]/50 group-hover/timeline:bg-[var(--accent-teal)]/10 group-hover/timeline:shadow-[0_0_15px_rgba(45,212,191,0.2)] transition-all duration-300">
-                                            {typeof IconComp === 'string' ? (
-                                                <span className="text-xl">{IconComp}</span>
-                                            ) : (
-                                                IconComp && <IconComp className="w-5 h-5" />
+                                        {/* MOBILE: Vertical Line Visual */}
+                                        {idx !== (era.milestones?.length || 0) - 1 && (
+                                            <div className="absolute top-12 left-[19px] bottom-[-32px] w-px bg-white/10 md:hidden" />
+                                        )}
+
+                                        <div className="flex items-center gap-4 text-slate-500 group-hover/timeline:text-[var(--accent-teal)] transition-colors relative z-10">
+                                            <div className="p-2 rounded-full border border-white/5 bg-slate-900/50 group-hover/timeline:border-[var(--accent-teal)]/50 group-hover/timeline:bg-[var(--accent-teal)]/10 group-hover/timeline:shadow-[0_0_15px_rgba(45,212,191,0.2)] transition-all duration-300">
+                                                {typeof IconComp === 'string' ? (
+                                                    <span className="text-xl">{IconComp}</span>
+                                                ) : (
+                                                    IconComp && <IconComp className="w-5 h-5" />
+                                                )}
+                                            </div>
+                                            {/* Dot on line - Desktop Only */}
+                                            <div className="hidden md:block h-1.5 w-1.5 rounded-full bg-white/20 group-hover/timeline:bg-[var(--accent-teal)] transition-colors" />
+                                        </div>
+
+                                        <div>
+                                            <span className="font-mono text-[var(--accent-teal)] text-[10px] uppercase tracking-wider block mb-1 opacity-80">
+                                                {milestone.year}
+                                            </span>
+                                            <h4 className="text-white font-serif text-lg leading-tight mb-1 group-hover/timeline:text-white transition-colors">
+                                                {milestone.title}
+                                            </h4>
+                                            {milestone.subtitle && (
+                                                <p className="text-slate-500 text-sm leading-relaxed">
+                                                    {milestone.subtitle}
+                                                </p>
                                             )}
                                         </div>
-                                        {/* Dot on line - Desktop Only */}
-                                        <div className="hidden md:block h-1.5 w-1.5 rounded-full bg-white/20 group-hover/timeline:bg-[var(--accent-teal)] transition-colors" />
-                                    </div>
-
-                                    <div>
-                                        <span className="font-mono text-[var(--accent-teal)] text-[10px] uppercase tracking-wider block mb-1 opacity-80">
-                                            {milestone.year}
-                                        </span>
-                                        <h4 className="text-white font-serif text-lg leading-tight mb-1 group-hover/timeline:text-white transition-colors">
-                                            {milestone.title}
-                                        </h4>
-                                        {milestone.subtitle && (
-                                            <p className="text-slate-500 text-sm leading-relaxed">
-                                                {milestone.subtitle}
-                                            </p>
-                                        )}
-                                    </div>
-                                </motion.div>
-                            )
-                        })}
+                                    </motion.div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             )}

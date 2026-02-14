@@ -25,9 +25,10 @@ export default function PersonaCards({ isLightBackground = true }: PersonaCardsP
     <div className="space-y-12 py-8">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0, y: 10 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+        }}
         className="text-center space-y-4 max-w-2xl mx-auto"
       >
         <div className="flex justify-center">
@@ -48,10 +49,14 @@ export default function PersonaCards({ isLightBackground = true }: PersonaCardsP
         {personas.map((p, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, delay: i * 0.1 }
+              }
+            }}
             className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 group"
           >
             <div className="flex items-start gap-5">
@@ -76,9 +81,10 @@ export default function PersonaCards({ isLightBackground = true }: PersonaCardsP
 
       {/* Insight */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { duration: 0.5, delay: 0.3 } }
+        }}
         className="max-w-3xl mx-auto bg-slate-50 rounded-xl p-6 text-center border border-slate-100"
       >
         <p className="text-slate-600 text-base font-light leading-relaxed">

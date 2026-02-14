@@ -92,7 +92,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
                 <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10">
                   <Image
                     src={gear.image}
-                    alt={gear.title}
+                    alt={gear.title || 'Gear Image'}
                     fill
                     className="object-cover"
                     sizes="100vw"

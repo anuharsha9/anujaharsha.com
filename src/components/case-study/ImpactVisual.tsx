@@ -106,17 +106,55 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
     { rotate: -3, translateY: 4 },
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
+  const leftVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  }
+
+  const rightVariants = {
+    hidden: { opacity: 0, x: 30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  }
+
   return (
     <div className="space-y-12 py-8">
-      <div className="space-y-12">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="space-y-12"
+      >
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <motion.div variants={itemVariants}>
           <ComponentHeading
             variant="block"
             align="center"
@@ -130,19 +168,13 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
 
         {/* Click Reduction Data Strip */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          variants={containerVariants}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
         >
           {clickMetrics.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
+              variants={itemVariants}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
               className="bg-white border border-slate-100 p-4 md:p-6 text-center hover:shadow-lg hover:border-teal-100 transition-all duration-300 rounded-2xl group"
             >
@@ -185,10 +217,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
 
             {/* BEFORE: Scattered */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              variants={leftVariants}
               className="space-y-4"
             >
               <div className="flex items-center gap-2">
@@ -198,30 +227,34 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
               </div>
 
               <div className="relative space-y-2 py-4">
-                {entryPoints.old.map((p, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, rotate: scatteredPositions[i].rotate }}
-                    whileInView={{ opacity: 1, rotate: scatteredPositions[i].rotate }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.25 + i * 0.05 }}
-                    whileHover={{ rotate: 0, scale: 1.02, zIndex: 10 }}
-                    style={{ transform: `translateY(${scatteredPositions[i].translateY}px)` }}
-                    className="bg-white border border-slate-200 p-4 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg relative"
-                  >
-                    <p className="text-slate-700 text-sm font-medium">{p.feature}</p>
-                    <p className="text-slate-400 text-xs mt-0.5 italic">{p.location}</p>
-                  </motion.div>
-                ))}
+                {entryPoints.old.map((p, i) => {
+                  const scatteredVariant = {
+                    hidden: { opacity: 0, rotate: scatteredPositions[i].rotate },
+                    visible: {
+                      opacity: 1,
+                      rotate: scatteredPositions[i].rotate,
+                      transition: { duration: 0.4, delay: i * 0.05 }
+                    }
+                  }
+                  return (
+                    <motion.div
+                      key={i}
+                      variants={scatteredVariant}
+                      whileHover={{ rotate: 0, scale: 1.02, zIndex: 10 }}
+                      style={{ transform: `translateY(${scatteredPositions[i].translateY}px)` }}
+                      className="bg-white border border-slate-200 p-4 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg relative"
+                    >
+                      <p className="text-slate-700 text-sm font-medium">{p.feature}</p>
+                      <p className="text-slate-400 text-xs mt-0.5 italic">{p.location}</p>
+                    </motion.div>
+                  )
+                })}
               </div>
             </motion.div>
 
             {/* AFTER: Unified */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              variants={rightVariants}
               className="space-y-4"
             >
               <div className="flex items-center gap-2">
@@ -237,10 +270,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
                 {entryPoints.new.map((p, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.35 + i * 0.05 }}
+                    variants={itemVariants}
                     whileHover={{ x: 4 }}
                     className="bg-white border border-teal-100 p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 flex justify-between items-center group"
                   >
@@ -258,10 +288,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
         {/* Validation Sources */}
         <div className="space-y-8 pt-12 border-t border-slate-100">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            variants={itemVariants}
             className="text-center space-y-2"
           >
             <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
@@ -276,10 +303,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
             {validations.map((v, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.45 + i * 0.1 }}
+                variants={itemVariants}
                 whileHover={{ y: -4 }}
                 className="bg-white border border-slate-100 p-6 hover:shadow-lg hover:border-teal-200 transition-all duration-300 rounded-2xl"
               >
@@ -299,7 +323,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

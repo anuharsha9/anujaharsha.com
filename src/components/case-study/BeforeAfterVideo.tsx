@@ -71,12 +71,31 @@ export default function BeforeAfterVideo({ before, after, isLightBackground = tr
     }
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8 }}
       className="bg-white py-16 md:py-20 lg:py-24 -mx-4 xs:-mx-5 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-16 px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16"
     >
       <div className="max-w-[1440px] mx-auto space-y-10">
@@ -84,10 +103,7 @@ export default function BeforeAfterVideo({ before, after, isLightBackground = tr
             SIDE-BY-SIDE VIDEOS
             ============================================ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          variants={itemVariants}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* BEFORE Video */}

@@ -45,21 +45,53 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
     purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-200' },
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
     <div className="w-full py-12 md:py-20">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8">
         {/* Header */}
-        <ComponentHeading
-          tag="// VALIDATION_SOURCES"
-          title="Research & Validation"
-          description="We didn't just guess. We validated every major decision with real users from our target demographic."
-          color="slate"
-          align="center"
-          className="mb-16 md:mb-24 max-w-3xl mx-auto"
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <ComponentHeading
+            tag="// VALIDATION_SOURCES"
+            title="Research & Validation"
+            description="We didn't just guess. We validated every major decision with real users from our target demographic."
+            color="slate"
+            align="center"
+            className="mb-16 md:mb-24 max-w-3xl mx-auto"
+          />
+        </motion.div>
 
         {/* Outcome Matrix - Clean Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 relative">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 relative"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {/* Dividers for Desktop */}
           <div className="hidden md:block absolute top-0 bottom-0 left-1/3 w-px bg-slate-100" />
           <div className="hidden md:block absolute top-0 bottom-0 right-1/3 w-px bg-slate-100" />
@@ -70,10 +102,7 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
             return (
               <motion.div
                 key={outcome.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={itemVariants}
                 className="flex flex-col h-full group"
               >
                 {/* Icon - Minimal */}
@@ -98,7 +127,7 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
               </motion.div>
             )
           })}
-        </div>
+        </motion.div>
 
         {/* Architect's Log - Refined Dark Block */}
         <motion.div

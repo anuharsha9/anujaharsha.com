@@ -972,6 +972,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                             containerClassName="w-full h-full"
                             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 300px"
                             loading="lazy"
+                            enableParallax={false}
                           />
                           {/* Overlay on hover */}
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">

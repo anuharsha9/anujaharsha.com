@@ -271,14 +271,36 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
 
   const activeTabData = tabs.find(t => t.id === activeTab)
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  }
+
   return (
-    <div className="space-y-8">
+    <motion.div
+      className="space-y-8"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+    >
       {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
+      <motion.div variants={itemVariants}>
         <ComponentHeading
           variant="block"
           tag="// V3_MODAL_ARCHITECTURE"
@@ -291,7 +313,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
 
       {/* IDE Layout - Large Feature Display */}
       {/* Streaming Platform Layout - Modern Tabs + Full Screen Viewer */}
-      <div className="space-y-8">
+      <motion.div variants={itemVariants} className="space-y-8">
         {/* 1. Top Navigation Pills - Mobile Optimized */}
         <div className="relative group">
           {/* Fade gradients to indicate scrollability */}
@@ -390,14 +412,11 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
 
       {/* Recurrence Highlight - Natural Language Summary */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        variants={itemVariants}
         className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 p-6 md:p-8 rounded-2xl"
       >
         <div className="flex flex-col md:flex-row gap-6 md:gap-10">
@@ -442,10 +461,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
 
       {/* System Outcome Footer */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        variants={itemVariants}
         className="bg-slate-900 rounded-xl p-6 shadow-lg border border-slate-800 max-w-4xl mx-auto font-sans"
       >
 
@@ -462,7 +478,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
           </p>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }
 

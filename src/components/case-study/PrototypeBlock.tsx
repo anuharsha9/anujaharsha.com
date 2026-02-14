@@ -44,27 +44,62 @@ export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightB
 
   if (!prototypeMedia) return null
 
+  // If using specific comparison components, they handle their own animations (variants based).
+  // We avoid wrapping them in MotionSection to prevent double-fades or conflicting triggers.
+  if (prototypeMedia.multiBeforeAfter) {
+    return (
+      <section id="prototype" className="py-10 md:py-14 bg-white">
+        <div className="space-y-8" ref={ref}>
+          <MultiBeforeAfterVideo
+            before={prototypeMedia.multiBeforeAfter.before}
+            after={prototypeMedia.multiBeforeAfter.after}
+            isLightBackground={true}
+            comparisonNotes={prototypeMedia.multiBeforeAfter.comparisonNotes}
+            password={password}
+            caseStudySlug={caseStudySlug}
+          />
+        </div>
+      </section>
+    )
+  }
+
+  if (prototypeMedia.beforeAfter) {
+    return (
+      <section id="prototype" className="py-10 md:py-14 bg-white">
+        <div className="space-y-8" ref={ref}>
+          <BeforeAfterVideo
+            before={prototypeMedia.beforeAfter.before}
+            after={prototypeMedia.beforeAfter.after}
+            isLightBackground={true}
+            comparisonNotes={prototypeMedia.beforeAfter.comparisonNotes}
+            password={password}
+            caseStudySlug={caseStudySlug}
+          />
+        </div>
+      </section>
+    )
+  }
+
+  // For fallback video, we use MotionSection to provide the entry animation
   return (
     <MotionSection id="prototype" className="py-10 md:py-14 bg-white">
       <div className="space-y-8" ref={ref}>
-        {prototypeMedia.multiBeforeAfter ? (
-          <MultiBeforeAfterVideo before={prototypeMedia.multiBeforeAfter.before} after={prototypeMedia.multiBeforeAfter.after} isLightBackground={true} comparisonNotes={prototypeMedia.multiBeforeAfter.comparisonNotes} password={password} caseStudySlug={caseStudySlug} />
-        ) : prototypeMedia.beforeAfter ? (
-          <BeforeAfterVideo before={prototypeMedia.beforeAfter.before} after={prototypeMedia.beforeAfter.after} isLightBackground={true} comparisonNotes={prototypeMedia.beforeAfter.comparisonNotes} password={password} caseStudySlug={caseStudySlug} />
-        ) : (
-          <>
-            <div className="text-center space-y-4">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-px flex-1 bg-slate-200"></div>
-                <h2 className="text-slate-900 text-4xl md:text-5xl font-serif">{prototypeMedia.title}</h2>
-                <div className="h-px flex-1 bg-slate-200"></div>
-              </div>
-              {prototypeMedia.description && <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">{prototypeMedia.description}</p>}
-            </div>
-          </>
+        <div className="text-center space-y-4">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="h-px flex-1 bg-slate-200"></div>
+            <h2 className="text-slate-900 text-4xl md:text-5xl font-serif">{prototypeMedia.title}</h2>
+            <div className="h-px flex-1 bg-slate-200"></div>
+          </div>
+          {prototypeMedia.description && <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">{prototypeMedia.description}</p>}
+        </div>
+
+        {!prototypeMedia.videoUrl && !prototypeMedia.videoEmbedUrl && (
+          <div className="text-center p-12 bg-slate-50 rounded-xl border border-slate-100">
+            <p className="text-slate-400">No video content available</p>
+          </div>
         )}
 
-        {!prototypeMedia.beforeAfter && !prototypeMedia.multiBeforeAfter && prototypeMedia.videoUrl && (
+        {prototypeMedia.videoUrl && (
           <div className="space-y-6">
             <ComponentHeading
               variant="block"
@@ -86,7 +121,7 @@ export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightB
           </div>
         )}
 
-        {!prototypeMedia.beforeAfter && prototypeMedia.videoEmbedUrl && !prototypeMedia.videoUrl && (
+        {prototypeMedia.videoEmbedUrl && !prototypeMedia.videoUrl && (
           <div className="space-y-6">
             <ComponentHeading
               variant="block"

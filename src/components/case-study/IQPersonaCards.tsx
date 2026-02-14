@@ -39,13 +39,30 @@ export default function IQPersonaCards({
     },
   ]
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
   return (
     <div className="space-y-12 py-8">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        variants={cardVariants}
         className="text-center space-y-4 max-w-2xl mx-auto"
       >
         <div className="flex justify-center">
@@ -62,14 +79,17 @@ export default function IQPersonaCards({
       </motion.div>
 
       {/* Persona Grid - 2x2 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         {personas.map((p, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
+            variants={cardVariants}
             className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 group"
           >
             <div className="flex items-start gap-5">
@@ -90,13 +110,11 @@ export default function IQPersonaCards({
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Design Implication Footer */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        variants={cardVariants}
         className="max-w-3xl mx-auto bg-slate-50 rounded-xl p-6 text-center border border-slate-100"
       >
         <p className="text-slate-600 text-base font-light leading-relaxed">

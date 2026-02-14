@@ -133,12 +133,18 @@ interface FeatureCardProps {
 const FeatureSection = ({ title, description, icon: Icon, iconColor, status, screens, demoLink, demoLabel, isInternalLink }: FeatureCardProps) => {
     const { openLightbox } = useLightbox()
 
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        }
+    }
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            variants={itemVariants}
             className="space-y-8"
         >
             {/* Text Content - No Box */}
@@ -207,20 +213,49 @@ const FeatureSection = ({ title, description, icon: Icon, iconColor, status, scr
 }
 
 export default function IQWorkflowsAndFoundation({ isLightBackground = false }: IQWorkflowsAndFoundationProps) {
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.1
+            }
+        }
+    }
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        }
+    }
+
     return (
         <div className="w-full py-16 md:py-24 bg-white">
-            <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+            <motion.div
+                className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+            >
 
                 {/* Main Section Header */}
-                <ComponentHeading
-                    variant="block"
-                    tag="// FOUNDATION: WHAT_I_BUILT"
-                    title="Three Workflows. One Foundation."
-                    description="Before connecting them, I built each workflow independently. NLQ and Insights are shipping now. ML launches in 2026."
-                    color="teal"
-                    align="center"
-                    className="mb-20 md:mb-24"
-                />
+                <motion.div variants={itemVariants}>
+                    <ComponentHeading
+                        variant="block"
+                        tag="// FOUNDATION: WHAT_I_BUILT"
+                        title="Three Workflows. One Foundation."
+                        description="Before connecting them, I built each workflow independently. NLQ and Insights are shipping now. ML launches in 2026."
+                        color="teal"
+                        align="center"
+                        className="mb-20 md:mb-24"
+                    />
+                </motion.div>
 
                 {/* Feature Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
@@ -234,10 +269,7 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
 
                 {/* Pattern Parity Footer - No Box */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
+                    variants={itemVariants}
                     className="max-w-4xl mx-auto mt-24 px-6"
                 >
                     <div className="flex flex-col md:flex-row gap-6 items-start border-t border-slate-100 pt-8">
@@ -262,10 +294,7 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
 
                 {/* Unification Bridge */}
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                    variants={itemVariants}
                     className="mt-16 text-center max-w-2xl mx-auto"
                 >
                     <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-sm">
@@ -277,7 +306,7 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
                         </span>
                     </div>
                 </motion.div>
-            </div>
+            </motion.div>
         </div>
     )
 }
