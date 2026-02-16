@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react'
 import Image, { ImageProps } from 'next/image'
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion'
 
 interface ParallaxImageProps extends Omit<ImageProps, 'className'> {
     className?: string
@@ -19,15 +19,15 @@ export default function ParallaxImage({
 }: ParallaxImageProps) {
     const ref = useRef<HTMLDivElement>(null)
 
-    // Scroll-linked Parallax Zoom (Apple/iPhone Style)
-    // 1. Use a larger offset to start earlier and end later
+    // Entrance trigger — once per image, starts when 15% visible
+    const isInView = useInView(ref, { once: true, margin: "-15% 0px -5% 0px" })
+
+    // Scroll-linked Parallax (Apple-style momentum)
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start end", "end start"]
     })
 
-    // 2. Add Physics (Mass/Spring) to the scroll value
-    // This creates the "momentum" feel where the animation lags slightly behind the scroll
     const smoothProgress = useSpring(scrollYProgress, {
         mass: 0.1,
         stiffness: 100,
@@ -35,18 +35,39 @@ export default function ParallaxImage({
         restDelta: 0.001
     })
 
-    // 3. Deeper Transformations
-    // Zoom out effect: Starts at 1.15x (zoomed in), settles to 1.0x (normal)
-    const imageScale = useTransform(smoothProgress, [0, 1], [1.15, 1.0])
+    // Subtle zoom-out: starts slightly zoomed, settles to 1x
+    const imageScale = useTransform(smoothProgress, [0, 1], [1.08, 1.0])
 
-    // Y-Axis Parallax: Moves the image slightly opposite to scroll direction
-    const imageY = useTransform(smoothProgress, [0, 1], ["-5%", "5%"])
+    // Y-axis parallax for depth
+    const imageY = useTransform(smoothProgress, [0, 1], ["-3%", "3%"])
 
     return (
-        <div
+        <motion.div
             ref={ref}
             className={`relative overflow-hidden group/image ${containerClassName || ''}`}
             onClick={onClick}
+            // Premium scroll reveal: clip-path wipe from bottom, with subtle scale & deblur
+            initial={false}
+            animate={isInView ? {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: 'blur(0px)',
+                clipPath: 'inset(0% 0% 0% 0%)',
+            } : {
+                opacity: 0,
+                y: 30,
+                scale: 0.97,
+                filter: 'blur(4px)',
+                clipPath: 'inset(0% 0% 8% 0%)',
+            }}
+            transition={{
+                duration: 0.9,
+                ease: [0.22, 1, 0.36, 1],
+                clipPath: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+                filter: { duration: 0.6, delay: 0.1 },
+                opacity: { duration: 0.5 },
+            }}
         >
             <motion.div
                 className="w-full h-full relative"
@@ -58,10 +79,10 @@ export default function ParallaxImage({
                 />
             </motion.div>
 
-            {/* Optional Overlay for interaction feedback */}
+            {/* Subtle hover overlay for clickable images */}
             {onClick && (
-                <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/10 transition-colors duration-300 pointer-events-none" />
+                <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/5 transition-colors duration-500 pointer-events-none" />
             )}
-        </div>
+        </motion.div>
     )
 }

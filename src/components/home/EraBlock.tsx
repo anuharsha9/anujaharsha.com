@@ -58,7 +58,7 @@ const LegacyTestimonialCard = ({ review }: { review: Testimonial }) => {
                         )}
                     </div>
                     <div className="flex items-center gap-2 mt-0.5">
-                        <span className="font-mono text-[var(--accent-teal)] text-[10px] uppercase tracking-wider font-semibold">
+                        <span className="font-mono text-slate-400 text-[10px] uppercase tracking-wider font-semibold">
                             {review.role}
                         </span>
                         {review.relationship && (
@@ -96,7 +96,7 @@ const ArchiveWorkCard = ({ work, onOpenLightbox }: { work: WorkItem; onOpenLight
             onClick={handleClick}
             target={work.link.startsWith('http') ? "_blank" : "_self"}
             rel={work.link.startsWith('http') ? "noopener noreferrer" : ""}
-            className="group/archive relative bg-slate-100 border border-slate-200 rounded-xl overflow-hidden hover:border-[#0BA2B5]/30 hover:shadow-lg transition-all duration-300 block h-full aspect-square cursor-pointer" // Changed to aspect-square
+            className="group/archive relative bg-slate-900/60 border border-white/[0.06] rounded-xl overflow-hidden hover:border-white/[0.15] hover:shadow-xl hover:shadow-black/30 transition-all duration-300 block h-full aspect-square cursor-pointer"
         >
             {/* Preview Image */}
             {work.image && (
@@ -124,7 +124,7 @@ const ArchiveWorkCard = ({ work, onOpenLightbox }: { work: WorkItem; onOpenLight
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                     {work.tags.slice(0, 2).map(tag => (
-                        <span key={tag} className="text-[10px] text-white/80 font-mono bg-white/10 px-2 py-1 rounded backdrop-blur-sm border border-white/5">
+                        <span key={tag} className="text-[10px] text-white/70 font-mono bg-white/[0.08] px-2 py-1 rounded backdrop-blur-sm border border-white/[0.06]">
                             {tag}
                         </span>
                     ))}
@@ -155,12 +155,13 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
     const sectionRef = React.useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
-        offset: ["start end", "end start"]
+        offset: ["start end", "start 0.3"]
     });
 
-    // Apple-style Micro-animations for Spine (REMOVED - Handled by UnifiedTimelineLayout)
-    // const height = useTransform(scrollYProgress, [0, 0.8], ["0%", isLast ? "9rem" : "110%"]); 
-    // const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+    // Scroll-driven cinematic entry: fade in, rise, and scale up
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.4, 1], [0, 0, 1]);
+    const contentY = useTransform(scrollYProgress, [0, 0.4, 1], [60, 60, 0]);
+    const contentScale = useTransform(scrollYProgress, [0, 0.4, 1], [0.95, 0.95, 1]);
 
     // Lightbox State
     const [lightboxOpen, setLightboxOpen] = React.useState(false);
@@ -177,7 +178,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
     };
 
     return (
-        <section ref={sectionRef} className="relative py-24 md:py-32 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:pl-24 md:pr-8 border-b border-dashed border-white/5 last:border-0 group/section">
+        <section ref={sectionRef} id={`era-${era.id}`} className="relative py-24 md:py-32 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:pl-24 md:pr-8 border-b border-dashed border-white/5 last:border-0 group/section">
 
             {/* ════════════════════════════════════════════════════════════════
              TIMELINE SPINE (Apple Style)
@@ -192,10 +193,9 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                     initial={{ scale: 0, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
-                    className="absolute top-[8.5rem] -left-[6px] w-4 h-4 rounded-full bg-slate-900 border border-[var(--accent-teal)] shadow-[0_0_10px_rgba(45,212,191,0.6)] z-10 flex items-center justify-center"
+                    className="absolute top-[8.5rem] -left-[6px] w-4 h-4 rounded-full bg-slate-900 border border-slate-600 shadow-sm z-10 flex items-center justify-center"
                 >
-                    <div className="absolute inset-0 bg-[var(--accent-teal)] rounded-full animate-ping opacity-20" />
-                    <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rounded-full" />
+                    <div className="w-1.5 h-1.5 bg-slate-400 rounded-full" />
                 </motion.div>
             </div>
 
@@ -206,7 +206,10 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
 
             {/* ADAPTIVE LAYOUT LOGIC */}
             {/* If we have > 1 testimonial, use the Sidebar Layout (8/4 split). Otherwise, use Full Width Layout. */}
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24">
+            <motion.div
+                style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
+                className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24"
+            >
 
                 {/* ONE MAIN COLUMN for logic simplification, utilizing CSS grid for internal layout if needed */}
                 {/* Actually, let's keep the split logic but cleaner */}
@@ -226,9 +229,9 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                     className="mb-16 relative"
                                 >
                                     {/* Apple Style: Date Badge */}
-                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6 shadow-sm">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] mr-2 animate-pulse" />
-                                        <span className="font-mono text-[var(--accent-teal)] text-[10px] md:text-xs tracking-widest uppercase font-semibold">
+                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-md mb-6 shadow-sm">
+                                        <div className="w-1 h-1 rounded-full bg-slate-500 mr-2" />
+                                        <span className="font-mono text-slate-500 text-[9px] md:text-[10px] tracking-[0.15em] uppercase font-normal">
                                             {era.period}
                                         </span>
                                     </div>
@@ -252,7 +255,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                 {era.workItems.length > 0 && (
                                     <>
                                         {era.id === 'csg-architect' ? (
-                                            <div className="flex flex-col gap-12 md:gap-16">
+                                            <div className="flex flex-col gap-16 md:gap-24">
                                                 {/* 1. Flagship: ReportCaster (Full Width) */}
                                                 {era.workItems.filter(w => w.id === 'reportcaster').map((work) => (
                                                     <React.Fragment key={work.id}>
@@ -267,8 +270,8 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                             <div className="mb-6 pl-1">
                                                                 {/* Status Badge */}
                                                                 {work.statusLabel && (
-                                                                    <div className="mb-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest font-mono text-slate-400 group-hover/work:border-[var(--accent-teal)]/30 transition-colors">
-                                                                        <span className={`w-1.5 h-1.5 rounded-full ${work.statusLabel?.includes('Live') ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-amber-500'}`} />
+                                                                    <div className="mb-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.06] text-[9px] uppercase tracking-[0.15em] font-mono text-slate-500">
+                                                                        <span className={`w-1 h-1 rounded-full ${work.statusLabel?.includes('Live') ? 'bg-emerald-500/70' : 'bg-amber-500/60'}`} />
                                                                         {work.statusLabel}
                                                                     </div>
                                                                 )}
@@ -276,17 +279,17 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                                 <div className="flex items-end justify-between">
                                                                     <div>
                                                                         <Link href={work.link} className="block group/title">
-                                                                            <h3 className="font-serif text-3xl md:text-4xl text-white group-hover/title:text-[var(--accent-teal)] transition-colors mb-2 leading-tight">
+                                                                            <h3 className="font-sans text-2xl sm:text-3xl md:text-4xl font-semibold text-white group-hover/title:text-white transition-colors mb-2 leading-tight tracking-[-0.01em]">
                                                                                 {work.title}
                                                                             </h3>
                                                                         </Link>
                                                                         {/* Metric */}
                                                                         {work.metric && (
                                                                             <div className="inline-flex items-baseline gap-2 mt-1">
-                                                                                <span className="font-sans text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-teal)] to-blue-400">
+                                                                                <span className="font-sans text-2xl sm:text-3xl font-bold text-white/90">
                                                                                     <AnimatedCounter value={work.metric} duration={1.2} />
                                                                                 </span>
-                                                                                <span className="font-medium text-sm text-slate-500 tracking-wide">
+                                                                                <span className="font-normal text-xs sm:text-sm text-slate-500 tracking-wide">
                                                                                     {work.metricLabel}
                                                                                 </span>
                                                                             </div>
@@ -294,9 +297,9 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                                     </div>
 
                                                                     {work.link !== '#' && (
-                                                                        <Link href={work.link} className="mb-2 p-2 rounded-full bg-white/5 border border-white/10 group-hover/work:bg-[var(--accent-teal)]/10 group-hover/work:border-[var(--accent-teal)]/30 transition-all duration-300">
+                                                                        <Link href={work.link} className="mb-2 p-2 rounded-full bg-white/[0.03] border border-white/[0.06] group-hover/work:bg-white/[0.06] group-hover/work:border-white/10 transition-all duration-300">
                                                                             <ArrowRight
-                                                                                className="w-5 h-5 text-slate-400 group-hover/work:text-[var(--accent-teal)] transition-colors duration-300"
+                                                                                className="w-4 h-4 text-slate-500 group-hover/work:text-slate-300 transition-colors duration-300"
                                                                             />
                                                                         </Link>
                                                                     )}
@@ -355,7 +358,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                                                 </Link>
                                                                             )}
                                                                         </div>
-                                                                        <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-wider">{review.role}, {review.company}</span>
+                                                                        <span className="text-slate-500 font-mono text-xs uppercase tracking-wider">{review.role}, {review.company}</span>
                                                                     </div>
                                                                 </cite>
                                                             </blockquote>
@@ -376,7 +379,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                             }
                                                         }
                                                     }}
-                                                    className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+                                                    className="flex flex-col gap-12 md:gap-16"
                                                 >
                                                     {era.workItems.filter(w => w.id === 'ml-functions' || w.id === 'iq-plugin').map(work => (
                                                         <motion.div
@@ -408,7 +411,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                 }}
                                                 className={
                                                     isSidebarLayout
-                                                        ? "flex flex-col gap-12 md:gap-20"
+                                                        ? "flex flex-col gap-16 md:gap-24"
                                                         : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
                                                 }
                                             >
@@ -458,7 +461,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                                 </Link>
                                                             )}
                                                         </div>
-                                                        <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-wider">{era.testimonials[0].role}, {era.testimonials[0].company}</span>
+                                                        <span className="text-slate-400 font-mono text-xs uppercase tracking-wider">{era.testimonials[0].role}, {era.testimonials[0].company}</span>
                                                     </div>
                                                 </cite>
                                             </blockquote>
@@ -522,12 +525,12 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                     );
                 })()}
 
-            </div>
+            </motion.div>
 
             {/* CSG Era: Articles (Horizontal Layout below everything - FULL WIDTH) */}
             {era.articles && era.articles.length > 0 && (
                 <div className="mt-20 pt-12 border-t border-dashed border-white/5 w-full relative z-10">
-                    <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-8 block pl-1 text-[var(--accent-teal)]">Selected Writing</span>
+                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-mono mb-8 block pl-1">Selected Writing</span>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12">
                         {era.articles.map((article) => (
                             <Link key={article.id} href={article.link} target="_blank" className="group/article flex md:block lg:flex gap-6 items-start">
@@ -594,9 +597,9 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                     whileInView={{ scale: 1, opacity: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: 0.2 }}
-                                    className="relative w-4 h-4 rounded-full bg-[var(--accent-teal)] shadow-[0_0_12px_var(--accent-teal)] z-20"
+                                    className="relative w-4 h-4 rounded-full bg-slate-600 border border-slate-500 z-20"
                                 >
-                                    <div className="absolute inset-0 animate-ping rounded-full bg-[var(--accent-teal)] opacity-50"></div>
+                                    <div className="w-1.5 h-1.5 bg-slate-400 rounded-full absolute inset-0 m-auto"></div>
                                 </motion.div>
                                 {/* Blocker to hide spine below */}
                                 <div className="absolute top-2 -left-4 w-12 h-[500px] bg-[#020617] z-10" />
@@ -624,8 +627,8 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                             <div className="absolute top-12 left-[19px] bottom-[-32px] w-px bg-white/10 md:hidden" />
                                         )}
 
-                                        <div className="flex items-center gap-4 text-slate-500 group-hover/timeline:text-[var(--accent-teal)] transition-colors relative z-10">
-                                            <div className="p-2 rounded-full border border-white/5 bg-slate-900/50 group-hover/timeline:border-[var(--accent-teal)]/50 group-hover/timeline:bg-[var(--accent-teal)]/10 group-hover/timeline:shadow-[0_0_15px_rgba(45,212,191,0.2)] transition-all duration-300">
+                                        <div className="flex items-center gap-4 text-slate-500 group-hover/timeline:text-white transition-colors relative z-10">
+                                            <div className="p-2 rounded-full border border-white/5 bg-slate-900/50 group-hover/timeline:border-white/20 group-hover/timeline:bg-white/5 transition-all duration-300">
                                                 {typeof IconComp === 'string' ? (
                                                     <span className="text-xl">{IconComp}</span>
                                                 ) : (
@@ -633,11 +636,11 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                 )}
                                             </div>
                                             {/* Dot on line - Desktop Only */}
-                                            <div className="hidden md:block h-1.5 w-1.5 rounded-full bg-white/20 group-hover/timeline:bg-[var(--accent-teal)] transition-colors" />
+                                            <div className="hidden md:block h-1.5 w-1.5 rounded-full bg-white/20 group-hover/timeline:bg-white/60 transition-colors" />
                                         </div>
 
                                         <div>
-                                            <span className="font-mono text-[var(--accent-teal)] text-[10px] uppercase tracking-wider block mb-1 opacity-80">
+                                            <span className="font-mono text-slate-400 text-[10px] uppercase tracking-wider block mb-1 opacity-80">
                                                 {milestone.year}
                                             </span>
                                             <h4 className="text-white font-serif text-lg leading-tight mb-1 group-hover/timeline:text-white transition-colors">

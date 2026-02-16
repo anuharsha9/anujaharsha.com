@@ -5,31 +5,32 @@ import { motion, HTMLMotionProps, Variants } from 'framer-motion'
 
 interface MotionSectionProps extends HTMLMotionProps<'section'> {
   children: ReactNode
-  delay?: number // Delay in seconds
-  staggerChildren?: number // Stagger delay for children
-  viewportAmount?: number // Amount of element visible to trigger
+  delay?: number
+  staggerChildren?: number
+  viewportAmount?: number
   className?: string
 }
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.985,
+  },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] // Custom cubic-bezier for smooth feeling
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1]
     }
   }
 }
 
 /**
- * MotionSection - Upgraded to use Framer Motion natively.
- * Wraps content in a <motion.section> that reveals on scroll.
- * 
- * @param delay - Delay before starting animation (seconds)
- * @param staggerChildren - Delay between animating children (if they produce motion)
- * @param viewportAmount - 0 to 1, how much of element must be visible
+ * MotionSection — Premium scroll-reveal with subtle scale.
+ * Sections gently "breathe in" as they enter the viewport.
  */
 export default function MotionSection({
   children,
@@ -39,12 +40,15 @@ export default function MotionSection({
   viewportAmount = 0.1,
   ...props
 }: MotionSectionProps) {
-
   return (
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-50px", amount: viewportAmount }}
+      viewport={{
+        once: true,
+        margin: "50px 0px",
+        amount: Math.min(viewportAmount, 0.05),
+      }}
       transition={{
         delay,
         staggerChildren,

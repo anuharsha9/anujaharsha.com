@@ -5,6 +5,9 @@ import TalkSection from '@/components/home/TalkSection'
 import DesignEngineerBlock from '@/components/work/DesignEngineerBlock'
 import ScrollGear from '@/components/ui/ScrollGear'
 import UnifiedTimelineLayout from '@/components/home/UnifiedTimelineLayout'
+import WhisperNarration from '@/components/home/WhisperNarration'
+import ChapterProgress from '@/components/home/ChapterProgress'
+import StoryModeWrapper from '@/components/home/StoryModeWrapper'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -37,22 +40,34 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-[#020617] relative overflow-clip">
-      <HeroSplit />
+    <StoryModeWrapper>
+      <div className="bg-[#020617] relative overflow-clip">
+        <ChapterProgress />
+        <HeroSplit />
 
-      {/* 
-        THE ENERGY STACK (The 4 Era Blocks)
-        Replaces WorkGrid, SocialProof, GrowthStory, Archive.
-      */}
-      <div id="work-overview">
-        <UnifiedTimelineLayout>
-          <DesignEngineerBlock />
-          <EnergyStack />
-        </UnifiedTimelineLayout>
+        {/* Whisper 1: Hero → Work */}
+        <WhisperNarration text="Let me show you how I think." />
+
+        {/* 
+          THE ENERGY STACK (The 4 Era Blocks)
+          Replaces WorkGrid, SocialProof, GrowthStory, Archive.
+        */}
+        <div id="work-overview">
+          <UnifiedTimelineLayout>
+            <DesignEngineerBlock />
+
+            {/* Whisper 2: Philosophy → Proof */}
+            <WhisperNarration text="13 years. One mission." />
+
+            <EnergyStack />
+          </UnifiedTimelineLayout>
+        </div>
+
+
+        <TalkSection />
+        <ScrollGear />
       </div>
-
-      <TalkSection />
-      <ScrollGear />
-    </div>
+    </StoryModeWrapper>
   )
 }
+

@@ -48,7 +48,8 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
             hidden: {},
             visible: {
               transition: {
-                staggerChildren: 0.1
+                staggerChildren: 0.12,
+                delayChildren: 0.05
               }
             }
           }}
@@ -59,8 +60,8 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
               <motion.div
                 key={item.label}
                 variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                  hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
+                  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
                 }}
                 className={`
                   flex flex-col gap-3 md:px-6 first:pl-0 last:pr-0
@@ -85,8 +86,8 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
                 <motion.div
                   key={index}
                   variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                    hidden: { opacity: 0, y: 12, scale: 0.95, filter: 'blur(4px)' },
+                    visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
                   }}
                   className="flex flex-col gap-1 md:px-6 first:pl-0"
                 >

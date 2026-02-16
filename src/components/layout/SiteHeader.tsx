@@ -20,8 +20,9 @@ export default function SiteHeader() {
   const isCaseStudyPage = pathname?.startsWith('/work/') ?? false
   const isAboutPage = pathname === '/me' || pathname === '/me/'
 
-  // Always visible on case study pages, otherwise start hidden (desktop only)
+  // Always visible on case study pages, otherwise start hidden
   const [isVisible, setIsVisible] = useState(isCaseStudyPage)
+  const [isPresentationMode, setIsPresentationMode] = useState(false)
 
   // Keep track of whether we're on mobile to control visibility behavior
   useEffect(() => {
@@ -29,11 +30,11 @@ export default function SiteHeader() {
 
     const updateVisibilityForViewport = () => {
       const isMobile = window.innerWidth < 1024 // lg breakpoint
-      if (isMobile) {
-        // On mobile, header should always be visible for hamburger access
+      if (isMobile && !isLandingPage) {
+        // On mobile non-landing pages, header should always be visible for hamburger access
         setIsVisible(true)
       } else {
-        // On desktop, start hidden and let scroll manager handle visibility
+        // On desktop AND on landing page (mobile included): start hidden, scroll manager handles
         setIsVisible(false)
       }
     }
@@ -48,16 +49,28 @@ export default function SiteHeader() {
 
   const [hasShadow, setHasShadow] = useState(false)
 
+  // Detect presentation mode (case study presentation overlay)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const observer = new MutationObserver(() => {
+      // PresentationFlow renders a fixed div with z-[9999]
+      const presentationOverlay = document.querySelector('[data-presentation-mode]')
+      setIsPresentationMode(!!presentationOverlay)
+    })
+    observer.observe(document.body, { childList: true, subtree: true })
+    return () => observer.disconnect()
+  }, [])
+
   // Use centralized scroll manager
   useScrollManager((scrollY) => {
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-      // On mobile: header always visible, only toggle shadow
+    if (typeof window !== 'undefined' && window.innerWidth < 1024 && !isLandingPage) {
+      // On mobile non-landing pages: header always visible, only toggle shadow
       setIsVisible(true)
       setHasShadow(scrollY > 0)
       return
     }
 
-    // On desktop: show header only after scrolling
+    // On desktop AND on landing page (all viewports): show header only after scrolling
     const hasScrolled = scrollY > 0
     setIsVisible(hasScrolled)
     setHasShadow(hasScrolled)
@@ -67,7 +80,7 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 w-full ${t.bgAlt}/95 backdrop-blur-md border-b ${isLandingPage ? 'border-transparent' : t.border} transition-all duration-500 ${isVisible
+      className={`fixed top-0 left-0 right-0 w-full ${t.bgAlt}/95 backdrop-blur-md border-b ${isLandingPage ? 'border-transparent' : t.border} transition-all duration-500 ${(isVisible && !isPresentationMode)
         ? 'opacity-100 translate-y-0 h-auto'
         : 'opacity-0 -translate-y-full pointer-events-none invisible h-0 overflow-hidden'
         } ${hasShadow ? 'shadow-sm' : ''}`}

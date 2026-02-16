@@ -25,10 +25,10 @@ export default function UnifiedTimelineLayout({ children }: { children: React.Re
                     {/* The Track (Faint) - Full Height */}
                     <div className="absolute left-4 md:left-[30px] top-[8.5rem] bottom-0 w-1 bg-white/5 rounded-full hidden md:block" />
 
-                    {/* The Drawing Spine (Vibrant) - Animates Height */}
+                    {/* The Drawing Spine — Subtle, refined */}
                     <motion.div
                         style={{ height }}
-                        className="absolute left-4 md:left-[30px] top-[8.5rem] w-1 bg-[var(--accent-teal)] rounded-full shadow-[0_0_15px_rgba(45,212,191,0.6)] origin-top hidden md:block"
+                        className="absolute left-4 md:left-[30px] top-[8.5rem] w-1 bg-slate-600 rounded-full origin-top hidden md:block"
                     />
                 </div>
             </div>

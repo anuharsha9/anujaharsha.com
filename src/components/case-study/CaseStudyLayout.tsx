@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useCaseStudyAccess } from '@/hooks/useCaseStudyAccess'
 import { CaseStudyData } from '@/types/caseStudy'
-import MotionSection from '@/components/ui/MotionSection'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import QuickOverview from './QuickOverview'
 import HeroMeta from './HeroMeta'
@@ -100,6 +99,19 @@ import IQBuildingSystem from './IQBuildingSystem'
 import IQIdeaLab from './IQIdeaLab'
 import IQPatternConnections from './IQPatternConnections'
 import MarketAnalysis from './MarketAnalysis'
+
+import ScopeExpansionReveal from './ScopeExpansionReveal'
+import SubsystemConsolidation from './SubsystemConsolidation'
+import TribalKnowledgeNetwork from './TribalKnowledgeNetwork'
+import PlusMenuInsight from './PlusMenuInsight'
+import NaturalLanguageInsight from './NaturalLanguageInsight'
+import KnowledgeTransferSystem from './KnowledgeTransferSystem'
+import ShippedImpactSummary from './ShippedImpactSummary'
+// ExecutiveSummaryArc removed — merged into VersionIteration (section-04)
+import SystemConsolidationMap from './SystemConsolidationMap'
+import RecurrenceDesignDetail from './RecurrenceDesignDetail'
+import OwnershipScope from './OwnershipScope'
+import FANGTestimonials from './FANGTestimonials'
 
 interface CaseStudyLayoutProps {
   data: CaseStudyData
@@ -546,7 +558,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           ============================================ */}
       {
         (data.slug === 'ml-functions' || data.slug === 'reportcaster') && !showPasswordContent && (
-          <MotionSection className="surface-light py-8 md:py-12">
+          <section className="surface-light py-8 md:py-12">
             <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
               <div className="max-w-2xl mx-auto space-y-6">
                 <div className="text-center space-y-4">
@@ -613,7 +625,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                 </div>
               </div>
             </div>
-          </MotionSection>
+          </section>
         )
       }
 
@@ -624,7 +636,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
         (showPasswordContent || !data.passwordGate) && (
           <>
             {/* Quick Overview - light background with White Cards */}
-            <MotionSection className="surface-light py-8 sm:py-10 md:py-12 relative space-y-8">
+            <section className="surface-light py-8 sm:py-10 md:py-12 relative space-y-8">
               {/* Subtle Logo Watermark - Top Left Corner */}
               <div className="absolute top-8 left-8 opacity-[0.02] pointer-events-none hidden lg:block">
                 <div className="w-24 h-24">
@@ -646,7 +658,9 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                   />
                 </CaseStudyCard>
               )}
-            </MotionSection>
+
+              {/* ExecutiveSummaryArc removed — V1→V2→V3 story now told once in VersionIteration (section-04) */}
+            </section>
 
             {/* Prototype Block - Transformation in Motion (Before Framework) */}
             {data.prototypeMedia && (
@@ -671,36 +685,29 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           <>
 
 
-            {/* ReportCaster Timeline - Moved Outside Discover */}
-            {data.slug === 'reportcaster' && (
-              <MotionSection className="surface-light py-8 md:py-10">
-                <CaseStudyCard>
-                  <ReportCasterTimeline isLightBackground={true} />
-                </CaseStudyCard>
-              </MotionSection>
-            )}
+            {/* ReportCaster Timeline - REMOVED: Duplicates the D.E.S.I.G.N. framework narrative */}
 
             {/* ML Functions Timeline - Moved Outside Discover */}
             {data.slug === 'ml-functions' && (
-              <MotionSection className="surface-light py-8 md:py-10">
+              <section className="surface-light py-8 md:py-10">
                 <CaseStudyCard>
                   <MLFunctionsTimeline isLightBackground={true} />
                 </CaseStudyCard>
-              </MotionSection>
+              </section>
             )}
 
             {/* IQ Plugin Project Timeline - Outside Discover Section */}
             {data.slug === 'iq-plugin' && (
-              <MotionSection className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
+              <section className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
                 <CaseStudyCard>
                   <IQPluginTimeline isLightBackground={true} />
                 </CaseStudyCard>
-              </MotionSection>
+              </section>
             )}
 
-            {/* D.E.S.I.G.N. Framework Matrix - surface-light */}
-            {data.frameworkConnection && (
-              <MotionSection id="framework-connection" className="surface-light py-8 md:py-10">
+            {/* D.E.S.I.G.N. Framework Matrix - surface-light — Hidden for RC (framework IS the sections) */}
+            {data.frameworkConnection && data.slug !== 'reportcaster' && (
+              <section id="framework-connection" className="surface-light py-8 md:py-10">
                 <CaseStudyCard>
                   <FrameworkMatrix
                     principles={data.frameworkConnection.principles}
@@ -708,7 +715,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                     sectionMappings={frameworkSectionMappings}
                   />
                 </CaseStudyCard>
-              </MotionSection>
+              </section>
             )}
 
 
@@ -722,7 +729,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
                 return (
                   <div key={section.id}>
-                    <MotionSection
+                    <section
                       className={`${sectionBg} py-8 sm:py-10 md:py-12 ${borderClass}`}
                     >
                       <CaseStudyCard>
@@ -734,7 +741,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                           password={data.passwordGate?.password || 'anu-access'}
                         />
                       </CaseStudyCard>
-                    </MotionSection>
+                    </section>
 
                   </div>
                 )
@@ -769,7 +776,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
               // Remove top borders for cleaner look - only keep if transitioning from different background
               const borderClass = '' // Removed borders for cleaner separation
-              const paddingClass = 'py-8 sm:py-10 md:py-12'
+              const paddingClass = 'py-12 sm:py-14 md:py-16'
 
               return (
                 <div key={section.id}>
@@ -777,7 +784,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                   {section.id === 'section-04' && data.slug === 'reportcaster' ? (
                     <>
                       {/* Render as proper section with header */}
-                      <MotionSection
+                      <section
                         id={section.id}
                         className={`${sectionBg} ${paddingClass} ${borderClass}`}
                       >
@@ -811,30 +818,35 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                             </div>
                           )}
 
+                          {/* Plus Menu Insight - The reframing moment */}
+                          <PlusMenuInsight isLightBackground={sectionBg === 'surface-light'} />
+
                           {/* Workflow Transformation Visual - Show separately (not locked) */}
                           <ScheduleWorkflowComparison isLightBackground={sectionBg === 'surface-light'} />
+
+                          {/* Natural Language Insight - The recurrence summary micro-detail */}
+                          <NaturalLanguageInsight isLightBackground={sectionBg === 'surface-light'} />
+
+                          {/* RecurrenceDesignDetail REMOVED — duplicates NaturalLanguageInsight */}
 
                           {/* Version Iteration Details - NOW PUBLIC */}
                           <div className="mt-8">
                             <VersionIteration
-                              v1={(section as any).v1Data}
-                              v2={(section as any).v2Data}
-                              v3={(section as any).v3Data}
+                              v1={section.v1Data}
+                              v2={section.v2Data}
+                              v3={section.v3Data}
                               isLightBackground={sectionBg === 'surface-light'}
                             />
 
-                            {/* V3 Design Evolution - Detailed subsystem screens */}
-                            <div className="mt-16 pt-12 border-t border-slate-200">
-                              <RCDesignEvolution isLightBackground={sectionBg === 'surface-light'} />
-                            </div>
+                            {/* RCDesignEvolution REMOVED — too granular for the narrative flow */}
                           </div>
                         </CaseStudyCard>
-                      </MotionSection>
+                      </section>
                     </>
                   ) : (
                     <>
                       {/* Each section */}
-                      <MotionSection
+                      <section
                         id={section.id}
                         className={`${sectionBg} ${paddingClass} ${borderClass}`}
                       >
@@ -935,11 +947,13 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
                           {/* === INLINE SUB-COMPONENTS: All in the SAME white box === */}
 
-                          {/* RC Section 01: SystemArchaeology */}
+                          {/* RC Section 01: SystemArchaeology only — ScopeExpansionReveal removed (duplicates ExecutiveSummaryArc) */}
                           {section.id === 'section-01' && data.slug === 'reportcaster' && (
-                            <div className="mt-12 pt-12 border-t border-slate-100">
-                              <SystemArchaeology isLightBackground={true} caseStudySlug={data.slug} />
-                            </div>
+                            <>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                <SystemArchaeology isLightBackground={true} caseStudySlug={data.slug} />
+                              </div>
+                            </>
                           )}
 
                           {/* ML Section 01: Knowledge Gap + Challenge Breakdown */}
@@ -966,27 +980,16 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                             </>
                           )}
 
-                          {/* RC Section 06: ImpactVisual (The 'Slider' user missed) */}
-                          {section.id === 'section-06' && data.slug === 'reportcaster' && (
-                            <div className="mt-12 pt-12 border-t border-slate-100">
-                              <ImpactVisual isLightBackground={true} />
-                            </div>
-                          )}
+                          {/* RC Section 06: ImpactVisual — REMOVED: metrics shown elsewhere */}
 
-                          {/* RC Section 02: Research + Strategy + Market + Personas */}
+                          {/* RC Section 02: Research Network + Strategy only — MarketAnalysis, Personas, EmpathizeGrid removed (generic filler) */}
                           {isSectionTwo && data.slug === 'reportcaster' && (
                             <>
                               <div className="mt-12 pt-12 border-t border-slate-100">
+                                <TribalKnowledgeNetwork isLightBackground={true} />
+                              </div>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
                                 <ResearchApproach data={researchApproachData['reportcaster']} accentColor="amber" />
-                              </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <EmpathizeStrategyGrid isLightBackground={true} />
-                              </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <MarketAnalysis {...reportCasterMarketAnalysis} isLightBackground={true} />
-                              </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <PersonaCards isLightBackground={true} />
                               </div>
                             </>
                           )}
@@ -1024,9 +1027,12 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                             </>
                           )}
 
-                          {/* RC Section 03: ProcessArtifacts + SystemMapping */}
+                          {/* RC Section 03: SystemConsolidationMap + ProcessArtifacts + SystemMapping — SubsystemConsolidation removed (duplicates consolidation map) */}
                           {section.id === 'section-03' && data.slug === 'reportcaster' && (
                             <>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                <SystemConsolidationMap isLightBackground={true} />
+                              </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <ProcessArtifactViewer
                                   artifacts={reportCasterArtifacts}
@@ -1164,11 +1170,16 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                             </>
                           )}
 
-                          {/* RC Section 05: Team Collaboration */}
+                          {/* RC Section 05: Ownership Scope + Team Collaboration — KnowledgeTransferSystem removed (overlaps with TeamCollaboration) */}
                           {section.id === 'section-05' && data.slug === 'reportcaster' && (
-                            <div className="mt-12 pt-12 border-t border-slate-100">
-                              <TeamCollaboration data={teamCollaborationData['reportcaster']} accentColor="amber" />
-                            </div>
+                            <>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                <OwnershipScope isLightBackground={true} />
+                              </div>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                <TeamCollaboration data={teamCollaborationData['reportcaster']} accentColor="amber" />
+                              </div>
+                            </>
                           )}
 
                           {/* ML Section 05: Explainability + Team Collaboration */}
@@ -1203,9 +1214,15 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                             </>
                           )}
 
-                          {/* RC Section 06: ImpactDiff + NavigateForward + PatternConnections */}
+                          {/* RC Section 06: Testimonials + ShippedImpact + ImpactDiff + NavigateForward — PatternConnections removed (filler) */}
                           {section.id === 'section-06' && data.slug === 'reportcaster' && (
                             <>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                <FANGTestimonials isLightBackground={true} />
+                              </div>
+                              <div className="mt-12 pt-12 border-t border-slate-100">
+                                <ShippedImpactSummary isLightBackground={true} />
+                              </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <div className="mb-8">
                                   <ComponentHeading
@@ -1228,9 +1245,6 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                               </div>
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <NavigateForwardContent isLightBackground={true} reflection={data.reflection} />
-                              </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <PatternConnections isLightBackground={true} />
                               </div>
                             </>
                           )}
@@ -1319,7 +1333,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                             )}
 
                         </CaseStudyCard>
-                      </MotionSection>
+                      </section>
                     </>
                   )}
 
@@ -1350,23 +1364,14 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
             })}
 
 
-            {/* Design System Showcase - Locked for RC, Public for others */}
-            <MotionSection className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
-              <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-                {data.slug === 'reportcaster' ? (
-                  <LockedContent
-                    password="anu-access"
-                    caseStudySlug={data.slug}
-                    unlockMessage="Password required to view design system details"
-                    isLightBackground={true}
-                  >
-                    <DesignSystemShowcase isLightBackground={true} caseStudySlug={data.slug} />
-                  </LockedContent>
-                ) : (
+            {/* Design System Showcase - Hidden for RC (locked content adds no public value), shown for others */}
+            {data.slug !== 'reportcaster' && (
+              <section className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
+                <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
                   <DesignSystemShowcase isLightBackground={true} caseStudySlug={data.slug} />
-                )}
-              </div>
-            </MotionSection>
+                </div>
+              </section>
+            )}
 
             {/* System Index - Navigate to Other Architectures */}
             <SystemIndex

@@ -15,10 +15,10 @@ export default function PullQuote({ quote, author, isLightBackground = false }: 
   return (
     <motion.div
       className={`my-8 md:my-12 border-l-4 ${t.borderAccent} pl-6 md:pl-8 py-4`}
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+      whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <blockquote className="space-y-3">
         <p className={`${t.text} text-lg md:text-xl font-serif italic leading-relaxed`}>{quote}</p>

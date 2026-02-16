@@ -8,20 +8,20 @@ import { WorkItem } from '@/data/career-data'
 import HeroTerminal from '@/components/case-study/HeroTerminal'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 
+// Full-bleed magazine-style card with shared layout transitions
+
 export function MotionWorkCard({ work }: { work: WorkItem }) {
     const ref = useRef<HTMLDivElement>(null)
     const [hovered, setHovered] = useState(false)
     const isExternal = work.link === '#'
 
     // Scroll-linked Parallax Zoom (Apple/iPhone Style)
-    // 1. Use a larger offset to start earlier and end later
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start end", "end start"]
     })
 
-    // 2. Add Physics (Mass/Spring) to the scroll value
-    // This creates the "momentum" feel where the animation lags slightly behind the scroll
+    // Physics-based smoothing
     const smoothProgress = useSpring(scrollYProgress, {
         mass: 0.1,
         stiffness: 100,
@@ -29,10 +29,10 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
         restDelta: 0.001
     })
 
-    // 3. Deeper Transformations
-    const imageScale = useTransform(smoothProgress, [0, 1], [1.15, 1.0]) // Start zoomed in 15%
-    const imageY = useTransform(smoothProgress, [0, 1], ["-8%", "8%"]) // Move vertically 16% total
-    const imageOpacity = useTransform(smoothProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0]) // Fade in/out at edges
+    // Deeper Transformations
+    const imageScale = useTransform(smoothProgress, [0, 1], [1.15, 1.0])
+    const imageY = useTransform(smoothProgress, [0, 1], ["-8%", "8%"])
+    const imageOpacity = useTransform(smoothProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
 
     // Mouse tracking for Spotlight
     const mouseX = useMotionValue(0)
@@ -50,76 +50,43 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
     return (
         <Link
             href={work.link}
-            className={`block group/work relative ${isExternal ? 'cursor-default pointer-events-none' : ''}`}
+            className={`block group/work relative w-full ${isExternal ? 'cursor-default pointer-events-none' : ''}`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
-            {/* TEXT CONTENT - Moved ABOVE Media for Apple-style Hierarchy */}
-            <div className="mb-6 pl-1">
-                {/* Status Badge - Minimalist */}
-                {work?.statusLabel && (
-                    <div className="mb-3 inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest font-mono text-slate-400 group-hover/work:border-[var(--accent-teal)]/30 transition-colors">
-                        <span className={`w-1.5 h-1.5 rounded-full ${isLive ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-amber-500'}`} />
-                        {work.statusLabel}
-                    </div>
-                )}
-
-                <div className="flex items-end justify-between">
-                    <div>
-                        <h3 className="font-serif text-3xl md:text-4xl text-white group-hover/work:text-[var(--accent-teal)] transition-colors duration-300 mb-2 leading-tight">
-                            {work.title}
-                        </h3>
-                        {/* Metric - Clean & Bold */}
-                        {work.metric && (
-                            <div className="inline-flex items-baseline gap-2 mt-1">
-                                <span className="font-sans text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-teal)] to-blue-400">
-                                    <AnimatedCounter value={work.metric} duration={1.2} />
-                                </span>
-                                <span className="font-medium text-sm text-slate-500 tracking-wide">
-                                    {work.metricLabel}
-                                </span>
-                            </div>
-                        )}
-                    </div>
-
-                    {!isExternal && (
-                        <div className="mb-2 p-2 rounded-full bg-white/5 border border-white/10 group-hover/work:bg-[var(--accent-teal)]/10 group-hover/work:border-[var(--accent-teal)]/30 transition-all duration-300">
-                            <ArrowRight className="w-5 h-5 text-slate-400 group-hover/work:text-[var(--accent-teal)] transition-colors duration-300" />
-                        </div>
-                    )}
-                </div>
-            </div>
-
             {/* 
-              MEDIA CONTAINER 
-              - Apple-style "bento" feel
-              - Spotlight effect on border
-              - 3D lift
+              FULL-BLEED COVER CARD — Magazine Style
+              - 80vw width for cinematic full-bleed presence
+              - 16/9 aspect ratio for dramatic cover feel
+              - Text overlays the bottom with gradient scrim
+              - Mouse-tracking spotlight on border
+              - layoutId for shared layout transitions to case study pages
             */}
             <div
                 onMouseMove={handleMouseMove}
-                className="relative group rounded-xl"
+                className="relative group rounded-2xl"
             >
                 {/* Spotlight Gradient Background (Border Glow) */}
                 <motion.div
-                    className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+                    className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-300 group-hover:opacity-100"
                     style={{
                         background: useMotionTemplate`
               radial-gradient(
                 650px circle at ${mouseX}px ${mouseY}px,
-                rgba(45, 212, 191, 0.15),
+                rgba(255, 255, 255, 0.08),
                 transparent 80%
               )
             `,
                     }}
                 />
 
-                {/* Main Card Content */}
+                {/* Main Card — Full-Bleed Cover with shared layout */}
                 <motion.div
                     ref={ref}
-                    whileHover={{ y: -4, scale: 1.005 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="relative aspect-video rounded-xl overflow-hidden bg-slate-900/50 shadow-sm border border-white/5 group-hover:border-[var(--accent-teal)]/20 transition-colors duration-300"
+                    layoutId={`project-cover-${work.id}`}
+                    whileHover={{ y: -6, scale: 1.008 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25, layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
+                    className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-slate-900/50 shadow-lg shadow-black/20 border border-white/[0.04] group-hover/work:border-white/[0.1] transition-colors duration-500"
                 >
 
                     {/* VIDEO Support with PARALLAX SCALE */}
@@ -156,8 +123,48 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
                         </div>
                     )}
 
+                    {/* Gradient Scrim — Bottom overlay for text legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none opacity-0 group-hover/work:opacity-100 transition-opacity duration-500" />
+
                     {/* Overlay: Subtle shine on hover */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
+
+                    {/* TEXT CONTENT — Overlaid on cover */}
+                    <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 md:p-12 z-10">
+                        {/* Status Badge - Minimal, gray-only */}
+                        {work?.statusLabel && (
+                            <div className="mb-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] text-[9px] uppercase tracking-[0.15em] font-mono text-white/50">
+                                <span className="w-1 h-1 rounded-full bg-white/40" />
+                                {work.statusLabel}
+                            </div>
+                        )}
+
+                        <div className="flex items-end justify-between gap-6">
+                            <div>
+                                <h3 className="font-sans text-3xl sm:text-4xl md:text-5xl font-semibold text-white group-hover/work:text-white transition-colors duration-300 mb-2 leading-[1.1] tracking-[-0.02em] drop-shadow-lg">
+                                    {work.title}
+                                </h3>
+                                {/* Metric - Clean */}
+                                {work.metric && (
+                                    <div className="inline-flex items-baseline gap-2 mt-1">
+                                        <span className="font-sans text-xl sm:text-2xl font-bold text-white/90 drop-shadow-lg">
+                                            <AnimatedCounter value={work.metric} duration={1.2} />
+                                        </span>
+                                        <span className="font-normal text-xs sm:text-sm text-white/60 tracking-wide">
+                                            {work.metricLabel}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+
+                            {!isExternal && (
+                                <div className="mb-1 p-2.5 rounded-full bg-white/[0.08] backdrop-blur-sm border border-white/[0.1] group-hover/work:bg-white/[0.15] group-hover/work:border-white/20 transition-all duration-300 shrink-0">
+                                    <ArrowRight className="w-4 h-4 text-white/70 group-hover/work:text-white transition-colors duration-300" />
+                                </div>
+                            )}
+                        </div>
+                    </div>
 
                     {/* Locked Badge */}
                     {work.locked && (

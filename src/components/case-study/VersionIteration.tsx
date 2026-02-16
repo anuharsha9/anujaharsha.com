@@ -12,18 +12,20 @@ interface VersionData {
   id: string
   title: string
   body: string
-  images?: { src: string; alt: string; caption?: string; fullWidth?: boolean }[]
-  subsections?: { title: string; description?: string; images?: { src: string; alt: string; caption?: string; fullWidth?: boolean }[] }[]
+  images?: { src: string; alt: string; caption?: string; fullWidth?: boolean; sensitive?: boolean }[]
+  subsections?: { title: string; description?: string; images?: { src: string; alt: string; caption?: string; fullWidth?: boolean; sensitive?: boolean }[] }[]
 }
 
 interface VersionIterationProps {
-  v1: VersionData
-  v2: VersionData
-  v3: VersionData
+  v1?: VersionData
+  v2?: VersionData
+  v3?: VersionData
   isLightBackground?: boolean
 }
 
 export default function VersionIteration({ v1, v2, v3, isLightBackground = true }: VersionIterationProps) {
+  // Guard: all three versions are required for the iteration timeline
+  if (!v1 || !v2 || !v3) return null
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string; caption?: string } | null>(null)
   const [lightboxImages, setLightboxImages] = useState<Array<{ src: string; alt: string; caption?: string }>>([])
   const [lightboxCurrentIndex, setLightboxCurrentIndex] = useState(0)
@@ -64,15 +66,14 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
       title: v1.title,
       section: v1,
       approach: 'Independent Product',
-      description: 'Standalone RC environment similar to other complex tools',
-      rationale: 'Match platform pattern (Designer, Data Flows) — it aligned with industry standards for complex tools like Tableau.',
-      rejection: 'Leadership insisted it must be in hub for unified experience',
+      description: 'Standalone RC environment — dedicated scheduling, explorer, and admin',
+      rationale: 'Matched existing platform patterns (Designer, Data Flows) and industry standards.',
+      rejection: 'Leadership mandated all workflows centralized in the Hub.',
       status: 'rejected' as const,
       pivotReason: 'Pivot: Leadership mandated Hub integration',
       validation: {
         headline: '2025 Update: V1 Is Being Built',
-        body: 'Customers specifically requested an independent ReportCaster environment. Leadership approved. My "rejected" V1 concept is now in active development.',
-        insight: 'I designed V1 after discovering that some enterprise customers run 13+ million schedules weekly. Users spending entire days in RC need a dedicated space. The customer requests validated what I saw in the data — my design instincts were right from the start.',
+        body: 'Customers specifically requested an independent RC environment. Leadership approved. My "rejected" V1 is now in active development — design instincts validated by customer data.',
       },
       extensibility: null,
     },
@@ -82,9 +83,9 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
       title: v2.title,
       section: v2,
       approach: 'Hub Plugin',
-      description: 'RC as a plugin inside the hub environment',
-      rationale: 'Bring RC into hub as plugin to meet leadership requirements',
-      rejection: 'Engineering estimated 6+ months — too much effort for the timeline',
+      description: 'RC as a plugin with integrated navigation and consolidated subsystems',
+      rationale: 'Brought RC into the Hub to meet leadership requirements.',
+      rejection: 'Engineering estimated 6+ months — too much effort for the timeline.',
       status: 'rejected' as const,
       pivotReason: 'Pivot: Engineering constraints forced simplification',
       validation: null,
@@ -96,22 +97,22 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
       title: v3.title,
       section: v3,
       approach: 'Platform-Native',
-      description: 'Modal-based workflows from + menu',
-      rationale: 'Design WITH platform patterns (+ menu, modals) — minimal engineering, maximum impact',
+      description: 'Modal-based workflows from the + menu',
+      rationale: 'Designed WITH platform patterns (+ menu, modals) — minimal engineering, maximum impact.',
       rejection: null,
       status: 'shipped' as const,
       pivotReason: null,
       validation: null,
       extensibility: {
-        headline: 'Designed for Platform-Wide Integration',
-        body: 'The modal architecture wasn\'t just about shipping faster — it was about designing for the future. By decoupling the scheduler from any specific location, we enabled scheduling to be surfaced from anywhere in the platform.',
+        headline: 'Designed for Platform-Wide Reuse',
+        body: 'Decoupling the scheduler from any specific location means scheduling can surface from anywhere — Designer, Reporting Server, IQ Plugin, or any future product.',
         futureIntegrations: [
-          'Schedule directly from WebFOCUS Designer',
-          'Schedule from the Reporting Server',
+          'Schedule from WebFOCUS Designer',
+          'Schedule from Reporting Server',
           'Schedule Insights from IQ Plugin',
-          'Any future surface area in the platform',
+          'Any future platform surface',
         ],
-        principle: 'Enterprise design isn\'t just solving today\'s problem — it\'s creating space for tomorrow\'s features. I design systems where future integrations slot in seamlessly, without requiring architectural rewrites. That\'s the difference between tactical and strategic design thinking.',
+        principle: 'Enterprise design means creating space for tomorrow\'s features without architectural rewrites.',
       }
     },
   ]
@@ -128,9 +129,9 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
         <ComponentHeading
           variant="block"
           align="center"
-          tag="// DESIGN_EVOLUTION"
-          title="The Iteration Journey"
-          description="Three architectural approaches. Two rejections. One shipped solution that balanced platform constraints with user needs."
+          tag="DESIGN EVOLUTION"
+          title="Three Architectures. Two Rejections. One Shipped."
+          description="Each rejection narrowed the constraint space until the right solution emerged."
           color="teal"
           className="mb-0"
         />

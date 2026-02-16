@@ -11,6 +11,7 @@ import CaseStudyNav from './CaseStudyNav'
 import SocialShareButtons from '@/components/sharing/SocialShareButtons'
 import { heroTitleVariant, heroSubVariant, fadeIn } from '@/lib/animations'
 import { recommendations } from '@/data/home'
+import TextReveal from '@/components/ui/TextReveal'
 
 interface HeroMetaProps {
   heroTitle: string
@@ -100,7 +101,7 @@ export default function HeroMeta({
   return (
     <>
       <motion.header
-        className="relative min-h-[60vh] flex items-center py-12 md:py-16 lg:py-20 bg-white"
+        className="relative min-h-[60vh] flex items-center py-12 md:py-16 lg:py-20 bg-white overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -157,11 +158,14 @@ export default function HeroMeta({
                   )}
                 </motion.div>
 
-                <motion.h1
-                  variants={heroTitleVariant}
-                  initial="hidden"
-                  animate="visible"
+                <TextReveal
+                  as="h1"
                   className="text-4xl md:text-5xl lg:text-7xl font-serif font-medium text-slate-900 leading-[1.1] tracking-tight"
+                  variant="slide-up"
+                  stagger={0.06}
+                  delay={0.2}
+                  viewportAmount={0.3}
+                  once={true}
                 >
                   {caseStudySlug === 'reportcaster'
                     ? 'Modernizing a 50-Year-Old Enterprise Scheduler'
@@ -170,7 +174,7 @@ export default function HeroMeta({
                       : caseStudySlug === 'iq-plugin'
                         ? 'Driving Data Science Adoption in Enterprise BI'
                         : heroTitle}
-                </motion.h1>
+                </TextReveal>
 
                 <motion.p
                   variants={heroSubVariant}
@@ -194,13 +198,21 @@ export default function HeroMeta({
             </div>
 
             <motion.div
-              variants={heroSubVariant}
               initial="hidden"
               animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.15,
+                    delayChildren: 0.4,
+                  }
+                }
+              }}
               className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-10 border-t border-slate-200"
             >
               {/* Col 1: Role & Expertise */}
-              <div className="space-y-4">
+              <motion.div className="space-y-4" variants={{ hidden: { opacity: 0, y: 12, filter: 'blur(4px)' }, visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                 <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest">Role & Expertise</h3>
                 <div className="space-y-3">
                   <p className="font-medium text-slate-900 text-lg">{role}</p>
@@ -210,10 +222,10 @@ export default function HeroMeta({
                     </p>
                   )}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Col 2: Timeline */}
-              <div className="space-y-4">
+              <motion.div className="space-y-4" variants={{ hidden: { opacity: 0, y: 12, filter: 'blur(4px)' }, visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                 <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest">Timeline</h3>
                 <div className="space-y-2">
                   <p className="font-medium text-slate-900 text-lg">{timeframe.split('|')[0].trim()}</p>
@@ -235,11 +247,10 @@ export default function HeroMeta({
                     </div>
                   )}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Col 3: Assets */}
-              {/* Col 3: Assets */}
-              <div className="space-y-4">
+              <motion.div className="space-y-4" variants={{ hidden: { opacity: 0, y: 12, filter: 'blur(4px)' }, visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                 <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest">Assets</h3>
                 <div className="flex flex-col gap-3">
                   {dataSheetUrl && (
@@ -279,7 +290,7 @@ export default function HeroMeta({
                     </a>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
 
           </div>

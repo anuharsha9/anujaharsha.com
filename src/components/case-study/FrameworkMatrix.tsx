@@ -45,7 +45,8 @@ export default function FrameworkMatrix({
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.1
+              staggerChildren: 0.1,
+              delayChildren: 0.1
             }
           }
         }}
@@ -58,8 +59,8 @@ export default function FrameworkMatrix({
               key={principle.letter}
               onClick={sectionId ? () => handleNavigation(sectionId) : undefined}
               variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
+                visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
               }}
               className={`
                 relative p-8 group transition-all duration-300

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence, useScroll, useTransform, animate } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform, animate, useMotionValueEvent } from 'framer-motion'
 import { useEffect, useRef, useState, useMemo, memo, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -273,14 +273,10 @@ const GearsSvgContainer = memo(function GearsSvgContainer({
   shouldSkipAnimation?: boolean
 }) {
   return (
-    <motion.div
+    <div
       ref={containerRef}
       className="gears-dark-theme w-full"
-      // If ready, we are visible. If skipping animation (quiz done), start visible. Else fade in.
-      initial={{ opacity: shouldSkipAnimation ? 1 : 0, scale: shouldSkipAnimation ? 1 : 0.8, rotate: shouldSkipAnimation ? 0 : -10 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-      style={{ willChange: 'transform, opacity' }}
+      style={{ willChange: 'opacity, transform' }}
       dangerouslySetInnerHTML={{ __html: svgContent }}
     />
   )
@@ -307,6 +303,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   const [isAppReady, setIsAppReady] = useState(false)
   const [shouldSkipEntrance, setShouldSkipEntrance] = useState(false)
   const [quizState, setQuizState] = useState<'loading' | 'quiz' | 'complete'>('loading')
+
+  // CINEMATIC ENTRANCE STATE
+  // waiting -> entrance (brain zooms out from 3.5x to 1x) -> complete
+  const [cinematicPhase, setCinematicPhase] = useState<'waiting' | 'entrance' | 'complete'>('waiting')
 
   // MAIN QUIZ STATE
   const [currentQuestionId, setCurrentQuestionId] = useState<string>('start')
@@ -399,6 +399,11 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     const hasSession = localStorage.getItem(ENTRY_SESSION_KEY) === 'true'
     if (hasSession) {
       setShouldSkipEntrance(true)
+      setCinematicPhase('complete') // Skip cinematic for returning visitors
+    } else {
+      // Start cinematic entrance — brain zooms out from massive to normal
+      setCinematicPhase('entrance')
+      setTimeout(() => setCinematicPhase('complete'), 3500) // Brain settles in ~3s, fully interactive after 3.5s
     }
   }, [forceQuiz])
 
@@ -543,14 +548,38 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     return () => { document.body.style.overflow = '' }
   }, [quizState])
 
-  // Parallax effect for hero section (Only active if not in quiz?)
+  // === BRAIN-FIRST HERO: Scroll-driven crossfade ===
+  // Brain is visible FIRST on page load. Text manifesto fades in on scroll.
+  // Phase 1 (0-25%): Brain holds — fully visible, interactive ("Start Quiz" CTA centered)
+  // Phase 2 (25-50%): Brain fades out, text fades in
+  // Phase 3 (50-70%): Text holds — fully visible
+  // Phase 4 (70-100%): Everything scrolls away naturally
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start']
   })
-  const gearsY = useTransform(scrollYProgress, [0, 1], [0, 100])
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, 50])
-  const glowScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.3])
+
+  // Act 1 (Brain): fully visible at start, starts fading at 25%, gone by 45%
+  const brainOpacity = useTransform(scrollYProgress, [0, 0.25, 0.45], [1, 1, 0])
+  const brainScale = useTransform(scrollYProgress, [0, 0.25, 0.45], [1, 1, 0.85])
+
+  // Act 2 (Text): hidden at start, fades in from 30-50%, holds
+  const textOpacity = useTransform(scrollYProgress, [0, 0.30, 0.50], [0, 0, 1])
+  const textY = useTransform(scrollYProgress, [0, 0.30, 0.50], [80, 80, 0])
+
+  // Scroll indicator visible during brain phase
+  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.20], [1, 0])
+
+  // Brain parallax (subtle movement while brain is visible)
+  const gearsY = useTransform(scrollYProgress, [0, 0.25], [0, 30])
+  // glowY and glowScale removed — glow effect removed per design feedback
+
+  // Track which act is active for pointer-events
+  // Brain (Act 1) is active when scroll < 0.35, Text (Act 2) takes over after
+  const [isAct2Active, setIsAct2Active] = useState(false)
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    setIsAct2Active(latest > 0.35)
+  })
 
   useEffect(() => {
     // Run setup if app is ready OR if we are in quiz mode
@@ -600,8 +629,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         }
 
         // Quiz is complete - now run full animation setup
-        const fadeInDuration = shouldSkipEntrance ? 0 : 2.0
-        const slowDownTime = shouldSkipEntrance ? 0 : 2.0
+        const fadeInDuration = shouldSkipEntrance ? 0 : 1.2
+        const slowDownTime = shouldSkipEntrance ? 0 : 1.0
         const mainGearSlowDownPercent = 0.30
 
         // New structure: gears are direct children of #main-gears with IDs like gear-life, gear-career-ambition
@@ -1054,329 +1083,321 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       <section
         ref={heroRef}
         id="hero"
-        className="bg-monitor relative min-h-screen flex flex-col overflow-hidden"
+        className="bg-monitor relative"
+        style={{ minHeight: quizState === 'quiz' ? '100vh' : '300vh' }}
       >
-        {/* Subtle grid background */}
-        {/* Subtle grid background - only show when not in quiz */}
-        {quizState !== 'quiz' && (
-          <div
-            className="absolute inset-0 opacity-[0.05]"
-            style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-              backgroundSize: '60px 60px',
-            }}
-          />
-        )}
+        {/* Sticky viewport — pins content while user scrolls through 200vh */}
+        <div className="sticky top-0 h-screen overflow-hidden relative flex flex-col">
 
-        {/* Glow effect behind gears - with parallax */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          style={{ y: glowY }}
-        >
+          {/* Subtle grid background */}
+          {quizState !== 'quiz' && (
+            <div
+              className="absolute inset-0 opacity-[0.05]"
+              style={{
+                backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+                backgroundSize: '60px 60px',
+              }}
+            />
+          )}
+
+          {/* Glow and center spark removed — clean entrance */}
+
+          {/* === ACT 1: BRAIN LAYER (visible first, fades on scroll) === */}
           <motion.div
-            className="w-[750px] h-[750px] bg-accent-teal/10 rounded-full blur-[150px]"
-            style={{ scale: glowScale }}
-          />
-        </motion.div>
+            className="absolute inset-0 flex items-center justify-center z-20"
+            style={{
+              opacity: quizState === 'quiz' ? 1 : brainOpacity,
+              scale: quizState === 'quiz' ? 1 : brainScale,
+              pointerEvents: (quizState === 'quiz' || !isAct2Active) ? 'auto' : 'none',
+            }}
+          >
+            <div className={`${spacing.containerFull} relative flex-1 flex flex-col items-center justify-center`}
+              style={{ pointerEvents: (!isAct2Active || quizState === 'quiz') ? 'auto' : 'none' }}>
+              <div className="w-full flex-1 flex flex-col items-center justify-center">
 
+                {/* Centered Gears - THE HERO - with subtle parallax */}
+                <motion.div
+                  className={`relative w-[320px] xs:w-[380px] sm:w-[480px] md:w-[580px] lg:w-[680px] xl:w-[740px] 2xl:w-[900px] max-w-full max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
+                  initial={shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 }}
+                  animate={(isAppReady || quizState === 'quiz')
+                    ? { opacity: 1, scale: quizState === 'quiz' ? 1.15 : 1 }
+                    : (shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 })
+                  }
+                  transition={shouldSkipEntrance ? { duration: 0 } : {
+                    scale: { type: 'spring', stiffness: 45, damping: 12, mass: 1.8 },
+                    opacity: { duration: 2.5, delay: 1.2, ease: [0.22, 1, 0.36, 1] },
+                  }}
+                  style={{ y: gearsY, transformOrigin: 'center center' }}
+                >
+                  <GearsSvgContainer
+                    svgContent={svgContent}
+                    containerRef={containerRef}
+                    isReady={isAppReady || quizState === 'quiz'}
+                    shouldSkipAnimation={shouldSkipEntrance}
+                  />
 
-        {/* Main Content Container - Centered Layout */}
-        <div className={`${spacing.containerFull} relative z-10 flex-1 flex flex-col items-center justify-center`}>
-          <div className="w-full flex-1 flex flex-col items-center justify-center">
-
-            {/* Centered Gears - THE HERO - with subtle parallax */}
-            <motion.div
-              className={`relative w-[320px] xs:w-[380px] sm:w-[480px] md:w-[580px] lg:w-[680px] xl:w-[740px] 2xl:w-[900px] max-w-full max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
-              // If quiz is active, we might want it fixed/centered? 
-              // Actually, simplified approach: Just use standard flow, but overlay everything else.
-              initial={shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              animate={(isAppReady || quizState === 'quiz')
-                ? { opacity: 1, scale: quizState === 'quiz' ? 1.15 : 1 }
-                : (shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 })
-              }
-              transition={{ duration: 3.0, ease: [0.22, 1, 0.36, 1] }}
-              style={{ y: gearsY, transformOrigin: 'center 40%' }}
-            >
-              <GearsSvgContainer
-                svgContent={svgContent}
-                containerRef={containerRef}
-                isReady={isAppReady || quizState === 'quiz'}
-                shouldSkipAnimation={shouldSkipEntrance}
-              />
-
-              {/* === QUIZ CARD OVERLAY === */}
-              {/* This renders ON TOP of the brain but aligns with it */}
-              <AnimatePresence>
-                {quizState === 'quiz' && (
-                  <motion.div
-                    key={`question-${currentQuestionId}`}
-                    className="absolute z-[9999] pointer-events-auto left-1/2 top-1/2"
-                    style={{ x: "-50%", y: "-50%" }}
-                    initial={{ opacity: 0, scale: 0.9, y: "-40%" }}
-                    animate={{ opacity: 1, scale: 1, y: "-50%" }}
-                    exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <div className="text-white bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl max-w-xl w-[90vw] relative overflow-hidden">
-
+                  {/* === QUIZ CARD OVERLAY === */}
+                  {/* This renders ON TOP of the brain but aligns with it */}
+                  <AnimatePresence>
+                    {quizState === 'quiz' && (
                       <motion.div
-                        key={`statement-${currentQuestionId}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="mb-3 text-center"
+                        key={`question-${currentQuestionId}`}
+                        className="absolute z-[9999] pointer-events-auto left-1/2 top-1/2"
+                        style={{ x: "-50%", y: "-50%" }}
+                        initial={{ opacity: 0, scale: 0.9, y: "-40%" }}
+                        animate={{ opacity: 1, scale: 1, y: "-50%" }}
+                        exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        <h3 className="text-lg md:text-xl font-light text-white leading-tight">
-                          {currentQuestion.question}
-                        </h3>
-                      </motion.div>
+                        <div className="text-white bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl max-w-xl w-[90vw] relative overflow-hidden">
 
-                      <div className="space-y-3">
-                        <AnimatePresence mode="wait">
-                          {!showReveal ? (
-                            <motion.div
-                              key={`options-${currentQuestionId}`}
-                              className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${showReveal ? 'pointer-events-none' : ''}`}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -10 }}
-                              transition={{ delay: 0.2 }}
-                            >
-                              {currentQuestion.options.map((option) => (
-                                <button
-                                  key={option.id}
-                                  onClick={() => handleAnswer(option.id)}
-                                  className={`text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 
+                          <motion.div
+                            key={`statement-${currentQuestionId}`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="mb-3 text-center"
+                          >
+                            <h3 className="text-lg md:text-xl font-light text-white leading-tight">
+                              {currentQuestion.question}
+                            </h3>
+                          </motion.div>
+
+                          <div className="space-y-3">
+                            <AnimatePresence mode="wait">
+                              {!showReveal ? (
+                                <motion.div
+                                  key={`options-${currentQuestionId}`}
+                                  className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${showReveal ? 'pointer-events-none' : ''}`}
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -10 }}
+                                  transition={{ delay: 0.2 }}
+                                >
+                                  {currentQuestion.options.map((option) => (
+                                    <button
+                                      key={option.id}
+                                      onClick={() => handleAnswer(option.id)}
+                                      className={`text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 
                                              border border-white/5 hover:border-white/20 transition-all duration-300
                                              flex items-center gap-3 group h-full ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
+                                    >
+                                      <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
+                                      <span className="text-sm text-white/90 font-light">{option.label}</span>
+                                      <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                    </button>
+                                  ))}
+                                </motion.div>
+                              ) : (
+                                <motion.div
+                                  key="reveal"
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -10 }}
+                                  className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl"
                                 >
-                                  <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
-                                  <span className="text-sm text-white/90 font-light">{option.label}</span>
-                                  <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                                </button>
-                              ))}
-                            </motion.div>
-                          ) : (
-                            <motion.div
-                              key="reveal"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -10 }}
-                              className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl"
+                                  <div className="flex items-start gap-3">
+                                    <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
+                                      <Check className="w-4 h-4 text-emerald-400" />
+                                    </div>
+                                    <div>
+                                      <h4 className="text-emerald-400 font-medium mb-0.5 text-sm">{selectedOption?.reveal.title}</h4>
+                                      <p className="text-white/80 text-xs leading-relaxed">
+                                        {selectedOption?.reveal.content}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <motion.div
+                                    className="mt-3 h-1 bg-emerald-500/30 rounded-full overflow-hidden"
+                                  >
+                                    <motion.div
+                                      className="h-full bg-emerald-500"
+                                      initial={{ width: "0%" }}
+                                      animate={{ width: "100%" }}
+                                      transition={{ duration: selectedOption?.nextId === 'end' ? 2 : 4, ease: "linear" }}
+                                    />
+                                  </motion.div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Center CTA — "Start Quiz" button in the center of the brain */}
+                  <AnimatePresence mode="wait">
+                    {!activeGear && quizState !== 'quiz' && (
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+                        initial={{ opacity: 0, filter: 'blur(12px)' }}
+                        animate={{
+                          opacity: cinematicPhase === 'complete' || shouldSkipEntrance ? 1 : 0,
+                          filter: cinematicPhase === 'complete' || shouldSkipEntrance ? 'blur(0px)' : 'blur(12px)',
+                        }}
+                        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                        exit={{ opacity: 0, transition: { duration: 0.2, delay: 0 } }}
+                      >
+                        <div className="text-center px-4">
+                          <button
+                            onClick={startQuiz}
+                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 
+                              bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-md
+                              border border-white/[0.12] hover:border-white/[0.25]
+                              rounded-full text-white/80 hover:text-white
+                              text-sm sm:text-base font-medium tracking-wide
+                              transition-all duration-500 cursor-pointer
+                              shadow-[0_0_30px_rgba(11,162,181,0.15)] hover:shadow-[0_0_50px_rgba(11,162,181,0.3)]
+                              pointer-events-auto"
+                          >
+                            <Brain className="w-4 h-4 sm:w-5 sm:h-5 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+                            <span>Explore My Mind</span>
+                            <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-all duration-500 -ml-1" />
+                          </button>
+                          {quizState === 'complete' && (
+                            <p className="mt-4 text-slate-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em]">
+                              <span className="hidden lg:inline">Hover on the gears to discover more</span>
+                              <span className="lg:hidden">Tap on the gears to discover more</span>
+                            </p>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
+                  <AnimatePresence mode="wait">
+                    {activeGear && activeCoords && quizState === 'complete' && (
+                      <motion.div
+                        key={activeGear.id}
+                        className="absolute z-20 pointer-events-none"
+                        style={{
+                          left: activeCoords.x,
+                          top: activeCoords.y,
+                        }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                      >
+                        <div
+                          className={`flex items-center ${activeCoords.side === 'left' ? 'flex-row-reverse -translate-x-full' : 'flex-row'}`}
+                        >
+                          {/* Connecting Line (Leader) */}
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: 40 }}
+                            className="h-px bg-slate-600 shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+                          />
+
+                          {/* The Card */}
+                          <div
+                            className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
+                            onMouseEnter={() => {
+                              setIsCardHovered(true)
+                              if (hideTimeoutRef.current) {
+                                clearTimeout(hideTimeoutRef.current)
+                                hideTimeoutRef.current = null
+                              }
+                            }}
+                            onMouseLeave={() => {
+                              setIsCardHovered(false)
+                              hideTimeoutRef.current = setTimeout(() => {
+                                setActiveGear(null)
+                              }, 150)
+                            }}
+                          >
+                            {/* Accent Top Border */}
+                            <div
+                              className="absolute top-0 left-0 right-0 h-[2px]"
+                              style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
+                            />
+
+                            {/* DISMISS BUTTON */}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
+                                setActiveGear(null)
+                              }}
+                              className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
                             >
-                              <div className="flex items-start gap-3">
-                                <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
-                                  <Check className="w-4 h-4 text-emerald-400" />
-                                </div>
-                                <div>
-                                  <h4 className="text-emerald-400 font-medium mb-0.5 text-sm">{selectedOption?.reveal.title}</h4>
-                                  <p className="text-white/80 text-xs leading-relaxed">
-                                    {selectedOption?.reveal.content}
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                              </svg>
+                            </button>
+
+                            {/* PERSONALITY INSIGHT MODE — always show thought directly */}
+                            <div className="block text-left group">
+                              <div className="flex flex-col h-full justify-between gap-4">
+                                {/* Insight Content */}
+                                <div className="space-y-2 select-text cursor-auto">
+                                  <p className="text-white/90 text-[14px] leading-relaxed font-medium">
+                                    {activeGear.thought}
                                   </p>
                                 </div>
-                              </div>
-                              <motion.div
-                                className="mt-3 h-1 bg-emerald-500/30 rounded-full overflow-hidden"
-                              >
-                                <motion.div
-                                  className="h-full bg-emerald-500"
-                                  initial={{ width: "0%" }}
-                                  animate={{ width: "100%" }}
-                                  transition={{ duration: selectedOption?.nextId === 'end' ? 2 : 4, ease: "linear" }}
-                                />
-                              </motion.div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
-              {/* Center hint - shown when no gear is active AND quiz is complete */}
-              <AnimatePresence mode="wait">
-                {!activeGear && quizState === 'complete' && (
-                  <motion.div
-                    className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, transition: { duration: 0.3, delay: hasInteracted ? 0.1 : 1.5 } }}
-                    exit={{ opacity: 0, transition: { duration: 0.15, delay: 0 } }}
-                  >
-                    <div className="text-center px-4">
-                      <p className={`text-slate-400 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed`}>
-                        <span className="hidden lg:block">
-                          Hover &amp; click on the rotating gears<br />
-                          <span className="text-slate-500">to explore my mind</span>
-                        </span>
-                        <span className="lg:hidden">
-                          Tap on the rotating gears<br />
-                          <span className="text-slate-500">to explore my mind</span>
-                        </span>
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
-              <AnimatePresence mode="wait">
-                {activeGear && activeCoords && quizState === 'complete' && (
-                  <motion.div
-                    key={activeGear.id}
-                    className="absolute z-20 pointer-events-none"
-                    style={{
-                      left: activeCoords.x,
-                      top: activeCoords.y,
-                    }}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                  >
-                    <div
-                      className={`flex items-center ${activeCoords.side === 'left' ? 'flex-row-reverse -translate-x-full' : 'flex-row'}`}
-                    >
-                      {/* Connecting Line (Leader) */}
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: 40 }}
-                        className="h-px bg-slate-600 shadow-[0_0_8px_rgba(255,255,255,0.5)]"
-                      />
-
-                      {/* The Card */}
-                      <div
-                        className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
-                        onMouseEnter={() => {
-                          setIsCardHovered(true)
-                          if (hideTimeoutRef.current) {
-                            clearTimeout(hideTimeoutRef.current)
-                            hideTimeoutRef.current = null
-                          }
-                        }}
-                        onMouseLeave={() => {
-                          setIsCardHovered(false)
-                          // Use Ref to ensure we catch the updated state
-                          // If answered, DO NOT AUTO-HIDE. Wait for manual dismiss or click-away.
-                          if (inspectorQuizSelectionRef.current !== null) return
-
-                          hideTimeoutRef.current = setTimeout(() => {
-                            setActiveGear(null)
-                          }, 150)
-                        }}
-                      >
-                        {/* Accent Top Border */}
-                        <div
-                          className="absolute top-0 left-0 right-0 h-[2px]"
-                          style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
-                        />
-
-                        {/* DISMISS BUTTON */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            e.preventDefault()
-                            setActiveGear(null)
-                          }}
-                          className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                          </svg>
-                        </button>
-
-                        {/* QUIZ MODE */}
-                        {activeGear.quiz && !inspectorQuizSelection ? (
-                          <div className="space-y-3">
-                            <p className="text-white text-sm font-medium leading-snug">
-                              {activeGear.quiz.question}
-                            </p>
-                            <div className="space-y-2">
-                              {activeGear.quiz.options.map((opt) => (
-                                <button
-                                  key={opt.id}
+                                {/* CTA Link - CLICKABLE */}
+                                <div
                                   onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
-                                    // IMMEDIATE REF UPDATE: Prevent race condition where mouseleave fires before effect
-                                    inspectorQuizSelectionRef.current = opt.id
-                                    setInspectorQuizSelection(opt.id)
+                                    router.push(activeGear.link)
                                   }}
-                                  className="w-full text-left text-xs p-2.5 rounded-lg bg-white/5 hover:bg-white/10 
-                                             border border-white/5 hover:border-white/20 transition-all text-slate-300 hover:text-white
-                                             flex items-center gap-2 group/btn"
+                                  className="group/cta flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 hover:text-white transition-colors cursor-pointer self-start py-1"
                                 >
-                                  <span className={`w-1.5 h-1.5 rounded-full ${opt.isCorrect ? 'bg-emerald-400' : 'bg-slate-500'} opacity-0 group-hover/btn:opacity-100 transition-opacity`} />
-                                  {opt.label}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="block text-left group">
-                            {/* REVEAL / DEFAULT MODE */}
-                            <div className="flex flex-col h-full justify-between gap-4">
-                              {/* Content - NOT Clickable for nav, select text allowed */}
-                              <div className="space-y-2 select-text cursor-auto">
-                                {inspectorQuizSelection && activeGear.quiz && (
-                                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-emerald-400/90">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
-                                    {activeGear.quiz.reveal.title}
-                                  </div>
-                                )}
-                                <p className="text-white/90 text-[14px] leading-relaxed font-medium">
-                                  {inspectorQuizSelection && activeGear.quiz ? activeGear.quiz.reveal.content : activeGear.thought}
-                                </p>
-                              </div>
-
-                              {/* CTA Link - CLICKABLE */}
-                              <div
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  e.stopPropagation()
-                                  router.push(activeGear.link)
-                                }}
-                                className="group/cta flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 hover:text-white transition-colors cursor-pointer self-start py-1"
-                              >
-                                <span className="uppercase border-b border-transparent group-hover/cta:border-white/20 transition-all">
-                                  {activeGear.linkLabel}
-                                </span>
-                                <ArrowRight className="w-3 h-3 transition-transform group-hover/cta:translate-x-0.5" />
+                                  <span className="uppercase border-b border-transparent group-hover/cta:border-white/20 transition-all">
+                                    {activeGear.linkLabel}
+                                  </span>
+                                  <ArrowRight className="w-3 h-3 transition-transform group-hover/cta:translate-x-0.5" />
+                                </div>
                               </div>
                             </div>
                           </div>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
 
-            {/* Text Content - Below Gears */}
+              </div>
+            </div>
+          </motion.div>
+          {/* === END ACT 1: BRAIN LAYER === */}
+
+          {/* === ACT 2: TEXT LAYER (hidden first, fades in on scroll) === */}
+          <motion.div
+            className="absolute inset-0 flex flex-col items-center justify-center z-10"
+            style={{
+              opacity: quizState === 'quiz' ? 0 : textOpacity,
+              y: quizState === 'quiz' ? -100 : textY,
+              pointerEvents: (quizState === 'quiz' || !isAct2Active) ? 'none' : 'auto',
+            }}
+          >
             <motion.div
-              className={`flex flex-col items-center text-center space-y-4 sm:space-y-5 mt-space-12 sm:mt-space-16 lg:mt-space-20 px-4`}
+              className={`flex flex-col items-center text-center space-y-5 sm:space-y-6 px-4`}
               initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
               animate={isAppReady ? { clipPath: 'inset(0 0% 0 0)', opacity: 1 } : { clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
               transition={{ duration: 2.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              style={{ pointerEvents: (isAct2Active && quizState !== 'quiz') ? 'auto' : 'none' }}
             >
-              {/* Subtext - Job Title / Experience */}
+              {/* Subtext - Credential Bar (Whisper - subdued to let headline dominate) */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-accent-teal font-mono text-sm xs:text-base sm:text-lg tracking-wider font-medium mb-0"
+                className="text-white/25 font-mono text-[9px] xs:text-[10px] sm:text-xs tracking-[0.1em] uppercase font-normal mb-0"
               >
-                Senior Product Designer · 13+ Years Experience · AI-Adept Prototyper · Enterprise UX
+                Senior Product Designer · 13+ Years · AI-Adept Prototyper · Enterprise UX
               </motion.div>
 
-              {/* Main Headline */}
-              {/* Main Headline */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight w-full max-w-7xl mx-auto font-sans !mt-space-2">
-                <span className="block mb-2">
-                  {"I design so users never have to wonder".split('').map((char, i) => (
+              {/* Main Headline — Display Weight, Premium, Oversized */}
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-white leading-[1.02] tracking-[-0.035em] w-full max-w-6xl mx-auto font-sans !mt-space-3">
+                <span className="block mb-1 sm:mb-2">
+                  {"I design so users never wonder".split('').map((char, i) => (
                     <motion.span
                       key={`h1-Line1-${i}`}
                       initial={{ opacity: 0 }}
@@ -1387,13 +1408,13 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                     </motion.span>
                   ))}
                 </span>
-                <span className="inline-block bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white bg-clip-text text-transparent pb-1">
+                <span className="inline-block bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent pb-1">
                   {"\"how do I use this?\"".split('').map((char, i) => (
                     <motion.span
                       key={`h1-Line2-${i}`}
                       initial={{ opacity: 0 }}
                       animate={isAppReady ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{ duration: 0, delay: 0.5 + (38 + i) * 0.06 }}
+                      transition={{ duration: 0, delay: 0.5 + (30 + i) * 0.06 }}
                     >
                       {char}
                     </motion.span>
@@ -1401,96 +1422,111 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                 </span>
               </h1>
 
-              {/* CTA Buttons - Moved here from bottom bar */}
-              <div className="flex flex-row gap-4 mt-8 sm:mt-10 justify-center w-full flex-wrap">
-                <a
-                  href="#work-overview"
-                  className="group inline-flex items-center justify-center gap-2 px-6 py-2 rounded-full bg-white/90 hover:bg-white text-black text-sm sm:text-base font-light transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap backdrop-blur-sm"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    const section = document.getElementById('work-overview')
-                    if (section) {
-                      section.scrollIntoView({ behavior: 'smooth' })
-                    }
-                  }}
-                >
-                  <span>See Work</span>
-                  <svg aria-hidden="true" className="w-4 h-4 transition-transform group-hover:translate-x-0.5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-
-                <button
-                  onClick={startQuiz}
-                  className="group inline-flex items-center justify-center gap-2 px-6 py-2 rounded-full border border-white/10 hover:border-white/20 text-white/90 hover:text-white text-sm sm:text-base font-light bg-white/5 hover:bg-white/10 transition-all duration-300 whitespace-nowrap backdrop-blur-sm"
-                >
-                  <Brain className="w-4 h-4 opacity-70 group-hover:scale-110 transition-transform" />
-                  <span>Take a quiz to know more about me</span>
-                </button>
-              </div>
 
 
+              {/* Stats row */}
+              <motion.div
+                className="w-full max-w-5xl mx-auto px-space-4 mt-10 sm:mt-14"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.8 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-y-space-8 md:gap-y-0 divide-white/[0.06] md:divide-x">
+                  {/* Stat 1 */}
+                  <div className="flex flex-col items-center justify-center px-space-4 group">
+                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                      <Counter value={50} isReady={isAppReady} />+
+                    </div>
+                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
+                      Projects Shipped
+                    </div>
+                  </div>
+                  {/* Stat 2 */}
+                  <div className="flex flex-col items-center justify-center px-space-4 group">
+                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                      <Counter value={25} isReady={isAppReady} />M+
+                    </div>
+                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
+                      Users on WebFOCUS
+                    </div>
+                  </div>
+                  {/* Stat 3 */}
+                  <div className="flex flex-col items-center justify-center px-space-4 group">
+                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                      Fortune 500
+                    </div>
+                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
+                      Clients
+                    </div>
+                  </div>
+                  {/* Stat 4 */}
+                  <div className="flex flex-col items-center justify-center px-space-4 group">
+                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                      Best-in-Class
+                    </div>
+                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
+                      2025 Dresner Award
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
 
             </motion.div>
+          </motion.div>
+          {/* === END ACT 2: TEXT LAYER === */}
 
+          {/* Bottom CTAs — See My Work + Guided Tour */}
+          {quizState !== 'quiz' && (
+            <motion.div
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-5"
+              style={{ opacity: scrollIndicatorOpacity }}
+            >
+              {/* See My Work */}
+              <a
+                href="#work-overview"
+                className="flex flex-col items-center gap-2 cursor-pointer group no-underline"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const section = document.getElementById('work-overview')
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+              >
+                <span className="text-white/50 group-hover:text-white/80 text-[11px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">See My Work</span>
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <svg className="w-5 h-5 text-white/40 group-hover:text-white/70 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
+                  </svg>
+                </motion.div>
+              </a>
 
-          </div>
-        </div >
+              {/* Divider */}
+              <div className="w-px h-8 bg-white/10" />
 
-        <motion.div
-          className="w-full relative mt-space-16 sm:mt-space-24 z-20 pb-space-8 sm:pb-space-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-        >
-          <div className="max-w-6xl mx-auto w-full px-space-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-space-8 md:gap-y-0 divide-white/10 md:divide-x">
+              {/* Guided Tour */}
+              <button
+                className="flex flex-col items-center gap-2 cursor-pointer group bg-transparent border-none outline-none"
+                onClick={() => {
+                  const event = new CustomEvent('start-story-mode')
+                  window.dispatchEvent(event)
+                }}
+              >
+                <span className="text-white/40 group-hover:text-teal-400/80 text-[11px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">Guided Tour</span>
+                <svg className="w-4 h-4 text-white/30 group-hover:text-teal-400/60 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </motion.div>
+          )}
 
-              {/* Stat 1 */}
-              <div className="flex flex-col items-center justify-center px-space-4 group">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
-                  <Counter value={50} isReady={isAppReady} />+
-                </div>
-                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
-                  Projects Shipped
-                </div>
-              </div>
-
-              {/* Stat 2 */}
-              <div className="flex flex-col items-center justify-center px-space-4 group">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
-                  <Counter value={25} isReady={isAppReady} />M+
-                </div>
-                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
-                  Users on WebFOCUS
-                </div>
-              </div>
-
-              {/* Stat 3 */}
-              <div className="flex flex-col items-center justify-center px-space-4 group">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
-                  Fortune 500
-                </div>
-                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
-                  Clients
-                </div>
-              </div>
-
-              {/* Stat 4 */}
-              <div className="flex flex-col items-center justify-center px-space-4 group">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-space-2 whitespace-nowrap">
-                  Best-in-Class
-                </div>
-                <div className="text-white-muted group-hover:text-white-dim transition-colors text-[10px] sm:text-xs font-mono uppercase tracking-widest text-center font-medium">
-                  2025 Dresner Award
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </motion.div>
-      </section >
+        </div>
+        {/* === END STICKY VIEWPORT === */}
+      </section>
 
 
 

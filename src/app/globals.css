@@ -130,6 +130,7 @@ html {
     background-color: var(--bg-primary);
     color: var(--text-body);
     font-family: var(--font-sans);
+    overflow-x: hidden;
   }
 
   /* Headings use high-contrast color */
@@ -491,10 +492,11 @@ html {
   transform-origin: center;
   transform-box: fill-box;
   opacity: 0;
-  will-change: transform, opacity, filter;
+  will-change: transform;
   backface-visibility: hidden;
   cursor: pointer;
-  transition: filter var(--duration-fast) ease-out;
+  contain: layout style;
+  transition: filter 0.3s ease-out;
 }
 
 /* Gears visibility is controlled by animation forwards fill - no base opacity override */
@@ -507,28 +509,20 @@ html {
   transform-origin: center;
   transform-box: fill-box;
   opacity: 1;
-  will-change: transform, opacity;
+  will-change: transform;
   backface-visibility: hidden;
   contain: layout style paint;
 }
 
-/* Main interactive gears - animate and allow hover effects */
-#brain-gears #main-gears>[id^="gear-"],
-#brain-gears-copy #main-gears>[id^="gear-"] {
-  transform-origin: center;
-  transform-box: fill-box;
-  will-change: transform, opacity, filter;
-  backface-visibility: hidden;
-  cursor: pointer;
-  transition: filter var(--duration-fast) ease-out;
-}
+/* Main gears hover glow effect - visible teal glow */
+@media (hover: hover) {
 
-/* Main gears hover glow effect - subtle for light background */
-#brain-gears #main-gears>[id^="gear-"]:hover,
-#brain-gears-copy #main-gears>[id^="gear-"]:hover,
-#brain-gears #main-gears>.gear-main--active,
-#brain-gears-copy #main-gears>.gear-main--active {
-  filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.25)) drop-shadow(0 0 20px rgba(7, 139, 156, 0.15));
+  #brain-gears #main-gears>[id^="gear-"]:hover,
+  #brain-gears-copy #main-gears>[id^="gear-"]:hover,
+  #brain-gears #main-gears>.gear-main--active,
+  #brain-gears-copy #main-gears>.gear-main--active {
+    filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 24px rgba(7, 139, 156, 0.3));
+  }
 }
 
 /* Main gears: fade in with rotation (2s) */
@@ -637,10 +631,13 @@ html {
   display: block;
 }
 
-/* Glow effect for active/hovered main gears - subtle for light background */
-.gears-dark-theme #brain-gears #main-gears>.gear-main--active,
-.gears-dark-theme #brain-gears-copy #main-gears>.gear-main--active {
-  filter: drop-shadow(0 0 14px rgba(7, 139, 156, 0.3)) drop-shadow(0 0 24px rgba(7, 139, 156, 0.2)) !important;
+/* Glow effect for active/hovered main gears - visible teal glow on dark theme */
+@media (hover: hover) {
+
+  .gears-dark-theme #brain-gears #main-gears>.gear-main--active,
+  .gears-dark-theme #brain-gears-copy #main-gears>.gear-main--active {
+    filter: drop-shadow(0 0 14px rgba(7, 139, 156, 0.55)) drop-shadow(0 0 28px rgba(7, 139, 156, 0.35)) !important;
+  }
 }
 
 /* Performance optimizations for rotating gears */
@@ -648,7 +645,6 @@ html {
 #brain-gears #gears-background [id^="bg-gear-"],
 #brain-gears-copy #main-gears>[id^="gear-"],
 #brain-gears-copy #gears-background [id^="bg-gear-"] {
-  will-change: transform, opacity;
   transform: translateZ(0);
 }
 
@@ -671,16 +667,22 @@ html {
 }
 
 /* Main gears hover - CSS hover effect for desktop */
-#brain-gears #main-gears>[id^="gear-"]:hover,
-#brain-gears-copy #main-gears>[id^="gear-"]:hover {
-  filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.25)) drop-shadow(0 0 20px rgba(7, 139, 156, 0.15));
-  cursor: pointer;
+@media (hover: hover) {
+
+  #brain-gears #main-gears>[id^="gear-"]:hover,
+  #brain-gears-copy #main-gears>[id^="gear-"]:hover {
+    filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 24px rgba(7, 139, 156, 0.3));
+    cursor: pointer;
+  }
 }
 
 /* Teal glow on active gears - applied via JS class */
-#brain-gears #main-gears>.gear-main--active,
-#brain-gears-copy #main-gears>.gear-main--active {
-  filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.25)) drop-shadow(0 0 20px rgba(7, 139, 156, 0.15)) !important;
+@media (hover: hover) {
+
+  #brain-gears #main-gears>.gear-main--active,
+  #brain-gears-copy #main-gears>.gear-main--active {
+    filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 24px rgba(7, 139, 156, 0.3)) !important;
+  }
 }
 
 /* Hover lines - hidden by default */
@@ -753,6 +755,8 @@ html {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
+
+
 
 /* Button fill animation - only on hover */
 @keyframes button-fill-sweep {
@@ -1037,10 +1041,8 @@ img {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+/* Smooth scrolling handled by Lenis on desktop */
+/* Touch devices fall back to native scroll */
 
 /* Optimize framer motion elements */
 section[data-framer-component],

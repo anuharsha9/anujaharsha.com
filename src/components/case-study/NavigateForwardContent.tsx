@@ -1,7 +1,6 @@
 'use client'
 
 import ComponentHeading from '@/components/ui/ComponentHeading'
-import TerminalInsight from './TerminalInsight'
 import { ReflectionData } from '@/types/caseStudy'
 import CaseStudyReflection from './CaseStudyReflection'
 
@@ -104,36 +103,40 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
         </div>
       </div>
 
-      {/* Customer Recognition - Standalone Terminal Block */}
+      {/* Customer Recognition — Premium Card */}
       <div className="w-full">
-        <TerminalInsight
-          title="customer_feedback.log"
-          insightLabel="CUSTOMER_RECOGNITION"
-        >
-          <div className="text-center">
-            <blockquote className="mt-2 mb-6">
-              <p className="font-serif text-2xl md:text-3xl text-white italic leading-relaxed">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0f1720] via-[#132030] to-[#0d1a2a] p-10 md:p-14
+          border border-white/5 shadow-2xl">
+          {/* Ambient glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/[0.04] rounded-full blur-3xl" />
+
+          <div className="relative text-center max-w-2xl mx-auto">
+            <span className="font-mono text-[10px] text-emerald-400/60 uppercase tracking-[0.2em] block mb-6">
+              Customer Recognition
+            </span>
+            <blockquote className="mb-8">
+              <p className="font-serif text-3xl md:text-4xl text-white/95 italic leading-snug tracking-tight">
                 &ldquo;So what are you going to do next?&rdquo;
               </p>
             </blockquote>
-            <p className="text-slate-400 text-sm max-w-xl mx-auto font-sans">
+            <p className="text-slate-400/80 text-sm md:text-base leading-relaxed font-light max-w-xl mx-auto">
               A customer publicly praised the redesign during a Virtual User Group and asked what I planned next. Shipped 5 months after I transitioned—now demoed on the public YouTube channel.
             </p>
           </div>
-        </TerminalInsight>
+        </div>
       </div>
 
       {/* Retrospective Section (Shared Component) */}
-      <div className="mt-24 md:mt-32 pt-12 border-t border-slate-100">
+      <div className="mt-16 md:mt-20">
         {reflection && <CaseStudyReflection data={reflection} isLightBackground={isLightBackground} />}
       </div>
 
       {/* Compact footer */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-4 border-t border-slate-200 text-sm text-center sm:text-left">
-        <p className="text-slate-500 italic">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-6 border-t border-slate-200/60 text-sm text-center sm:text-left mt-8">
+        <p className="text-slate-500 italic font-light">
           The V1 I loved is actually being implemented now. Ideas find their way back.
         </p>
-        <p className="text-slate-400">
+        <p className="text-slate-400 font-light">
           <span className="text-slate-600 font-medium">Lesson:</span> Chaos is just undocumented architecture.
         </p>
       </div>

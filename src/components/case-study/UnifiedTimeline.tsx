@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import Image from 'next/image'
 import { useLightbox } from '@/contexts/LightboxContext'
 import ComponentHeading from '@/components/ui/ComponentHeading'
@@ -34,6 +35,31 @@ interface UnifiedTimelineProps {
   accentColor?: 'teal' | 'amber' | 'violet'
 }
 
+/** Scroll-triggered de-blur for timeline images */
+function ScrollRevealImage({ image, onOpen }: {
+  image: { src: string; alt: string; caption?: string; isBlurred?: boolean }
+  onOpen: () => void
+}) {
+  const imgRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(imgRef, { once: true, amount: 0.4 })
+
+  return (
+    <div
+      ref={imgRef}
+      className="relative aspect-video rounded-lg overflow-hidden border border-slate-100 bg-slate-50 cursor-zoom-in group/img shadow-sm hover:shadow-md transition-all duration-300"
+      onClick={onOpen}
+    >
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        className={`object-cover transition-all duration-[1.2s] ease-out group-hover/img:scale-105 ${image.isBlurred && !isInView ? 'blur-md scale-105' : 'blur-0 scale-100'
+          }`}
+      />
+    </div>
+  )
+}
+
 export default function UnifiedTimeline({
   phases,
   header = {
@@ -50,23 +76,23 @@ export default function UnifiedTimeline({
     teal: {
       tag: 'teal',
       line: 'from-teal-300 via-teal-500 to-teal-400',
-      completed: 'bg-emerald-500',
-      inProgress: 'bg-amber-400',
-      rejected: 'bg-rose-400',
+      completed: 'bg-slate-400 border border-slate-300',
+      inProgress: 'bg-slate-300 border border-slate-200',
+      rejected: 'bg-slate-300 border border-slate-200',
     },
     amber: {
-      tag: 'amber',
-      line: 'from-amber-200 via-amber-400 to-amber-500',
-      completed: 'bg-emerald-500',
-      inProgress: 'bg-amber-400',
-      rejected: 'bg-rose-400',
+      tag: 'teal',
+      line: 'from-slate-200 via-slate-300 to-slate-200',
+      completed: 'bg-slate-400 border border-slate-300',
+      inProgress: 'bg-slate-300 border border-slate-200',
+      rejected: 'bg-slate-300 border border-slate-200',
     },
     violet: {
       tag: 'indigo',
       line: 'from-violet-300 via-violet-500 to-violet-400',
-      completed: 'bg-emerald-500',
-      inProgress: 'bg-violet-500',
-      rejected: 'bg-rose-400',
+      completed: 'bg-slate-400 border border-slate-300',
+      inProgress: 'bg-slate-300 border border-slate-200',
+      rejected: 'bg-slate-300 border border-slate-200',
     },
   }
 
@@ -75,20 +101,20 @@ export default function UnifiedTimeline({
   const headingColor = accent.tag as 'teal' | 'amber' | 'indigo'
 
   const getStatusDot = (status: string, isCriticalPivot?: boolean) => {
-    // Critical Pivot gets a special ring
-    if (isCriticalPivot) return `${accent.inProgress} ring-4 ring-amber-100 shadow-[0_0_10px_rgba(251,191,36,0.5)]`
+    // Critical Pivot gets a subtle distinguished ring
+    if (isCriticalPivot) return `bg-slate-600 ring-2 ring-slate-300`
 
-    // Standard statuses
-    if (status === 'COMPLETED') return `${accent.completed} shadow-[0_0_8px_rgba(16,185,129,0.4)]`
-    if (status === 'IN_PROGRESS') return `${accent.inProgress} ring-4 ring-amber-50 shadow-[0_0_8px_rgba(251,191,36,0.4)]`
+    // Standard statuses — all subtle, no bright colors
+    if (status === 'COMPLETED') return `${accent.completed}`
+    if (status === 'IN_PROGRESS') return `${accent.inProgress} ring-2 ring-slate-200`
     if (status === 'REJECTED') return accent.rejected
     return 'bg-slate-200'
   }
 
   const getStatusTextColor = (status: string) => {
-    if (status === 'COMPLETED') return 'text-emerald-600'
-    if (status === 'IN_PROGRESS') return 'text-amber-600'
-    if (status === 'REJECTED') return 'text-rose-500'
+    if (status === 'COMPLETED') return 'text-slate-500'
+    if (status === 'IN_PROGRESS') return 'text-slate-400'
+    if (status === 'REJECTED') return 'text-slate-400'
     return 'text-slate-400'
   }
 
@@ -117,7 +143,7 @@ export default function UnifiedTimeline({
         {/* Timeline Container */}
         <div className="relative pl-4 md:pl-0">
           {/* Vertical Guide Line - Lively & Pulsing - Extended */}
-          <div className={`absolute left-[6px] md:left-[6px] -top-24 -bottom-24 w-1 bg-gradient-to-b ${accent.line} animate-pulse rounded-full opacity-80 shadow-[0_0_8px_rgba(0,0,0,0.1)]`}></div>
+          <div className={`absolute left-[6px] md:left-[6px] -top-24 -bottom-24 w-[2px] bg-gradient-to-b ${accent.line} rounded-full opacity-60`}></div>
 
           {/* Phase Nodes */}
           <div className="space-y-12">
@@ -146,18 +172,18 @@ export default function UnifiedTimeline({
                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
                         Phase {phase.phase}
                       </span>
-                      <h4 className={`text-lg md:text-xl font-medium tracking-tight ${phase.isCriticalPivot ? 'text-amber-600' : 'text-slate-900'}`}>
+                      <h4 className={`text-lg md:text-xl font-medium tracking-tight ${phase.isCriticalPivot ? 'text-teal-700' : 'text-slate-900'}`}>
                         {phase.title.replace(/_/g, ' ')}
                       </h4>
 
-                      {/* Status Tags - Minimal */}
+                      {/* Status Tags - Ghost Outlined */}
                       {phase.isCriticalPivot && (
-                        <span className="text-[9px] uppercase tracking-widest font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-full">
+                        <span className="text-[9px] uppercase tracking-widest font-bold text-slate-500 border border-slate-300 px-2 py-0.5 rounded-full">
                           Critical Pivot
                         </span>
                       )}
                       {phase.status === 'REJECTED' && (
-                        <span className="text-[9px] uppercase tracking-widest font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded-full">
+                        <span className="text-[9px] uppercase tracking-widest font-bold text-slate-400 border border-slate-300 px-2 py-0.5 rounded-full">
                           Rejected
                         </span>
                       )}
@@ -177,30 +203,16 @@ export default function UnifiedTimeline({
                         </div>
                       </div>
 
-                      {/* Optional Image Attachment */}
+                      {/* Optional Image Attachment — Scroll-triggered De-blur */}
                       {phase.image && (
-                        <div
-                          className="relative aspect-video rounded-lg overflow-hidden border border-slate-100 bg-slate-50 cursor-zoom-in group/img shadow-sm hover:shadow-md transition-all duration-300"
-                          onClick={() => openLightbox({
+                        <ScrollRevealImage
+                          image={phase.image}
+                          onOpen={() => openLightbox({
                             src: phase.image!.src,
                             alt: phase.image!.alt,
                             caption: phase.image?.caption || phase.title
                           }, allImages, imageIndex)}
-                        >
-                          <Image
-                            src={phase.image.src}
-                            alt={phase.image.alt}
-                            fill
-                            className={`object-cover transition-transform duration-500 group-hover/img:scale-105 ${phase.image.isBlurred ? 'blur-sm group-hover/img:blur-none' : ''}`}
-                          />
-                          {phase.image.isBlurred && (
-                            <div className="absolute inset-0 flex items-center justify-center bg-white/30 backdrop-blur-[2px] opacity-100 group-hover/img:opacity-0 transition-opacity duration-300">
-                              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 bg-white/90 px-3 py-1 rounded-full shadow-sm">
-                                Hover to Reveal
-                              </span>
-                            </div>
-                          )}
-                        </div>
+                        />
                       )}
                     </div>
                   </div>
@@ -214,7 +226,7 @@ export default function UnifiedTimeline({
         {footer && (
           <div className="pt-8 border-t border-slate-100 mt-12">
             <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start">
-              <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mt-1 shrink-0 ${accentColor === 'teal' ? 'text-teal-600' : accentColor === 'amber' ? 'text-amber-600' : 'text-indigo-600'}`}>
+              <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mt-1 shrink-0 ${accentColor === 'teal' ? 'text-teal-600' : accentColor === 'amber' ? 'text-slate-500' : 'text-indigo-600'}`}>
                 {footer.tag.replace(':', '')}
               </span>
               <p className="text-slate-600 text-base md:text-lg font-light leading-relaxed max-w-3xl">

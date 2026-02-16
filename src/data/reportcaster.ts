@@ -5,7 +5,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
   heroTitle: 'Modernizing a 50-Year-Old Enterprise Scheduler',
   heroSubheading: 'A 50-year-old workhorse, untouched by UX—until now',
   heroSubtitle:
-    'When I joined, this project was waiting in the pipeline. I asked to take it on. I spent months documenting a system that had never been fully mapped — and the architecture I created became "the pattern for everything."',
+    'Volunteered one week in for a project no one else would take. Mapped 5 undocumented subsystems from scratch. Navigated 2 rejected architectures before shipping the approach that became the org\'s modernization template.',
   coverImage: {
     src: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
     alt: 'ReportCaster Explorer - Unified Schedule Management',
@@ -299,22 +299,22 @@ export const reportcasterCaseStudy: CaseStudyData = {
   quickOverview: {
     title: 'ReportCaster — Quick Impact Overview',
     subtitle: 'Enterprise scheduling system modernization',
-    leadershipSummary: 'This project had been waiting in the pipeline when I joined — I volunteered to take it on. Over 14 months, I mapped the entire system, defined the UX architecture, and built the foundation that two designers later built upon.',
+    leadershipSummary: 'Volunteered for this project one week into the job — no one else had taken it. Over 14 months, I independently mapped a 40-year-old system with zero documentation, pivoted through three architectural directions, and aligned a 20-person cross-functional team. Built close relationships with the Gold Support lead and the original RC engineer to reconstruct tribal knowledge from scratch.',
     whatTheSystemWas:
       'A 50-year-old scheduling engine powering 20M+ weekly jobs. It worked — but it was undocumented, fragmented across five subsystems, and ready for modernization.',
     myRole:
       'I owned this end-to-end: from research and system documentation, through architecture and design, to team handoff.',
     scopeOfPractice: [],
     impactMetrics: [
-      { label: 'Subsystems integrated', value: '5 → 1 Hub' },
-      { label: 'Clicks to create schedule', value: '4 → 2' },
-      { label: 'Weekly schedules impacted', value: '20M+' },
-      { label: 'Explorer access', value: '2 → 1 click' },
+      { label: 'Context switching eliminated', value: '5 → 1' },
+      { label: 'Schedule creation time reduced', value: '~60%' },
+      { label: 'Weekly jobs at scale', value: '20M+' },
+      { label: 'Zero-downtime migration', value: '✓ Shipped' },
     ],
     star: {
       situation: 'A 50-year-old scheduling system with five fragmented subsystems and no documentation. It powered 20M+ weekly schedules but needed modernization.',
       task: 'Modernize the system while preserving what worked. Document what had never been documented.',
-      action: 'Volunteered for the project. Embedded myself in support calls to understand real pain points. Explored three architectural directions before finding the right approach.',
+      action: 'Volunteered one week into the job. Embedded with the Gold Support team and the original RC engineer to reconstruct tribal knowledge. Mapped all five subsystems from scratch. Explored three architectural directions — independent product, hub plugin, modal-based — before finding the breakthrough. Onboarded a ~20-person team and remained point of contact for 6 months after exit.',
       result: 'Integrated five subsystems into the Hub — no extra space, smart integration. Reduced schedule creation from 4 clicks to 2. Shipped April 2024.',
     },
     technologies: [],
@@ -374,12 +374,12 @@ export const reportcasterCaseStudy: CaseStudyData = {
   uxPrinciples: {
     title: 'Design Principles Applied',
     principles: [
-      { title: 'Cognitive Load Reduction', description: '' },
-      { title: 'Unified Mental Model', description: '' },
-      { title: 'User Control & Freedom', description: '' },
-      { title: 'Match System to Real World', description: '' },
-      { title: 'Progressive Disclosure', description: '' },
-      { title: 'Error Prevention', description: '' },
+      { title: 'Cognitive Load Reduction', description: 'Collapsed Basic and Advanced schedules into one smart flow. Users no longer choose a mode — the system adapts. 4 clicks became 2.' },
+      { title: 'Unified Mental Model', description: 'Five fragmented subsystems became one coherent experience. Schedule, distribute, manage access, explore, and administer — all from predictable entry points.' },
+      { title: 'User Control & Freedom', description: 'The Run button alone has 4 options within it. Power users get full control without the UI imposing a simplified workflow on them.' },
+      { title: 'Match System to Real World', description: 'Added natural language recurrence summaries: "Runs Monday to Friday at 6:00 PM, recurring every week." Users read their schedule like a sentence, not a settings panel.' },
+      { title: 'Progressive Disclosure', description: 'Burst logic, retention policies, blackout rules, crash recovery — all enterprise features that stay hidden until a power user needs them.' },
+      { title: 'Error Prevention', description: 'Inline validation replaced the old pattern of completing a full form only to hit an error modal. Users see issues as they build, not after they submit.' },
     ],
   },
   // ----------------------------
@@ -390,19 +390,31 @@ export const reportcasterCaseStudy: CaseStudyData = {
       id: 'section-01',
       index: 'D',
       title: 'Discover Deeply: How I Landed the Project',
-      summary: 'Volunteered for a deferred project with no documentation. Built structure from scratch using only sandbox access and tribal knowledge.',
-      body: `No onboarding deck. No design file. No documented history. Just a sandbox environment and the tribal knowledge of engineers who had worked on it for decades.
+      summary: 'One week in, I volunteered for a project no one else would take. No documentation, no roadmap, no prior designer. Just a sandbox and tribal knowledge.',
+      body: `One week into joining the company, my design director mentioned there was a legacy scheduling tool in the pipeline — something old, massive, and untouched for decades. He hadn't assigned it to anyone yet. No designer had taken it. No engineer wanted to own it. No PM had a roadmap for it.
 
-I spent the first weeks listening, mapping, and asking questions that revealed how little was actually written down. I documented the entire system, created the UX architecture, and eventually handed it off to two designers after establishing the foundation.`,
+I said, "I'll do it." He gave it to me the same day.
+
+Later I understood why the hesitation existed: the system was 40+ years old, it powered millions of automated jobs, it was built on extremely legacy code, and there was zero documentation. About 200 people were in my business unit. Everyone knew ReportCaster existed — they knew it was "a scheduling tool." That's it. The only people who truly knew it were the support team and one engineer who had written RC code in the 80s and 90s and was still with the company.
+
+The Head PM had 15 years in the org but only knew RC at a surface level. My director of design had never seen it. The "redesign" was originally stated as a UI makeover — not even a redesign. There was literally no documentation at all. I had a sandbox. And that was it.
+
+So I started.`,
     },
     {
       id: 'section-02',
       index: 'E',
       title: 'Empathize with the Ecosystem: Understanding Users and Constraints',
-      summary: 'Built relationships with support lead and team. Gained access to private internal tickets and historical insights. Anchored redesign on pain customers actually voiced.',
-      body: `Enterprise security policies blocked direct access to end users. No interviews, no usability tests, no direct feedback loops. This is the reality of B2B enterprise design—you often can't talk to the people using your product.
+      summary: 'No user access. No documentation. I embedded with the Gold Support lead and the original RC engineer — they became my sources of truth.',
+      body: `Enterprise security policies blocked direct access to end users. No interviews, no usability tests, no direct feedback loops. This is the reality of B2B enterprise design — you often can't talk to the people using your product.
 
-I found another way. I embedded myself in support calls, built relationships with the support lead, and gained access to years of internal tickets. I discovered that users were hacking the UI just to get their jobs done—creating workarounds for problems the system was never designed to solve.`,
+So I built my own network. Chris Kaplan, the Gold Support Technical Account Manager and team lead, became my primary source of truth. I embedded myself in his team meetings, asking relentless questions: What works? What doesn't? What hurts? Which issues take the longest to solve? What are users not able to get done? What features suck? Which customer issues take longest to resolve?
+
+Yingchun Chen, the principal engineer and the original engineer of ReportCaster, became my second knowledge hub. Between Chris and Yingchun, I could reconstruct decades of tribal knowledge that had never been written down.
+
+I took hundreds of screenshots across every corner of the system. Grouped them. Mapped them. Created mind maps, pain point analyses, and information architecture diagrams. I validated everything with customer support and customer reps — over and over — until I was confident I understood the system end-to-end.
+
+What I discovered changed the scope entirely: ReportCaster wasn't a "feature." It was a product inside a product — with five independent subsystems, customers running 13 million schedules a day, and users whose entire job was to live inside RC. This needed a structural redesign, not a UI facelift.`,
     },
     {
       id: 'section-03',
@@ -418,14 +430,21 @@ This became a detective story. I pieced together the system from fragments: hund
       id: 'section-04',
       index: 'I',
       title: 'Iterate with Inclusion: Three Architectural Approaches',
-      summary: 'Three directions before finding the right one. Each rejection taught me something about platform constraints.',
-      body: `After mapping the system and identifying the five subsystems (Schedules, Distribution Lists, Access Lists, Explorer, Admin), I explored three architectural directions before finding the solution that balanced everything.
+      summary: 'V1 stung. V2 was my favorite. V3 was the breakthrough — born from asking how the platform itself wanted workflows to behave.',
+      body: `I was confident about V1 — I had scored WebFOCUS against competitors and designed a standalone RC product that matched existing platform patterns. V1 rejection stung. But the feedback was fair: leadership wanted all workflows centralized in the hub.
 
-**V1: Independent Product** → Rejected. "Leadership wants all workflows centralized in the hub."
-**V2: Hub Plugin** → Rejected. "Too much engineering effort this year."
-**V3: Modal-based Architecture** → Shipped. Platform-native design that worked within existing code.
+V2 was my favorite version — a hub plugin with integrated navigation and consolidated subsystems. It aligned perfectly with the platform's long-term direction. But it got rejected too: too much engineering effort for that year's timeline.
 
-Each rejection taught me something different about platform constraints, user needs, and engineering realities.`,
+Two rejections in. Instead of fighting, I reframed the problem from scratch. I stopped asking "Where should RC live?" and started asking: "How does the platform WANT workflows to behave?"
+
+That's when I saw the pattern. Every major workflow starts in the plus (+) menu: create visualization, fetch data, explore data. This menu wasn't just UI — it was platform architecture. If ReportCaster is fundamentally a creation workflow, why isn't it initiated from the + menu?
+
+That insight changed everything. Create Schedule → modal. Create Distribution List → modal. Create Access List → modal. The modal approach worked within the existing legacy code without a rewrite. When both UX and engineering won, leadership was absolutely thrilled and said yes.
+
+The schedule dialog itself went through at least two dozen iterations — getting approval from the WebFOCUS lead architect (40 years at the company), the Head PM, and the Director of Design simultaneously was a task in itself. Every single detail was carefully crafted keeping the entire WebFOCUS design system, the platform ecosystem, legacy code constraints, and original workflows all in mind.
+
+One detail I'm particularly proud of: I was configuring a recurrence pattern and tried to read the schedule out loud — "Runs Monday to Friday at 6:00 PM, recurring every week." I thought: why not just show that at the bottom? What better UX is there than letting users read their schedule like a sentence? Product management gave instant approval. When I pitched the natural language summary to the lead engineer, he said "YEAH" — and from that moment, he became my biggest cheerleader on the RC team.`,
+
       // Store V1, V2, V3 data for the VersionIteration component
       v1Data: {
         id: 'version-1',
@@ -629,30 +648,43 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
       id: 'section-05',
       index: 'G',
       title: 'Grow Through Constraints: Aligning the Team Within the Ecosystem',
-      summary: 'Owned three major projects simultaneously. Onboarded 2 designers and remained the knowledge hub.',
-      body: `I was redesigning ML Functions and IQ Plugin simultaneously — three major enterprise systems at once. This taught me to prioritize ruthlessly: architecture first, polish second.
+      summary: 'Onboarded a ~20-person team who had never seen RC. Managed three projects simultaneously. Remained the knowledge hub for 6 months after exit.',
+      body: `Once the direction was approved, the next challenge began: onboarding everyone. The lead architect, lead engineer, a full engineering squad, the new PM, QA, documentation — most of them had never truly seen ReportCaster end-to-end.
 
-I onboarded 2 designers mid-project and remained the knowledge hub even after transitioning. The team could execute because they understood the "why" behind every decision.`,
+So I ran dozens of demos. I walked through legacy flows, explained what users had hacked to survive, translated tribal knowledge into understandable UX rationale, and clarified legacy behaviors that couldn't be broken. I was simultaneously working on ML Functions — managing both projects while having a 1-year-old at home.
+
+I realized I needed help. There were 3 other designers on the team, all working on one feature. Here I was, working on two features simultaneously — that said something about the trust leadership had in me. I borrowed one designer first, at month 9... then onboarded a second at month 13. By then, I had already finished the schedule workflow, distribution lists, and access lists. The architecture for explorer and admin was set.
+
+I had everything ready for knowledge transfer: Google Docs for every subsystem, Zoom recordings of every key session, annotated Sketch files, and delegation plans — all organized into a massive Google Drive folder that became the single source of truth. I ran weekly sessions for weeks, structured by topic: one aspect of RC per week. Walkthroughs, legacy teardowns, design reviews — until each designer could navigate the system independently. I also onboarded the new PM who was transitioning under the Head PM.
+
+My director of design mentored me through all of this with daily 1:1 calls. He built my confidence and backed me up when I needed it. I was in rooms full of senior engineers who'd worked for decades — and by the time I left the team, they'd become family. They respected my opinion. I was the youngest in the room with an unspoken authority on the experience of RC.
+
+I remained point of contact for about 6 months after exit — the other designers reached out regularly until they didn't need me anymore.`,
     },
     {
       id: 'section-06',
       index: 'N',
       title: 'Navigate Forward: Shipping Impact and Reflection',
-      summary: 'Requested: visual refresh. Delivered: foundational system architecture.',
-      body: `The request was for a visual refresh. I delivered a foundational system architecture. What started as "make it look better" became "document, unify, and future-proof a 50-year-old system."
+      summary: 'Requested: a UI makeover. Delivered: foundational system architecture. RC made me the design leader I am today.',
+      body: `The request was for a UI makeover — not even a redesign. I delivered a foundational system architecture. What started as "make it look better" became "document, unify, and future-proof a 40-year-old system."
 
 **What shipped (April 2024):**
 • 5 subsystems → 1 unified mental model
 • 4 → 2 clicks for schedule/list creation
 • 2 → 1 click for Explorer access
+• No more individual browser tabs for each schedule, list, status, or explorer
+• Everything smoothly integrated within the hub ecosystem
+• Designed for the future — room for additional features the PM went on to add after launch
 • Powering 20M+ weekly schedules, featured in public demos
 
+In a Virtual User Group session I hosted, a long-time customer praised the redesign directly and said he was excited for what was coming next. That moment mattered — because I had seen RC users hack their way around a broken UI for years, and now they finally had a system that worked with them, not against them.
+
 **What I'd do differently:**
-• Push harder for direct user research earlier — even in enterprise, there are ways
+• Push harder for the embedded Explorer view — it would have expanded the filtered-view pattern to Designer, Reporting Server, everything. That's my biggest regret.
 • Document architectural decisions in real-time, not retrospectively
 • Build design system components as I go, not after
 
-The architecture I created became the reference pattern for other modernization projects in the org.`,
+This project was not just a redesign. It was a turning point. Through RC, I learned to think in platform patterns, redesign at architecture scale, interpret undocumented logic, and operate like a product owner when needed. RC made me the design leader I am today.`,
     },
   ],
   // ----------------------------

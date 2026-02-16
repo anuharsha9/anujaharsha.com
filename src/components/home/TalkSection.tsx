@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { getTheme, spacing } from '@/lib/design-system'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
+import TextReveal from '@/components/ui/TextReveal'
 
 export default function TalkSection() {
   const t = getTheme(false)
@@ -24,9 +25,14 @@ export default function TalkSection() {
           className="text-center space-y-space-6"
         >
           {/* Headline - Large, Serif */}
-          <h2 className={`font-serif ${t.text} text-3xl md:text-4xl lg:text-5xl leading-tight`}>
-            Let&apos;s connect.
-          </h2>
+          <TextReveal
+            as="h2"
+            className={`font-serif ${t.text} text-3xl md:text-4xl lg:text-5xl leading-tight`}
+            variant="slide-up"
+            stagger={0.12}
+          >
+            Now you know. Let's build.
+          </TextReveal>
 
           {/* Role Targeting - subtle */}
           <p className={`${t.textMuted} text-sm`}>

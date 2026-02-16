@@ -1,4 +1,7 @@
+'use client'
+
 import { cn } from "@/lib/design-system"
+import { motion } from 'framer-motion'
 
 type HeadingVariant = 'section' | 'block' | 'detail'
 type HeadingColor = 'teal' | 'blue' | 'indigo' | 'slate' | 'red' | 'amber' | 'marketing'
@@ -11,6 +14,31 @@ interface ComponentHeadingProps {
     color?: HeadingColor | string // semantic color or raw tailwind class (for backward compat)
     className?: string
     align?: 'left' | 'center' // Strict alignment options
+    animate?: boolean // Enable/disable scroll animations
+}
+
+// Staggered reveal variants
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.05,
+        }
+    }
+}
+
+const childVariants = {
+    hidden: { opacity: 0, y: 12, filter: 'blur(4px)' },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: {
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    }
 }
 
 export default function ComponentHeading({
@@ -20,7 +48,8 @@ export default function ComponentHeading({
     variant = 'block',
     color = 'teal',
     className,
-    align = 'left'
+    align = 'left',
+    animate = true
 }: ComponentHeadingProps) {
 
     // 1. Resolve Semantic Colors
@@ -62,40 +91,90 @@ export default function ComponentHeading({
 
     const currentStyle = styles[variant]
 
+    // Non-animated fallback
+    if (!animate) {
+        return (
+            <div className={cn(
+                "flex flex-col group relative",
+                currentStyle.container,
+                align === 'center' ? "items-center text-center mx-auto" : "items-start text-left",
+                className
+            )}>
+                {tag && (
+                    <span className={cn(
+                        "uppercase transition-colors duration-300 text-slate-500",
+                        currentStyle.tag
+                    )}>
+                        {tag.replace(/^\/\/\s*/, '')}
+                    </span>
+                )}
+                <h2 className={cn(
+                    "text-slate-900 text-balance",
+                    currentStyle.title
+                )}>
+                    {title}
+                </h2>
+                {description && (
+                    <div className={cn(
+                        currentStyle.desc,
+                        "text-balance"
+                    )}>
+                        {typeof description === 'string' ? <p>{description}</p> : description}
+                    </div>
+                )}
+            </div>
+        )
+    }
+
     return (
-        <div className={cn(
-            "flex flex-col group relative",
-            currentStyle.container,
-            align === 'center' ? "items-center text-center mx-auto" : "items-start text-left",
-            className
-        )}>
+        <motion.div
+            className={cn(
+                "flex flex-col group relative",
+                currentStyle.container,
+                align === 'center' ? "items-center text-center mx-auto" : "items-start text-left",
+                className
+            )}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+        >
             {/* Tag / Eyebrow */}
             {tag && (
-                <span className={cn(
-                    "uppercase transition-colors duration-300 text-slate-500",
-                    currentStyle.tag
-                )}>
+                <motion.span
+                    className={cn(
+                        "uppercase transition-colors duration-300 text-slate-500",
+                        currentStyle.tag
+                    )}
+                    variants={childVariants}
+                >
                     {tag.replace(/^\/\/\s*/, '')}
-                </span>
+                </motion.span>
             )}
 
             {/* Main Title */}
-            <h2 className={cn(
-                "text-slate-900 text-balance",
-                currentStyle.title
-            )}>
+            <motion.h2
+                className={cn(
+                    "text-slate-900 text-balance",
+                    currentStyle.title
+                )}
+                variants={childVariants}
+            >
                 {title}
-            </h2>
+            </motion.h2>
 
             {/* Description */}
             {description && (
-                <div className={cn(
-                    currentStyle.desc,
-                    "text-balance" // Nice wrapping
-                )}>
+                <motion.div
+                    className={cn(
+                        currentStyle.desc,
+                        "text-balance" // Nice wrapping
+                    )}
+                    variants={childVariants}
+                >
                     {typeof description === 'string' ? <p>{description}</p> : description}
-                </div>
+                </motion.div>
             )}
-        </div>
+        </motion.div>
     )
 }

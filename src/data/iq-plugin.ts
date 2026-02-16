@@ -5,7 +5,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
   heroTitle: 'Driving Data Science Adoption in Enterprise BI',
   heroSubheading: 'Unifying Data Science & ML Inside WebFOCUS',
   heroSubtitle:
-    'This started as a concept in the annual roadmap. I took it from idea to shipped architecture — bringing mockups to the table first, with tickets following after. I owned all three workflows and eventually handed off to two designers.',
+    'This wasn\'t assigned — it was invented. When strategic product consolidation talks began, my PM and I saw the opportunity: a unified IQ Hub. I built dozens of concept mockups, we mapped user journeys together in FigJam, and pitched the vision to leadership. I owned all three workflows end-to-end and drove cross-functional alignment across teams that had never worked together.',
   coverImage: {
     src: '/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png',
     alt: 'DSML Hub - Unified Data Science & Machine Learning',
@@ -233,7 +233,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
   quickOverview: {
     title: 'Data Science Adoption — Quick Impact Overview',
     subtitle: 'From scattered features to unified DSML Hub',
-    leadershipSummary: 'NLQ, Insights, and ML — three workflows, one owner. Took this from a roadmap concept to shipped architecture, then enabled two designers to build on the foundation.',
+    leadershipSummary: 'Co-created the IQ Hub concept with my PM during strategic product discussions. Built dozens of concept mockups, pitched the vision to leadership, earned VP approval, and owned end-to-end execution across three workflows. Drove cross-functional alignment across teams that had never collaborated — then handed off with thorough documentation when the time came.',
     whatTheSystemWas:
       'WebFOCUS had three powerful data science features — NLQ (ask questions in plain English), Insights (auto-generated visualizations), and ML (predictive model training). All shipping, none legacy. But they were invisible — buried in different menus with different entry points. Users didn\'t know they existed.',
     myRole:
@@ -248,16 +248,18 @@ export const iqPluginCaseStudy: CaseStudyData = {
     star: {
       situation: 'Three powerful data science features existed but were scattered across the platform. Different entry points, different patterns, low adoption. Users didn\'t know they were there.',
       task: 'Unify them into one discoverable experience. Make data science accessible without hiding it.',
-      action: 'Defined the architecture and base screens for all three. Established consistent interaction patterns and made everything responsive.',
+      action: 'Co-created the Hub concept with my PM, built dozens of visual concepts, and pitched it to leadership. Defined the architecture and base screens for all three workflows. Drove cross-functional alignment across engineering, PM, and QA teams. Established consistent interaction patterns and made everything responsive.',
       result: 'Integrated three features into the Hub — no extra space, everything inside. NLQ and Insights now powering enterprise users daily. DSML Hub shipping 2027.',
     },
     technologies: [],
     keyAchievements: [
       '3 entry points → 1 unified DSML Hub',
-      '3 workflows owned simultaneously',
-      'Consistent interaction patterns across all features',
-      'From annual roadmap concept → shipped architecture',
-      'Enabled 2 designers with architecture and base screens',
+      'Co-created concept → pitched to leadership → earned VP approval',
+      'Built the Hub navigation from scratch — custom icon tiles for each workflow, no precedent existed',
+      'Concept evolved through 4 distinct design iterations before landing the final architecture',
+      '3 workflows owned simultaneously across timezones',
+      'Drove cross-functional alignment across 4+ teams',
+      'Defended design decisions against 20-35 year veteran architects',
       'NLQ + Insights live in 9.3.6. DSML Hub shipping 2027',
     ],
     dataSheetUrl: 'https://www.ibi.com/products/ibi-webfocus',
@@ -287,12 +289,12 @@ export const iqPluginCaseStudy: CaseStudyData = {
   uxPrinciples: {
     title: 'Design Principles Applied',
     principles: [
-      { title: 'Unified Entry Point', description: '' },
-      { title: 'Progressive Disclosure', description: '' },
-      { title: 'Cognitive Offloading', description: '' },
-      { title: 'One Click Away', description: '' },
-      { title: 'Responsive First', description: '' },
-      { title: 'Contextual Help', description: '' },
+      { title: 'Unified Entry Point', description: 'Three separate tools buried in different menus became one DSML Hub. Users no longer need to know which tool to use — they just describe what they want to do.' },
+      { title: 'Progressive Disclosure', description: 'Business users see outcome-based labels ("Predict", "Ask", "Analyze"). Advanced configuration stays hidden until experts need it.' },
+      { title: 'Cognitive Offloading', description: 'Moved from "choose the right tool" to "describe your goal." The system figures out whether you need NLQ, Insights, or ML.' },
+      { title: 'One Click Away', description: 'Embedded "Ask AI" in the global header. NLQ is always available — not just when you navigate to a specific tab.' },
+      { title: 'Responsive First', description: 'First fully responsive Hub app in the platform. Designed mobile-up to ensure the experience worked at every breakpoint.' },
+      { title: 'Contextual Help', description: 'Empty states guide first-time users with suggested actions. No blank screens — every state teaches the next step.' },
     ],
   },
   // ----------------------------
@@ -302,17 +304,13 @@ export const iqPluginCaseStudy: CaseStudyData = {
     {
       id: 'section-01',
       index: 'D',
-      title: 'Discover Deeply: From Roadmap Concept to Strategic Definition',
-      summary: 'TL;DR Three powerful features existed — but nobody could find them. Customer feedback confirmed: visibility was the problem.',
-      body: `WebFOCUS had three data science features:
+      title: 'Discover Deeply: From Strategic Spark to Unified Vision',
+      summary: 'Three powerful features existed — but nobody could find them. The idea for a unified Hub came from a strategic moment, not a roadmap assignment.',
+      body: `The spark came from an unexpected place. Strategic discussions about consolidating product lines raised a question: what if we created a central IQ Hub that unified all of WebFOCUS's data science capabilities?
 
-*   **NLQ — Natural Language Query:** ask questions against your data in plain English ("Which product sold most last quarter?")
-*   **Insights —** Auto-generates visualizations and patterns from your dataset
-*   **ML —** Train predictive models: classification, regression, time-series forecasting, anomaly detection
+My PM Karishma and I started brainstorming. We met 3-4 times a week across timezones — she in India, me in the US — mapping user journeys and personas in FigJam. I built dozens of concept mockups exploring what a unified Hub could look like. When we pitched the concept to our Director of Design, he started sketching his own ideas — that's how compelling the vision was. Eventually, the VP approved it, and Karishma and I were given ownership to execute.
 
-All shipping. None legacy. The problem? They weren't visible. NLQ was buried in Explore Data. Insights was hidden in a submenu. ML lived in a completely separate context.
-
-**How I discovered this:** Customer feedback from support reps, PMs, and leadership all pointed to the same issue — users didn't know these features existed. The problem wasn't quality; it was discoverability.`,
+The problem we were solving was clear: WebFOCUS had three powerful data science features — NLQ (ask questions in plain English), Insights (auto-generated visualizations), and ML (predictive model training). All shipping. None legacy. But they were invisible — buried in different menus with different entry points. Less than 5% adoption despite high capability. Customer feedback from support reps, PMs, and leadership all confirmed the same thing: users didn't know these features existed. The problem wasn't quality — it was discoverability.`,
     },
     {
       id: 'section-02',
@@ -346,20 +344,32 @@ This meant faster development and familiar patterns for engineering.`,
       id: 'section-04',
       index: 'I',
       title: 'Iterate with Inclusion: The Evolution of a Unified Hub',
-      summary: 'Same features, transformed experience. Three separate tools became one cohesive hub.',
+      summary: 'Same features, transformed experience. Every element was debated, tested, and refined through real collaboration.',
       body: `The transformation wasn't about changing features — it was about changing how users find and access them.
 
-**Before:** Three separate entry points, three different mental models, three chances for users to give up.
-**After:** One DSML Hub, consistent patterns, one learning curve.`,
+**Before:** Three separate entry points, three different mental models, three chances for users to give up. There was no unified navigation — no IQ Hub existed at all.
+**After:** One DSML Hub, consistent patterns, one learning curve.
+
+The concept evolution was visible across four distinct iterations: I started with a data-heavy tabbed dashboard, moved to educational layouts ("What are Insights?"), then explored split interfaces with sidebar navigation, and finally landed on a clean modular approach with icon tiles. Each iteration brought clarity about what users actually needed at the entry point.
+
+The navigation bar was the biggest fight. I designed large tiles with custom icon glyphs for each workflow — Discover, Insights, Ask a Question, Predict Data — each with a descriptive subtitle and visual state changes (transparent at rest, primary-color-lite on hover/selected). The veteran architects wanted a traditional sidebar with a list view, like the WebFOCUS home page. My argument: list items are exactly what caused less than 5% adoption in the first place. Buried text links don't create discoverability. The large tiles gave each workflow visual identity, scannability, and immediate context — users could understand what each tool did before clicking.
+
+The "Get Started" panel went through multiple iterations before being reimagined as contextual empty states — ultimately a better solution because it met users where they already were. Every empty state became a teaching moment: instead of blank screens, illustrated states with suggested actions guided first-time users toward their first successful interaction.`,
     },
     {
       id: 'section-05',
       index: 'G',
-      title: 'Grow Through Constraints: Strategic Ownership at Scale',
-      summary: 'Fought for features, lost some battles. Built within constraints, enabled two designers to continue.',
-      body: `**What got rejected:** A lot. I fought for a navigation bar in IQ — eventually won. Built a "Get Started" panel that got scrapped after significant effort (we integrated it better elsewhere). Pushed for more IQ features on the Hub homepage — rejected due to engineering resources.
+      title: 'Grow Through Constraints: Earning Trust in a Room Full of Veterans',
+      summary: 'Fought for every design element against 20-35 year veterans. Drove cross-functional alignment. Built the foundation strong enough to outlast my absence.',
+      body: `Every element was a battle. The Lead Architect of IQ Plugin had been at the company for over 20 years. The Lead Architect of WebFOCUS itself — over 35. They were cautious about new design elements, let alone an entire embedded Hub. It was a tug of war for everything: the navigation bar with large tiles, the "Get Started" panel, the unified entry point.
 
-The Hub ecosystem constraint became an advantage: familiar patterns meant faster development and easier adoption. After establishing the architecture and base screens, I handed off to two designers (one junior, one senior). They executed confidently because the foundation was clear.
+I defended each decision with industry examples, interaction logic, and visual prototypes. My Director of Design was fully in my corner — trusting me to make my own case.
+
+What surprised me was the cross-functional coordination this project demanded. IQ Plugin needed alignment from the Hub team, other PMs, and engineering teams that had never collaborated. I drove most of that alignment myself — creating meetings, nudging stakeholders, setting up sessions that nobody else was initiating.
+
+There was a defining meeting for IQ Plugin and ML — I found myself across from the Director of Engineering, the Principal Data Scientist, the Head PM, the Lead Architect, and the Director of QA — discussing whether a data flow step belonged in the ML workflow. I was two years into the company. Everyone else had been there for decades. It hit me afterward: I wasn't just the designer in the room — I was driving the conversation.
+
+When I transitioned off the project, I made sure the foundation was solid: documentation, recorded walkthroughs, 1:1 knowledge transfers, and annotated design files. The architecture was strong enough to carry forward — but the engineers later told me they missed the rapport and the design partnership we'd built together.
 
 **What I'd do differently:** I wanted to add proper tutorials and onboarding flows — never got full green light. I envisioned NLQ as a chat interface for WebFOCUS itself (step-by-step workflow guidance), and I wanted to connect ReportCaster and IQ (schedule generated insights automatically). These remain opportunities for the platform.`,
     },

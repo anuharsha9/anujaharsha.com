@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 import ParallaxImage from '@/components/ui/ParallaxImage'
+import ScrollRevealText, { ScrollRevealItem } from '@/components/ui/ScrollRevealText'
 import { CaseStudySection } from '@/types/caseStudy'
 import WorkflowPrototype from './WorkflowPrototype'
 import ImageLightbox from './ImageLightbox'
@@ -190,7 +192,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
   // Header Section (always visible) - Senior energy: no letter badges
 
   const sectionHeader = (
-    <div className="space-y-8 relative mb-12">
+    <div className="space-y-8 relative mb-16">
       {/* Section Title - Apple Style: Clean, Sans-Serif, Light */}
       <div className="relative">
         <ComponentHeading
@@ -209,16 +211,29 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
       {section.body && (() => {
         const metrics = extractMetrics(section.body)
         return metrics.length > 0 ? (
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          <motion.div
+            className="flex flex-wrap items-center gap-3 pt-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } }
+            }}
+          >
             {metrics.slice(0, 5).map((metric, index) => (
-              <span
+              <motion.span
                 key={index}
                 className="inline-flex items-center px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full border border-slate-200"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.85, filter: 'blur(4px)' },
+                  visible: { opacity: 1, scale: 1, filter: 'blur(0px)', transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+                }}
               >
                 {metric}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
         ) : null
       })()}
     </div>
@@ -226,7 +241,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
 
   // Body Content (can be locked)
   const sectionBody = (
-    <div className="space-y-space-6">
+    <div className="space-y-12">
       {/* "What this reveals" - REMOVED: Redundant self-praise. Evidence speaks for itself. */}
 
       {/* Body Text - Render at top only if no visual content */}
@@ -245,13 +260,13 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                 // Break long paragraphs into shorter ones for better scanning
                 const paragraphs = part.content.split(/\n\n+/).filter(p => p.trim())
                 return (
-                  <div key={`text-${index}`} className="space-y-4">
+                  <ScrollRevealText key={`text-${index}`} className="space-y-4" stagger staggerDelay={0.06}>
                     {paragraphs.map((para: string, pIndex: number) => (
-                      <div key={`para-${pIndex}`}>
+                      <ScrollRevealItem key={`para-${pIndex}`} variant="paragraph">
                         {renderFormattedContent(para.trim(), t)}
-                      </div>
+                      </ScrollRevealItem>
                     ))}
-                  </div>
+                  </ScrollRevealText>
                 )
               })
             ) : (
@@ -268,7 +283,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                 ]
 
                 return (
-                  <div className="space-y-4">
+                  <ScrollRevealText className="space-y-4" stagger staggerDelay={0.06}>
                     {paragraphs.map((para: string, pIndex: number) => {
                       const trimmedPara = para.trim()
                       const isFirstParagraph = pIndex === 0
@@ -294,25 +309,29 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                       if (hasPullQuote && trimmedPara.length > 300) {
                         const remainingText = trimmedPara.replace(pullQuoteText, '').trim()
                         return (
-                          <div key={`para-${pIndex}`} className="space-y-space-4">
-                            <div className={`${isFirstParagraph ? `text-lg ${t.text} leading-relaxed font-medium` : ''}`}>
-                              {renderFormattedContent(remainingText, t, isFirstParagraph)}
+                          <ScrollRevealItem key={`para-${pIndex}`} variant="paragraph">
+                            <div className="space-y-space-4">
+                              <div className={`${isFirstParagraph ? `text-lg ${t.text} leading-relaxed font-medium` : ''}`}>
+                                {renderFormattedContent(remainingText, t, isFirstParagraph)}
+                              </div>
+                              <PullQuote quote={pullQuoteText} isLightBackground={isLightBackground} />
                             </div>
-                            <PullQuote quote={pullQuoteText} isLightBackground={isLightBackground} />
-                          </div>
+                          </ScrollRevealItem>
                         )
                       }
 
                       return (
-                        <div
+                        <ScrollRevealItem
                           key={`para-${pIndex}`}
-                          className={`${isFirstParagraph ? `text-lg ${t.text} leading-relaxed font-medium` : ''}`}
+                          variant={isFirstParagraph ? 'heading' : 'paragraph'}
                         >
-                          {renderFormattedContent(trimmedPara, t, isFirstParagraph)}
-                        </div>
+                          <div className={`${isFirstParagraph ? `text-lg ${t.text} leading-relaxed font-medium` : ''}`}>
+                            {renderFormattedContent(trimmedPara, t, isFirstParagraph)}
+                          </div>
+                        </ScrollRevealItem>
                       )
                     })}
-                  </div>
+                  </ScrollRevealText>
                 )
               })()
             )}
@@ -356,11 +375,15 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                     // Always open, no collapse button
                     <>
                       <div className="space-y-space-2">
-                        <h3 className={`${textColor} text-lg md:text-xl font-serif`}>{subsection.title}</h3>
+                        <ScrollRevealText variant="heading">
+                          <h3 className={`${textColor} text-lg md:text-xl font-serif`}>{subsection.title}</h3>
+                        </ScrollRevealText>
                         {subsection.description && (
-                          <p className={`${mutedColor} text-sm leading-relaxed`}>
-                            {subsection.description}
-                          </p>
+                          <ScrollRevealText variant="paragraph" delay={0.1}>
+                            <p className={`${mutedColor} text-sm leading-relaxed`}>
+                              {subsection.description}
+                            </p>
+                          </ScrollRevealText>
                         )}
                       </div>
 
@@ -507,7 +530,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                     className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                                     onClick={() => openLightbox(subsection.images![0].src, subsection.images![0].alt, subsection.images![0].caption)}
                                   >
-                                    <Image
+                                    <ParallaxImage
                                       src={subsection.images[0].src}
                                       alt={subsection.images[0].alt}
                                       width={1200}
@@ -728,138 +751,146 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                         </div>
                       </button>
 
-                      {/* Subsection Content (collapsible) */}
-                      {isExpanded && (
-                        <div className="space-y-8 pl-2">
-                          {subsection.quote && (
-                            <div className={`${bgColor} p-6 md:p-8`}>
-                              <p className={`${textColor} italic text-lg md:text-xl leading-relaxed`}>
-                                &quot;{subsection.quote.text}&quot;
-                              </p>
-                              {subsection.quote.attribution && (
-                                <p className={`${mutedColor} text-sm mt-4`}>— {subsection.quote.attribution}</p>
-                              )}
-                            </div>
-                          )}
+                      {/* Subsection Content (collapsible) — Animated */}
+                      <AnimatePresence initial={false}>
+                        {isExpanded && (
+                          <motion.div
+                            className="space-y-8 pl-2 overflow-hidden"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          >
+                            {subsection.quote && (
+                              <div className={`${bgColor} p-6 md:p-8`}>
+                                <p className={`${textColor} italic text-lg md:text-xl leading-relaxed`}>
+                                  &quot;{subsection.quote.text}&quot;
+                                </p>
+                                {subsection.quote.attribution && (
+                                  <p className={`${mutedColor} text-sm mt-4`}>— {subsection.quote.attribution}</p>
+                                )}
+                              </div>
+                            )}
 
-                          {/* Entry Point content handled by DesignIterationLog */}
+                            {/* Entry Point content handled by DesignIterationLog */}
 
-                          {/* Four Step Flow Breakdown for ML Functions Section 06 - The main step workflow UI */}
-                          {section.id === 'section-06' && subsection.title === 'The main step workflow UI' && caseStudySlug === 'ml-functions' && (
-                            <div className="pt-4 pb-4">
-                              {actuallyUnlocked ? (
-                                <FourStepFlowBreakdown isLightBackground={isLightBackground} />
-                              ) : (
-                                <LockedContent
-                                  isUnlocked={actuallyUnlocked}
-                                  password={password}
-                                  caseStudySlug={caseStudySlug}
-                                  isLightBackground={isLightBackground}
-                                  unlockMessage={`Password required to view ${section.title}`}
-                                >
-                                  <div className="min-h-[200px]" />
-                                </LockedContent>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Subsection Workflow Prototype */}
-                          {subsection.workflowPrototype && (
-                            <WorkflowPrototype
-                              title={subsection.workflowPrototype.title}
-                              description={subsection.workflowPrototype.description}
-                              steps={subsection.workflowPrototype.steps}
-                              workflowType={subsection.workflowPrototype.workflowType}
-                              isLightBackground={isLightBackground}
-                            />
-                          )}
-
-                          {/* Subsection Images */}
-                          {subsection.images && subsection.images.length > 0 && (
-                            <div className={`grid grid-cols-1 ${
-                              // Special case: 4-step workflow UI should be 2x2 grid
-                              section.id === 'section-06' && subsection.title === 'The main step workflow UI' && caseStudySlug === 'ml-functions' && subsection.images.length === 4
-                                ? 'md:grid-cols-2'
-                                // Special case: Evolution of IQ Plugin should be 2x2 grid
-                                : subsection.title === 'The Evolution of the IQ Plugin' && subsection.images.length === 4
-                                  ? 'md:grid-cols-2'
-                                  // Special case: Section 05 subsections (IQ Plugin workflows) should be 2-column grid, or 2x2 for 4 images
-                                  : section.id === 'section-05' && caseStudySlug === 'iq-plugin'
-                                    ? subsection.images.length === 4
-                                      ? 'md:grid-cols-2'
-                                      : 'md:grid-cols-2'
-                                    : subsection.images.length === 1
-                                      ? 'md:grid-cols-1'
-                                      : subsection.images.length === 2
-                                        ? 'md:grid-cols-2'
-                                        : 'md:grid-cols-2 lg:grid-cols-3'
-                              } gap-6`}>
-                              {subsection.images.map((image, imgIndex) => {
-                                const imageContent = image.fullWidth ? (
-                                  <div key={`sub-img-full-${subIndex}-${imgIndex}`} className="col-span-full space-y-2 p-2">
-                                    <div
-                                      className={`relative w-full max-w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
-                                      onClick={() => openLightbox(image.src, image.alt, image.caption)}
-                                    >
-                                      <ParallaxImage
-                                        src={image.src}
-                                        alt={image.alt}
-                                        width={1200}
-                                        height={800}
-                                        className="w-full h-auto max-w-full object-contain"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                                      />
-                                    </div>
-                                    {image.caption && (
-                                      <p className={`${mutedColor} text-sm text-center mt-3 px-6`}>
-                                        {image.caption}
-                                      </p>
-                                    )}
-                                  </div>
+                            {/* Four Step Flow Breakdown for ML Functions Section 06 - The main step workflow UI */}
+                            {section.id === 'section-06' && subsection.title === 'The main step workflow UI' && caseStudySlug === 'ml-functions' && (
+                              <div className="pt-4 pb-4">
+                                {actuallyUnlocked ? (
+                                  <FourStepFlowBreakdown isLightBackground={isLightBackground} />
                                 ) : (
-                                  <div key={`sub-img-${subIndex}-${imgIndex}`} className="space-y-2 p-2">
-                                    <div
-                                      className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} cursor-pointer transition-opacity duration-300 hover:opacity-90`}
-                                      onClick={() => openLightbox(image.src, image.alt, image.caption)}
-                                    >
-                                      <ParallaxImage
-                                        src={image.src}
-                                        alt={image.alt}
-                                        width={1200}
-                                        height={800}
-                                        className="w-full h-auto object-contain"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                      />
+                                  <LockedContent
+                                    isUnlocked={actuallyUnlocked}
+                                    password={password}
+                                    caseStudySlug={caseStudySlug}
+                                    isLightBackground={isLightBackground}
+                                    unlockMessage={`Password required to view ${section.title}`}
+                                  >
+                                    <div className="min-h-[200px]" />
+                                  </LockedContent>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Subsection Workflow Prototype */}
+                            {subsection.workflowPrototype && (
+                              <WorkflowPrototype
+                                title={subsection.workflowPrototype.title}
+                                description={subsection.workflowPrototype.description}
+                                steps={subsection.workflowPrototype.steps}
+                                workflowType={subsection.workflowPrototype.workflowType}
+                                isLightBackground={isLightBackground}
+                              />
+                            )}
+
+                            {/* Subsection Images */}
+                            {subsection.images && subsection.images.length > 0 && (
+                              <div className={`grid grid-cols-1 ${
+                                // Special case: 4-step workflow UI should be 2x2 grid
+                                section.id === 'section-06' && subsection.title === 'The main step workflow UI' && caseStudySlug === 'ml-functions' && subsection.images.length === 4
+                                  ? 'md:grid-cols-2'
+                                  // Special case: Evolution of IQ Plugin should be 2x2 grid
+                                  : subsection.title === 'The Evolution of the IQ Plugin' && subsection.images.length === 4
+                                    ? 'md:grid-cols-2'
+                                    // Special case: Section 05 subsections (IQ Plugin workflows) should be 2-column grid, or 2x2 for 4 images
+                                    : section.id === 'section-05' && caseStudySlug === 'iq-plugin'
+                                      ? subsection.images.length === 4
+                                        ? 'md:grid-cols-2'
+                                        : 'md:grid-cols-2'
+                                      : subsection.images.length === 1
+                                        ? 'md:grid-cols-1'
+                                        : subsection.images.length === 2
+                                          ? 'md:grid-cols-2'
+                                          : 'md:grid-cols-2 lg:grid-cols-3'
+                                } gap-6`}>
+                                {subsection.images.map((image, imgIndex) => {
+                                  const imageContent = image.fullWidth ? (
+                                    <div key={`sub-img-full-${subIndex}-${imgIndex}`} className="col-span-full space-y-2 p-2">
+                                      <div
+                                        className={`relative w-full max-w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
+                                        onClick={() => openLightbox(image.src, image.alt, image.caption)}
+                                      >
+                                        <ParallaxImage
+                                          src={image.src}
+                                          alt={image.alt}
+                                          width={1200}
+                                          height={800}
+                                          className="w-full h-auto max-w-full object-contain"
+                                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                                        />
+                                      </div>
+                                      {image.caption && (
+                                        <p className={`${mutedColor} text-sm text-center mt-3 px-6`}>
+                                          {image.caption}
+                                        </p>
+                                      )}
                                     </div>
-                                    {image.caption && (
-                                      <p className={`${mutedColor} text-sm leading-relaxed mt-3`}>
-                                        {image.caption}
-                                      </p>
-                                    )}
-                                  </div>
-                                )
-
-                                if (image.sensitive && !actuallyUnlocked) {
-                                  return (
-                                    <LockedContent
-                                      key={`sub-img-${subIndex}-${imgIndex}`}
-                                      isUnlocked={actuallyUnlocked}
-                                      password={password}
-                                      caseStudySlug={caseStudySlug}
-                                      isLightBackground={isLightBackground}
-                                      unlockMessage={`Password required to view ${subsection.title || section.title}`}
-                                    >
-                                      {imageContent}
-                                    </LockedContent>
+                                  ) : (
+                                    <div key={`sub-img-${subIndex}-${imgIndex}`} className="space-y-2 p-2">
+                                      <div
+                                        className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} cursor-pointer transition-opacity duration-300 hover:opacity-90`}
+                                        onClick={() => openLightbox(image.src, image.alt, image.caption)}
+                                      >
+                                        <ParallaxImage
+                                          src={image.src}
+                                          alt={image.alt}
+                                          width={1200}
+                                          height={800}
+                                          className="w-full h-auto object-contain"
+                                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        />
+                                      </div>
+                                      {image.caption && (
+                                        <p className={`${mutedColor} text-sm leading-relaxed mt-3`}>
+                                          {image.caption}
+                                        </p>
+                                      )}
+                                    </div>
                                   )
-                                }
 
-                                return imageContent
-                              })}
-                            </div>
-                          )}
-                        </div>
-                      )}
+                                  if (image.sensitive && !actuallyUnlocked) {
+                                    return (
+                                      <LockedContent
+                                        key={`sub-img-${subIndex}-${imgIndex}`}
+                                        isUnlocked={actuallyUnlocked}
+                                        password={password}
+                                        caseStudySlug={caseStudySlug}
+                                        isLightBackground={isLightBackground}
+                                        unlockMessage={`Password required to view ${subsection.title || section.title}`}
+                                      >
+                                        {imageContent}
+                                      </LockedContent>
+                                    )
+                                  }
+
+                                  return imageContent
+                                })}
+                              </div>
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </>
                   )}
                 </div>
@@ -1104,7 +1135,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                         className={`relative w-full max-w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                         onClick={() => openLightbox(image.src, image.alt, image.caption)}
                       >
-                        <Image
+                        <ParallaxImage
                           src={image.src}
                           alt={image.alt}
                           width={1200}
@@ -1155,7 +1186,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                               className={`relative w-full ${imageBorderRadius} overflow-hidden border ${borderColor} ${imageShadow} ${imageOutline} cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg`}
                               onClick={() => openLightbox(image.src, image.alt, image.caption)}
                             >
-                              <Image
+                              <ParallaxImage
                                 src={image.src}
                                 alt={image.alt}
                                 width={1200}
@@ -1230,7 +1261,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                                   className="relative w-full max-w-full cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg"
                                   onClick={() => openLightbox(image.src, image.alt, image.caption)}
                                 >
-                                  <Image
+                                  <ParallaxImage
                                     src={image.src}
                                     alt={image.alt}
                                     width={1200}
@@ -1313,7 +1344,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                             className="relative w-full max-w-full cursor-pointer transition-all duration-300 hover:opacity-90 hover:scale-[1.02] hover:shadow-lg"
                             onClick={() => openLightbox(image.src, image.alt, image.caption)}
                           >
-                            <Image
+                            <ParallaxImage
                               src={image.src}
                               alt={image.alt}
                               width={1200}
@@ -1588,13 +1619,13 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                     // Break long paragraphs into shorter ones for better scanning
                     const paragraphs = part.content.split(/\n\n+/).filter(p => p.trim())
                     return (
-                      <div key={`text-${index}`} className="space-y-4">
+                      <ScrollRevealText key={`text-${index}`} className="space-y-4" stagger staggerDelay={0.06}>
                         {paragraphs.map((para: string, pIndex: number) => (
-                          <div key={`para-${pIndex}`}>
+                          <ScrollRevealItem key={`para-${pIndex}`} variant="paragraph">
                             {renderFormattedContent(para.trim(), t)}
-                          </div>
+                          </ScrollRevealItem>
                         ))}
-                      </div>
+                      </ScrollRevealText>
                     )
                   })
                 ) : (
@@ -1602,13 +1633,13 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                   (() => {
                     const paragraphs = section.body.split(/\n\n+/).filter(p => p.trim())
                     return (
-                      <div className="space-y-3">
+                      <ScrollRevealText className="space-y-3" stagger staggerDelay={0.06}>
                         {paragraphs.map((para: string, pIndex: number) => (
-                          <div key={`para-${pIndex}`}>
+                          <ScrollRevealItem key={`para-${pIndex}`} variant="paragraph">
                             {renderFormattedContent(para.trim(), t)}
-                          </div>
+                          </ScrollRevealItem>
                         ))}
-                      </div>
+                      </ScrollRevealText>
                     )
                   })()
                 )}
@@ -1617,23 +1648,27 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
 
             {section.bullets && Array.isArray(section.bullets) && section.bullets.length > 0 && (
               <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <h3 className={`${textColor} text-lg font-semibold`}>Key points</h3>
-                  <div className={`h-px flex-1 ${dividerColor}`}></div>
-                </div>
-                <div className="grid grid-cols-1 gap-3">
+                <ScrollRevealText variant="subtle">
+                  <div className="flex items-center gap-3">
+                    <h3 className={`${textColor} text-lg font-semibold`}>Key points</h3>
+                    <div className={`h-px flex-1 ${dividerColor}`}></div>
+                  </div>
+                </ScrollRevealText>
+                <ScrollRevealText className="grid grid-cols-1 gap-3" stagger staggerDelay={0.05}>
                   {section.bullets.map((bullet, index) => (
-                    <div
+                    <ScrollRevealItem
                       key={`bullet-${index}`}
-                      className={`flex gap-3 p-4 ${bgColor} hover:opacity-90 transition-opacity duration-300`}
+                      variant="subtle"
                     >
-                      <span className={`text-[var(--accent-teal)] text-base font-mono flex-shrink-0 mt-0.5 font-semibold`}>
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <p className={`${mutedColor} leading-relaxed text-base`}>{bullet}</p>
-                    </div>
+                      <div className={`flex gap-3 p-4 ${bgColor} hover:opacity-90 transition-opacity duration-300`}>
+                        <span className={`text-[var(--accent-teal)] text-base font-mono flex-shrink-0 mt-0.5 font-semibold`}>
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <p className={`${mutedColor} leading-relaxed text-base`}>{bullet}</p>
+                      </div>
+                    </ScrollRevealItem>
                   ))}
-                </div>
+                </ScrollRevealText>
               </div>
             )}
           </div>

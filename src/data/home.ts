@@ -83,6 +83,18 @@ export const featuredCaseStudies: FeaturedCaseStudy[] = [
 
 export const articleLinks: ArticleLink[] = [
   {
+    title: 'I Don\'t Need a Manual: How System Archaeology and 13 Years of Grit Built a Design Engineer',
+    topic: 'Design Engineering',
+    href: 'https://medium.com/@anu.anuja/i-dont-need-a-manual-how-system-archaeology-and-13-years-of-grit-built-a-design-engineer-df62ddebfc04',
+    readTime: '10 min',
+  },
+  {
+    title: 'How I Rebuilt My Portfolio While Navigating a Layoff, Visa Stress, Two Kids, and Pure Chaos',
+    topic: 'Resilience',
+    href: 'https://medium.com/@anu.anuja/how-i-rebuilt-my-portfolio-while-navigating-a-layoff-visa-stress-two-kids-and-pure-chaos-889ee81514ba',
+    readTime: '12 min',
+  },
+  {
     title: 'Never Design Blind: How Learning and Empathy Shaped My Approach to ML UX',
     topic: 'Machine Learning UX',
     href: 'https://medium.com/@anu.anuja/never-design-blind-how-learning-and-empathy-shaped-my-approach-to-ml-ux-822aaf422613',
@@ -92,13 +104,13 @@ export const articleLinks: ArticleLink[] = [
     title: 'The Real Designer Grind: Building Together, Not Alone',
     topic: 'Design Culture',
     href: 'https://medium.com/@anu.anuja/the-real-designer-grind-building-together-not-alone-f7ad3e7cb881',
-    readTime: '5 min',
+    readTime: '13 min',
   },
   {
     title: 'I Always Thought I Wasn\'t Good Enough — Until WebFOCUS Made Me Someone New',
     topic: 'Personal Growth',
     href: 'https://medium.com/@anu.anuja/i-always-thought-i-wasnt-good-enough-until-ibi-webfocus-made-me-someone-new-e1a769f15621',
-    readTime: '6 min',
+    readTime: '12 min',
   },
 ]
 

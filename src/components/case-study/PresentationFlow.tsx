@@ -103,7 +103,7 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
     }, [currentIndex]);
 
     return (
-        <div ref={containerRef as React.RefObject<HTMLDivElement>} className="fixed inset-0 z-[9999]" tabIndex={-1}>
+        <div ref={containerRef as React.RefObject<HTMLDivElement>} className="fixed inset-0 z-[9999]" tabIndex={-1} data-presentation-mode>
             {/* Backdrop - Dark with blur to match ImageLightbox */}
             <motion.div
                 initial={{ opacity: 0 }}

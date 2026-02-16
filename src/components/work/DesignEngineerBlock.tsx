@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { Code, Zap, Smartphone, Sparkles, Play } from 'lucide-react'
 import GameLightbox from './GameLightbox'
 import { getTheme } from '@/lib/design-system'
+import TextReveal from '@/components/ui/TextReveal'
 
 // Animation variants
 const fadeInUp = {
@@ -21,12 +22,27 @@ export default function DesignEngineerBlock() {
     const [isGameOpen, setIsGameOpen] = useState(false)
     const t = getTheme(false)
 
+    // === CINEMATIC SCROLL-DRIVEN ENTRY ===
+    const sectionRef = useRef<HTMLDivElement>(null)
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ['start end', 'start 0.3'] // triggers as section enters viewport bottom → 30% from top
+    })
+
+    // Content fades in and rises as user scrolls this section into view
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [0, 0, 1])
+    const contentY = useTransform(scrollYProgress, [0, 0.6, 1], [120, 120, 0])
+    const contentScale = useTransform(scrollYProgress, [0, 0.6, 1], [0.92, 0.92, 1])
+
     // Spine Logic (Start Node)
     // We want the line to start from the node and go down.
 
     return (
-        <section className="py-24 md:py-32 w-full relative border-t border-white/5 group">
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+        <section ref={sectionRef} className="pt-44 md:pt-56 pb-24 md:pb-32 w-full relative border-t border-white/5 group">
+            <motion.div
+                style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
+                className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10"
+            >
 
                 {/* ════════════════════════════════════════════════════════════════════
                    TIMELINE SPINE (START NODE)
@@ -38,8 +54,8 @@ export default function DesignEngineerBlock() {
                 ════════════════════════════════════════════════════════════════ */}
                 <div className="absolute left-0 top-0 bottom-0 pointer-events-none hidden md:block z-0">
                     {/* The Node (Origin) - Centered at 32px (left-24px + 8px) */}
-                    <div className="absolute left-[24px] top-[8.5rem] w-4 h-4 rounded-full bg-[var(--accent-teal)] shadow-[0_0_12px_var(--accent-teal)] z-20">
-                        <div className="absolute inset-0 animate-ping rounded-full bg-[var(--accent-teal)] opacity-50"></div>
+                    <div className="absolute left-[24px] top-[8.5rem] w-4 h-4 rounded-full bg-slate-600 border border-slate-500 z-20">
+                        <div className="w-1.5 h-1.5 bg-slate-400 rounded-full absolute inset-0 m-auto"></div>
                     </div>
 
                     {/* The Line (Track) - REMOVED (Handled by UnifiedTimelineLayout) */}
@@ -63,20 +79,51 @@ export default function DesignEngineerBlock() {
                             viewport={{ once: true }}
                             variants={fadeInUp}
                         >
-                            <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase font-semibold mb-6 block">
+                            <span className="font-mono text-white/40 text-xs tracking-widest uppercase font-semibold mb-6 block">
                                 The Discipline
                             </span>
 
-                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 tracking-tight leading-[1.1]">
-                                Design Engineering.
-                            </h2>
+                            <motion.h2
+                                className="text-4xl md:text-5xl lg:text-6xl font-sans text-white mb-6 tracking-tight leading-[1.1]"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+                            >
+                                <motion.span
+                                    className="font-light"
+                                    variants={{ hidden: { y: '100%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] } } }}
+                                    style={{ display: 'inline-block', marginRight: '0.3em' }}
+                                >
+                                    Design
+                                </motion.span>
+                                <motion.span
+                                    className="font-extrabold"
+                                    variants={{ hidden: { y: '100%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] } } }}
+                                    style={{ display: 'inline-block' }}
+                                >
+                                    Engineering.
+                                </motion.span>
+                            </motion.h2>
 
-                            <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-lg mb-10 font-light">
+                            <TextReveal
+                                as="p"
+                                className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-lg mb-4 font-light"
+                                variant="fade-up"
+                                delay={0.3}
+                                stagger={0.03}
+                            >
                                 Connecting the structural integrity of code with the emotional resonance of design.
-                                <span className="text-slate-300 block mt-4">
-                                    I don&apos;t just mock interactions—I build them.
-                                </span>
-                            </p>
+                            </TextReveal>
+                            <TextReveal
+                                as="p"
+                                className="text-slate-300 text-lg md:text-xl leading-relaxed max-w-lg mb-10 font-light"
+                                variant="fade-up"
+                                delay={0.5}
+                                stagger={0.03}
+                            >
+                                I don't just mock interactions—I build them.
+                            </TextReveal>
                         </motion.div>
 
                         {/* Feature Points - Minimalist */}
@@ -138,7 +185,7 @@ export default function DesignEngineerBlock() {
                         </motion.div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Lightbox for the Game */}
             <GameLightbox isOpen={isGameOpen} onClose={() => setIsGameOpen(false)} />

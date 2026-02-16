@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 
 // Version Data - accurately reflecting the user's manual-to-AI journey
 const versions = [
@@ -68,7 +67,7 @@ export default function PersistenceGallery() {
         intervalRef.current = setInterval(() => {
             const nextIndex = (activeIndex + 1) % versions.length
             setActiveTabId(versions[nextIndex].id)
-        }, 5000) // 5 seconds per slide for reading time
+        }, 5000)
 
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current)
@@ -77,32 +76,31 @@ export default function PersistenceGallery() {
 
     const handleTabClick = (id: string) => {
         setActiveTabId(id)
-        setIsPlaying(false) // Stop auto-play if user interacts
+        setIsPlaying(false)
     }
 
     return (
-        <section className="py-10 border-t border-slate-100 bg-slate-50/50">
+        <section className="py-12 md:py-16">
 
             <motion.div
                 className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12"
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-
-
-
-                {/* Header - Always Visible */}
-                <div className="text-center mb-10">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--accent-teal)] mb-2 block">
-                        Evidence of Velocity //
-                    </span>
-                    <h3 className="font-serif text-2xl md:text-3xl text-slate-900">
-                        Portfolio Evolution Log
+                {/* Header — clean Apple typography */}
+                <div className="mb-10 md:mb-12">
+                    <h3
+                        className="font-serif text-3xl md:text-4xl text-slate-900 tracking-tight"
+                    >
+                        Portfolio Evolution
                     </h3>
-                    <p className="text-slate-500 text-sm md:text-base mt-2">
-                        5 completely distinct portfolio websites. 30 days.
+                    <p
+                        className="text-slate-400 text-base mt-3 max-w-md"
+                        style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+                    >
+                        5 distinct portfolio websites. 30 days. One relentless drive.
                     </p>
                 </div>
 
@@ -111,75 +109,78 @@ export default function PersistenceGallery() {
                     onMouseEnter={() => setIsPlaying(false)}
                     onMouseLeave={() => setIsPlaying(true)}
                 >
-                    {/* 1. Timeline / Tabs - Simplified with micro-interactions */}
-                    <div className="flex items-center gap-1 md:gap-2 mb-6 overflow-x-auto pb-2 hide-scrollbar justify-start lg:justify-center">
-                        {versions.map((v) => (
-                            <motion.button
+                    {/* Timeline tabs — pill style, clean */}
+                    <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 hide-scrollbar">
+                        {versions.map((v, i) => (
+                            <button
                                 key={v.id}
                                 onClick={() => handleTabClick(v.id)}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
                                 className={`
                                     relative flex-shrink-0 px-4 py-2.5 rounded-full text-left transition-all duration-300
                                     ${activeTabId === v.id
-                                        ? 'bg-slate-900 text-white shadow-lg'
-                                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'
+                                        ? 'bg-slate-900 text-white'
+                                        : 'bg-white border border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700'
                                     }
                                 `}
                             >
                                 <div className="flex items-center gap-2">
-                                    <span className={`font-mono text-[10px] uppercase tracking-wider ${activeTabId === v.id ? 'text-[var(--accent-teal)]' : 'text-slate-400'}`}>
+                                    <span className={`font-mono text-[10px] uppercase tracking-wider ${activeTabId === v.id ? 'text-[var(--accent-teal)]' : 'text-slate-300'}`}>
                                         {v.label}
                                     </span>
-                                    <span className={`font-medium text-sm ${activeTabId === v.id ? 'text-white' : 'text-slate-700'}`}>
+                                    <span className={`font-medium text-sm ${activeTabId === v.id ? 'text-white' : 'text-slate-600'}`}>
                                         {v.title}
                                     </span>
                                 </div>
 
-                                {/* Progress indicator for active tab when auto-playing */}
+                                {/* Progress bar for auto-play */}
                                 {activeTabId === v.id && isPlaying && (
                                     <motion.div
                                         initial={{ scaleX: 0 }}
                                         animate={{ scaleX: 1 }}
                                         transition={{ duration: 5, ease: "linear" }}
-                                        className="absolute bottom-0 left-2 right-2 h-0.5 bg-[var(--accent-teal)] rounded-full origin-left"
+                                        className="absolute bottom-0 left-2 right-2 h-[2px] bg-[var(--accent-teal)] rounded-full origin-left"
                                     />
                                 )}
-                            </motion.button>
+                            </button>
                         ))}
                     </div>
 
-                    {/* 2. Content Display */}
-                    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    {/* Content card — clean white with subtle border */}
+                    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
 
-                        {/* Context Area - ABOVE the video now */}
+                        {/* Context area */}
                         <div className="p-6 md:p-8 border-b border-slate-100">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeTabId}
-                                    initial={{ opacity: 0, y: -10 }}
+                                    initial={{ opacity: 0, y: -8 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 10 }}
+                                    exit={{ opacity: 0, y: 8 }}
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col md:flex-row md:items-start gap-6"
                                 >
                                     {/* Left: Tech & Description */}
                                     <div className="flex-1">
-                                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 rounded-full text-slate-600 font-mono text-xs mb-3">
-                                            <span>{activeVersion.tech}</span>
-                                        </div>
-                                        <p className="text-slate-700 text-base md:text-lg leading-relaxed">
+                                        <span className="inline-flex items-center px-3 py-1 bg-slate-50 rounded-full text-slate-500 font-mono text-[11px] tracking-wider mb-3">
+                                            {activeVersion.tech}
+                                        </span>
+                                        <p
+                                            className="text-slate-700 text-base leading-relaxed"
+                                            style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+                                        >
                                             {activeVersion.desc}
                                         </p>
                                     </div>
 
                                     {/* Right: Key Insight */}
-                                    <div className="md:w-[360px] p-4 bg-[var(--accent-teal)]/5 border border-[var(--accent-teal)]/20 rounded-xl">
+                                    <div className="md:w-[340px] p-4 bg-slate-50 border border-slate-100 rounded-xl">
                                         <div className="flex gap-3">
-                                            <div className="w-0.5 bg-[var(--accent-teal)] rounded-full opacity-60 shrink-0" />
+                                            <div className="w-[2px] bg-[var(--accent-teal)] rounded-full opacity-50 shrink-0" />
                                             <div>
-                                                <span className="uppercase font-bold block mb-1 text-[10px] tracking-wider text-[var(--accent-teal)]">Key Learning</span>
-                                                <p className="text-slate-700 font-serif italic text-sm leading-snug">
+                                                <span className="uppercase font-medium block mb-1 text-[10px] tracking-wider text-slate-400">Key Learning</span>
+                                                <p
+                                                    className="text-slate-600 font-serif italic text-sm leading-snug"
+                                                >
                                                     {activeVersion.keyLearning}
                                                 </p>
                                             </div>
@@ -189,8 +190,8 @@ export default function PersistenceGallery() {
                             </AnimatePresence>
                         </div>
 
-                        {/* Image/Video Area - Full Width */}
-                        <div className="relative aspect-video bg-slate-900">
+                        {/* Video area */}
+                        <div className="relative aspect-video bg-slate-50">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeTabId}
@@ -198,7 +199,7 @@ export default function PersistenceGallery() {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.4 }}
-                                    className="w-full h-full flex items-center justify-center bg-black"
+                                    className="w-full h-full flex items-center justify-center"
                                 >
                                     {activeVersion.video ? (
                                         <video
@@ -210,7 +211,7 @@ export default function PersistenceGallery() {
                                             className="w-full h-full object-contain"
                                         />
                                     ) : (
-                                        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center bg-slate-900">
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center">
                                             <span className="mb-2 block text-4xl">⏳</span>
                                             <p className="text-sm font-mono">Loading Archive...</p>
                                         </div>
@@ -218,15 +219,7 @@ export default function PersistenceGallery() {
                                 </motion.div>
                             </AnimatePresence>
                         </div>
-
                     </div>
-
-                    <div className="text-center mt-6">
-                        <p className="text-xs text-slate-400 font-mono uppercase tracking-widest">
-                            {isPlaying ? "Auto-playing Evolution Log..." : "Timeline Paused"}
-                        </p>
-                    </div>
-
                 </div>
 
             </motion.div>

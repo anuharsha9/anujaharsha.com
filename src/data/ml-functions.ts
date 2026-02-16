@@ -275,6 +275,9 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
       '5/5 SMEs found entry point without help',
       'Zero ML background → MIT certified',
       '"The best screen in the entire UX revamp" — Principal Data Scientist on confusion matrix',
+      'Designed the Predict Data landing page — no entry point existed before',
+      'Replaced dense model tables with scannable model cards',
+      'Negotiated Train/Run tab split — balancing UX clarity with engineering constraints',
       'Dual-experience approach (guided + advanced)',
       'Patterns became foundation for IQ Plugin',
     ],
@@ -308,12 +311,12 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   uxPrinciples: {
     title: 'Design Principles Applied',
     principles: [
-      { title: 'Explainability First', description: '' },
-      { title: 'Linear Flow (No Branching)', description: '' },
-      { title: 'Upstream Validation', description: '' },
-      { title: 'System State Visibility', description: '' },
-      { title: 'Progressive Disclosure', description: '' },
-      { title: 'Dual Experience (Guided + Advanced)', description: '' },
+      { title: 'Explainability First', description: 'Every ML output tells users WHY, not just WHAT. The confusion matrix shows which predictions the model gets right and wrong — in plain language, not just numbers. Our Principal Data Scientist called it "the best screen in the entire UX revamp."' },
+      { title: 'Linear Flow (No Branching)', description: 'Problem Type → Target → Predictors → Hyperparameters. Four steps, always in order. No branching, no hidden paths. This spine came directly from asking the Principal Data Scientist: "What do you absolutely need to train a model responsibly?"' },
+      { title: 'Upstream Validation', description: 'If a dataset doesn\'t support the selected model type, we tell users before they waste time configuring it. I pushed back against the assumption that users would "just know" which models work with which data. Prevent frustration, don\'t apologize for it.' },
+      { title: 'System State Visibility', description: 'Users always know where they are in the workflow, what\'s complete, and what\'s next. Training progress, model status, and error states are surfaced clearly — no more "results not generated" dead-ends.' },
+      { title: 'Progressive Disclosure', description: 'Business users see the guided flow: select, configure, train, evaluate. Data scientists can expand hyperparameter panels, access advanced metrics, and fine-tune settings. The complexity is there — it just waits for you to ask for it.' },
+      { title: 'Dual Experience (Guided + Advanced)', description: 'Born from an engineering constraint: we couldn\'t rebuild advanced mode. So the guided flow coexists with the legacy interface. What felt like a limitation became a feature — experts keep their power tools, newcomers get guardrails. Both personas served.' },
     ],
   },
   // ----------------------------
@@ -343,18 +346,26 @@ After documenting every workflow and decision point, I realized: if I find this 
       index: 'S',
       title: 'Simplify the Chaos: From Black Box to Guided Flow',
       summary: 'Designed a structured 4-step guided flow: Problem Type → Target → Predictors → Hyperparameters.',
-      body: `The mapping revealed the problems, but solving them required multiple iterations. Three critical pivots shaped the final design.
+      body: `The mapping revealed the problems, but solving them required inventing infrastructure that didn't exist.
 
-Breakthrough: I asked our Principal Data Scientist, "What do you absolutely need to train a model responsibly?" His answer: problem type, target variable, predictors, and hyperparameters. That became the 4-step UX spine — a linear flow that made ML accessible without dumbing it down.`,
+The biggest gap: there was NO Predict Data landing page. The original workflow was so broken you could barely begin training a model. To increase adoption and discoverability, a landing page was a must. I designed it to serve multiple purposes: select or change a dataset, show both Run and Train model options, and display existing models — both previously trained models and models available to run on the current dataset.
+
+Initially, I put everything on a single display. Engineering pushed back: "It's too confusing — code-wise it's also difficult to manage." So we split Train and Run into two tabs. It took real brainstorming to get there — our need for clean UX and easy decision-making vs. engineering's requirement of separating the two workflows.
+
+The model display was another breakthrough. The original approach used dense tables — rows of metrics that made comparison nearly impossible for non-experts. I introduced a **model card** pattern instead: each model gets its own card with the key details needed for an informed decision. I iterated on the card design with our Principal Data Scientist (who ensured the right metrics appeared) and my Director of Design (who ensured I was following the design system — I was still less than a year at the org).
+
+The 4-step UX spine came from asking the right question: "What do you absolutely need to train a model responsibly?" Problem type, target variable, predictors, and hyperparameters. That became the guided flow that made ML accessible without dumbing it down.`,
     },
     {
       id: 'section-04',
       index: 'I',
       title: 'Iterate with Inclusion: Balancing Control with Simplicity',
       summary: '10+ iterations on the confusion matrix. Productive tension with Data Science → best screen in the project.',
-      body: `Led cross-functional alignment across Product, Engineering, and Data Science. Weekly syncs. Shared Figma. Screen-reviewed design reviews.
+      body: `Led cross-functional alignment across Product, Engineering, and Data Science. Weekly syncs. Shared Figma. Screen-by-screen design reviews.
 
-The confusion matrix screen alone went through 10+ iterations. Our Principal Data Scientist pushed for advanced metrics; I pushed for clarity. That productive tension produced what he called "the best screen in the entire UX revamp."
+The confusion matrix screen alone went through 10+ iterations. The final design landed on a three-panel layout: a classification-metrics-per-threshold line chart (showing how Accuracy, Precision, Recall, and F1-score change as the threshold moves), the confusion matrix grid itself (showing both current and F1-optimal thresholds side by side), and a bar chart comparing current vs. optimal metrics. Above it all: a threshold slider ranging from 0.0 ("Favors recall") to 1.0 ("Favors precision") that lets users drag and watch every visualization update in real-time.
+
+Our Principal Data Scientist pushed for advanced metrics and all the model comparison functionality; I pushed for clarity and visual hierarchy. That productive tension produced what he called "the best screen in the entire UX revamp." The "meeting in the middle" wasn't about one screen — it was the entire Predict Data experience: the landing page, the Train/Run tabs, the model cards, and then this multi-panel view that serves both data scientists (threshold control, AUC scores, all metrics) and business users (visual charts, clear explanations, side-by-side comparisons).
 
 **What I'd do differently:** Earlier, cleaner alignment with our Data Scientist. He surfaced insights late in the process that were harder to incorporate — some we did, but it cost us time.`,
       beforeAfter: {
@@ -380,7 +391,9 @@ The confusion matrix screen alone went through 10+ iterations. Our Principal Dat
       summary: 'Dual-experience approach emerged from constraints. Led this while simultaneously owning ReportCaster and IQ Plugin.',
       body: `The dual-experience approach emerged from engineering constraints. We couldn't rebuild the advanced mode — it had to coexist with the new guided flow. What felt like a limitation became a feature: experts got their power, newcomers got guidance.
 
-I led this while simultaneously owning ReportCaster and IQ Plugin. Cross-project pattern sharing meant solutions in one project accelerated the others.`,
+I led this while simultaneously owning ReportCaster and IQ Plugin. After the January 2025 layoffs, I took on WebFOCUS Designer as well — juggling four major enterprise systems at once. Workload prioritization wasn't optional; it was survival. I created daily trackers, weekly trackers, and ticket trackers — all in Slack — and shared them with my manager and Director of Design so they never had to wonder where I was at. They always knew my progress.
+
+The layoffs didn't force me to cut ML features — but they made me more protective of the work and more aware of my unique position. I was one of the few people left who understood the full ecosystem end-to-end. Cross-project pattern sharing meant solutions in one project accelerated the others: the structured flows and upstream validation patterns from ML directly informed IQ Plugin, and the modal architecture from RC became a platform-wide reference.`,
     },
     {
       id: 'section-06',
