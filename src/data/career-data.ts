@@ -39,83 +39,67 @@ export interface Milestone {
     icon?: any; // Lucide Icon Component or String
 }
 
+export interface SkillBadge {
+    icon: 'code' | 'zap' | 'layers' | 'cpu' | 'box' | 'palette';
+    label: string;
+    sub: string;
+}
+
 export interface CareerEra {
     id: string;
     company: string;
     role: string;
     period: string;
     description: string;
+    secondaryDescription?: string; // Additional tagline
     testimonials: Testimonial[];
     workItems: WorkItem[];
     articles?: WorkItem[]; // Writing/Thought Leadership specific to this era
     milestones?: Milestone[]; // Life context, education, major shifts
     foundations?: string[]; // For Origin Story: tools/skills
+    skillBadges?: SkillBadge[]; // For hero-style zones
+    heroLabel?: string; // Small label above the role heading
+    platformUrl?: string; // Link to live product (proof of work)
 }
 
 export const CAREER_DATA: CareerEra[] = [
-    // BLOCK 1: CLOUD SOFTWARE GROUP
+    // ZONE 1: DESIGN ENGINEERING (2026)
+    {
+        id: "design-engineering",
+        company: "AI-Orchestrated Portfolio",
+        role: "Design Engineering.",
+        period: "2026",
+        heroLabel: "November 2025 — Present",
+        description: "I prototype in code. The biggest risk isn't in the visuals — it's in the logic.",
+        secondaryDescription: "AI-augmented. Production React. 60fps.",
+        skillBadges: [
+            { icon: 'code', label: 'Production-Grade React', sub: 'TypeScript, Next.js, Architecture' },
+            { icon: 'zap', label: '60fps Interaction', sub: 'Framer Motion, Physics, Gestures' },
+        ],
+        testimonials: [],
+        workItems: [
+            {
+                id: "portfolio-game",
+                title: "Portfolio as a Playable Game",
+                description: "a word game created with agentic AI.",
+                image: "/images/wordu-cover.png",
+                link: "/work/wordu",
+                tags: ["Game Design", "React"],
+                video: "/videos/wordu-demo.mp4"
+            }
+        ],
+        milestones: []
+    },
+
+    // ZONE 2: CLOUD SOFTWARE GROUP - PROJECTS
     {
         id: "csg-architect",
         company: "Cloud Software Group",
         role: "Senior Product Designer",
         period: "2022 — 2025",
-        description: "Orchestrating AI-driven workflows for 25M+ users. Modernizing 50 years of legacy complexity into a unified \"Hub\" architecture.",
-        testimonials: [
-            {
-                id: "dave-pfeiffer",
-                name: "Dave Pfeiffer",
-                role: "Director of Design",
-                company: "Cloud Software Group",
-                quote: "Anuja is willing to take on difficult problems and push for creative solutions... She approaches her work with a fearless attitude and is never afraid to explore new ideas.",
-                relationship: "Manager (Direct)",
-                isPrimary: true,
-                linkedInProfile: "https://www.linkedin.com/in/dave-pfeiffer-1806b36/"
-            },
-            {
-                id: "vijay-raman",
-                name: "Vijay Raman",
-                role: "VP of Product Management",
-                company: "Cloud Software Group",
-                quote: "Anuja brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across teams. She delivered a design strategy that improved usability and reduced operational risk.",
-                relationship: "VP (Leadership)",
-                linkedInProfile: "https://www.linkedin.com/in/vijayraman1/"
-            },
-            {
-                id: "marcus-horbach",
-                name: "Marcus Horbach, Ph.D.",
-                role: "Principal Data Scientist",
-                company: "Cloud Software Group",
-                quote: "The clarity of her designs, in spite of the underlying data science complexity, is impressive. She actively engaged with data scientists... ensuring AI-powered features were user-friendly.",
-                relationship: "Data Science Partner"
-            },
-            {
-                id: "karishma-khadge",
-                name: "Karishma Khadge",
-                role: "Sr. Product Manager",
-                company: "Cloud Software Group",
-                quote: "Her design thinking workshops often became the foundation for key product decisions. She brings an infectious positivity and professionalism that elevates every team she's part of.",
-                relationship: "Product Partner",
-                linkedInProfile: "https://www.linkedin.com/in/createworkinspire/"
-            },
-            {
-                id: "anita-george",
-                name: "Anita George",
-                role: "Principal Account Tech Strategist",
-                company: "Cloud Software Group",
-                quote: "Anticipating the next move of the user, that is next level UI! Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels.",
-                relationship: "SME / User Voice",
-                linkedInProfile: "https://www.linkedin.com/in/anita-george-7977231b/"
-            },
-            {
-                id: "yingchun-chen",
-                name: "Yingchun Chen",
-                role: "Principal System Software Engineer",
-                company: "Cloud Software Group",
-                quote: "She impressed everyone with how quickly she grasped all aspects of a highly intricate system... She's the kind of UX leader any team would be lucky to have.",
-                relationship: "Engineering Lead",
-                linkedInProfile: "https://www.linkedin.com/in/yingchun-chen-aa0b804a/"
-            }
-        ],
+        description: "Led UX across key areas of the WebFOCUS platform. 25M+ users. 50 years of legacy. One unified Hub.",
+        platformUrl: "https://www.ibi.com/webfocus",
+        testimonials: [], // Moved to dedicated zone below
         milestones: [
             { title: "Vibe Coding & AI Orchestration", subtitle: "Built this portfolio", year: "Nov 2025", icon: Bot },
             { title: "Salt Lake City", subtitle: "Home Base", year: "Since 2019", icon: Mountain },
@@ -126,9 +110,9 @@ export const CAREER_DATA: CareerEra[] = [
         workItems: [
             {
                 id: "reportcaster",
-                title: "Modernizing a 50-Year-Old Enterprise Scheduler",
-                subtitle: '50yr Legacy → Modern Hub',
-                description: 'Modernized a 50-year-old platform\'s scheduler powering 20M+ schedules weekly. Integrated 5 legacy subsystems intelligently into the main product hub.',
+                title: "Reducing 5 Legacy Subsystems to 1 Unified Hub",
+                subtitle: '75% fewer clicks · 20M+ weekly schedules',
+                description: '5 fragmented subsystems → 1 hub. 20M+ weekly schedules. 75% fewer clicks.',
                 image: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
                 video: '/videos/rc-prototype-walkthrough.mp4',
                 link: "/work/reportcaster",
@@ -144,9 +128,9 @@ export const CAREER_DATA: CareerEra[] = [
             },
             {
                 id: "ml-functions",
-                title: "Democratizing Machine Learning for Everyone",
-                subtitle: 'Black Box → Guided Flow',
-                description: 'Transformed complex 12-step ML training into a guided 4-step visual workflow. Zero dead-end errors in testing.',
+                title: "12-Step ML Process → 4-Step Visual Wizard",
+                subtitle: 'Zero dead-end errors in testing',
+                description: 'Engineers-only ML workflow → visual wizard anyone can use. Zero dead-end errors.',
                 image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
                 link: "/work/ml-functions",
                 tags: ["AI/ML", "UX Architecture"],
@@ -161,9 +145,9 @@ export const CAREER_DATA: CareerEra[] = [
             },
             {
                 id: "iq-plugin",
-                title: "Driving Data Science Adoption in Enterprise BI",
-                subtitle: '3 Tools + Discover Page',
-                description: 'Unified 3 DSML tools into one Hub plugin with a custom Discover page—featuring tutorials, documentation, and tool descriptions.',
+                title: "Unifying 3 Siloed Tools into One Discovery Hub",
+                subtitle: 'Zero-to-one product · In pipeline',
+                description: '3 siloed data science tools → 1 entry point with onboarding and docs.',
                 image: '/images/case-study/iq-plugin/Final Look.png',
                 link: "/work/iq-plugin",
                 tags: ["System Design", "Zero-to-One"],
@@ -181,7 +165,7 @@ export const CAREER_DATA: CareerEra[] = [
             {
                 id: "better-bi",
                 title: "The Secret Behind Better BI",
-                description: "Who's Your Business User? A deep dive into user personas in enterprise analytics.",
+                description: "Defining user personas in enterprise analytics.",
                 image: "/images/articles/better-bi-thumb.png",
                 link: "https://community.ibi.com/articles/the-secret-behind-better-bi-who%E2%80%99s-your-business-user-r44/",
                 tags: ["UX Strategy", "Article"]
@@ -189,7 +173,7 @@ export const CAREER_DATA: CareerEra[] = [
             {
                 id: "enhancing-ux",
                 title: "Enhancing UX in WebFOCUS",
-                description: "Strategies for improving user experience in complex data science and machine learning workflows.",
+                description: "Improving UX in data science and ML workflows.",
                 image: "/images/articles/enhancing-ux-webfocus.jpg",
                 link: "https://community.ibi.com/forums/topic/16161-enhancing-user-experience-in-webfocus-dsml/",
                 tags: ["AI/ML", "Article"]
@@ -203,7 +187,7 @@ export const CAREER_DATA: CareerEra[] = [
         company: "Independent Consultant",
         role: "Start-up Consultant",
         period: "2017 — 2022",
-        description: "End-to-End UX Owner for independent ventures. Delivering production-ready design workflows and developer handoffs.",
+        description: "End-to-end UX ownership. Concept to shipped product.",
         testimonials: [
             {
                 id: "radhika-tekumalla",
@@ -234,18 +218,10 @@ export const CAREER_DATA: CareerEra[] = [
             {
                 id: "infinite-analytics",
                 title: "Infinite",
-                description: "Endless productivity mobile app. An all-in-one workspace for tasks, notes, and goals.",
+                description: "All-in-one productivity app. Tasks, notes, and goals.",
                 image: "/images/Infinite-Cover.png",
                 link: "/archive/infinite-analytics",
                 tags: ["Productivity", "Mobile App"]
-            },
-            {
-                id: "pelli",
-                title: "Pelli (InfoTriangle)",
-                description: "Matrimony App. End-to-End Mobile UX.",
-                image: "/images/Pelli-cover.png",
-                link: "/archive/pelli",
-                tags: ["Mobile UX", "iOS/Android"]
             },
             {
                 id: "travel-portal",
@@ -254,15 +230,24 @@ export const CAREER_DATA: CareerEra[] = [
                 image: "/images/travel-cover.png",
                 link: "/archive/travel-portal",
                 tags: ["Enterprise", "Travel"]
-            },
-            {
-                id: "suitcase",
-                title: "Suitcase",
-                description: "Travel planning and itinerary management app.",
-                image: "/images/suitcase-cover.png",
-                link: "/archive/suitcase",
-                tags: ["Consumer App", "Travel"]
             }
+            // Commented out to show only 3 tiles - keeping for reference
+            // {
+            //     id: "pelli",
+            //     title: "Pelli (InfoTriangle)",
+            //     description: "Matrimony App. End-to-End Mobile UX.",
+            //     image: "/images/Pelli-cover.png",
+            //     link: "/archive/pelli",
+            //     tags: ["Mobile UX", "iOS/Android"]
+            // },
+            // {
+            //     id: "suitcase",
+            //     title: "Suitcase",
+            //     description: "Travel planning and itinerary management app.",
+            //     image: "/images/suitcase-cover.png",
+            //     link: "/archive/suitcase",
+            //     tags: ["Consumer App", "Travel"]
+            // }
         ]
     },
 
@@ -272,7 +257,7 @@ export const CAREER_DATA: CareerEra[] = [
         company: "9P Studioz & F1 Studioz",
         role: "Mobile & Enterprise UX Designer",
         period: "2012 — 2017",
-        description: "From high-velocity mobile games to complex enterprise logistics. Learning to ship at startup speed while solving Fortune 500 problems.",
+        description: "Mobile games to enterprise logistics. Startup speed, Fortune 500 problems.",
         testimonials: [
             {
                 id: "vikram-patel",
@@ -309,7 +294,7 @@ export const CAREER_DATA: CareerEra[] = [
             {
                 id: "graphic-design-archive",
                 title: "Early Graphic Design",
-                description: "A collection of logos, print, and brand identity work from the early agency days.",
+                description: "Logos, print, and brand identity from the early days.",
                 image: "/images/graphic-cover.png",
                 link: "/archive/graphic-design",
                 tags: ["Visual Design", "Brand Identity"]
@@ -322,7 +307,7 @@ export const CAREER_DATA: CareerEra[] = [
         company: "The Origin",
         role: "Foundation",
         period: "1994 — 2012",
-        description: "The formative years. Before the titles and tools, there was just curiosity and the drive to create.",
+        description: "Before the titles and tools. Just curiosity and the drive to make things.",
         testimonials: [],
         workItems: [],
         foundations: ["MS Paint", "CorelDRAW", "Pencil Drawing", "Origami", "Acrylic & Oil Painting"],

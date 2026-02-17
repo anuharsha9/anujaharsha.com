@@ -2,10 +2,8 @@ import type { Metadata } from 'next'
 import HeroSplit from '@/components/home/HeroSplit'
 import EnergyStack from '@/components/home/EnergyStack'
 import TalkSection from '@/components/home/TalkSection'
-import DesignEngineerBlock from '@/components/work/DesignEngineerBlock'
 import ScrollGear from '@/components/ui/ScrollGear'
 import UnifiedTimelineLayout from '@/components/home/UnifiedTimelineLayout'
-import WhisperNarration from '@/components/home/WhisperNarration'
 import ChapterProgress from '@/components/home/ChapterProgress'
 import StoryModeWrapper from '@/components/home/StoryModeWrapper'
 
@@ -45,24 +43,19 @@ export default function Home() {
         <ChapterProgress />
         <HeroSplit />
 
-        {/* Whisper 1: Hero → Work */}
-        <WhisperNarration text="Let me show you how I think." />
-
         {/* 
-          THE ENERGY STACK (The 4 Era Blocks)
-          Replaces WorkGrid, SocialProof, GrowthStory, Archive.
+          THE ENERGY STACK (The 5 Timeline Zones)
+          Zone 1: Design Engineering (2026)
+          Zone 2: Cloud Software Group (2022-2025)
+          Zone 3: Start-up Consultant (2017-2022)
+          Zone 4: Mobile & Enterprise UX Designer (2012-2017)
+          Zone 5: Foundation (1994-2012)
         */}
         <div id="work-overview">
           <UnifiedTimelineLayout>
-            <DesignEngineerBlock />
-
-            {/* Whisper 2: Philosophy → Proof */}
-            <WhisperNarration text="13 years. One mission." />
-
             <EnergyStack />
           </UnifiedTimelineLayout>
         </div>
-
 
         <TalkSection />
         <ScrollGear />

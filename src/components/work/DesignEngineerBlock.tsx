@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { Code, Zap, Smartphone, Sparkles, Play } from 'lucide-react'
-import GameLightbox from './GameLightbox'
+import WordGameLightbox from './wordu/WordGameLightbox'
 import { getTheme } from '@/lib/design-system'
 import TextReveal from '@/components/ui/TextReveal'
 
@@ -38,7 +38,7 @@ export default function DesignEngineerBlock() {
     // We want the line to start from the node and go down.
 
     return (
-        <section ref={sectionRef} className="pt-44 md:pt-56 pb-24 md:pb-32 w-full relative border-t border-white/5 group">
+        <section ref={sectionRef} className="pt-60 md:pt-72 pb-24 md:pb-32 w-full relative border-t border-white/5 group">
             <motion.div
                 style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
                 className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 relative z-10"
@@ -98,7 +98,7 @@ export default function DesignEngineerBlock() {
                                     Design
                                 </motion.span>
                                 <motion.span
-                                    className="font-extrabold"
+                                    className="font-black"
                                     variants={{ hidden: { y: '100%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] } } }}
                                     style={{ display: 'inline-block' }}
                                 >
@@ -188,7 +188,7 @@ export default function DesignEngineerBlock() {
             </motion.div>
 
             {/* Lightbox for the Game */}
-            <GameLightbox isOpen={isGameOpen} onClose={() => setIsGameOpen(false)} />
+            <WordGameLightbox isOpen={isGameOpen} onClose={() => setIsGameOpen(false)} />
         </section>
     )
 }

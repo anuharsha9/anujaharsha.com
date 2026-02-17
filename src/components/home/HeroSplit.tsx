@@ -1389,12 +1389,12 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                 initial={{ opacity: 0, y: 20 }}
                 animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-white/25 font-mono text-[9px] xs:text-[10px] sm:text-xs tracking-[0.1em] uppercase font-normal mb-0"
+                className="text-white/50 font-mono text-[10px] xs:text-[11px] sm:text-xs tracking-[0.08em] uppercase font-normal mb-0"
               >
                 Senior Product Designer · 13+ Years · AI-Adept Prototyper · Enterprise UX
               </motion.div>
 
-              {/* Main Headline — Display Weight, Premium, Oversized */}
+              {/* Main Headline — Display Weight, Premium, Oversized (20% larger per audit) */}
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-white leading-[1.02] tracking-[-0.035em] w-full max-w-6xl mx-auto font-sans !mt-space-3">
                 <span className="block mb-1 sm:mb-2">
                   {"I design so users never wonder".split('').map((char, i) => (

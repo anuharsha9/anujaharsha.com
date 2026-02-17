@@ -172,7 +172,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                 onClick={handleClick}
                 className="font-mono text-[10px] text-slate-500 hover:text-[var(--accent-teal)] uppercase tracking-wider transition-colors"
               >
-                → VIEW ARCHIVE
+                → SECONDARY CASE STUDIES
               </Link>
             </div>
           </motion.div>

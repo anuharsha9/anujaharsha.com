@@ -160,7 +160,7 @@ export default function HeroMeta({
 
                 <TextReveal
                   as="h1"
-                  className="text-4xl md:text-5xl lg:text-7xl font-serif font-medium text-slate-900 leading-[1.1] tracking-tight"
+                  className="text-3xl md:text-4xl lg:text-5xl font-serif font-medium text-slate-900 leading-[1.15] tracking-tight"
                   variant="slide-up"
                   stagger={0.06}
                   delay={0.2}

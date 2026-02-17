@@ -22,14 +22,7 @@ export default function UnifiedTimelineLayout({ children }: { children: React.Re
             */}
             <div className="absolute top-0 bottom-0 left-0 right-0 pointer-events-none z-0">
                 <div className="max-w-[1440px] h-full mx-auto px-4 sm:px-6 md:px-8 relative">
-                    {/* The Track (Faint) - Full Height */}
-                    <div className="absolute left-4 md:left-[30px] top-[8.5rem] bottom-0 w-1 bg-white/5 rounded-full hidden md:block" />
-
-                    {/* The Drawing Spine — Subtle, refined */}
-                    <motion.div
-                        style={{ height }}
-                        className="absolute left-4 md:left-[30px] top-[8.5rem] w-1 bg-slate-600 rounded-full origin-top hidden md:block"
-                    />
+                    {/* Spine removed - handled by EnergyStack for centering */}
                 </div>
             </div>
 

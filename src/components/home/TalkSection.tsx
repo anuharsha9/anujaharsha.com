@@ -31,7 +31,7 @@ export default function TalkSection() {
             variant="slide-up"
             stagger={0.12}
           >
-            Now you know. Let's build.
+            Let's build.
           </TextReveal>
 
           {/* Role Targeting - subtle */}
@@ -119,7 +119,7 @@ export default function TalkSection() {
 
           {/* Copyright - Low contrast gray */}
           <p className={`${t.textDim} text-sm font-mono`}>
-            Engineered and orchestrated with AI agents.
+            Built with AI agents.
           </p>
 
           {/* Safe area for iPhone home indicator */}

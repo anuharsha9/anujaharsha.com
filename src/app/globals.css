@@ -1246,3 +1246,25 @@ motion.div[data-visible="true"] {
     background-position: 200% center;
   }
 }
+/* ============================================
+   ANIMATED GRID BACKGROUND
+   ============================================ */
+
+/* Slow-moving grid pattern for timeline background */
+.animated-grid-bg {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: 0 0, 0 0;
+  animation: grid-flow 40s linear infinite;
+}
+
+@keyframes grid-flow {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 80px 80px, 80px 80px;
+  }
+}

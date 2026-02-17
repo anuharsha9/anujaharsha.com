@@ -86,7 +86,7 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
                     layoutId={`project-cover-${work.id}`}
                     whileHover={{ y: -6, scale: 1.008 }}
                     transition={{ type: "spring", stiffness: 300, damping: 25, layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-                    className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-slate-900/50 shadow-lg shadow-black/20 border border-white/[0.04] group-hover/work:border-white/[0.1] transition-colors duration-500"
+                    className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-slate-900/50 shadow-lg shadow-black/20 border border-white/[0.04] group-hover/work:border-white/[0.1] transition-colors duration-500"
                 >
 
                     {/* VIDEO Support with PARALLAX SCALE */}
@@ -101,27 +101,19 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
                                 className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
                             />
                         </motion.div>
-                    ) : (
-                        /* HeroTerminal fallback with PARALLAX SCALE */
-                        <div className="w-full h-full bg-slate-800/50 pt-6 pl-6">
-                            <motion.div
-                                className="w-full h-full"
-                                style={{ scale: imageScale, y: imageY, opacity: imageOpacity }}
-                                animate={{
-                                    y: hovered ? -8 : 0,
-                                    x: hovered ? -8 : 0
-                                }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                            >
-                                <HeroTerminal
-                                    imageSrc={work.image}
-                                    fileName={work.fileName || 'app.tsx'}
-                                    accentColor={work.accentColor || '#64748b'}
-                                    alt={work.title}
-                                />
-                            </motion.div>
-                        </div>
-                    )}
+                    ) : work.image ? (
+                        /* Clean Image Display with PARALLAX SCALE */
+                        <motion.div
+                            style={{ scale: imageScale, y: imageY, opacity: imageOpacity }}
+                            className="w-full h-full"
+                        >
+                            <img
+                                src={work.image}
+                                alt={work.title}
+                                className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
+                            />
+                        </motion.div>
+                    ) : null}
 
                     {/* Gradient Scrim — Bottom overlay for text legibility */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
@@ -142,16 +134,16 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
 
                         <div className="flex items-end justify-between gap-6">
                             <div>
-                                <h3 className="font-sans text-3xl sm:text-4xl md:text-5xl font-semibold text-white group-hover/work:text-white transition-colors duration-300 mb-2 leading-[1.1] tracking-[-0.02em] drop-shadow-lg">
+                                <h3 className="font-serif text-lg text-white leading-tight mb-2">
                                     {work.title}
                                 </h3>
                                 {/* Metric - Clean */}
                                 {work.metric && (
                                     <div className="inline-flex items-baseline gap-2 mt-1">
-                                        <span className="font-sans text-xl sm:text-2xl font-bold text-white/90 drop-shadow-lg">
+                                        <span className="font-sans text-lg font-bold text-white/90 drop-shadow-lg">
                                             <AnimatedCounter value={work.metric} duration={1.2} />
                                         </span>
-                                        <span className="font-normal text-xs sm:text-sm text-white/60 tracking-wide">
+                                        <span className="font-normal text-xs text-white/60 tracking-wide">
                                             {work.metricLabel}
                                         </span>
                                     </div>
