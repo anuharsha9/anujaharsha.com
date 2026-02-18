@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { PresentationSlide } from './PresentationSlide';
@@ -27,6 +28,13 @@ interface PresentationFlowProps {
 export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonusSlides, onExit }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    // SSR safety: only render portal after mount
+    useEffect(() => {
+        setMounted(true);
+        return () => setMounted(false);
+    }, []);
 
     const nextSlide = () => {
         if (currentIndex < slides.length - 1) {
@@ -102,7 +110,11 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex]);
 
-    return (
+    // Render via Portal to escape any parent CSS filters that create
+    // new containing blocks (which break position:fixed overlays)
+    if (!mounted) return null;
+
+    const content = (
         <div ref={containerRef as React.RefObject<HTMLDivElement>} className="fixed inset-0 z-[9999]" tabIndex={-1} data-presentation-mode>
             {/* Backdrop - Dark with blur to match ImageLightbox */}
             <motion.div
@@ -233,4 +245,6 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
             )}
         </div>
     );
+
+    return createPortal(content, document.body);
 };

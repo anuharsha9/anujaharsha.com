@@ -26,17 +26,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Anuja Harsha Nimmagadda | Senior Product Designer | Enterprise Systems Architect',
+    default: 'Anuja Harsha Nimmagadda | Senior Product Designer',
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Senior Product Designer specializing in untangling complex enterprise systems. Architecting Enterprise UX through complexity and ambiguity.',
+    'Senior Product Designer specializing in untangling complex enterprise systems. 13+ years transforming legacy workflows into intuitive experiences at scale.',
   keywords: [
-    'Design Engineer',
     'Senior Product Designer',
     'Enterprise UX',
-    'AI Orchestration',
-    'Systems Architect',
+    'Design Systems',
+    'Legacy Modernization',
+    'Complex Systems Design',
     'Product Design',
     'Design Systems',
     'User Experience Design',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     siteName: 'Anuja Harsha Nimmagadda',
     title: 'Anuja Harsha | Senior Product Designer',
     description:
-      'Senior Product Designer specializing in untangling complex enterprise systems. Code-first architect and AI workflow orchestrator.',
+      'Senior Product Designer specializing in untangling complex enterprise systems. 13+ years transforming legacy workflows into intuitive experiences at scale.',
     images: [
       {
         url: '/images/og-image.png',
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Anuja Harsha | Senior Product Designer',
     description:
-      'Senior Product Designer specializing in untangling complex enterprise systems. Code-first architect and AI workflow orchestrator.',
+      'Senior Product Designer specializing in untangling complex enterprise systems. 13+ years transforming legacy workflows into intuitive experiences at scale.',
     images: ['/images/og-image.png'],
     creator: '@anujaharsha', // Update with actual Twitter handle if available
   },

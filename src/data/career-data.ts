@@ -60,9 +60,37 @@ export interface CareerEra {
     skillBadges?: SkillBadge[]; // For hero-style zones
     heroLabel?: string; // Small label above the role heading
     platformUrl?: string; // Link to live product (proof of work)
+    isHeroIntro?: boolean; // Special flag for the hero-intro slide
+    isBrainSlide?: boolean; // Special flag for the brain hero slide
 }
 
 export const CAREER_DATA: CareerEra[] = [
+    // SLIDE 0: BRAIN HERO — Interactive gear brain (rendered via HeroSplit)
+    {
+        id: "brain-hero",
+        company: "",
+        role: "",
+        period: "",
+        description: "",
+        isBrainSlide: true,
+        testimonials: [],
+        workItems: [],
+        milestones: [],
+    },
+
+    // SLIDE 1: MANIFESTO — "13 Years. One Mission."
+    {
+        id: "hero-intro",
+        company: "",
+        role: "13 Years. One Mission.",
+        period: "",
+        description: "From curiosity to code. A story told through scroll.",
+        isHeroIntro: true,
+        testimonials: [],
+        workItems: [],
+        milestones: [],
+    },
+
     // ZONE 1: DESIGN ENGINEERING (2026)
     {
         id: "design-engineering",
@@ -98,7 +126,17 @@ export const CAREER_DATA: CareerEra[] = [
         period: "2022 — 2025",
         description: "Led UX across WebFOCUS — 25M+ users, 50 years of legacy, one Hub.",
         platformUrl: "https://www.ibi.com/webfocus",
-        testimonials: [], // Testimonials live in dedicated timeline block below
+        testimonials: [
+            {
+                id: 'vijay-raman',
+                quote: "She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams. Any team would be lucky to have her.",
+                name: "Vijay Raman",
+                role: "VP of Product Management",
+                company: "Cloud Software Group",
+                relationship: "Leadership",
+                linkedInProfile: "https://www.linkedin.com/in/vijayraman/"
+            }
+        ],
         milestones: [],
         workItems: [
             {
@@ -115,7 +153,7 @@ export const CAREER_DATA: CareerEra[] = [
                 fileName: 'legacy_scheduler_refactor.js',
                 accentColor: '#F59E0B',
                 locked: false,
-                statusLabel: 'Live in Production',
+                statusLabel: 'Flagship Case Study',
                 impactDirectional: 'Consolidated into 1 unified hub; powering 20M+ weekly schedules.',
                 caseStudyType: 'Flagship'
             },

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence, useScroll, useTransform, animate, useMotionValueEvent } from 'framer-motion'
+import { motion, AnimatePresence, animate } from 'framer-motion'
 import { useEffect, useRef, useState, useMemo, memo, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -68,22 +68,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   // --- HIRING TRACK ---
   'hire_1': {
     id: 'hire_1',
-    statement: "First principles thinking.",
-    question: "How do you handle a legacy system that's slowing down 20M+ users?",
-    activeGear: 'gear-conflicting-teams', // Restored
+    statement: "The engineering wall.",
+    question: "Engineering says a critical feature is 'too complex' to build. What's your move?",
+    activeGear: 'gear-conflicting-teams',
     options: [
       {
-        id: 'ui', label: 'Do you just reskin the UI?', val: 'ui', emoji: '🎨', nextId: 'hire_2',
+        id: 'compromise', label: 'Simplify the design?', val: 'compromise', emoji: '📉', nextId: 'hire_2',
         reveal: {
-          title: "Yes, and...",
-          content: "A fresh UI helps, but I dig deeper. I map the data flow to solve the root cause, not just the symptom."
+          title: "Never.",
+          content: "I don't dumb it down. I spin up an AI agent, 'vibe code' a working prototype, and hand engineering the solution, not a request."
         }
       },
       {
-        id: 'audit', label: 'Do you audit the architecture?', val: 'audit', emoji: '🔍', nextId: 'hire_2',
+        id: 'build', label: 'Protype in code?', val: 'build', emoji: '🧑‍💻', nextId: 'hire_2',
         reveal: {
-          title: "Code Archaeologist",
-          content: "Exactly. I audit the component library and API calls to find the bottleneck before touching a pixel."
+          title: "The Unblocker",
+          content: "Exactly. I use AI to bridge the gap. I deliver a functional React component they can inspect, proving it's not just possible—it's ready."
         }
       }
     ],
@@ -94,22 +94,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'hire_2': {
     id: 'hire_2',
-    statement: "Execution matters.",
-    question: "Engineering says a critical feature is 'too complex'. What do you do?",
-    activeGear: 'gear-motherhood', // Restored
+    statement: "The build method.",
+    question: "This portfolio feels custom. Did you write every line of code yourself?",
+    activeGear: 'gear-motherhood',
     options: [
       {
-        id: 'spec', label: 'Write a spec doc?', val: 'spec', emoji: '📄', nextId: 'hire_3',
+        id: 'yes', label: 'Yes, hand-coded?', val: 'yes', emoji: '⌨️', nextId: 'hire_3',
         reveal: {
-          title: "Documentation + Code",
-          content: "Specs are vital. But I go further: I prototype the interaction in React so engineers have a working reference."
+          title: "Better: I Orchestrated.",
+          content: "I didn't type the syntax; I directed the system. I use AI agents to execute the code while I architect the logic. This is Vibe Coding."
         }
       },
       {
-        id: 'build', label: 'Build it nicely in React?', val: 'build', emoji: '⚛️', nextId: 'hire_3',
+        id: 'ai', label: 'AI wrote it?', val: 'ai', emoji: '🤖', nextId: 'hire_3',
         reveal: {
-          title: "The Polymath Move",
-          content: "Exactly. I built this portfolio myself to prove that complex UX is possible when Design and Engineering are one."
+          title: "I am the Architect.",
+          content: "AI laid the bricks, but I drew the blueprints. I understand the system deeply, but I leverage agents to ship at 10x speed."
         }
       }
     ],
@@ -120,22 +120,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'hire_3': {
     id: 'hire_3',
-    statement: "The multiplier effect.",
-    question: "What is your biggest impact as a Principal Designer?",
-    activeGear: 'gear-life', // Restored
+    statement: "The innovative edge.",
+    question: "If AI handles the execution, where does the designer's value go?",
+    activeGear: 'gear-life',
     options: [
       {
-        id: 'lead', label: 'Is it leading teams?', val: 'lead', emoji: '👑', nextId: 'end',
+        id: 'pixels', label: 'Visual Polish?', val: 'pixels', emoji: '✨', nextId: 'end',
         reveal: {
-          title: "Servant Leadership",
-          content: "I lead by doing. My code sets the standard, and my systems empower the team to ship faster and better."
+          title: "Too small.",
+          content: "Visuals are a commodity. The real value is System Architecture—designing the data flows and logic that make the AI useful."
         }
       },
       {
-        id: 'strategy', label: 'Is it defining strategy?', val: 'strategy', emoji: '🎯', nextId: 'end',
+        id: 'systems', label: 'System Architecture?', val: 'systems', emoji: '🏗️', nextId: 'end',
         reveal: {
-          title: "Strategic Execution",
-          content: "Strategy without execution is hallucination. I define the roadmap and then write the code to validate it."
+          title: "The New Standard",
+          content: "Exactly. I stop pushing pixels and start connecting systems. I design the intelligence behind the interface."
         }
       }
     ],
@@ -149,27 +149,27 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
     id: 'explore_1',
     statement: "Behind the curtain.",
     question: "This site feels different. How exactly was it built?",
-    activeGear: 'gear-conflicting-teams', // Matches Hire_1
+    activeGear: 'gear-conflicting-teams',
     options: [
       {
-        id: 'nocode', label: 'Did you use Framer/Webflow?', val: 'nocode', emoji: '🎨', nextId: 'explore_2',
+        id: 'nocode', label: 'Is it No-Code?', val: 'nocode', emoji: '🎨', nextId: 'explore_2',
         reveal: {
-          title: "Pixel Perfect",
-          content: "It has that polish, doesn't it? But this is a custom Next.js app. I need full control over the state and animation stack."
+          title: "It's All-Code.",
+          content: "But I didn't write it manually. I used 'Vibe Coding'—orchestrating AI agents to build a custom Next.js application that scales."
         }
       },
       {
-        id: 'code', label: 'Did you write the code?', val: 'code', emoji: '💻', nextId: 'explore_2',
+        id: 'code', label: 'You coded this?', val: 'code', emoji: '💻', nextId: 'explore_2',
         reveal: {
-          title: "Hand-Crafted",
-          content: "Correct. I built this with TypeScript, React, and Framer Motion. I believe designers should own their medium."
+          title: "I Orchestrated It.",
+          content: "I define the architecture and UX; AI agents handle the syntax. It allows me to build complex systems without getting lost in the weeds."
         }
       },
       {
-        id: 'ai', label: 'Did you use AI?', val: 'ai', emoji: '🤖', nextId: 'explore_2',
+        id: 'ai', label: 'Interactive AI?', val: 'ai', emoji: '🤖', nextId: 'explore_2',
         reveal: {
-          title: "The Secret Sauce",
-          content: "Spot on. I orchestrated autonomous AI agents to handle the boilerplate, acting as the Architect while they laid the bricks."
+          title: "The Secret Weapon",
+          content: "Exactly. I use a multi-agent workflow to build fast. I am the System Architect; the AI is my engineering team."
         }
       }
     ],
@@ -182,20 +182,20 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
     id: 'explore_2',
     statement: "Looking forward.",
     question: "Where do you see the future of Product Design going?",
-    activeGear: 'gear-motherhood', // Matches Hire_2
+    activeGear: 'gear-motherhood',
     options: [
       {
         id: 'tools', label: 'Better UI Tools?', val: 'tools', emoji: '🖌️', nextId: 'explore_3',
         reveal: {
           title: "Tools Empower Us",
-          content: "Figma is great, but the browser is the final canvas. I bet on code as the ultimate design tool."
+          content: "Figma is great, but code is the final canvas. I use AI to prototype in the browser, making the 'hand-off' obsolete."
         }
       },
       {
         id: 'systems', label: 'System Orchestration?', val: 'systems', emoji: '🧠', nextId: 'explore_3',
         reveal: {
           title: "The Architect",
-          content: "As AI handles the pixels, designers will become System Architects. That's the playground I'm building in."
+          content: "As AI handles the pixels, designers must become System Architects. That's the playground I'm building in."
         }
       }
     ],
@@ -207,21 +207,21 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   'explore_3': {
     id: 'explore_3',
     statement: "The hidden craft.",
-    question: "How do you make an interface feel this 'premium'?",
-    activeGear: 'gear-life', // Matches Hire_3
+    question: "How do you make an interface feel this 'alive'?",
+    activeGear: 'gear-life',
     options: [
       {
         id: 'motion', label: 'Is it the motion?', val: 'motion', emoji: '🌊', nextId: 'end',
         reveal: {
-          title: "Alive Interfaces",
-          content: "It's not just animation; it's physics. I use spring physics (like in this card) to make Ui feel organic."
+          title: "Physics, not Keyframes",
+          content: "It's spring physics. I treat the UI as a physical object. I tell the AI the 'mass' and 'stiffness' I want, and it writes the math."
         }
       },
       {
-        id: 'details', label: 'Is it the micro-interactions?', val: 'details', emoji: '✨', nextId: 'end',
+        id: 'details', label: 'The micro-details?', val: 'details', emoji: '✨', nextId: 'end',
         reveal: {
-          title: "Sweat the Details",
-          content: "The difference between good and great is in the details. I obsess over the 1% that others ignore."
+          title: "The Polish",
+          content: "God is in the details. I use AI to iterate on the small things—transitions, timing, haptics—that make a product feel premium."
         }
       }
     ],
@@ -290,7 +290,6 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   const router = useRouter()
   const t = getTheme(true)
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const heroRef = useRef<HTMLElement>(null)
 
   const [activeGear, setActiveGear] = useState<GearInspectorItem | null>(null)
   const [activeCoords, setActiveCoords] = useState<{ x: number, y: number, side: 'left' | 'right' } | null>(null)
@@ -378,6 +377,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     [currentQuestion, selectedOptionId]
   )
   const autoAdvanceTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const linesDrawnRef = useRef(false)
 
   // Initialize: Default to HERO (complete), Quiz is Opt-In
   useEffect(() => {
@@ -539,9 +539,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       return [...new Set([...prev, ...newGears])]
     })
 
-    // For the last question, we want a smoother, faster transition to the hero
-    const isLastQuestion = option.nextId === 'end'
-    const delay = isLastQuestion ? 2000 : 4000 // 4s reading time for reveal
+    // Give user plenty of time to read the reveal — they can skip with the Continue button
+    const delay = 10000 // 10s reading time for reveal
 
     setShowReveal(true)
     if (autoAdvanceTimeoutRef.current) clearTimeout(autoAdvanceTimeoutRef.current)
@@ -558,38 +557,6 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     return () => { document.body.style.overflow = '' }
   }, [quizState])
 
-  // === BRAIN-FIRST HERO: Scroll-driven crossfade ===
-  // Brain is visible FIRST on page load. Text manifesto fades in on scroll.
-  // Phase 1 (0-25%): Brain holds — fully visible, interactive ("Start Quiz" CTA centered)
-  // Phase 2 (25-50%): Brain fades out, text fades in
-  // Phase 3 (50-70%): Text holds — fully visible
-  // Phase 4 (70-100%): Everything scrolls away naturally
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start']
-  })
-
-  // Act 1 (Brain): fully visible at start, starts fading at 25%, gone by 45%
-  const brainOpacity = useTransform(scrollYProgress, [0, 0.25, 0.45], [1, 1, 0])
-  const brainScale = useTransform(scrollYProgress, [0, 0.25, 0.45], [1, 1, 0.85])
-
-  // Act 2 (Text): hidden at start, fades in from 30-50%, holds
-  const textOpacity = useTransform(scrollYProgress, [0, 0.30, 0.50], [0, 0, 1])
-  const textY = useTransform(scrollYProgress, [0, 0.30, 0.50], [80, 80, 0])
-
-  // Scroll indicator visible during brain phase
-  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.20], [1, 0])
-
-  // Brain parallax (subtle movement while brain is visible)
-  const gearsY = useTransform(scrollYProgress, [0, 0.25], [0, 30])
-  // glowY and glowScale removed — glow effect removed per design feedback
-
-  // Track which act is active for pointer-events
-  // Brain (Act 1) is active when scroll < 0.35, Text (Act 2) takes over after
-  const [isAct2Active, setIsAct2Active] = useState(false)
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    setIsAct2Active(latest > 0.35)
-  })
 
   useEffect(() => {
     // Run setup if app is ready OR if we are in quiz mode
@@ -1004,11 +971,13 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       setTimeout(setTransformOrigins, 200)
       setupGearRotations()
 
-      // Only run line animation if quiz is complete
-      if (quizState === 'complete') {
+      // Only run line animation if quiz is complete, and only once
+      if (quizState === 'complete' && !linesDrawnRef.current) {
+        linesDrawnRef.current = true
         setupLineDrawing()
-      } else {
+      } else if (quizState !== 'complete') {
         // Ensure lines are completely hidden during quiz
+        linesDrawnRef.current = false
         const linesBg = brainGearsGroup!.querySelector<SVGGElement>('#lines-background')
         if (linesBg) linesBg.style.opacity = '0'
       }
@@ -1081,469 +1050,332 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     }
   }, [quizState])
 
+  // Neural Mainframe: track brain hover for glitch trigger
+  const [brainHovered, setBrainHovered] = useState(false)
+
   return (
     <>
-      <section
-        ref={heroRef}
-        id="hero"
-        className="bg-monitor relative"
-        style={{ minHeight: quizState === 'quiz' ? '100vh' : '300vh' }}
-      >
-        {/* Sticky viewport — pins content while user scrolls through 200vh */}
-        <div className="sticky top-0 h-screen overflow-hidden relative flex flex-col">
+      {/* Brain content — fills the CinematicTimeline slide container */}
+      <div className="absolute inset-0 flex flex-col overflow-hidden">
 
-          {/* Subtle grid background */}
-          {quizState !== 'quiz' && (
-            <div
-              className="absolute inset-0 opacity-[0.02]"
-              style={{
-                backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
-                backgroundSize: '60px 60px',
-                maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
-                WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
-              }}
-            />
-          )}
-
-          {/* Glow and center spark removed — clean entrance */}
-
-          {/* === ACT 1: BRAIN LAYER (visible first, fades on scroll) === */}
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center z-20"
+        {/* Subtle grid background */}
+        {quizState !== 'quiz' && (
+          <div
+            className="absolute inset-0 opacity-[0.02]"
             style={{
-              opacity: quizState === 'quiz' ? 1 : brainOpacity,
-              scale: quizState === 'quiz' ? 1 : brainScale,
-              pointerEvents: (quizState === 'quiz' || !isAct2Active) ? 'auto' : 'none',
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
+              backgroundSize: '60px 60px',
+              maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
             }}
-          >
-            <div className={`${spacing.containerFull} relative flex-1 flex flex-col items-center justify-center`}
-              style={{ pointerEvents: (!isAct2Active || quizState === 'quiz') ? 'auto' : 'none' }}>
-              <div className="w-full flex-1 flex flex-col items-center justify-center">
+          />
+        )}
 
-                {/* Centered Gears - THE HERO - with subtle parallax */}
-                <motion.div
-                  className={`relative w-[320px] xs:w-[380px] sm:w-[480px] md:w-[580px] lg:w-[680px] xl:w-[740px] 2xl:w-[900px] max-w-full max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
-                  initial={shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 }}
-                  animate={(isAppReady || quizState === 'quiz')
-                    ? { opacity: 1, scale: quizState === 'quiz' ? 1.15 : 1 }
-                    : (shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 })
-                  }
-                  transition={shouldSkipEntrance ? { duration: 0 } : {
-                    scale: { type: 'spring', stiffness: 45, damping: 12, mass: 1.8 },
-                    opacity: { duration: 2.5, delay: 1.2, ease: [0.22, 1, 0.36, 1] },
-                  }}
-                  style={{ y: gearsY, transformOrigin: 'center center' }}
-                >
-                  <GearsSvgContainer
-                    svgContent={svgContent}
-                    containerRef={containerRef}
-                    isReady={isAppReady || quizState === 'quiz'}
-                    shouldSkipAnimation={shouldSkipEntrance}
-                  />
+        {/* === NEURAL MAINFRAME: Colossal Background Typography === */}
+        <div
+          className={`absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none overflow-hidden crt-breathe ${brainHovered ? 'glitch-active' : ''}`}
+          aria-hidden="true"
+        >
+          <div className="flex flex-col items-center gap-0 leading-none whitespace-nowrap">
+            <span
+              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.04] tracking-[-0.04em] mix-blend-overlay"
+              style={{ lineHeight: 0.85 }}
+            >
+              SYSTEM
+            </span>
+            <span
+              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.04] tracking-[-0.04em] mix-blend-overlay"
+              style={{ lineHeight: 0.85 }}
+            >
+              ARCHITECT
+            </span>
+          </div>
+        </div>
 
-                  {/* === QUIZ CARD OVERLAY === */}
-                  {/* This renders ON TOP of the brain but aligns with it */}
-                  <AnimatePresence>
-                    {quizState === 'quiz' && (
-                      <motion.div
-                        key={`question-${currentQuestionId}`}
-                        className="absolute z-[9999] pointer-events-auto left-1/2 top-1/2"
-                        style={{ x: "-50%", y: "-50%" }}
-                        initial={{ opacity: 0, scale: 0.9, y: "-40%" }}
-                        animate={{ opacity: 1, scale: 1, y: "-50%" }}
-                        exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <div className="text-white bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl max-w-xl w-[90vw] relative overflow-hidden">
+        {/* === BRAIN LAYER === */}
+        <div className="absolute inset-0 flex items-center justify-center z-20">
+          <div className={`${spacing.containerFull} relative flex-1 flex flex-col items-center justify-center`}>
+            <div className="w-full flex-1 flex flex-col items-center justify-center">
 
-                          <motion.div
-                            key={`statement-${currentQuestionId}`}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="mb-3 text-center"
-                          >
-                            <h3 className="text-lg md:text-xl font-light text-white leading-tight">
-                              {currentQuestion.question}
-                            </h3>
-                          </motion.div>
+              {/* Centered Gears - THE HERO */}
+              <motion.div
+                className={`relative w-[320px] xs:w-[380px] sm:w-[480px] md:w-[580px] lg:w-[680px] xl:w-[740px] 2xl:w-[900px] max-w-full max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
+                initial={shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 }}
+                animate={(isAppReady || quizState === 'quiz')
+                  ? { opacity: 1, scale: quizState === 'quiz' ? 1.15 : 1 }
+                  : (shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 })
+                }
+                transition={shouldSkipEntrance ? { duration: 0 } : {
+                  scale: { type: 'spring', stiffness: 45, damping: 12, mass: 1.8 },
+                  opacity: { duration: 2.5, delay: 1.2, ease: [0.22, 1, 0.36, 1] },
+                }}
+                style={{ transformOrigin: 'center center' }}
+                onMouseEnter={() => setBrainHovered(true)}
+                onMouseLeave={() => setBrainHovered(false)}
+              >
+                <GearsSvgContainer
+                  svgContent={svgContent}
+                  containerRef={containerRef}
+                  isReady={isAppReady || quizState === 'quiz'}
+                  shouldSkipAnimation={shouldSkipEntrance}
+                />
 
-                          <div className="space-y-3">
-                            <AnimatePresence mode="wait">
-                              {!showReveal ? (
-                                <motion.div
-                                  key={`options-${currentQuestionId}`}
-                                  className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${showReveal ? 'pointer-events-none' : ''}`}
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: -10 }}
-                                  transition={{ delay: 0.2 }}
-                                >
-                                  {currentQuestion.options.map((option) => (
-                                    <button
-                                      key={option.id}
-                                      onClick={() => handleAnswer(option.id)}
-                                      className={`text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 
-                                             border border-white/5 hover:border-white/20 transition-all duration-300
-                                             flex items-center gap-3 group h-full ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
-                                    >
-                                      <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
-                                      <span className="text-sm text-white/90 font-light">{option.label}</span>
-                                      <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                                    </button>
-                                  ))}
-                                </motion.div>
-                              ) : (
-                                <motion.div
-                                  key="reveal"
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: -10 }}
-                                  className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl"
-                                >
-                                  <div className="flex items-start gap-3">
-                                    <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
-                                      <Check className="w-4 h-4 text-emerald-400" />
-                                    </div>
-                                    <div>
-                                      <h4 className="text-emerald-400 font-medium mb-0.5 text-sm">{selectedOption?.reveal.title}</h4>
-                                      <p className="text-white/80 text-xs leading-relaxed">
-                                        {selectedOption?.reveal.content}
-                                      </p>
-                                    </div>
+                {/* === QUIZ CARD OVERLAY === */}
+                <AnimatePresence>
+                  {quizState === 'quiz' && (
+                    <motion.div
+                      key={`question-${currentQuestionId}`}
+                      className="absolute z-[9999] pointer-events-auto left-1/2 top-1/2"
+                      style={{ x: "-50%", y: "-50%" }}
+                      initial={{ opacity: 0, scale: 0.9, y: "-40%" }}
+                      animate={{ opacity: 1, scale: 1, y: "-50%" }}
+                      exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <div className="text-white bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl max-w-xl w-[90vw] relative overflow-hidden">
+
+                        <motion.div
+                          key={`statement-${currentQuestionId}`}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.2 }}
+                          className="mb-3 text-center"
+                        >
+                          <h3 className="text-lg md:text-xl font-light text-white leading-tight">
+                            {currentQuestion.question}
+                          </h3>
+                        </motion.div>
+
+                        <div className="space-y-3">
+                          <AnimatePresence mode="wait">
+                            {!showReveal ? (
+                              <motion.div
+                                key={`options-${currentQuestionId}`}
+                                className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${showReveal ? 'pointer-events-none' : ''}`}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ delay: 0.2 }}
+                              >
+                                {currentQuestion.options.map((option) => (
+                                  <button
+                                    key={option.id}
+                                    onClick={() => handleAnswer(option.id)}
+                                    className={`text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 
+                                           border border-white/5 hover:border-white/20 transition-all duration-300
+                                           flex items-center gap-3 group h-full ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
+                                  >
+                                    <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
+                                    <span className="text-sm text-white/90 font-light">{option.label}</span>
+                                    <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                  </button>
+                                ))}
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key="reveal"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <div className="p-1.5 bg-emerald-500/20 rounded-lg shrink-0">
+                                    <Check className="w-4 h-4 text-emerald-400" />
                                   </div>
+                                  <div>
+                                    <h4 className="text-emerald-400 font-medium mb-0.5 text-sm">{selectedOption?.reveal.title}</h4>
+                                    <p className="text-white/80 text-xs leading-relaxed">
+                                      {selectedOption?.reveal.content}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="mt-3 flex items-center gap-3">
                                   <motion.div
-                                    className="mt-3 h-1 bg-emerald-500/30 rounded-full overflow-hidden"
+                                    className="flex-1 h-1 bg-emerald-500/30 rounded-full overflow-hidden"
                                   >
                                     <motion.div
                                       className="h-full bg-emerald-500"
                                       initial={{ width: "0%" }}
                                       animate={{ width: "100%" }}
-                                      transition={{ duration: selectedOption?.nextId === 'end' ? 2 : 4, ease: "linear" }}
+                                      transition={{ duration: 10, ease: "linear" }}
                                     />
                                   </motion.div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
+                                  <button
+                                    onClick={handleContinue}
+                                    className="text-emerald-400/70 hover:text-emerald-400 text-xs font-medium tracking-wide uppercase flex items-center gap-1 transition-colors duration-200 bg-transparent border-none cursor-pointer shrink-0"
+                                  >
+                                    Continue
+                                    <ArrowRight className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                  {/* Center CTA — "Start Quiz" button in the center of the brain */}
-                  <AnimatePresence mode="wait">
-                    {!activeGear && quizState !== 'quiz' && (
-                      <motion.div
-                        className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
-                        initial={{ opacity: 0, filter: 'blur(12px)' }}
-                        animate={{
-                          opacity: cinematicPhase === 'complete' || shouldSkipEntrance ? 1 : 0,
-                          filter: cinematicPhase === 'complete' || shouldSkipEntrance ? 'blur(0px)' : 'blur(12px)',
-                        }}
-                        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                        exit={{ opacity: 0, transition: { duration: 0.2, delay: 0 } }}
-                      >
-                        <div className="text-center px-4">
-                          <button
-                            onClick={startQuiz}
-                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 
-                              bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-md
-                              border border-white/[0.12] hover:border-white/[0.25]
-                              rounded-full text-white/80 hover:text-white
-                              text-sm sm:text-base font-medium tracking-wide
-                              transition-all duration-500 cursor-pointer
-                              shadow-[0_0_30px_rgba(11,162,181,0.15)] hover:shadow-[0_0_50px_rgba(11,162,181,0.3)]
-                              pointer-events-auto"
-                          >
-                            <Brain className="w-4 h-4 sm:w-5 sm:h-5 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
-                            <span>Explore My Mind</span>
-                            <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-all duration-500 -ml-1" />
-                          </button>
-                          {quizState === 'complete' && (
-                            <p className="mt-4 text-slate-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em]">
-                              <span className="hidden lg:inline">Hover on the gears to discover more</span>
-                              <span className="lg:hidden">Tap on the gears to discover more</span>
-                            </p>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
-                  <AnimatePresence mode="wait">
-                    {activeGear && activeCoords && quizState === 'complete' && (
-                      <motion.div
-                        key={activeGear.id}
-                        className="absolute z-20 pointer-events-none"
-                        style={{
-                          left: activeCoords.x,
-                          top: activeCoords.y,
-                        }}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                      >
-                        <div
-                          className={`flex items-center ${activeCoords.side === 'left' ? 'flex-row-reverse -translate-x-full' : 'flex-row'}`}
+                {/* Center CTA — "Start Quiz" button in the center of the brain */}
+                <AnimatePresence mode="wait">
+                  {!activeGear && quizState !== 'quiz' && (
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+                      initial={{ opacity: 0, filter: 'blur(12px)' }}
+                      animate={{
+                        opacity: cinematicPhase === 'complete' || shouldSkipEntrance ? 1 : 0,
+                        filter: cinematicPhase === 'complete' || shouldSkipEntrance ? 'blur(0px)' : 'blur(12px)',
+                      }}
+                      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                      exit={{ opacity: 0, transition: { duration: 0.2, delay: 0 } }}
+                    >
+                      <div className="text-center px-4">
+                        <button
+                          onClick={startQuiz}
+                          className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 
+                            bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-md
+                            border border-white/[0.12] hover:border-white/[0.25]
+                            rounded-full text-white/80 hover:text-white
+                            text-sm sm:text-base font-medium tracking-wide
+                            transition-all duration-500 cursor-pointer
+                            shadow-[0_0_30px_rgba(11,162,181,0.15)] hover:shadow-[0_0_50px_rgba(11,162,181,0.3)]
+                            pointer-events-auto"
                         >
-                          {/* Connecting Line (Leader) */}
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: 40 }}
-                            className="h-px bg-slate-600 shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+                          <Brain className="w-4 h-4 sm:w-5 sm:h-5 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+                          <span>Explore My Mind</span>
+                          <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-all duration-500 -ml-1" />
+                        </button>
+                        {quizState === 'complete' && (
+                          <p className="mt-4 text-slate-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em]">
+                            <span className="hidden lg:inline">Hover on the gears to discover more</span>
+                            <span className="lg:hidden">Tap on the gears to discover more</span>
+                          </p>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
+                <AnimatePresence mode="wait">
+                  {activeGear && activeCoords && quizState === 'complete' && (
+                    <motion.div
+                      key={activeGear.id}
+                      className="absolute z-20 pointer-events-none"
+                      style={{
+                        left: activeCoords.x,
+                        top: activeCoords.y,
+                      }}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                    >
+                      <div
+                        className={`flex items-center ${activeCoords.side === 'left' ? 'flex-row-reverse -translate-x-full' : 'flex-row'}`}
+                      >
+                        {/* Connecting Line (Leader) */}
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: 40 }}
+                          className="h-px bg-slate-600 shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+                        />
+
+                        {/* The Card */}
+                        <div
+                          className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
+                          onMouseEnter={() => {
+                            setIsCardHovered(true)
+                            if (hideTimeoutRef.current) {
+                              clearTimeout(hideTimeoutRef.current)
+                              hideTimeoutRef.current = null
+                            }
+                          }}
+                          onMouseLeave={() => {
+                            setIsCardHovered(false)
+                            hideTimeoutRef.current = setTimeout(() => {
+                              setActiveGear(null)
+                            }, 150)
+                          }}
+                        >
+                          {/* Accent Top Border */}
+                          <div
+                            className="absolute top-0 left-0 right-0 h-[2px]"
+                            style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
                           />
 
-                          {/* The Card */}
-                          <div
-                            className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
-                            onMouseEnter={() => {
-                              setIsCardHovered(true)
-                              if (hideTimeoutRef.current) {
-                                clearTimeout(hideTimeoutRef.current)
-                                hideTimeoutRef.current = null
-                              }
+                          {/* DISMISS BUTTON */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              e.preventDefault()
+                              setActiveGear(null)
                             }}
-                            onMouseLeave={() => {
-                              setIsCardHovered(false)
-                              hideTimeoutRef.current = setTimeout(() => {
-                                setActiveGear(null)
-                              }, 150)
-                            }}
+                            className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
                           >
-                            {/* Accent Top Border */}
-                            <div
-                              className="absolute top-0 left-0 right-0 h-[2px]"
-                              style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
-                            />
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18" />
+                              <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                          </button>
 
-                            {/* DISMISS BUTTON */}
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                e.preventDefault()
-                                setActiveGear(null)
-                              }}
-                              className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
-                            >
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                              </svg>
-                            </button>
+                          {/* PERSONALITY INSIGHT MODE */}
+                          <div className="block text-left group">
+                            <div className="flex flex-col h-full justify-between gap-4">
+                              {/* Insight Content */}
+                              <div className="space-y-2 select-text cursor-auto">
+                                <p className="text-white/90 text-[14px] leading-relaxed font-medium">
+                                  {activeGear.thought}
+                                </p>
+                              </div>
 
-                            {/* PERSONALITY INSIGHT MODE — always show thought directly */}
-                            <div className="block text-left group">
-                              <div className="flex flex-col h-full justify-between gap-4">
-                                {/* Insight Content */}
-                                <div className="space-y-2 select-text cursor-auto">
-                                  <p className="text-white/90 text-[14px] leading-relaxed font-medium">
-                                    {activeGear.thought}
-                                  </p>
-                                </div>
-
-                                {/* CTA Link - CLICKABLE */}
-                                <div
-                                  onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    router.push(activeGear.link)
-                                  }}
-                                  className="group/cta flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 hover:text-white transition-colors cursor-pointer self-start py-1"
-                                >
-                                  <span className="uppercase border-b border-transparent group-hover/cta:border-white/20 transition-all">
-                                    {activeGear.linkLabel}
-                                  </span>
-                                  <ArrowRight className="w-3 h-3 transition-transform group-hover/cta:translate-x-0.5" />
-                                </div>
+                              {/* CTA Link - CLICKABLE */}
+                              <div
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  e.stopPropagation()
+                                  router.push(activeGear.link)
+                                }}
+                                className="group/cta flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 hover:text-white transition-colors cursor-pointer self-start py-1"
+                              >
+                                <span className="uppercase border-b border-transparent group-hover/cta:border-white/20 transition-all">
+                                  {activeGear.linkLabel}
+                                </span>
+                                <ArrowRight className="w-3 h-3 transition-transform group-hover/cta:translate-x-0.5" />
                               </div>
                             </div>
                           </div>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
-              </div>
             </div>
-          </motion.div>
-          {/* === END ACT 1: BRAIN LAYER === */}
-
-          {/* === ACT 2: TEXT LAYER (hidden first, fades in on scroll) === */}
-          <motion.div
-            className="absolute inset-0 flex flex-col items-center justify-center z-10"
-            style={{
-              opacity: quizState === 'quiz' ? 0 : textOpacity,
-              y: quizState === 'quiz' ? -100 : textY,
-              pointerEvents: (quizState === 'quiz' || !isAct2Active) ? 'none' : 'auto',
-            }}
-          >
-            <motion.div
-              className={`flex flex-col items-center text-center space-y-5 sm:space-y-6 px-4`}
-              initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
-              animate={isAppReady ? { clipPath: 'inset(0 0% 0 0)', opacity: 1 } : { clipPath: 'inset(0 100% 0 0)', opacity: 0.2 }}
-              transition={{ duration: 2.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              style={{ pointerEvents: (isAct2Active && quizState !== 'quiz') ? 'auto' : 'none' }}
-            >
-              {/* Subtext - Career Timeline Label */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="font-mono text-[11px] sm:text-xs tracking-[0.35em] uppercase text-white/40 mb-0"
-              >
-                Career Timeline
-              </motion.div>
-
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-extrabold text-white leading-[1.15] tracking-[-0.03em] w-full max-w-6xl mx-auto font-sans !mt-space-3">
-                <span className="inline">
-                  {"13 Years. ".split('').map((char, i) => (
-                    <motion.span
-                      key={`h1-Line1-${i}`}
-                      initial={{ opacity: 0 }}
-                      animate={isAppReady ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{ duration: 0, delay: 0.5 + i * 0.06 }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-                <span className="inline bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent pb-1">
-                  {"One Mission.".split('').map((char, i) => (
-                    <motion.span
-                      key={`h1-Line2-${i}`}
-                      initial={{ opacity: 0 }}
-                      animate={isAppReady ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{ duration: 0, delay: 0.5 + (10 + i) * 0.06 }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-              </h1>
-
-              {/* Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                transition={{ duration: 0.8, delay: 1.8 }}
-                className="text-slate-400 text-base sm:text-lg font-light tracking-wide !mt-space-4"
-              >
-                From curiosity to code. A story told through scroll.
-              </motion.p>
-
-
-
-              {/* Stats row */}
-              <motion.div
-                className="w-full max-w-5xl mx-auto px-space-4 mt-10 sm:mt-14"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.8 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-y-space-8 md:gap-y-0 divide-white/[0.06] md:divide-x">
-                  {/* Stat 1 */}
-                  <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
-                      <Counter value={50} isReady={isAppReady} />+
-                    </div>
-                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
-                      Projects Shipped
-                    </div>
-                  </div>
-                  {/* Stat 2 */}
-                  <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
-                      <Counter value={25} isReady={isAppReady} />M+
-                    </div>
-                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
-                      Users on WebFOCUS
-                    </div>
-                  </div>
-                  {/* Stat 3 */}
-                  <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
-                      Fortune 500
-                    </div>
-                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
-                      Clients
-                    </div>
-                  </div>
-                  {/* Stat 4 */}
-                  <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
-                      Best-in-Class
-                    </div>
-                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
-                      2025 Dresner Award
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-            </motion.div>
-          </motion.div>
-          {/* === END ACT 2: TEXT LAYER === */}
-
-          {/* Bottom CTAs — See My Work + Guided Tour */}
-          {quizState !== 'quiz' && (
-            <motion.div
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-5"
-              style={{ opacity: scrollIndicatorOpacity }}
-            >
-              {/* See My Work */}
-              <a
-                href="#work-overview"
-                className="flex flex-col items-center gap-2 cursor-pointer group no-underline"
-                onClick={(e) => {
-                  e.preventDefault()
-                  const section = document.getElementById('work-overview')
-                  if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' })
-                  }
-                }}
-              >
-                <span className="text-white/50 group-hover:text-white/80 text-[13px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">See My Work</span>
-                <motion.div
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <svg className="w-8 h-8 text-white/40 group-hover:text-white/70 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
-                  </svg>
-                </motion.div>
-              </a>
-
-              {/* Divider */}
-              <div className="w-px h-8 bg-white/10" />
-
-              {/* Guided Tour */}
-              <button
-                className="flex flex-col items-center gap-2 cursor-pointer group bg-transparent border-none outline-none"
-                onClick={() => {
-                  const event = new CustomEvent('start-story-mode')
-                  window.dispatchEvent(event)
-                }}
-              >
-                <span className="text-white/40 group-hover:text-teal-400/80 text-[13px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">Guided Tour</span>
-                <svg className="w-7 h-7 text-white/30 group-hover:text-teal-400/60 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </button>
-            </motion.div>
-          )}
-
+          </div>
         </div>
-        {/* === END STICKY VIEWPORT === */}
-      </section>
+        {/* === END BRAIN LAYER === */}
 
+        {/* Scroll indicator */}
+        {quizState !== 'quiz' && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2">
+            <span className="text-white/30 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <svg className="w-5 h-5 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
+              </svg>
+            </motion.div>
+          </div>
+        )}
 
+      </div>
 
       {/* Mobile Bottom Sheet for Gear Inspector */}
       <GearBottomSheet
@@ -1558,3 +1390,5 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     </>
   )
 }
+
+

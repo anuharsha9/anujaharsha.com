@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { getTheme, spacing } from '@/lib/design-system'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
-import TextReveal from '@/components/ui/TextReveal'
 
 export default function TalkSection() {
   const t = getTheme(false)
@@ -24,15 +23,14 @@ export default function TalkSection() {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="text-center space-y-space-6"
         >
-          {/* Headline - Large, Serif */}
-          <TextReveal
-            as="h2"
-            className={`font-sans font-black ${t.text} text-3xl md:text-4xl lg:text-5xl leading-tight`}
-            variant="slide-up"
-            stagger={0.12}
-          >
-            Let's build.
-          </TextReveal>
+          {/* Headline - High-Voltage Text Mask */}
+          <div className="relative overflow-hidden high-voltage-noise">
+            <h2
+              className="font-sans font-black text-6xl md:text-8xl lg:text-9xl leading-none tracking-tight high-voltage-mask"
+            >
+              Let&apos;s build.
+            </h2>
+          </div>
 
           {/* Role Targeting - subtle */}
           <p className={`${t.textMuted} text-sm`}>
@@ -81,7 +79,7 @@ export default function TalkSection() {
             <button
               onClick={() => {
                 trackResumeDownload()
-                openPdf('/assets/Anuja_Harsha_Resume.pdf', 'Anuja Harsha - Senior Product Designer')
+                openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
               }}
               className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-800 text-slate-400 font-medium text-sm hover:bg-amber-500/10 hover:text-amber-500 hover:border-amber-500/50 transition-all duration-300`}
               aria-label="View Resume PDF"

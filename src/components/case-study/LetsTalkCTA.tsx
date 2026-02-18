@@ -62,7 +62,7 @@ export default function LetsTalkCTA({ className = '', variant = 'card' }: LetsTa
             <button
               onClick={() => {
                 trackResumeDownload()
-                openPdf('/assets/Anuja_Harsha_Resume.pdf', 'Anuja Harsha - Senior Product Designer')
+                openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
               }}
               className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-300 text-slate-600 text-sm font-medium hover:border-slate-900 hover:text-slate-900 transition-colors"
               aria-label="Read Resume PDF"

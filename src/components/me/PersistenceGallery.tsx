@@ -203,8 +203,15 @@ export default function PersistenceGallery() {
                                 >
                                     {activeVersion.video ? (
                                         <video
+                                            key={activeVersion.id}
+                                            ref={(el) => {
+                                                if (el) {
+                                                    el.play().catch(() => { })
+                                                }
+                                            }}
                                             src={activeVersion.video}
                                             autoPlay
+                                            loop
                                             muted
                                             playsInline
                                             controls={false}

@@ -17,6 +17,7 @@ import ImageLightbox from '@/components/case-study/ImageLightbox'
 import { ARCHIVE_GALLERY_DATA } from '@/data/archive-gallery'
 import FoundationsTerminal from '@/components/case-study/FoundationsTerminal'
 import WordGameLightbox from '@/components/work/wordu/WordGameLightbox'
+import HeroSplit from '@/components/home/HeroSplit'
 
 const TOTAL = CAREER_DATA.length
 
@@ -169,7 +170,7 @@ function InterstitialContent({
                 <div className="absolute left-6 sm:left-1/2 sm:-translate-x-[0.5px] top-0 bottom-0 w-px bg-white/[0.06]" />
 
                 {/* Animated cyan line */}
-                <div className="absolute left-6 sm:left-1/2 sm:-translate-x-[0.5px] top-0 bottom-0 w-px overflow-hidden">
+                <div className="absolute left-6 sm:left-1/2 sm:-translate-x-[0.5px] top-0 bottom-0 w-px overflow-hidden neon-line-glow">
                     <motion.div
                         className="w-full bg-gradient-to-b from-[#078B9C] to-[#078B9C]/30 origin-top"
                         style={{ height: '100%', scaleY: lineProgress }}
@@ -348,13 +349,13 @@ function TimelineSlide({
     const total = TOTAL
     const rangeStart = index / total
     const rangeEnd = (index + 1) / total
-    const transitionZone = 0.02
+    const transitionZone = 0.01 // tight zone = snappy transitions with generous hold time
 
     const fadeIn = rangeStart + transitionZone
     const fadeOut = rangeEnd - transitionZone
 
-    // ── Opacity ──
-    const opacity = useTransform(scrollYProgress, (v: number) => {
+    // ── Opacity (with eased curve for more dramatic snap) ──
+    const rawOpacity = useTransform(scrollYProgress, (v: number) => {
         if (index === 0) {
             if (v <= fadeOut) return 1
             if (v >= rangeEnd) return 0
@@ -371,30 +372,98 @@ function TimelineSlide({
         if (v <= rangeEnd) return 1 - (v - fadeOut) / (rangeEnd - fadeOut)
         return 0
     })
+    // Apply cubic ease for snappier fade
+    const opacity = useTransform(rawOpacity, (v: number) => {
+        return v < 0.5
+            ? 4 * v * v * v
+            : 1 - Math.pow(-2 * v + 2, 3) / 2
+    })
 
-    // ── Scale ──
+    // ── Scale (aggressive zoom: 0.7 → 1 → 1.15) ──
     const scale = useTransform(scrollYProgress, (v: number) => {
         if (index === 0) {
             if (v <= fadeOut) return 1
-            if (v >= rangeEnd) return 0.95
-            return 1 - 0.05 * ((v - fadeOut) / (rangeEnd - fadeOut))
+            if (v >= rangeEnd) return 1.15
+            const t = (v - fadeOut) / (rangeEnd - fadeOut)
+            return 1 + 0.15 * t * t // quadratic ease-in for accelerating zoom
         }
         if (index === total - 1) {
-            if (v <= rangeStart) return 1.05
+            if (v <= rangeStart) return 0.7
             if (v >= fadeIn) return 1
-            return 1.05 - 0.05 * ((v - rangeStart) / (fadeIn - rangeStart))
+            const t = (v - rangeStart) / (fadeIn - rangeStart)
+            return 0.7 + 0.3 * (1 - Math.pow(1 - t, 3)) // cubic ease-out
         }
-        if (v <= rangeStart) return 1.05
-        if (v <= fadeIn) return 1.05 - 0.05 * ((v - rangeStart) / (fadeIn - rangeStart))
+        if (v <= rangeStart) return 0.7
+        if (v <= fadeIn) {
+            const t = (v - rangeStart) / (fadeIn - rangeStart)
+            return 0.7 + 0.3 * (1 - Math.pow(1 - t, 3)) // cubic ease-out — swoops in
+        }
         if (v <= fadeOut) return 1
-        if (v <= rangeEnd) return 1 - 0.05 * ((v - fadeOut) / (rangeEnd - fadeOut))
-        return 0.95
+        if (v <= rangeEnd) {
+            const t = (v - fadeOut) / (rangeEnd - fadeOut)
+            return 1 + 0.15 * t * t // quadratic ease-in — accelerating push away
+        }
+        return 1.15
     })
 
-    // ── Blur ──
-    const filter = useTransform(opacity, (v: number) =>
-        `blur(${((1 - v) * 12).toFixed(1)}px)`
-    )
+    // ── Vertical sweep (slides rise from +80px, exit to -60px) ──
+    const translateY = useTransform(scrollYProgress, (v: number) => {
+        if (index === 0) {
+            if (v <= fadeOut) return 0
+            if (v >= rangeEnd) return -60
+            const t = (v - fadeOut) / (rangeEnd - fadeOut)
+            return -60 * t * t
+        }
+        if (index === total - 1) {
+            if (v <= rangeStart) return 80
+            if (v >= fadeIn) return 0
+            const t = (v - rangeStart) / (fadeIn - rangeStart)
+            return 80 * (1 - t * t)
+        }
+        if (v <= rangeStart) return 80
+        if (v <= fadeIn) {
+            const t = (v - rangeStart) / (fadeIn - rangeStart)
+            return 80 * (1 - t * t) // ease-in: sweeps up from below
+        }
+        if (v <= fadeOut) return 0
+        if (v <= rangeEnd) {
+            const t = (v - fadeOut) / (rangeEnd - fadeOut)
+            return -60 * t * t // ease-in: pushes up on exit
+        }
+        return -60
+    })
+
+    // ── 3D Rotation (subtle rotateX for depth) ──
+    const rotateX = useTransform(scrollYProgress, (v: number) => {
+        if (index === 0) {
+            if (v <= fadeOut) return 0
+            if (v >= rangeEnd) return -4
+            const t = (v - fadeOut) / (rangeEnd - fadeOut)
+            return -4 * t
+        }
+        if (v <= rangeStart) return 6
+        if (v <= fadeIn) {
+            const t = (v - rangeStart) / (fadeIn - rangeStart)
+            return 6 * (1 - t)
+        }
+        if (v <= fadeOut) return 0
+        if (v <= rangeEnd) {
+            const t = (v - fadeOut) / (rangeEnd - fadeOut)
+            return -4 * t
+        }
+        return 0
+    })
+
+    // ── Cinematic filter (heavy blur + hue-rotate + skew on fade) ──
+    const filter = useTransform(opacity, (v: number) => {
+        if (v > 0.98) return 'none' // perf: skip filter at full opacity
+        const intensity = 1 - v
+        const blur = (intensity * 28).toFixed(1)
+        const hue = (intensity * 90).toFixed(0)
+        const skew = (intensity * 6).toFixed(1)
+        const brightness = (1 + intensity * 0.3).toFixed(2) // slight overexpose on fade
+        return `blur(${blur}px) hue-rotate(${hue}deg) skewX(${skew}deg) brightness(${brightness})`
+    })
 
     // ── Pointer events ──
     const pointerEvents = useTransform(opacity, (v: number) =>
@@ -432,317 +501,395 @@ function TimelineSlide({
     const hasMilestones = milestones.length > 0
 
     // ── Detect slide type ──
+    const isBrainSlide = era.isBrainSlide === true
+    const isHeroIntro = era.isHeroIntro === true
     const isInterstitial = hasMilestones && !hasWorkItems && !hasTestimonials && !hasFoundations
     const isTestimonialSlide = hasTestimonials && !hasWorkItems && !hasFoundations
 
     return (
         <motion.div
             className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16"
-            style={{ opacity, scale, filter, pointerEvents }}
+            style={{
+                opacity,
+                scale,
+                y: translateY,
+                rotateX,
+                filter,
+                pointerEvents,
+                perspective: 1200,
+                transformStyle: 'preserve-3d' as const,
+                willChange: 'transform, opacity, filter',
+            }}
         >
-            {/* Large watermark year */}
-            <div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-                aria-hidden
-            >
-                <span className="text-[18vw] lg:text-[16vw] font-bold text-white/[0.03] tracking-tighter leading-none font-mono">
-                    {startYear}
-                </span>
-            </div>
+            {/* Large watermark year (skip for brain + hero-intro) */}
+            {!isBrainSlide && !isHeroIntro && (
+                <div
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+                    aria-hidden
+                >
+                    <span className="text-[18vw] lg:text-[16vw] font-bold text-white/[0.03] tracking-tighter leading-none font-mono">
+                        {startYear}
+                    </span>
+                </div>
+            )}
 
-            <div className="relative w-full max-w-[1440px] mx-auto overflow-y-auto max-h-[85vh] scrollbar-hide">
-                {/* ═══ INTERSTITIAL: Life Context ═══ */}
-                {isInterstitial ? (
-                    <InterstitialContent
-                        era={era}
-                        lineProgress={lineProgress}
-                        dotOpacities={dotOpacities}
-                        dotScales={dotScales}
-                    />
-                ) : isTestimonialSlide ? (
-                    /* ═══ TESTIMONIAL: Typography-driven layout ═══ */
-                    <TestimonialContent era={era} />
-                ) : (
-                    /* ═══ DEFAULT: Work-focused layout ═══ */
-                    <div className={`grid ${hasMilestones ? 'grid-cols-1 lg:grid-cols-[1fr_320px]' : 'grid-cols-1'} gap-8 lg:gap-12 items-start`}>
-                        {/* ── LEFT: Main Content ── */}
-                        <div className="space-y-8">
-                            {/* Era label + role header */}
-                            <div className="space-y-3">
-                                {/* ERA — YEAR · Company */}
-                                <div className="flex items-center gap-3">
-                                    <span className="font-mono text-white/40 text-xs tracking-[0.3em] uppercase">ERA</span>
-                                    <div className="w-6 h-px bg-[#078B9C]" />
-                                    <span className="font-mono text-[#078B9C] text-xs sm:text-sm tracking-[0.2em]">
-                                        {era.period}
-                                    </span>
-                                    <span className="font-mono text-white/20 text-xs">·</span>
-                                    <span className="font-mono text-white/30 text-[11px] sm:text-xs tracking-[0.2em] uppercase">
-                                        {era.company}
-                                    </span>
+            {/* ═══ BRAIN SLIDE: Interactive gear brain ═══ */}
+            {isBrainSlide ? (
+                <HeroSplit />
+            ) : isHeroIntro ? (
+                /* ═══ MANIFESTO: "13 Years. One Mission." ═══ */
+                <div className="flex flex-col items-center text-center justify-center min-h-[60vh] space-y-6 sm:space-y-8">
+                    {/* Main Headline */}
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-extrabold text-white leading-[1.15] tracking-[-0.03em] w-full max-w-6xl mx-auto font-sans">
+                        <span className="inline">13 Years. </span>
+                        <span className="inline bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent pb-1">
+                            One Mission.
+                        </span>
+                    </h2>
+
+                    {/* Subtitle */}
+                    <p className="text-slate-400 text-base sm:text-lg font-light tracking-wide max-w-lg">
+                        {era.description}
+                    </p>
+
+                    {/* Stats row */}
+                    <div className="w-full max-w-5xl mx-auto px-4 mt-6 sm:mt-10">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 md:gap-y-0 divide-white/[0.06] md:divide-x">
+                            {[
+                                { value: '50+', label: 'Projects Shipped' },
+                                { value: '25M+', label: 'Users on WebFOCUS' },
+                                { value: 'Fortune 500', label: 'Clients' },
+                                { value: 'Best-in-Class', label: '2025 Dresner Award' },
+                            ].map((stat) => (
+                                <div key={stat.label} className="flex flex-col items-center justify-center px-4 group">
+                                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-2 whitespace-nowrap">
+                                        {stat.value}
+                                    </div>
+                                    <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
+                                        {stat.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Scroll prompt */}
+                    <div className="flex flex-col items-center gap-2 pt-4">
+                        <span className="text-white/25 text-[11px] font-mono uppercase tracking-[0.2em]">
+                            Scroll to explore
+                        </span>
+                        <motion.div
+                            animate={{ y: [0, 6, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                        >
+                            <svg
+                                className="w-5 h-5 text-white/20"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={1.5}
+                                    d="M19 14l-7 7-7-7"
+                                />
+                            </svg>
+                        </motion.div>
+                    </div>
+                </div>
+            ) : (
+                <div className="relative w-full max-w-[1440px] mx-auto overflow-y-auto max-h-[85vh] scrollbar-hide">
+                    {isInterstitial ? (
+                        /* ═══ INTERSTITIAL: Life Context ═══ */
+                        <InterstitialContent
+                            era={era}
+                            lineProgress={lineProgress}
+                            dotOpacities={dotOpacities}
+                            dotScales={dotScales}
+                        />
+                    ) : isTestimonialSlide ? (
+                        /* ═══ TESTIMONIAL: Typography-driven layout ═══ */
+                        <TestimonialContent era={era} />
+                    ) : (
+                        /* ═══ DEFAULT: Work-focused layout ═══ */
+                        <div className={`grid ${hasMilestones ? 'grid-cols-1 lg:grid-cols-[1fr_320px]' : 'grid-cols-1'} gap-8 lg:gap-12 items-start`}>
+                            {/* ── LEFT: Main Content ── */}
+                            <div className="space-y-8">
+                                {/* Era label + role header */}
+                                <div className="space-y-3">
+                                    {/* ERA — YEAR · Company */}
+                                    <div className="flex items-center gap-3">
+                                        <span className="font-mono text-white/40 text-xs tracking-[0.3em] uppercase">ERA</span>
+                                        <div className="w-6 h-px bg-[#078B9C]" />
+                                        <span className="font-mono text-[#078B9C] text-xs sm:text-sm tracking-[0.2em]">
+                                            {era.period}
+                                        </span>
+                                        <span className="font-mono text-white/20 text-xs">·</span>
+                                        <span className="font-mono text-white/30 text-[11px] sm:text-xs tracking-[0.2em] uppercase">
+                                            {era.company}
+                                        </span>
+                                    </div>
+
+                                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05]">
+                                        {era.role}
+                                    </h2>
                                 </div>
 
-                                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05]">
-                                    {era.role}
-                                </h2>
-                            </div>
-
-                            {/* Description */}
-                            <div className="space-y-2 max-w-xl">
-                                <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                                    {era.description}
-                                </p>
-                                {era.secondaryDescription && (
-                                    <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
-                                        {era.secondaryDescription}
+                                {/* Description */}
+                                <div className="space-y-2 max-w-xl">
+                                    <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+                                        {era.description}
                                     </p>
-                                )}
+                                    {era.secondaryDescription && (
+                                        <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
+                                            {era.secondaryDescription}
+                                        </p>
+                                    )}
 
-                                {/* Platform proof link + article links */}
-                                {(era.platformUrl || (era.articles && era.articles.length > 0)) && (
-                                    <div className="flex items-center gap-x-3 mt-2 flex-nowrap overflow-x-auto">
-                                        {era.platformUrl && (
-                                            <a
-                                                href={era.platformUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors duration-300 whitespace-nowrap shrink-0"
-                                            >
-                                                See the platform
-                                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                                </svg>
-                                            </a>
-                                        )}
-                                        {era.articles && era.articles.map((article, i) => (
-                                            <span key={article.id} className="inline-flex items-center gap-x-3 shrink-0">
-                                                <span className="text-white/15 text-xs">·</span>
+                                    {/* Platform proof link + article links */}
+                                    {(era.platformUrl || (era.articles && era.articles.length > 0)) && (
+                                        <div className="flex items-center gap-x-3 mt-2 flex-nowrap overflow-x-auto">
+                                            {era.platformUrl && (
                                                 <a
-                                                    href={article.link}
+                                                    href={era.platformUrl}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors duration-300 whitespace-nowrap"
+                                                    className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors duration-300 whitespace-nowrap shrink-0"
                                                 >
-                                                    {article.title}
+                                                    See the platform
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                                     </svg>
                                                 </a>
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
-
-                            {/* ── WORK ITEMS (Project Cards) ── */}
-                            {hasWorkItems && era.id === 'csg-architect' ? (
-                                <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-4">
-                                    <div className="md:row-span-2">
-                                        <MotionWorkCard work={era.workItems[0]} fillHeight />
-                                    </div>
-                                    <div>
-                                        <MotionWorkCard work={era.workItems[1]} compact />
-                                    </div>
-                                    <div>
-                                        <MotionWorkCard work={era.workItems[2]} compact />
-                                    </div>
-                                </div>
-                            ) : hasWorkItems ? (
-                                <div className={`grid gap-6 ${era.workItems.length === 1
-                                    ? (era.workItems[0].id === 'portfolio-game' ? 'grid-cols-1 max-w-[28rem]' : 'grid-cols-1 max-w-sm')
-                                    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-                                    }`}>
-                                    {era.workItems.map((work) => (
-                                        <div key={work.id}>
-                                            {era.id === 'agency-startup' || era.id === 'consultant-tech' ? (
-                                                <ArchiveWorkCard work={work} onOpenLightbox={onOpenLightbox} />
-                                            ) : work.id === 'portfolio-game' ? (
-                                                <WordUGameCard work={work} onPlay={onOpenGameLightbox} />
-                                            ) : (
-                                                <MotionWorkCard work={work} />
                                             )}
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : null}
-
-
-
-                            {/* ── TESTIMONIALS (inline, for eras that still have them) ── */}
-                            {hasTestimonials && (
-                                <div className="space-y-4 pt-4">
-                                    {era.testimonials.length === 1 ? (
-                                        <div className="relative overflow-hidden group/quote max-w-2xl">
-                                            {/* Subtle left accent */}
-                                            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#078B9C]/40 via-[#078B9C]/20 to-transparent" />
-                                            <div className="pl-6">
-                                                <p className="font-sans text-lg md:text-xl text-slate-200/90 leading-relaxed mb-5 font-light">
-                                                    &ldquo;{era.testimonials[0].quote}&rdquo;
-                                                </p>
-                                                <cite className="not-italic flex items-center gap-3">
-                                                    <div className="w-5 h-px bg-white/10" />
-                                                    <span className="text-white font-semibold text-sm">{era.testimonials[0].name}</span>
-                                                    {era.testimonials[0].linkedInProfile && (
-                                                        <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
-                                                            <Linkedin className="w-3.5 h-3.5" />
-                                                        </Link>
-                                                    )}
-                                                </cite>
-                                                <span className="text-slate-500 font-mono text-[10px] uppercase tracking-wider ml-[30px] block mt-1">
-                                                    {era.testimonials[0].role}, {era.testimonials[0].company}
+                                            {era.articles && era.articles.map((article, i) => (
+                                                <span key={article.id} className="inline-flex items-center gap-x-3 shrink-0">
+                                                    <span className="text-white/15 text-xs">·</span>
+                                                    <a
+                                                        href={article.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors duration-300 whitespace-nowrap"
+                                                    >
+                                                        {article.title}
+                                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                        </svg>
+                                                    </a>
                                                 </span>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            {era.testimonials.map((testimonial) => (
-                                                <div key={testimonial.id} className="bg-white/[0.02] border border-white/5 p-5 rounded-xl relative overflow-hidden group/quote">
-                                                    <Quote className="absolute top-4 right-4 w-8 h-8 text-white/5 group-hover/quote:text-[#078B9C]/10 transition-colors" />
-                                                    <blockquote className="relative z-10">
-                                                        <p className="font-sans text-sm text-slate-200 leading-relaxed mb-4">
-                                                            &ldquo;{testimonial.quote}&rdquo;
-                                                        </p>
-                                                        <cite className="not-italic flex flex-col gap-1">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-white font-bold text-sm">{testimonial.name}</span>
-                                                                {testimonial.linkedInProfile && (
-                                                                    <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
-                                                                        <Linkedin className="w-3 h-3" />
-                                                                    </Link>
-                                                                )}
-                                                            </div>
-                                                            <span className="text-slate-400 font-mono text-[10px] uppercase tracking-wider">
-                                                                {testimonial.role}, {testimonial.company}
-                                                            </span>
-                                                        </cite>
-                                                    </blockquote>
-                                                </div>
                                             ))}
                                         </div>
                                     )}
                                 </div>
-                            )}
 
-                            {/* ── FOUNDATIONS TERMINAL (Origin Story) ── */}
-                            {hasFoundations && (
-                                <div className="pt-4">
-                                    <FoundationsTerminal foundations={era.foundations} />
+
+                                {/* ── WORK ITEMS (Project Cards) ── */}
+                                {hasWorkItems && era.id === 'csg-architect' ? (
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        {era.workItems.map((work) => (
+                                            <div key={work.id}>
+                                                <MotionWorkCard work={work} variant="editorial" compact />
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : hasWorkItems ? (
+                                    <div className={`grid gap-6 ${era.workItems.length === 1
+                                        ? (era.workItems[0].id === 'portfolio-game' ? 'grid-cols-1 max-w-[28rem]' : 'grid-cols-1 max-w-sm')
+                                        : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+                                        }`}>
+                                        {era.workItems.map((work) => (
+                                            <div key={work.id}>
+                                                {era.id === 'agency-startup' || era.id === 'consultant-tech' ? (
+                                                    <ArchiveWorkCard work={work} onOpenLightbox={onOpenLightbox} />
+                                                ) : work.id === 'portfolio-game' ? (
+                                                    <WordUGameCard work={work} onPlay={onOpenGameLightbox} />
+                                                ) : (
+                                                    <MotionWorkCard work={work} />
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : null}
+
+
+
+                                {/* ── TESTIMONIALS (inline, for eras that still have them) ── */}
+                                {hasTestimonials && (
+                                    <div className="space-y-4 pt-4">
+                                        {era.testimonials.length === 1 ? (
+                                            <div className="relative overflow-hidden group/quote max-w-2xl">
+                                                {/* Subtle left accent */}
+                                                <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#078B9C]/40 via-[#078B9C]/20 to-transparent" />
+                                                <div className="pl-6">
+                                                    <p className="font-sans text-lg md:text-xl text-slate-200/90 leading-relaxed mb-5 font-light">
+                                                        &ldquo;{era.testimonials[0].quote}&rdquo;
+                                                    </p>
+                                                    <cite className="not-italic flex items-center gap-3">
+                                                        <div className="w-5 h-px bg-white/10" />
+                                                        <span className="text-white font-semibold text-sm">{era.testimonials[0].name}</span>
+                                                        {era.testimonials[0].linkedInProfile && (
+                                                            <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                                <Linkedin className="w-3.5 h-3.5" />
+                                                            </Link>
+                                                        )}
+                                                    </cite>
+                                                    <span className="text-slate-500 font-mono text-[10px] uppercase tracking-wider ml-[30px] block mt-1">
+                                                        {era.testimonials[0].role}, {era.testimonials[0].company}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                {era.testimonials.map((testimonial) => (
+                                                    <div key={testimonial.id} className="bg-white/[0.02] border border-white/5 p-5 rounded-xl relative overflow-hidden group/quote">
+                                                        <Quote className="absolute top-4 right-4 w-8 h-8 text-white/5 group-hover/quote:text-[#078B9C]/10 transition-colors" />
+                                                        <blockquote className="relative z-10">
+                                                            <p className="font-sans text-sm text-slate-200 leading-relaxed mb-4">
+                                                                &ldquo;{testimonial.quote}&rdquo;
+                                                            </p>
+                                                            <cite className="not-italic flex flex-col gap-1">
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="text-white font-bold text-sm">{testimonial.name}</span>
+                                                                    {testimonial.linkedInProfile && (
+                                                                        <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                                            <Linkedin className="w-3 h-3" />
+                                                                        </Link>
+                                                                    )}
+                                                                </div>
+                                                                <span className="text-slate-400 font-mono text-[10px] uppercase tracking-wider">
+                                                                    {testimonial.role}, {testimonial.company}
+                                                                </span>
+                                                            </cite>
+                                                        </blockquote>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* ── FOUNDATIONS TERMINAL (Origin Story) ── */}
+                                {hasFoundations && (
+                                    <div className="pt-4">
+                                        <FoundationsTerminal foundations={era.foundations} />
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* ── RIGHT SIDEBAR: Life Context (only for eras with milestones + work, e.g. origin) ── */}
+                            {hasMilestones && (
+                                <div className="relative lg:sticky lg:top-[15vh]">
+                                    <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/[0.07] rounded-2xl p-6 lg:p-8 overflow-hidden">
+                                        {/* Gradient accent */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#078B9C]/[0.06] via-transparent to-transparent rounded-2xl pointer-events-none" />
+
+                                        {/* Card header */}
+                                        <div className="relative z-10 mb-6">
+                                            <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-white/25 mb-2">
+                                                Life Context
+                                            </p>
+                                            <div className="w-8 h-px bg-[#078B9C]/30" />
+                                        </div>
+
+                                        {/* Animated line + nodes */}
+                                        <div className="relative z-10 pl-10">
+                                            {/* Vertical line container */}
+                                            <div className="absolute left-0 top-0 bottom-0 w-8 flex justify-center">
+                                                <svg
+                                                    className="h-full w-[2px] overflow-visible"
+                                                    preserveAspectRatio="none"
+                                                >
+                                                    {/* Background track */}
+                                                    <line
+                                                        x1="1"
+                                                        y1="0"
+                                                        x2="1"
+                                                        y2="100%"
+                                                        stroke="rgba(255,255,255,0.05)"
+                                                        strokeWidth="1"
+                                                    />
+                                                    {/* Animated cyan line — neon glow */}
+                                                    <motion.line
+                                                        x1="1"
+                                                        y1="0"
+                                                        x2="1"
+                                                        y2="100%"
+                                                        stroke="#078B9C"
+                                                        strokeWidth="1.5"
+                                                        className="neon-line-glow"
+                                                        style={{ pathLength: lineProgress }}
+                                                    />
+                                                </svg>
+
+                                                {/* Pulsing dots */}
+                                                {milestones.map((_, i) => {
+                                                    const yPct = ((i + 0.5) / milestones.length) * 100
+                                                    return (
+                                                        <motion.div
+                                                            key={i}
+                                                            className="absolute rounded-full bg-[#078B9C]"
+                                                            style={{
+                                                                width: 10,
+                                                                height: 10,
+                                                                left: '50%',
+                                                                top: `${yPct}%`,
+                                                                x: '-50%',
+                                                                y: '-50%',
+                                                                opacity: dotOpacities[i],
+                                                                scale: dotScales[i],
+                                                                boxShadow: '0 0 14px rgba(7,139,156,0.7)',
+                                                            }}
+                                                        />
+                                                    )
+                                                })}
+                                            </div>
+
+                                            {/* Milestone items */}
+                                            <div className="space-y-7">
+                                                {milestones.map((milestone, i) => {
+                                                    const IconComp = milestone.icon;
+                                                    return (
+                                                        <motion.div
+                                                            key={i}
+                                                            className="space-y-1 flex items-start gap-3"
+                                                            style={{ opacity: dotOpacities[i] }}
+                                                        >
+                                                            {/* Icon */}
+                                                            {IconComp && (
+                                                                <div className="shrink-0 w-8 h-8 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center">
+                                                                    {typeof IconComp === 'string' ? (
+                                                                        <span className="text-sm">{IconComp}</span>
+                                                                    ) : (
+                                                                        <IconComp className="w-4 h-4 text-white/50" />
+                                                                    )}
+                                                                </div>
+                                                            )}
+                                                            <div>
+                                                                <p className="font-mono text-[#078B9C] text-[10px] tracking-[0.25em] uppercase">
+                                                                    {milestone.year}
+                                                                </p>
+                                                                <p className="text-white/80 text-sm font-medium leading-snug">
+                                                                    {milestone.title}
+                                                                </p>
+                                                                {milestone.subtitle && (
+                                                                    <p className="text-slate-500 text-xs leading-relaxed">
+                                                                        {milestone.subtitle}
+                                                                    </p>
+                                                                )}
+                                                            </div>
+                                                        </motion.div>
+                                                    )
+                                                })}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
-
-                        {/* ── RIGHT SIDEBAR: Life Context (only for eras with milestones + work, e.g. origin) ── */}
-                        {hasMilestones && (
-                            <div className="relative lg:sticky lg:top-[15vh]">
-                                <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/[0.07] rounded-2xl p-6 lg:p-8 overflow-hidden">
-                                    {/* Gradient accent */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#078B9C]/[0.06] via-transparent to-transparent rounded-2xl pointer-events-none" />
-
-                                    {/* Card header */}
-                                    <div className="relative z-10 mb-6">
-                                        <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-white/25 mb-2">
-                                            Life Context
-                                        </p>
-                                        <div className="w-8 h-px bg-[#078B9C]/30" />
-                                    </div>
-
-                                    {/* Animated line + nodes */}
-                                    <div className="relative z-10 pl-10">
-                                        {/* Vertical line container */}
-                                        <div className="absolute left-0 top-0 bottom-0 w-8 flex justify-center">
-                                            <svg
-                                                className="h-full w-[2px] overflow-visible"
-                                                preserveAspectRatio="none"
-                                            >
-                                                {/* Background track */}
-                                                <line
-                                                    x1="1"
-                                                    y1="0"
-                                                    x2="1"
-                                                    y2="100%"
-                                                    stroke="rgba(255,255,255,0.05)"
-                                                    strokeWidth="1"
-                                                />
-                                                {/* Animated cyan line */}
-                                                <motion.line
-                                                    x1="1"
-                                                    y1="0"
-                                                    x2="1"
-                                                    y2="100%"
-                                                    stroke="#078B9C"
-                                                    strokeWidth="1.5"
-                                                    style={{ pathLength: lineProgress }}
-                                                />
-                                            </svg>
-
-                                            {/* Pulsing dots */}
-                                            {milestones.map((_, i) => {
-                                                const yPct = ((i + 0.5) / milestones.length) * 100
-                                                return (
-                                                    <motion.div
-                                                        key={i}
-                                                        className="absolute rounded-full bg-[#078B9C]"
-                                                        style={{
-                                                            width: 10,
-                                                            height: 10,
-                                                            left: '50%',
-                                                            top: `${yPct}%`,
-                                                            x: '-50%',
-                                                            y: '-50%',
-                                                            opacity: dotOpacities[i],
-                                                            scale: dotScales[i],
-                                                            boxShadow: '0 0 14px rgba(7,139,156,0.7)',
-                                                        }}
-                                                    />
-                                                )
-                                            })}
-                                        </div>
-
-                                        {/* Milestone items */}
-                                        <div className="space-y-7">
-                                            {milestones.map((milestone, i) => {
-                                                const IconComp = milestone.icon;
-                                                return (
-                                                    <motion.div
-                                                        key={i}
-                                                        className="space-y-1 flex items-start gap-3"
-                                                        style={{ opacity: dotOpacities[i] }}
-                                                    >
-                                                        {/* Icon */}
-                                                        {IconComp && (
-                                                            <div className="shrink-0 w-8 h-8 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center">
-                                                                {typeof IconComp === 'string' ? (
-                                                                    <span className="text-sm">{IconComp}</span>
-                                                                ) : (
-                                                                    <IconComp className="w-4 h-4 text-white/50" />
-                                                                )}
-                                                            </div>
-                                                        )}
-                                                        <div>
-                                                            <p className="font-mono text-[#078B9C] text-[10px] tracking-[0.25em] uppercase">
-                                                                {milestone.year}
-                                                            </p>
-                                                            <p className="text-white/80 text-sm font-medium leading-snug">
-                                                                {milestone.title}
-                                                            </p>
-                                                            {milestone.subtitle && (
-                                                                <p className="text-slate-500 text-xs leading-relaxed">
-                                                                    {milestone.subtitle}
-                                                                </p>
-                                                            )}
-                                                        </div>
-                                                    </motion.div>
-                                                )
-                                            })}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            )}
         </motion.div >
     )
 }
@@ -781,6 +928,17 @@ export default function CinematicTimeline() {
         setCurrentIndex(Math.min(Math.floor(v * TOTAL), TOTAL - 1))
     })
 
+    // ── Cinematic overlay hooks (must be outside JSX) ──
+    const transitionGlowOpacity = useTransform(scrollYProgress, (v: number) => {
+        const segmentSize = 1 / TOTAL
+        const posInSegment = (v % segmentSize) / segmentSize
+        const distFromEdge = Math.min(posInSegment, 1 - posInSegment)
+        if (distFromEdge > 0.08) return 0
+        return (1 - distFromEdge / 0.08) * 0.15
+    })
+
+
+
     return (
         <>
             <div
@@ -793,6 +951,25 @@ export default function CinematicTimeline() {
                 <div className="sticky top-0 h-screen overflow-hidden">
                     {/* Subtle radial gradient for depth */}
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(7,139,156,0.08),transparent)]" />
+
+                    {/* ── Cinematic transition flash (fires during crossfade) ── */}
+                    <motion.div
+                        className="absolute inset-0 pointer-events-none z-20"
+                        style={{
+                            opacity: transitionGlowOpacity,
+                            background: 'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(7,139,156,0.3), transparent 70%)',
+                        }}
+                    />
+
+
+                    {/* ── Film grain overlay (very subtle) ── */}
+                    <div
+                        className="absolute inset-0 pointer-events-none z-10 opacity-[0.03] mix-blend-overlay"
+                        style={{
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                            backgroundSize: '128px 128px',
+                        }}
+                    />
 
                     {/* All slides (absolutely positioned, one visible at a time) */}
                     {CAREER_DATA.map((era, i) => (
@@ -817,34 +994,7 @@ export default function CinematicTimeline() {
                         </span>
                     </div>
 
-                    {/* ── Scroll prompt (first slide only) ── */}
-                    <motion.div
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
-                        animate={{ opacity: currentIndex === 0 ? 1 : 0 }}
-                        transition={{ duration: 0.4 }}
-                    >
-                        <span className="text-white/25 text-[11px] font-mono uppercase tracking-[0.2em]">
-                            Scroll to explore
-                        </span>
-                        <motion.div
-                            animate={{ y: [0, 6, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-                            <svg
-                                className="w-5 h-5 text-white/20"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={1.5}
-                                    d="M19 14l-7 7-7-7"
-                                />
-                            </svg>
-                        </motion.div>
-                    </motion.div>
+                    {/* Scroll prompt removed — manifesto now in HeroSplit */}
 
                     {/* ── Side progress dots ── */}
                     <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col gap-3">
