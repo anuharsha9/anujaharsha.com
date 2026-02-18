@@ -1101,7 +1101,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
               {/* Centered Gears - THE HERO */}
               <motion.div
-                className={`relative w-[320px] xs:w-[380px] sm:w-[480px] md:w-[580px] lg:w-[680px] xl:w-[740px] 2xl:w-[900px] max-w-full max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
+                className={`relative w-full max-w-[320px] xs:max-w-[380px] sm:max-w-[480px] md:max-w-[580px] lg:max-w-[680px] xl:max-w-[740px] 2xl:max-w-[900px] max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
                 initial={shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 }}
                 animate={(isAppReady || quizState === 'quiz')
                   ? { opacity: 1, scale: quizState === 'quiz' ? 1.15 : 1 }
