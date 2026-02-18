@@ -25,7 +25,7 @@ export default function ReportCasterTimeline({ isLightBackground = false }: Repo
         src: '/images/case-study/ReportCaster/ReportCaster Basic Map Workflow.png',
         alt: 'Mind Map of ReportCaster System',
         caption: 'System mapping: Documenting the undocumented',
-        isBlurred: true,
+        isBlurred: false,
       },
     },
     {
@@ -45,7 +45,7 @@ export default function ReportCasterTimeline({ isLightBackground = false }: Repo
         src: '/images/case-study/ReportCaster/RC - V1.3 - Independent version - Home.png',
         alt: 'Version 1 - Independent Product Concept',
         caption: 'V1 Rejected: Leadership wanted workflows centralized in the hub',
-        isBlurred: true,
+        isBlurred: false,
       },
     },
     {
@@ -58,7 +58,7 @@ export default function ReportCasterTimeline({ isLightBackground = false }: Repo
         src: '/images/case-study/ReportCaster/RC Hub Integration V2.1 - Home - Create new schedule.png',
         alt: 'Version 2 - Plugin Integration Concept',
         caption: 'V2 Rejected: Too much engineering effort for release cycle',
-        isBlurred: true,
+        isBlurred: false,
       },
     },
     {
@@ -72,7 +72,7 @@ export default function ReportCasterTimeline({ isLightBackground = false }: Repo
         src: '/images/case-study/ReportCaster/Initiating ReportCaster from the HUB.png',
         alt: 'Version 3 - Platform Native Design',
         caption: 'V3 Breakthrough: Modal-based creation from + menu',
-        isBlurred: true,
+        isBlurred: false,
       },
     },
     {

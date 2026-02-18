@@ -678,7 +678,14 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           <>
 
 
-            {/* ReportCaster Timeline - REMOVED: Duplicates the D.E.S.I.G.N. framework narrative */}
+            {/* ReportCaster Timeline */}
+            {data.slug === 'reportcaster' && (
+              <section className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
+                <CaseStudyCard>
+                  <ReportCasterTimeline isLightBackground={true} />
+                </CaseStudyCard>
+              </section>
+            )}
 
             {/* ML Functions Timeline - Moved Outside Discover */}
             {data.slug === 'ml-functions' && (
@@ -698,8 +705,8 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
               </section>
             )}
 
-            {/* D.E.S.I.G.N. Framework Matrix - surface-light — Hidden for RC (framework IS the sections) */}
-            {data.frameworkConnection && data.slug !== 'reportcaster' && (
+            {/* D.E.S.I.G.N. Framework Matrix */}
+            {data.frameworkConnection && (
               <section id="framework-connection" className="surface-light py-8 md:py-10">
                 <CaseStudyCard>
                   <FrameworkMatrix
@@ -1353,8 +1360,8 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
             })}
 
 
-            {/* Design System Showcase - Hidden for RC (locked content adds no public value), shown for others */}
-            {data.slug !== 'reportcaster' && (
+            {/* Design System Showcase */}
+            {data.slug && (
               <section className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
                 <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
                   <DesignSystemShowcase isLightBackground={true} caseStudySlug={data.slug} />
