@@ -148,33 +148,33 @@ export default function SystemLightbox({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
-                        className="relative z-20 flex items-center justify-between px-6 py-5 w-full pointer-events-none"
+                        className="relative z-20 flex items-center justify-between px-8 py-6 w-full pointer-events-none"
                     >
                         {/* Left: Title + Index */}
-                        <div className="flex items-center gap-3 font-mono text-[10px] tracking-widest uppercase">
+                        <div className="flex items-center gap-4 font-mono text-sm md:text-base tracking-widest uppercase">
                             <span className="text-slate-500">{"//"} {title}</span>
                             <span className="text-slate-600">{indexString}</span>
                         </div>
 
                         {/* Right: Controls */}
-                        <div className="flex items-center gap-6 text-slate-500 pointer-events-auto">
+                        <div className="flex items-center gap-5 md:gap-8 text-slate-500 pointer-events-auto">
                             {headerActions}
                             {onPlay && (
-                                <button onClick={onPlay} className="hover:text-white transition-colors" aria-label={isPlaying ? "Pause" : "Play"}>
-                                    {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+                                <button onClick={onPlay} className="hover:text-white transition-colors p-2" aria-label={isPlaying ? "Pause" : "Play"}>
+                                    {isPlaying ? <Pause size={28} fill="currentColor" /> : <Play size={28} fill="currentColor" />}
                                 </button>
                             )}
                             {onZoom && (
-                                <button onClick={onZoom} className="hover:text-white transition-colors" aria-label="Zoom">
-                                    <ZoomIn size={16} />
+                                <button onClick={onZoom} className="hover:text-white transition-colors p-2" aria-label="Zoom">
+                                    <ZoomIn size={28} />
                                 </button>
                             )}
                             <button
                                 onClick={onClose}
-                                className="hover:text-white transition-colors"
+                                className="hover:text-white transition-colors p-2"
                                 aria-label="Close"
                             >
-                                <X size={18} />
+                                <X size={32} />
                             </button>
                         </div>
                     </motion.div>
@@ -182,7 +182,7 @@ export default function SystemLightbox({
                     {/* 3. Main Content Area */}
                     <motion.div
                         ref={containerRef as React.RefObject<HTMLDivElement>}
-                        className={`relative z-10 flex-1 flex items-center justify-center p-4 md:p-8 w-full max-w-[1400px] mx-auto ${className}`}
+                        className={`relative z-10 flex-1 flex items-center justify-center p-4 md:p-8 w-full max-w-[1800px] mx-auto ${className}`}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
@@ -195,15 +195,15 @@ export default function SystemLightbox({
                             <>
                                 <button
                                     onClick={onPrev}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#0F172A] border border-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[#0F172A] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
                                 >
-                                    <ArrowLeft size={20} />
+                                    <ArrowLeft size={32} />
                                 </button>
                                 <button
                                     onClick={onNext}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#0F172A] border border-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[#0F172A] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
                                 >
-                                    <ArrowRight size={20} />
+                                    <ArrowRight size={32} />
                                 </button>
                             </>
                         )}
@@ -215,14 +215,14 @@ export default function SystemLightbox({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
-                        className="relative z-20 w-full py-6 flex items-center justify-center gap-8 pointer-events-none"
+                        className="relative z-20 w-full py-8 flex items-center justify-center gap-10 md:gap-12 pointer-events-none"
                     >
                         {shortcuts.map((shortcut, i) => (
                             <div key={i} className="flex items-center gap-3">
-                                <kbd className="hidden md:inline-flex h-6 px-1.5 items-center justify-center bg-[#1E293B] border border-slate-700/50 rounded-[4px] text-[10px] font-mono text-slate-400 min-w-[24px]">
+                                <kbd className="hidden md:inline-flex h-8 px-2.5 items-center justify-center bg-[#1E293B] border border-slate-700/50 rounded-md text-sm font-mono text-slate-400 min-w-[32px]">
                                     {shortcut.key}
                                 </kbd>
-                                <span className="font-mono text-[9px] tracking-[0.2em] text-slate-500 uppercase">
+                                <span className="font-mono text-xs tracking-[0.2em] text-slate-500 uppercase">
                                     {shortcut.label}
                                 </span>
                             </div>

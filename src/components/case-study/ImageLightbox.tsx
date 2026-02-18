@@ -186,8 +186,8 @@ export default function ImageLightbox({
       >
         <div
           className={`relative bg-slate-900 border border-slate-700/50 shadow-2xl transition-all duration-500 overflow-hidden ${isZoomed
-              ? 'w-screen h-screen max-w-none max-h-none border-0 rounded-none'
-              : 'max-w-[90vw] max-h-[80vh] rounded-lg'
+            ? 'w-screen h-screen max-w-none max-h-none border-0 rounded-none'
+            : 'w-full h-[85vh] max-w-[95vw] rounded-lg'
             }`}
         >
           {/* Loading Indicator */}
@@ -205,7 +205,7 @@ export default function ImageLightbox({
               controls
               autoPlay
               loop
-              className={`block max-w-full max-h-full object-contain ${isZoomed ? 'w-full h-full' : 'w-auto h-auto'
+              className={`block w-full h-full object-contain ${isZoomed ? '' : ''
                 }`}
               onLoadedData={() => setImageLoaded(true)}
             />
@@ -215,8 +215,8 @@ export default function ImageLightbox({
               alt={imageAlt}
               width={1920}
               height={1080}
-              className={`block max-w-full max-h-full object-contain transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'
-                } ${isZoomed ? 'w-full h-full' : 'w-auto h-auto'}`}
+              className={`block w-full h-full object-contain transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
               onLoad={() => setImageLoaded(true)}
               unoptimized
             />
@@ -232,7 +232,7 @@ export default function ImageLightbox({
             onClick={(e) => e.stopPropagation()}
           >
             {imageCaption && (
-              <p className="font-mono text-xs text-slate-400 leading-relaxed bg-black/50 px-3 py-1.5 rounded backdrop-blur-md border border-white/10 inline-block">
+              <p className="font-mono text-sm text-slate-400 leading-relaxed bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10 inline-block">
                 {imageCaption}
               </p>
             )}
