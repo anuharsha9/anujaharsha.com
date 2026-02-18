@@ -1,18 +1,17 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { motion, useMotionTemplate, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Lock } from 'lucide-react'
 import { WorkItem } from '@/data/career-data'
-import HeroTerminal from '@/components/case-study/HeroTerminal'
+import Image from 'next/image'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 
 // Full-bleed magazine-style card with shared layout transitions
 
 export function MotionWorkCard({ work, fillHeight = false, compact = false }: { work: WorkItem; fillHeight?: boolean; compact?: boolean }) {
     const ref = useRef<HTMLDivElement>(null)
-    const [hovered, setHovered] = useState(false)
     const isExternal = work.link === '#'
 
     // Scroll-linked Parallax Zoom (Apple/iPhone Style)
@@ -44,15 +43,13 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false }: { 
         mouseY.set(clientY - top)
     }
 
-    // Status Badge Logic
-    const isLive = work.statusLabel?.includes('Live') || work.statusLabel?.includes('Shipped')
+
 
     return (
         <Link
             href={work.link}
             className={`block group/work relative w-full ${fillHeight ? 'h-full' : ''} ${isExternal ? 'cursor-default pointer-events-none' : ''}`}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+
         >
             {/* 
               FULL-BLEED COVER CARD — Magazine Style
@@ -107,10 +104,11 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false }: { 
                             style={{ scale: imageScale, y: imageY, opacity: imageOpacity }}
                             className="w-full h-full"
                         >
-                            <img
+                            <Image
                                 src={work.image}
                                 alt={work.title}
-                                className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
+                                fill
+                                className="object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
                             />
                         </motion.div>
                     ) : null}

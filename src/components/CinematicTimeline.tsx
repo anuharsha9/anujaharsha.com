@@ -410,12 +410,12 @@ function TimelineSlide({
 
     // ── Dot opacities (pre-allocate 5 hooks — static count, no conditional) ──
     const milestones = era.milestones || []
-    const dot0 = useTransform(lineProgress, (v: number) => v > 0.12 ? 1 : 0.12)
-    const dot1 = useTransform(lineProgress, (v: number) => v > 0.30 ? 1 : 0.12)
-    const dot2 = useTransform(lineProgress, (v: number) => v > 0.50 ? 1 : 0.12)
-    const dot3 = useTransform(lineProgress, (v: number) => v > 0.70 ? 1 : 0.12)
-    const dot4 = useTransform(lineProgress, (v: number) => v > 0.85 ? 1 : 0.12)
-    const dotOpacities = [dot0, dot1, dot2, dot3, dot4]
+    const dot0 = useTransform(lineProgress, (v: number) => Number(v > 0.12 ? 1 : 0.12))
+    const dot1 = useTransform(lineProgress, (v: number) => Number(v > 0.30 ? 1 : 0.12))
+    const dot2 = useTransform(lineProgress, (v: number) => Number(v > 0.50 ? 1 : 0.12))
+    const dot3 = useTransform(lineProgress, (v: number) => Number(v > 0.70 ? 1 : 0.12))
+    const dot4 = useTransform(lineProgress, (v: number) => Number(v > 0.85 ? 1 : 0.12))
+    const dotOpacities: MotionValue<number>[] = [dot0, dot1, dot2, dot3, dot4]
 
     // ── Dot scales ──
     const ds0 = useTransform(lineProgress, [0, 0.10, 0.16, 0.24], [0.5, 0.5, 1.4, 1])
