@@ -45,8 +45,6 @@ import { CaseStudyCard } from './CaseStudyCard'
 // Dynamic imports for heavy components - loaded on demand with loading states
 // Note: Next.js requires options to be object literals, not variables
 // Static imports for better stability (no layout shift)
-import ImpactVisual from './ImpactVisual'
-import EmpathizeStrategyGrid from './EmpathizeStrategyGrid'
 import PersonaCards from './PersonaCards'
 import ProcessArtifactViewer from './ProcessArtifactViewer'
 import { reportCasterArtifacts } from '@/data/reportcaster-artifacts'
@@ -59,13 +57,11 @@ import VersionIteration from './VersionIteration'
 import ScheduleWorkflowComparison from './ScheduleWorkflowComparison'
 
 import SystemArchaeology from './SystemArchaeology'
-import RCDesignEvolution from './RCDesignEvolution'
 
 import ResearchApproach from './ResearchApproach'
 import TeamCollaboration from './TeamCollaboration'
 import CaseStudyReflection from './CaseStudyReflection'
 
-import PatternConnections from './PatternConnections'
 import ReadingProgress from './ReadingProgress'
 import MLChallengeBreakdown from './MLChallengeBreakdown'
 import MLKnowledgeGapSystem from './MLKnowledgeGapSystem'
@@ -100,17 +96,14 @@ import IQIdeaLab from './IQIdeaLab'
 import IQPatternConnections from './IQPatternConnections'
 import MarketAnalysis from './MarketAnalysis'
 
-import ScopeExpansionReveal from './ScopeExpansionReveal'
-import SubsystemConsolidation from './SubsystemConsolidation'
 import TribalKnowledgeNetwork from './TribalKnowledgeNetwork'
 import PlusMenuInsight from './PlusMenuInsight'
 import NaturalLanguageInsight from './NaturalLanguageInsight'
-import KnowledgeTransferSystem from './KnowledgeTransferSystem'
 
 // ExecutiveSummaryArc removed — merged into VersionIteration (section-04)
 import SystemConsolidationMap from './SystemConsolidationMap'
-import RecurrenceDesignDetail from './RecurrenceDesignDetail'
 import OwnershipScope from './OwnershipScope'
+
 
 
 interface CaseStudyLayoutProps {
