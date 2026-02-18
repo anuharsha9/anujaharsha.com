@@ -6,6 +6,7 @@ import ScrollGear from '@/components/ui/ScrollGear'
 import UnifiedTimelineLayout from '@/components/home/UnifiedTimelineLayout'
 import ChapterProgress from '@/components/home/ChapterProgress'
 import StoryModeWrapper from '@/components/home/StoryModeWrapper'
+import NeuralAwakening from '@/components/loading/NeuralAwakening'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -40,6 +41,7 @@ export default function Home() {
   return (
     <StoryModeWrapper>
       <div className="bg-[#020617] relative overflow-clip">
+        <NeuralAwakening />
         <ChapterProgress />
         <HeroSplit />
 

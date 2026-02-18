@@ -3,7 +3,7 @@
 import { ReactNode } from 'react'
 import { LayoutGroup } from 'framer-motion'
 import SiteHeader from './SiteHeader'
-import SiteFooter from './SiteFooter'
+
 import SkipToContent from '@/components/accessibility/SkipToContent'
 import ReadingProgress from '@/components/case-study/ReadingProgress'
 import BackToTop from '@/components/navigation/BackToTop'
@@ -35,7 +35,7 @@ export default function PageShell({ children }: PageShellProps) {
           </LayoutGroup>
         </PageTransition>
         <BackToTop />
-        <SiteFooter />
+
       </SmoothScrollProvider>
     </ErrorBoundary>
   )

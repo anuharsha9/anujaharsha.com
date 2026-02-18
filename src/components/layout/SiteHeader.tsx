@@ -80,14 +80,15 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 w-full ${t.bgAlt}/95 backdrop-blur-md border-b ${isLandingPage ? 'border-transparent' : t.border} transition-all duration-500 ${(isVisible && !isPresentationMode)
+      className={`fixed top-0 left-0 right-0 w-full backdrop-blur-xl transition-all duration-500 ${(isVisible && !isPresentationMode)
         ? 'opacity-100 translate-y-0 h-auto'
         : 'opacity-0 -translate-y-full pointer-events-none invisible h-0 overflow-hidden'
-        } ${hasShadow ? 'shadow-sm' : ''}`}
+        }`}
       style={{
         zIndex: 10000,
         isolation: 'isolate',
         position: 'fixed',
+        background: isLandingPage ? 'rgba(2, 6, 23, 0.6)' : `${t.bgAlt}e6`,
       }}
     >
       <nav className={`${spacing.containerFull} py-space-4 flex items-center justify-center relative min-h-[56px] sm:min-h-[60px]`}>
@@ -116,8 +117,8 @@ export default function SiteHeader() {
           <div className="hidden lg:flex items-center gap-space-6">
             {/* Work - with dropdown */}
             <CaseStudiesDropdown
-              className={`font-sans font-medium transition-colors ${isLandingPage
-                ? t.text
+              className={`font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors ${isLandingPage
+                ? 'text-white/60 hover:text-[var(--accent-teal)]'
                 : `${t.textMuted} hover:${t.text}`
                 }`}
             />
@@ -126,9 +127,9 @@ export default function SiteHeader() {
             <Magnetic>
               <Link
                 href="/me"
-                className={`block font-sans font-medium transition-colors relative px-2 py-1 ${isAboutPage
-                  ? t.text
-                  : `${t.textMuted} hover:${t.text}`
+                className={`block font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors relative px-2 py-1 ${isAboutPage
+                  ? 'text-[var(--accent-teal)]'
+                  : isLandingPage ? 'text-white/60 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`
                   }`}
               >
                 Me
@@ -147,7 +148,7 @@ export default function SiteHeader() {
           <Magnetic strength={0.4}>
             <Link
               href="/#lets-talk"
-              className="inline-flex items-center gap-space-2 px-space-4 py-space-2 rounded-full bg-[var(--accent-teal-800)] text-white text-sm font-medium transition-[background-color] duration-300 hover:bg-[var(--accent-teal-900)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)] shadow-sm"
+              className="inline-flex items-center gap-space-2 px-space-4 py-space-2 rounded-full bg-[var(--accent-teal)]/15 text-[var(--accent-teal)] font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 hover:bg-[var(--accent-teal)]/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]"
             >
               <span>Let&apos;s Talk</span>
             </Link>
@@ -160,7 +161,7 @@ export default function SiteHeader() {
                 trackResumeDownload()
                 openPdf('/assets/Anuja_Harsha_Resume.pdf', 'Anuja Harsha - Senior Product Designer')
               }}
-              className={`inline-flex items-center gap-space-1.5 px-space-4 py-space-2 rounded-full border ${t.borderSecondary} ${t.textMuted} text-sm font-medium transition-[background-color,border-color,color] duration-300 hover:border-slate-400 hover:${t.bgAccent} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]`}
+              className={`inline-flex items-center gap-space-1.5 px-space-4 py-space-2 rounded-full ${isLandingPage ? 'text-white/50 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`} font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]`}
               aria-label="View Resume PDF"
             >
               <span>Resume</span>

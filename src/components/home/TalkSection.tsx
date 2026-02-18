@@ -117,9 +117,9 @@ export default function TalkSection() {
             </a>
           </div>
 
-          {/* Copyright - Low contrast gray */}
-          <p className={`${t.textDim} text-sm font-mono`}>
-            Built with AI agents.
+          {/* Sign-off — absorbs footer role */}
+          <p className={`${t.textDim} text-[11px] font-mono tracking-wide opacity-40`} suppressHydrationWarning>
+            © {new Date().getFullYear()} Anuja Harsha · Designed + AI-Orchestrated
           </p>
 
           {/* Safe area for iPhone home indicator */}

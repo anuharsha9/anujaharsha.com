@@ -486,12 +486,13 @@ html {
 /* Main gears: fade in (opacity only) + rotate continuously */
 /* Simplified: All gears fade in with rotation (1.2s), then main gears rotate continuously, background gears stop */
 
-/* Main gears: start hidden, fade in via animation, then JS sets opacity:1 !important */
+/* Main gears: base styles. Opacity is managed by .brain-entry-container (quiz) and JS (post-quiz).
+   Using opacity:1 as base prevents flicker when brain-entry-container class is removed. */
 #brain-gears #main-gears>[id^="gear-"],
 #brain-gears-copy #main-gears>[id^="gear-"] {
   transform-origin: center;
   transform-box: fill-box;
-  opacity: 0;
+  opacity: 1;
   will-change: transform;
   backface-visibility: hidden;
   cursor: pointer;
@@ -1069,6 +1070,17 @@ section[data-framer-component],
   /* 3x slower (was 3s, now 9s) */
 }
 
+/* Loading screen gear spin for Lucide Cog icon */
+@keyframes gear-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Prevent layout shifts during animations - but be careful with contain */
 /* Only apply contain to specific cases to avoid conflicts */
 motion.section[data-visible="true"],
@@ -1246,15 +1258,16 @@ motion.div[data-visible="true"] {
     background-position: 200% center;
   }
 }
+
 /* ============================================
    ANIMATED GRID BACKGROUND
    ============================================ */
 
 /* Slow-moving grid pattern for timeline background */
 .animated-grid-bg {
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 80px 80px;
   background-position: 0 0, 0 0;
   animation: grid-flow 40s linear infinite;
@@ -1264,7 +1277,25 @@ motion.div[data-visible="true"] {
   0% {
     background-position: 0 0, 0 0;
   }
+
   100% {
     background-position: 80px 80px, 80px 80px;
+  }
+}
+
+/* NeuralAwakening — node circle fade-in */
+@keyframes neural-circle-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  60% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
   }
 }

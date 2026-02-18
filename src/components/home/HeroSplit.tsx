@@ -393,17 +393,27 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
     // Default: Show Hero immediately
     setQuizState('complete')
-    setIsAppReady(true)
 
     // Check session just to determine entrance animation
     const hasSession = localStorage.getItem(ENTRY_SESSION_KEY) === 'true'
     if (hasSession) {
       setShouldSkipEntrance(true)
-      setCinematicPhase('complete') // Skip cinematic for returning visitors
+      setCinematicPhase('complete')
+      setIsAppReady(true) // Returning visitors: show immediately
     } else {
-      // Start cinematic entrance — brain zooms out from massive to normal
-      setCinematicPhase('entrance')
-      setTimeout(() => setCinematicPhase('complete'), 3500) // Brain settles in ~3s, fully interactive after 3.5s
+      // First-time visitor: wait for LoadingScreen to finish before starting brain entrance
+      const handleAppReady = () => {
+        setIsAppReady(true)
+        setCinematicPhase('entrance')
+        setTimeout(() => {
+          setCinematicPhase('complete')
+          // Mark session so they don't see loading again
+          localStorage.setItem(ENTRY_SESSION_KEY, 'true')
+        }, 3500)
+      }
+
+      window.addEventListener('app-ready', handleAppReady, { once: true })
+      return () => window.removeEventListener('app-ready', handleAppReady)
     }
   }, [forceQuiz])
 
@@ -642,6 +652,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           const gear = mainGearsGroup.querySelector<SVGGElement>(`#${gearId}`)
           if (!gear) return
 
+          // CRITICAL: Set opacity immediately to prevent flicker when brain-entry-container is removed.
+          // Without this, gears flash from lit state (opacity 1) → CSS base (opacity 0) → animate back to 1
+          gear.style.setProperty('opacity', '1', 'important')
+
           const isClockwise = Math.random() > 0.5
           const baseRotationSpeed = 20 + Math.random() * 20
           const fastRotationSpeed = baseRotationSpeed
@@ -653,17 +667,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           gear.style.setProperty('--rotation-duration', `${slowRotationSpeed}s`)
           gear.style.setProperty('--rotation-amount', rotationAmountValue)
 
-          // Quiz complete: Now animate in
-          if (shouldSkipEntrance) {
-            gear.style.setProperty('animation', `gear-rotate-continuous ${slowRotationSpeed}s linear infinite`, 'important')
-            gear.style.setProperty('opacity', '1', 'important')
-          } else {
-            gear.style.setProperty('animation', `gear-fade-in-main ${fadeInDuration}s linear forwards, gear-rotate-continuous ${slowRotationSpeed}s linear infinite ${slowDownTime}s`, 'important')
-            // After fade-in completes, set opacity directly to prevent any hover state issues
-            setTimeout(() => {
-              gear.style.setProperty('opacity', '1', 'important')
-            }, (fadeInDuration + 0.2) * 1000)
-          }
+          // Quiz complete: Start rotation only (no fade-in — gears are already visible from quiz)
+          gear.style.setProperty('animation', `gear-rotate-continuous ${slowRotationSpeed}s linear infinite`, 'important')
 
           gear.style.transformOrigin = 'center'
           gear.style.transformBox = 'fill-box'
@@ -673,6 +678,9 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         const avgMainGearSpeed = 30
 
         bgGears.forEach((gear) => {
+          // CRITICAL: Set opacity immediately to prevent flicker (same as main gears)
+          gear.style.setProperty('opacity', '1', 'important')
+
           const isClockwise = Math.random() > 0.5
           const fastBgRotationSpeed = avgMainGearSpeed
           const slowBgRotationSpeed = avgMainGearSpeed * 6  // Slower rotation (half speed)
@@ -683,13 +691,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           gear.style.setProperty('--rotation-duration', `${slowBgRotationSpeed}s`)
           gear.style.setProperty('--rotation-amount', bgRotationAmountValue)
 
-          // Quiz complete: Now animate in
-          if (shouldSkipEntrance) {
-            gear.style.setProperty('animation', `gear-rotate-bg-slow ${slowBgRotationSpeed}s linear infinite`, 'important')
-            gear.style.setProperty('opacity', '1', 'important')
-          } else {
-            gear.style.setProperty('animation', `gear-fade-in-bg ${fadeInDuration}s linear forwards, gear-rotate-bg-slow ${slowBgRotationSpeed}s linear infinite ${slowDownTime}s`, 'important')
-          }
+          // Quiz complete: Start rotation only (no fade-in — already visible)
+          gear.style.setProperty('animation', `gear-rotate-bg-slow ${slowBgRotationSpeed}s linear infinite`, 'important')
         })
       }
 
@@ -1389,14 +1392,14 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                 initial={{ opacity: 0, y: 20 }}
                 animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-white/50 font-mono text-[10px] xs:text-[11px] sm:text-xs tracking-[0.08em] uppercase font-normal mb-0"
+                className="text-[var(--accent-teal)] font-mono text-[15px] xs:text-[17px] sm:text-[18px] tracking-[0.08em] uppercase font-normal mb-0"
               >
                 Senior Product Designer · 13+ Years · AI-Adept Prototyper · Enterprise UX
               </motion.div>
 
               {/* Main Headline — Display Weight, Premium, Oversized (20% larger per audit) */}
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-white leading-[1.02] tracking-[-0.035em] w-full max-w-6xl mx-auto font-sans !mt-space-3">
-                <span className="block mb-1 sm:mb-2">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-[750] text-white leading-[1.5] tracking-[-0.03em] w-full max-w-6xl mx-auto font-sans !mt-space-3">
+                <span className="inline mb-1 sm:mb-2">
                   {"I design so users never wonder".split('').map((char, i) => (
                     <motion.span
                       key={`h1-Line1-${i}`}
@@ -1494,12 +1497,12 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   }
                 }}
               >
-                <span className="text-white/50 group-hover:text-white/80 text-[11px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">See My Work</span>
+                <span className="text-white/50 group-hover:text-white/80 text-[13px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">See My Work</span>
                 <motion.div
                   animate={{ y: [0, 8, 0] }}
                   transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <svg className="w-5 h-5 text-white/40 group-hover:text-white/70 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-white/40 group-hover:text-white/70 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
                   </svg>
                 </motion.div>
@@ -1516,8 +1519,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   window.dispatchEvent(event)
                 }}
               >
-                <span className="text-white/40 group-hover:text-teal-400/80 text-[11px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">Guided Tour</span>
-                <svg className="w-4 h-4 text-white/30 group-hover:text-teal-400/60 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                <span className="text-white/40 group-hover:text-teal-400/80 text-[13px] font-mono uppercase tracking-[0.2em] transition-colors duration-300">Guided Tour</span>
+                <svg className="w-7 h-7 text-white/30 group-hover:text-teal-400/60 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </button>
