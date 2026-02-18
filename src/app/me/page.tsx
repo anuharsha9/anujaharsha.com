@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { createPortal } from 'react-dom'
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence, animate as fmAnimate } from 'framer-motion'
 import { articleLinks } from '@/data/home'
@@ -1156,10 +1157,14 @@ function ChaosCloud() {
               }}
             >
               <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
-                <img
+                <Image
                   src={photo.src}
                   alt={photo.alt}
-                  className="w-full h-auto block"
+                  width={0}
+                  height={0}
+                  sizes="340px"
+                  style={{ width: '100%', height: 'auto' }}
+                  className="block"
                   draggable={false}
                 />
                 {/* Label on hover */}
@@ -1191,10 +1196,12 @@ function ChaosCloud() {
                   : { duration: 3 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.8 }
                 }
               >
-                <img
+                <Image
                   src={photo.src}
                   alt={photo.alt}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="object-cover"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-3 py-2">
                   <span className="font-mono text-[9px] uppercase tracking-widest text-white/60">{photo.label}</span>

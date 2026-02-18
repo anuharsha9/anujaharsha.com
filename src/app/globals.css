@@ -515,16 +515,7 @@ html {
   contain: layout style paint;
 }
 
-/* Main gears hover glow effect - visible teal glow */
-@media (hover: hover) {
-
-  #brain-gears #main-gears>[id^="gear-"]:hover,
-  #brain-gears-copy #main-gears>[id^="gear-"]:hover,
-  #brain-gears #main-gears>.gear-main--active,
-  #brain-gears-copy #main-gears>.gear-main--active {
-    filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 24px rgba(7, 139, 156, 0.3));
-  }
-}
+/* Main gears hover glow effect removed */
 
 /* Main gears: fade in with rotation (2s) */
 @keyframes gear-fade-in-main {
@@ -620,10 +611,7 @@ html {
 }
 
 /* Dark theme gears - no filter needed, SVG is already white */
-.gears-dark-theme #brain-gears,
-.gears-dark-theme #brain-gears-copy {
-  /* SVG has native white colors - no transformation needed */
-}
+
 
 /* Force SVG to scale to container */
 .gears-dark-theme>svg {
@@ -632,14 +620,7 @@ html {
   display: block;
 }
 
-/* Glow effect for active/hovered main gears - visible teal glow on dark theme */
-@media (hover: hover) {
-
-  .gears-dark-theme #brain-gears #main-gears>.gear-main--active,
-  .gears-dark-theme #brain-gears-copy #main-gears>.gear-main--active {
-    filter: drop-shadow(0 0 14px rgba(7, 139, 156, 0.55)) drop-shadow(0 0 28px rgba(7, 139, 156, 0.35)) !important;
-  }
-}
+/* Glow effect removed for dark theme */
 
 /* Performance optimizations for rotating gears */
 #brain-gears #main-gears>[id^="gear-"],
@@ -672,17 +653,7 @@ html {
 
   #brain-gears #main-gears>[id^="gear-"]:hover,
   #brain-gears-copy #main-gears>[id^="gear-"]:hover {
-    filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 24px rgba(7, 139, 156, 0.3));
     cursor: pointer;
-  }
-}
-
-/* Teal glow on active gears - applied via JS class */
-@media (hover: hover) {
-
-  #brain-gears #main-gears>.gear-main--active,
-  #brain-gears-copy #main-gears>.gear-main--active {
-    filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 24px rgba(7, 139, 156, 0.3)) !important;
   }
 }
 
@@ -895,16 +866,14 @@ html {
 .brain-entry-container #brain-gears #main-gears>.gear-lit,
 .brain-entry-container #brain-gears-copy #main-gears>.gear-lit {
   opacity: 1 !important;
-  filter:
-    grayscale(0%) drop-shadow(0 0 16px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 32px rgba(7, 139, 156, 0.3)) !important;
+  filter: grayscale(0%) !important;
 }
 
 /* Lit gear state - background gears NOW MATCH main gears for unified progression */
 .brain-entry-container #brain-gears #gears-background .gear-lit,
 .brain-entry-container #brain-gears-copy #gears-background .gear-lit {
   opacity: 1 !important;
-  filter:
-    grayscale(0%) drop-shadow(0 0 16px rgba(7, 139, 156, 0.5)) drop-shadow(0 0 32px rgba(7, 139, 156, 0.3)) !important;
+  filter: grayscale(0%) !important;
 }
 
 /* Quiz complete state - remove brain-entry-container constraints */
@@ -1439,27 +1408,7 @@ motion.div[data-visible="true"] {
 
 .high-voltage-mask {
   position: relative;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  background-image:
-    radial-gradient(ellipse at 30% 50%, rgba(7, 139, 156, 0.3), transparent 60%),
-    radial-gradient(ellipse at 70% 50%, rgba(139, 92, 246, 0.2), transparent 60%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-  background-size: 200% 200%;
-  animation: voltage-bg-shift 6s ease-in-out infinite;
-}
-
-@keyframes voltage-bg-shift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
+  color: white;
 }
 
 /* Noise texture behind the text mask */

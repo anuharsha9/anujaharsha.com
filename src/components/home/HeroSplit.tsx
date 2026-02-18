@@ -1074,23 +1074,24 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
         {/* === NEURAL MAINFRAME: Colossal Background Typography === */}
         <div
-          className={`absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none overflow-hidden crt-breathe ${brainHovered ? 'glitch-active' : ''}`}
+          className={`absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none overflow-hidden ${brainHovered ? 'glitch-active' : ''}`}
           aria-hidden="true"
         >
           <div className="flex flex-col items-center gap-0 leading-none whitespace-nowrap">
             <span
-              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.04] tracking-[-0.04em] mix-blend-overlay"
+              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.01] tracking-[-0.04em] mix-blend-overlay"
               style={{ lineHeight: 0.85 }}
             >
               SYSTEM
             </span>
             <span
-              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.04] tracking-[-0.04em] mix-blend-overlay"
+              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.01] tracking-[-0.04em] mix-blend-overlay"
               style={{ lineHeight: 0.85 }}
             >
               ARCHITECT
             </span>
           </div>
+
         </div>
 
         {/* === BRAIN LAYER === */}

@@ -45,7 +45,7 @@ export default function SiteHeader() {
     return () => {
       window.removeEventListener('resize', updateVisibilityForViewport)
     }
-  }, [])
+  }, [isLandingPage])
 
   const [hasShadow, setHasShadow] = useState(false)
 

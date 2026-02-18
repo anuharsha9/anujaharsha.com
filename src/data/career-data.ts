@@ -230,15 +230,7 @@ export const CAREER_DATA: CareerEra[] = [
                 isPrimary: true,
                 linkedInProfile: "https://www.linkedin.com/in/davepfeiffer/"
             },
-            {
-                id: "vijay-raman",
-                name: "Vijay Raman",
-                role: "VP of Product Management",
-                company: "Cloud Software Group",
-                quote: "She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams. Any team would be lucky to have her.",
-                relationship: "Leadership",
-                linkedInProfile: "https://www.linkedin.com/in/vijayraman/"
-            },
+
             {
                 id: "marcus-horbach",
                 name: "Marcus Horbach, Ph.D.",

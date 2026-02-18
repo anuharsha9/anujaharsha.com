@@ -25,10 +25,12 @@ interface VersionIterationProps {
 
 export default function VersionIteration({ v1, v2, v3, isLightBackground = true }: VersionIterationProps) {
   // Guard: all three versions are required for the iteration timeline
-  if (!v1 || !v2 || !v3) return null
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string; caption?: string } | null>(null)
   const [lightboxImages, setLightboxImages] = useState<Array<{ src: string; alt: string; caption?: string }>>([])
   const [lightboxCurrentIndex, setLightboxCurrentIndex] = useState(0)
+
+  // Guard: all three versions are required for the iteration timeline
+  if (!v1 || !v2 || !v3) return null
 
   const imageBorderRadius = ''
   const imageShadow = 'shadow-md'

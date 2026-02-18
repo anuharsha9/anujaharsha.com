@@ -3,14 +3,16 @@
 import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 
+import { ChevronDown, BarChart2, RefreshCw, Search } from 'lucide-react'
+
 interface PlusMenuInsightProps {
     isLightBackground?: boolean
 }
 
 const existingWorkflows = [
-    { label: 'Create Visualization', icon: '📊' },
-    { label: 'Fetch Data', icon: '🔄' },
-    { label: 'Explore Data', icon: '🔍' },
+    { label: 'Create Visualization', icon: <BarChart2 className="w-4 h-4" /> },
+    { label: 'Fetch Data', icon: <RefreshCw className="w-4 h-4" /> },
+    { label: 'Explore Data', icon: <Search className="w-4 h-4" /> },
 ]
 
 const newWorkflows = [
@@ -85,9 +87,8 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                             <div className="w-px h-4 bg-gradient-to-b from-slate-300 to-emerald-400" />
                             <span className="text-[9px] font-mono text-emerald-600 uppercase tracking-wider">reframe</span>
                             <div className="w-px h-3 bg-emerald-400" />
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" />
-                            </svg>
+                            <div className="w-px h-3 bg-emerald-400" />
+                            <ChevronDown className="w-3 h-3 text-emerald-500" strokeWidth={3} />
                         </div>
                     </motion.div>
 
@@ -107,9 +108,8 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                             <div className="w-px h-4 bg-emerald-400" />
                             <span className="text-[9px] font-mono text-emerald-600 uppercase tracking-wider">observe the pattern</span>
                             <div className="w-px h-3 bg-emerald-400" />
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" />
-                            </svg>
+                            <div className="w-px h-3 bg-emerald-400" />
+                            <ChevronDown className="w-3 h-3 text-emerald-500" strokeWidth={3} />
                         </div>
                     </motion.div>
 
@@ -135,7 +135,7 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                                 <div className="space-y-2 mb-4">
                                     {existingWorkflows.map((wf) => (
                                         <div key={wf.label} className="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-md">
-                                            <span className="text-sm">{wf.icon}</span>
+                                            <span className="text-slate-500">{wf.icon}</span>
                                             <span className="text-sm text-slate-700">{wf.label}</span>
                                             <span className="ml-auto text-[10px] text-slate-400 font-mono">+ menu → action</span>
                                         </div>

@@ -352,41 +352,35 @@ This meant faster development and familiar patterns for engineering.`,
 
 The concept evolution was visible across four distinct iterations: I started with a data-heavy tabbed dashboard, moved to educational layouts ("What are Insights?"), then explored split interfaces with sidebar navigation, and finally landed on a clean modular approach with icon tiles. Each iteration brought clarity about what users actually needed at the entry point.
 
-The navigation bar was the biggest fight. I designed large tiles with custom icon glyphs for each workflow — Discover, Insights, Ask a Question, Predict Data — each with a descriptive subtitle and visual state changes (transparent at rest, primary-color-lite on hover/selected). The veteran architects wanted a traditional sidebar with a list view, like the WebFOCUS home page. My argument: list items are exactly what caused less than 5% adoption in the first place. Buried text links don't create discoverability. The large tiles gave each workflow visual identity, scannability, and immediate context — users could understand what each tool did before clicking.
+The navigation bar was the biggest fight. I designed large tiles with custom icon glyphs to give each workflow a clear visual identity.
 
-The "Get Started" panel went through multiple iterations before being reimagined as contextual empty states — ultimately a better solution because it met users where they already were. Every empty state became a teaching moment: instead of blank screens, illustrated states with suggested actions guided first-time users toward their first successful interaction.`,
+The veteran architects wanted a traditional list view. My argument: list items caused low adoption. Large tiles gave immediate context — users could understand what each tool did before clicking.
+
+The "Get Started" panel went through multiple iterations before being reimagined as contextual empty states — ultimately a better solution because it met users where they already were. Every empty state became a teaching moment.`,
     },
     {
       id: 'section-05',
       index: 'G',
       title: 'Grow Through Constraints: Earning Trust in a Room Full of Veterans',
       summary: 'Fought for every design element against 20-35 year veterans. Drove cross-functional alignment. Built the foundation strong enough to outlast my absence.',
-      body: `Every element was a battle. The Lead Architect of IQ Plugin had been at the company for over 20 years. The Lead Architect of WebFOCUS itself — over 35. They were cautious about new design elements, let alone an entire embedded Hub. It was a tug of war for everything: the navigation bar with large tiles, the "Get Started" panel, the unified entry point.
+      body: `Every element was a battle. The Lead Architect of IQ Plugin had been at the company for over 20 years. The Lead Architect of WebFOCUS itself — over 35. They were cautious about new design elements, let alone an entire embedded Hub.
 
 I defended each decision with industry examples, interaction logic, and visual prototypes. My Director of Design was fully in my corner — trusting me to make my own case.
 
-What surprised me was the cross-functional coordination this project demanded. IQ Plugin needed alignment from the Hub team, other PMs, and engineering teams that had never collaborated. I drove most of that alignment myself — creating meetings, nudging stakeholders, setting up sessions that nobody else was initiating.
+What surprised me was the cross-functional coordination this project demanded. IQ Plugin needed alignment from the Hub team, other PMs, and engineering teams that had never collaborated. I drove most of that alignment myself.
 
-There was a defining meeting for IQ Plugin and ML — I found myself across from the Director of Engineering, the Principal Data Scientist, the Head PM, the Lead Architect, and the Director of QA — discussing whether a data flow step belonged in the ML workflow. I was two years into the company. Everyone else had been there for decades. It hit me afterward: I wasn't just the designer in the room — I was driving the conversation.
+There was a defining meeting for IQ Plugin and ML — I found myself across from the Director of Engineering, the Principal Data Scientist, the Head PM, the Lead Architect, and the Director of QA. I was two years into the company. Everyone else had been there for decades. It hit me afterward: I wasn't just the designer in the room — I was driving the conversation.
 
-When I transitioned off the project, I made sure the foundation was solid: documentation, recorded walkthroughs, 1:1 knowledge transfers, and annotated design files. The architecture was strong enough to carry forward — but the engineers later told me they missed the rapport and the design partnership we'd built together.
+When I transitioned off the project, I made sure the foundation was solid: documentation, recorded walkthroughs, and annotated design files. The architecture was strong enough to carry forward — but the engineers later told me they missed the rapport and the design partnership we'd built together.
 
-**What I'd do differently:** I wanted to add proper tutorials and onboarding flows — never got full green light. I envisioned NLQ as a chat interface for WebFOCUS itself (step-by-step workflow guidance), and I wanted to connect ReportCaster and IQ (schedule generated insights automatically). These remain opportunities for the platform.`,
+**What I'd do differently:** I wanted to add proper tutorials and onboarding flows — never got full green light. I envisioned NLQ as a chat interface for WebFOCUS itself, and I wanted to connect ReportCaster and IQ. these remain opportunities.`,
     },
     {
       id: 'section-06',
       index: 'N',
       title: 'Navigate Forward: Adoption, Impact, and Future',
       summary: 'NLQ adoption +25%. Insights live. DSML Hub shipping 2027.',
-      body: `**What's live now (9.3.6):**
-• NLQ with +25% adoption increase
-• Insights with auto-generated visualizations
-
-**What's shipping:**
-• ML Functions redesign → 2026
-• Unified DSML Hub → 2027
-
-The +25% NLQ adoption increase came from making the feature discoverable — not from changing the feature itself. Visibility was the problem. Visibility was the solution.`,
+      body: `The +25% NLQ adoption increase came from making the feature discoverable — not from changing the feature itself. Visibility was the problem. Visibility was the solution.`,
     },
   ],
   // ----------------------------

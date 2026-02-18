@@ -5,6 +5,7 @@ import Image from 'next/image'
 import ImageLightbox from './ImageLightbox'
 import LockedContent from './LockedContent'
 import ImageComparisonSlider from '@/components/ui/ImageComparisonSlider'
+import { Info } from 'lucide-react'
 
 interface BeforeAfterComparisonProps {
   beforeImage: {
@@ -364,9 +365,7 @@ export default function BeforeAfterComparison({
       {comparisonNotes && (
         <div className={`${bgColor} p-4 md:p-5 border ${borderColor} border-l-4`} style={{ borderLeftColor: 'var(--accent-teal)' }}>
           <div className="flex items-start gap-3">
-            <svg aria-hidden="true" className="w-5 h-5 text-[var(--accent-teal)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <Info className="w-5 h-5 text-[var(--accent-teal)] flex-shrink-0 mt-0.5" />
             <div>
               <div className={`${mutedColor} text-xs font-mono uppercase tracking-wider mb-1`}>Key Differences</div>
               <p className={`${labelColor} text-sm md:text-base leading-relaxed`}>{comparisonNotes}</p>

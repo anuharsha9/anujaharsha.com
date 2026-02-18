@@ -106,12 +106,12 @@ import TribalKnowledgeNetwork from './TribalKnowledgeNetwork'
 import PlusMenuInsight from './PlusMenuInsight'
 import NaturalLanguageInsight from './NaturalLanguageInsight'
 import KnowledgeTransferSystem from './KnowledgeTransferSystem'
-import ShippedImpactSummary from './ShippedImpactSummary'
+
 // ExecutiveSummaryArc removed — merged into VersionIteration (section-04)
 import SystemConsolidationMap from './SystemConsolidationMap'
 import RecurrenceDesignDetail from './RecurrenceDesignDetail'
 import OwnershipScope from './OwnershipScope'
-import FANGTestimonials from './FANGTestimonials'
+
 
 interface CaseStudyLayoutProps {
   data: CaseStudyData
@@ -988,9 +988,6 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <TribalKnowledgeNetwork isLightBackground={true} />
                               </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <ResearchApproach data={researchApproachData['reportcaster']} accentColor="amber" />
-                              </div>
                             </>
                           )}
 
@@ -1217,12 +1214,11 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                           {/* RC Section 06: Testimonials + ShippedImpact + ImpactDiff + NavigateForward — PatternConnections removed (filler) */}
                           {section.id === 'section-06' && data.slug === 'reportcaster' && (
                             <>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <FANGTestimonials isLightBackground={true} />
-                              </div>
-                              <div className="mt-12 pt-12 border-t border-slate-100">
-                                <ShippedImpactSummary isLightBackground={true} />
-                              </div>
+
+
+
+
+
                               <div className="mt-12 pt-12 border-t border-slate-100">
                                 <div className="mb-8">
                                   <ComponentHeading

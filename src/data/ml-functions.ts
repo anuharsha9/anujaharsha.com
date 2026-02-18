@@ -363,9 +363,9 @@ The 4-step UX spine came from asking the right question: "What do you absolutely
       summary: '10+ iterations on the confusion matrix. Productive tension with Data Science → best screen in the project.',
       body: `Led cross-functional alignment across Product, Engineering, and Data Science. Weekly syncs. Shared Figma. Screen-by-screen design reviews.
 
-The confusion matrix screen alone went through 10+ iterations. The final design landed on a three-panel layout: a classification-metrics-per-threshold line chart (showing how Accuracy, Precision, Recall, and F1-score change as the threshold moves), the confusion matrix grid itself (showing both current and F1-optimal thresholds side by side), and a bar chart comparing current vs. optimal metrics. Above it all: a threshold slider ranging from 0.0 ("Favors recall") to 1.0 ("Favors precision") that lets users drag and watch every visualization update in real-time.
+The confusion matrix screen alone went through 10+ iterations. We moved from standard tables to a real-time, three-panel visualization that gives users immediate control.
 
-Our Principal Data Scientist pushed for advanced metrics and all the model comparison functionality; I pushed for clarity and visual hierarchy. That productive tension produced what he called "the best screen in the entire UX revamp." The "meeting in the middle" wasn't about one screen — it was the entire Predict Data experience: the landing page, the Train/Run tabs, the model cards, and then this multi-panel view that serves both data scientists (threshold control, AUC scores, all metrics) and business users (visual charts, clear explanations, side-by-side comparisons).
+Our Principal Data Scientist pushed for advanced metrics; I pushed for clarity. That productive tension produced a multi-panel view that serves both data scientists (threshold control, AUC scores) and business users (visual charts, side-by-side comparisons). He called it "the best screen in the entire UX revamp."
 
 **What I'd do differently:** Earlier, cleaner alignment with our Data Scientist. He surfaced insights late in the process that were harder to incorporate — some we did, but it cost us time.`,
       beforeAfter: {

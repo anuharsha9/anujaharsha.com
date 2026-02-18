@@ -35,9 +35,21 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-[#020617] relative overflow-clip">
+    <div className="bg-[#010204] relative overflow-clip">
       {/* Neural Mainframe — faint scanline overlay */}
       <div className="scanline-overlay" aria-hidden="true" />
+
+      {/* Global Cinematic Background — Fixed to viewport for continuity */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(7,139,156,0.08),transparent)]" />
+        <div
+          className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundSize: '128px 128px',
+          }}
+        />
+      </div>
 
 
 

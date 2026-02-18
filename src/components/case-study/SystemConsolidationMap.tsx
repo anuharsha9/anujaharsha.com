@@ -2,25 +2,26 @@
 
 import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import { Calendar, Mail, Lock, Folder, Settings, ArrowRight } from 'lucide-react'
 
 interface SystemConsolidationMapProps {
     isLightBackground?: boolean
 }
 
 const legacySubsystems = [
-    { id: 'scheduling', label: 'Scheduling', icon: '📅', pain: '4 clicks to create', entryPoint: 'Separate menu' },
-    { id: 'distribution', label: 'Distribution Lists', icon: '📧', pain: 'Hacked by users', entryPoint: 'Hidden submenu' },
-    { id: 'access', label: 'Access Lists', icon: '🔐', pain: 'Undocumented rules', entryPoint: 'Admin panel' },
-    { id: 'explorer', label: 'Explorer', icon: '📁', pain: '2 clicks + new tab', entryPoint: 'Separate view' },
-    { id: 'admin', label: 'Admin / Status', icon: '⚙️', pain: 'Separate browser tab', entryPoint: 'Legacy console' },
+    { id: 'scheduling', label: 'Scheduling', icon: Calendar, pain: '4 clicks to create', entryPoint: 'Separate menu' },
+    { id: 'distribution', label: 'Distribution Lists', icon: Mail, pain: 'Hacked by users', entryPoint: 'Hidden submenu' },
+    { id: 'access', label: 'Access Lists', icon: Lock, pain: 'Undocumented rules', entryPoint: 'Admin panel' },
+    { id: 'explorer', label: 'Explorer', icon: Folder, pain: '2 clicks + new tab', entryPoint: 'Separate view' },
+    { id: 'admin', label: 'Admin / Status', icon: Settings, pain: 'Separate browser tab', entryPoint: 'Legacy console' },
 ]
 
 const unifiedEntryPoints = [
-    { label: '+ Menu → Create Schedule', icon: '📅' },
-    { label: '+ Menu → Create Distribution List', icon: '📧' },
-    { label: '+ Menu → Create Access List', icon: '🔐' },
-    { label: 'Home → Filtered Explorer View', icon: '📁' },
-    { label: 'Management Center → RC Admin', icon: '⚙️' },
+    { label: '+ Menu → Create Schedule', icon: Calendar },
+    { label: '+ Menu → Create Distribution List', icon: Mail },
+    { label: '+ Menu → Create Access List', icon: Lock },
+    { label: 'Home → Filtered Explorer View', icon: Folder },
+    { label: 'Management Center → RC Admin', icon: Settings },
 ]
 
 const containerVariants = {
@@ -83,7 +84,9 @@ export default function SystemConsolidationMap({ isLightBackground = true }: Sys
                             variants={itemVariants}
                             className="flex items-center gap-3 p-3 rounded-lg bg-red-50/60 border border-red-100/80 border-dashed"
                         >
-                            <span className="text-lg shrink-0">{sub.icon}</span>
+                            <span className="text-red-400 shrink-0">
+                                <sub.icon className="w-5 h-5" strokeWidth={1.5} />
+                            </span>
                             <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-2">
                                     <span className="text-sm font-medium text-slate-800">{sub.label}</span>
@@ -125,7 +128,7 @@ export default function SystemConsolidationMap({ isLightBackground = true }: Sys
                     <div className="hidden lg:flex flex-col items-center gap-2">
                         <div className="w-px h-8 bg-gradient-to-b from-red-200 to-amber-200" />
                         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-200/50">
-                            <span className="text-white text-lg font-bold">→</span>
+                            <ArrowRight className="text-white w-6 h-6" strokeWidth={2.5} />
                         </div>
                         <div className="w-px h-8 bg-gradient-to-b from-amber-200 to-emerald-200" />
                     </div>
@@ -133,7 +136,7 @@ export default function SystemConsolidationMap({ isLightBackground = true }: Sys
                     <div className="flex lg:hidden items-center gap-2">
                         <div className="h-px w-8 bg-gradient-to-r from-red-200 to-amber-200" />
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-200/50">
-                            <span className="text-white text-base font-bold">↓</span>
+                            <ArrowRight className="text-white w-5 h-5 rotate-90" strokeWidth={2.5} />
                         </div>
                         <div className="h-px w-8 bg-gradient-to-r from-amber-200 to-emerald-200" />
                     </div>
@@ -154,7 +157,9 @@ export default function SystemConsolidationMap({ isLightBackground = true }: Sys
                         >
                             <div className="w-2 h-2 rounded-full bg-emerald-400 hidden sm:block" />
                             <div className="w-6 h-px bg-emerald-200 hidden sm:block" />
-                            <span className="text-lg shrink-0">{entry.icon}</span>
+                            <span className="text-emerald-600 shrink-0">
+                                <entry.icon className="w-5 h-5" strokeWidth={1.5} />
+                            </span>
                             <span className="text-sm font-medium text-slate-800">{entry.label}</span>
                         </motion.div>
                     ))}

@@ -4,57 +4,29 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import TerminalInsight from './TerminalInsight'
+import { ListOrdered, MousePointer2, Puzzle } from 'lucide-react'
 
 interface MLPatternConnectionsProps {
   isLightBackground?: boolean
 }
 
-// SVG Icons for pattern schematics
+// Icon components using Lucide
 const GuidedFlowIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Connecting line */}
-    <line x1="6" y1="24" x2="42" y2="24" />
-    {/* Step 1 - filled */}
-    <circle cx="6" cy="24" r="4" fill="currentColor" />
-    {/* Step 2 - filled */}
-    <circle cx="18" cy="24" r="4" fill="currentColor" />
-    {/* Step 3 - filled */}
-    <circle cx="30" cy="24" r="4" fill="currentColor" />
-    {/* Step 4 - outline (current) */}
-    <circle cx="42" cy="24" r="4" />
-    {/* Labels */}
-    <text x="6" y="36" fontSize="6" fill="currentColor" textAnchor="middle">1</text>
-    <text x="18" y="36" fontSize="6" fill="currentColor" textAnchor="middle">2</text>
-    <text x="30" y="36" fontSize="6" fill="currentColor" textAnchor="middle">3</text>
-    <text x="42" y="36" fontSize="6" fill="currentColor" textAnchor="middle">4</text>
-  </svg>
+  <div className="text-slate-400">
+    <ListOrdered className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 const ContextMenuIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Background window */}
-    <rect x="4" y="8" width="32" height="28" rx="2" />
-    {/* Context menu overlay */}
-    <rect x="16" y="16" width="28" height="24" rx="2" fill="currentColor" fillOpacity="0.1" />
-    {/* Menu items */}
-    <line x1="20" y1="22" x2="40" y2="22" strokeWidth="2" />
-    <line x1="20" y1="28" x2="36" y2="28" />
-    <line x1="20" y1="34" x2="38" y2="34" />
-  </svg>
+  <div className="text-slate-400">
+    <MousePointer2 className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 const PluginIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Browser extension icon shape */}
-    <rect x="8" y="8" width="32" height="32" rx="4" />
-    {/* Plugin connector */}
-    <rect x="16" y="4" width="16" height="8" rx="2" fill="currentColor" fillOpacity="0.1" />
-    {/* Grid inside */}
-    <rect x="14" y="18" width="8" height="8" rx="1" />
-    <rect x="26" y="18" width="8" height="8" rx="1" />
-    <rect x="14" y="28" width="8" height="8" rx="1" />
-    <rect x="26" y="28" width="8" height="8" rx="1" />
-  </svg>
+  <div className="text-slate-400">
+    <Puzzle className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 export default function MLPatternConnections({ isLightBackground = false }: MLPatternConnectionsProps) {

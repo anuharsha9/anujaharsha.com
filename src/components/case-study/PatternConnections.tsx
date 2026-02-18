@@ -4,59 +4,29 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import TerminalInsight from './TerminalInsight'
+import { AppWindow, ListOrdered, PanelLeft } from 'lucide-react'
 
 interface PatternConnectionsProps {
   isLightBackground?: boolean
 }
 
-// SVG Icons for pattern schematics
+// Icon components using Lucide
 const ModalFlowIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Outer rectangle (background) */}
-    <rect x="4" y="8" width="40" height="32" rx="2" />
-    {/* Inner modal rectangle (centered overlay) */}
-    <rect x="12" y="14" width="24" height="20" rx="2" fill="currentColor" fillOpacity="0.1" />
-    {/* Modal header line */}
-    <line x1="14" y1="18" x2="34" y2="18" strokeWidth="2" />
-    {/* Modal content lines */}
-    <line x1="14" y1="24" x2="30" y2="24" />
-    <line x1="14" y1="28" x2="26" y2="28" />
-  </svg>
+  <div className="text-slate-400">
+    <AppWindow className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 const StepperIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Connecting line */}
-    <line x1="8" y1="24" x2="40" y2="24" />
-    {/* Step 1 - filled */}
-    <circle cx="8" cy="24" r="5" fill="currentColor" />
-    {/* Step 2 - filled */}
-    <circle cx="24" cy="24" r="5" fill="currentColor" />
-    {/* Step 3 - outline */}
-    <circle cx="40" cy="24" r="5" />
-    {/* Step numbers as small circles with text simulated by position */}
-    <circle cx="8" cy="36" r="3" fill="currentColor" fillOpacity="0.3" />
-    <circle cx="24" cy="36" r="3" fill="currentColor" fillOpacity="0.3" />
-    <circle cx="40" cy="36" r="3" fill="currentColor" fillOpacity="0.3" />
-  </svg>
+  <div className="text-slate-400">
+    <ListOrdered className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 const FilterViewIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Main container */}
-    <rect x="4" y="8" width="40" height="32" rx="2" />
-    {/* Sidebar */}
-    <rect x="4" y="8" width="12" height="32" rx="2" fill="currentColor" fillOpacity="0.1" />
-    {/* Sidebar filter items */}
-    <line x1="7" y1="14" x2="13" y2="14" strokeWidth="2" />
-    <line x1="7" y1="20" x2="13" y2="20" />
-    <line x1="7" y1="26" x2="13" y2="26" />
-    {/* Content grid */}
-    <rect x="20" y="14" width="8" height="8" rx="1" />
-    <rect x="32" y="14" width="8" height="8" rx="1" />
-    <rect x="20" y="26" width="8" height="8" rx="1" />
-    <rect x="32" y="26" width="8" height="8" rx="1" />
-  </svg>
+  <div className="text-slate-400">
+    <PanelLeft className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 export default function PatternConnections({ isLightBackground = true }: PatternConnectionsProps) {

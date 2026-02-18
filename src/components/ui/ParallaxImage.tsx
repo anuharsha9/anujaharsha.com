@@ -15,6 +15,7 @@ export default function ParallaxImage({
     containerClassName,
     enableParallax = true,
     onClick,
+    alt,
     ...props
 }: ParallaxImageProps) {
     const ref = useRef<HTMLDivElement>(null)
@@ -74,6 +75,7 @@ export default function ParallaxImage({
                 style={enableParallax ? { scale: imageScale, y: imageY } : undefined}
             >
                 <Image
+                    alt={alt || ''}
                     {...props}
                     className={`transition-opacity duration-500 ${className || ''}`}
                 />

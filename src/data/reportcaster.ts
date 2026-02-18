@@ -456,22 +456,18 @@ Rejected: "Leadership wants all workflows centralized in the hub." Fair constrai
           {
             src: '/images/case-study/ReportCaster/RC - V1.3 - Independent version - Home.png',
             alt: 'RC Independent V1 - Home',
-            sensitive: true,
           },
           {
             src: '/images/case-study/ReportCaster/RC - V1.3 - Independent version - New Schedule.png',
             alt: 'RC Independent V1 - New Schedule',
-            sensitive: true,
           },
           {
             src: '/images/case-study/ReportCaster/RC - V1.3 - Independent version - Schedule Task.png',
             alt: 'RC Independent V1 - Schedule Task',
-            sensitive: true,
           },
           {
             src: '/images/case-study/ReportCaster/RC - V1.3 - Independent version - New Schedule Full screen.png',
             alt: 'RC Independent V1 - New Schedule Full screen',
-            sensitive: true,
           },
         ],
       },
@@ -485,22 +481,18 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
           {
             src: '/images/case-study/ReportCaster/RC Hub Integration V2.1 - Home - Create new schedule context menu.png',
             alt: 'RC Hub Integration V2.1 - Home',
-            sensitive: true,
           },
           {
             src: '/images/case-study/ReportCaster/RC Hub Integration V2.1 - Home - Create new schedule.png',
             alt: 'RC Hub Integration V2.1 - Create new schedule',
-            sensitive: true,
           },
           {
             src: '/images/case-study/ReportCaster/RC Hub Integration V2.1 - Admin (Status).png',
             alt: 'RC Hub Integration V2.1 - Admin',
-            sensitive: true,
           },
           {
             src: '/images/case-study/ReportCaster/RC Hub Integration V2.1 - Home - Create new schedule - New task.png',
             alt: 'RC Hub Integration V2.1 - New task',
-            sensitive: true,
           },
         ],
       },
@@ -521,12 +513,10 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
                 src: '/images/case-study/ReportCaster/Initiating ReportCaster from the HUB.png',
                 alt: 'Initiating ReportCaster from + menu',
                 fullWidth: true,
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/Schedule Dialog - Properties.png',
                 alt: 'Schedule Dialog - Properties',
-                sensitive: true,
               },
             ],
           },
@@ -538,27 +528,22 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
                 src: '/images/case-study/ReportCaster/New SD - Recurrence - Weekly.png',
                 alt: 'Recurrence - Weekly',
                 fullWidth: true,
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/New SD - Recurrence - Monthly - Days of the week.png',
                 alt: 'Recurrence - Monthly',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/New SD - Recurrence - Days.png',
                 alt: 'Recurrence - Daily',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/New SD - Recurrence - Validation Error.png',
                 alt: 'Recurrence - Validation Error',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/New SD - Recurrence - Once.png',
                 alt: 'Recurrence - One-time',
-                sensitive: true,
               },
             ],
           },
@@ -569,22 +554,18 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
               {
                 src: '/images/case-study/ReportCaster/Distribution List starting point.png',
                 alt: 'Distribution List - Start',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/Distribution List - Add new members.png',
                 alt: 'Distribution List - Add members',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/Distribution List - Edit Current List+Search built in.png',
                 alt: 'Distribution List - Edit',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/Distribution List - Populated List view.png',
                 alt: 'Distribution List - Populated',
-                sensitive: true,
               },
             ],
           },
@@ -595,22 +576,18 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
               {
                 src: '/images/case-study/ReportCaster/Access List starting point.png',
                 alt: 'Access List - Start',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/Access List - Add new members.png',
                 alt: 'Access List - Add new',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/Access List - Add existing members - populated.png',
                 alt: 'Access List - Add existing',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/Access List - Current List+context menu options.png',
                 alt: 'Access List - Current',
-                sensitive: true,
               },
             ],
           },
@@ -621,12 +598,10 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
               {
                 src: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
                 alt: 'ReportCaster Explorer',
-                sensitive: true,
               },
               {
                 src: '/images/case-study/ReportCaster/RC Explorer - filter view for different types of RC assets.png',
                 alt: 'RC Explorer - Filter view',
-                sensitive: true,
               },
             ],
           },
@@ -637,7 +612,6 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
               {
                 src: '/images/case-study/ReportCaster/ReportCaster Status (Admin).png',
                 alt: 'ReportCaster Admin',
-                sensitive: true,
               },
             ],
           },
@@ -668,23 +642,7 @@ I remained point of contact for about 6 months after exit — the other designer
       summary: 'Requested: a UI makeover. Delivered: foundational system architecture. RC made me the design leader I am today.',
       body: `The request was for a UI makeover — not even a redesign. I delivered a foundational system architecture. What started as "make it look better" became "document, unify, and future-proof a 40-year-old system."
 
-**What shipped (April 2024):**
-• 5 subsystems → 1 unified mental model
-• 4 → 2 clicks for schedule/list creation
-• 2 → 1 click for Explorer access
-• No more individual browser tabs for each schedule, list, status, or explorer
-• Everything smoothly integrated within the hub ecosystem
-• Designed for the future — room for additional features the PM went on to add after launch
-• Powering 20M+ weekly schedules, featured in public demos
-
-In a Virtual User Group session I hosted, a long-time customer praised the redesign directly and said he was excited for what was coming next. That moment mattered — because I had seen RC users hack their way around a broken UI for years, and now they finally had a system that worked with them, not against them.
-
-**What I'd do differently:**
-• Push harder for the embedded Explorer view — it would have expanded the filtered-view pattern to Designer, Reporting Server, everything. That's my biggest regret.
-• Document architectural decisions in real-time, not retrospectively
-• Build design system components as I go, not after
-
-This project was not just a redesign. It was a turning point. Through RC, I learned to think in platform patterns, redesign at architecture scale, interpret undocumented logic, and operate like a product owner when needed. RC made me the design leader I am today.`,
+In a Virtual User Group session I hosted, a long-time customer praised the redesign directly and said he was excited for what was coming next. That moment mattered — because I had seen RC users hack their way around a broken UI for years, and now they finally had a system that worked with them, not against them.`,
     },
   ],
   // ----------------------------
@@ -700,14 +658,13 @@ This project was not just a redesign. It was a turning point. Through RC, I lear
         title: 'Legacy RC Workflow',
         videoUrl: '/videos/rc-old-workflow.mp4', // 5 min video of old RC UI workflow
         videoPoster: '/images/case-study/ReportCaster/rc-old-workflow-poster.jpg',
-        description: 'The old fragmented workflow: multiple disconnected interfaces, 4 clicks to create a schedule, hidden functionality in legacy menus. Note: The legacy workflow video is under NDA and requires password access to view.',
-        sensitive: true,
+        description: 'The old fragmented workflow: multiple disconnected interfaces.',
       },
       after: {
         title: 'New Unified Workflow',
         videoUrl: '/videos/rc-prototype-walkthrough.mp4',
         videoPoster: '/images/case-study/ReportCaster/rc-prototype-poster.jpg',
-        description: 'The new unified workflow: modal-based creation, 2 clicks to create a schedule (+ menu → create schedule), all functionality accessible from one place. (Note: This is a Figma prototype and may not reflect all final shipped changes.)',
+        description: 'The new unified workflow: modal-based creation, 2 clicks to create a schedule, all functionality accessible from one place.',
         isPublic: true, // Public - new workflow is not sensitive
       },
       comparisonNotes: {

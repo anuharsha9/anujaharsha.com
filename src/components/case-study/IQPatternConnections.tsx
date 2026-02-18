@@ -4,53 +4,29 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import TerminalInsight from './TerminalInsight'
+import { Network, Database, MonitorSmartphone } from 'lucide-react'
 
 interface IQPatternConnectionsProps {
   isLightBackground?: boolean
 }
 
-// SVG Icons for pattern schematics
+// Icon components using Lucide
 const UnifiedHubIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Central hub */}
-    <circle cx="24" cy="24" r="8" fill="currentColor" fillOpacity="0.1" />
-    {/* Connecting spokes */}
-    <line x1="24" y1="16" x2="24" y2="6" />
-    <line x1="24" y1="32" x2="24" y2="42" />
-    <line x1="16" y1="24" x2="6" y2="24" />
-    <line x1="32" y1="24" x2="42" y2="24" />
-    {/* Outer nodes - NLQ, Insights, ML */}
-    <circle cx="24" cy="6" r="4" />
-    <circle cx="24" cy="42" r="4" />
-    <circle cx="6" cy="24" r="4" />
-    <circle cx="42" cy="24" r="4" fill="currentColor" fillOpacity="0.3" />
-  </svg>
+  <div className="text-slate-400">
+    <Network className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 const DatasetSelectionIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Database icon */}
-    <ellipse cx="24" cy="12" rx="16" ry="6" />
-    <path d="M8 12v12c0 3.3 7.2 6 16 6s16-2.7 16-6V12" />
-    <path d="M8 24v12c0 3.3 7.2 6 16 6s16-2.7 16-6V24" />
-    {/* Selection indicator */}
-    <circle cx="38" cy="36" r="6" fill="currentColor" fillOpacity="0.2" />
-    <path d="M35 36l2 2 4-4" strokeWidth="2" />
-  </svg>
+  <div className="text-slate-400">
+    <Database className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 const ResponsiveUIIcon = () => (
-  <svg aria-hidden="true" className="w-12 h-12 text-slate-400" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5">
-    {/* Desktop frame */}
-    <rect x="4" y="8" width="24" height="16" rx="2" />
-    <line x1="4" y1="20" x2="28" y2="20" />
-    {/* Tablet frame */}
-    <rect x="30" y="12" width="14" height="20" rx="2" />
-    <line x1="30" y1="28" x2="44" y2="28" />
-    {/* Mobile indicator */}
-    <rect x="16" y="30" width="8" height="14" rx="1" fill="currentColor" fillOpacity="0.1" />
-    <circle cx="20" cy="41" r="1.5" fill="currentColor" />
-  </svg>
+  <div className="text-slate-400">
+    <MonitorSmartphone className="w-12 h-12" strokeWidth={1.5} />
+  </div>
 )
 
 export default function IQPatternConnections({ isLightBackground = false }: IQPatternConnectionsProps) {

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import { CalendarPlus, FolderSearch, FileText, Settings, Check, Users, MessageSquare, Target } from 'lucide-react'
 
 interface ImpactVisualProps {
   isLightBackground?: boolean
@@ -30,45 +31,28 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
   const clickMetrics = [
     {
       task: 'Create Schedule',
-      icon: (
-        <svg aria-hidden="true" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-        </svg>
-      ),
+      icon: <CalendarPlus className="w-8 h-8" strokeWidth={1.5} />,
       reduction: '5→2',
       oldClicks: '5+',
       newClicks: '2'
     },
     {
       task: 'Access Explorer',
-      icon: (
-        <svg aria-hidden="true" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-        </svg>
-      ),
+      icon: <FolderSearch className="w-8 h-8" strokeWidth={1.5} />,
       reduction: '3→1',
       oldClicks: '3',
       newClicks: '1'
     },
     {
       task: 'View Job Log',
-      icon: (
-        <svg aria-hidden="true" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      ),
+      icon: <FileText className="w-8 h-8" strokeWidth={1.5} />,
       reduction: 'In-context',
       oldClicks: 'New tab',
       newClicks: 'Modal'
     },
     {
       task: 'Access Admin',
-      icon: (
-        <svg aria-hidden="true" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
+      icon: <Settings className="w-8 h-8" strokeWidth={1.5} />,
       reduction: '3→2',
       oldClicks: '3',
       newClicks: '2'
@@ -78,19 +62,19 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
   // Validation sources
   const validations = [
     {
-      icon: '👥',
+      icon: <Users className="w-5 h-5" />,
       title: 'Internal Feedback',
       quote: 'Engineers and PMs who had never understood RC could now explain it to others.',
       source: 'Engineering Team'
     },
     {
-      icon: '💬',
+      icon: <MessageSquare className="w-5 h-5" />,
       title: 'Customer Feedback',
       quote: 'Long-time enterprise customer praised the redesign and said he was excited for what was coming next.',
       source: 'Enterprise Customer'
     },
     {
-      icon: '🎯',
+      icon: <Target className="w-5 h-5" />,
       title: 'Support Team',
       quote: 'Fewer "how do I..." questions and more "can I do..." questions — a shift from confusion to capability.',
       source: 'Support Analytics'
@@ -259,9 +243,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
             >
               <div className="flex items-center gap-2">
                 <span className="font-mono text-xs uppercase tracking-widest text-teal-600 bg-teal-50 px-2 py-1 rounded flex items-center gap-2">
-                  <svg aria-hidden="true" className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <Check className="w-3 h-3" />
                   UNIFIED
                 </span>
               </div>

@@ -4,6 +4,7 @@ import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 import TerminalInsight from './TerminalInsight'
+import { ArrowRight } from 'lucide-react'
 
 interface TeamOnboardingProcessProps {
   isLightBackground?: boolean
@@ -35,9 +36,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
   // Arrow component for process flow
   const ProcessArrow = () => (
     <div className="hidden md:flex items-center justify-center">
-      <svg aria-hidden="true" className="w-8 h-8 text-[var(--border-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-      </svg>
+      <ArrowRight className="w-8 h-8 text-[var(--border-secondary)]" strokeWidth={1.5} />
     </div>
   )
 

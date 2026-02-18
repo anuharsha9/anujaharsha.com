@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import { Lock, User, FileText, Map, BarChart3, CheckCircle2, ArrowDown, Ban, Target, Search, Users, Cpu } from 'lucide-react'
 
 interface TribalKnowledgeNetworkProps {
     isLightBackground?: boolean
@@ -13,7 +14,7 @@ const sources = [
         name: 'Chris Kaplan',
         role: 'Gold Support Lead',
         initials: 'CK',
-        color: '#f59e0b',
+        color: 'amber',
         insights: [
             'Which issues take longest to resolve',
             'What users hack around daily',
@@ -26,7 +27,7 @@ const sources = [
         name: 'Yingchun Chen',
         role: 'Original RC Engineer',
         initials: 'YC',
-        color: '#0ea5e9',
+        color: 'blue',
         insights: [
             'Decades of undocumented logic',
             'Why legacy decisions were made',
@@ -37,10 +38,10 @@ const sources = [
 ]
 
 const artifacts = [
-    { label: 'Hundreds of screenshots', icon: '📸' },
-    { label: 'Mind maps & IA diagrams', icon: '🗺️' },
-    { label: 'Pain point analyses', icon: '📊' },
-    { label: 'Validated with support reps', icon: '✓' },
+    { label: 'Hundreds of screenshots', icon: FileText },
+    { label: 'Mind maps & IA diagrams', icon: Map },
+    { label: 'Pain point analyses', icon: BarChart3 },
+    { label: 'Validated with support reps', icon: CheckCircle2 },
 ]
 
 const revelation = {
@@ -65,24 +66,23 @@ const containerVariants = {
 }
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: 0.5, ease: "easeOut" },
     },
 }
 
 export default function TribalKnowledgeNetwork({ isLightBackground = true }: TribalKnowledgeNetworkProps) {
     return (
         <div className="w-full py-12 md:py-16">
-            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6">
                 <ComponentHeading
                     variant="block"
-                    tag="// RESEARCH_NETWORK"
-                    title="Building the Knowledge Map"
-                    description="No user access. No documentation. I built my own intelligence network."
+                    tag="RESEARCH_STRATEGY"
+                    title="Navigating Enterprise Research Constraints"
+                    description="How I reconstructed an undocumented 50-year-old system when direct user research wasn't possible."
                     color="teal"
                     align="center"
                     className="mb-14"
@@ -93,105 +93,126 @@ export default function TribalKnowledgeNetwork({ isLightBackground = true }: Tri
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.1 }}
-                    className="space-y-6"
+                    className="space-y-8"
                 >
-                    {/* The Constraint Banner */}
-                    <motion.div variants={itemVariants}>
-                        <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                                <svg className="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                </svg>
+                    {/* Constraints & Strategy Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                        {/* Constraint Block */}
+                        <motion.div variants={itemVariants} className="h-full">
+                            <div className="bg-rose-50/50 border border-rose-100 rounded-2xl p-6 md:p-8 h-full flex flex-col items-center md:items-start text-center md:text-left hover:border-rose-200 transition-colors">
+                                <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 mb-4 flex-shrink-0">
+                                    <Ban className="w-5 h-5" strokeWidth={2} />
+                                </div>
+                                <span className="font-mono text-[10px] text-rose-600 uppercase tracking-widest block mb-2">
+                                    CONSTRAINT: NO_DIRECT_USER_ACCESS
+                                </span>
+                                <p className="text-slate-700 text-sm leading-relaxed font-light">
+                                    Enterprise security policy blocked direct access to end users. No interviews, no usability tests, no direct feedback loops.
+                                </p>
                             </div>
-                            <div className="flex-1">
-                                <div className="text-[10px] font-mono text-red-500 uppercase tracking-wider">Access Blocked</div>
-                                <p className="text-sm text-red-800">Enterprise security policies blocked direct access to end users. No interviews. No usability tests. No direct feedback.</p>
+                        </motion.div>
+
+                        {/* Strategy Block */}
+                        <motion.div variants={itemVariants} className="h-full">
+                            <div className="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-6 md:p-8 h-full flex flex-col items-center md:items-start text-center md:text-left hover:border-emerald-200 transition-colors">
+                                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mb-4 flex-shrink-0">
+                                    <Target className="w-5 h-5" strokeWidth={2} />
+                                </div>
+                                <span className="font-mono text-[10px] text-emerald-600 uppercase tracking-widest block mb-2">
+                                    STRATEGY: THE_PROXY_NETWORK
+                                </span>
+                                <p className="text-slate-700 text-sm leading-relaxed font-light">
+                                    Leveraged Support Agents and Customer Reps as high-fidelity proxies for user pain points. Built ecosystem understanding through indirect channels.
+                                </p>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
 
                     {/* Connector */}
-                    <motion.div variants={itemVariants} className="flex justify-center">
-                        <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-px h-6 bg-gradient-to-b from-red-300 to-amber-400" />
-                            <span className="text-[9px] font-mono text-amber-500 uppercase tracking-wider">so I built my own network</span>
-                            <div className="w-px h-3 bg-amber-400" />
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" />
-                            </svg>
+                    <motion.div variants={itemVariants} className="flex justify-center py-2">
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="w-px h-8 bg-slate-200" />
+                            <span className="bg-slate-100 px-3 py-1 text-[9px] font-mono text-slate-500 uppercase tracking-widest rounded-full border border-slate-200">
+                                SO I BUILT MY OWN NETWORK
+                            </span>
+                            <div className="w-px h-8 bg-slate-200" />
+                            <ArrowDown className="w-4 h-4 text-slate-300" />
                         </div>
                     </motion.div>
 
-                    {/* Knowledge Sources */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {sources.map((source) => (
-                            <motion.div key={source.id} variants={itemVariants}>
-                                <motion.div
-                                    className="rounded-xl border overflow-hidden h-full"
-                                    style={{ borderColor: `${source.color}30` }}
-                                    whileHover={{ y: -2, boxShadow: `0 8px 24px ${source.color}15` }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    {/* Source Header */}
-                                    <div
-                                        className="px-4 py-3 flex items-center gap-3 border-b"
-                                        style={{ borderColor: `${source.color}20`, backgroundColor: `${source.color}08` }}
-                                    >
-                                        <div
-                                            className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-xs"
-                                            style={{ backgroundColor: source.color }}
-                                        >
-                                            {source.initials}
-                                        </div>
-                                        <div>
-                                            <div className="text-sm font-semibold text-slate-900">{source.name}</div>
-                                            <div className="text-[11px] text-slate-500">{source.role}</div>
-                                        </div>
-                                    </div>
+                    {/* Knowledge Sources - Premium Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {sources.map((source) => {
+                            const isAmber = source.color === 'amber';
+                            // Dynamic classes for styling
+                            const bgClass = isAmber ? 'bg-amber-50' : 'bg-blue-50';
+                            const textClass = isAmber ? 'text-amber-600' : 'text-blue-600';
+                            const borderHoverClass = isAmber ? 'group-hover:border-amber-200' : 'group-hover:border-blue-200';
+                            const bulletClass = isAmber ? 'bg-amber-400' : 'bg-blue-400';
 
-                                    {/* Insights */}
-                                    <div className="p-4 bg-white space-y-2">
-                                        <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-2">
-                                            What they revealed
-                                        </div>
-                                        {source.insights.map((insight) => (
-                                            <div key={insight} className="flex items-start gap-2">
-                                                <span className="text-[10px] mt-0.5" style={{ color: source.color }}>→</span>
-                                                <span className="text-xs text-slate-600 leading-relaxed">{insight}</span>
+                            return (
+                                <motion.div key={source.id} variants={itemVariants}>
+                                    <div className={`bg-white border border-slate-200 p-8 h-full rounded-2xl hover:shadow-xl ${borderHoverClass} transition-all duration-300 group`}>
+                                        {/* Header */}
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className={`w-12 h-12 rounded-full ${bgClass} flex items-center justify-center ${textClass} group-hover:scale-110 transition-transform duration-300`}>
+                                                <User className="w-6 h-6" strokeWidth={1.5} />
                                             </div>
-                                        ))}
-                                        <div className="pt-2 mt-2 border-t border-slate-100">
-                                            <span className="text-[10px] font-mono" style={{ color: source.color }}>
-                                                {source.method}
+                                            <div>
+                                                <h4 className="text-slate-900 font-bold text-lg">{source.name}</h4>
+                                                <p className="text-slate-500 text-xs uppercase tracking-wider font-medium">{source.role}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Insights */}
+                                        <div className="space-y-3">
+                                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">
+                                                {'// REVEALED_INSIGHTS'}
+                                            </span>
+                                            {source.insights.map((insight, idx) => (
+                                                <div key={idx} className="flex items-start gap-3">
+                                                    <div className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${bulletClass}`} />
+                                                    <span className="text-sm text-slate-600 leading-relaxed font-light">
+                                                        {insight}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <div className="mt-6 pt-6 border-t border-slate-100">
+                                            <span className={`text-xs font-medium cursor-default ${textClass}`}>
+                                                Method: {source.method}
                                             </span>
                                         </div>
                                     </div>
                                 </motion.div>
-                            </motion.div>
-                        ))}
+                            )
+                        })}
                     </div>
 
                     {/* Connector */}
-                    <motion.div variants={itemVariants} className="flex justify-center">
-                        <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-px h-4 bg-gradient-to-b from-amber-300 to-slate-400" />
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="#94a3b8" strokeWidth="1.5" strokeLinecap="round" />
-                            </svg>
+                    <motion.div variants={itemVariants} className="flex justify-center py-2">
+                        <div className="flex flex-col items-center gap-0">
+                            <div className="w-px h-8 bg-slate-200" />
+                            <ArrowDown className="w-5 h-5 text-slate-300 animate-bounce mt-1" />
                         </div>
                     </motion.div>
 
                     {/* Research Artifacts Row */}
                     <motion.div variants={itemVariants}>
-                        <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-                            <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-3">
-                                Research artifacts produced
-                            </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 hover:border-slate-300 transition-colors duration-300">
+                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-6 text-center">
+                                {'// RESEARCH_ARTIFACTS_PRODUCED'}
+                            </span>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                 {artifacts.map((artifact) => (
-                                    <div key={artifact.label} className="flex items-center gap-2 text-xs text-slate-600">
-                                        <span className="text-base">{artifact.icon}</span>
-                                        <span>{artifact.label}</span>
+                                    <div key={artifact.label} className="flex flex-col items-center text-center gap-3 p-2 group hover:-translate-y-1 transition-transform duration-300">
+                                        <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-teal-600 group-hover:border-teal-200 transition-all shadow-sm group-hover:shadow-md">
+                                            <artifact.icon className="w-6 h-6" strokeWidth={1.5} />
+                                        </div>
+                                        <span className="text-xs text-slate-600 group-hover:text-slate-900 transition-colors font-medium max-w-[120px] leading-tight">
+                                            {artifact.label}
+                                        </span>
                                     </div>
                                 ))}
                             </div>
@@ -199,43 +220,42 @@ export default function TribalKnowledgeNetwork({ isLightBackground = true }: Tri
                     </motion.div>
 
                     {/* Connector */}
-                    <motion.div variants={itemVariants} className="flex justify-center">
-                        <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-px h-4 bg-gradient-to-b from-slate-300 to-emerald-400" />
-                            <span className="text-[9px] font-mono text-emerald-500 uppercase tracking-wider">revealed the truth</span>
-                            <div className="w-px h-3 bg-emerald-400" />
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" />
-                            </svg>
+                    <motion.div variants={itemVariants} className="flex justify-center py-2">
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="w-px h-8 bg-slate-200" />
+                            <span className="bg-emerald-50 px-3 py-1 text-[9px] font-mono text-emerald-600 uppercase tracking-widest rounded-full border border-emerald-100">
+                                REVEALED THE TRUTH
+                            </span>
+                            <div className="w-px h-8 bg-slate-200" />
+                            <ArrowDown className="w-4 h-4 text-emerald-400" />
                         </div>
                     </motion.div>
 
-                    {/* The Revelation */}
+                    {/* The Revelation - Terminal Style */}
                     <motion.div variants={itemVariants}>
-                        <div className="bg-slate-900 rounded-xl p-5 md:p-6 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/8 via-transparent to-teal-500/8 pointer-events-none" />
-                            <div className="relative z-10">
-                                <div className="text-[10px] font-mono text-emerald-500 uppercase tracking-wider mb-3">
+                        <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-8 md:p-10 relative overflow-hidden group hover:border-emerald-500/30 transition-colors duration-500 shadow-2xl">
+                            {/* Glow Effect */}
+                            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors duration-500 pointer-events-none" />
+
+                            <div className="relative z-10 text-center md:text-left">
+                                <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest block mb-4">
                                     {revelation.label}
-                                </div>
-                                <p className="text-lg md:text-xl font-bold text-white mb-1">
+                                </span>
+                                <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 leading-tight tracking-tight">
                                     {revelation.title}
-                                </p>
-                                <p className="text-sm text-emerald-400 mb-5 font-medium">
+                                </h3>
+                                <p className="text-base md:text-lg text-emerald-400/80 mb-8 font-light border-b border-white/10 pb-8">
                                     {revelation.subtitle}
                                 </p>
 
-                                {/* Stats */}
-                                <div className="flex gap-6">
+                                {/* Stats Grid */}
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                     {revelation.stats.map((stat, i) => (
-                                        <div key={stat.label}>
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-2xl font-bold text-teal-400">{stat.value}</span>
-                                                {i < revelation.stats.length - 1 && (
-                                                    <span className="hidden" />
-                                                )}
+                                        <div key={stat.label} className="group/stat">
+                                            <div className="text-3xl md:text-5xl font-bold text-white mb-2 group-hover/stat:text-emerald-400 transition-colors tracking-tighter">
+                                                {stat.value}
                                             </div>
-                                            <div className="text-[9px] text-slate-500 uppercase tracking-wider mt-0.5">
+                                            <div className="text-[10px] text-slate-500 uppercase tracking-wider font-mono">
                                                 {stat.label}
                                             </div>
                                         </div>
