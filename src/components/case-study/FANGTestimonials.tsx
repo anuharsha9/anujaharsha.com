@@ -56,7 +56,7 @@ export default function FANGTestimonials({ isLightBackground = true }: FANGTesti
                         <div className="relative rounded-xl bg-white border border-slate-200/80 p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow duration-300">
                             {/* Decorative Quote Mark */}
                             <div className="absolute -top-3 left-6">
-                                <span className="text-5xl font-serif text-amber-300/80 leading-none select-none">&ldquo;</span>
+                                <span className="text-5xl font-sans text-amber-300/80 leading-none select-none">&ldquo;</span>
                             </div>
 
                             {/* Context badge */}

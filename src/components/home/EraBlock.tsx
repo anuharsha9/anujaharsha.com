@@ -4,7 +4,7 @@ import React from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Lock, Quote, Linkedin } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Lock, Quote, Linkedin } from 'lucide-react'
 import { CareerEra, Testimonial, WorkItem } from '@/data/career-data'
 import { getTheme, spacing } from '@/lib/design-system'
 import HeroTerminal from '@/components/case-study/HeroTerminal'
@@ -37,7 +37,7 @@ const LegacyTestimonialCard = ({ review }: { review: Testimonial }) => {
 
             {/* Pull Quote / Headline */}
             <div className="relative z-10 mb-6">
-                <h3 className="font-serif text-white text-lg leading-relaxed mb-3">
+                <h3 className="font-sans font-bold text-white text-lg leading-relaxed mb-3">
                     &ldquo;{headline}&rdquo;
                 </h3>
                 {body && (
@@ -119,7 +119,7 @@ const ArchiveWorkCard = ({ work, onOpenLightbox }: { work: WorkItem; onOpenLight
 
             {/* Title + Tags at bottom */}
             <div className="absolute bottom-0 left-0 right-0 p-5">
-                <p className="text-white font-serif text-lg leading-tight mb-2">
+                <p className="text-white font-sans font-bold text-lg leading-tight mb-2">
                     {work.title}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -345,7 +345,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                                         <div className="bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group/quote">
                                                             <Quote className="absolute top-8 right-8 w-12 h-12 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
                                                             <blockquote className="relative z-10">
-                                                                <p className="font-serif text-2xl md:text-3xl text-slate-200 leading-relaxed mb-6">
+                                                                <p className="font-sans text-2xl md:text-3xl text-slate-200 leading-relaxed mb-6">
                                                                     &ldquo;{review.quote}&rdquo;
                                                                 </p>
                                                                 <cite className="not-italic flex items-center gap-4">
@@ -448,7 +448,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                         <div className="bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group/quote">
                                             <Quote className="absolute top-8 right-8 w-12 h-12 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
                                             <blockquote className="relative z-10">
-                                                <p className="font-serif text-2xl md:text-3xl text-slate-200 leading-relaxed mb-6">
+                                                <p className="font-sans text-2xl md:text-3xl text-slate-200 leading-relaxed mb-6">
                                                     &ldquo;{era.testimonials[0].quote}&rdquo;
                                                 </p>
                                                 <cite className="not-italic flex items-center gap-4">
@@ -527,20 +527,25 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
 
             </motion.div>
 
-            {/* CSG Era: Articles (Horizontal Layout below everything - FULL WIDTH) */}
+            {/* CSG Era: Articles — Compact inline links (de-emphasized vs case studies) */}
             {era.articles && era.articles.length > 0 && (
-                <div className="mt-20 pt-12 border-t border-dashed border-white/5 w-full relative z-10">
-                    <span className="text-slate-400 text-[10px] uppercase tracking-widest font-mono mb-8 block pl-1">Selected Writing</span>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12">
+                <div className="mt-16 pt-8 border-t border-dashed border-white/5 w-full relative z-10">
+                    <span className="text-slate-500 text-[10px] uppercase tracking-widest font-mono mb-6 block pl-1">Selected Writing</span>
+                    <div className="flex flex-wrap gap-4">
                         {era.articles.map((article) => (
-                            <Link key={article.id} href={article.link} target="_blank" className="group/article flex md:block lg:flex gap-6 items-start">
-                                <div className="w-32 md:w-full lg:w-48 aspect-video relative rounded-lg overflow-hidden shrink-0 border border-white/5">
-                                    <Image src={article.image} alt={article.title} fill className="object-cover transform transition-transform duration-500 group-hover/article:scale-105" />
+                            <Link
+                                key={article.id}
+                                href={article.link}
+                                target="_blank"
+                                className="group/article flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.04] transition-all duration-300"
+                            >
+                                <div className="w-10 h-10 relative rounded-lg overflow-hidden shrink-0 border border-white/5">
+                                    <Image src={article.image} alt={article.title} fill className="object-cover" />
                                 </div>
-                                <div>
-                                    <h5 className="text-white font-serif text-xl leading-tight group-hover/article:text-[var(--accent-teal)] transition-colors mb-2 mt-1">{article.title}</h5>
-                                    <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 md:line-clamp-3">{article.description}</p>
-                                </div>
+                                <span className="text-white/70 text-sm font-sans font-medium group-hover/article:text-[var(--accent-teal)] transition-colors">
+                                    {article.title}
+                                </span>
+                                <ArrowUpRight className="w-3.5 h-3.5 text-white/30 group-hover/article:text-white/60 transition-colors shrink-0" />
                             </Link>
                         ))}
                     </div>
@@ -643,7 +648,7 @@ export default function EraBlock({ era, index, isLast }: EraBlockProps) {
                                             <span className="font-mono text-slate-400 text-[10px] uppercase tracking-wider block mb-1 opacity-80">
                                                 {milestone.year}
                                             </span>
-                                            <h4 className="text-white font-serif text-lg leading-tight mb-1 group-hover/timeline:text-white transition-colors">
+                                            <h4 className="text-white font-sans font-bold text-lg leading-tight mb-1 group-hover/timeline:text-white transition-colors">
                                                 {milestone.title}
                                             </h4>
                                             {milestone.subtitle && (

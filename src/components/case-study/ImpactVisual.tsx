@@ -294,7 +294,7 @@ export default function ImpactVisual({ isLightBackground = true }: ImpactVisualP
             <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
               {'// VALIDATION_SOURCES'}
             </span>
-            <h4 className="text-slate-900 text-xl font-serif">
+            <h4 className="text-slate-900 text-xl font-sans">
               Feedback Confirms Impact
             </h4>
           </motion.div>

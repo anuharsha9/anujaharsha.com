@@ -115,7 +115,7 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
                   <span className={`font-mono text-[10px] ${outcome.tagColor} uppercase tracking-widest block`}>
                     {outcome.tag}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-sans text-slate-900 leading-tight">
                     {outcome.headline}
                   </h3>
                 </div>
@@ -143,7 +143,7 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
               <span className="font-mono text-xs text-amber-400 block mb-4 tracking-widest">
                 &gt; ARCHITECT&apos;S_LOG: THE_PRINCIPAL_SHIFT
               </span>
-              <p className="text-xl md:text-2xl font-light text-slate-200 leading-relaxed font-serif">
+              <p className="text-xl md:text-2xl font-light text-slate-200 leading-relaxed font-sans">
                 &quot;IQ Plugin taught me that the hardest part of Enterprise UX isn&apos;t designing the pixels—it&apos;s designing the <span className="text-emerald-400 font-normal italic">consensus</span>. By visualizing a unified future, I gave the organization the confidence to stop building silos and start building a platform.&quot;
               </p>
             </div>

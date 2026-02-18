@@ -158,7 +158,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                 <Link
                   href="/"
                   onClick={() => setIsOpen(false)}
-                  className={`text-xl font-serif font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
+                  className={`text-xl font-sans font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                 >
                   Anuja Harsha Nimmagadda
                 </Link>

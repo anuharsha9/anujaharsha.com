@@ -75,7 +75,7 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
                   <span className="font-mono text-2xl font-bold text-teal-600">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h4 className="font-serif text-lg text-slate-900">{a.area}</h4>
+                  <h4 className="font-sans text-lg text-slate-900">{a.area}</h4>
                 </div>
 
                 {/* Items List */}

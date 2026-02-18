@@ -94,7 +94,7 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
                   <div className={`w-12 h-12 rounded-2xl ${accent.bg} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
                     <IconComponent className={`w-6 h-6 ${accent.text}`} strokeWidth={1.5} />
                   </div>
-                  <h4 className="font-serif text-lg md:text-xl text-slate-900 leading-tight group-hover:text-[var(--accent-primary)] transition-colors">
+                  <h4 className="font-sans text-lg md:text-xl text-slate-900 leading-tight group-hover:text-[var(--accent-primary)] transition-colors">
                     {column.title}
                   </h4>
                 </div>
@@ -128,7 +128,7 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
               <span className={`font-mono text-xs uppercase tracking-widest ${accent.text} block mb-3 opacity-80`}>
                 {`// ${highlight.label}`}
               </span>
-              <p className="font-serif text-2xl md:text-3xl font-light italic text-slate-800 leading-relaxed">
+              <p className="font-sans text-2xl md:text-3xl font-light italic text-slate-800 leading-relaxed">
                 &ldquo;{highlight.text}&rdquo;
               </p>
             </div>

@@ -89,7 +89,7 @@ export default function IQEmptyStateShowcase({ isLightBackground = false }: IQEm
                   </span>
                   <span className="h-px flex-1 bg-slate-100 hidden group-hover:block transition-all" />
                 </div>
-                <h4 className="font-serif text-lg text-slate-900">{state.title}</h4>
+                <h4 className="font-sans text-lg text-slate-900">{state.title}</h4>
                 <p className="text-sm text-slate-500 leading-relaxed max-w-lg">
                   {state.description}
                 </p>
@@ -111,7 +111,7 @@ export default function IQEmptyStateShowcase({ isLightBackground = false }: IQEm
             <span className="font-mono text-xs text-teal-400 mb-3 block tracking-wider">
               {`>`} DESIGN_PRINCIPLE
             </span>
-            <p className="font-serif text-xl italic text-slate-200 leading-relaxed">
+            <p className="font-sans text-xl italic text-slate-200 leading-relaxed">
               &quot;The best onboarding happens in context. Every empty state is a teaching moment—show users what&apos;s possible, not just what&apos;s missing.&quot;
             </p>
           </div>

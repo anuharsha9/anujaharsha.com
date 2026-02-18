@@ -30,8 +30,8 @@ export default function Error({
 
         {/* Error Text */}
         <div className="space-y-4">
-          <h1 className="text-6xl md:text-8xl font-serif text-slate-900 font-bold">500</h1>
-          <h2 className="text-2xl md:text-3xl font-serif text-slate-700">
+          <h1 className="text-6xl md:text-8xl font-sans text-slate-900 font-bold">500</h1>
+          <h2 className="text-2xl md:text-3xl font-sans text-slate-700">
             Something went wrong
           </h2>
           <p className="text-slate-500 text-base md:text-lg max-w-md mx-auto leading-relaxed">

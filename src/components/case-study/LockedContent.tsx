@@ -150,7 +150,7 @@ export default function LockedContent({ children, isUnlocked: propIsUnlocked, on
 
             <div className="flex-1 space-y-2">
               {/* Headline */}
-              <h4 className="font-serif text-[var(--text-heading)] text-lg font-semibold">
+              <h4 className="font-sans text-[var(--text-heading)] text-lg font-semibold">
                 {bannerTitle}
               </h4>
 
@@ -189,7 +189,7 @@ export default function LockedContent({ children, isUnlocked: propIsUnlocked, on
 
                 <div className="space-y-6">
                   <div className="text-center space-y-2">
-                    <h3 className="text-slate-900 text-2xl font-serif">Unlock Content</h3>
+                    <h3 className="text-slate-900 text-2xl font-sans">Unlock Content</h3>
                     <p className="text-slate-600 text-sm">Enter password to view sensitive content</p>
                     <p className="text-[var(--accent-teal)] text-xs font-medium mt-2">✓ Unlocking this section will unlock all protected content across the entire website</p>
                   </div>

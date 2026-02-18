@@ -114,7 +114,7 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 bg-red-500 flex-shrink-0"></div>
-                <h3 className="text-slate-900 text-lg font-serif font-semibold">{before.title}</h3>
+                <h3 className="text-slate-900 text-lg font-sans font-semibold">{before.title}</h3>
               </div>
               <div className="space-y-4">
                 {before.videos.map((video, index) => (
@@ -151,7 +151,7 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 bg-[var(--accent-teal)] flex-shrink-0"></div>
-                <h3 className="text-slate-900 text-lg font-serif font-semibold">{after.title}</h3>
+                <h3 className="text-slate-900 text-lg font-sans font-semibold">{after.title}</h3>
               </div>
               <div
                 className="relative w-full aspect-video border border-slate-200 overflow-hidden cursor-pointer group rounded-2xl"
@@ -244,7 +244,7 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
-                <h3 className="text-slate-900 text-2xl font-serif font-semibold">Unlock Videos</h3>
+                <h3 className="text-slate-900 text-2xl font-sans font-semibold">Unlock Videos</h3>
                 <p className="text-slate-500 text-sm">
                   Enter the password to view the video walkthroughs.
                 </p>

@@ -71,20 +71,20 @@ export default function ComponentHeading({
     const styles = {
         section: {
             container: "mb-8 md:mb-12",
-            tag: "text-sm font-medium tracking-wider mb-6 text-slate-500 uppercase",
-            title: "text-5xl md:text-6xl lg:text-7xl font-serif font-light leading-[1.05] tracking-tight mb-8 text-slate-900",
-            desc: "text-xl md:text-2xl font-light text-slate-500 leading-relaxed max-w-7xl",
+            tag: "text-sm font-bold tracking-wider mb-6 text-slate-500 uppercase",
+            title: "text-5xl md:text-6xl lg:text-7xl font-sans font-black leading-[1.05] tracking-tight mb-8 text-slate-900",
+            desc: "text-xl md:text-2xl font-normal text-slate-500 leading-relaxed max-w-7xl",
         },
         block: {
             container: "mb-12 md:mb-16",
-            tag: "text-xs font-medium tracking-wider mb-3 text-slate-500 uppercase",
-            title: "text-3xl md:text-4xl font-serif font-light leading-tight mb-4 text-slate-900",
-            desc: "text-lg font-light text-slate-500 leading-relaxed max-w-3xl",
+            tag: "text-xs font-bold tracking-wider mb-3 text-slate-500 uppercase",
+            title: "text-3xl md:text-4xl font-sans font-bold leading-tight mb-4 text-slate-900",
+            desc: "text-lg font-normal text-slate-500 leading-relaxed max-w-3xl",
         },
         detail: {
             container: "mb-6 md:mb-8",
             tag: "text-[10px] font-bold tracking-wider mb-2 text-slate-400 uppercase",
-            title: "text-xl md:text-2xl font-serif font-medium leading-snug mb-2 text-slate-900",
+            title: "text-xl md:text-2xl font-sans font-bold leading-snug mb-2 text-slate-900",
             desc: "text-base font-normal text-slate-500 leading-relaxed max-w-2xl",
         }
     }

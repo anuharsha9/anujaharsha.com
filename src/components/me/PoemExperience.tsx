@@ -183,7 +183,7 @@ export default function PoemExperience() {
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <h2 className="font-serif text-4xl md:text-5xl text-slate-900 tracking-tight">
+                    <h2 className="font-sans font-black text-4xl md:text-5xl text-slate-900 tracking-tight">
                         Writing
                     </h2>
                     <p className="mt-4 text-slate-400 text-base md:text-lg max-w-lg" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
@@ -205,7 +205,7 @@ export default function PoemExperience() {
                         <div className="mb-8">
                             <span className="text-[11px] font-mono uppercase tracking-widest text-slate-300 block mb-1">Poetry</span>
                             <h3
-                                className="text-slate-900 text-xl md:text-2xl font-serif tracking-tight"
+                                className="text-slate-900 text-xl md:text-2xl font-sans font-bold tracking-tight"
                             >
                                 Gifts from Life
                             </h3>
@@ -235,7 +235,7 @@ export default function PoemExperience() {
                                 href="https://medium.com/@anu.anuja"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-slate-900 text-xl md:text-2xl font-serif tracking-tight hover:text-[var(--accent-teal)] transition-colors duration-300"
+                                className="text-slate-900 text-xl md:text-2xl font-sans font-bold tracking-tight hover:text-[var(--accent-teal)] transition-colors duration-300"
                             >
                                 Articles on Medium
                             </a>

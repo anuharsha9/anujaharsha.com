@@ -142,7 +142,7 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.2 }}
-                        className="text-6xl md:text-8xl text-blue-500/20 font-serif mb-8"
+                        className="text-6xl md:text-8xl text-blue-500/20 font-sans mb-8"
                     >
                         &ldquo;
                     </motion.div>
@@ -150,7 +150,7 @@ export const PresentationSlide: React.FC<PresentationSlideProps> = ({ data }) =>
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.05, duration: 0.25 }}
-                        className="text-3xl md:text-5xl font-light text-white leading-tight mb-12 font-serif italic"
+                        className="text-3xl md:text-5xl font-light text-white leading-tight mb-12 font-sans italic"
                     >
                         {data.title}
                     </motion.h2>

@@ -68,10 +68,9 @@ export const CAREER_DATA: CareerEra[] = [
         id: "design-engineering",
         company: "AI-Orchestrated Portfolio",
         role: "Design Engineering.",
-        period: "2026",
+        period: "Nov 2025 — Present",
         heroLabel: "November 2025 — Present",
-        description: "I prototype in code. The biggest risk isn't in the visuals — it's in the logic.",
-        secondaryDescription: "AI-augmented. Production React. 60fps.",
+        description: "I prototype in code. The real risk isn't visuals — it's the logic.",
         skillBadges: [
             { icon: 'code', label: 'Production-Grade React', sub: 'TypeScript, Next.js, Architecture' },
             { icon: 'zap', label: '60fps Interaction', sub: 'Framer Motion, Physics, Gestures' },
@@ -80,7 +79,7 @@ export const CAREER_DATA: CareerEra[] = [
         workItems: [
             {
                 id: "portfolio-game",
-                title: "Portfolio as a Playable Game",
+                title: "Play Game",
                 description: "a word game created with agentic AI.",
                 image: "/images/wordu-cover.png",
                 link: "/work/wordu",
@@ -97,16 +96,10 @@ export const CAREER_DATA: CareerEra[] = [
         company: "Cloud Software Group",
         role: "Senior Product Designer",
         period: "2022 — 2025",
-        description: "Led UX across key areas of the WebFOCUS platform. 25M+ users. 50 years of legacy. One unified Hub.",
+        description: "Led UX across WebFOCUS — 25M+ users, 50 years of legacy, one Hub.",
         platformUrl: "https://www.ibi.com/webfocus",
-        testimonials: [], // Moved to dedicated zone below
-        milestones: [
-            { title: "Vibe Coding & AI Orchestration", subtitle: "Built this portfolio", year: "Nov 2025", icon: Bot },
-            { title: "Salt Lake City", subtitle: "Home Base", year: "Since 2019", icon: Mountain },
-            { title: "Masters in English", subtitle: "Literature & Critical Theory", year: "2024 — 2025", icon: GraduationCap },
-            { title: "MITx Pro Certificate", subtitle: "Product Design for AI and ML", year: "Apr 2024", icon: Award },
-            { title: "Second Child", subtitle: "The greatest production release", year: "Sep 2024", icon: Baby },
-        ],
+        testimonials: [], // Testimonials live in dedicated timeline block below
+        milestones: [],
         workItems: [
             {
                 id: "reportcaster",
@@ -155,7 +148,7 @@ export const CAREER_DATA: CareerEra[] = [
                 metricLabel: 'unified hub',
                 fileName: 'iq_hub_unified_view.tsx',
                 accentColor: '#8B5CF6',
-                locked: true,
+                locked: false,
                 statusLabel: 'Not shipped yet — in production pipeline',
                 impactDirectional: 'Unified 3 tools into one discovery hub (in production pipeline).',
                 caseStudyType: 'Third'
@@ -181,6 +174,88 @@ export const CAREER_DATA: CareerEra[] = [
         ]
     },
 
+    // ZONE 2.5: CSG TESTIMONIALS (Dedicated Block)
+    {
+        id: "csg-testimonials",
+        company: "Cloud Software Group",
+        role: "What They Say",
+        period: "2022 — 2025",
+        description: "Endorsements from the team I worked with every day.",
+        testimonials: [
+            {
+                id: "dave-pfeiffer",
+                name: "Dave Pfeiffer",
+                role: "Director of Design",
+                company: "Cloud Software Group",
+                quote: "She approaches her work with a fearless attitude and is never afraid to explore new ideas or directions. Anuja is willing to take on difficult problems and push for creative solutions, even under tight timelines.",
+                relationship: "Direct Manager · 3+ years",
+                isPrimary: true,
+                linkedInProfile: "https://www.linkedin.com/in/davepfeiffer/"
+            },
+            {
+                id: "vijay-raman",
+                name: "Vijay Raman",
+                role: "VP of Product Management",
+                company: "Cloud Software Group",
+                quote: "She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams. Any team would be lucky to have her.",
+                relationship: "Leadership",
+                linkedInProfile: "https://www.linkedin.com/in/vijayraman/"
+            },
+            {
+                id: "marcus-horbach",
+                name: "Marcus Horbach, Ph.D.",
+                role: "Principal Data Scientist",
+                company: "Cloud Software Group",
+                quote: "The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive. Her design solutions are rooted in a deep understanding of the purpose of the product.",
+                relationship: "Cross-functional Collaborator",
+            },
+            {
+                id: "yingchun-chen",
+                name: "Yingchun Chen",
+                role: "Principal System Software Engineer",
+                company: "Cloud Software Group",
+                quote: "From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She's the kind of UX leader any team would be lucky to have.",
+                relationship: "Engineering Partner",
+            },
+            {
+                id: "karishma-khadge",
+                name: "Karishma Khadge",
+                role: "Senior Product Manager",
+                company: "Cloud Software Group",
+                quote: "Her design thinking workshops and prototype walkthroughs often became the foundation for key product decisions, driving clarity and alignment across cross-functional teams.",
+                relationship: "Product Partner",
+            },
+            {
+                id: "anita-george",
+                name: "Anita George",
+                role: "Principal Account Technology Strategist",
+                company: "Cloud Software Group",
+                quote: "Anticipating the next move of the user, that is next level UI! Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels.",
+                relationship: "Customer / SME",
+            }
+        ],
+        workItems: [],
+        milestones: []
+    },
+
+    // LIFE CONTEXT: CSG ERA
+    {
+        id: "life-csg",
+        company: "Cloud Software Group",
+        role: "Life Context",
+        period: "2022 — 2025",
+        description: "",
+        testimonials: [],
+        workItems: [],
+        milestones: [
+            { title: "Vibe Coding & AI Orchestration", subtitle: "Built this portfolio", year: "Nov 2025", icon: Bot },
+            { title: "Salt Lake City", subtitle: "Home Base", year: "Since 2019", icon: Mountain },
+            { title: "Masters in English", subtitle: "Literature & Critical Theory", year: "2024 — 2025", icon: GraduationCap },
+            { title: "MITx Pro Certificate", subtitle: "Product Design for AI and ML", year: "Apr 2024", icon: Award },
+            { title: "Second Child", subtitle: "The greatest production release", year: "Sep 2024", icon: Baby },
+        ]
+    },
+
     // BLOCK 2: INDEPENDENT CONSULTANT / INFOTRIANGLE
     {
         id: "consultant-tech",
@@ -200,12 +275,7 @@ export const CAREER_DATA: CareerEra[] = [
                 linkedInProfile: "https://www.linkedin.com/in/radhika-tekumalla/"
             }
         ],
-        milestones: [
-            { title: "First Child", subtitle: "Becoming a mother", year: "2021", icon: Baby },
-            { title: "HCI Certificate", subtitle: "Georgia Tech", year: "Jan 2021", icon: Award },
-            { title: "Salt Lake City", subtitle: "Moved to Utah", year: "Aug 2019", icon: Mountain },
-            { title: "Denver", subtitle: "Moved to Colorado", year: "Feb 2019", icon: Mountain },
-        ],
+        milestones: [],
         workItems: [
             {
                 id: "kedazzle",
@@ -251,6 +321,23 @@ export const CAREER_DATA: CareerEra[] = [
         ]
     },
 
+    // LIFE CONTEXT: CONSULTANT ERA
+    {
+        id: "life-consultant",
+        company: "Independent",
+        role: "Life Context",
+        period: "2017 — 2022",
+        description: "",
+        testimonials: [],
+        workItems: [],
+        milestones: [
+            { title: "First Child", subtitle: "Becoming a mother", year: "2021", icon: Baby },
+            { title: "HCI Certificate", subtitle: "Georgia Tech", year: "Jan 2021", icon: Award },
+            { title: "Salt Lake City", subtitle: "Moved to Utah", year: "Aug 2019", icon: Mountain },
+            { title: "Denver", subtitle: "Moved to Colorado", year: "Feb 2019", icon: Mountain },
+        ]
+    },
+
     // BLOCK 3: AGENCY & STARTUP ERA (Merged)
     {
         id: "agency-startup",
@@ -270,10 +357,7 @@ export const CAREER_DATA: CareerEra[] = [
                 linkedInProfile: "https://www.linkedin.com/in/vikrampatel"
             }
         ],
-        milestones: [
-            { title: "Moved to Boston", subtitle: "The American Dream", year: "Mar 2017", icon: MapPin },
-            { title: "Got Married", subtitle: "New Chapter", year: "Aug 2016", icon: Heart },
-        ],
+        milestones: [],
         workItems: [
             {
                 id: "crbs",
@@ -301,22 +385,39 @@ export const CAREER_DATA: CareerEra[] = [
             }
         ]
     },
+
+    // LIFE CONTEXT: AGENCY ERA
+    {
+        id: "life-agency",
+        company: "Studios Era",
+        role: "Life Context",
+        period: "2012 — 2017",
+        description: "",
+        testimonials: [],
+        workItems: [],
+        milestones: [
+            { title: "Moved to Boston", subtitle: "The American Dream", year: "Mar 2017", icon: MapPin },
+            { title: "Bachelor's in English", subtitle: "Literature", year: "Jan 2017", icon: GraduationCap },
+            { title: "Got Married", subtitle: "New Chapter", year: "Aug 2016", icon: Heart },
+            { title: "BA in Animation & VFX", subtitle: "Enrolled", year: "Jun 2012", icon: Palette },
+            { title: "High School Graduation", subtitle: "Hyderabad", year: "2012", icon: GraduationCap },
+        ]
+    },
+
     // BLOCK 5: THE ORIGIN STORIES
     {
         id: "origin-story",
         company: "The Origin",
         role: "Foundation",
-        period: "1994 — 2012",
+        period: "Birth — 2012",
         description: "Before the titles and tools. Just curiosity and the drive to make things.",
         testimonials: [],
         workItems: [],
-        foundations: ["MS Paint", "CorelDRAW", "Pencil Drawing", "Origami", "Acrylic & Oil Painting"],
+        foundations: ["MS Paint", "CorelDRAW", "Pencil Drawing", "Origami", "Acrylic & Oil Painting", "Embroidery"],
         milestones: [
-            { title: "BA in Animation & VFX", subtitle: "Enrolled", year: "Jun 2012", icon: Palette },
-            { title: "High School Graduation", subtitle: "Hyderabad", year: "2012", icon: GraduationCap },
             { title: "Curtain Call Productions", subtitle: "Poster Designer", year: "Sep 2011", icon: Clapperboard },
             { title: "Moved to Hyderabad", subtitle: "From Mumbai", year: "2005", icon: MapPin },
-            { title: "Born in Mumbai", subtitle: "The Beginning", year: "15 Sep 1994", icon: Home },
+            { title: "Born in Mumbai", subtitle: "The Beginning", year: "1990s", icon: Home },
         ]
     }
 ];

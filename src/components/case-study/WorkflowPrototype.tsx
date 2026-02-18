@@ -156,7 +156,7 @@ export default function WorkflowPrototype({ title, description, steps, workflowT
           <span className={`${t.textMuted} text-xs font-mono uppercase tracking-wider`}>{workflowType === 'train' ? 'Train Model' : 'Run Model'} Workflow</span>
           <div className={`h-px flex-1 ${t.divider}`}></div>
         </div>
-        <h3 className={`${t.text} text-2xl md:text-3xl font-serif`}>{title}</h3>
+        <h3 className={`${t.text} text-2xl md:text-3xl font-sans`}>{title}</h3>
         {description && <p className={`${t.textMuted} text-base leading-relaxed max-w-3xl`}>{description}</p>}
         <p className={`${t.textMuted} text-xs mt-2`}>Keyboard shortcuts: ← → to navigate, Space to play/pause, Home/End to jump to first/last step</p>
       </div>

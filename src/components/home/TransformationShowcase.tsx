@@ -24,7 +24,7 @@ export default function TransformationShowcase() {
           transition={{ duration: 0.6 }}
           className="text-center mb-space-10 md:mb-space-14"
         >
-          <h2 className={`font-serif ${t.text} text-3xl md:text-4xl lg:text-5xl leading-tight mb-space-4`}>
+          <h2 className={`font-sans font-black ${t.text} text-3xl md:text-4xl lg:text-5xl leading-tight mb-space-4`}>
             50 years of legacy.<br />
             <span className="text-[var(--accent-teal)]">Modern in 18 months.</span>
           </h2>

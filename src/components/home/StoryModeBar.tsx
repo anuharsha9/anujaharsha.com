@@ -44,10 +44,10 @@ export default function StoryModeBar() {
                                     <div
                                         key={i}
                                         className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentChapter
-                                                ? 'bg-teal-400 scale-125'
-                                                : i < currentChapter
-                                                    ? 'bg-white/30'
-                                                    : 'bg-white/10'
+                                            ? 'bg-teal-400 scale-125'
+                                            : i < currentChapter
+                                                ? 'bg-white/30'
+                                                : 'bg-white/10'
                                             }`}
                                     />
                                 ))}
@@ -69,7 +69,7 @@ export default function StoryModeBar() {
                                         <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-teal-400/70 mb-0.5">
                                             Chapter {currentChapter + 1} — {chapter?.title}
                                         </p>
-                                        <p className="text-white/60 text-sm font-serif italic leading-relaxed truncate">
+                                        <p className="text-white/60 text-sm font-sans italic leading-relaxed truncate">
                                             {chapter?.narration}
                                         </p>
                                     </motion.div>

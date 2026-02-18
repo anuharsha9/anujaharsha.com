@@ -33,7 +33,7 @@ export default function EmpathizeStrategyGrid({ isLightBackground = true }: Empa
               </span>
             </div>
 
-            <h3 className="font-serif text-slate-900 text-3xl md:text-4xl leading-tight max-w-4xl mx-auto">
+            <h3 className="font-sans text-slate-900 text-3xl md:text-4xl leading-tight max-w-4xl mx-auto">
               I Embedded Myself in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-teal)]">Customer Support.</span>
             </h3>
 

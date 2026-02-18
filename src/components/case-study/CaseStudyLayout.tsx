@@ -384,7 +384,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="text-[var(--text-primary-light)] text-3xl md:text-4xl lg:text-5xl font-serif leading-tight"
+                  className="text-[var(--text-primary-light)] text-3xl md:text-4xl lg:text-5xl font-sans leading-tight"
                 >
                   {data.heroTitle || 'IQ Plugin Case Study'}
                 </motion.h1>
@@ -488,7 +488,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="text-[var(--text-primary-light)] text-3xl md:text-4xl lg:text-5xl font-serif leading-tight"
+                  className="text-[var(--text-primary-light)] text-3xl md:text-4xl lg:text-5xl font-sans leading-tight"
                 >
                   Unification of all ML and AI features project.
                 </motion.h1>
@@ -1257,7 +1257,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                                   <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase block mb-2">
                                     {'// VISUAL_DIFF'}
                                   </span>
-                                  <h4 className="font-serif text-slate-900 text-xl md:text-2xl">
+                                  <h4 className="font-sans text-slate-900 text-xl md:text-2xl">
                                     Legacy vs. Redesigned Workflow
                                   </h4>
                                 </div>

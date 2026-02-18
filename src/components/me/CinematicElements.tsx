@@ -103,7 +103,7 @@ export function PhilosophyMarquee({
             >
                 {items.map((text, i) => (
                     <span key={i} className="flex items-center mx-8 md:mx-16">
-                        <span className="text-4xl md:text-6xl lg:text-7xl font-serif text-slate-100 select-none whitespace-nowrap">
+                        <span className="text-4xl md:text-6xl lg:text-7xl font-sans font-black text-slate-100 select-none whitespace-nowrap">
                             {text}
                         </span>
                         <span className="text-[var(--accent-teal)] opacity-20 mx-8 md:mx-16 text-2xl">✦</span>
@@ -169,7 +169,7 @@ export function ChapterHeading({
             </motion.div>
             <div className="overflow-hidden">
                 <motion.h2
-                    className="font-serif text-3xl sm:text-4xl md:text-5xl text-slate-900 leading-tight"
+                    className="font-sans text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tight"
                     variants={{
                         hidden: { y: '100%' },
                         visible: { y: 0, transition: { duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] } }
@@ -245,7 +245,7 @@ export function HorizontalStatsRibbon() {
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <div className="font-serif text-4xl md:text-5xl text-slate-900 mb-1">
+                        <div className="font-sans font-black text-4xl md:text-5xl text-slate-900 mb-1">
                             <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                         </div>
                         <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest">

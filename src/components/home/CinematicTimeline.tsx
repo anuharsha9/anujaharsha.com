@@ -5,6 +5,7 @@ import CinematicEraBlock from './CinematicEraBlock'
 import { CAREER_DATA } from '@/data/career-data'
 import WhisperNarration from './WhisperNarration'
 import DesignEngineerContent from './DesignEngineerContent'
+import TestimonialShowcase from './TestimonialShowcase'
 
 export default function CinematicTimeline() {
     return (
@@ -27,6 +28,15 @@ export default function CinematicTimeline() {
             <CinematicEraBlock
                 era={CAREER_DATA[0]}
                 customYear="2022"
+            />
+
+            {/* ZONE 2.5: CSG TESTIMONIALS (Dedicated Block) */}
+            <CinematicEraBlock
+                customYear="2022"
+                customTitle="What They Say"
+                customSubtitle="Cloud Software Group"
+                customDescription="Endorsements from the team I worked with every day."
+                customContent={<TestimonialShowcase />}
             />
 
             {/* ZONE 3: CONSULTANT (The Builder Era) */}

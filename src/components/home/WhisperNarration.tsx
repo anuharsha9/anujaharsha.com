@@ -44,7 +44,7 @@ export default function WhisperNarration({ text, className = '' }: WhisperNarrat
         >
             <motion.p
                 style={{ opacity, y }}
-                className="text-white font-serif text-lg sm:text-xl md:text-2xl lg:text-3xl text-center italic tracking-wide max-w-2xl mx-auto px-6 select-none pointer-events-none leading-relaxed"
+                className="text-white font-sans font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl text-center italic tracking-wide max-w-2xl mx-auto px-6 select-none pointer-events-none leading-relaxed"
             >
                 {text}
             </motion.p>

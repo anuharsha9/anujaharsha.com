@@ -10,7 +10,7 @@ import AnimatedCounter from '@/components/ui/AnimatedCounter'
 
 // Full-bleed magazine-style card with shared layout transitions
 
-export function MotionWorkCard({ work }: { work: WorkItem }) {
+export function MotionWorkCard({ work, fillHeight = false, compact = false }: { work: WorkItem; fillHeight?: boolean; compact?: boolean }) {
     const ref = useRef<HTMLDivElement>(null)
     const [hovered, setHovered] = useState(false)
     const isExternal = work.link === '#'
@@ -50,7 +50,7 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
     return (
         <Link
             href={work.link}
-            className={`block group/work relative w-full ${isExternal ? 'cursor-default pointer-events-none' : ''}`}
+            className={`block group/work relative w-full ${fillHeight ? 'h-full' : ''} ${isExternal ? 'cursor-default pointer-events-none' : ''}`}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
@@ -64,7 +64,7 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
             */}
             <div
                 onMouseMove={handleMouseMove}
-                className="relative group rounded-2xl"
+                className={`relative group rounded-2xl ${fillHeight ? 'h-full' : ''}`}
             >
                 {/* Spotlight Gradient Background (Border Glow) */}
                 <motion.div
@@ -86,7 +86,7 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
                     layoutId={`project-cover-${work.id}`}
                     whileHover={{ y: -6, scale: 1.008 }}
                     transition={{ type: "spring", stiffness: 300, damping: 25, layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-                    className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-slate-900/50 shadow-lg shadow-black/20 border border-white/[0.04] group-hover/work:border-white/[0.1] transition-colors duration-500"
+                    className={`relative ${fillHeight ? 'h-full min-h-[320px]' : compact ? 'aspect-video' : 'aspect-[4/3]'} rounded-2xl overflow-hidden bg-slate-900/50 shadow-lg shadow-black/20 border border-white/[0.04] group-hover/work:border-white/[0.1] transition-colors duration-500`}
                 >
 
                     {/* VIDEO Support with PARALLAX SCALE */}
@@ -115,8 +115,8 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
                         </motion.div>
                     ) : null}
 
-                    {/* Gradient Scrim — Bottom overlay for text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                    {/* Gradient Scrim */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none opacity-0 group-hover/work:opacity-100 transition-opacity duration-500" />
 
                     {/* Overlay: Subtle shine on hover */}
@@ -133,17 +133,17 @@ export function MotionWorkCard({ work }: { work: WorkItem }) {
                         )}
 
                         <div className="flex items-end justify-between gap-6">
-                            <div>
-                                <h3 className="font-serif text-lg text-white leading-tight mb-2">
+                            <div className="max-w-[80%]">
+                                <h3 className="font-sans text-xl sm:text-2xl font-bold text-white leading-snug mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                                     {work.title}
                                 </h3>
-                                {/* Metric - Clean */}
+                                {/* Metric */}
                                 {work.metric && (
-                                    <div className="inline-flex items-baseline gap-2 mt-1">
-                                        <span className="font-sans text-lg font-bold text-white/90 drop-shadow-lg">
+                                    <div className="inline-flex items-baseline gap-2.5">
+                                        <span className="font-sans text-2xl sm:text-3xl font-extrabold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                                             <AnimatedCounter value={work.metric} duration={1.2} />
                                         </span>
-                                        <span className="font-normal text-xs text-white/60 tracking-wide">
+                                        <span className="font-normal text-sm text-white/50 tracking-wide">
                                             {work.metricLabel}
                                         </span>
                                     </div>

@@ -190,7 +190,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                           )}
                         </div>
 
-                        <h3 className="text-3xl md:text-4xl font-serif text-slate-900 leading-tight">
+                        <h3 className="text-3xl md:text-4xl font-sans text-slate-900 leading-tight">
                           {version.approach}
                         </h3>
 
@@ -286,7 +286,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-violet-400 block mb-4">
                         Looking Forward
                       </span>
-                      <h4 className="text-2xl md:text-3xl font-serif text-violet-900 mb-4">
+                      <h4 className="text-2xl md:text-3xl font-sans text-violet-900 mb-4">
                         {version.extensibility.headline}
                       </h4>
                       <p className="text-violet-800/80 font-light leading-relaxed max-w-2xl mb-8">
@@ -310,7 +310,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400 block mb-4">
                         Validation
                       </span>
-                      <h4 className="text-2xl md:text-3xl font-serif text-emerald-900 mb-4">
+                      <h4 className="text-2xl md:text-3xl font-sans text-emerald-900 mb-4">
                         {version.validation.headline}
                       </h4>
                       <p className="text-emerald-800/80 font-light leading-relaxed max-w-2xl">

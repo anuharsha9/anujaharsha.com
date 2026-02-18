@@ -21,7 +21,7 @@ export default function PullQuote({ quote, author, isLightBackground = false }: 
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <blockquote className="space-y-3">
-        <p className={`${t.text} text-lg md:text-xl font-serif italic leading-relaxed`}>{quote}</p>
+        <p className={`${t.text} text-lg md:text-xl font-sans italic leading-relaxed`}>{quote}</p>
         {author && <cite className={`${t.textMuted} text-sm not-italic`}>— {author}</cite>}
       </blockquote>
     </motion.div>

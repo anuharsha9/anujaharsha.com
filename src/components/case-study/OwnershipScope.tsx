@@ -105,7 +105,7 @@ export default function OwnershipScope({ isLightBackground = true }: OwnershipSc
                         >
                             <div className="flex items-center gap-2.5">
                                 <span className="text-xl">{domain.icon}</span>
-                                <h4 className="text-base font-serif font-medium text-slate-900">{domain.domain}</h4>
+                                <h4 className="text-base font-sans font-medium text-slate-900">{domain.domain}</h4>
                             </div>
                             <ul className="space-y-2">
                                 {domain.items.map((item, i) => (

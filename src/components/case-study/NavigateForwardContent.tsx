@@ -37,7 +37,7 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
             <span className="font-mono text-[10px] text-blue-600 uppercase tracking-widest mb-2 block">
               {'// DURATION'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-serif mb-3">14 Months</h4>
+            <h4 className="text-slate-900 text-4xl font-sans mb-3">14 Months</h4>
             <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
               End-to-end journey from initial visual refresh concepts to a fully implemented system architecture.
             </p>
@@ -54,7 +54,7 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
             <span className="font-mono text-[10px] text-teal-600 uppercase tracking-widest mb-2 block">
               {'// STATUS'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-serif mb-3">Live</h4>
+            <h4 className="text-slate-900 text-4xl font-sans mb-3">Live</h4>
             <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
               Shipped April 2024. Available to all enterprise customers in the production environment.
             </p>
@@ -71,7 +71,7 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
             <span className="font-mono text-[10px] text-purple-600 uppercase tracking-widest mb-2 block">
               {'// SCALE'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-serif mb-3">20M+</h4>
+            <h4 className="text-slate-900 text-4xl font-sans mb-3">20M+</h4>
             <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
               Schedules processed weekly. The redesign maintained 100% reliability at massive enterprise scale.
             </p>
@@ -88,7 +88,7 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
             <span className="font-mono text-[10px] text-amber-600 uppercase tracking-widest mb-2 block">
               {'// TRANSFORMATION'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-serif mb-3">System Spec</h4>
+            <h4 className="text-slate-900 text-4xl font-sans mb-3">System Spec</h4>
             <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
               Replaced 50 years of tribal knowledge with a documented ecosystem. Architecture enabled extensibility.
             </p>
@@ -115,7 +115,7 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
               Customer Recognition
             </span>
             <blockquote className="mb-8">
-              <p className="font-serif text-3xl md:text-4xl text-white/95 italic leading-snug tracking-tight">
+              <p className="font-sans text-3xl md:text-4xl text-white/95 italic leading-snug tracking-tight">
                 &ldquo;So what are you going to do next?&rdquo;
               </p>
             </blockquote>

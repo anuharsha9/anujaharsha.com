@@ -33,7 +33,7 @@ export default function UXPrinciples({
         </span>
       </div>
 
-      <h3 className="text-slate-900 text-lg md:text-xl font-serif font-semibold mb-4">
+      <h3 className="text-slate-900 text-lg md:text-xl font-sans font-semibold mb-4">
         {title}
       </h3>
 

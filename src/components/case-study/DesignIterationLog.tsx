@@ -311,7 +311,7 @@ export default function DesignIterationLog({
                 {/* Featured Quote */}
                 {activeTabData.quote && (
                   <div className="mt-6">
-                    <blockquote className="text-xl font-serif italic text-slate-800 leading-relaxed">
+                    <blockquote className="text-xl font-sans italic text-slate-800 leading-relaxed">
                       &ldquo;{activeTabData.quote.text}&rdquo;
                     </blockquote>
                     <cite className="block mt-2 text-xs font-bold uppercase tracking-widest text-slate-400 not-italic">

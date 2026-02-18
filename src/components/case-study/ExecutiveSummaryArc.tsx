@@ -155,7 +155,7 @@ export default function ExecutiveSummaryArc({ isLightBackground = true }: Execut
                                         <span className={`text-[10px] font-bold tracking-[0.2em] uppercase ${isShipped ? 'text-amber-600' : 'text-slate-400'}`}>
                                             {v.version} · {v.duration}
                                         </span>
-                                        <h3 className="text-lg font-serif text-slate-900 mt-1">
+                                        <h3 className="text-lg font-sans text-slate-900 mt-1">
                                             {v.title}
                                         </h3>
                                     </div>

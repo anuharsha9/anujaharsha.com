@@ -67,7 +67,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
               {'//'} THE_PROBLEM
             </span>
             <div className="space-y-2">
-              <h4 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
+              <h4 className="text-2xl md:text-3xl font-sans text-slate-900 leading-tight">
                 Scattered & Hidden
               </h4>
               <p className="text-slate-500 text-sm leading-relaxed">
@@ -104,7 +104,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
               {'//'} THE_SOLUTION
             </span>
             <div className="space-y-2">
-              <h4 className="text-2xl md:text-3xl font-serif text-slate-900 leading-tight">
+              <h4 className="text-2xl md:text-3xl font-sans text-slate-900 leading-tight">
                 Unified IQ Hub
               </h4>
               <p className="text-slate-500 text-sm leading-relaxed">

@@ -87,7 +87,7 @@ export default function PrototypeBlock({ prototypeMedia, caseStudySlug, isLightB
         <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px flex-1 bg-slate-200"></div>
-            <h2 className="text-slate-900 text-4xl md:text-5xl font-serif">{prototypeMedia.title}</h2>
+            <h2 className="text-slate-900 text-4xl md:text-5xl font-sans">{prototypeMedia.title}</h2>
             <div className="h-px flex-1 bg-slate-200"></div>
           </div>
           {prototypeMedia.description && <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">{prototypeMedia.description}</p>}

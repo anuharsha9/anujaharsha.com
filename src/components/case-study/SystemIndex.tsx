@@ -119,7 +119,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-lg font-serif text-white group-hover:text-white/90 transition-colors">
+                    <h3 className="text-lg font-sans text-white group-hover:text-white/90 transition-colors">
                       {project.title}
                     </h3>
                     <span className={`font-mono text-[10px] tracking-widest uppercase ${project.tagColor}`}>

@@ -48,7 +48,7 @@ export default function NotFound() {
 
         {/* Narrative Text */}
         <div className="space-y-6 mt-[-40px] md:mt-[-60px]">
-          <h2 className="font-serif text-3xl md:text-4xl text-white">
+          <h2 className="font-sans text-3xl md:text-4xl text-white">
             System coordinates invalid.
           </h2>
           <p className="text-slate-400 max-w-md mx-auto text-sm md:text-base leading-relaxed">

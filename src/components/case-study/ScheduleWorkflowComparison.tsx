@@ -189,7 +189,7 @@ export default function ScheduleWorkflowComparison({ isLightBackground = true }:
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Context</span>
                   </div>
                   <p className="text-slate-500 leading-relaxed">
-                    Configure (task, distribution, recurrence) — <span className="text-slate-700 font-medium font-serif italic">happens in same context</span>
+                    Configure (task, distribution, recurrence) — <span className="text-slate-700 font-medium font-sans italic">happens in same context</span>
                   </p>
                 </motion.div>
 

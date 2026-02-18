@@ -94,7 +94,7 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
               </span>
 
               {/* Headline */}
-              <h4 className="text-slate-900 text-lg font-serif font-semibold mb-3">
+              <h4 className="text-slate-900 text-lg font-sans font-semibold mb-3">
                 {o.headline}
               </h4>
 

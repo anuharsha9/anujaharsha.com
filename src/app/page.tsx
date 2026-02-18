@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import HeroSplit from '@/components/home/HeroSplit'
-import EnergyStack from '@/components/home/EnergyStack'
+// import EnergyStack from '@/components/home/EnergyStack'
 import TalkSection from '@/components/home/TalkSection'
 import ScrollGear from '@/components/ui/ScrollGear'
-import UnifiedTimelineLayout from '@/components/home/UnifiedTimelineLayout'
-import ChapterProgress from '@/components/home/ChapterProgress'
+// import UnifiedTimelineLayout from '@/components/home/UnifiedTimelineLayout'
+import CinematicTimeline from '@/components/CinematicTimeline'
+// import ChapterProgress from '@/components/home/ChapterProgress'
 import StoryModeWrapper from '@/components/home/StoryModeWrapper'
 import NeuralAwakening from '@/components/loading/NeuralAwakening'
 
@@ -42,22 +43,23 @@ export default function Home() {
     <StoryModeWrapper>
       <div className="bg-[#020617] relative overflow-clip">
         <NeuralAwakening />
-        <ChapterProgress />
+        {/* ChapterProgress removed per user request */}
         <HeroSplit />
 
         {/* 
-          THE ENERGY STACK (The 5 Timeline Zones)
-          Zone 1: Design Engineering (2026)
-          Zone 2: Cloud Software Group (2022-2025)
-          Zone 3: Start-up Consultant (2017-2022)
-          Zone 4: Mobile & Enterprise UX Designer (2012-2017)
-          Zone 5: Foundation (1994-2012)
+          THE CINEMATIC TIMELINE (replaces EnergyStack)
+          Scrollytelling with Apple-style typography, glassmorphism cards,
+          and animated cyan line. id="work-overview" is inside the component.
         */}
+        <CinematicTimeline />
+
+        {/* ORIGINAL ENERGY STACK (commented out for safe revert)
         <div id="work-overview">
           <UnifiedTimelineLayout>
             <EnergyStack />
           </UnifiedTimelineLayout>
         </div>
+        */}
 
         <TalkSection />
         <ScrollGear />

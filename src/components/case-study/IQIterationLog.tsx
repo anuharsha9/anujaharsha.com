@@ -298,7 +298,7 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
                         {'// '}{activeTabData.specCaption}
                       </span>
                     </div>
-                    <h4 className="font-serif text-2xl md:text-3xl text-slate-900 mb-3">
+                    <h4 className="font-sans text-2xl md:text-3xl text-slate-900 mb-3">
                       {activeTabData.title}
                     </h4>
                     <p className="text-slate-500 text-sm leading-relaxed max-w-3xl">

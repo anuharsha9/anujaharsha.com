@@ -129,7 +129,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
           <span className="font-mono text-xs text-slate-400 uppercase tracking-widest block mb-2">
             {'// PROCESS_FLOW'}
           </span>
-          <h4 className="text-slate-900 text-xl font-serif">
+          <h4 className="text-slate-900 text-xl font-sans">
             Onboarding Activities
           </h4>
         </div>
@@ -149,7 +149,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
                     <div className="w-6 h-6 flex items-center justify-center text-white font-mono text-xs font-bold bg-slate-900 rounded">
                       {i + 1}
                     </div>
-                    <h5 className="text-slate-900 font-serif font-semibold">{a.phase}</h5>
+                    <h5 className="text-slate-900 font-sans font-semibold">{a.phase}</h5>
                   </div>
 
                   {/* Items */}

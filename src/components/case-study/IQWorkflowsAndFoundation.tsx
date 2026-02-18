@@ -154,7 +154,7 @@ const FeatureSection = ({ title, description, icon: Icon, iconColor, status, scr
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${iconColor} text-white shadow-md shrink-0`}>
                             <Icon size={20} />
                         </div>
-                        <h3 className="font-serif text-2xl text-slate-900 font-medium">{title}</h3>
+                        <h3 className="font-sans text-2xl text-slate-900 font-medium">{title}</h3>
                     </div>
                     <span className={`font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-slate-100 ${status === 'SHIPPING_NOW' ? 'text-emerald-600' : 'text-blue-600'} self-start sm:self-center mt-1 sm:mt-0`}>
                         {status.replace('_', ' ')}
@@ -301,7 +301,7 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
                         <span className="font-mono text-[var(--accent-teal)] uppercase tracking-wider">
                             {`>`} THEN_I_UNIFIED_THEM:
                         </span>
-                        <span className="font-serif text-slate-900 text-lg border-b border-slate-200 pb-0.5">
+                        <span className="font-sans text-slate-900 text-lg border-b border-slate-200 pb-0.5">
                             IQ Plugin brings all 3 home.
                         </span>
                     </div>

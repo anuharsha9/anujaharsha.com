@@ -58,7 +58,7 @@ const ArchiveWorkCard = ({ work, onOpenLightbox }: { work: WorkItem; onOpenLight
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5">
-                <p className="text-white font-serif text-lg leading-tight mb-2">
+                <p className="text-white font-sans font-bold text-lg leading-tight mb-2">
                     {work.title}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -347,7 +347,7 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
                                             <div className="bg-white/[0.02] border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group/quote">
                                                 <Quote className="absolute top-8 right-8 w-16 h-16 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
                                                 <blockquote className="relative z-10 text-center">
-                                                    <p className="font-serif text-xl md:text-2xl text-slate-200 leading-relaxed mb-8">
+                                                    <p className="font-sans text-xl md:text-2xl text-slate-200 leading-relaxed mb-8">
                                                         &ldquo;{era.testimonials[0].quote}&rdquo;
                                                     </p>
                                                     <cite className="not-italic flex flex-col items-center gap-2">
@@ -373,7 +373,7 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
                                                 <div key={testimonial.id} className="bg-white/[0.02] border border-white/5 p-6 rounded-xl relative overflow-hidden group/quote">
                                                     <Quote className="absolute top-4 right-4 w-8 h-8 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
                                                     <blockquote className="relative z-10">
-                                                        <p className="font-serif text-sm md:text-base text-slate-200 leading-relaxed mb-6 line-clamp-4">
+                                                        <p className="font-sans text-sm md:text-base text-slate-200 leading-relaxed mb-6 line-clamp-4">
                                                             &ldquo;{testimonial.quote}&rdquo;
                                                         </p>
                                                         <cite className="not-italic flex flex-col gap-1">

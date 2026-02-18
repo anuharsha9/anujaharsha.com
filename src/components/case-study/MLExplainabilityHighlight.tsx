@@ -40,7 +40,7 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
         <span className="inline-block font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest bg-[var(--accent-teal-50)] px-3 py-1.5">
           {'// TRUST_EARNED'}
         </span>
-        <h3 className="text-slate-900 text-2xl md:text-3xl font-serif leading-tight">
+        <h3 className="text-slate-900 text-2xl md:text-3xl font-sans leading-tight">
           The Explainability Deep Dive
         </h3>
         <p className="text-slate-500 text-sm md:text-base max-w-2xl mx-auto">
@@ -62,7 +62,7 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
             </span>
             <p className="text-xl md:text-2xl font-light text-slate-900 leading-relaxed">
               My Principal Data Scientist handed me a screenshot from an external tool and said:
-              <span className="font-serif italic text-blue-700 ml-2">&quot;This is the explainability visualization I need in WebFOCUS. Can you figure it out?&quot;</span>
+              <span className="font-sans italic text-blue-700 ml-2">&quot;This is the explainability visualization I need in WebFOCUS. Can you figure it out?&quot;</span>
             </p>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
             title="testimonial.log"
           >
             <div className="flex flex-col md:flex-row gap-6 md:items-start">
-              <span className="text-[var(--accent-teal)] opacity-50 text-4xl font-serif leading-none">&quot;</span>
+              <span className="text-[var(--accent-teal)] opacity-50 text-4xl font-sans leading-none">&quot;</span>
               <div className="space-y-6 flex-1">
                 <p className="text-slate-300 text-lg md:text-xl leading-relaxed font-light">
                   The other designers I worked with before didn&apos;t really understand what they were doing—they just gave designs. But you sat with us, talked to us, and actually understood. <span className="text-[var(--accent-teal)] font-medium">That&apos;s why I trust you.</span>

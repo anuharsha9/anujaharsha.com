@@ -92,7 +92,7 @@ export default function PersistenceGallery() {
                 {/* Header — clean Apple typography */}
                 <div className="mb-10 md:mb-12">
                     <h3
-                        className="font-serif text-3xl md:text-4xl text-slate-900 tracking-tight"
+                        className="font-sans font-black text-3xl md:text-4xl text-slate-900 tracking-tight"
                     >
                         Portfolio Evolution
                     </h3>
@@ -179,7 +179,7 @@ export default function PersistenceGallery() {
                                             <div>
                                                 <span className="uppercase font-medium block mb-1 text-[10px] tracking-wider text-slate-400">Key Learning</span>
                                                 <p
-                                                    className="text-slate-600 font-serif italic text-sm leading-snug"
+                                                    className="text-slate-600 font-sans italic text-sm leading-snug"
                                                 >
                                                     {activeVersion.keyLearning}
                                                 </p>

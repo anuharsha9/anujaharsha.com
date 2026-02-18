@@ -27,7 +27,7 @@ export default function TalkSection() {
           {/* Headline - Large, Serif */}
           <TextReveal
             as="h2"
-            className={`font-serif ${t.text} text-3xl md:text-4xl lg:text-5xl leading-tight`}
+            className={`font-sans font-black ${t.text} text-3xl md:text-4xl lg:text-5xl leading-tight`}
             variant="slide-up"
             stagger={0.12}
           >

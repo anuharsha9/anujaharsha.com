@@ -379,7 +379,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
             >
               {/* Feature Title & Description (Centered) */}
               <div className="text-center max-w-3xl mx-auto space-y-3">
-                <h4 className="font-serif text-2xl md:text-3xl text-slate-900">
+                <h4 className="font-sans text-2xl md:text-3xl text-slate-900">
                   {activeTabData.title}
                 </h4>
                 <p className="text-slate-500 leading-relaxed">
@@ -391,7 +391,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
                     <span className="font-mono text-[10px] text-amber-700 uppercase tracking-widest mr-2">
                       {activeTabData.highlight.label}:
                     </span>
-                    <span className="font-serif italic text-sm text-slate-700">
+                    <span className="font-sans italic text-sm text-slate-700">
                       {activeTabData.highlight.text}
                     </span>
                   </div>
@@ -425,7 +425,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
             <span className="font-mono text-xs text-red-600 uppercase tracking-widest">
               {'// LEGACY_PAIN'}
             </span>
-            <h4 className="font-serif text-xl text-slate-900">
+            <h4 className="font-sans text-xl text-slate-900">
               30 Years of Checkbox Chaos
             </h4>
             <p className="text-slate-600 text-sm leading-relaxed">
@@ -448,7 +448,7 @@ export default function RCDesignEvolution({ isLightBackground = false }: RCDesig
             <span className="font-mono text-xs text-emerald-600 uppercase tracking-widest">
               {'// NATURAL_LANGUAGE'}
             </span>
-            <h4 className="font-serif text-xl text-slate-900">
+            <h4 className="font-sans text-xl text-slate-900">
               Human-Readable Summaries
             </h4>
             <p className="text-slate-600 text-sm leading-relaxed">

@@ -55,7 +55,7 @@ export default function MilestoneConnector({ milestones }: { milestones: Milesto
                                     <div className="font-mono text-[10px] text-[var(--accent-teal)] uppercase tracking-wider mb-1 opacity-80">
                                         {milestone.year}
                                     </div>
-                                    <h4 className="text-white font-serif text-lg leading-tight mb-1">
+                                    <h4 className="text-white font-sans font-bold text-lg leading-tight mb-1">
                                         {milestone.title}
                                     </h4>
                                     {milestone.subtitle && (

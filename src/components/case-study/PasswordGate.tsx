@@ -102,7 +102,7 @@ export default function PasswordGate({
             className="space-y-6"
           >
             <div className="space-y-4">
-              <h2 className="text-white text-2xl md:text-3xl font-serif">
+              <h2 className="text-white text-2xl md:text-3xl font-sans">
                 Deeper dive (password required)
               </h2>
               <p className="text-white/80 text-base md:text-lg leading-relaxed">

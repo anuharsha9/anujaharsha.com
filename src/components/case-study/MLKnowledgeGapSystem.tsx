@@ -87,7 +87,7 @@ export default function MLKnowledgeGapSystem({ isLightBackground = true }: MLKno
 
               {/* Content */}
               <div className="space-y-3">
-                <h4 className="font-serif text-xl text-slate-900 leading-snug">
+                <h4 className="font-sans text-xl text-slate-900 leading-snug">
                   {m.method}
                 </h4>
 

@@ -44,10 +44,12 @@ export default function AboutPage() {
       >
         {/* Subtle grid pattern */}
         <div
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.015]"
           style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
           }}
         />
 
@@ -67,7 +69,7 @@ export default function AboutPage() {
           {/* Dramatic Headline — overflow clip reveal */}
           <div className="overflow-hidden mb-2">
             <motion.h1
-              className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-slate-900 leading-[0.95]"
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[0.95] tracking-tight"
               initial={{ y: '120%' }}
               animate={{ y: 0 }}
               transition={{ duration: 1.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -77,7 +79,7 @@ export default function AboutPage() {
           </div>
           <div className="overflow-hidden mb-10">
             <motion.p
-              className="font-serif text-3xl sm:text-4xl md:text-5xl text-slate-400"
+              className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-slate-400"
               initial={{ y: '120%' }}
               animate={{ y: 0 }}
               transition={{ duration: 1.4, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -113,12 +115,12 @@ export default function AboutPage() {
 
           {/* Bio */}
           <motion.div
-            className="max-w-2xl mx-auto"
+            className="max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3, duration: 0.8 }}
           >
-            <p className="text-slate-700 text-base sm:text-lg leading-relaxed font-serif mb-4">
+            <p className="text-slate-700 text-base sm:text-lg leading-relaxed font-sans mb-4">
               <strong className="block text-slate-900 mb-2">
                 Senior Product Designer (13y) | Design Engineer | Enterprise Systems Architect
               </strong>
@@ -211,7 +213,7 @@ export default function AboutPage() {
                   ].map((item) => (
                     <div key={item.num} className="space-y-2">
                       <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">{item.num}</span>
-                      <h3 className="font-serif text-lg text-slate-900">{item.title}</h3>
+                      <h3 className="font-sans text-lg font-bold text-slate-900">{item.title}</h3>
                       <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
                     </div>
                   ))}
@@ -220,13 +222,13 @@ export default function AboutPage() {
                 {/* System Specs */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {[
-                    { label: 'Typography', content: <>Set in <span className="text-slate-900">Playfair Display</span> for headers, <span className="text-slate-900">Inter</span> for UI, and <span className="text-slate-900">JetBrains Mono</span> for code.</> },
+                    { label: 'Typography', content: <>Set in <span className="text-slate-900">Inter Black</span> for headers, <span className="text-slate-900">Inter</span> for UI, and <span className="text-slate-900">JetBrains Mono</span> for code.</> },
                     { label: 'Environment', content: <>Built with <span className="text-slate-900">Next.js 16</span>, <span className="text-slate-900">Framer Motion</span>, and <span className="text-slate-900">Tailwind</span>. Deployed on <span className="text-slate-900">AWS</span>.</> },
                     { label: 'Design Source', content: <>Assets & SVGs in <span className="text-slate-900">Figma</span>. Entire website orchestrated via <span className="text-slate-900">Human-AI Collaboration</span>.</> },
                   ].map((item) => (
                     <div key={item.label} className="space-y-2">
                       <span className="text-slate-400 font-mono text-[10px] uppercase tracking-widest">{item.label}</span>
-                      <p className="text-slate-600 text-xs font-serif leading-relaxed">{item.content}</p>
+                      <p className="text-slate-600 text-xs font-sans leading-relaxed">{item.content}</p>
                     </div>
                   ))}
                 </div>
@@ -397,10 +399,12 @@ export default function AboutPage() {
 
         {/* Subtle grid */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
           }}
         />
 
@@ -421,7 +425,7 @@ export default function AboutPage() {
           {/* Large dramatic heading */}
           <div className="overflow-hidden mb-8">
             <motion.h3
-              className="font-serif text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight"
+              className="font-sans text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight"
               initial={{ y: '100%' }}
               whileInView={{ y: 0 }}
               viewport={{ once: true }}

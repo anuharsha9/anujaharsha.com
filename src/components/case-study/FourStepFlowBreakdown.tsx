@@ -23,7 +23,7 @@ export default function FourStepFlowBreakdown({ isLightBackground = false }: Fou
     <div className={`${t.bg} border ${t.border} p-8 md:p-12 rounded-2xl`}>
       <div className="space-y-8">
         <div className="text-center space-y-3">
-          <h3 className={`${t.text} text-2xl md:text-3xl font-serif`}>The 4-Step Guided Flow</h3>
+          <h3 className={`${t.text} text-2xl md:text-3xl font-sans`}>The 4-Step Guided Flow</h3>
           <p className={`${t.textMuted} text-base md:text-lg max-w-2xl mx-auto`}>
             A key moment with the Principal Data Scientist: &quot;What do you absolutely need to train a model responsibly?&quot; Answer → problem type, target, predictors, hyperparameters. That became the spine of the UX.
           </p>

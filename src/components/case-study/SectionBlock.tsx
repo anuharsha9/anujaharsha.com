@@ -376,7 +376,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                     <>
                       <div className="space-y-space-2">
                         <ScrollRevealText variant="heading">
-                          <h3 className={`${textColor} text-lg md:text-xl font-serif`}>{subsection.title}</h3>
+                          <h3 className={`${textColor} text-lg md:text-xl font-sans`}>{subsection.title}</h3>
                         </ScrollRevealText>
                         {subsection.description && (
                           <ScrollRevealText variant="paragraph" delay={0.1}>
@@ -961,7 +961,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                 {/* Header */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className={`${textColor} text-lg font-serif mb-1`}>Legacy Interface Examples</h3>
+                    <h3 className={`${textColor} text-lg font-sans mb-1`}>Legacy Interface Examples</h3>
                     <p className={`${mutedColor} text-sm`}>
                       {showAllLegacyImages ? 'All 8 legacy interfaces' : 'Preview of fragmented legacy system'}
                     </p>

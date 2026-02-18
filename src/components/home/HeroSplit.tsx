@@ -1095,11 +1095,13 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           {/* Subtle grid background */}
           {quizState !== 'quiz' && (
             <div
-              className="absolute inset-0 opacity-[0.05]"
+              className="absolute inset-0 opacity-[0.02]"
               style={{
-                backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+                backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
                 backgroundSize: '60px 60px',
+                maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
+                WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
               }}
             />
           )}
@@ -1387,20 +1389,20 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
               transition={{ duration: 2.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
               style={{ pointerEvents: (isAct2Active && quizState !== 'quiz') ? 'auto' : 'none' }}
             >
-              {/* Subtext - Credential Bar (Whisper - subdued to let headline dominate) */}
+              {/* Subtext - Career Timeline Label */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-[var(--accent-teal)] font-mono text-[15px] xs:text-[17px] sm:text-[18px] tracking-[0.08em] uppercase font-normal mb-0"
+                className="font-mono text-[11px] sm:text-xs tracking-[0.35em] uppercase text-white/40 mb-0"
               >
-                Senior Product Designer · 13+ Years · AI-Adept Prototyper · Enterprise UX
+                Career Timeline
               </motion.div>
 
-              {/* Main Headline — Display Weight, Premium, Oversized (20% larger per audit) */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-[750] text-white leading-[1.5] tracking-[-0.03em] w-full max-w-6xl mx-auto font-sans !mt-space-3">
-                <span className="inline mb-1 sm:mb-2">
-                  {"I design so users never wonder".split('').map((char, i) => (
+              {/* Main Headline */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-extrabold text-white leading-[1.15] tracking-[-0.03em] w-full max-w-6xl mx-auto font-sans !mt-space-3">
+                <span className="inline">
+                  {"13 Years. ".split('').map((char, i) => (
                     <motion.span
                       key={`h1-Line1-${i}`}
                       initial={{ opacity: 0 }}
@@ -1411,19 +1413,29 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                     </motion.span>
                   ))}
                 </span>
-                <span className="inline-block bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent pb-1">
-                  {"\"how do I use this?\"".split('').map((char, i) => (
+                <span className="inline bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent pb-1">
+                  {"One Mission.".split('').map((char, i) => (
                     <motion.span
                       key={`h1-Line2-${i}`}
                       initial={{ opacity: 0 }}
                       animate={isAppReady ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{ duration: 0, delay: 0.5 + (30 + i) * 0.06 }}
+                      transition={{ duration: 0, delay: 0.5 + (10 + i) * 0.06 }}
                     >
                       {char}
                     </motion.span>
                   ))}
                 </span>
               </h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={isAppReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.8, delay: 1.8 }}
+                className="text-slate-400 text-base sm:text-lg font-light tracking-wide !mt-space-4"
+              >
+                From curiosity to code. A story told through scroll.
+              </motion.p>
 
 
 
@@ -1438,7 +1450,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-space-8 md:gap-y-0 divide-white/[0.06] md:divide-x">
                   {/* Stat 1 */}
                   <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
                       <Counter value={50} isReady={isAppReady} />+
                     </div>
                     <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
@@ -1447,7 +1459,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   </div>
                   {/* Stat 2 */}
                   <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
                       <Counter value={25} isReady={isAppReady} />M+
                     </div>
                     <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
@@ -1456,7 +1468,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   </div>
                   {/* Stat 3 */}
                   <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
                       Fortune 500
                     </div>
                     <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
@@ -1465,7 +1477,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   </div>
                   {/* Stat 4 */}
                   <div className="flex flex-col items-center justify-center px-space-4 group">
-                    <div className="text-xl sm:text-2xl font-semibold tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
+                    <div className="text-xl sm:text-2xl font-black tracking-tight text-white/90 mb-space-2 whitespace-nowrap">
                       Best-in-Class
                     </div>
                     <div className="text-slate-600 group-hover:text-slate-500 transition-colors text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.15em] text-center font-normal">
