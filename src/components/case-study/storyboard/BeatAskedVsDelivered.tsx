@@ -161,7 +161,7 @@ export default function BeatAskedVsDelivered() {
                                 className="mt-6 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="I live this stuff. It's never just a job."
+                                    text="I live this stuff."
                                     mood="reflective"
                                     align="right"
                                 />

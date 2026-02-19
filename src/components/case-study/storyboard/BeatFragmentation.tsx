@@ -248,7 +248,7 @@ export default function BeatFragmentation() {
                                 className="mt-6 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="But I was determined. I was going to piece this thing together or go nuts trying. Which I did. Both."
+                                    text="Piece it together or go nuts trying. Did both."
                                     mood="determined"
                                     align="left"
                                 />

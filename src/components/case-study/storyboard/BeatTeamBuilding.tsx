@@ -200,7 +200,7 @@ export default function BeatTeamBuilding() {
                                 className="mt-6 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="Design is so personal to me. It's not just work — it means so much more."
+                                    text="It's never just work."
                                     mood="reflective"
                                     align="left"
                                 />

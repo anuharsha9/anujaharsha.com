@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence, animate } from 'framer-motion'
-import { useEffect, useRef, useState, useMemo, memo, useCallback } from 'react'
+import { useEffect, useRef, useState, useMemo, memo, useCallback, useId } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -278,7 +278,9 @@ const GearsSvgContainer = memo(function GearsSvgContainer({
       className="gears-dark-theme w-full"
       style={{ willChange: 'opacity, transform' }}
       dangerouslySetInnerHTML={{ __html: svgContent }}
-    />
+    >
+      {/* Debug: {console.log('[GearsSvgContainer] Rendering with content length:', svgContent?.length)} */}
+    </div>
   )
 })
 
@@ -413,7 +415,14 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       }
 
       window.addEventListener('app-ready', handleAppReady, { once: true })
-      return () => window.removeEventListener('app-ready', handleAppReady)
+
+      // Fail-safe: If app-ready doesn't fire within 500ms, force ready
+      const fallbackTimeout = setTimeout(handleAppReady, 500)
+
+      return () => {
+        window.removeEventListener('app-ready', handleAppReady)
+        clearTimeout(fallbackTimeout)
+      }
     }
   }, [forceQuiz])
 
@@ -434,14 +443,23 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     // We don't clear session key so we don't annoy them if they refresh
   }, [])
 
+  // Create unique namespace to prevent ID collisions
+  const uniqueId = useId().replace(/:/g, '')
+
   // -- SVG GENERATION & LIGHTING --
-  // 1. Base SVG cleanup (Memoized once)
+  // 1. Base SVG cleanup (Memoized once per instance)
   const baseSvg = useMemo(() => {
-    return BRAIN_GEARS_SVG
+    // Inject unique namespace into all IDs and URL references
+    // This fixes the issue where multiple instances (desktop/mobile/hidden) clash
+    const processed = BRAIN_GEARS_SVG
+      .replace(/id="([^"]+)"/g, `id="${uniqueId}_$1"`)
+      .replace(/url\(#([^)]+)\)/g, `url(#${uniqueId}_$1)`)
       .replace(/width=["'][^"']*["']/g, '')
       .replace(/height=["'][^"']*["']/g, '')
       .replace(/<svg/, '<svg style="width:100%;height:auto"')
-  }, [])
+
+    return processed
+  }, [uniqueId])
 
   // 2. Dynamic SVG (Re-runs on quiz state/lit gears)
   const svgContent = useMemo(() => {
@@ -462,13 +480,15 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     // If complete, we accept base.
 
     return baseSvg.replace(/id=["']([^"']+)["']/g, (match, id) => {
+      // Revert namespaced ID to original for logic checks
+      const originalId = id.replace(`${uniqueId}_`, '')
       const classes: string[] = []
 
       // In Quiz Mode: Light up specific gears
       if (quizState === 'quiz') {
-        if (persistentGears.has(id)) {
+        if (persistentGears.has(originalId)) {
           classes.push('gear-main--active', 'gear-lit')
-        } else if (id === currentActiveGear) {
+        } else if (originalId === currentActiveGear) {
           classes.push('gear-main--active')
         }
       }
@@ -480,7 +500,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       // OR we trust the GSAP/JS animation to set opacity: 1.
 
       // Special handling: Completely hide lines-background during quiz
-      if (quizState === 'quiz' && (id === 'lines-background' || id === 'lines-background-copy')) {
+      if (quizState === 'quiz' && (originalId === 'lines-background' || originalId === 'lines-background-copy')) {
         return `${match} style="display: none"`
       }
 
@@ -489,7 +509,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       }
       return match
     })
-  }, [baseSvg, litGears, currentQuestion, quizState])
+  }, [baseSvg, litGears, currentQuestion, quizState, uniqueId])
 
   const nextQuestionRef = useRef<string | null>(null)
 
@@ -575,10 +595,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       }
 
       // In the white-gears SVG, the ID might still be brain-gears or brain-gears-copy
-      // We check for both just in case
-      let brainGearsGroup = svgRoot.querySelector<SVGGElement>('#brain-gears-copy')
+      // We check for both just in case, using namespaced IDs
+      let brainGearsGroup = svgRoot.querySelector<SVGGElement>(`#${uniqueId}_brain-gears-copy`)
       if (!brainGearsGroup) {
-        brainGearsGroup = svgRoot.querySelector<SVGGElement>('#brain-gears')
+        brainGearsGroup = svgRoot.querySelector<SVGGElement>(`#${uniqueId}_brain-gears`)
       }
       if (!brainGearsGroup) return
 
@@ -592,10 +612,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         // Only set transform origins so gears rotate properly when lit
         if (!shouldAnimate) {
           // During quiz: Only set transform properties, let CSS handle opacity
-          const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>('#main-gears')
+          const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_main-gears`)
           if (mainGearsGroup) {
             GEAR_IDS.forEach((gearId) => {
-              const gear = mainGearsGroup.querySelector<SVGGElement>(`#${gearId}`)
+              const gear = mainGearsGroup.querySelector<SVGGElement>(`#${uniqueId}_${gearId}`)
               if (!gear) return
               gear.style.transformOrigin = 'center'
               gear.style.transformBox = 'fill-box'
@@ -610,13 +630,13 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         const slowDownTime = shouldSkipEntrance ? 0 : 1.0
         const mainGearSlowDownPercent = 0.30
 
-        // New structure: gears are direct children of #main-gears with IDs like gear-life, gear-career-ambition
-        const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>('#main-gears')
+        // New structure: gears are direct children of #main-gears with namespaced IDs
+        const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_main-gears`)
         if (!mainGearsGroup) return
 
         GEAR_IDS.forEach((gearId) => {
           // The gear group IS the gear itself now (not a container with gear-base inside)
-          const gear = mainGearsGroup.querySelector<SVGGElement>(`#${gearId}`)
+          const gear = mainGearsGroup.querySelector<SVGGElement>(`#${uniqueId}_${gearId}`)
           if (!gear) return
 
           // CRITICAL: Set opacity immediately to prevent flicker when brain-entry-container is removed.
@@ -641,7 +661,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           gear.style.transformBox = 'fill-box'
         })
 
-        const bgGears = Array.from(brainGearsGroup!.querySelectorAll<SVGGElement>('[id^="bg-gear-"]'))
+        const bgGears = Array.from(brainGearsGroup!.querySelectorAll<SVGGElement>(`[id^="${uniqueId}_bg-gear-"]`))
         const avgMainGearSpeed = 30
 
         bgGears.forEach((gear) => {
@@ -665,9 +685,9 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
       const setTransformOrigins = () => {
         // Main gears under #main-gears
-        const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>('#main-gears')
+        const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_main-gears`)
         if (mainGearsGroup) {
-          const mainGears = mainGearsGroup.querySelectorAll<SVGGElement>(':scope > [id^="gear-"]')
+          const mainGears = mainGearsGroup.querySelectorAll<SVGGElement>(`:scope > [id^="${uniqueId}_gear-"]`)
           mainGears.forEach((gear) => {
             try {
               const bbox = gear.getBBox()
@@ -683,7 +703,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         }
 
         // Background gears
-        const bgGears = brainGearsGroup!.querySelectorAll<SVGGElement>('[id^="bg-gear-"]')
+        const bgGears = brainGearsGroup!.querySelectorAll<SVGGElement>(`[id^="${uniqueId}_bg-gear-"]`)
         bgGears.forEach((gear) => {
           try {
             const bbox = gear.getBBox()
@@ -699,7 +719,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       }
 
       const setupLineDrawing = () => {
-        const linesBackground = brainGearsGroup!.querySelector<SVGGElement>('#lines-background')
+        const linesBackground = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_lines-background`)
         if (!linesBackground) return
 
         const paths = Array.from(linesBackground.querySelectorAll<SVGPathElement>('path'))
@@ -742,12 +762,12 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         const eventListeners = new Map<string, { element: Element; type: string; handler: EventListener }[]>()
 
         // New structure: gears are direct children of #main-gears
-        const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>('#main-gears')
-        if (!mainGearsGroup) return
+        const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_main-gears`)
+        if (!mainGearsGroup) return () => { }
 
         GEAR_IDS.forEach((gearId) => {
           // The gear group IS the gear itself now
-          const gear = mainGearsGroup.querySelector<SVGGElement>(`#${gearId}`)
+          const gear = mainGearsGroup.querySelector<SVGGElement>(`#${uniqueId}_${gearId}`)
           if (!gear) return
 
           // Enable pointer events on the gear itself
@@ -814,7 +834,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
             const allActiveGears = brainGearsGroup!.querySelectorAll<SVGGElement>('.gear-main--active')
             allActiveGears.forEach((activeGear) => {
-              if (activeGear.id !== gearId) {
+              // Compare IDs carefully - gearId is simple, activeGear.id is namespaced
+              // Or check if activeGear.id ends with gearId?
+              // Or activeGear.id === `${uniqueId}_${gearId}`
+              if (activeGear.id !== `${uniqueId}_${gearId}`) {
                 activeGear.classList.remove('gear-main--active')
                 // Remove accent color from previously active gear
                 activeGear.style.removeProperty('--gear-accent')
@@ -978,7 +1001,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       } else if (quizState !== 'complete') {
         // Ensure lines are completely hidden during quiz
         linesDrawnRef.current = false
-        const linesBg = brainGearsGroup!.querySelector<SVGGElement>('#lines-background')
+        const linesBg = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_lines-background`)
         if (linesBg) linesBg.style.opacity = '0'
       }
 
@@ -994,7 +1017,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     return () => {
       if (cleanup) cleanup()
     }
-  }, [router, isAppReady, shouldSkipEntrance, quizState, litGears])
+  }, [router, isAppReady, shouldSkipEntrance, quizState, litGears, uniqueId])
 
   // Click outside to close the hover card
   useEffect(() => {
@@ -1101,16 +1124,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
               {/* Centered Gears - THE HERO */}
               <motion.div
-                className={`relative w-full max-w-[320px] xs:max-w-[380px] sm:max-w-[480px] md:max-w-[580px] lg:max-w-[680px] xl:max-w-[740px] 2xl:max-w-[900px] max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
-                initial={shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 }}
-                animate={(isAppReady || quizState === 'quiz')
-                  ? { opacity: 1, scale: quizState === 'quiz' ? 1.15 : 1 }
-                  : (shouldSkipEntrance ? { opacity: 1, scale: 1 } : { opacity: 0.1, scale: 5 })
-                }
-                transition={shouldSkipEntrance ? { duration: 0 } : {
-                  scale: { type: 'spring', stiffness: 45, damping: 12, mass: 1.8 },
-                  opacity: { duration: 2.5, delay: 1.2, ease: [0.22, 1, 0.36, 1] },
-                }}
+                className={`relative w-full max-w-[500px] md:max-w-[640px] lg:max-w-[720px] xl:max-w-[800px] max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
+                initial={{ opacity: 1, scale: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0 }}
                 style={{ transformOrigin: 'center center' }}
                 onMouseEnter={() => setBrainHovered(true)}
                 onMouseLeave={() => setBrainHovered(false)}
@@ -1118,8 +1135,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                 <GearsSvgContainer
                   svgContent={svgContent}
                   containerRef={containerRef}
-                  isReady={isAppReady || quizState === 'quiz'}
-                  shouldSkipAnimation={shouldSkipEntrance}
+                  isReady={true}
+                  shouldSkipAnimation={true}
                 />
 
                 {/* === QUIZ CARD OVERLAY === */}

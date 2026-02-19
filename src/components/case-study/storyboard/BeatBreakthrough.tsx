@@ -223,7 +223,7 @@ export default function BeatBreakthrough() {
                                 className="mt-6 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="This was it. I KNEW it."
+                                    text="THIS was it. I knew."
                                     mood="excited"
                                     align="right"
                                 />

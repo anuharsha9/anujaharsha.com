@@ -142,7 +142,7 @@ export default function BeatWeekOne() {
                                 className="mt-8 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="I had no idea what I was getting myself into :P"
+                                    text="No clue what I signed up for :P"
                                     mood="excited"
                                     align="left"
                                 />

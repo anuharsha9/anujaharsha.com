@@ -90,11 +90,32 @@ export default function NarratorBubble({
                 className="flex-shrink-0"
             >
                 <div
-                    className={`w-9 h-9 rounded-full ${s.avatarBg} border ${s.avatarBorder} flex items-center justify-center`}
+                    className={`w-9 h-9 rounded-full ${s.avatarBg} border ${s.avatarBorder} flex items-center justify-center overflow-hidden`}
                 >
-                    <span className={`text-[10px] font-bold ${s.avatarText} tracking-wide`}>
-                        AH
-                    </span>
+                    {/* Comic-style female narrator silhouette */}
+                    <svg
+                        viewBox="0 0 36 36"
+                        fill="none"
+                        className="w-8 h-8"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        {/* Head */}
+                        <circle cx="18" cy="13" r="6.5" fill="currentColor" className={s.avatarText} opacity="0.7" />
+                        {/* Hair swoop — side-swept bangs */}
+                        <path
+                            d="M11.5 13c0-4.5 3-7.5 7-7.5 2 0 3.5.7 4.5 2-1.5-1-3-.8-4.5.2-1.5 1-3 2.3-5 2.3-1 0-1.5-.3-2-1"
+                            fill="currentColor"
+                            className={s.avatarText}
+                            opacity="0.9"
+                        />
+                        {/* Shoulders/bust */}
+                        <path
+                            d="M8 32c0-6 4.5-10 10-10s10 4 10 10"
+                            fill="currentColor"
+                            className={s.avatarText}
+                            opacity="0.5"
+                        />
+                    </svg>
                 </div>
             </motion.div>
 

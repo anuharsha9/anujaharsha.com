@@ -186,7 +186,7 @@ export default function BeatInvestigation() {
                                 className="mt-6 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="There were days I dreamed about RC workflows. Purely obsessed."
+                                    text="I dreamed about these workflows. Literally."
                                     mood="determined"
                                     align="right"
                                 />

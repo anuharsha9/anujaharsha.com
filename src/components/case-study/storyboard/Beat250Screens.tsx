@@ -69,12 +69,9 @@ export default function Beat250Screens() {
                                 animate={{ opacity: 1 }}
                                 className="text-center mb-10"
                             >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-4">
+                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase">
                                     The grind
                                 </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-                                    250 Screens
-                                </h3>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -196,7 +193,7 @@ export default function Beat250Screens() {
                                 className="mt-6 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="I was like a child with candy. Every breakthrough felt MASSIVE."
+                                    text="Every breakthrough felt MASSIVE."
                                     mood="excited"
                                     align="left"
                                 />

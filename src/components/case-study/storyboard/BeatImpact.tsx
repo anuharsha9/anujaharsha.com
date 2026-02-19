@@ -148,7 +148,7 @@ export default function BeatImpact() {
                                 className="mt-6 max-w-lg mx-auto"
                             >
                                 <NarratorBubble
-                                    text="We actually did it."
+                                    text="We did it."
                                     mood="excited"
                                     align="left"
                                 />
