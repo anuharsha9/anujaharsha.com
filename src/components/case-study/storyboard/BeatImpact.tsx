@@ -118,7 +118,7 @@ export default function BeatImpact() {
                                 <div className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 md:p-8">
                                     <div className="text-4xl text-zinc-800 absolute -top-3 left-4">&ldquo;</div>
                                     <p className="text-base md:text-lg text-zinc-300 leading-relaxed italic">
-                                        She impressed everyone. She took a 50-year-old system and made it look like it was built yesterday.
+                                        From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She&apos;s the kind of UX leader any team would be lucky to have.
                                     </p>
                                     <AnimatePresence>
                                         {phase >= 7 && (
@@ -128,7 +128,7 @@ export default function BeatImpact() {
                                                 transition={{ duration: 0.5 }}
                                                 className="text-xs text-zinc-500 font-mono mt-4"
                                             >
-                                                — Vijay Raman, Principal Engineer
+                                                — Yingchun Chen, Principal System Software Engineer
                                             </motion.p>
                                         )}
                                     </AnimatePresence>
