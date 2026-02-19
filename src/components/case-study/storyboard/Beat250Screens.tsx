@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Search, AlertTriangle, Inbox } from 'lucide-react'
-import NarratorBubble from './NarratorBubble'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -61,17 +61,21 @@ export default function Beat250Screens() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Header */}
+                    {/* Presenter narration */}
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center mb-10"
-                            >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase">
-                                    The grind
-                                </div>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        Every interaction. Every loading state. Every error.
+                                    </p>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                        250+ screens. Nothing left to interpretation. 📐
+                                    </p>
+                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
+                                        If a dev asked &quot;what happens when...&quot; — the answer was already documented.
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -184,22 +188,8 @@ export default function Beat250Screens() {
                         )}
                     </AnimatePresence>
 
-                    {/* Narrator aside */}
-                    <AnimatePresence>
-                        {phase >= 5 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-6 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="Every breakthrough felt MASSIVE."
-                                    mood="excited"
-                                    align="left"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
                 </div>
             </div>
         </div>

@@ -253,13 +253,12 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           type: 'title',
           title: 'Modernizing a 50-Year-Old OS',
           content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'],
-          image: '/images/case-study/ReportCaster/rc-cover.png',
         },
         // ── Beat 1: Week 1 ──
         {
           type: 'problem',
           title: 'Week 1. Zero Domain Knowledge.',
-          content: ['I had never heard of BI tools. I had no enterprise design experience. And I volunteered for the biggest project in the pipeline.'],
+          content: ['I had never worked in data analytics. Never heard of BI tools. And I volunteered for the biggest project in the pipeline.'],
           component: <BeatWeekOne />,
         },
         // ── Beat 2: The Room ──
@@ -366,7 +365,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           type: 'lesson',
           title: 'The Handoff',
           content: [
-            '250+ files. Complete documentation. From scratch.',
+            '250+ files. A living Google Drive folder. The single source of truth.',
           ],
           component: <BeatHandoff />,
           signal: 'HANDOFF',

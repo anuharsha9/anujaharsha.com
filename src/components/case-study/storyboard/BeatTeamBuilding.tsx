@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Code2, FlaskConical, ClipboardList, Headphones, type LucideIcon } from 'lucide-react'
-import NarratorBubble from './NarratorBubble'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -77,20 +77,22 @@ export default function BeatTeamBuilding() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Header */}
+                    {/* Presenter narration */}
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center mb-8"
-                            >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-4">
-                                    Team leadership
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-                                    Building the Team
-                                </h3>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        Devs, QA, PMs, BAs — most had{' '}
+                                        <span className="text-zinc-200 font-medium">never worked on a modern UI before.</span>
+                                    </p>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                        I brought everyone up to speed.
+                                    </p>
+                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
+                                        One person at a time, over 8 months. 🫡
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -191,22 +193,8 @@ export default function BeatTeamBuilding() {
                         )}
                     </AnimatePresence>
 
-                    {/* Narrator aside */}
-                    <AnimatePresence>
-                        {phase >= 12 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-6 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="It's never just work."
-                                    mood="reflective"
-                                    align="left"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
 
                     {/* Closing */}
                     <AnimatePresence>

@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Camera, Headphones, Network, User, Map, CheckCircle2, type LucideIcon } from 'lucide-react'
-import NarratorBubble from './NarratorBubble'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -19,19 +19,19 @@ const EVENTS: TimelineEvent[] = [
         month: 'Month 1',
         icon: Camera,
         label: 'Sandbox Deep Dive',
-        detail: 'Hundreds of screenshots. Grouped. Mapped. Alone.',
+        detail: 'I took hundreds of screenshots. Grouped them. Mapped them.',
     },
     {
         month: 'Month 1–2',
         icon: Headphones,
         label: 'Embedded in Support',
-        detail: 'Sat in on calls. Heard real user pain firsthand.',
+        detail: 'I joined Chris\'s CS team meetings every week for a month.',
     },
     {
         month: 'Month 2',
         icon: Network,
         label: 'Mind Maps',
-        detail: 'Documented what nobody had. Built the understanding from scratch.',
+        detail: 'I documented what nobody had. Built the understanding from scratch.',
     },
     {
         month: 'Month 2–3',
@@ -43,13 +43,13 @@ const EVENTS: TimelineEvent[] = [
         month: 'Month 3',
         icon: Map,
         label: 'Full System Map',
-        detail: 'Every workflow. Every edge case. A-to-Z.',
+        detail: 'I mapped every workflow. Every edge case. A-to-Z.',
     },
     {
         month: 'Month 3–4',
         icon: CheckCircle2,
         label: 'Validation',
-        detail: 'Validated with support and customer reps. Over and over.',
+        detail: 'I validated with support and customer reps. Over and over.',
     },
 ]
 
@@ -97,16 +97,20 @@ export default function BeatInvestigation() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Timeline header */}
+                    {/* Presenter narration */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : {}}
                         transition={{ duration: 0.6 }}
-                        className="text-center mb-8"
                     >
-                        <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase">
-                            Months 1–4 · The Investigation
-                        </span>
+                        <PresenterBar>
+                            <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                I interviewed customer reps, support leads, the <span className="text-zinc-200 font-medium">one engineer who wrote the original code in the &apos;80s</span> — anyone who&apos;d talk to me, <span className="text-zinc-200 font-medium">like crazy.</span>
+                            </p>
+                            <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
+                                Joined <span className="text-zinc-200 font-medium">Chris&apos;s</span> — our customer support lead — meetings every week for a month. Took hundreds of screenshots. Mapped <span className="text-zinc-200">every single workflow</span> myself.
+                            </p>
+                        </PresenterBar>
                     </motion.div>
 
                     {/* Timeline */}
@@ -177,22 +181,8 @@ export default function BeatInvestigation() {
                         )}
                     </AnimatePresence>
 
-                    {/* Narrator aside */}
-                    <AnimatePresence>
-                        {step >= EVENTS.length + 1 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-6 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="I dreamed about these workflows. Literally."
-                                    mood="determined"
-                                    align="right"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, CheckCircle2, Shield, Rocket, type LucideIcon } from 'lucide-react'
-import NarratorBubble from './NarratorBubble'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -64,8 +64,18 @@ export default function BeatImpact() {
 
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mb-6">
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-emerald-500/60 uppercase mb-4">Outcome</div>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        From a Visio diagram to a live product.
+                                    </p>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                        Powering mission-critical workflows. 🚀
+                                    </p>
+                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
+                                        Two years of work. 250+ screens. One designer who wouldn&apos;t stop.
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -139,22 +149,8 @@ export default function BeatImpact() {
                         )}
                     </AnimatePresence>
 
-                    {/* Narrator aside */}
-                    <AnimatePresence>
-                        {phase >= 8 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-6 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="We did it."
-                                    mood="excited"
-                                    align="left"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
 
                     {/* The realization — final word */}
                     <AnimatePresence>

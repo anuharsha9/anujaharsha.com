@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, FolderOpen, Settings, type LucideIcon } from 'lucide-react'
-import NarratorBubble from './NarratorBubble'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -75,23 +75,23 @@ export default function BeatFragmentation() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Header */}
+                    {/* Presenter narration */}
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center mb-10"
-                            >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-4">
-                                    What I discovered
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-                                    5 Systems. 1 Product.
-                                </h3>
-                                <p className="text-sm text-zinc-500 max-w-md mx-auto">
-                                    One product, fractured across five separate sub-applications. All scattered. All buried.
-                                </p>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        Explorer in a new tab. Admin two clicks deep.{' '}
+                                        <span className="text-zinc-200 font-medium">Schedules, DLs, ALs — all opened in separate browser tabs.</span>
+                                    </p>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
+                                        Users were jumping between tabs, losing context constantly.{' '}
+                                        <span className="text-zinc-200">Everything was buried.</span>
+                                    </p>
+                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
+                                        6 weeks in, I had a Miro mind map that finally made sense of it all. 🧠
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -116,10 +116,10 @@ export default function BeatFragmentation() {
                                         <div className="flex items-center justify-center mb-2">
                                             <Icon className="w-5 h-5 text-zinc-400" strokeWidth={1.5} />
                                         </div>
-                                        <div className="text-xs font-medium text-white mb-0.5">
+                                        <div className="text-sm font-medium text-white mb-0.5">
                                             {sys.label}
                                         </div>
-                                        <div className="text-[10px] text-zinc-600 font-mono">
+                                        <div className="text-[11px] text-zinc-500 font-mono leading-snug">
                                             {sys.desc}
                                         </div>
                                         {/* Chaos indicator */}
@@ -191,7 +191,7 @@ export default function BeatFragmentation() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                             >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-rose-500/60 uppercase text-center mb-6">
+                                <div className="font-mono text-xs tracking-[0.25em] text-rose-400/70 uppercase text-center mb-6">
                                     The cost of fragmentation
                                 </div>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
@@ -210,7 +210,7 @@ export default function BeatFragmentation() {
                                             <div className="text-3xl md:text-4xl font-bold text-rose-400 font-mono mb-1">
                                                 {pp.stat}
                                             </div>
-                                            <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">
+                                            <div className="text-[11px] text-zinc-400 font-mono uppercase tracking-wider leading-snug">
                                                 {pp.label}
                                             </div>
                                         </motion.div>
@@ -235,26 +235,15 @@ export default function BeatFragmentation() {
                                 <p className="text-zinc-500 text-sm mt-2 font-mono">
                                     So I drew one.
                                 </p>
+                                <p className="text-zinc-500 text-sm mt-2 italic">
+                                    6 weeks in, I had a Miro mind map that finally made sense of it all. 🧠
+                                </p>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    {/* Narrator aside */}
-                    <AnimatePresence>
-                        {phase >= 13 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-6 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="Piece it together or go nuts trying. Did both."
-                                    mood="determined"
-                                    align="left"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
                 </div>
             </div>
         </div>

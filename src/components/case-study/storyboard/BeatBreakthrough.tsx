@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, type LucideIcon } from 'lucide-react'
-import NarratorBubble from './NarratorBubble'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -73,23 +73,24 @@ export default function BeatBreakthrough() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Header */}
+                    {/* Presenter narration */}
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center mb-10"
-                            >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-emerald-500/60 uppercase mb-4">
-                                    The solution
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-                                    The + Menu
-                                </h3>
-                                <p className="text-sm text-zinc-500 max-w-md mx-auto">
-                                    Three separate workflows. One single entry point.
-                                </p>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        The Hub already had a <span className="text-zinc-200 font-medium">+ menu</span>. What if RC workflows just… lived there? No new tabs. No new plugins.
+                                    </p>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                        Users never leave their context. Everything comes to them. ✨
+                                    </p>
+                                    <p className="text-lg md:text-xl text-emerald-400 font-semibold mt-4 tracking-tight">
+                                        I was like a child with candy. 🍬
+                                    </p>
+                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
+                                        I was literally dreaming about RC workflows at night. That&apos;s how deep I was in it.
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -214,22 +215,8 @@ export default function BeatBreakthrough() {
                         )}
                     </AnimatePresence>
 
-                    {/* Narrator aside */}
-                    <AnimatePresence>
-                        {phase >= 10 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-6 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="THIS was it. I knew."
-                                    mood="excited"
-                                    align="right"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
                 </div>
             </div>
         </div>

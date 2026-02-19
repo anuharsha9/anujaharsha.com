@@ -2,6 +2,7 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import PresenterBar from './PresenterBar'
 import { Mic, MicOff, Video, Monitor, MessageSquare, User, PhoneOff } from 'lucide-react'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -21,8 +22,8 @@ const PARTICIPANTS: ZoomParticipant[] = [
     { name: 'Angie', role: 'Gold Support Lead', years: '20+ yrs', initials: 'AG', bg: '#2d1b4e', accent: '#8b5cf6' },
     { name: 'Yingchun', role: 'OG RC Engineer', years: '30+ yrs', initials: 'YC', bg: '#3d2b10', accent: '#f59e0b' },
     { name: 'Julian', role: 'Lead WF Architect', years: '40 yrs', initials: 'JL', bg: '#2a1a0a', accent: '#d97706' },
-    { name: 'Chris', role: 'Support Team Lead', years: '10 yrs', initials: 'CH', bg: '#0d3328', accent: '#10b981' },
-    { name: 'Alan', role: 'QA Lead', years: '12 yrs', initials: 'AL', bg: '#1a3344', accent: '#06b6d4' },
+    { name: 'Chris', role: 'Support TAM Lead', years: '20 yrs', initials: 'CH', bg: '#0d3328', accent: '#10b981' },
+    { name: 'Alan', role: 'Backend Lead', years: '30+ yrs', initials: 'AL', bg: '#1a3344', accent: '#06b6d4' },
     { name: 'Anuja', role: 'Me', years: '3 weeks', initials: 'AH', bg: '#3d1520', accent: '#f43f5e', me: true },
 ]
 
@@ -79,17 +80,27 @@ export default function BeatTheRoom() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-4 md:px-8 py-6 md:py-10">
 
-                    {/* Scene setting */}
+                    {/* Presenter narration */}
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center mb-6"
-                            >
-                                <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase">
-                                    Week 3 · First Kickoff Meeting
-                                </span>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        Week 3. Monday. <span className="text-zinc-200 font-medium">First kickoff meeting.</span>{' '}
+                                        A handful of people — the <span className="text-zinc-200">only ones who knew RC existed.</span>
+                                    </p>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-3">
+                                        Everyone in the room had at least{' '}
+                                        <span className="text-zinc-200 font-medium">a decade at the company</span> — some two, three —{' '}
+                                        <span className="text-amber-400 font-bold">even four decades!</span> 😳
+                                    </p>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-3">
+                                        And me? Sure, a decade of design experience —
+                                    </p>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-2 tracking-tight">
+                                        but with webFOCUS? <span className="text-rose-400">3 weeks.</span>
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -235,46 +246,11 @@ export default function BeatTheRoom() {
                         )}
                     </AnimatePresence>
 
-                    {/* Experience gap callout */}
-                    <AnimatePresence>
-                        {phase >= 8 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, ease }}
-                                className="text-center mt-6 mb-4"
-                            >
-                                <p className="text-sm text-zinc-400">
-                                    Combined experience in the room:{' '}
-                                    <span className="text-white font-semibold">130+ years</span>
-                                </p>
-                                <p className="text-sm text-zinc-500 mt-1">
-                                    Mine:{' '}
-                                    <span className="text-rose-400 font-semibold">3 weeks</span>
-                                </p>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
 
                     {/* Internal monologue — graphic novel thought bubble */}
-                    <AnimatePresence>
-                        {phase >= 9 && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.5, ease }}
-                                className="max-w-md mx-auto mt-4 mb-6"
-                            >
-                                <div className="relative rounded-xl bg-white/[0.03] border border-white/[0.06] px-5 py-4">
-                                    {/* Thought bubble tail */}
-                                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-white/[0.03] border-l border-t border-white/[0.06]" />
-                                    <p className="text-sm text-zinc-400 italic text-center relative z-10">
-                                        I had no idea what I was getting into.
-                                    </p>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
 
                     {/* Revelations — what I learned in that call */}
                     <AnimatePresence>
@@ -282,50 +258,74 @@ export default function BeatTheRoom() {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="max-w-md mx-auto"
+                                className="max-w-2xl mx-auto mt-8"
                             >
-                                <div className="font-mono text-[9px] tracking-[0.2em] text-zinc-600 uppercase text-center mb-4">
+                                <div className="text-[10px] md:text-xs tracking-[0.25em] text-zinc-500 uppercase text-center mb-8 font-medium">
                                     What I learned in that call
                                 </div>
-                                <div className="space-y-2">
-                                    {REVELATIONS.map((rev, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, x: -15 }}
-                                            animate={
-                                                phase >= 11 + i
-                                                    ? { opacity: 1, x: 0 }
-                                                    : { opacity: 0, x: -15 }
-                                            }
-                                            transition={{ duration: 0.4, ease }}
-                                            className="flex items-start gap-2.5"
-                                        >
-                                            <span className="w-1 h-1 rounded-full bg-zinc-600 mt-2 flex-shrink-0" />
-                                            <span className="text-xs md:text-sm text-zinc-400">
-                                                {rev}
-                                            </span>
-                                        </motion.div>
-                                    ))}
+                                <div className="space-y-5 md:space-y-6">
+                                    {/* Revelation 1 — Age */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={phase >= 11 ? { opacity: 1, y: 0 } : {}}
+                                        transition={{ duration: 0.5, ease }}
+                                        className="text-center"
+                                    >
+                                        <span className="text-xl md:text-2xl font-bold text-amber-400">40+ years old.</span>
+                                        <span className="text-base md:text-lg text-zinc-500 ml-2">No redesign. Ever.</span>
+                                    </motion.div>
+
+                                    {/* Revelation 2 — Scale */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={phase >= 12 ? { opacity: 1, y: 0 } : {}}
+                                        transition={{ duration: 0.5, ease }}
+                                        className="text-center"
+                                    >
+                                        <span className="text-xl md:text-2xl font-bold text-blue-400">20 million</span>
+                                        <span className="text-base md:text-lg text-zinc-400 ml-2">jobs a week.</span>
+                                    </motion.div>
+
+                                    {/* Revelation 3 — No docs */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={phase >= 13 ? { opacity: 1, y: 0 } : {}}
+                                        transition={{ duration: 0.5, ease }}
+                                        className="text-center"
+                                    >
+                                        <span className="text-lg md:text-xl font-semibold text-red-400/90">Zero documentation.</span>
+                                    </motion.div>
+
+                                    {/* Revelation 4 — No redesign */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={phase >= 14 ? { opacity: 1, y: 0 } : {}}
+                                        transition={{ duration: 0.5, ease }}
+                                        className="text-center"
+                                    >
+                                        <span className="text-base md:text-lg text-zinc-400">Last redesign attempt?</span>
+                                        <span className="text-base md:text-lg text-zinc-200 font-medium ml-2 italic">Never happened.</span>
+                                    </motion.div>
+
+                                    {/* Revelation 5 — Yingchun */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={phase >= 15 ? { opacity: 1, y: 0 } : {}}
+                                        transition={{ duration: 0.5, ease }}
+                                        className="text-center"
+                                    >
+                                        <span className="text-base md:text-lg text-zinc-400">Only </span>
+                                        <span className="text-base md:text-lg text-violet-400 font-semibold">Yingchun</span>
+                                        <span className="text-base md:text-lg text-zinc-400"> truly knew the code.</span>
+                                        <br />
+                                        <span className="text-sm md:text-base text-zinc-500 italic">He wrote it in the &apos;80s.</span>
+                                    </motion.div>
                                 </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    {/* Closing — dry, factual */}
-                    <AnimatePresence>
-                        {phase >= 16 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 1, ease }}
-                                className="text-center mt-8"
-                            >
-                                <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
-                                    I volunteered anyway.
-                                </p>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
                 </div>
             </div>
         </div>

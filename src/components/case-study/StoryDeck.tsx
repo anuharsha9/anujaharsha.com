@@ -114,11 +114,7 @@ function Deck({
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-tight">
                         {slide.title}
                     </h2>
-                    {slide.content.length > 0 && (
-                        <p className="text-sm md:text-base text-zinc-500 mt-3 max-w-xl mx-auto">
-                            {slide.content[0]}
-                        </p>
-                    )}
+                    {/* Subtitle removed — PresenterBar speech bubble provides narration */}
                 </motion.div>
 
                 {/* Embedded component */}
@@ -198,24 +194,90 @@ function Deck({
                         </motion.p>
                     ))}
 
-                    {slide.image && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 60, scale: 0.88, filter: 'blur(10px)' }}
-                            animate={isInView ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : {}}
-                            transition={{ delay: 0.6, duration: 1.1, ease }}
-                            className="mt-10 md:mt-14 relative rounded-2xl overflow-hidden shadow-2xl shadow-black/40
-                                        aspect-video max-w-3xl mx-auto ring-1 ring-white/5"
-                        >
-                            <Image
-                                src={slide.image}
-                                alt={slide.title}
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 768px) 100vw, 80vw"
-                                priority
-                            />
-                        </motion.div>
-                    )}
+                    {/* Animated wireframe mock — builds up piece by piece */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 60, scale: 0.88 }}
+                        animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                        transition={{ delay: 0.6, duration: 1.1, ease }}
+                        className="mt-10 md:mt-14 relative rounded-2xl overflow-hidden shadow-2xl shadow-black/40
+                                    aspect-video max-w-3xl mx-auto ring-1 ring-white/[0.06] bg-zinc-950"
+                    >
+                        {/* Wireframe UI mock */}
+                        <div className="absolute inset-0 p-3 md:p-4 flex gap-2 md:gap-3">
+                            {/* Sidebar */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ delay: 1.0, duration: 0.6, ease }}
+                                className="w-[14%] flex flex-col gap-2"
+                            >
+                                <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white/[0.06] mb-2" />
+                                {[1, 2, 3, 4, 5].map(i => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0 }}
+                                        animate={isInView ? { opacity: 1 } : {}}
+                                        transition={{ delay: 1.2 + i * 0.1, duration: 0.4 }}
+                                        className="h-2 rounded-full bg-white/[0.04]"
+                                        style={{ width: `${60 + Math.random() * 40}%` }}
+                                    />
+                                ))}
+                                <div className="flex-1" />
+                                <div className="h-2 w-[70%] rounded-full bg-white/[0.03]" />
+                            </motion.div>
+
+                            {/* Main content area */}
+                            <div className="flex-1 flex flex-col gap-2 md:gap-3">
+                                {/* Top bar */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                    transition={{ delay: 1.3, duration: 0.5, ease }}
+                                    className="flex items-center justify-between px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.04]"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-16 md:w-24 h-2 rounded-full bg-white/[0.08]" />
+                                        <div className="w-8 md:w-12 h-2 rounded-full bg-white/[0.04]" />
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-5 h-5 md:w-6 md:h-6 rounded-md bg-white/[0.04]" />
+                                        <div className="w-5 h-5 md:w-6 md:h-6 rounded-md bg-white/[0.04]" />
+                                    </div>
+                                </motion.div>
+
+                                {/* Content cards grid */}
+                                <div className="flex-1 grid grid-cols-3 gap-2 md:gap-2.5">
+                                    {[0, 1, 2, 3, 4, 5].map(i => (
+                                        <motion.div
+                                            key={i}
+                                            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                                            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                                            transition={{ delay: 1.5 + i * 0.15, duration: 0.5, ease }}
+                                            className="rounded-lg bg-white/[0.02] border border-white/[0.04] p-2 md:p-3 flex flex-col gap-1.5"
+                                        >
+                                            <div className="h-1.5 w-[70%] rounded-full bg-white/[0.06]" />
+                                            <div className="h-1 w-[50%] rounded-full bg-white/[0.03]" />
+                                            <div className="flex-1 rounded-md bg-white/[0.015] mt-1" />
+                                            <div className="flex gap-1">
+                                                <div className="h-1 flex-1 rounded-full bg-white/[0.03]" />
+                                                <div className="h-1 w-[30%] rounded-full bg-white/[0.02]" />
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+
+                                {/* The + button — the breakthrough */}
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                                    transition={{ delay: 2.6, duration: 0.5, type: 'spring', stiffness: 200, damping: 15 }}
+                                    className="absolute bottom-5 right-5 md:bottom-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center shadow-lg shadow-emerald-500/10"
+                                >
+                                    <span className="text-emerald-400 text-lg md:text-xl font-light">+</span>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </motion.div>
                 </motion.div>
 
                 {/* Scroll hint */}

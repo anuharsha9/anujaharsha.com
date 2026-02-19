@@ -2,6 +2,7 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -17,25 +18,19 @@ const PIVOTS: Pivot[] = [
     {
         version: 'V1',
         title: 'Independent Product',
-        desc: 'Build ReportCaster as a standalone application with its own chrome.',
+        desc: 'I designed it as a standalone product — consistent with how the platform handled other complex tools.',
         verdict: 'rejected',
-        reason: 'Too siloed. Users would have to leave the Hub entirely.',
+        reason: '"Leadership wants all workflows centralized in the Hub."',
     },
     {
         version: 'V2',
         title: 'Hub Plugin',
-        desc: 'Embed ReportCaster as a plugin within the Hub framework.',
+        desc: 'I embedded it as a plugin in the Hub, with its own icon on the side nav. I loved this version the most.',
         verdict: 'rejected',
-        reason: 'Too much engineering effort. Backend rewrite out of scope.',
-    },
-    {
-        version: 'V3',
-        title: 'Modal-Based Hub Integration',
-        desc: 'Bring ReportCaster UI into the Hub as contextual modals triggered from existing workflows.',
-        verdict: 'accepted',
-        reason: 'No extra space. Smart integration. Users never leave their context.',
+        reason: '"Too much engineering effort. Too big of an addition this year."',
     },
 ]
+
 
 export default function BeatThreePivots() {
     const ref = useRef<HTMLDivElement>(null)
@@ -51,7 +46,7 @@ export default function BeatThreePivots() {
     const play = useCallback(() => {
         clear()
         setPhase(-1)
-        // Phase 0: Header
+        // Phase 0: Speech bubble
         timers.current.push(setTimeout(() => setPhase(0), 400))
         // Phase 1: V1 appears
         timers.current.push(setTimeout(() => setPhase(1), 1200))
@@ -61,12 +56,8 @@ export default function BeatThreePivots() {
         timers.current.push(setTimeout(() => setPhase(3), 3600))
         // Phase 4: V2 rejected
         timers.current.push(setTimeout(() => setPhase(4), 4800))
-        // Phase 5: V3 appears
-        timers.current.push(setTimeout(() => setPhase(5), 6000))
-        // Phase 6: V3 accepted
-        timers.current.push(setTimeout(() => setPhase(6), 7400))
-        // Phase 7: "We failed twice fast."
-        timers.current.push(setTimeout(() => setPhase(7), 8800))
+        // Phase 5: Closer — "I failed twice fast."
+        timers.current.push(setTimeout(() => setPhase(5), 6200))
     }, [clear])
 
     useEffect(() => {
@@ -81,7 +72,6 @@ export default function BeatThreePivots() {
     const getPivotPhase = (i: number) => {
         // V1: appears at 1, verdict at 2
         // V2: appears at 3, verdict at 4
-        // V3: appears at 5, verdict at 6
         const appearPhase = i * 2 + 1
         const verdictPhase = i * 2 + 2
         return { appearPhase, verdictPhase }
@@ -92,20 +82,23 @@ export default function BeatThreePivots() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Header */}
+                    {/* Presenter narration */}
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center mb-10"
-                            >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-4">
-                                    Design iterations
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-                                    Three Pivots to Clarity
-                                </h3>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-sm md:text-[15px] text-zinc-400 leading-relaxed">
+                                        <span className="text-red-400 font-medium">V1 — rejected.</span>{' '}
+                                        <span className="text-red-400 font-medium">V2 — rejected.</span>
+                                    </p>
+                                    <p className="text-sm md:text-[15px] text-zinc-400 leading-relaxed mt-2">
+                                        Instead of fighting the decisions,{' '}
+                                        <span className="text-zinc-200 font-medium">I reframed the problem from scratch.</span>
+                                    </p>
+                                    <p className="text-sm md:text-base text-zinc-400 mt-3">
+                                        So I came up with a <span className="text-zinc-200 font-medium">V3</span>.
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -130,27 +123,27 @@ export default function BeatThreePivots() {
                                             }}
                                             transition={{ duration: 0.7, ease }}
                                             className={`relative rounded-xl border p-5 md:p-6 ${showVerdict && isAccepted
-                                                    ? 'border-emerald-500/30 bg-emerald-500/[0.04]'
-                                                    : showVerdict && !isAccepted
-                                                        ? 'border-white/[0.04] bg-white/[0.01]'
-                                                        : 'border-white/[0.08] bg-white/[0.02]'
+                                                ? 'border-emerald-500/30 bg-emerald-500/[0.04]'
+                                                : showVerdict && !isAccepted
+                                                    ? 'border-white/[0.04] bg-white/[0.01]'
+                                                    : 'border-white/[0.08] bg-white/[0.02]'
                                                 }`}
                                         >
                                             <div className="flex items-start gap-4">
                                                 {/* Version badge */}
                                                 <div className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center font-mono text-sm font-bold ${showVerdict && isAccepted
-                                                        ? 'bg-emerald-500/20 text-emerald-400'
-                                                        : showVerdict && !isAccepted
-                                                            ? 'bg-zinc-800/50 text-zinc-600 line-through'
-                                                            : 'bg-white/[0.06] text-white'
+                                                    ? 'bg-emerald-500/20 text-emerald-400'
+                                                    : showVerdict && !isAccepted
+                                                        ? 'bg-zinc-800/50 text-zinc-600 line-through'
+                                                        : 'bg-white/[0.06] text-white'
                                                     }`}>
                                                     {pivot.version}
                                                 </div>
 
                                                 <div className="flex-1 min-w-0">
                                                     <div className={`text-base font-semibold mb-1 ${showVerdict && !isAccepted
-                                                            ? 'text-zinc-500 line-through decoration-zinc-700'
-                                                            : 'text-white'
+                                                        ? 'text-zinc-500 line-through decoration-zinc-700'
+                                                        : 'text-white'
                                                         }`}>
                                                         {pivot.title}
                                                     </div>
@@ -169,8 +162,8 @@ export default function BeatThreePivots() {
                                                                     }`}
                                                             >
                                                                 <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${isAccepted
-                                                                        ? 'bg-emerald-500/20'
-                                                                        : 'bg-rose-500/10'
+                                                                    ? 'bg-emerald-500/20'
+                                                                    : 'bg-rose-500/10'
                                                                     }`}>
                                                                     {isAccepted ? '✓' : '✕'}
                                                                 </span>
@@ -199,7 +192,7 @@ export default function BeatThreePivots() {
 
                     {/* Closing */}
                     <AnimatePresence>
-                        {phase >= 7 && (
+                        {phase >= 5 && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -207,10 +200,10 @@ export default function BeatThreePivots() {
                                 className="text-center mt-10"
                             >
                                 <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
-                                    We failed twice fast.
+                                    I failed twice fast.
                                 </p>
                                 <p className="text-zinc-500 text-sm mt-2 font-mono">
-                                    The third time, we got it right.
+                                    But the third time? Something clicked.
                                 </p>
                             </motion.div>
                         )}

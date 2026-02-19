@@ -1,26 +1,16 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
-import NarratorBubble from './NarratorBubble'
+import { motion, useInView } from 'framer-motion'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 const FACTS = [
     { label: 'Days at the company', value: '7' },
     { label: 'BI tools used before', value: '0' },
-    { label: 'Enterprise design experience', value: 'None' },
+    { label: 'Data analytics experience', value: 'Zero' },
     { label: 'Knowledge of ReportCaster', value: 'Zero' },
-]
-
-const STATEMENTS = [
-    'One week into joining, my design director mentioned a legacy scheduling tool in the pipeline.',
-    'Something old. Massive. Untouched for decades.',
-    'No designer had taken it.',
-    'No engineer wanted to own it.',
-    'No PM had a roadmap for it.',
-    '"Give me a chance."',
-    'He didn\'t hesitate.',
 ]
 
 export default function BeatWeekOne() {
@@ -41,15 +31,13 @@ export default function BeatWeekOne() {
         FACTS.forEach((_, i) => {
             timers.current.push(setTimeout(() => setStep(i), 600 + i * 500))
         })
-        // Statements start after facts (at ~3s)
-        STATEMENTS.forEach((_, i) => {
-            timers.current.push(
-                setTimeout(() => setStep(FACTS.length + i), 3200 + i * 1200)
-            )
-        })
-        // Narrator bubble after all statements
+        // Speech bubble after facts
         timers.current.push(
-            setTimeout(() => setStep(FACTS.length + STATEMENTS.length), 3200 + STATEMENTS.length * 1200 + 800)
+            setTimeout(() => setStep(FACTS.length), 3200)
+        )
+        // Closing reflection
+        timers.current.push(
+            setTimeout(() => setStep(FACTS.length + 1), 5000)
         )
     }, [clear])
 
@@ -63,27 +51,37 @@ export default function BeatWeekOne() {
     }, [isInView, play, clear])
 
     const showFact = (i: number) => step >= i
-    const showStatement = (i: number) => step >= FACTS.length + i
 
     return (
         <div ref={ref} className="relative w-full max-w-4xl mx-auto">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Week counter */}
+                    {/* Speech bubble — all first-person narration */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.8, ease }}
-                        className="text-center mb-10"
                     >
-                        <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase">
-                            Week 1 at the Company
-                        </span>
+                        <PresenterBar>
+                            <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                One week in, my director mentioned{' '}
+                                <span className="text-zinc-200 font-medium">a project in the pipeline</span> — waiting to be assigned to the design team.
+                            </p>
+                            <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
+                                He was deciding which designer would lead it. I had zero domain knowledge. Never heard of BI tools.
+                            </p>
+                            <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                I volunteered anyway. 🙋‍♂️
+                            </p>
+                            <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
+                                Not because I was careless — because I trust my ability to figure things out.
+                            </p>
+                        </PresenterBar>
                     </motion.div>
 
                     {/* Fact cards grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-14">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                         {FACTS.map((fact, i) => (
                             <motion.div
                                 key={fact.label}
@@ -106,49 +104,6 @@ export default function BeatWeekOne() {
                         ))}
                     </div>
 
-                    {/* Statement lines */}
-                    <div className="space-y-4 max-w-2xl mx-auto">
-                        {STATEMENTS.map((text, i) => {
-                            const isCallout = i === 5 || i === 6 // "I'll do it" and "same day"
-                            return (
-                                <AnimatePresence key={i}>
-                                    {showStatement(i) && (
-                                        <motion.p
-                                            initial={{ opacity: 0, x: -20, filter: 'blur(6px)' }}
-                                            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.7, ease }}
-                                            className={`text-sm md:text-base leading-relaxed ${isCallout
-                                                ? 'text-white font-medium text-base md:text-lg'
-                                                : i >= 2 && i <= 4
-                                                    ? 'text-zinc-500 font-mono text-xs md:text-sm pl-4 border-l border-zinc-800'
-                                                    : 'text-zinc-400'
-                                                }`}
-                                        >
-                                            {text}
-                                        </motion.p>
-                                    )}
-                                </AnimatePresence>
-                            )
-                        })}
-                    </div>
-
-                    {/* Narrator aside */}
-                    <AnimatePresence>
-                        {step >= FACTS.length + STATEMENTS.length && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-8 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="No clue what I signed up for :P"
-                                    mood="excited"
-                                    align="left"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
                 </div>
             </div>
         </div>

@@ -531,7 +531,7 @@ From me hearing from customer support and seeing tickets where our customers wer
 3. I was onboarding and my director told me there is project called ReportCaster in the pipeline to be assigned to the design team — he'll pick a person to lead that.
 4. Well, I was enthusiastic. I said — please allow me. I'd like to do it. HA!
 5. He asked — are you sure? I said — YES.
-6. So week 3 — Monday. first kickoff meeting. Few people. Head of Product Management(15 years at the company), Gold support customer support lead (host & presenter)(20 years at the company), my manager(director of Design), original RC engineer (35+ years at webFOCUS), Backend guy for webFOCUS (very important man, 30+ years at WebFOCUS), and ME :D duh!
+6. So week 3 — Monday. first kickoff meeting. Few people. Head of Product Management — Dave (15 years at the company), Gold support customer support lead (host & presenter) — Angie (20 years at the company), my manager(director of Design), original RC engineer — Yingchun (35+ years at webFOCUS), Lead WF Architect — Julian (40 years), Backend guy for webFOCUS (very important man) — Alan (30+ years at WebFOCUS), and ME :D duh!
 7. The request — Complete UI refresh. why? Too many customer requests asking for modernization.
 8. Next day I got his presentation slide, a sandbox link on how to use it. That's all.
 9. Those people in the meeting were the only ones who knew about RC. My director of design and me were hearing about RC for the first time.

@@ -2,6 +2,7 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -30,9 +31,9 @@ const EXAMPLES: RecurrenceExample[] = [
 ]
 
 const PRINCIPLES = [
-    { icon: '💬', label: 'Natural language summaries', desc: 'Users see what they mean, not codes.' },
-    { icon: '🎚️', label: 'Progressive disclosure', desc: 'Simple by default. Advanced when needed.' },
-    { icon: '🛡️', label: 'Built-in error prevention', desc: 'Impossible to create invalid patterns.' },
+    { icon: '💬', label: 'Natural language summaries', desc: 'I wanted users to see what they mean, not codes.' },
+    { icon: '🎚️', label: 'Progressive disclosure', desc: 'I kept it simple by default. Advanced when needed.' },
+    { icon: '🛡️', label: 'Built-in error prevention', desc: 'I made it impossible to create invalid patterns.' },
 ]
 
 export default function BeatRecurrence() {
@@ -79,23 +80,23 @@ export default function BeatRecurrence() {
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
-                    {/* Header */}
+                    {/* Presenter narration */}
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center mb-10"
-                            >
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-4">
-                                    Language design
-                                </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-                                    Simplifying Recurrence
-                                </h3>
-                                <p className="text-sm text-zinc-500">
-                                    From cryptic codes to plain English.
-                                </p>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        Users had to memorize codes like{' '}
+                                        <code className="text-amber-400 font-mono font-bold bg-amber-400/10 px-2 py-0.5 rounded">&apos;W1MO&apos;</code>{' '}
+                                        for &quot;every Monday.&quot;
+                                    </p>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                        Nobody could read these. 🤯
+                                    </p>
+                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
+                                        I added natural language summaries so humans could actually understand their schedules.
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -127,8 +128,8 @@ export default function BeatRecurrence() {
                                                     Before
                                                 </div>
                                                 <code className={`text-xs font-mono block mb-3 ${phase >= 4
-                                                        ? 'text-zinc-700 line-through decoration-zinc-800'
-                                                        : 'text-rose-300/80'
+                                                    ? 'text-zinc-700 line-through decoration-zinc-800'
+                                                    : 'text-rose-300/80'
                                                     }`}>
                                                     {ex.before}
                                                 </code>

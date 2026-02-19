@@ -2,7 +2,7 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import NarratorBubble from './NarratorBubble'
+import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -13,12 +13,12 @@ const ASKED = [
 ]
 
 const DELIVERED = [
-    'Full system architecture redesign',
-    '250+ screens covering every edge case',
-    '5 subsystems unified into 1 Hub',
-    'Complete documentation from scratch',
-    'Team of ~20 onboarded personally',
-    '6 months of post-exit support',
+    'I delivered a full system architecture redesign',
+    'I created 250+ screens covering every edge case',
+    'I unified 5 subsystems into 1 Hub',
+    'I wrote complete documentation from scratch',
+    'I onboarded a team of ~20 personally',
+    'I provided 6 months of post-exit support',
 ]
 
 export default function BeatAskedVsDelivered() {
@@ -69,9 +69,16 @@ export default function BeatAskedVsDelivered() {
 
                     <AnimatePresence>
                         {phase >= 0 && (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mb-10">
-                                <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-4">Retrospective</div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Asked vs. Delivered</h3>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                <PresenterBar>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
+                                        The brief said{' '}
+                                        <span className="text-zinc-300 font-medium">&quot;visual refresh.&quot;</span>
+                                    </p>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                        I rethought the entire product architecture. 🏗️
+                                    </p>
+                                </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -153,21 +160,8 @@ export default function BeatAskedVsDelivered() {
                     </AnimatePresence>
 
                     {/* Narrator aside */}
-                    <AnimatePresence>
-                        {phase >= 14 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="mt-6 max-w-lg mx-auto"
-                            >
-                                <NarratorBubble
-                                    text="I live this stuff."
-                                    mood="reflective"
-                                    align="right"
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+
+
                 </div>
             </div>
         </div>
