@@ -2,6 +2,7 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -51,6 +52,8 @@ export default function BeatAskedVsDelivered() {
         })
         // Phase 13: Closing
         timers.current.push(setTimeout(() => setPhase(13), 8500))
+        // Phase 14: Narrator
+        timers.current.push(setTimeout(() => setPhase(14), 10500))
     }, [clear])
 
     useEffect(() => {
@@ -148,6 +151,23 @@ export default function BeatAskedVsDelivered() {
                                 <p className="text-white text-xl md:text-2xl font-semibold tracking-tight">
                                     They asked for a makeover. I rebuilt the engine.
                                 </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Narrator aside */}
+                    <AnimatePresence>
+                        {phase >= 14 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-6 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="I live this stuff. It's never just a job."
+                                    mood="reflective"
+                                    align="right"
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>

@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Camera, Headphones, Network, User, Map, CheckCircle2, type LucideIcon } from 'lucide-react'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -75,6 +76,10 @@ export default function BeatInvestigation() {
         // Outcome statement
         timers.current.push(
             setTimeout(() => setStep(EVENTS.length), 800 + EVENTS.length * 1200 + 800)
+        )
+        // Narrator bubble
+        timers.current.push(
+            setTimeout(() => setStep(EVENTS.length + 1), 800 + EVENTS.length * 1200 + 2400)
         )
     }, [clear])
 
@@ -168,6 +173,23 @@ export default function BeatInvestigation() {
                                         {OUTCOME}
                                     </p>
                                 </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Narrator aside */}
+                    <AnimatePresence>
+                        {step >= EVENTS.length + 1 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-6 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="There were days I dreamed about RC workflows. Purely obsessed."
+                                    mood="determined"
+                                    align="right"
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>

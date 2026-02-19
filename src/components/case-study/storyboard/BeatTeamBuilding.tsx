@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Code2, FlaskConical, ClipboardList, Headphones, type LucideIcon } from 'lucide-react'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -56,8 +57,10 @@ export default function BeatTeamBuilding() {
         ONBOARDING_STEPS.forEach((_, i) => {
             timers.current.push(setTimeout(() => setPhase(8 + i), 5400 + i * 600))
         })
-        // Phase 12: "6 months after my exit"
+        // Phase 12: Narrator aside
         timers.current.push(setTimeout(() => setPhase(12), 8200))
+        // Phase 13: "By the time I left"
+        timers.current.push(setTimeout(() => setPhase(13), 10000))
     }, [clear])
 
     useEffect(() => {
@@ -188,9 +191,26 @@ export default function BeatTeamBuilding() {
                         )}
                     </AnimatePresence>
 
-                    {/* Closing */}
+                    {/* Narrator aside */}
                     <AnimatePresence>
                         {phase >= 12 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-6 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="Design is so personal to me. It's not just work — it means so much more."
+                                    mood="reflective"
+                                    align="left"
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Closing */}
+                    <AnimatePresence>
+                        {phase >= 13 && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}

@@ -2,6 +2,7 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -46,6 +47,10 @@ export default function BeatWeekOne() {
                 setTimeout(() => setStep(FACTS.length + i), 3200 + i * 1200)
             )
         })
+        // Narrator bubble after all statements
+        timers.current.push(
+            setTimeout(() => setStep(FACTS.length + STATEMENTS.length), 3200 + STATEMENTS.length * 1200 + 800)
+        )
     }, [clear])
 
     useEffect(() => {
@@ -127,6 +132,23 @@ export default function BeatWeekOne() {
                             )
                         })}
                     </div>
+
+                    {/* Narrator aside */}
+                    <AnimatePresence>
+                        {step >= FACTS.length + STATEMENTS.length && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-8 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="I had no idea what I was getting myself into :P"
+                                    mood="excited"
+                                    align="left"
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
         </div>

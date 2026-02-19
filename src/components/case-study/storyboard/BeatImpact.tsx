@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, CheckCircle2, Shield, Rocket, type LucideIcon } from 'lucide-react'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -44,6 +45,8 @@ export default function BeatImpact() {
         timers.current.push(setTimeout(() => setPhase(6), 5000))
         // Phase 7: Attribution
         timers.current.push(setTimeout(() => setPhase(7), 6500))
+        // Phase 8: Narrator
+        timers.current.push(setTimeout(() => setPhase(8), 8500))
     }, [clear])
 
     useEffect(() => {
@@ -130,6 +133,23 @@ export default function BeatImpact() {
                                         )}
                                     </AnimatePresence>
                                 </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Narrator aside */}
+                    <AnimatePresence>
+                        {phase >= 8 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-6 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="We actually did it."
+                                    mood="excited"
+                                    align="left"
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>

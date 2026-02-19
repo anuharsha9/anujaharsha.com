@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, type LucideIcon } from 'lucide-react'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -54,6 +55,8 @@ export default function BeatBreakthrough() {
         })
         // Phase 9: "Zero context switching."
         timers.current.push(setTimeout(() => setPhase(9), 8000))
+        // Phase 10: Narrator
+        timers.current.push(setTimeout(() => setPhase(10), 9500))
     }, [clear])
 
     useEffect(() => {
@@ -207,6 +210,23 @@ export default function BeatBreakthrough() {
                                 <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
                                     Users never leave the Hub.
                                 </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Narrator aside */}
+                    <AnimatePresence>
+                        {phase >= 10 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-6 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="This was it. I KNEW it."
+                                    mood="excited"
+                                    align="right"
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>

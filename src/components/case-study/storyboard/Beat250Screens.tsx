@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Search, AlertTriangle, Inbox } from 'lucide-react'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -42,6 +43,8 @@ export default function Beat250Screens() {
         timers.current.push(setTimeout(() => setPhase(3), 5000))
         // Phase 4: Statement
         timers.current.push(setTimeout(() => setPhase(4), 6500))
+        // Phase 5: Narrator
+        timers.current.push(setTimeout(() => setPhase(5), 8000))
     }, [clear])
 
     useEffect(() => {
@@ -180,6 +183,23 @@ export default function Beat250Screens() {
                                 <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
                                     Every. Single. Screen.
                                 </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Narrator aside */}
+                    <AnimatePresence>
+                        {phase >= 5 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-6 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="I was like a child with candy. Every breakthrough felt MASSIVE."
+                                    mood="excited"
+                                    align="left"
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>

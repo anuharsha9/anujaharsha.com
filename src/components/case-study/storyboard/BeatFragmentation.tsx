@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, FolderOpen, Settings, type LucideIcon } from 'lucide-react'
+import NarratorBubble from './NarratorBubble'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -56,6 +57,8 @@ export default function BeatFragmentation() {
         })
         // Phase 12: "Nobody had a map."
         timers.current.push(setTimeout(() => setPhase(12), 8500))
+        // Phase 13: Narrator
+        timers.current.push(setTimeout(() => setPhase(13), 10200))
     }, [clear])
 
     useEffect(() => {
@@ -232,6 +235,23 @@ export default function BeatFragmentation() {
                                 <p className="text-zinc-500 text-sm mt-2 font-mono">
                                     So I drew one.
                                 </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Narrator aside */}
+                    <AnimatePresence>
+                        {phase >= 13 && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-6 max-w-lg mx-auto"
+                            >
+                                <NarratorBubble
+                                    text="But I was determined. I was going to piece this thing together or go nuts trying. Which I did. Both."
+                                    mood="determined"
+                                    align="left"
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>
