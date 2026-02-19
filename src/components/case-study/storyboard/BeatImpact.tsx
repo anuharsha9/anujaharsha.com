@@ -47,6 +47,8 @@ export default function BeatImpact() {
         timers.current.push(setTimeout(() => setPhase(7), 6500))
         // Phase 8: Narrator
         timers.current.push(setTimeout(() => setPhase(8), 8500))
+        // Phase 9: The realization — the final word
+        timers.current.push(setTimeout(() => setPhase(9), 11000))
     }, [clear])
 
     useEffect(() => {
@@ -150,6 +152,24 @@ export default function BeatImpact() {
                                     mood="excited"
                                     align="left"
                                 />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* The realization — final word */}
+                    <AnimatePresence>
+                        {phase >= 9 && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 30, filter: 'blur(12px)' }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ duration: 2, ease }}
+                                className="mt-16 md:mt-20 text-center max-w-2xl mx-auto"
+                            >
+                                <div className="border-t border-white/[0.06] pt-10 md:pt-14">
+                                    <p className="text-zinc-400 text-base md:text-lg leading-relaxed italic tracking-wide">
+                                        I only realized the full scope of what I&apos;d done after I was laid off — when I sat down to write this case study.
+                                    </p>
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>

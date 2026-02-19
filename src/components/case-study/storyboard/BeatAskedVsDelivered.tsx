@@ -136,7 +136,7 @@ export default function BeatAskedVsDelivered() {
                         </div>
                     </div>
 
-                    {/* Closing — the realization */}
+                    {/* Closing */}
                     <AnimatePresence>
                         {phase >= 13 && (
                             <motion.div
@@ -145,9 +145,6 @@ export default function BeatAskedVsDelivered() {
                                 transition={{ duration: 1.2, ease }}
                                 className="text-center mt-12"
                             >
-                                <p className="text-zinc-500 text-sm font-mono mb-3 italic">
-                                    I only realized the full scope of what I&apos;d done after I was laid off — when I sat down to write this case study.
-                                </p>
                                 <p className="text-white text-xl md:text-2xl font-semibold tracking-tight">
                                     They asked for a makeover. I rebuilt the engine.
                                 </p>
