@@ -276,9 +276,9 @@ export const reportcasterCaseStudy: CaseStudyData = {
           'Vision: Generate an insight → Schedule it immediately.',
           'Goal: Remove "Scheduling" as a separate task entirely.',
         ],
-        signal: 'ROADMAP: INTEGRATION',
       },
     ],
+    pdfUrl: '/documents/reportcaster-case-study.pdf',
   },
   bonusSlides: {
     title: 'Deep Dives',

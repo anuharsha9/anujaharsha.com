@@ -286,6 +286,7 @@ export interface CaseStudyData {
       notes?: string // Speaker notes
       signal?: string // FAANG-style footer signal (e.g. "CONSTRAINT: LEGACY DEBT")
     }[]
+    pdfUrl?: string
   }
   bonusSlides?: {
     title: string
