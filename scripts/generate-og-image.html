@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>OG Image Generator</title>
+    <style>
+        body { margin: 0; background: #111; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: system-ui; }
+        canvas { border: 1px solid #333; }
+        p { color: #888; margin-top: 16px; font-size: 14px; }
+        a { color: #3b82f6; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="og" width="1200" height="630"></canvas>
+    <p>Right-click → Save Image As → <code>og-image.png</code>, then place in <code>public/images/</code></p>
+
+    <script>
+        // Wait for fonts to load
+        document.fonts.ready.then(() => {
+            const canvas = document.getElementById('og');
+            const ctx = canvas.getContext('2d');
+            const W = 1200, H = 630;
+
+            // Background
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, W, H);
+
+            // Subtle grid
+            ctx.strokeStyle = 'rgba(255,255,255,0.02)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < W; x += 40) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+            }
+            for (let y = 0; y < H; y += 40) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+            }
+
+            // Geometric accent — subtle brain-like neural dots on the right
+            const nodes = [
+                // Right side neural cluster
+                { x: 920, y: 180, r: 3 }, { x: 980, y: 150, r: 2 }, { x: 1050, y: 190, r: 4 },
+                { x: 1000, y: 250, r: 3 }, { x: 940, y: 300, r: 2 }, { x: 1080, y: 280, r: 3 },
+                { x: 960, y: 370, r: 2 }, { x: 1030, y: 340, r: 3 }, { x: 1100, y: 360, r: 2 },
+                { x: 950, y: 440, r: 4 }, { x: 1020, y: 420, r: 2 }, { x: 1070, y: 460, r: 3 },
+                { x: 990, y: 500, r: 2 }, { x: 1050, y: 520, r: 3 },
+            ];
+
+            // Draw connections
+            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[j].x - nodes[i].x;
+                    const dy = nodes[j].y - nodes[i].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw nodes
+            nodes.forEach(n => {
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${0.06 + n.r * 0.02})`;
+                ctx.fill();
+            });
+
+            // Accent glow circle (very subtle)
+            const grd = ctx.createRadialGradient(1000, 320, 0, 1000, 320, 250);
+            grd.addColorStop(0, 'rgba(16, 185, 129, 0.06)');
+            grd.addColorStop(1, 'rgba(16, 185, 129, 0)');
+            ctx.fillStyle = grd;
+            ctx.fillRect(750, 70, 500, 500);
+
+            // ── TEXT ──────────────────────────────
+
+            // Name
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '700 56px Inter, system-ui';
+            ctx.textBaseline = 'top';
+            ctx.fillText('Anuja Harsha', 80, 180);
+
+            // Title
+            ctx.fillStyle = '#a1a1aa'; // zinc-400
+            ctx.font = '400 24px Inter, system-ui';
+            ctx.fillText('Senior Product Designer', 80, 252);
+
+            // Separator line
+            ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(80, 300);
+            ctx.lineTo(600, 300);
+            ctx.stroke();
+
+            // Tagline
+            ctx.fillStyle = '#71717a'; // zinc-500
+            ctx.font = '400 14px "JetBrains Mono", monospace';
+            ctx.letterSpacing = '2px';
+            ctx.fillText('ENTERPRISE UX  ·  DESIGN SYSTEMS  ·  LEGACY MODERNIZATION', 80, 325);
+
+            // Subtitle / mission
+            ctx.fillStyle = '#52525b'; // zinc-600
+            ctx.font = '400 16px Inter, system-ui';
+            ctx.fillText('Untangling complex systems. Making enterprise software', 80, 380);
+            ctx.fillText('feel as intuitive as consumer products.', 80, 404);
+
+            // URL at bottom
+            ctx.fillStyle = '#3f3f46'; // zinc-700
+            ctx.font = '400 13px "JetBrains Mono", monospace';
+            ctx.fillText('anujaharsha.com', 80, 560);
+
+            // Subtle border
+            ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
+        });
+    </script>
+</body>
+</html>

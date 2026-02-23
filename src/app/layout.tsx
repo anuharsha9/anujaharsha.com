@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Senior Product Designer specializing in untangling complex enterprise systems. 13+ years transforming legacy workflows into intuitive experiences at scale.',
+    'Senior / Staff Product Designer with 13 years of experience focused on B2B Enterprise Architecture. Solves complex problems for global platforms. Superpower is Engineering Empathy.',
   keywords: [
     'Senior Product Designer',
     'Enterprise UX',
@@ -59,25 +59,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Anuja Harsha Nimmagadda',
-    title: 'Anuja Harsha | Senior Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
     description:
-      'Senior Product Designer specializing in untangling complex enterprise systems. 13+ years transforming legacy workflows into intuitive experiences at scale.',
-    images: [
-      {
-        url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Anuja Harsha | Senior Product Designer',
-      },
-    ],
+      'Senior / Staff Product Designer with 13 years of experience focused on B2B Enterprise Architecture. Solves complex problems for global platforms. Superpower is Engineering Empathy.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha | Senior Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
     description:
-      'Senior Product Designer specializing in untangling complex enterprise systems. 13+ years transforming legacy workflows into intuitive experiences at scale.',
-    images: ['/images/og-image.png'],
-    creator: '@anujaharsha', // Update with actual Twitter handle if available
+      'Senior / Staff Product Designer with 13 years of experience focused on B2B Enterprise Architecture. Solves complex problems for global platforms. Superpower is Engineering Empathy.',
   },
   robots: {
     index: true,

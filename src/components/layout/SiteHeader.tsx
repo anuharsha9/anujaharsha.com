@@ -30,11 +30,14 @@ export default function SiteHeader() {
 
     const updateVisibilityForViewport = () => {
       const isMobile = window.innerWidth < 1024 // lg breakpoint
-      if (isMobile && !isLandingPage) {
-        // On mobile non-landing pages, header should always be visible for hamburger access
+      if (isMobile) {
+        // On mobile (ALL pages including landing): always show header for hamburger menu access
+        setIsVisible(true)
+      } else if (!isLandingPage) {
+        // On desktop non-landing pages: always visible
         setIsVisible(true)
       } else {
-        // On desktop AND on landing page (mobile included): start hidden, scroll manager handles
+        // On desktop landing page: start hidden, scroll manager handles reveal
         setIsVisible(false)
       }
     }
@@ -63,8 +66,8 @@ export default function SiteHeader() {
 
   // Use centralized scroll manager
   useScrollManager((scrollY) => {
-    if (typeof window !== 'undefined' && window.innerWidth < 1024 && !isLandingPage) {
-      // On mobile non-landing pages: header always visible, only toggle shadow
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      // On mobile (ALL pages): header always visible, only toggle shadow
       setIsVisible(true)
       setHasShadow(scrollY > 0)
       return

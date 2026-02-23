@@ -45,53 +45,65 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
     const isInterstitial = hasMilestones && !hasWorkItems && !hasTestimonials && !hasFoundations
     const isTestimonialSlide = hasTestimonials && !hasWorkItems && !hasFoundations
 
-    // BRAIN SLIDE
+    // BRAIN SLIDE — on mobile, constrain the brain so it doesn't overflow
     if (isBrainSlide) {
         return (
-            <div className="min-h-[60vh] flex flex-col items-center justify-center">
+            <div className="relative w-full h-[70vh] overflow-hidden flex flex-col items-center justify-center">
                 <HeroSplit />
             </div>
         )
     }
 
-    // HERO INTRO
+    // HERO INTRO — modernized to match desktop aesthetic
     if (isHeroIntro) {
         return (
-            <div className="space-y-12 py-10">
-                <div className="text-center space-y-6">
-                    <h2 className="text-4xl xs:text-5xl font-extrabold text-white leading-tight tracking-tight">
+            <motion.div
+                className="space-y-10 py-12"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+                <div className="text-center space-y-5">
+                    <h2 className="text-4xl xs:text-5xl font-extrabold text-white leading-[1.15] tracking-[-0.03em]">
                         <span className="block">13 Years.</span>
-                        <span className="bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent pb-1">
                             One Mission.
                         </span>
                     </h2>
-                    <p className="text-slate-400 text-lg font-light leading-relaxed max-w-sm mx-auto">
+                    <p className="text-slate-400 text-base font-light leading-relaxed max-w-sm mx-auto tracking-wide">
                         {era.description}
                     </p>
                 </div>
 
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 gap-y-8 gap-x-4 border-t border-white/10 pt-8">
+                {/* Stats Grid — matching desktop layout */}
+                <div className="grid grid-cols-2 gap-y-8 gap-x-4 border-t border-white/[0.06] pt-8">
                     {[
                         { value: '50+', label: 'Projects Shipped' },
-                        { value: '25M+', label: 'Users' },
+                        { value: '25M+', label: 'Users on WebFOCUS' },
                         { value: 'Fortune 500', label: 'Clients' },
-                        { value: 'Award', label: 'Winning UX' },
+                        { value: 'Best-in-Class', label: '2025 Dresner Award' },
                     ].map((stat) => (
                         <div key={stat.label} className="flex flex-col items-center text-center">
-                            <div className="text-2xl font-black text-white/90 mb-1">{stat.value}</div>
-                            <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">{stat.label}</div>
+                            <div className="text-xl font-black text-white/90 tracking-tight mb-1">{stat.value}</div>
+                            <div className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-600">{stat.label}</div>
                         </div>
                     ))}
                 </div>
-            </div>
+            </motion.div>
         )
     }
 
     // INTERSTITIAL (Life Context Only)
     if (isInterstitial) {
         return (
-            <div className="py-8">
+            <motion.div
+                className="py-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.6 }}
+            >
                 {/* Re-using InterstitialContent but ensuring it fits mobile */}
                 <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/[0.07] rounded-2xl p-6 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-[#078B9C]/[0.06] via-transparent to-transparent pointer-events-none" />
@@ -119,22 +131,34 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                         })}
                     </div>
                 </div>
-            </div>
+            </motion.div>
         )
     }
 
     // TESTIMONIAL SLIDE
     if (isTestimonialSlide) {
         return (
-            <div className="py-8">
+            <motion.div
+                className="py-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.6 }}
+            >
                 <TestimonialContent era={era} />
-            </div>
+            </motion.div>
         )
     }
 
     // DEFAULT ERA BLOCK (Work + Context)
     return (
-        <div className="space-y-10 relative">
+        <motion.div
+            className="space-y-10 relative"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
             {/* Watermark Year (Background) */}
             <div className="absolute -top-12 -left-4 text-[6rem] font-bold text-white/[0.03] select-none font-mono pointer-events-none z-0">
                 {startYear}
@@ -234,6 +258,6 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                     <FoundationsTerminal foundations={era.foundations} />
                 </div>
             )}
-        </div>
+        </motion.div>
     )
 }

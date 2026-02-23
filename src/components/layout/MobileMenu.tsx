@@ -173,13 +173,25 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                     Navigation
                   </p>
 
-                  <Link
-                    href="/#work-overview"
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:${t.bgAccent} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsOpen(false)
+                      // Small delay to let menu close animation start
+                      setTimeout(() => {
+                        const el = document.getElementById('work-overview')
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                        } else {
+                          // Fallback: navigate to home with hash
+                          window.location.href = '/#work-overview'
+                        }
+                      }, 200)
+                    }}
+                    className={`block w-full text-left px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:${t.bgAccent} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                   >
                     Work
-                  </Link>
+                  </button>
 
                   <Link
                     href="/me"

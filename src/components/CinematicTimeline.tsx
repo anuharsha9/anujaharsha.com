@@ -60,69 +60,71 @@ export default function CinematicTimeline() {
 
     return (
         <>
-            {/* ── MOBILE LAYOUT (Vertical Stack) ── */}
-            <div className="lg:hidden relative">
-                <MobileTimeline
-                    onOpenLightbox={handleOpenLightbox}
-                    onOpenGameLightbox={() => setGameLightboxOpen(true)}
-                />
-            </div>
+            {/* Shared anchor for /#work-overview — visible on ALL viewports */}
+            <div id="work-overview">
+                {/* ── MOBILE LAYOUT (Vertical Stack) ── */}
+                <div className="lg:hidden relative">
+                    <MobileTimeline
+                        onOpenLightbox={handleOpenLightbox}
+                        onOpenGameLightbox={() => setGameLightboxOpen(true)}
+                    />
+                </div>
 
-            {/* ── DESKTOP LAYOUT (Cinematic Scroll) ── */}
-            <div className="hidden lg:block relative">
-                <div
-                    ref={containerRef}
-                    id="work-overview"
-                    className="relative"
-                    style={{ height: `${(TOTAL + 1) * 100}vh` }}
-                >
-                    {/* ── Sticky Stage ── */}
-                    <div className="sticky top-0 h-screen overflow-hidden">
-                        {/* ── Cinematic transition flash (fires during crossfade) ── */}
-                        <motion.div
-                            className="absolute inset-0 pointer-events-none z-20"
-                            style={{
-                                opacity: transitionGlowOpacity,
-                                background: 'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(7,139,156,0.3), transparent 70%)',
-                            }}
-                        />
-
-                        {/* All slides (absolutely positioned, one visible at a time) */}
-                        {CAREER_DATA.map((era, i) => (
-                            <TimelineSlide
-                                key={era.id}
-                                era={era}
-                                index={i}
-                                scrollYProgress={scrollYProgress}
-                                onOpenLightbox={handleOpenLightbox}
-                                onOpenGameLightbox={() => setGameLightboxOpen(true)}
+                {/* ── DESKTOP LAYOUT (Cinematic Scroll) ── */}
+                <div className="hidden lg:block relative">
+                    <div
+                        ref={containerRef}
+                        className="relative"
+                        style={{ height: `${(TOTAL + 1) * 100}vh` }}
+                    >
+                        {/* ── Sticky Stage ── */}
+                        <div className="sticky top-0 h-screen overflow-hidden">
+                            {/* ── Cinematic transition flash (fires during crossfade) ── */}
+                            <motion.div
+                                className="absolute inset-0 pointer-events-none z-20"
+                                style={{
+                                    opacity: transitionGlowOpacity,
+                                    background: 'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(7,139,156,0.3), transparent 70%)',
+                                }}
                             />
-                        ))}
 
-                        {/* ── Slide counter (bottom-right) ── */}
-                        <div className="absolute bottom-8 right-8 z-30 font-mono text-sm tracking-wider select-none">
-                            <span className="text-white/50">
-                                {String(currentIndex + 1).padStart(2, '0')}
-                            </span>
-                            <span className="text-white/15 mx-1">/</span>
-                            <span className="text-white/15">
-                                {String(TOTAL).padStart(2, '0')}
-                            </span>
-                        </div>
-
-                        {/* ── Side progress dots ── */}
-                        <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col gap-3">
-                            {CAREER_DATA.map((_, i) => (
-                                <div
-                                    key={i}
-                                    className={`rounded-full transition-all duration-500 ${i === currentIndex
-                                        ? 'w-2 h-2 bg-[#078B9C] shadow-[0_0_10px_rgba(7,139,156,0.6)]'
-                                        : i < currentIndex
-                                            ? 'w-1.5 h-1.5 bg-white/20'
-                                            : 'w-1.5 h-1.5 bg-white/8'
-                                        }`}
+                            {/* All slides (absolutely positioned, one visible at a time) */}
+                            {CAREER_DATA.map((era, i) => (
+                                <TimelineSlide
+                                    key={era.id}
+                                    era={era}
+                                    index={i}
+                                    scrollYProgress={scrollYProgress}
+                                    onOpenLightbox={handleOpenLightbox}
+                                    onOpenGameLightbox={() => setGameLightboxOpen(true)}
                                 />
                             ))}
+
+                            {/* ── Slide counter (bottom-right) ── */}
+                            <div className="absolute bottom-8 right-8 z-30 font-mono text-sm tracking-wider select-none">
+                                <span className="text-white/50">
+                                    {String(currentIndex + 1).padStart(2, '0')}
+                                </span>
+                                <span className="text-white/15 mx-1">/</span>
+                                <span className="text-white/15">
+                                    {String(TOTAL).padStart(2, '0')}
+                                </span>
+                            </div>
+
+                            {/* ── Side progress dots ── */}
+                            <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col gap-3">
+                                {CAREER_DATA.map((_, i) => (
+                                    <div
+                                        key={i}
+                                        className={`rounded-full transition-all duration-500 ${i === currentIndex
+                                            ? 'w-2 h-2 bg-[#078B9C] shadow-[0_0_10px_rgba(7,139,156,0.6)]'
+                                            : i < currentIndex
+                                                ? 'w-1.5 h-1.5 bg-white/20'
+                                                : 'w-1.5 h-1.5 bg-white/8'
+                                            }`}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

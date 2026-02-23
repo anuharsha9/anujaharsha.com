@@ -1095,9 +1095,9 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           />
         )}
 
-        {/* === NEURAL MAINFRAME: Colossal Background Typography === */}
+        {/* === NEURAL MAINFRAME: Colossal Background Typography (desktop only) === */}
         <div
-          className={`absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none overflow-hidden ${brainHovered ? 'glitch-active' : ''}`}
+          className={`absolute inset-0 z-[1] hidden md:flex items-center justify-center pointer-events-none select-none overflow-hidden ${brainHovered ? 'glitch-active' : ''}`}
           aria-hidden="true"
         >
           <div className="flex flex-col items-center gap-0 leading-none whitespace-nowrap">
@@ -1124,7 +1124,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
               {/* Centered Gears - THE HERO */}
               <motion.div
-                className={`relative w-full max-w-[500px] md:max-w-[640px] lg:max-w-[720px] xl:max-w-[800px] max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
+                className={`relative w-full max-w-[380px] sm:max-w-[420px] md:max-w-[640px] lg:max-w-[720px] xl:max-w-[800px] max-h-[60vh] sm:max-h-[70vh] lg:max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
                 initial={{ opacity: 1, scale: 1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0 }}
