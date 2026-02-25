@@ -168,7 +168,7 @@ export default function HeroMeta({
                   once={true}
                 >
                   {caseStudySlug === 'reportcaster'
-                    ? 'Modernizing a 50-Year-Old Enterprise Scheduler'
+                    ? 'Customers Were Leaving. 40 Years Without Updates.'
                     : caseStudySlug === 'ml-functions'
                       ? 'Democratizing Machine Learning for Everyone'
                       : caseStudySlug === 'iq-plugin'
@@ -183,7 +183,7 @@ export default function HeroMeta({
                   className="text-lg md:text-xl text-slate-600 leading-relaxed font-light max-w-2xl"
                 >
                   {caseStudySlug === 'reportcaster'
-                    ? 'Consolidating 5 disparate subsystems into one unified experience for 20M+ weekly schedules.'
+                    ? 'The platform\'s enterprise scheduler was losing customers after 40+ years without meaningful updates. The goal: retain them. The challenge: modernize a 50-year-old system with zero documentation.'
                     : caseStudySlug === 'ml-functions'
                       ? 'Turning a black-box data science process into a guided, 4-step workflow.'
                       : (

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 
 import TalkSection from '@/components/home/TalkSection'
 import ScrollGear from '@/components/ui/ScrollGear'
+import HeroLanding from '@/components/home/HeroLanding'
+import ChairPhilosophy from '@/components/home/ChairPhilosophy'
 import CinematicTimeline from '@/components/CinematicTimeline'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-[#010204] relative overflow-clip">
+    <div className="bg-[#010204] relative">
       {/* Neural Mainframe — faint scanline overlay */}
       <div className="scanline-overlay" aria-hidden="true" />
 
@@ -52,6 +54,18 @@ export default function Home() {
       </div>
 
 
+
+      {/* 
+        HERO SECTION
+        Brain scales down, text and case studies fade in.
+      */}
+      <HeroLanding />
+
+      {/* 
+        CHAIR PHILOSOPHY
+        Text fades in sequentially as the user scrolls.
+      */}
+      <ChairPhilosophy />
 
       {/* 
         THE CINEMATIC TIMELINE

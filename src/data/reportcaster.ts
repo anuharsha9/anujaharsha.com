@@ -2,10 +2,10 @@ import { CaseStudyData } from '@/types/caseStudy'
 
 export const reportcasterCaseStudy: CaseStudyData = {
   slug: 'reportcaster',
-  heroTitle: 'Modernizing a 50-Year-Old Enterprise Scheduler',
-  heroSubheading: 'A 50-year-old workhorse, untouched by UX—until now',
+  heroTitle: 'Customers Were Leaving. 40 Years Without Updates.',
+  heroSubheading: 'The platform\'s enterprise scheduler was losing customers after 40+ years without meaningful updates. The goal: retain them. The challenge: modernize a 50-year-old system with zero documentation.',
   heroSubtitle:
-    'Volunteered one week in for a project no one else would take. Mapped 5 undocumented subsystems from scratch. Navigated 2 rejected architectures before shipping the approach that became the org\'s modernization template.',
+    'Volunteered one week in. Mapped 5 undocumented subsystems from scratch. Navigated 2 rejected architectures. Delivered a brand-new integrated system — not a UI refresh.',
   coverImage: {
     src: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
     alt: 'ReportCaster Explorer - Unified Schedule Management',
@@ -31,14 +31,14 @@ export const reportcasterCaseStudy: CaseStudyData = {
   // PROJECT SNAPSHOT & DEEP DIVE DATA
   // ----------------------------
   projectSnapshot: {
-    problem: '50-year-old scheduling system with 5 fragmented sub-products.',
+    problem: 'The platform\'s enterprise scheduler — powering 20M+ weekly jobs — was losing customers after 40+ years without modernization.',
     role: 'Lead Designer (Research to Production)',
     keyDecisions: [
       'Rejecting independent product strategy (silo)',
       'Abandoning plugin approach (technical constraints)',
       'Adopting modal-based "Hub" architecture',
     ],
-    impactDirectional: 'Consolidated 5 tools into 1 unified hub; powering 20M+ weekly schedules.',
+    impactDirectional: 'Rebuilt from the ground up. 5 tools → 1 unified hub. Customers retained.',
     status: 'Live',
     scale: '20M+ Schedules',
   },
@@ -58,7 +58,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
       'Must support all legacy schedule types.',
       'No direct access to end users.',
     ],
-    businessGoal: 'Modernize the interface without breaking 50 years of backward compatibility.',
+    businessGoal: 'Retain customers by modernizing a 50-year-old enterprise scheduler — without breaking backward compatibility.',
   },
   successCriteria: {
     baseline: '5 fragmented tools, 4 clicks to start, no centralized view.',
@@ -145,7 +145,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
       {
         type: 'title',
         layout: 'center',
-        title: 'Modernizing a 50-Year-Old OS',
+        title: 'Customers Were Leaving. I Rebuilt the System.',
         content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'],
         image: '/images/case-study/ReportCaster/rc-cover.png',
       },
@@ -154,20 +154,20 @@ export const reportcasterCaseStudy: CaseStudyData = {
         layout: 'center',
         title: 'Executive Summary',
         content: [
-          'Situation: 5 fragmented subsystems. 20M+ weekly schedules. Zero documentation.',
-          'Action: I mapped the "invisible" system and consolidated 3 workflows into 1 unified Hub.',
-          'Result: 4 clicks → 2. Scaling to 20M+ weekly schedules with zero regression.',
+          'Situation: The platform\'s enterprise scheduler was losing customers after 40+ years without modernization. 20M+ weekly jobs at stake.',
+          'Action: I mapped the entire undocumented system and rebuilt 5 fragmented workflows into 1 unified Hub.',
+          'Result: Customers retained. Brand-new integrated system. 4 clicks → 2. Direct customer praise at Virtual User Group.',
         ],
         signal: 'EXECUTIVE SUMMARY',
       },
       {
         type: 'problem',
         layout: 'split',
-        title: 'The 50-Year-Old Workhorse',
+        title: 'The Business Problem',
         content: [
-          '5 fragmented sub-products (Schedules, Distribution Lists, Access Lists, Explorer, Admin).',
-          'Zero documentation. No specs.',
-          '4 clicks just to start a task.',
+          'The platform\'s enterprise scheduler — powering 20M+ weekly jobs — was losing customers.',
+          '40+ years without meaningful updates. Zero documentation.',
+          'The goal: retain customers. The challenge: modernize a 50-year-old system.',
         ],
         image: '/images/case-study/ReportCaster/rc-old-workflow-poster.jpg',
         signal: 'CONSTRAINT: FRAGMENTATION',
@@ -299,9 +299,9 @@ export const reportcasterCaseStudy: CaseStudyData = {
   quickOverview: {
     title: 'ReportCaster — Quick Impact Overview',
     subtitle: 'Enterprise scheduling system modernization',
-    leadershipSummary: 'Volunteered for this project one week into the job — no one else had taken it. Over 14 months, I independently mapped a 40-year-old system with zero documentation, pivoted through three architectural directions, and aligned a 20-person cross-functional team. Built close relationships with the Gold Support lead and the original RC engineer to reconstruct tribal knowledge from scratch.',
+    leadershipSummary: 'The platform\'s enterprise scheduler was losing customers — 40+ years without meaningful updates. I volunteered for this project one week into the job. Over 14 months, I independently mapped the entire system with zero documentation, pivoted through three architectural directions, and aligned a 20-person cross-functional team to ship a brand-new integrated product.',
     whatTheSystemWas:
-      'A 50-year-old scheduling engine powering 20M+ weekly jobs. It worked — but it was undocumented, fragmented across five subsystems, and ready for modernization.',
+      'The platform\'s enterprise scheduler, powering 20M+ weekly jobs. It worked — but 40+ years without meaningful updates were driving customer complaints and churn. The business couldn\'t afford to lose them.',
     myRole:
       'I owned this end-to-end: from research and system documentation, through architecture and design, to team handoff.',
     scopeOfPractice: [],
@@ -312,10 +312,10 @@ export const reportcasterCaseStudy: CaseStudyData = {
       { label: 'Zero-downtime migration', value: '✓ Shipped' },
     ],
     star: {
-      situation: 'A 50-year-old scheduling system with five fragmented subsystems and no documentation. It powered 20M+ weekly schedules but needed modernization.',
-      task: 'Modernize the system while preserving what worked. Document what had never been documented.',
+      situation: 'The platform\'s enterprise scheduler was losing customers after 40+ years without modernization. 5 fragmented subsystems, no documentation, 20M+ weekly jobs at stake.',
+      task: 'Retain customers by modernizing the 50-year-old system. Document what had never been documented.',
       action: 'Volunteered one week into the job. Embedded with the Gold Support team and the original RC engineer to reconstruct tribal knowledge. Mapped all five subsystems from scratch. Explored three architectural directions — independent product, hub plugin, modal-based — before finding the breakthrough. Onboarded a ~20-person team and remained point of contact for 6 months after exit.',
-      result: 'Integrated five subsystems into the Hub — no extra space, smart integration. Reduced schedule creation from 4 clicks to 2. Shipped April 2024.',
+      result: 'Rebuilt 5 subsystems into a brand-new integrated Hub — not a UI refresh. Reduced schedule creation from 4 clicks to 2. Customers retained. Shipped April 2024.',
     },
     technologies: [],
     keyAchievements: [
@@ -390,7 +390,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
       id: 'section-01',
       index: 'D',
       title: 'Discover Deeply: How I Landed the Project',
-      summary: 'One week in, I volunteered for a project no one else would take. No documentation, no roadmap, no prior designer. Just a sandbox and tribal knowledge.',
+      summary: 'Customers were leaving after 40+ years without updates. One week in, I volunteered for the project no one else would take. No documentation, no roadmap, no prior designer.',
       body: `One week into joining the company, my design director mentioned there was a legacy scheduling tool in the pipeline — something old, massive, and untouched for decades. He hadn't assigned it to anyone yet. No designer had taken it. No engineer wanted to own it. No PM had a roadmap for it.
 
 I said, "I'll do it." He gave it to me the same day.
@@ -414,7 +414,7 @@ Yingchun Chen, the principal engineer and the original engineer of ReportCaster,
 
 I took hundreds of screenshots across every corner of the system. Grouped them. Mapped them. Created mind maps, pain point analyses, and information architecture diagrams. I validated everything with customer support and customer reps — over and over — until I was confident I understood the system end-to-end.
 
-What I discovered changed the scope entirely: ReportCaster wasn't a "feature." It was a product inside a product — with five independent subsystems, customers running 13 million schedules a day, and users whose entire job was to live inside RC. This needed a structural redesign, not a UI facelift.`,
+What I discovered changed the scope entirely: ReportCaster wasn't a "feature." It was a product inside a product — with five independent subsystems, customers running 13 million schedules a day, and users whose entire job was to live inside RC. Customers had been complaining for years — and the business was losing them. This needed a full rebuild, not a UI facelift.`,
     },
     {
       id: 'section-03',
@@ -639,10 +639,12 @@ I remained point of contact for about 6 months after exit — the other designer
       id: 'section-06',
       index: 'N',
       title: 'Navigate Forward: Shipping Impact and Reflection',
-      summary: 'Requested: a UI makeover. Delivered: foundational system architecture. RC made me the design leader I am today.',
-      body: `The request was for a UI makeover — not even a redesign. I delivered a foundational system architecture. What started as "make it look better" became "document, unify, and future-proof a 40-year-old system."
+      summary: 'Asked for: a UI makeover. Delivered: a brand-new integrated ReportCaster. Customers retained. Satisfaction validated.',
+      body: `The request was for a UI makeover — not even a redesign. I delivered a brand-new integrated system. What started as "make it look better" became "modernize a 50-year-old enterprise scheduler to retain customers."
 
-In a Virtual User Group session I hosted, a long-time customer praised the redesign directly and said he was excited for what was coming next. That moment mattered — because I had seen RC users hack their way around a broken UI for years, and now they finally had a system that worked with them, not against them.`,
+The goal was customer retention. The challenge was modernizing a system that hadn't been touched in decades, with zero documentation and five fragmented subsystems.
+
+In a Virtual User Group session I hosted, a long-time customer praised the redesign directly: "RC looks great now — what are you planning next?" That was the validation. Not just that the system was modernized, but that customers were satisfied and looking forward to what's next.`,
     },
   ],
   // ----------------------------
@@ -704,7 +706,7 @@ In a Virtual User Group session I hosted, a long-time customer praised the redes
       {
         letter: 'S',
         title: 'Simplify the Chaos',
-        description: 'Integrated five fragmented subsystems into the Hub. No extra space — smart integration that lives inside existing patterns.',
+        description: 'Rebuilt five fragmented subsystems into a brand-new integrated Hub. Not a facelift — a structural upgrade to retain customers.',
       },
       {
         letter: 'I',
@@ -719,7 +721,7 @@ In a Virtual User Group session I hosted, a long-time customer praised the redes
       {
         letter: 'N',
         title: 'Navigate Forward',
-        description: 'Shipped April 2024. Powering 20M+ weekly schedules. Featured in public YouTube demos.',
+        description: 'Shipped April 2024. Customers retained. Direct praise received during a Virtual User Group I hosted.',
       },
     ],
   },
@@ -730,11 +732,12 @@ In a Virtual User Group session I hosted, a long-time customer praised the redes
   impactSummary: {
     heading: 'Shipping impact at a glance',
     bullets: [
-      '5 subsystems → 1 Hub (smart integration)',
+      '5 subsystems → 1 Hub (brand-new integrated product)',
       '4 → 2 clicks for schedules and lists',
       '2 → 1 click for Explorer access',
-      '20M+ weekly schedules impacted',
-      'Shipped April 2024 — powering 20M+ weekly schedules',
+      '20M+ weekly jobs retained — customers stayed',
+      'Direct customer praise at Virtual User Group',
+      'Shipped April 2024 — zero regressions',
     ],
   },
   reflection: {

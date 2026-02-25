@@ -251,7 +251,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
         // ── Beat 0: Title ──
         {
           type: 'title',
-          title: 'Modernizing a 50-Year-Old OS',
+          title: 'Customers Were Leaving. I Rebuilt the System.',
           content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'],
         },
         // ── Beat 1: Week 1 ──

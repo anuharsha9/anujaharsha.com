@@ -246,11 +246,48 @@ export default function BeatTheRoom() {
                         )}
                     </AnimatePresence>
 
-
-
-                    {/* Internal monologue — graphic novel thought bubble */}
-
-
+                    {/* Internal monologue — thought bubble */}
+                    <AnimatePresence>
+                        {phase >= 9 && phase < 10 && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.9, y: -8 }}
+                                transition={{ duration: 0.8, ease }}
+                                className="flex justify-center my-6"
+                            >
+                                <div className="relative">
+                                    {/* Thought cloud bubbles */}
+                                    <motion.div
+                                        className="absolute -bottom-3 left-8 w-3 h-3 rounded-full bg-white/[0.06] border border-white/[0.08]"
+                                        animate={{ scale: [0.8, 1, 0.8], opacity: [0.3, 0.6, 0.3] }}
+                                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                    />
+                                    <motion.div
+                                        className="absolute -bottom-5 left-4 w-2 h-2 rounded-full bg-white/[0.04] border border-white/[0.06]"
+                                        animate={{ scale: [0.6, 1, 0.6], opacity: [0.2, 0.4, 0.2] }}
+                                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                                    />
+                                    {/* Main bubble */}
+                                    <motion.div
+                                        className="relative rounded-2xl border border-white/[0.08] bg-white/[0.03] px-6 py-4 backdrop-blur-sm"
+                                        animate={{ y: [0, -3, 0] }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                                    >
+                                        <p className="text-lg md:text-xl text-zinc-300/80 italic font-light tracking-tight text-center">
+                                            &ldquo;What am I doing here?&rdquo;
+                                        </p>
+                                        <motion.div
+                                            className="w-8 h-px mx-auto mt-2"
+                                            style={{ background: 'linear-gradient(90deg, transparent, rgba(244,63,94,0.4), transparent)' }}
+                                            animate={{ opacity: [0.3, 0.7, 0.3] }}
+                                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                        />
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     {/* Revelations — what I learned in that call */}
                     <AnimatePresence>

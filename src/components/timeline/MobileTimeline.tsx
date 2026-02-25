@@ -8,9 +8,12 @@ import ArchiveWorkCard from './ArchiveWorkCard'
 import WordUGameCard from './WordUGameCard'
 import FoundationsTerminal from '@/components/case-study/FoundationsTerminal'
 import TestimonialContent from './TestimonialContent'
+import FlagshipTheater from '@/components/FlagshipTheater'
 
 import { ERA_TAGS } from './constants'
 import { motion } from 'framer-motion'
+import { Play, ArrowDown } from 'lucide-react'
+import Link from 'next/link'
 
 interface MobileTimelineProps {
     onOpenLightbox: (id: string) => void
@@ -19,15 +22,18 @@ interface MobileTimelineProps {
 
 export default function MobileTimeline({ onOpenLightbox, onOpenGameLightbox }: MobileTimelineProps) {
     return (
-        <div className="relative z-10 w-full px-4 pb-32 space-y-24 pt-24">
-            {CAREER_DATA.map((era, index) => (
-                <MobileEraBlock
-                    key={era.id}
-                    era={era}
-                    onOpenLightbox={onOpenLightbox}
-                    onOpenGameLightbox={onOpenGameLightbox}
-                />
-            ))}
+        <div className="relative z-10 w-full pb-32 pt-12">
+            {/* ── ACT 2: Full Timeline ── */}
+            <div className="px-4 space-y-24">
+                {CAREER_DATA.map((era) => (
+                    <MobileEraBlock
+                        key={era.id}
+                        era={era}
+                        onOpenLightbox={onOpenLightbox}
+                        onOpenGameLightbox={onOpenGameLightbox}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
@@ -40,61 +46,10 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
     const hasMilestones = era.milestones && era.milestones.length > 0
 
     // Detect slide type
-    const isBrainSlide = era.isBrainSlide === true
-    const isHeroIntro = era.isHeroIntro === true
     const isInterstitial = hasMilestones && !hasWorkItems && !hasTestimonials && !hasFoundations
     const isTestimonialSlide = hasTestimonials && !hasWorkItems && !hasFoundations
 
-    // BRAIN SLIDE — on mobile, constrain the brain so it doesn't overflow
-    if (isBrainSlide) {
-        return (
-            <div className="relative w-full h-[70vh] overflow-hidden flex flex-col items-center justify-center">
-                <HeroSplit />
-            </div>
-        )
-    }
-
-    // HERO INTRO — modernized to match desktop aesthetic
-    if (isHeroIntro) {
-        return (
-            <motion.div
-                className="space-y-10 py-12"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-                <div className="text-center space-y-5">
-                    <h2 className="text-4xl xs:text-5xl font-extrabold text-white leading-[1.15] tracking-[-0.03em]">
-                        <span className="block">13 Years.</span>
-                        <span className="bg-gradient-to-r from-[var(--accent-teal)] via-cyan-400 to-white/80 bg-clip-text text-transparent pb-1">
-                            One Mission.
-                        </span>
-                    </h2>
-                    <p className="text-slate-400 text-base font-light leading-relaxed max-w-sm mx-auto tracking-wide">
-                        {era.description}
-                    </p>
-                </div>
-
-                {/* Stats Grid — matching desktop layout */}
-                <div className="grid grid-cols-2 gap-y-8 gap-x-4 border-t border-white/[0.06] pt-8">
-                    {[
-                        { value: '50+', label: 'Projects Shipped' },
-                        { value: '25M+', label: 'Users on WebFOCUS' },
-                        { value: 'Fortune 500', label: 'Clients' },
-                        { value: 'Best-in-Class', label: '2025 Dresner Award' },
-                    ].map((stat) => (
-                        <div key={stat.label} className="flex flex-col items-center text-center">
-                            <div className="text-xl font-black text-white/90 tracking-tight mb-1">{stat.value}</div>
-                            <div className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-600">{stat.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </motion.div>
-        )
-    }
-
-    // INTERSTITIAL (Life Context Only)
+    // INTERSTITIAL — Life Context Only)
     if (isInterstitial) {
         return (
             <motion.div

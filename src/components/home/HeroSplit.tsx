@@ -373,6 +373,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
   // CHANGED: Lookup by ID
   const currentQuestion = QUIZ_QUESTIONS_DATA[currentQuestionId]
+  const currentActiveGearId = currentQuestion?.activeGear ?? null
 
   const selectedOption = useMemo(() =>
     currentQuestion?.options.find(o => o.id === selectedOptionId),
@@ -388,8 +389,13 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
     // Allow forcing via URL/Prop
     if (forceQuiz || window.location.search.includes('force=quiz')) {
+      // Always restart from question 1 when quiz mode is explicitly forced.
+      setCurrentQuestionId('start')
+      setLitGears([QUIZ_QUESTIONS_DATA['start'].activeGear])
+      setShowReveal(false)
+      setSelectedOptionId(null)
       setQuizState('quiz')
-      setLitGears([QUIZ_QUESTIONS_DATA['start'].activeGear]) // Use start
+      setIsAppReady(true)
       return
     }
 
@@ -608,27 +614,57 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         // Check for 'complete' instead of 'quiz' to also handle 'loading' state
         const shouldAnimate = quizState === 'complete'
 
-        // If not complete (loading OR quiz), don't run the full animation setup
-        // Only set transform origins so gears rotate properly when lit
+        // If not complete (loading OR quiz), keep the brain dimmed and progressively
+        // light gears as answers are selected. Also ensure any previous rotations stop.
         if (!shouldAnimate) {
-          // During quiz: Only set transform properties, let CSS handle opacity
           const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_main-gears`)
+          const litSet = new Set(litGears)
+          const activeQuestionGear = currentActiveGearId
+
           if (mainGearsGroup) {
             GEAR_IDS.forEach((gearId) => {
               const gear = mainGearsGroup.querySelector<SVGGElement>(`#${uniqueId}_${gearId}`)
               if (!gear) return
+
+              // Stop any lingering rotation animation when returning from complete mode.
+              gear.getAnimations().forEach((anim) => anim.cancel())
+              gear.style.transform = 'rotate(0deg)'
               gear.style.transformOrigin = 'center'
               gear.style.transformBox = 'fill-box'
+
+              const isLit = litSet.has(gearId)
+              const isActive = activeQuestionGear === gearId
+              const nextOpacity = isLit ? 1 : (isActive ? 0.52 : 0.12)
+
+              gear.style.setProperty('opacity', String(nextOpacity), 'important')
+              gear.style.transition = 'opacity 360ms cubic-bezier(0.22,1,0.36,1), filter 360ms cubic-bezier(0.22,1,0.36,1)'
+              gear.style.filter = isLit
+                ? 'drop-shadow(0 0 10px rgba(20,184,166,0.7))'
+                : isActive
+                  ? 'drop-shadow(0 0 6px rgba(56,189,248,0.45))'
+                  : 'none'
             })
           }
-          // Don't run rotation animations during quiz - gears should be static/dimmed
+
+          const bgGears = Array.from(brainGearsGroup!.querySelectorAll<SVGGElement>(`[id^="${uniqueId}_bg-gear-"]`))
+          bgGears.forEach((gear) => {
+            const originalId = gear.id.replace(`${uniqueId}_`, '')
+            const isLit = litSet.has(originalId)
+
+            gear.getAnimations().forEach((anim) => anim.cancel())
+            gear.style.transform = 'rotate(0deg)'
+            gear.style.transformOrigin = 'center'
+            gear.style.transformBox = 'fill-box'
+            gear.style.setProperty('opacity', isLit ? '0.9' : '0.08', 'important')
+            gear.style.transition = 'opacity 360ms cubic-bezier(0.22,1,0.36,1), filter 360ms cubic-bezier(0.22,1,0.36,1)'
+            gear.style.filter = isLit ? 'drop-shadow(0 0 8px rgba(45,212,191,0.45))' : 'none'
+          })
+
           return
         }
 
         // Quiz is complete - now run full animation setup
         const fadeInDuration = shouldSkipEntrance ? 0 : 1.2
-        const slowDownTime = shouldSkipEntrance ? 0 : 1.0
-        const mainGearSlowDownPercent = 0.30
 
         // New structure: gears are direct children of #main-gears with namespaced IDs
         const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_main-gears`)
@@ -644,42 +680,48 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           gear.style.setProperty('opacity', '1', 'important')
 
           const isClockwise = Math.random() > 0.5
-          const baseRotationSpeed = 20 + Math.random() * 20
-          const fastRotationSpeed = baseRotationSpeed
-          const slowRotationSpeed = baseRotationSpeed / (1 - mainGearSlowDownPercent)
-          const fadeInRotationAmount = (360 / fastRotationSpeed) * fadeInDuration * (isClockwise ? 1 : -1)
+          const mainRotationDuration = 12 + Math.random() * 6 // main gears rotate faster (12-18s / turn)
+          const fadeInRotationAmount = (360 / mainRotationDuration) * fadeInDuration * (isClockwise ? 1 : -1)
           const rotationAmountValue = isClockwise ? '360deg' : '-360deg'
 
           gear.style.setProperty('--fade-in-rotation', `${fadeInRotationAmount}deg`)
-          gear.style.setProperty('--rotation-duration', `${slowRotationSpeed}s`)
+          gear.style.setProperty('--rotation-duration', `${mainRotationDuration}s`)
           gear.style.setProperty('--rotation-amount', rotationAmountValue)
 
-          // Quiz complete: Start rotation only (no fade-in — gears are already visible from quiz)
-          gear.style.setProperty('animation', `gear-rotate-continuous ${slowRotationSpeed}s linear infinite`, 'important')
+          gear.animate([
+            { transform: 'rotate(0deg)' },
+            { transform: `rotate(${rotationAmountValue})` }
+          ], {
+            duration: mainRotationDuration * 1000,
+            iterations: Infinity
+          })
 
           gear.style.transformOrigin = 'center'
           gear.style.transformBox = 'fill-box'
         })
 
         const bgGears = Array.from(brainGearsGroup!.querySelectorAll<SVGGElement>(`[id^="${uniqueId}_bg-gear-"]`))
-        const avgMainGearSpeed = 30
-
         bgGears.forEach((gear) => {
           // CRITICAL: Set opacity immediately to prevent flicker (same as main gears)
           gear.style.setProperty('opacity', '1', 'important')
 
           const isClockwise = Math.random() > 0.5
-          const fastBgRotationSpeed = avgMainGearSpeed
-          const slowBgRotationSpeed = avgMainGearSpeed * 6  // Slower rotation (half speed)
-          const fadeInRotationAmount = (360 / fastBgRotationSpeed) * fadeInDuration * (isClockwise ? 1 : -1)
+          const bgRotationDuration = 52 + Math.random() * 20 // background gears rotate slower (52-72s / turn)
+          const fadeInRotationAmount = (360 / bgRotationDuration) * fadeInDuration * (isClockwise ? 1 : -1)
           const bgRotationAmountValue = isClockwise ? '360deg' : '-360deg'
 
           gear.style.setProperty('--fade-in-rotation', `${fadeInRotationAmount}deg`)
-          gear.style.setProperty('--rotation-duration', `${slowBgRotationSpeed}s`)
+          gear.style.setProperty('--rotation-duration', `${bgRotationDuration}s`)
           gear.style.setProperty('--rotation-amount', bgRotationAmountValue)
 
-          // Quiz complete: Start rotation only (no fade-in — already visible)
-          gear.style.setProperty('animation', `gear-rotate-bg-slow ${slowBgRotationSpeed}s linear infinite`, 'important')
+          // Background gears rotate
+          gear.animate([
+            { transform: 'rotate(0deg)' },
+            { transform: `rotate(${bgRotationAmountValue})` }
+          ], {
+            duration: bgRotationDuration * 1000,
+            iterations: Infinity
+          })
         })
       }
 
@@ -1017,7 +1059,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
     return () => {
       if (cleanup) cleanup()
     }
-  }, [router, isAppReady, shouldSkipEntrance, quizState, litGears, uniqueId])
+  }, [router, isAppReady, shouldSkipEntrance, quizState, litGears, currentQuestionId, currentActiveGearId, uniqueId])
 
   // Click outside to close the hover card
   useEffect(() => {
@@ -1075,6 +1117,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
 
   // Neural Mainframe: track brain hover for glitch trigger
   const [brainHovered, setBrainHovered] = useState(false)
+  const hasQuizProgress = litGears.length > 0
+  const showImmersiveCompleteState = quizState === 'complete' && hasQuizProgress
+  const showImmersiveBrain = quizState === 'quiz' || showImmersiveCompleteState
+  const showStartPrompt = !showImmersiveBrain && !forceQuiz
 
   return (
     <>
@@ -1095,42 +1141,30 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           />
         )}
 
-        {/* === NEURAL MAINFRAME: Colossal Background Typography (desktop only) === */}
-        <div
-          className={`absolute inset-0 z-[1] hidden md:flex items-center justify-center pointer-events-none select-none overflow-hidden ${brainHovered ? 'glitch-active' : ''}`}
-          aria-hidden="true"
-        >
-          <div className="flex flex-col items-center gap-0 leading-none whitespace-nowrap">
-            <span
-              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.01] tracking-[-0.04em] mix-blend-overlay"
-              style={{ lineHeight: 0.85 }}
-            >
-              SYSTEM
-            </span>
-            <span
-              className="text-[12vw] sm:text-[14vw] md:text-[16vw] lg:text-[18vw] font-black text-white/[0.01] tracking-[-0.04em] mix-blend-overlay"
-              style={{ lineHeight: 0.85 }}
-            >
-              ARCHITECT
-            </span>
-          </div>
 
-        </div>
 
         {/* === BRAIN LAYER === */}
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className={`${spacing.containerFull} relative flex-1 flex flex-col items-center justify-center`}>
-            <div className="w-full flex-1 flex flex-col items-center justify-center">
+            {/* Desktop wrapper to handle hover for both Brain and CTA safely */}
+            <div
+              className={`w-full flex-1 flex flex-col items-center justify-center relative ${showImmersiveBrain ? 'pt-0 pb-0' : 'pt-8 pb-16'}`}
+              onMouseEnter={() => setBrainHovered(true)}
+              onMouseLeave={() => setBrainHovered(false)}
+            >
 
               {/* Centered Gears - THE HERO */}
               <motion.div
-                className={`relative w-full max-w-[380px] sm:max-w-[420px] md:max-w-[640px] lg:max-w-[720px] xl:max-w-[800px] max-h-[60vh] sm:max-h-[70vh] lg:max-h-[85vh] mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' ? 'mt-32 sm:mt-36 brain-entry-container' : 'mt-0'}`}
+                className={`relative w-full mx-auto flex items-center justify-center transition-all duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz'
+                  ? 'max-w-[360px] sm:max-w-[460px] md:max-w-[620px] lg:max-w-[760px] xl:max-w-[840px] max-h-[62vh] sm:max-h-[70vh] lg:max-h-[82vh] mt-0 brain-entry-container'
+                  : showImmersiveCompleteState
+                    ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0'
+                    : 'max-w-[150px] sm:max-w-[170px] md:max-w-[250px] lg:max-w-[290px] xl:max-w-[320px] max-h-[30vh] sm:max-h-[35vh] lg:max-h-[40vh] mt-0'
+                  }`}
                 initial={{ opacity: 1, scale: 1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0 }}
                 style={{ transformOrigin: 'center center' }}
-                onMouseEnter={() => setBrainHovered(true)}
-                onMouseLeave={() => setBrainHovered(false)}
               >
                 <GearsSvgContainer
                   svgContent={svgContent}
@@ -1237,11 +1271,11 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   )}
                 </AnimatePresence>
 
-                {/* Center CTA — "Start Quiz" button in the center of the brain */}
+                {/* Center CTA — "Explore My Mind" button positioned naturally below the brain */}
                 <AnimatePresence mode="wait">
-                  {!activeGear && quizState !== 'quiz' && (
+                  {!activeGear && quizState !== 'quiz' && showStartPrompt && (
                     <motion.div
-                      className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+                      className="relative flex flex-col items-center justify-center z-10 pointer-events-none mt-4 sm:mt-8 w-[320px]"
                       initial={{ opacity: 0, filter: 'blur(12px)' }}
                       animate={{
                         opacity: cinematicPhase === 'complete' || shouldSkipEntrance ? 1 : 0,
@@ -1250,24 +1284,22 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                       exit={{ opacity: 0, transition: { duration: 0.2, delay: 0 } }}
                     >
-                      <div className="text-center px-4">
+                      <div className="text-center px-4 w-full">
                         <button
                           onClick={startQuiz}
-                          className="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 
-                            bg-white/[0.07] hover:bg-white/[0.12] backdrop-blur-md
-                            border border-white/[0.12] hover:border-white/[0.25]
-                            rounded-full text-white/80 hover:text-white
-                            text-sm sm:text-base font-medium tracking-wide
-                            transition-all duration-500 cursor-pointer
-                            shadow-[0_0_30px_rgba(11,162,181,0.15)] hover:shadow-[0_0_50px_rgba(11,162,181,0.3)]
-                            pointer-events-auto"
+                          className={`group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 
+                            rounded-full font-medium tracking-wide text-sm sm:text-base cursor-pointer pointer-events-auto
+                            transition-all duration-500
+                            ${brainHovered
+                              ? 'bg-white/[0.12] backdrop-blur-md border border-white/[0.25] text-white shadow-[0_0_50px_rgba(11,162,181,0.3)] scale-100 translate-y-0'
+                              : 'bg-transparent border border-white/0 text-white/50 scale-95 hover:text-white/80'}`}
                         >
-                          <Brain className="w-4 h-4 sm:w-5 sm:h-5 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+                          <Brain className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-500 ${brainHovered ? 'opacity-100 scale-110' : 'opacity-50'}`} />
                           <span>Explore My Mind</span>
-                          <Sparkles className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition-all duration-500 -ml-1" />
+                          <Sparkles className={`w-3.5 h-3.5 transition-all duration-500 -ml-1 ${brainHovered ? 'opacity-60' : 'opacity-0 -translate-x-2'}`} />
                         </button>
                         {quizState === 'complete' && (
-                          <p className="mt-4 text-slate-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em]">
+                          <p className={`mt-5 text-slate-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] transition-all duration-500 ${brainHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
                             <span className="hidden lg:inline">Hover on the gears to discover more</span>
                             <span className="lg:hidden">Tap on the gears to discover more</span>
                           </p>
@@ -1277,123 +1309,145 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   )}
                 </AnimatePresence>
 
-                {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
                 <AnimatePresence mode="wait">
-                  {activeGear && activeCoords && quizState === 'complete' && (
+                  {!activeGear && showImmersiveCompleteState && (
                     <motion.div
-                      key={activeGear.id}
-                      className="absolute z-20 pointer-events-none"
-                      style={{
-                        left: activeCoords.x,
-                        top: activeCoords.y,
-                      }}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      key="immersive-hover-hint"
+                      className="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[min(92vw,34rem)] -translate-x-1/2 -translate-y-1/2 text-center"
+                      initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <div
-                        className={`flex items-center ${activeCoords.side === 'left' ? 'flex-row-reverse -translate-x-full' : 'flex-row'}`}
-                      >
-                        {/* Connecting Line (Leader) */}
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: 40 }}
-                          className="h-px bg-slate-600 shadow-[0_0_8px_rgba(255,255,255,0.5)]"
-                        />
-
-                        {/* The Card */}
-                        <div
-                          className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
-                          onMouseEnter={() => {
-                            setIsCardHovered(true)
-                            if (hideTimeoutRef.current) {
-                              clearTimeout(hideTimeoutRef.current)
-                              hideTimeoutRef.current = null
-                            }
-                          }}
-                          onMouseLeave={() => {
-                            setIsCardHovered(false)
-                            hideTimeoutRef.current = setTimeout(() => {
-                              setActiveGear(null)
-                            }, 150)
-                          }}
-                        >
-                          {/* Accent Top Border */}
-                          <div
-                            className="absolute top-0 left-0 right-0 h-[2px]"
-                            style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
-                          />
-
-                          {/* DISMISS BUTTON */}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              e.preventDefault()
-                              setActiveGear(null)
-                            }}
-                            className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
-                          >
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <line x1="18" y1="6" x2="6" y2="18" />
-                              <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                          </button>
-
-                          {/* PERSONALITY INSIGHT MODE */}
-                          <div className="block text-left group">
-                            <div className="flex flex-col h-full justify-between gap-4">
-                              {/* Insight Content */}
-                              <div className="space-y-2 select-text cursor-auto">
-                                <p className="text-white/90 text-[14px] leading-relaxed font-medium">
-                                  {activeGear.thought}
-                                </p>
-                              </div>
-
-                              {/* CTA Link - CLICKABLE */}
-                              <div
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  e.stopPropagation()
-                                  router.push(activeGear.link)
-                                }}
-                                className="group/cta flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 hover:text-white transition-colors cursor-pointer self-start py-1"
-                              >
-                                <span className="uppercase border-b border-transparent group-hover/cta:border-white/20 transition-all">
-                                  {activeGear.linkLabel}
-                                </span>
-                                <ArrowRight className="w-3 h-3 transition-transform group-hover/cta:translate-x-0.5" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.36em] text-cyan-300/80 sm:text-xs">
+                        Hover To Reveal
+                      </p>
+                      <p className="mt-2 text-sm text-white/80 sm:text-base">
+                        What&apos;s going on in my brain.
+                      </p>
+                      <p className="mt-1 text-[11px] text-white/45 sm:hidden">
+                        Tap the gears on mobile
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </motion.div> {/* Closing tag for the main brain motion.div */}
+            </div> {/* END desktop wrapper */}
 
-            </div>
+            {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
+            <AnimatePresence mode="wait">
+              {activeGear && activeCoords && quizState === 'complete' && (
+                <motion.div
+                  key={activeGear.id}
+                  className="absolute z-20 pointer-events-none"
+                  style={{
+                    left: activeCoords.x,
+                    top: activeCoords.y,
+                  }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                >
+                  <div
+                    className={`flex items-center ${activeCoords.side === 'left' ? 'flex-row-reverse -translate-x-full' : 'flex-row'}`}
+                  >
+                    {/* Connecting Line (Leader) */}
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: 40 }}
+                      className="h-px bg-slate-600 shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+                    />
+
+                    {/* The Card */}
+                    <div
+                      className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
+                      onMouseEnter={() => {
+                        setIsCardHovered(true)
+                        if (hideTimeoutRef.current) {
+                          clearTimeout(hideTimeoutRef.current)
+                          hideTimeoutRef.current = null
+                        }
+                      }}
+                      onMouseLeave={() => {
+                        setIsCardHovered(false)
+                        hideTimeoutRef.current = setTimeout(() => {
+                          setActiveGear(null)
+                        }, 150)
+                      }}
+                    >
+                      {/* Accent Top Border */}
+                      <div
+                        className="absolute top-0 left-0 right-0 h-[2px]"
+                        style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
+                      />
+
+                      {/* DISMISS BUTTON */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          e.preventDefault()
+                          setActiveGear(null)
+                        }}
+                        className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18" />
+                          <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                      </button>
+
+                      {/* PERSONALITY INSIGHT MODE */}
+                      <div className="block text-left group">
+                        <div className="flex flex-col h-full justify-between gap-4">
+                          {/* Insight Content */}
+                          <div className="space-y-2 select-text cursor-auto">
+                            <p className="text-white/90 text-[14px] leading-relaxed font-medium">
+                              {activeGear.thought}
+                            </p>
+                          </div>
+
+                          {/* CTA Link - CLICKABLE */}
+                          <div
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              router.push(activeGear.link)
+                            }}
+                            className="group/cta flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 hover:text-white transition-colors cursor-pointer self-start py-1"
+                          >
+                            <span className="uppercase border-b border-transparent group-hover/cta:border-white/20 transition-all">
+                              {activeGear.linkLabel}
+                            </span>
+                            <ArrowRight className="w-3 h-3 transition-transform group-hover/cta:translate-x-0.5" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
           </div>
         </div>
-        {/* === END BRAIN LAYER === */}
-
-        {/* Scroll indicator */}
-        {quizState !== 'quiz' && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2">
-            <span className="text-white/30 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <svg className="w-5 h-5 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
-              </svg>
-            </motion.div>
-          </div>
-        )}
-
       </div>
+      {/* === END BRAIN LAYER === */}
+
+      {/* Scroll indicator */}
+      {quizState !== 'quiz' && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2">
+          <span className="text-white/30 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg className="w-5 h-5 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
+            </svg>
+          </motion.div>
+        </div>
+      )}
 
       {/* Mobile Bottom Sheet for Gear Inspector */}
       <GearBottomSheet
@@ -1402,11 +1456,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         onClose={() => {
           setShowMobileSheet(false)
           setMobileGear(null)
-        }
-        }
+        }}
       />
     </>
   )
 }
-
-

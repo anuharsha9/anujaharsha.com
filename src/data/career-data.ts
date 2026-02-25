@@ -65,32 +65,6 @@ export interface CareerEra {
 }
 
 export const CAREER_DATA: CareerEra[] = [
-    // SLIDE 0: BRAIN HERO — Interactive gear brain (rendered via HeroSplit)
-    {
-        id: "brain-hero",
-        company: "",
-        role: "",
-        period: "",
-        description: "",
-        isBrainSlide: true,
-        testimonials: [],
-        workItems: [],
-        milestones: [],
-    },
-
-    // SLIDE 1: MANIFESTO — "13 Years. One Mission."
-    {
-        id: "hero-intro",
-        company: "",
-        role: "13 Years. One Mission.",
-        period: "",
-        description: "From curiosity to code. A story told through scroll.",
-        isHeroIntro: true,
-        testimonials: [],
-        workItems: [],
-        milestones: [],
-    },
-
     // ZONE 1: DESIGN ENGINEERING (2026)
     {
         id: "design-engineering",

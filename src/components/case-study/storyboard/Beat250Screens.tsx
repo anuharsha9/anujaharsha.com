@@ -19,6 +19,83 @@ const SCREEN_LABELS = [
     'Hub — Home', 'Hub — Create Schedule', 'Hub — Context Menu',
 ]
 
+/* ── Animated 250+ counter ─────────────────────────── */
+function AnimatedCounter({ active }: { active: boolean }) {
+    const [count, setCount] = useState(0)
+    const [finished, setFinished] = useState(false)
+
+    useEffect(() => {
+        if (!active) { setCount(0); setFinished(false); return }
+        let frame = 0
+        const totalFrames = 60
+        const target = 250
+        const interval = setInterval(() => {
+            frame++
+            // Easing — fast start, slow finish
+            const progress = 1 - Math.pow(1 - frame / totalFrames, 3)
+            setCount(Math.min(Math.floor(progress * target), target))
+            if (frame >= totalFrames) {
+                setCount(target)
+                setFinished(true)
+                clearInterval(interval)
+            }
+        }, 30)
+        return () => clearInterval(interval)
+    }, [active])
+
+    return (
+        <div className="relative">
+            {/* Glow behind number */}
+            {finished && (
+                <motion.div
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <div
+                        className="w-48 h-32 rounded-full"
+                        style={{
+                            background: 'radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, transparent 70%)',
+                        }}
+                    />
+                </motion.div>
+            )}
+            <div className="relative text-center">
+                <motion.div
+                    className="text-7xl md:text-8xl font-bold text-white font-mono tabular-nums"
+                    animate={finished ? { scale: [1, 1.05, 1] } : {}}
+                    transition={{ duration: 0.4, ease }}
+                >
+                    {count}<span className="text-emerald-400">+</span>
+                </motion.div>
+                {/* Flash ring on finish */}
+                {finished && (
+                    <motion.div
+                        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                        initial={{ opacity: 0.8 }}
+                        animate={{ opacity: 0, scale: 2 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                    >
+                        <div
+                            className="w-32 h-32 rounded-full border"
+                            style={{ borderColor: 'rgba(255,255,255,0.2)' }}
+                        />
+                    </motion.div>
+                )}
+            </div>
+            <motion.div
+                className="text-xs text-zinc-500 font-mono uppercase tracking-[0.3em] text-center mt-2"
+                initial={{ opacity: 0 }}
+                animate={finished ? { opacity: 1 } : {}}
+                transition={{ delay: 0.3 }}
+            >
+                Screens designed
+            </motion.div>
+        </div>
+    )
+}
+
 export default function Beat250Screens() {
     const ref = useRef<HTMLDivElement>(null)
     const isInView = useInView(ref, { once: false, amount: 0.3 })
@@ -37,14 +114,12 @@ export default function Beat250Screens() {
         timers.current.push(setTimeout(() => setPhase(0), 400))
         // Phase 1: Start cascade
         timers.current.push(setTimeout(() => setPhase(1), 1200))
-        // Phase 2: Show counter
+        // Phase 2: Show counter (with animation)
         timers.current.push(setTimeout(() => setPhase(2), 2000))
         // Phase 3: "Every edge case"
         timers.current.push(setTimeout(() => setPhase(3), 5000))
         // Phase 4: Statement
         timers.current.push(setTimeout(() => setPhase(4), 6500))
-        // Phase 5: Narrator
-        timers.current.push(setTimeout(() => setPhase(5), 8000))
     }, [clear])
 
     useEffect(() => {
@@ -115,25 +190,16 @@ export default function Beat250Screens() {
                         )}
                     </AnimatePresence>
 
-                    {/* Counter */}
+                    {/* Counter — now animated */}
                     <AnimatePresence>
                         {phase >= 2 && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, ease }}
-                                className="text-center mb-8"
+                                className="mb-8"
                             >
-                                <motion.div
-                                    className="text-6xl md:text-7xl font-bold text-white font-mono mb-2"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                >
-                                    250+
-                                </motion.div>
-                                <div className="text-xs text-zinc-500 font-mono uppercase tracking-[0.3em]">
-                                    Screens designed
-                                </div>
+                                <AnimatedCounter active={phase >= 2} />
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -187,8 +253,6 @@ export default function Beat250Screens() {
                             </motion.div>
                         )}
                     </AnimatePresence>
-
-
 
                 </div>
             </div>

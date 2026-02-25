@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import PresenterBar from './storyboard/PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -95,6 +96,22 @@ export default function JobLogRedesignViz() {
         <div ref={ref} className="relative w-full max-w-5xl mx-auto">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden" style={{ minHeight: 480 }}>
                 <div className="relative px-4 md:px-8 py-6 md:py-8">
+
+                    {/* ── Presenter narration ── */}
+                    <AnimatePresence>
+                        {act >= 0 && (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-4">
+                                <PresenterBar>
+                                    <p className="text-sm md:text-[15px] text-zinc-400 leading-relaxed">
+                                        Users had <span className="text-zinc-200 font-medium">two completely separate paths</span> to view job logs — both broken in different ways.
+                                    </p>
+                                    <p className="text-sm md:text-base text-white font-bold mt-3 tracking-tight">
+                                        I unified them into one contextual experience. 🪵
+                                    </p>
+                                </PresenterBar>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     {/* ── Narration ── */}
                     <AnimatePresence mode="wait">

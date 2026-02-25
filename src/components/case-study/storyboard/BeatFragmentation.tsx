@@ -11,14 +11,30 @@ interface SystemNode {
     icon: LucideIcon
     label: string
     desc: string
+    wireframe: string[] // wireframe skeleton lines
 }
 
 const SYSTEMS: SystemNode[] = [
-    { icon: Calendar, label: 'Schedules', desc: 'Buried under 4 clicks' },
-    { icon: Mail, label: 'Distribution Lists', desc: 'Buried alongside schedules' },
-    { icon: Lock, label: 'Access Lists', desc: 'Same depth. Same friction.' },
-    { icon: FolderOpen, label: 'Explorer', desc: 'Hidden in a hamburger menu' },
-    { icon: Settings, label: 'Admin Console', desc: 'Inside another admin panel' },
+    {
+        icon: Calendar, label: 'Schedules', desc: 'Buried under 4 clicks',
+        wireframe: ['▬▬▬▬▬▬', '├─ ▬▬▬', '├─ ▬▬▬', '└─ ▬▬▬'],
+    },
+    {
+        icon: Mail, label: 'Distribution Lists', desc: 'Buried alongside schedules',
+        wireframe: ['◻ ▬▬▬▬', '◻ ▬▬▬▬', '◻ ▬▬▬▬', '+ Add...'],
+    },
+    {
+        icon: Lock, label: 'Access Lists', desc: 'Same depth. Same friction.',
+        wireframe: ['🔒 ▬▬▬', '├─ ◻ ▬', '├─ ◻ ▬', '└─ ◻ ▬'],
+    },
+    {
+        icon: FolderOpen, label: 'Explorer', desc: 'Hidden in a hamburger menu',
+        wireframe: ['📁 Root/', '├─ 📁 /', '│  └─ 📄', '└─ 📁 /'],
+    },
+    {
+        icon: Settings, label: 'Admin Console', desc: 'Inside another admin panel',
+        wireframe: ['⚙ Config', '├─ ▬▬▬', '├─ ▬▬▬', '└─ ▬▬▬'],
+    },
 ]
 
 const PAIN_POINTS = [
@@ -26,6 +42,15 @@ const PAIN_POINTS = [
     { stat: '0', label: 'Lines of documentation' },
     { stat: '4', label: 'Clicks just to start' },
     { stat: '3', label: 'Entry points. None obvious.' },
+]
+
+// SVG connection paths between nodes (chaos wiring)
+const CHAOS_PATHS = [
+    'M 10,50 C 30,20 70,80 90,50',
+    'M 20,30 C 40,70 60,10 80,60',
+    'M 15,70 C 35,30 65,90 85,40',
+    'M 30,20 C 50,60 50,40 70,80',
+    'M 5,40 C 25,80 75,20 95,60',
 ]
 
 export default function BeatFragmentation() {
@@ -43,22 +68,24 @@ export default function BeatFragmentation() {
         clear()
         setPhase(-1)
         timers.current.push(setTimeout(() => setPhase(0), 400))
-        // Each system node
+        // Each system node staggered
         SYSTEMS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(i + 1), 800 + i * 600))
+            timers.current.push(setTimeout(() => setPhase(i + 1), 800 + i * 700))
         })
-        // Phase 6: Show connections (chaos)
-        timers.current.push(setTimeout(() => setPhase(6), 4200))
-        // Phase 7: Pain points
-        timers.current.push(setTimeout(() => setPhase(7), 5400))
-        // Phase 8-11: Each pain point stat
+        // Phase 6: Show chaos connections
+        timers.current.push(setTimeout(() => setPhase(6), 4500))
+        // Phase 7: Pulse all nodes red
+        timers.current.push(setTimeout(() => setPhase(7), 5800))
+        // Phase 8: Pain points header
+        timers.current.push(setTimeout(() => setPhase(8), 7000))
+        // Phase 9-12: Each pain point stat
         PAIN_POINTS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(8 + i), 6000 + i * 500))
+            timers.current.push(setTimeout(() => setPhase(9 + i), 7600 + i * 500))
         })
-        // Phase 12: "Nobody had a map."
-        timers.current.push(setTimeout(() => setPhase(12), 8500))
-        // Phase 13: Narrator
-        timers.current.push(setTimeout(() => setPhase(13), 10200))
+        // Phase 13: "Nobody had a map."
+        timers.current.push(setTimeout(() => setPhase(13), 10000))
+        // Phase 14: Narrator
+        timers.current.push(setTimeout(() => setPhase(14), 11800))
     }, [clear])
 
     useEffect(() => {
@@ -88,46 +115,123 @@ export default function BeatFragmentation() {
                                         Users were jumping between tabs, losing context constantly.{' '}
                                         <span className="text-zinc-200">Everything was buried.</span>
                                     </p>
-                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
-                                        6 weeks in, I had a Miro mind map that finally made sense of it all. 🧠
-                                    </p>
                                 </PresenterBar>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    {/* System nodes */}
-                    <div className="relative">
+                    {/* System nodes — wireframe style */}
+                    <div className="relative mt-6">
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
                             {SYSTEMS.map((sys, i) => {
                                 const Icon = sys.icon
+                                const isVisible = phase >= i + 1
+                                const isChaos = phase >= 7
                                 return (
                                     <motion.div
                                         key={sys.label}
                                         initial={{ opacity: 0, y: 30, scale: 0.85 }}
                                         animate={
-                                            phase >= i + 1
+                                            isVisible
                                                 ? { opacity: 1, y: 0, scale: 1 }
                                                 : { opacity: 0, y: 30, scale: 0.85 }
                                         }
                                         transition={{ duration: 0.5, ease }}
-                                        className="relative rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 text-center"
+                                        className="relative rounded-xl border bg-white/[0.02] overflow-hidden"
+                                        style={{
+                                            borderColor: isChaos ? 'rgba(244,63,94,0.25)' : 'rgba(255,255,255,0.08)',
+                                            transition: 'border-color 0.8s ease',
+                                        }}
                                     >
-                                        <div className="flex items-center justify-center mb-2">
-                                            <Icon className="w-5 h-5 text-zinc-400" strokeWidth={1.5} />
-                                        </div>
-                                        <div className="text-sm font-medium text-white mb-0.5">
-                                            {sys.label}
-                                        </div>
-                                        <div className="text-[11px] text-zinc-500 font-mono leading-snug">
-                                            {sys.desc}
-                                        </div>
-                                        {/* Chaos indicator */}
-                                        {phase >= 6 && (
+                                        {/* Wireframe header bar */}
+                                        <motion.div
+                                            initial={{ scaleX: 0 }}
+                                            animate={isVisible ? { scaleX: 1 } : { scaleX: 0 }}
+                                            transition={{ duration: 0.4, delay: 0.2, ease }}
+                                            className="h-1 origin-left"
+                                            style={{
+                                                background: isChaos
+                                                    ? 'linear-gradient(90deg, rgba(244,63,94,0.4), rgba(244,63,94,0.1))'
+                                                    : 'linear-gradient(90deg, rgba(255,255,255,0.1), transparent)',
+                                                transition: 'background 0.8s ease',
+                                            }}
+                                        />
+
+                                        <div className="p-3 md:p-4">
+                                            {/* Icon + label row */}
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0, rotate: -45 }}
+                                                    animate={
+                                                        isVisible
+                                                            ? { opacity: 1, scale: 1, rotate: 0 }
+                                                            : { opacity: 0, scale: 0, rotate: -45 }
+                                                    }
+                                                    transition={{ duration: 0.4, delay: 0.3, ease }}
+                                                >
+                                                    <Icon className="w-4 h-4 text-zinc-400" strokeWidth={1.5} style={{
+                                                        color: isChaos ? 'rgba(244,63,94,0.7)' : undefined,
+                                                        transition: 'color 0.8s ease',
+                                                    }} />
+                                                </motion.div>
+                                                <motion.span
+                                                    initial={{ opacity: 0, x: -8 }}
+                                                    animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -8 }}
+                                                    transition={{ duration: 0.4, delay: 0.4, ease }}
+                                                    className="text-xs font-medium text-white"
+                                                >
+                                                    {sys.label}
+                                                </motion.span>
+                                            </div>
+
+                                            {/* Wireframe skeleton lines */}
+                                            <div className="space-y-1">
+                                                {sys.wireframe.map((line, li) => (
+                                                    <motion.div
+                                                        key={li}
+                                                        initial={{ opacity: 0, width: 0 }}
+                                                        animate={
+                                                            isVisible
+                                                                ? { opacity: 0.5, width: '100%' }
+                                                                : { opacity: 0, width: 0 }
+                                                        }
+                                                        transition={{
+                                                            duration: 0.3,
+                                                            delay: 0.5 + li * 0.12,
+                                                            ease,
+                                                        }}
+                                                        className="text-[9px] font-mono text-zinc-600 leading-tight overflow-hidden whitespace-nowrap"
+                                                    >
+                                                        {line}
+                                                    </motion.div>
+                                                ))}
+                                            </div>
+
+                                            {/* Description */}
                                             <motion.div
                                                 initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-rose-500/60"
+                                                animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+                                                transition={{ duration: 0.4, delay: 0.9, ease }}
+                                                className="text-[10px] text-zinc-500 font-mono mt-2 leading-snug"
+                                                style={{
+                                                    color: isChaos ? 'rgba(244,63,94,0.6)' : undefined,
+                                                    transition: 'color 0.8s ease',
+                                                }}
+                                            >
+                                                {sys.desc}
+                                            </motion.div>
+                                        </div>
+
+                                        {/* Chaos pulse overlay */}
+                                        {isChaos && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: [0, 0.15, 0] }}
+                                                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                                className="absolute inset-0 pointer-events-none rounded-xl"
+                                                style={{
+                                                    background: 'radial-gradient(circle at center, rgba(244,63,94,0.2) 0%, transparent 70%)',
+                                                }}
                                             />
                                         )}
                                     </motion.div>
@@ -135,7 +239,7 @@ export default function BeatFragmentation() {
                             })}
                         </div>
 
-                        {/* Chaos overlay - dashed connections */}
+                        {/* Chaos wiring SVG overlay */}
                         <AnimatePresence>
                             {phase >= 6 && (
                                 <motion.div
@@ -145,27 +249,37 @@ export default function BeatFragmentation() {
                                     className="absolute inset-0 pointer-events-none"
                                 >
                                     <svg className="w-full h-full absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                        <motion.line
-                                            x1="15" y1="30" x2="85" y2="70"
-                                            stroke="rgba(244,63,94,0.15)" strokeWidth="0.3" strokeDasharray="2 2"
-                                            initial={{ pathLength: 0 }}
-                                            animate={{ pathLength: 1 }}
-                                            transition={{ duration: 1, ease }}
-                                        />
-                                        <motion.line
-                                            x1="30" y1="20" x2="70" y2="80"
-                                            stroke="rgba(244,63,94,0.12)" strokeWidth="0.3" strokeDasharray="2 2"
-                                            initial={{ pathLength: 0 }}
-                                            animate={{ pathLength: 1 }}
-                                            transition={{ duration: 1, delay: 0.2, ease }}
-                                        />
-                                        <motion.line
-                                            x1="50" y1="15" x2="50" y2="85"
-                                            stroke="rgba(244,63,94,0.1)" strokeWidth="0.2" strokeDasharray="3 3"
-                                            initial={{ pathLength: 0 }}
-                                            animate={{ pathLength: 1 }}
-                                            transition={{ duration: 1, delay: 0.4, ease }}
-                                        />
+                                        {CHAOS_PATHS.map((d, i) => (
+                                            <motion.path
+                                                key={i}
+                                                d={d}
+                                                fill="none"
+                                                stroke="rgba(244,63,94,0.2)"
+                                                strokeWidth="0.3"
+                                                strokeDasharray="2 2"
+                                                initial={{ pathLength: 0, opacity: 0 }}
+                                                animate={{ pathLength: 1, opacity: 1 }}
+                                                transition={{
+                                                    pathLength: { duration: 1.2, delay: i * 0.15, ease },
+                                                    opacity: { duration: 0.3, delay: i * 0.15 },
+                                                }}
+                                            />
+                                        ))}
+
+                                        {/* Traveling dots along paths */}
+                                        {phase >= 7 && CHAOS_PATHS.slice(0, 3).map((d, i) => (
+                                            <motion.circle
+                                                key={`dot-${i}`}
+                                                r="0.8"
+                                                fill="rgba(244,63,94,0.5)"
+                                            >
+                                                <animateMotion
+                                                    dur={`${3 + i * 0.5}s`}
+                                                    repeatCount="indefinite"
+                                                    path={d}
+                                                />
+                                            </motion.circle>
+                                        ))}
                                     </svg>
                                 </motion.div>
                             )}
@@ -174,7 +288,7 @@ export default function BeatFragmentation() {
 
                     {/* Divider */}
                     <AnimatePresence>
-                        {phase >= 7 && (
+                        {phase >= 8 && (
                             <motion.div
                                 initial={{ scaleX: 0 }}
                                 animate={{ scaleX: 1 }}
@@ -186,30 +300,39 @@ export default function BeatFragmentation() {
 
                     {/* Pain point stats */}
                     <AnimatePresence>
-                        {phase >= 7 && (
+                        {phase >= 8 && (
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                             >
                                 <div className="font-mono text-xs tracking-[0.25em] text-rose-400/70 uppercase text-center mb-6">
-                                    The cost of fragmentation
+                                    Why customers were leaving
                                 </div>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
                                     {PAIN_POINTS.map((pp, i) => (
                                         <motion.div
                                             key={pp.label}
-                                            initial={{ opacity: 0, y: 20 }}
+                                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
                                             animate={
-                                                phase >= 8 + i
-                                                    ? { opacity: 1, y: 0 }
-                                                    : { opacity: 0, y: 20 }
+                                                phase >= 9 + i
+                                                    ? { opacity: 1, y: 0, scale: 1 }
+                                                    : { opacity: 0, y: 20, scale: 0.9 }
                                             }
                                             transition={{ duration: 0.5, ease }}
                                             className="text-center"
                                         >
-                                            <div className="text-3xl md:text-4xl font-bold text-rose-400 font-mono mb-1">
+                                            <motion.div
+                                                className="text-3xl md:text-4xl font-bold text-rose-400 font-mono mb-1"
+                                                initial={{ scale: 1 }}
+                                                animate={
+                                                    phase >= 9 + i
+                                                        ? { scale: [1, 1.2, 1] }
+                                                        : { scale: 1 }
+                                                }
+                                                transition={{ duration: 0.4, delay: 0.1 }}
+                                            >
                                                 {pp.stat}
-                                            </div>
+                                            </motion.div>
                                             <div className="text-[11px] text-zinc-400 font-mono uppercase tracking-wider leading-snug">
                                                 {pp.label}
                                             </div>
@@ -222,7 +345,7 @@ export default function BeatFragmentation() {
 
                     {/* Closing line */}
                     <AnimatePresence>
-                        {phase >= 12 && (
+                        {phase >= 13 && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -234,9 +357,6 @@ export default function BeatFragmentation() {
                                 </p>
                                 <p className="text-zinc-500 text-sm mt-2 font-mono">
                                     So I drew one.
-                                </p>
-                                <p className="text-zinc-500 text-sm mt-2 italic">
-                                    6 weeks in, I had a Miro mind map that finally made sense of it all. 🧠
                                 </p>
                             </motion.div>
                         )}

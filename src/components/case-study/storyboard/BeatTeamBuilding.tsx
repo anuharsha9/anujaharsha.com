@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useCallback, useEffect, useState } from 'react'
+import { useRef, useCallback, useEffect, useState, useMemo } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Code2, FlaskConical, ClipboardList, Headphones, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
@@ -11,13 +11,14 @@ interface TeamMember {
     role: string
     count: number
     icon: LucideIcon
+    color: string
 }
 
 const TEAM: TeamMember[] = [
-    { role: 'Engineers', count: 12, icon: Code2 },
-    { role: 'QA', count: 4, icon: FlaskConical },
-    { role: 'PMs', count: 2, icon: ClipboardList },
-    { role: 'Support', count: 2, icon: Headphones },
+    { role: 'Engineers', count: 12, icon: Code2, color: '#60a5fa' },
+    { role: 'QA', count: 4, icon: FlaskConical, color: '#a78bfa' },
+    { role: 'PMs', count: 2, icon: ClipboardList, color: '#f97316' },
+    { role: 'Support', count: 2, icon: Headphones, color: '#34d399' },
 ]
 
 const ONBOARDING_STEPS = [
@@ -27,11 +28,80 @@ const ONBOARDING_STEPS = [
     'Async Q&A channel — I answered every question',
 ]
 
+/* ── Generate node positions for constellation ────── */
+function generateNodes(teamMembers: TeamMember[]) {
+    const nodes: { x: number; y: number; role: string; color: string; size: number; delay: number }[] = []
+    const cx = 180, cy = 180
+    let nodeIndex = 0
+
+    teamMembers.forEach((member, groupIdx) => {
+        const groupAngle = (groupIdx * 90) - 45 // Four quadrants
+        const memberCount = Math.min(member.count, 6) // Cap visual nodes at 6
+
+        for (let j = 0; j < memberCount; j++) {
+            const radius = 65 + (j % 3) * 35 + Math.random() * 15
+            const angleSpread = 55
+            const angle = groupAngle + (j / memberCount) * angleSpread - angleSpread / 2
+            const rad = (angle * Math.PI) / 180
+            nodes.push({
+                x: cx + radius * Math.cos(rad),
+                y: cy + radius * Math.sin(rad),
+                role: member.role,
+                color: member.color,
+                size: j < 2 ? 6 : 4, // First nodes slightly bigger
+                delay: nodeIndex * 0.06,
+            })
+            nodeIndex++
+        }
+    })
+    return nodes
+}
+
+/* ── Connection line ──────────────────────────────── */
+function ConnectionLine({ x1, y1, x2, y2, color, delay, active }: {
+    x1: number; y1: number; x2: number; y2: number; color: string; delay: number; active: boolean
+}) {
+    return (
+        <motion.line
+            x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke={color}
+            strokeWidth={0.8}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={active ? { pathLength: 1, opacity: 0.25 } : { pathLength: 0, opacity: 0 }}
+            transition={{ duration: 0.4, delay, ease }}
+        />
+    )
+}
+
+/* ── Animated team counter ────────────────────────── */
+function TeamCounter({ target, active, color }: { target: number; active: boolean; color: string }) {
+    const [val, setVal] = useState(0)
+
+    useEffect(() => {
+        if (!active) { setVal(0); return }
+        let current = 0
+        const step = () => {
+            current++
+            setVal(current)
+            if (current < target) setTimeout(step, 80)
+        }
+        setTimeout(step, 200)
+    }, [active, target])
+
+    return (
+        <span className="text-2xl md:text-3xl font-bold font-mono tabular-nums" style={{ color }}>
+            {val}
+        </span>
+    )
+}
+
 export default function BeatTeamBuilding() {
     const ref = useRef<HTMLDivElement>(null)
     const isInView = useInView(ref, { once: false, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
+    const nodes = useMemo(() => generateNodes(TEAM), [])
+    const cx = 180, cy = 180
 
     const clear = useCallback(() => {
         timers.current.forEach(clearTimeout)
@@ -43,24 +113,24 @@ export default function BeatTeamBuilding() {
         setPhase(-1)
         // Phase 0: Header
         timers.current.push(setTimeout(() => setPhase(0), 400))
-        // Phase 1: "~20 people" counter
-        timers.current.push(setTimeout(() => setPhase(1), 1200))
-        // Phase 2-5: Team role cards
-        TEAM.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(2 + i), 2000 + i * 500))
-        })
-        // Phase 6: Divider
-        timers.current.push(setTimeout(() => setPhase(6), 4200))
-        // Phase 7: Onboarding header
-        timers.current.push(setTimeout(() => setPhase(7), 4800))
-        // Phase 8-11: Onboarding steps
+        // Phase 1: Center node (you) appears
+        timers.current.push(setTimeout(() => setPhase(1), 1600))
+        // Phase 2: Team nodes start appearing
+        timers.current.push(setTimeout(() => setPhase(2), 2400))
+        // Phase 3: Connections draw
+        timers.current.push(setTimeout(() => setPhase(3), 3600))
+        // Phase 4: Role cards with counts
+        timers.current.push(setTimeout(() => setPhase(4), 5000))
+        // Phase 5: Divider
+        timers.current.push(setTimeout(() => setPhase(5), 6400))
+        // Phase 6: Onboarding header
+        timers.current.push(setTimeout(() => setPhase(6), 7000))
+        // Phase 7-10: Onboarding steps
         ONBOARDING_STEPS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(8 + i), 5400 + i * 600))
+            timers.current.push(setTimeout(() => setPhase(7 + i), 7600 + i * 600))
         })
-        // Phase 12: Narrator aside
-        timers.current.push(setTimeout(() => setPhase(12), 8200))
-        // Phase 13: "By the time I left"
-        timers.current.push(setTimeout(() => setPhase(13), 10000))
+        // Phase 11: Closing
+        timers.current.push(setTimeout(() => setPhase(11), 10400))
     }, [clear])
 
     useEffect(() => {
@@ -97,70 +167,188 @@ export default function BeatTeamBuilding() {
                         )}
                     </AnimatePresence>
 
-                    {/* Big counter */}
+                    {/* ── Network Constellation ──────────────── */}
+                    <div className="relative flex items-center justify-center my-4" style={{ minHeight: 360 }}>
+                        <svg
+                            viewBox="0 0 360 360"
+                            className="w-[300px] h-[300px] md:w-[360px] md:h-[360px]"
+                            style={{ overflow: 'visible' }}
+                        >
+                            {/* Subtle grid rings */}
+                            {[60, 100, 140].map((r, i) => (
+                                <motion.circle
+                                    key={`ring-${r}`}
+                                    cx={cx} cy={cy} r={r}
+                                    fill="none"
+                                    stroke="rgba(255,255,255,0.02)"
+                                    strokeWidth={0.5}
+                                    strokeDasharray="3 6"
+                                    initial={{ opacity: 0 }}
+                                    animate={phase >= 1 ? { opacity: 1 } : {}}
+                                    transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
+                                />
+                            ))}
+
+                            {/* Connection lines from center to each node */}
+                            {nodes.map((node, i) => (
+                                <ConnectionLine
+                                    key={`conn-${i}`}
+                                    x1={cx} y1={cy}
+                                    x2={node.x} y2={node.y}
+                                    color={node.color}
+                                    delay={node.delay}
+                                    active={phase >= 3}
+                                />
+                            ))}
+
+                            {/* Team member nodes */}
+                            {nodes.map((node, i) => (
+                                <AnimatePresence key={`node-${i}`}>
+                                    {phase >= 2 && (
+                                        <motion.g
+                                            initial={{ opacity: 0, scale: 0 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: node.delay, duration: 0.3, type: 'spring', stiffness: 300 }}
+                                            style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+                                        >
+                                            {/* Glow */}
+                                            <circle
+                                                cx={node.x} cy={node.y} r={node.size + 4}
+                                                fill={node.color}
+                                                opacity={0.1}
+                                            />
+                                            {/* Node */}
+                                            <circle
+                                                cx={node.x} cy={node.y} r={node.size}
+                                                fill={node.color}
+                                                opacity={0.7}
+                                            />
+                                            {/* Core */}
+                                            <circle
+                                                cx={node.x} cy={node.y} r={node.size * 0.4}
+                                                fill={node.color}
+                                                opacity={1}
+                                            />
+                                        </motion.g>
+                                    )}
+                                </AnimatePresence>
+                            ))}
+
+                            {/* Center node — YOU */}
+                            <AnimatePresence>
+                                {phase >= 1 && (
+                                    <motion.g
+                                        initial={{ opacity: 0, scale: 0 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.5, type: 'spring' }}
+                                        style={{ transformOrigin: `${cx}px ${cy}px` }}
+                                    >
+                                        {/* Outer pulse */}
+                                        <motion.circle
+                                            cx={cx} cy={cy} r={20}
+                                            fill="none"
+                                            stroke="rgba(255,255,255,0.15)"
+                                            strokeWidth={1}
+                                            animate={{
+                                                r: [20, 28, 20],
+                                                opacity: [0.15, 0.05, 0.15],
+                                            }}
+                                            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                                        />
+                                        {/* Main circle */}
+                                        <circle cx={cx} cy={cy} r={14} fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" strokeWidth={1.5} />
+                                        <circle cx={cx} cy={cy} r={5} fill="white" opacity={0.9} />
+                                        {/* Label */}
+                                        <text
+                                            x={cx} y={cy + 30}
+                                            textAnchor="middle"
+                                            className="text-[8px] font-mono uppercase tracking-widest"
+                                            fill="rgba(255,255,255,0.4)"
+                                        >
+                                            YOU
+                                        </text>
+                                    </motion.g>
+                                )}
+                            </AnimatePresence>
+
+                            {/* Role group labels */}
+                            {phase >= 3 && TEAM.map((member, i) => {
+                                const angle = (i * 90 - 45) * Math.PI / 180
+                                const labelR = 155
+                                const lx = cx + labelR * Math.cos(angle)
+                                const ly = cy + labelR * Math.sin(angle)
+                                return (
+                                    <motion.text
+                                        key={`label-${member.role}`}
+                                        x={lx} y={ly}
+                                        textAnchor="middle"
+                                        dominantBaseline="middle"
+                                        className="text-[8px] font-mono uppercase tracking-wider"
+                                        fill={`${member.color}80`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
+                                    >
+                                        {member.role}
+                                    </motion.text>
+                                )
+                            })}
+                        </svg>
+                    </div>
+
+                    {/* ── Role cards with animated counters ──── */}
                     <AnimatePresence>
-                        {phase >= 1 && (
+                        {phase >= 4 && (
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, ease }}
-                                className="text-center mb-8"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease }}
                             >
-                                <div className="text-5xl md:text-6xl font-bold text-white font-mono">
-                                    ~20
-                                </div>
-                                <div className="text-xs text-zinc-500 font-mono uppercase tracking-[0.2em] mt-1">
-                                    People assembled after design was finalized
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+                                    {TEAM.map((member, i) => {
+                                        const Icon = member.icon
+                                        return (
+                                            <motion.div
+                                                key={member.role}
+                                                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                transition={{ duration: 0.4, delay: i * 0.12, ease }}
+                                                className="rounded-xl border p-4 text-center"
+                                                style={{
+                                                    borderColor: `${member.color}20`,
+                                                    background: `${member.color}05`,
+                                                }}
+                                            >
+                                                <div className="flex items-center justify-center mb-2">
+                                                    <Icon className="w-5 h-5" style={{ color: member.color }} strokeWidth={1.5} />
+                                                </div>
+                                                <TeamCounter target={member.count} active={phase >= 4} color={member.color} />
+                                                <div className="text-[10px] font-mono uppercase tracking-wider mt-0.5" style={{ color: `${member.color}80` }}>
+                                                    {member.role}
+                                                </div>
+                                            </motion.div>
+                                        )
+                                    })}
                                 </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    {/* Team role cards */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                        {TEAM.map((member, i) => {
-                            const Icon = member.icon
-                            return (
-                                <motion.div
-                                    key={member.role}
-                                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                                    animate={
-                                        phase >= 2 + i
-                                            ? { opacity: 1, y: 0, scale: 1 }
-                                            : { opacity: 0, y: 20, scale: 0.9 }
-                                    }
-                                    transition={{ duration: 0.5, ease }}
-                                    className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-center"
-                                >
-                                    <div className="flex items-center justify-center mb-2">
-                                        <Icon className="w-5 h-5 text-zinc-400" strokeWidth={1.5} />
-                                    </div>
-                                    <div className="text-2xl font-bold text-white font-mono mb-0.5">
-                                        {member.count}
-                                    </div>
-                                    <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">
-                                        {member.role}
-                                    </div>
-                                </motion.div>
-                            )
-                        })}
-                    </div>
-
                     {/* Divider */}
                     <AnimatePresence>
-                        {phase >= 6 && (
+                        {phase >= 5 && (
                             <motion.div
                                 initial={{ scaleX: 0 }}
                                 animate={{ scaleX: 1 }}
                                 transition={{ duration: 0.6, ease }}
-                                className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent mb-8 origin-left"
+                                className="h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent mb-8 origin-left"
                             />
                         )}
                     </AnimatePresence>
 
                     {/* Onboarding */}
                     <AnimatePresence>
-                        {phase >= 7 && (
+                        {phase >= 6 && (
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -173,18 +361,28 @@ export default function BeatTeamBuilding() {
                                     {ONBOARDING_STEPS.map((step, i) => (
                                         <motion.div
                                             key={step}
-                                            initial={{ opacity: 0, x: -15 }}
+                                            initial={{ opacity: 0, x: -20 }}
                                             animate={
-                                                phase >= 8 + i
+                                                phase >= 7 + i
                                                     ? { opacity: 1, x: 0 }
-                                                    : { opacity: 0, x: -15 }
+                                                    : { opacity: 0, x: -20 }
                                             }
                                             transition={{ duration: 0.4, ease }}
                                             className="flex items-start gap-3"
                                         >
-                                            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-white/[0.06] flex items-center justify-center text-[9px] text-zinc-400 font-mono mt-0.5">
+                                            <motion.span
+                                                className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-mono mt-0.5"
+                                                style={{
+                                                    background: 'rgba(52,211,153,0.1)',
+                                                    color: '#34d399',
+                                                    border: '1px solid rgba(52,211,153,0.2)',
+                                                }}
+                                                initial={{ scale: 0 }}
+                                                animate={phase >= 7 + i ? { scale: 1 } : { scale: 0 }}
+                                                transition={{ type: 'spring', stiffness: 400, delay: i * 0.05 }}
+                                            >
                                                 {i + 1}
-                                            </span>
+                                            </motion.span>
                                             <span className="text-sm text-zinc-300">{step}</span>
                                         </motion.div>
                                     ))}
@@ -193,12 +391,9 @@ export default function BeatTeamBuilding() {
                         )}
                     </AnimatePresence>
 
-
-
-
                     {/* Closing */}
                     <AnimatePresence>
-                        {phase >= 13 && (
+                        {phase >= 11 && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}

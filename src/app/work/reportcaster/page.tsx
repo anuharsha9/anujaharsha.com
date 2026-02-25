@@ -5,9 +5,9 @@ import { reportcasterCaseStudy } from '@/data/reportcaster'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'Modernizing a 50-Year-Old Enterprise Scheduler',
+  title: 'Customers Were Leaving. 40 Years Without Updates.',
   description:
-    'How I redesigned ReportCaster, a 50-year-old enterprise scheduling tool, unifying 5 scattered subsystems and eliminating tab sprawl. A case study in legacy system modernization and enterprise UX.',
+    'The platform\'s enterprise scheduler was losing customers after 40+ years without updates. I modernized a 50-year-old system from scratch — 5 subsystems into 1 hub, powering 20M+ weekly jobs.',
   keywords: [
     'ReportCaster',
     'Enterprise UX',
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     'System Redesign',
   ],
   openGraph: {
-    title: 'Modernizing a 50-Year-Old Enterprise Scheduler | Anuja Harsha',
+    title: 'Customers Were Leaving. 40 Years Without Updates. | Anuja Harsha',
     description:
-      'How I redesigned ReportCaster, unifying 5 scattered subsystems and eliminating tab sprawl. A case study in legacy system modernization.',
+      'The platform\'s enterprise scheduler was losing customers. I modernized a 50-year-old system — 5 subsystems into 1 hub, powering 20M+ weekly jobs.',
     url: `${siteUrl}/work/reportcaster/`,
     type: 'article',
     images: [
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Modernizing a 50-Year-Old Enterprise Scheduler',
+    title: 'Customers Were Leaving. 40 Years Without Updates.',
     description:
-      'How I redesigned ReportCaster, unifying 5 scattered subsystems and eliminating tab sprawl.',
+      'Enterprise scheduler losing customers. I modernized a 50-year-old system — 5 subsystems into 1 hub.',
     images: ['/images/case-study/ReportCaster/rc-cover.png'],
   },
   alternates: {
