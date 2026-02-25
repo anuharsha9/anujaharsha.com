@@ -90,10 +90,10 @@ export default function VibeCodingBlock() {
                                 <button
                                     onClick={() => handleTileClick(tile.action)}
                                     disabled={isShell}
-                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl border bg-white/[0.03] text-left transition-all duration-500
+                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-white/[0.03] text-left transition-all duration-500
                                         ${isShell
-                                            ? 'border-white/5 opacity-60 cursor-not-allowed'
-                                            : 'border-white/8 cursor-pointer hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,198,213,0.08)]'
+                                            ? 'opacity-60 cursor-not-allowed'
+                                            : 'cursor-pointer hover:bg-white/[0.06] hover:shadow-[0_0_40px_rgba(47,198,213,0.08)]'
                                         }`}
                                 >
                                     {/* Background image */}

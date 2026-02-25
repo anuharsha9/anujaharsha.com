@@ -7,6 +7,11 @@ import CSGBlock from '@/components/home/CSGBlock'
 import TestimonialsBlock from '@/components/home/TestimonialsBlock'
 import VibeCodingBlock from '@/components/home/VibeCodingBlock'
 import ExtendedPortfolio from '@/components/home/ExtendedPortfolio'
+import LifeContextStrip, {
+  CSG_MILESTONES,
+  CONSULTANT_MILESTONES,
+  AGENCY_MILESTONES,
+} from '@/components/home/LifeContextStrip'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -66,11 +71,20 @@ export default function Home() {
       {/* SOCIAL PROOF — Testimonials */}
       <TestimonialsBlock />
 
+      {/* LIFE CONTEXT — CSG Era */}
+      <LifeContextStrip milestones={CSG_MILESTONES} />
+
       {/* SECTION 2 — Vibe Coding & Code Prototyping */}
       <VibeCodingBlock />
 
+      {/* LIFE CONTEXT — Consultant Era */}
+      <LifeContextStrip milestones={CONSULTANT_MILESTONES} />
+
       {/* SECTION 3 — Extended Portfolio 2012–2022 */}
       <ExtendedPortfolio />
+
+      {/* LIFE CONTEXT — Agency Era */}
+      <LifeContextStrip milestones={AGENCY_MILESTONES} />
 
       {/* FOOTER — Mission statement + contact */}
       <TalkSection />
@@ -78,4 +92,3 @@ export default function Home() {
     </div>
   )
 }
-

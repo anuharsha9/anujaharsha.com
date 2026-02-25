@@ -27,9 +27,11 @@ export default function TalkSection() {
           {/* Headline — Mission Statement Bookend */}
           <div>
             <h2
-              className="font-sans font-extrabold text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-slate-400"
+              className="font-sans font-extrabold text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight"
             >
-              I design so I can be part of making people&apos;s lives a little easier every day.
+              <span className="bg-[linear-gradient(118deg,#ffffff_0%,#eafcff_28%,#9ceaf2_56%,#2fc6d5_80%,var(--accent-teal)_100%)] bg-clip-text text-transparent drop-shadow-[0_0_20px_var(--overlay-cyan-light-22)]">
+                I design so I can be part of making people&apos;s lives a little easier every day.
+              </span>
             </h2>
           </div>
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Play } from 'lucide-react'
@@ -11,26 +10,122 @@ const TILES = [
     {
         id: 'ml-functions',
         title: 'Feature adoption/simplification for Machine Learning workflows',
-        image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
         video: '/videos/ml-prototype-walkthrough.mp4',
         link: '/work/ml-functions',
+        wireframeHue: 180,
     },
     {
         id: 'iq-plugin',
         title: 'AI powered HUB to meet business needs',
-        image: '/images/case-study/iq-plugin/Final Look.png',
         video: '/videos/iq-prototype-walkthrough.mp4',
         link: '/work/iq-plugin',
+        wireframeHue: 260,
     },
     {
         id: 'reportcaster',
         title: 'Customer retention success for Enterprise Scheduling',
-        image: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
         video: '/videos/rc-prototype-walkthrough.mp4',
         link: '/work/reportcaster',
         flagship: true,
+        wireframeHue: 40,
     },
 ]
+
+/* ─── Animated wireframe background ─── */
+function WireframeBackground({ hue }: { hue: number }) {
+    const accent = `hsl(${hue}, 70%, 55%)`
+    const accentDim = `hsl(${hue}, 50%, 25%)`
+
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {/* Subtle grid */}
+            <div
+                className="absolute inset-0 opacity-[0.06]"
+                style={{
+                    backgroundImage: `
+                        linear-gradient(${accentDim} 1px, transparent 1px),
+                        linear-gradient(90deg, ${accentDim} 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px',
+                }}
+            />
+
+            {/* Morphing shapes */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 300" preserveAspectRatio="none">
+                {/* Rotating outer ring */}
+                <motion.rect
+                    x="50" y="30" width="300" height="240" rx="20"
+                    fill="none"
+                    stroke={accent}
+                    strokeWidth="0.5"
+                    strokeDasharray="8 12"
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                    style={{ transformOrigin: '200px 150px' }}
+                    opacity={0.15}
+                />
+                {/* Inner morphing rectangle */}
+                <motion.rect
+                    x="100" y="60" width="200" height="180" rx="12"
+                    fill="none"
+                    stroke={accent}
+                    strokeWidth="0.5"
+                    initial={{ rx: 12, ry: 12 }}
+                    animate={{ rx: [12, 60, 12], ry: [12, 60, 12] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+                    opacity={0.12}
+                />
+                {/* Floating circles */}
+                <motion.circle
+                    cx="120" cy="80" r="30"
+                    fill="none"
+                    stroke={accent}
+                    strokeWidth="0.5"
+                    initial={{ cx: 120, cy: 80 }}
+                    animate={{ cx: [120, 280, 120], cy: [80, 220, 80] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+                    opacity={0.1}
+                />
+                <motion.circle
+                    cx="280" cy="220" r="20"
+                    fill="none"
+                    stroke={accent}
+                    strokeWidth="0.5"
+                    initial={{ cx: 280, cy: 220 }}
+                    animate={{ cx: [280, 120, 280], cy: [220, 80, 220] }}
+                    transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+                    opacity={0.1}
+                />
+                {/* Diagonal scan line */}
+                <motion.line
+                    x1="0" y1="0" x2="400" y2="300"
+                    stroke={accent}
+                    strokeWidth="0.3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 0.15, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                {/* Pulsing center dot */}
+                <motion.circle
+                    cx="200" cy="150" r="3"
+                    fill={accent}
+                    initial={{ r: 2, opacity: 0.2 }}
+                    animate={{ r: [2, 6, 2], opacity: [0.2, 0.4, 0.2] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                />
+            </svg>
+
+            {/* Radial accent glow */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    background: `radial-gradient(ellipse at 30% 70%, ${accentDim}20, transparent 70%)`,
+                }}
+            />
+        </div>
+    )
+}
 
 /* ─── single tile ─── */
 function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
@@ -60,18 +155,15 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
         >
             <Link href={tile.link}>
                 <div
-                    className="group relative w-full h-full overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] cursor-pointer transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,198,213,0.08)]"
+                    className="group relative w-full h-full overflow-hidden rounded-2xl bg-black/60 cursor-pointer transition-all duration-500 hover:shadow-[0_0_60px_rgba(47,198,213,0.06)]"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     style={{ minHeight: tile.flagship ? '420px' : '200px' }}
                 >
-                    {/* Cover image */}
-                    <Image
-                        src={tile.image}
-                        alt={tile.title}
-                        fill
-                        className={`object-cover transition-all duration-700 ${isHovered ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
-                    />
+                    {/* Animated wireframe background */}
+                    <div className={`transition-opacity duration-700 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
+                        <WireframeBackground hue={tile.wireframeHue} />
+                    </div>
 
                     {/* Video (revealed on hover) */}
                     <video
@@ -84,11 +176,11 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                     />
 
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
 
                     {/* Play button overlay */}
                     <div className={`absolute inset-0 z-20 flex items-center justify-center transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-                        <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                        <div className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                             <Play className="w-6 h-6 text-white fill-white ml-1" />
                         </div>
                     </div>

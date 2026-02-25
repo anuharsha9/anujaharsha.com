@@ -63,10 +63,10 @@ function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: numbe
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className={`relative rounded-2xl border p-6 md:p-8 transition-all duration-300
+            className={`relative rounded-2xl p-6 md:p-8 transition-all duration-300
                 ${t.isPrimary
-                    ? 'border-[var(--accent-teal)]/30 bg-[var(--accent-teal)]/[0.04] shadow-[0_0_30px_rgba(47,198,213,0.06)]'
-                    : 'border-white/8 bg-white/[0.02] hover:border-white/15'
+                    ? 'bg-[var(--accent-teal)]/[0.06] shadow-[0_0_30px_rgba(47,198,213,0.06)]'
+                    : 'bg-white/[0.03] hover:bg-white/[0.05]'
                 }`}
         >
             {/* Quote */}

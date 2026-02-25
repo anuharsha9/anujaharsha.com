@@ -132,7 +132,7 @@ export default function ExtendedPortfolio() {
                                         transition={{ duration: 0.6, delay: i * 0.1 }}
                                     >
                                         <Link href={item.link}>
-                                            <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] cursor-pointer transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
+                                            <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
                                                 {/* Image with parallax */}
                                                 <Image
                                                     src={item.image}
