@@ -4,6 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Camera, Headphones, Network, User, Map, CheckCircle2, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -21,42 +22,42 @@ const EVENTS: TimelineEvent[] = [
         icon: Camera,
         label: 'Sandbox Deep Dive',
         detail: 'I took hundreds of screenshots. Grouped them. Mapped them.',
-        color: '#f97316',
+        color: 'var(--semantic-orange-500)',
     },
     {
         month: 'Month 1–2',
         icon: Headphones,
         label: 'Embedded in Support',
         detail: "I joined Chris's CS team meetings every week for a month.",
-        color: '#3b82f6',
+        color: 'var(--semantic-blue-500)',
     },
     {
         month: 'Month 2',
         icon: Network,
         label: 'Mind Maps',
         detail: 'I documented what nobody had. Built the understanding from scratch.',
-        color: '#a855f7',
+        color: 'var(--semantic-purple-500)',
     },
     {
         month: 'Month 2–3',
         icon: User,
         label: '1:1 Interviews',
         detail: "Customer reps. Support leads. The ONE engineer from the '80s.",
-        color: '#ec4899',
+        color: 'var(--semantic-pink-500)',
     },
     {
         month: 'Month 3',
         icon: Map,
         label: 'Full System Map',
         detail: 'I mapped every workflow. Every edge case. A-to-Z.',
-        color: '#14b8a6',
+        color: 'var(--accent-teal-bright)',
     },
     {
         month: 'Month 3–4',
         icon: CheckCircle2,
         label: 'Validation',
         detail: 'I validated with support and customer reps. Over and over.',
-        color: '#22c55e',
+        color: 'var(--semantic-green-500)',
     },
 ]
 
@@ -65,7 +66,7 @@ function ProgressFill({ progress }: { progress: number }) {
     return (
         <motion.div
             className="absolute left-0 top-0 w-full origin-top rounded-full"
-            style={{ background: 'linear-gradient(to bottom, #14b8a6, #22c55e)' }}
+            style={{ background: 'linear-gradient(to bottom, var(--accent-teal-bright), var(--semantic-green-500))' }}
             initial={{ height: '0%' }}
             animate={{ height: `${progress}%` }}
             transition={{ duration: 0.6, ease }}
@@ -187,14 +188,14 @@ export default function BeatInvestigation() {
                                             className="w-10 md:w-12 h-10 md:h-12 rounded-full flex items-center justify-center flex-shrink-0 relative z-10"
                                             style={{
                                                 background: isComplete
-                                                    ? `${event.color}20`
-                                                    : 'rgba(24,24,27,1)',
-                                                border: `2px solid ${isComplete ? event.color : 'rgba(255,255,255,0.08)'}`,
+                                                    ? withHexAlpha(event.color, '20')
+                                                    : 'var(--overlay-zinc-900)',
+                                                border: `2px solid ${isComplete ? event.color : 'var(--overlay-white-08)'}`,
                                             }}
                                         >
                                             <Icon
                                                 className="w-4 h-4 md:w-5 md:h-5"
-                                                style={{ color: isActive ? event.color : 'rgba(161,161,170,1)' }}
+                                                style={{ color: isActive ? event.color : 'var(--overlay-zinc-100)' }}
                                                 strokeWidth={1.5}
                                             />
                                             {/* Pulse ring on active */}
@@ -216,7 +217,7 @@ export default function BeatInvestigation() {
                                             transition={{ duration: 0.5, delay: 0.15, ease }}
                                             className="flex-1 rounded-xl border bg-white/[0.02] p-4 relative overflow-hidden"
                                             style={{
-                                                borderColor: isActive ? `${event.color}20` : 'rgba(255,255,255,0.04)',
+                                                borderColor: isActive ? withHexAlpha(event.color, '20') : 'var(--overlay-white-04)',
                                             }}
                                         >
                                             {/* Top color accent */}
@@ -233,7 +234,7 @@ export default function BeatInvestigation() {
                                                     className="font-mono text-[9px] tracking-wider uppercase px-1.5 py-0.5 rounded"
                                                     style={{
                                                         color: event.color,
-                                                        background: `${event.color}15`,
+                                                        background: withHexAlpha(event.color, '15'),
                                                     }}
                                                 >
                                                     {event.month}
@@ -282,7 +283,7 @@ export default function BeatInvestigation() {
                                         }}
                                         className="w-16 h-16 rounded-full border-2 border-teal-500/40 flex items-center justify-center"
                                         style={{
-                                            background: 'radial-gradient(circle, rgba(20,184,166,0.15) 0%, transparent 70%)',
+                                            background: 'radial-gradient(circle, var(--overlay-teal-bright-15) 0%, transparent 70%)',
                                         }}
                                     >
                                         <CheckCircle2 className="w-8 h-8 text-teal-400" strokeWidth={1.5} />

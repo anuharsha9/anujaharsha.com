@@ -258,6 +258,10 @@ function Counter({ value, duration = 2, isReady = false }: { value: number, dura
 }
 
 const GEAR_IDS = Object.keys(GEAR_INSPECTOR)
+const MAIN_GEAR_ROTATION_MIN_SECONDS = 42
+const MAIN_GEAR_ROTATION_VARIANCE_SECONDS = 18
+const BG_GEAR_ROTATION_MIN_SECONDS = 96
+const BG_GEAR_ROTATION_VARIANCE_SECONDS = 44
 
 
 // Memoized SVG container to prevent re-renders when activeGear state changes
@@ -265,18 +269,23 @@ const GearsSvgContainer = memo(function GearsSvgContainer({
   svgContent,
   containerRef,
   isReady,
-  shouldSkipAnimation
+  shouldSkipAnimation,
+  offset
 }: {
   svgContent: string
   containerRef: React.RefObject<HTMLDivElement | null>
   isReady: boolean
   shouldSkipAnimation?: boolean
+  offset?: { x: number; y: number }
 }) {
   return (
     <div
       ref={containerRef}
       className="gears-dark-theme w-full"
-      style={{ willChange: 'opacity, transform' }}
+      style={{
+        willChange: 'opacity, transform',
+        transform: `translate3d(${offset?.x ?? 0}px, ${offset?.y ?? 0}px, 0)`,
+      }}
       dangerouslySetInnerHTML={{ __html: svgContent }}
     >
       {/* Debug: {console.log('[GearsSvgContainer] Rendering with content length:', svgContent?.length)} */}
@@ -292,6 +301,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   const router = useRouter()
   const t = getTheme(true)
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const brainSceneRef = useRef<HTMLDivElement | null>(null)
 
   const [activeGear, setActiveGear] = useState<GearInspectorItem | null>(null)
   const [activeCoords, setActiveCoords] = useState<{ x: number, y: number, side: 'left' | 'right' } | null>(null)
@@ -314,6 +324,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   const [litGears, setLitGears] = useState<string[]>([])
   const [showReveal, setShowReveal] = useState(false)
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null)
+  const [brainHintAnchor, setBrainHintAnchor] = useState<{ x: number; y: number } | null>(null)
+  const [brainSvgOffset, setBrainSvgOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
 
   // INSPECTOR STATE
   const [isGearHovered, setIsGearHovered] = useState(false)
@@ -639,9 +651,9 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
               gear.style.setProperty('opacity', String(nextOpacity), 'important')
               gear.style.transition = 'opacity 360ms cubic-bezier(0.22,1,0.36,1), filter 360ms cubic-bezier(0.22,1,0.36,1)'
               gear.style.filter = isLit
-                ? 'drop-shadow(0 0 10px rgba(20,184,166,0.7))'
+                ? 'drop-shadow(0 0 10px var(--overlay-teal-bright-70))'
                 : isActive
-                  ? 'drop-shadow(0 0 6px rgba(56,189,248,0.45))'
+                  ? 'drop-shadow(0 0 6px var(--overlay-sky-45))'
                   : 'none'
             })
           }
@@ -657,7 +669,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
             gear.style.transformBox = 'fill-box'
             gear.style.setProperty('opacity', isLit ? '0.9' : '0.08', 'important')
             gear.style.transition = 'opacity 360ms cubic-bezier(0.22,1,0.36,1), filter 360ms cubic-bezier(0.22,1,0.36,1)'
-            gear.style.filter = isLit ? 'drop-shadow(0 0 8px rgba(45,212,191,0.45))' : 'none'
+            gear.style.filter = isLit ? 'drop-shadow(0 0 8px var(--overlay-teal-45))' : 'none'
           })
 
           return
@@ -680,7 +692,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           gear.style.setProperty('opacity', '1', 'important')
 
           const isClockwise = Math.random() > 0.5
-          const mainRotationDuration = 12 + Math.random() * 6 // main gears rotate faster (12-18s / turn)
+          const mainRotationDuration = MAIN_GEAR_ROTATION_MIN_SECONDS + Math.random() * MAIN_GEAR_ROTATION_VARIANCE_SECONDS // main gears rotate at a calmer speed (42-60s / turn)
           const fadeInRotationAmount = (360 / mainRotationDuration) * fadeInDuration * (isClockwise ? 1 : -1)
           const rotationAmountValue = isClockwise ? '360deg' : '-360deg'
 
@@ -706,7 +718,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           gear.style.setProperty('opacity', '1', 'important')
 
           const isClockwise = Math.random() > 0.5
-          const bgRotationDuration = 52 + Math.random() * 20 // background gears rotate slower (52-72s / turn)
+          const bgRotationDuration = BG_GEAR_ROTATION_MIN_SECONDS + Math.random() * BG_GEAR_ROTATION_VARIANCE_SECONDS // background gears rotate slower (96-140s / turn)
           const fadeInRotationAmount = (360 / bgRotationDuration) * fadeInDuration * (isClockwise ? 1 : -1)
           const bgRotationAmountValue = isClockwise ? '360deg' : '-360deg'
 
@@ -807,6 +819,42 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
         const mainGearsGroup = brainGearsGroup!.querySelector<SVGGElement>(`#${uniqueId}_main-gears`)
         if (!mainGearsGroup) return () => { }
 
+        const resetOverlayVisual = (gearNode: SVGGElement) => {
+          const overlay = gearNode.querySelector<SVGCircleElement>('.gear-hover-overlay')
+          if (!overlay) return
+          overlay.setAttribute('stroke', 'none')
+          overlay.setAttribute('stroke-width', '0')
+          overlay.setAttribute('fill', 'transparent')
+          overlay.style.filter = 'none'
+        }
+
+        const clearGearHoverVisual = (gearNode: SVGGElement) => {
+          gearNode.classList.remove('gear-main--active')
+          gearNode.style.removeProperty('--gear-accent')
+          gearNode.style.filter = 'none'
+          resetOverlayVisual(gearNode)
+        }
+
+        const applyGearHoverVisual = (gearNode: SVGGElement, accentColor: string) => {
+          gearNode.classList.add('gear-main--active')
+          gearNode.style.setProperty('--gear-accent', accentColor)
+          gearNode.style.filter = `drop-shadow(0 0 12px ${accentColor}) drop-shadow(0 0 28px ${accentColor}) drop-shadow(0 0 40px var(--overlay-white-22))`
+          const overlay = gearNode.querySelector<SVGCircleElement>('.gear-hover-overlay')
+          if (!overlay) return
+          overlay.setAttribute('stroke', accentColor)
+          overlay.setAttribute('stroke-width', '2.25')
+          overlay.setAttribute('fill', 'transparent')
+          overlay.style.filter = `drop-shadow(0 0 12px ${accentColor}) drop-shadow(0 0 24px var(--overlay-white-20))`
+        }
+
+        const clearAllActiveGears = (exceptId?: string) => {
+          const allActiveGears = brainGearsGroup!.querySelectorAll<SVGGElement>('.gear-main--active')
+          allActiveGears.forEach((activeGear) => {
+            if (exceptId && activeGear.id === exceptId) return
+            clearGearHoverVisual(activeGear)
+          })
+        }
+
         GEAR_IDS.forEach((gearId) => {
           // The gear group IS the gear itself now
           const gear = mainGearsGroup.querySelector<SVGGElement>(`#${uniqueId}_${gearId}`)
@@ -874,19 +922,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
               hideTimeoutRef.current = null
             }
 
-            const allActiveGears = brainGearsGroup!.querySelectorAll<SVGGElement>('.gear-main--active')
-            allActiveGears.forEach((activeGear) => {
-              // Compare IDs carefully - gearId is simple, activeGear.id is namespaced
-              // Or check if activeGear.id ends with gearId?
-              // Or activeGear.id === `${uniqueId}_${gearId}`
-              if (activeGear.id !== `${uniqueId}_${gearId}`) {
-                activeGear.classList.remove('gear-main--active')
-                // Remove accent color from previously active gear
-                activeGear.style.removeProperty('--gear-accent')
-              }
-            })
-
-            gearGroup.classList.add('gear-main--active')
+            clearAllActiveGears(`${uniqueId}_${gearId}`)
             const gearData = GEAR_INSPECTOR[gearId]
             if (gearData) {
               // Calculate position for popover
@@ -902,8 +938,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                 setActiveCoords({ x: centerX, y: centerY, side })
               }
 
-              // Apply accent color to the gear
-              gearGroup.style.setProperty('--gear-accent', gearData.accentColor)
+              applyGearHoverVisual(gearGroup, gearData.accentColor)
+
               setIsGearHovered(true)
               setActiveGear(gearData)
               setHasInteracted(true)
@@ -921,7 +957,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
             setIsGearHovered(false)
 
             // Visual cleanup
-            gearGroup.classList.remove('gear-main--active')
+            clearGearHoverVisual(gearGroup)
           }
 
           const overlay = gearGroup.querySelector<SVGCircleElement>('.gear-hover-overlay')
@@ -960,29 +996,20 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
               setShowMobileSheet(true)
 
               // Visual feedback - highlight the tapped gear
-              const allActiveGears = brainGearsGroup!.querySelectorAll<SVGGElement>('.gear-main--active')
-              allActiveGears.forEach((ag) => {
-                ag.classList.remove('gear-main--active')
-                ag.style.removeProperty('--gear-accent')
-              })
-              gearGroup.classList.add('gear-main--active')
-              gearGroup.style.setProperty('--gear-accent', gearData.accentColor)
+              clearAllActiveGears()
+              applyGearHoverVisual(gearGroup, gearData.accentColor)
             } else {
               // Desktop: Toggle behavior (fallback for click)
               const isCurrentlyActive = gearGroup.classList.contains('gear-main--active')
 
-              const allActiveGears = brainGearsGroup!.querySelectorAll<SVGGElement>('.gear-main--active')
-              allActiveGears.forEach((ag) => {
-                ag.classList.remove('gear-main--active')
-                ag.style.removeProperty('--gear-accent')
-              })
+              clearAllActiveGears()
 
               if (!isCurrentlyActive) {
-                gearGroup.classList.add('gear-main--active')
-                gearGroup.style.setProperty('--gear-accent', gearData.accentColor)
+                applyGearHoverVisual(gearGroup, gearData.accentColor)
                 setActiveGear(gearData)
                 setHasInteracted(true)
               } else {
+                clearGearHoverVisual(gearGroup)
                 setActiveGear(null)
               }
             }
@@ -1092,6 +1119,14 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           activeGears.forEach((gear) => {
             gear.classList.remove('gear-main--active')
               ; (gear as HTMLElement).style.removeProperty('--gear-accent')
+            ; (gear as HTMLElement).style.filter = 'none'
+            const activeOverlay = gear.querySelector<SVGCircleElement>('.gear-hover-overlay')
+            if (activeOverlay) {
+              activeOverlay.setAttribute('stroke', 'none')
+              activeOverlay.setAttribute('stroke-width', '0')
+              activeOverlay.setAttribute('fill', 'transparent')
+              activeOverlay.style.filter = 'none'
+            }
           })
         }
       }
@@ -1122,6 +1157,94 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
   const showImmersiveBrain = quizState === 'quiz' || showImmersiveCompleteState
   const showStartPrompt = !showImmersiveBrain && !forceQuiz
 
+  const updateBrainHintAnchor = useCallback(() => {
+    const sceneEl = brainSceneRef.current
+    const containerEl = containerRef.current
+    if (!sceneEl || !containerEl) {
+      return
+    }
+
+    const sceneRect = sceneEl.getBoundingClientRect()
+    const sceneCenter = {
+      x: sceneRect.width / 2,
+      y: sceneRect.height / 2,
+    }
+    const applyFallback = () => {
+      setBrainHintAnchor(sceneCenter)
+      setBrainSvgOffset((prev) =>
+        Math.abs(prev.x) < 0.5 && Math.abs(prev.y) < 0.5 ? prev : { x: 0, y: 0 }
+      )
+    }
+
+    const svgRoot = containerEl.querySelector('svg')
+    if (!svgRoot) {
+      applyFallback()
+      return
+    }
+
+    const mainGears =
+      svgRoot.querySelector<SVGGElement>(`#${uniqueId}_main-gears`) ||
+      svgRoot.querySelector<SVGGElement>(`#${uniqueId}_brain-gears-copy`) ||
+      svgRoot.querySelector<SVGGElement>(`#${uniqueId}_brain-gears`)
+
+    if (!mainGears) {
+      applyFallback()
+      return
+    }
+
+    const mainRect = mainGears.getBoundingClientRect()
+    if (!Number.isFinite(mainRect.left) || mainRect.width <= 0 || mainRect.height <= 0) {
+      applyFallback()
+      return
+    }
+
+    const mainCenter = {
+      x: mainRect.left + mainRect.width * 0.5 - sceneRect.left,
+      y: mainRect.top + mainRect.height * 0.5 - sceneRect.top,
+    }
+    const nextOffset = {
+      x: Math.round((sceneCenter.x - mainCenter.x) * 10) / 10,
+      y: Math.round((sceneCenter.y - mainCenter.y) * 10) / 10,
+    }
+
+    setBrainSvgOffset((prev) =>
+      Math.abs(prev.x - nextOffset.x) < 0.5 && Math.abs(prev.y - nextOffset.y) < 0.5
+        ? prev
+        : nextOffset
+    )
+    setBrainHintAnchor(sceneCenter)
+  }, [uniqueId])
+
+  useEffect(() => {
+    if (!showImmersiveBrain) {
+      setBrainSvgOffset((prev) =>
+        Math.abs(prev.x) < 0.5 && Math.abs(prev.y) < 0.5 ? prev : { x: 0, y: 0 }
+      )
+      return
+    }
+
+    let frameId = window.requestAnimationFrame(() => {
+      updateBrainHintAnchor()
+      frameId = window.requestAnimationFrame(updateBrainHintAnchor)
+    })
+
+    const handleResize = () => updateBrainHintAnchor()
+    window.addEventListener('resize', handleResize)
+
+    let resizeObserver: ResizeObserver | null = null
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(handleResize)
+      if (brainSceneRef.current) resizeObserver.observe(brainSceneRef.current)
+      if (containerRef.current) resizeObserver.observe(containerRef.current)
+    }
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      window.removeEventListener('resize', handleResize)
+      if (resizeObserver) resizeObserver.disconnect()
+    }
+  }, [showImmersiveBrain, svgContent, updateBrainHintAnchor])
+
   return (
     <>
       {/* Brain content — fills the CinematicTimeline slide container */}
@@ -1132,8 +1255,8 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           <div
             className="absolute inset-0 opacity-[0.02]"
             style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
+              backgroundImage: `linear-gradient(var(--overlay-white-08) 1px, transparent 1px),
+                linear-gradient(90deg, var(--overlay-white-08) 1px, transparent 1px)`,
               backgroundSize: '60px 60px',
               maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
               WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
@@ -1148,6 +1271,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
           <div className={`${spacing.containerFull} relative flex-1 flex flex-col items-center justify-center`}>
             {/* Desktop wrapper to handle hover for both Brain and CTA safely */}
             <div
+              ref={brainSceneRef}
               className={`w-full flex-1 flex flex-col items-center justify-center relative ${showImmersiveBrain ? 'pt-0 pb-0' : 'pt-8 pb-16'}`}
               onMouseEnter={() => setBrainHovered(true)}
               onMouseLeave={() => setBrainHovered(false)}
@@ -1171,6 +1295,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   containerRef={containerRef}
                   isReady={true}
                   shouldSkipAnimation={true}
+                  offset={showImmersiveBrain ? brainSvgOffset : { x: 0, y: 0 }}
                 />
 
                 {/* === QUIZ CARD OVERLAY === */}
@@ -1291,7 +1416,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                             rounded-full font-medium tracking-wide text-sm sm:text-base cursor-pointer pointer-events-auto
                             transition-all duration-500
                             ${brainHovered
-                              ? 'bg-white/[0.12] backdrop-blur-md border border-white/[0.25] text-white shadow-[0_0_50px_rgba(11,162,181,0.3)] scale-100 translate-y-0'
+                              ? 'bg-white/[0.12] backdrop-blur-md border border-white/[0.25] text-white shadow-[0_0_50px_var(--overlay-teal-core-30)] scale-100 translate-y-0'
                               : 'bg-transparent border border-white/0 text-white/50 scale-95 hover:text-white/80'}`}
                         >
                           <Brain className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-500 ${brainHovered ? 'opacity-100 scale-110' : 'opacity-50'}`} />
@@ -1309,16 +1434,24 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                   )}
                 </AnimatePresence>
 
-                <AnimatePresence mode="wait">
-                  {!activeGear && showImmersiveCompleteState && (
-                    <motion.div
-                      key="immersive-hover-hint"
-                      className="pointer-events-none absolute left-1/2 top-1/2 z-10 w-[min(92vw,34rem)] -translate-x-1/2 -translate-y-1/2 text-center"
-                      initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
-                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                      exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
-                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    >
+              </motion.div> {/* Closing tag for the main brain motion.div */}
+
+              <AnimatePresence mode="wait">
+                {!activeGear && showImmersiveCompleteState && (
+                  <motion.div
+                    key="immersive-hover-hint"
+                    className="pointer-events-none absolute z-10 w-[min(94vw,38rem)] text-center"
+                    style={{
+                      left: brainHintAnchor ? `${brainHintAnchor.x}px` : '50%',
+                      top: brainHintAnchor ? `${brainHintAnchor.y}px` : '50%',
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                    initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <div className="mx-auto w-full px-4">
                       <p className="font-mono text-[10px] uppercase tracking-[0.36em] text-cyan-300/80 sm:text-xs">
                         Hover To Reveal
                       </p>
@@ -1328,10 +1461,10 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                       <p className="mt-1 text-[11px] text-white/45 sm:hidden">
                         Tap the gears on mobile
                       </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div> {/* Closing tag for the main brain motion.div */}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div> {/* END desktop wrapper */}
 
             {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
@@ -1356,7 +1489,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: 40 }}
-                      className="h-px bg-slate-600 shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+                      className="h-px bg-slate-600 shadow-[0_0_8px_var(--overlay-white-50)]"
                     />
 
                     {/* The Card */}
@@ -1435,7 +1568,7 @@ export default function HeroSplit({ forceQuiz = false }: { forceQuiz?: boolean }
       {/* === END BRAIN LAYER === */}
 
       {/* Scroll indicator */}
-      {quizState !== 'quiz' && (
+      {!forceQuiz && !showImmersiveBrain && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2">
           <span className="text-white/30 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
           <motion.div

@@ -61,14 +61,14 @@ function getBorderColor(type: string) {
 // Type-aware gradient accent colors (CSS string)
 function getAccentGradient(type: string): string {
     switch (type) {
-        case 'problem': return 'radial-gradient(ellipse at top left, rgba(244,63,94,0.08) 0%, transparent 60%)';
-        case 'research': return 'radial-gradient(ellipse at top left, rgba(139,92,246,0.08) 0%, transparent 60%)';
-        case 'decision': return 'radial-gradient(ellipse at top left, rgba(59,130,246,0.08) 0%, transparent 60%)';
-        case 'execution': return 'radial-gradient(ellipse at top left, rgba(16,185,129,0.08) 0%, transparent 60%)';
-        case 'impact': return 'radial-gradient(ellipse at top left, rgba(245,158,11,0.08) 0%, transparent 60%)';
-        case 'lesson': return 'radial-gradient(ellipse at top left, rgba(99,102,241,0.08) 0%, transparent 60%)';
-        case 'collaboration': return 'radial-gradient(ellipse at top left, rgba(14,165,233,0.08) 0%, transparent 60%)';
-        default: return 'radial-gradient(ellipse at top left, rgba(161,161,170,0.05) 0%, transparent 60%)';
+        case 'problem': return 'radial-gradient(ellipse at top left, var(--overlay-rose-08) 0%, transparent 60%)';
+        case 'research': return 'radial-gradient(ellipse at top left, var(--overlay-violet-08) 0%, transparent 60%)';
+        case 'decision': return 'radial-gradient(ellipse at top left, var(--overlay-blue-08) 0%, transparent 60%)';
+        case 'execution': return 'radial-gradient(ellipse at top left, var(--overlay-emerald-08) 0%, transparent 60%)';
+        case 'impact': return 'radial-gradient(ellipse at top left, var(--overlay-amber-08) 0%, transparent 60%)';
+        case 'lesson': return 'radial-gradient(ellipse at top left, var(--overlay-indigo-08) 0%, transparent 60%)';
+        case 'collaboration': return 'radial-gradient(ellipse at top left, var(--overlay-sky-08) 0%, transparent 60%)';
+        default: return 'radial-gradient(ellipse at top left, var(--overlay-zinc-05) 0%, transparent 60%)';
     }
 }
 
@@ -127,7 +127,7 @@ export default function PresentationSlide({ data, slideIndex, totalSlides }: Pre
                 {!data.image && (
                     <div className="absolute inset-0 pointer-events-none"
                         style={{
-                            background: 'radial-gradient(ellipse 60% 40% at 50% 45%, rgba(255,255,255,0.03) 0%, transparent 70%)',
+                            background: 'radial-gradient(ellipse 60% 40% at 50% 45%, var(--overlay-white-03) 0%, transparent 70%)',
                         }}
                     />
                 )}

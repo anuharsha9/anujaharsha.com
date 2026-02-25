@@ -43,7 +43,7 @@ export default function TerminalInsight({
             }}
             className={`w-full ${className}`}
         >
-            <div className="rounded-xl bg-[#0F172A] shadow-2xl border border-white/10 overflow-hidden w-full">
+            <div className="rounded-xl bg-[var(--bg-ink-900)] shadow-2xl border border-white/10 overflow-hidden w-full">
                 {/* Header - Simplified */}
                 <div className="h-10 bg-slate-900/50 flex items-center px-4 relative border-b border-white/5 w-full">
                     {/* Title */}

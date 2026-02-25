@@ -3,8 +3,10 @@ import type { Metadata } from 'next'
 import TalkSection from '@/components/home/TalkSection'
 import ScrollGear from '@/components/ui/ScrollGear'
 import HeroLanding from '@/components/home/HeroLanding'
-import ChairPhilosophy from '@/components/home/ChairPhilosophy'
-import CinematicTimeline from '@/components/CinematicTimeline'
+import CSGBlock from '@/components/home/CSGBlock'
+import TestimonialsBlock from '@/components/home/TestimonialsBlock'
+import VibeCodingBlock from '@/components/home/VibeCodingBlock'
+import ExtendedPortfolio from '@/components/home/ExtendedPortfolio'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -37,13 +39,13 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-[#010204] relative">
+    <div className="bg-[var(--bg-cinematic)] relative">
       {/* Neural Mainframe — faint scanline overlay */}
       <div className="scanline-overlay" aria-hidden="true" />
 
       {/* Global Cinematic Background — Fixed to viewport for continuity */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(7,139,156,0.08),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--overlay-accent-08),transparent)]" />
         <div
           className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
           style={{
@@ -53,27 +55,24 @@ export default function Home() {
         />
       </div>
 
-
-
-      {/* 
-        HERO SECTION
-        Brain scales down, text and case studies fade in.
-      */}
+      {/* HERO — Chair philosophy → Bio → CTAs */}
       <HeroLanding />
 
-      {/* 
-        CHAIR PHILOSOPHY
-        Text fades in sequentially as the user scrolls.
-      */}
-      <ChairPhilosophy />
+      {/* SECTION 1 — Cloud Software Group */}
+      <div id="work-overview">
+        <CSGBlock />
+      </div>
 
-      {/* 
-        THE CINEMATIC TIMELINE
-        Scrollytelling with Apple-style typography, glassmorphism cards,
-        and animated cyan line. id="work-overview" is inside the component.
-      */}
-      <CinematicTimeline />
+      {/* SOCIAL PROOF — Testimonials */}
+      <TestimonialsBlock />
 
+      {/* SECTION 2 — Vibe Coding & Code Prototyping */}
+      <VibeCodingBlock />
+
+      {/* SECTION 3 — Extended Portfolio 2012–2022 */}
+      <ExtendedPortfolio />
+
+      {/* FOOTER — Mission statement + contact */}
       <TalkSection />
       <ScrollGear />
     </div>

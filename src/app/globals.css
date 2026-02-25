@@ -52,14 +52,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: var(--bg-ink-950);
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--accent-teal);
   /* Teal color */
   border-radius: var(--radius-sm);
-  border: 3px solid #020617;
+  border: 3px solid var(--bg-ink-950);
   /* Padding effect */
   background-clip: content-box;
 }
@@ -151,7 +151,7 @@ html {
   .surface-dark-alt,
   .surface-light,
   .surface-light-alt {
-    background: #ffffff;
+    background: var(--white);
     color: var(--text-heading);
   }
 
@@ -755,9 +755,9 @@ html {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg,
-      rgba(255, 255, 255, 0.2) 0%,
+      var(--overlay-white-20) 0%,
       rgba(255, 255, 255, 0.3) 50%,
-      rgba(255, 255, 255, 0.2) 100%);
+      var(--overlay-white-20) 100%);
   clip-path: inset(0 100% 0 0);
   transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
@@ -1048,6 +1048,21 @@ section[data-framer-component],
   }
 }
 
+/* Typing cursor blink for hero kicker */
+@keyframes cursor-blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 /* Prevent layout shifts during animations - but be careful with contain */
 /* Only apply contain to specific cases to avoid conflicts */
 motion.section[data-visible="true"],
@@ -1154,31 +1169,31 @@ motion.div[data-visible="true"] {
    ============================================ */
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--overlay-white-05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--overlay-white-10);
 }
 
 .glass-light {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--overlay-white-08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--overlay-white-15);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--overlay-white-03);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--overlay-white-08);
   box-shadow:
     0 4px 30px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    inset 0 1px 0 var(--overlay-white-05);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--overlay-white-05);
   border-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -1200,7 +1215,7 @@ motion.div[data-visible="true"] {
    ============================================ */
 
 .gradient-text-teal {
-  background: linear-gradient(135deg, #078B9C 0%, #14b8a6 50%, #078B9C 100%);
+  background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-bright) 50%, var(--accent-teal) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1208,11 +1223,11 @@ motion.div[data-visible="true"] {
 
 .gradient-text-shimmer {
   background: linear-gradient(90deg,
-      #078B9C 0%,
-      #14b8a6 25%,
+      var(--accent-teal) 0%,
+      var(--accent-teal-bright) 25%,
       #5eead4 50%,
-      #14b8a6 75%,
-      #078B9C 100%);
+      var(--accent-teal-bright) 75%,
+      var(--accent-teal) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1233,8 +1248,8 @@ motion.div[data-visible="true"] {
 /* Slow-moving grid pattern for timeline background */
 .animated-grid-bg {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(var(--overlay-white-02) 1px, transparent 1px),
+    linear-gradient(90deg, var(--overlay-white-02) 1px, transparent 1px);
   background-size: 80px 80px;
   background-position: 0 0, 0 0;
   animation: grid-flow 40s linear infinite;

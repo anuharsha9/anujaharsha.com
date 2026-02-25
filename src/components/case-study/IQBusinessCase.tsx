@@ -167,7 +167,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="bg-[#1D1D20] rounded-2xl p-8 shadow-2xl relative overflow-hidden"
+        className="bg-[var(--surface-panel-dark)] rounded-2xl p-8 shadow-2xl relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-violet-500" />
         <div className="flex flex-col md:flex-row items-start gap-4 relative z-10">
@@ -181,7 +181,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
         </div>
         {/* Subtle grid pattern background */}
         <div className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
+          style={{ backgroundImage: 'radial-gradient(var(--tone-indigo-500) 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
       </motion.div>
     </div>
   )

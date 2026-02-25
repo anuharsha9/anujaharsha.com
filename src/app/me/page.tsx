@@ -6,6 +6,7 @@ import { createPortal } from 'react-dom'
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence, animate as fmAnimate } from 'framer-motion'
 import { articleLinks } from '@/data/home'
 import ScrollGear from '@/components/ui/ScrollGear'
+import { withHexAlpha } from '@/lib/color-utils'
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    CONSTANTS — All real content data
@@ -21,7 +22,7 @@ const EVOLUTION_VERSIONS = [
     tech: 'HTML • CSS • S3',
     video: '/videos/evolution/v1_web.mp4',
     keyLearning: '"Manual coding is too slow for modern iteration."',
-    accent: '#078B9C',
+    accent: 'var(--accent-teal)',
   },
   {
     id: 'v2', label: 'Nov 10', title: 'The Upgrade',
@@ -29,7 +30,7 @@ const EVOLUTION_VERSIONS = [
     tech: 'HTML • CSS • ChatGPT',
     video: '/videos/evolution/v2_web.mp4',
     keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."',
-    accent: '#E91E8C',
+    accent: 'var(--semantic-magenta-500)',
   },
   {
     id: 'v3', label: 'Nov 15', title: 'The Speedrun',
@@ -37,7 +38,7 @@ const EVOLUTION_VERSIONS = [
     tech: 'HTML • CSS • AIv1',
     video: '/videos/evolution/v3_web.mp4',
     keyLearning: '"Frameworks are not overhead; they are the scaffold for speed."',
-    accent: '#FF6B35',
+    accent: 'var(--semantic-orange-vivid)',
   },
   {
     id: 'v4', label: 'Dec 1', title: 'The Architecture',
@@ -45,7 +46,7 @@ const EVOLUTION_VERSIONS = [
     tech: 'Next.js • Agents • AWS',
     video: '/videos/evolution/v4_web.mp4',
     keyLearning: '"Agents handle the build. The human focuses on Soul."',
-    accent: '#22D3EE',
+    accent: 'var(--semantic-cyan-vivid)',
   },
   {
     id: 'v5', label: 'Dec 8', title: 'The Polish',
@@ -53,7 +54,7 @@ const EVOLUTION_VERSIONS = [
     tech: 'Framer Motion • Vibe • UX',
     video: '/videos/evolution/v5_web.mp4',
     keyLearning: '"The final 10% of polish takes 50% of the effort."',
-    accent: '#A855F7',
+    accent: 'var(--semantic-purple-vivid)',
   },
 ]
 
@@ -218,7 +219,7 @@ function GlitchPortalHero() {
                 style={{
                   fontSize: 'clamp(5rem, 18vw, 16rem)',
                   color: 'transparent',
-                  WebkitTextStroke: '2px rgba(255,255,255,0.15)',
+                  WebkitTextStroke: '2px var(--overlay-white-15)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   backgroundColor: 'white',
@@ -359,7 +360,7 @@ function TimeTunnel() {
     setMobileIndex(Math.min(idx, EVOLUTION_VERSIONS.length - 1))
   }, [])
 
-  const mobileAccent = EVOLUTION_VERSIONS[mobileIndex]?.accent || '#078B9C'
+  const mobileAccent = EVOLUTION_VERSIONS[mobileIndex]?.accent || 'var(--accent-teal)'
 
   // Compute per-card visual properties based on continuous scroll progress
   const getCardStyle = (i: number) => {
@@ -415,8 +416,8 @@ function TimeTunnel() {
           {/* Tunnel lines */}
           <div className="absolute inset-0 z-0" style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+              linear-gradient(var(--overlay-white-03) 1px, transparent 1px),
+              linear-gradient(90deg, var(--overlay-white-03) 1px, transparent 1px)
             `,
             backgroundSize: '80px 80px',
           }} />
@@ -443,7 +444,7 @@ function TimeTunnel() {
                     {/* Version badge */}
                     <div className="flex items-center gap-4 mb-6">
                       <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">{v.label}</span>
-                      <div className="flex-1 h-[1px]" style={{ background: `linear-gradient(90deg, ${v.accent}40, transparent)` }} />
+                      <div className="flex-1 h-[1px]" style={{ background: `linear-gradient(90deg, ${withHexAlpha(v.accent, '40')}, transparent)` }} />
                       <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: v.accent }}>{v.tech}</span>
                     </div>
 
@@ -470,7 +471,7 @@ function TimeTunnel() {
                       {/* Scanline overlay */}
                       <div className="absolute inset-0 pointer-events-none opacity-10"
                         style={{
-                          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)',
+                          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, var(--overlay-black-30) 2px, var(--overlay-black-30) 4px)',
                         }}
                       />
                     </div>
@@ -493,7 +494,7 @@ function TimeTunnel() {
                 key={v.id}
                 className="w-2 h-2 rounded-full transition-all duration-500"
                 style={{
-                  backgroundColor: i === activeIndex ? v.accent : 'rgba(255,255,255,0.15)',
+                  backgroundColor: i === activeIndex ? v.accent : 'var(--overlay-white-15)',
                   transform: i === activeIndex ? 'scale(1.5)' : 'scale(1)',
                 }}
               />
@@ -503,10 +504,10 @@ function TimeTunnel() {
       </div>
 
       {/* ─── MOBILE: Horizontal Snap Carousel ─── */}
-      <div className="block md:hidden relative overflow-hidden transition-colors duration-500" style={{ backgroundColor: mobileIndex % 2 === 0 ? '#000' : '#0a0a0a' }}>
+      <div className="block md:hidden relative overflow-hidden transition-colors duration-500" style={{ backgroundColor: mobileIndex % 2 === 0 ? 'var(--bg-monitor)' : 'var(--surface-charcoal-950)' }}>
         {/* Background accent pulse */}
         <div className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
-          style={{ background: `radial-gradient(circle at 50% 50%, ${mobileAccent}15, transparent 70%)` }}
+          style={{ background: `radial-gradient(circle at 50% 50%, ${withHexAlpha(mobileAccent, '15')}, transparent 70%)` }}
         />
 
         <div className="py-12 px-4">
@@ -537,7 +538,7 @@ function TimeTunnel() {
                       className="w-full h-full object-contain bg-black"
                     />
                     <div className="absolute inset-0 pointer-events-none opacity-10"
-                      style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)' }}
+                      style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, var(--overlay-black-30) 2px, var(--overlay-black-30) 4px)' }}
                     />
                   </div>
 
@@ -566,7 +567,7 @@ function TimeTunnel() {
                 className="h-1 rounded-full transition-all duration-500"
                 style={{
                   width: i === mobileIndex ? 24 : 8,
-                  backgroundColor: i === mobileIndex ? v.accent : 'rgba(255,255,255,0.15)',
+                  backgroundColor: i === mobileIndex ? v.accent : 'var(--overlay-white-15)',
                 }}
               />
             ))}
@@ -639,7 +640,7 @@ function FloatingShards() {
                            transition-colors duration-300 cursor-default"
               >
                 {/* Glow dot */}
-                <div className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-[#078B9C] opacity-0 group-hover:opacity-80 transition-opacity" />
+                <div className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] opacity-0 group-hover:opacity-80 transition-opacity" />
 
                 <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-white/20 mb-2">
                   {tool.role}
@@ -669,7 +670,7 @@ function FloatingShards() {
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="border border-white/[0.06] rounded-lg p-6 md:p-8 bg-white/[0.02]"
             >
-              <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#078B9C]/60 block mb-3">{item.label}</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/60 block mb-3">{item.label}</span>
               <h3 className="font-bold text-lg text-white mb-2">{item.title}</h3>
               <p className="text-white/30 text-sm leading-relaxed">{item.desc}</p>
             </motion.div>
@@ -737,7 +738,7 @@ function DualityWriting() {
                   style={{
                     fontSize: 'clamp(300px, 40vw, 500px)',
                     lineHeight: 1,
-                    color: 'rgba(255,255,255,0.025)',
+                    color: 'var(--overlay-white-025)',
                     letterSpacing: '-0.05em',
                   }}
                 >
@@ -762,7 +763,7 @@ function DualityWriting() {
                       fontSize: 'clamp(3.2rem, 6vw, 5rem)',
                       fontWeight: 200,
                       lineHeight: 1.05,
-                      color: 'rgba(255,255,255,0.9)',
+                      color: 'var(--overlay-white-90)',
                     }}
                   >
                     Gifts from Life
@@ -794,7 +795,7 @@ function DualityWriting() {
                           fontSize: li === firstStanza.giftLine
                             ? 'clamp(1.4rem, 2.8vw, 1.8rem)'
                             : 'clamp(1.2rem, 2.4vw, 1.6rem)',
-                          color: li === firstStanza.giftLine ? '#078B9C' : 'rgba(255,255,255,0.45)',
+                          color: li === firstStanza.giftLine ? 'var(--accent-teal)' : 'var(--overlay-white-45)',
                           fontWeight: li === firstStanza.giftLine ? 500 : 300,
                           fontStyle: 'italic',
                           letterSpacing: '0.01em',
@@ -845,24 +846,24 @@ function DualityWriting() {
                           scale: isButtonHovered ? 1.05 : 1,
                         }}
                         transition={{ duration: 0.4 }}
-                        style={{ background: 'radial-gradient(circle, #078B9C 0%, transparent 70%)' }}
+                        style={{ background: 'radial-gradient(circle, var(--accent-teal) 0%, transparent 70%)' }}
                       />
 
                       {/* Outline pill button */}
                       <motion.div
                         className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full border transition-colors duration-300"
                         animate={{
-                          borderColor: isButtonHovered ? '#078B9C' : 'rgba(255,255,255,0.1)',
+                          borderColor: isButtonHovered ? 'var(--accent-teal)' : 'var(--overlay-white-10)',
                           boxShadow: isButtonHovered
-                            ? '0 0 30px rgba(7,139,156,0.2), inset 0 0 20px rgba(7,139,156,0.05)'
+                            ? '0 0 30px var(--overlay-accent-20), inset 0 0 20px var(--overlay-accent-05)'
                             : '0 0 0px transparent',
                         }}
                         transition={{ duration: 0.3 }}
                       >
-                        <svg className="w-3.5 h-3.5 text-white/30 group-hover:text-[#078B9C] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <svg className="w-3.5 h-3.5 text-white/30 group-hover:text-[var(--accent-teal)] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                         </svg>
-                        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 group-hover:text-[#078B9C] transition-colors duration-300">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 group-hover:text-[var(--accent-teal)] transition-colors duration-300">
                           Open Artifact
                         </span>
                       </motion.div>
@@ -873,7 +874,7 @@ function DualityWriting() {
             </div>
 
             {/* ─── RIGHT: Articles — Clean & Spaced ─── */}
-            <div className="relative bg-[#0a0a0a] text-white flex flex-col justify-center px-6 md:px-12 lg:px-16 py-20 min-h-screen">
+            <div className="relative bg-[var(--surface-charcoal-950)] text-white flex flex-col justify-center px-6 md:px-12 lg:px-16 py-20 min-h-screen">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -881,12 +882,12 @@ function DualityWriting() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="mb-14"
               >
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#078B9C]/40 block mb-2">Thought Leadership</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/40 block mb-2">Thought Leadership</span>
                 <a
                   href="https://medium.com/@anu.anuja"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-[#078B9C] transition-colors"
+                  className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-[var(--accent-teal)] transition-colors"
                   style={{ fontFamily: "'JetBrains Mono', monospace" }}
                 >
                   Medium_Articles
@@ -907,15 +908,15 @@ function DualityWriting() {
                     transition={{ duration: 0.5, delay: i * 0.08 }}
                     className="group flex items-start gap-4 py-5 border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.02] -mx-4 px-4 rounded-lg transition-colors"
                   >
-                    <span className="flex-shrink-0 font-mono text-[11px] text-white/15 mt-1.5 group-hover:text-[#078B9C] transition-colors">
+                    <span className="flex-shrink-0 font-mono text-[11px] text-white/15 mt-1.5 group-hover:text-[var(--accent-teal)] transition-colors">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#078B9C]/30 block mb-2">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--accent-teal)]/30 block mb-2">
                         {article.topic}
                       </span>
                       <h3
-                        className="text-white/70 text-base font-medium leading-relaxed group-hover:text-[#078B9C] transition-colors line-clamp-2"
+                        className="text-white/70 text-base font-medium leading-relaxed group-hover:text-[var(--accent-teal)] transition-colors line-clamp-2"
                         style={{ fontFamily: "'JetBrains Mono', monospace" }}
                       >
                         {article.title}
@@ -925,7 +926,7 @@ function DualityWriting() {
                       </span>
                     </div>
                     <div className="flex-shrink-0 mt-3 opacity-0 group-hover:opacity-100 transition-all translate-x-0 group-hover:translate-x-1">
-                      <svg className="w-3 h-3 text-[#078B9C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <svg className="w-3 h-3 text-[var(--accent-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                       </svg>
                     </div>
@@ -939,7 +940,7 @@ function DualityWriting() {
                   href="https://medium.com/@anu.anuja"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-10 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-white/20 hover:text-[#078B9C] transition-colors duration-300"
+                  className="mt-10 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-white/20 hover:text-[var(--accent-teal)] transition-colors duration-300"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
@@ -971,7 +972,7 @@ function DualityWriting() {
               <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full"
                   style={{
-                    background: 'radial-gradient(circle, rgba(7,139,156,0.06) 0%, transparent 60%)',
+                    background: 'radial-gradient(circle, var(--overlay-accent-06) 0%, transparent 60%)',
                     filter: 'blur(100px)',
                   }}
                 />
@@ -1001,7 +1002,7 @@ function DualityWriting() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#078B9C]/40 block mb-3">The Artifact</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--accent-teal)]/40 block mb-3">The Artifact</span>
                   <h2
                     className="tracking-tight text-white mb-3"
                     style={{
@@ -1056,7 +1057,7 @@ function DualityWriting() {
                             fontSize: li === stanza.giftLine
                               ? 'clamp(14px, 1.6vw, 18px)'
                               : 'clamp(13px, 1.4vw, 16px)',
-                            color: li === stanza.giftLine ? '#078B9C' : 'rgba(255,255,255,0.45)',
+                            color: li === stanza.giftLine ? 'var(--accent-teal)' : 'var(--overlay-white-45)',
                             fontWeight: li === stanza.giftLine ? 500 : 400,
                             fontStyle: 'italic',
                             letterSpacing: '0.01em',
@@ -1071,7 +1072,7 @@ function DualityWriting() {
 
                 {/* Bottom return link */}
                 <motion.button
-                  className="mt-20 md:mt-28 font-mono text-[10px] uppercase tracking-[0.3em] text-white/15 hover:text-[#078B9C] transition-colors duration-300 cursor-pointer flex items-center gap-2"
+                  className="mt-20 md:mt-28 font-mono text-[10px] uppercase tracking-[0.3em] text-white/15 hover:text-[var(--accent-teal)] transition-colors duration-300 cursor-pointer flex items-center gap-2"
                   onClick={() => setIsPoemExpanded(false)}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -1214,7 +1215,7 @@ function ChaosCloud() {
                       animate={{ opacity: [0, 0.5, 0] }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-[#078B9C]/20 mix-blend-overlay pointer-events-none"
+                      className="absolute inset-0 bg-[var(--accent-teal)]/20 mix-blend-overlay pointer-events-none"
                     />
                   )}
                 </AnimatePresence>
@@ -1236,7 +1237,7 @@ function ConnectionClose() {
       {/* Subtle glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, rgba(7,139,156,0.4) 0%, transparent 60%)', filter: 'blur(80px)' }}
+          style={{ background: 'radial-gradient(circle, var(--overlay-accent-40) 0%, transparent 60%)', filter: 'blur(80px)' }}
         />
       </div>
 
@@ -1250,7 +1251,7 @@ function ConnectionClose() {
           transition={{ duration: 0.8 }}
         >
           <div className="w-12 h-[1px] bg-white/10" />
-          <div className="w-1.5 h-1.5 bg-[#078B9C] rotate-45 opacity-40" />
+          <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rotate-45 opacity-40" />
           <div className="w-12 h-[1px] bg-white/10" />
         </motion.div>
 
@@ -1295,7 +1296,7 @@ function ConnectionClose() {
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
-              className="group font-mono text-xs text-white/40 hover:text-[#078B9C] transition-colors duration-300 min-h-[44px] flex items-center gap-2"
+              className="group font-mono text-xs text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300 min-h-[44px] flex items-center gap-2"
             >
               {link.label}
               <svg className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -1325,7 +1326,7 @@ function ConnectionClose() {
    ═══════════════════════════════════════════════════════════════════════════════ */
 export default function AboutPage() {
   return (
-    <main className="bg-black relative" style={{ overflowX: 'clip' }}>
+    <div className="bg-black relative" style={{ overflowX: 'clip' }}>
       <GlitchPortalHero />
       <TimeTunnel />
       <FloatingShards />
@@ -1333,6 +1334,6 @@ export default function AboutPage() {
       <ChaosCloud />
       <ConnectionClose />
       <ScrollGear />
-    </main>
+    </div>
   )
 }

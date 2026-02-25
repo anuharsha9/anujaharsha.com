@@ -32,33 +32,32 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   // PROJECT SNAPSHOT & DEEP DIVE DATA
   // ----------------------------
   projectSnapshot: {
-    problem: 'Engineers struggled to train models without deep Python knowledge.',
+    problem: '0% feature adoption. We built a powerful ML engine, but because it lived 5 clicks deep and required Python, no business analyst could use it.',
     role: 'Lead Designer & Researcher',
     keyDecisions: [
-      'Moving from 12-step code to 4-step wizard',
-      'Implementing "Dual Experience" (Guided vs Advanced)',
-      'Visualizing confusion matrix for non-statisticians',
+      'Moving from complex code to a linear 4-step visual wizard',
+      'Implementing "Dual Experience" (Guided vs Advanced tracks)',
+      'Visualizing the confusion matrix for non-statisticians',
     ],
-    impactDirectional: 'Reduced 12-step coding task to a 4-step visual wizard.',
+    impactDirectional: 'Democratized ML, turning a hidden feature into an accessible flagship capability.',
     status: 'Shipping 2026',
   },
   challengeDeconstruction: {
     assumptions: [
+      'Business analysts can code in Python and know statistics.',
       'Users know what "hyperparameters" are.',
-      'Business analysts can code in Python.',
-      'Errors should be technical stack traces.',
+      'Cryptic technical stack traces are acceptable errors.',
     ],
     unknowns: [
-      'Which ML algorithms are most used?',
-      'How much customization do business users actually need?',
-      'Can we abstract the backend without breaking flexibility?',
+      'How do we abstract complex algorithms without losing power?',
+      'Can we design one flow that satisfies both novices and Data Scientists?',
     ],
     constraints: [
       'Cannot rewrite the underlying ML engine (Python based).',
-      'Must support legacy "Advanced Mode" for data scientists.',
-      'Limited frontend engineering resources.',
+      'Must support legacy "Advanced Mode" for technical data scientists.',
+      'Extremely limited frontend engineering resources.',
     ],
-    businessGoal: 'Democratize ML training for non-technical business analysts.',
+    businessGoal: 'Drive adoption and defend our market position by democratizing ML for non-technical users.',
   },
   successCriteria: {
     baseline: '12+ clicks, requires Python knowledge, high error rate.',
@@ -240,34 +239,34 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     subtitle: 'Predictive analytics for non-technical users',
     leadershipSummary: 'Led ML Functions alongside ReportCaster and IQ Plugin. Weekly sessions with our Principal Data Scientist for months — learned the domain before touching design. Guided engineering through implementation due to limited front-end resources.',
     whatTheSystemWas:
-      'The existing workflow was fragmented — hyperparameters hidden behind right-click menus, confusing error messages, and no clear path from start to finish. It worked for experts, but it wasn\'t accessible to the broader user base.',
+      'Zero feature adoption. We had a wildly powerful, multi-million dollar ML engine that absolutely no one was using. It was buried 5 clicks deep in settings menus, output cryptic stack traces, and required Python proficiency. It worked for our internal engineers, but to our core customers (business analysts), it was a complete black box.',
     myRole:
-      'I took this from ambiguity to a design-ready 4-step workflow. End-to-end ownership, from learning the domain to shipping the design.',
+      'I took this from a fragmented engineering tool to a design-ready, zero-code 4-step workflow. End-to-end ownership—from getting MIT certified to learn the domain, to shipping the final design.',
     scopeOfPractice: [],
     credentials: 'Professional Certificate in Product Design for AI & ML — MIT, Boston',
     impactMetrics: [
       {
-        label: 'Clicks reduced',
-        value: '12+ → 7-9',
+        label: 'Adoption potential',
+        value: 'Feature unlocked for non-technical users',
       },
       {
-        label: 'SME discoverability',
-        value: '5/5 found entry without help',
+        label: 'SME Usability',
+        value: '5/5 completed without help',
       },
       {
-        label: 'Error handling',
-        value: 'Dead-ends → clear guidance',
+        label: 'Friction',
+        value: '12+ manual steps → 4-step wizard',
       },
       {
         label: 'Entry point',
-        value: '2-click access',
+        value: '5 clicks → 2-click access',
       },
     ],
     star: {
-      situation: 'A fragmented ML training workflow with 12+ clicks, hidden hyperparameters, and dead-end error states. It worked for data scientists but wasn\'t accessible to business users.',
-      task: 'Make machine learning accessible to non-technical users without dumbing it down for experts.',
-      action: 'Got MIT certified in AI/ML product design. Embedded weekly with the Principal Data Scientist for months. Navigated 2-year timeline through engineering delays and layoffs. Hands-on with engineering due to limited front-end resources.',
-      result: 'Reduced workflow from 12+ clicks to 7-9. All five SMEs found the entry point without help. Our Principal Data Scientist called the confusion matrix "the best screen in the entire UX revamp."',
+      situation: 'Zero adoption. We had a wildly powerful ML engine running under the hood, but it was entirely inaccessible. Hidden 5 clicks deep and requiring Python knowledge, our business users couldn\'t touch it. It was a massive sunk cost unless we could democratize it.',
+      task: 'Transform the engineer-driven black box into an intuitive, zero-code experience so business analysts could train predictive models, while ensuring our expert Data Scientists could still access the advanced parameters they needed.',
+      action: 'Got MIT certified in AI/ML product design to deeply understand the domain. Embedded weekly with the Principal Data Scientist for months. Redesigned the 12-step technical task into a sleek 4-step wizard with a "Dual Persona" architecture, and translated complex stats into a visual confusion matrix.',
+      result: '5 for 5 in usability testing. Users who didn\'t know Python successfully trained models. Our Principal Data Scientist called the confusion matrix "the best screen in the entire UX revamp," validating that we successfully bridged the gap between power and accessibility.',
     },
     technologies: [],
     keyAchievements: [

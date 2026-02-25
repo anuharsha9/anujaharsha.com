@@ -57,7 +57,7 @@ export default function IQPluginArchitecture({ isLightBackground = true }: IQPlu
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   viewport={{ once: true }}
-                  className="bg-[#1e1e1e] rounded-xl p-5 font-mono text-xs shadow-xl shadow-slate-200/50 relative overflow-hidden ring-1 ring-black/5"
+                  className="bg-[var(--surface-neutral-900)] rounded-xl p-5 font-mono text-xs shadow-xl shadow-slate-200/50 relative overflow-hidden ring-1 ring-black/5"
                 >
                   {/* Terminal Header */}
                   <div className="flex items-center justify-between mb-4 pb-0 border-b-0 border-white/5 opacity-50">
@@ -112,9 +112,9 @@ export default function IQPluginArchitecture({ isLightBackground = true }: IQPlu
               {/* Window Header */}
               <div className="bg-white border-b border-slate-50 px-5 py-4 flex items-center justify-between">
                 <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                  <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                  <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                  <div className="w-3 h-3 rounded-full bg-[var(--terminal-red)]" />
+                  <div className="w-3 h-3 rounded-full bg-[var(--terminal-yellow)]" />
+                  <div className="w-3 h-3 rounded-full bg-[var(--terminal-green-alt)]" />
                 </div>
                 <div className="text-[10px] font-medium text-slate-300 tracking-wide uppercase">IQ Plugin</div>
                 <div className="w-12" /> {/* Spacer */}

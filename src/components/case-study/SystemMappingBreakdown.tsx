@@ -168,14 +168,14 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
       {/* Terminal Output - Sleek & Modern */}
       <motion.div
         variants={itemVariants}
-        className="rounded-xl overflow-hidden bg-[#1D1D20] shadow-2xl ring-1 ring-white/10"
+        className="rounded-xl overflow-hidden bg-[var(--surface-panel-dark)] shadow-2xl ring-1 ring-white/10"
       >
         {/* Header */}
-        <div className="h-9 bg-[#2A2A2D] flex items-center px-4 gap-2 border-b border-white/5">
+        <div className="h-9 bg-[var(--surface-neutral-850)] flex items-center px-4 gap-2 border-b border-white/5">
           <div className="flex gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57] opacity-80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E] opacity-80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-[#28C840] opacity-80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-red)] opacity-80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-yellow)] opacity-80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-green-alt)] opacity-80" />
           </div>
           <div className="flex-1 text-center">
             <span className="text-[10px] font-mono text-slate-500 opacity-60">system_status.log</span>

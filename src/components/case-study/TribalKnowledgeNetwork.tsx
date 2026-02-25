@@ -233,7 +233,7 @@ export default function TribalKnowledgeNetwork({ isLightBackground = true }: Tri
 
                     {/* The Revelation - Terminal Style */}
                     <motion.div variants={itemVariants}>
-                        <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-8 md:p-10 relative overflow-hidden group hover:border-emerald-500/30 transition-colors duration-500 shadow-2xl">
+                        <div className="bg-[var(--bg-ink-900)] rounded-2xl border border-slate-800 p-8 md:p-10 relative overflow-hidden group hover:border-emerald-500/30 transition-colors duration-500 shadow-2xl">
                             {/* Glow Effect */}
                             <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors duration-500 pointer-events-none" />
 

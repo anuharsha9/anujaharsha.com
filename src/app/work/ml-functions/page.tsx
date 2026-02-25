@@ -45,6 +45,6 @@ export const metadata: Metadata = {
 }
 
 export default function MLFunctionsPage() {
-  return <CaseStudyLayout data={mlFunctionsCaseStudy} />
+  return <CaseStudyLayout data={mlFunctionsCaseStudy} defaultViewMode="presentation" />
 }
 

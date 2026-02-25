@@ -4,6 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Monitor, FileText, Play, X, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -15,9 +16,9 @@ interface Item {
 }
 
 const GOT: Item[] = [
-    { icon: Monitor, label: 'A sandbox', detail: 'One login. No guide.', color: '#3b82f6' },
-    { icon: FileText, label: 'A presentation', detail: 'From the support lead. My bible.', color: '#a855f7' },
-    { icon: Play, label: 'A 30-min demo', detail: 'Tribal knowledge. Unrecorded.', color: '#eab308' },
+    { icon: Monitor, label: 'A sandbox', detail: 'One login. No guide.', color: 'var(--semantic-blue-500)' },
+    { icon: FileText, label: 'A presentation', detail: 'From the support lead. My bible.', color: 'var(--semantic-purple-500)' },
+    { icon: Play, label: 'A 30-min demo', detail: 'Tribal knowledge. Unrecorded.', color: 'var(--tone-amber-500)' },
 ]
 
 const MISSING = [
@@ -41,7 +42,7 @@ function SparseCounter({ active }: { active: boolean }) {
         return () => clearInterval(id)
     }, [active])
     return (
-        <span className="text-5xl md:text-7xl font-black tabular-nums font-mono" style={{ color: '#f97316' }}>
+        <span className="text-5xl md:text-7xl font-black tabular-nums font-mono" style={{ color: 'var(--semantic-orange-500)' }}>
             {val}
         </span>
     )
@@ -169,7 +170,7 @@ export default function BeatWhatIGot() {
                                                     transition={{ duration: 0.8, delay: 0.2, ease }}
                                                     className="absolute left-1/2 top-8 -translate-x-1/2 w-16 h-16 rounded-full"
                                                     style={{
-                                                        background: `radial-gradient(circle, ${item.color}40 0%, transparent 70%)`,
+                                                        background: `radial-gradient(circle, ${withHexAlpha(item.color, '40')} 0%, transparent 70%)`,
                                                         filter: 'blur(12px)',
                                                     }}
                                                 />
@@ -191,7 +192,10 @@ export default function BeatWhatIGot() {
                                                 >
                                                     <div
                                                         className="w-12 h-12 rounded-full flex items-center justify-center"
-                                                        style={{ background: `${item.color}15`, border: `1px solid ${item.color}30` }}
+                                                        style={{
+                                                            background: withHexAlpha(item.color, '15'),
+                                                            border: `1px solid ${withHexAlpha(item.color, '30')}`,
+                                                        }}
                                                     >
                                                         <Icon className="w-5 h-5" style={{ color: item.color }} strokeWidth={1.5} />
                                                     </div>
@@ -224,7 +228,7 @@ export default function BeatWhatIGot() {
                                                         animate={{ opacity: 0, scale: 2 }}
                                                         transition={{ duration: 0.8, ease: 'easeOut' }}
                                                         className="absolute inset-0 rounded-xl pointer-events-none"
-                                                        style={{ border: `1px solid ${item.color}40` }}
+                                                        style={{ border: `1px solid ${withHexAlpha(item.color, '40')}` }}
                                                     />
                                                 )}
                                             </motion.div>

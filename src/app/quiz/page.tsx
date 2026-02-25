@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function QuizPage() {
     return (
-        <div className="bg-[#020617] relative overflow-clip min-h-screen">
+        <div className="bg-[var(--bg-ink-950)] relative overflow-clip min-h-screen">
             <HeroSplit forceQuiz={true} />
 
             {/* Mirroring Homepage Structure for Full Testing */}

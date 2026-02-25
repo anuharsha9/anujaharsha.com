@@ -18,12 +18,17 @@ export const cssVars = {
   accent50: 'var(--accent-teal-50)',
   accent100: 'var(--accent-teal-100)',
   accent700: 'var(--accent-teal-700)',
+  accentBright: 'var(--accent-teal-bright)',
+  accentWordu: 'var(--accent-wordu)',
 
   // Backgrounds
   bgLight: 'var(--bg-light)',
   bgLightAlt: 'var(--bg-light-alt)',
   bgDark: 'var(--bg-dark)',
   bgDarkAlt: 'var(--bg-dark-alt)',
+  bgInk950: 'var(--bg-ink-950)',
+  bgInk900: 'var(--bg-ink-900)',
+  bgCinematic: 'var(--bg-cinematic)',
 
   // Text colors
   textLight: 'var(--text-primary-light)',
@@ -37,6 +42,21 @@ export const cssVars = {
   monitorBorder: 'var(--border-monitor)',
   monitorText: 'var(--text-monitor)',
   monitorTextMuted: 'var(--text-monitor-muted)',
+} as const
+
+// Static palette for renderers that cannot resolve CSS variables (e.g. next/og ImageResponse)
+export const staticPalette = {
+  white: '#ffffff',
+  surfaceCharcoal950: '#0a0a0a',
+  neutralZinc300: '#d4d4d8',
+  neutralZinc400: '#a1a1aa',
+  neutralZinc500: '#71717a',
+  neutralZinc600: '#52525b',
+  overlayWhite02: 'rgba(255,255,255,0.02)',
+  overlayWhite06: 'rgba(255,255,255,0.06)',
+  overlayWhite10: 'rgba(255,255,255,0.1)',
+  overlayWhite12: 'rgba(255,255,255,0.12)',
+  overlayEmerald05: 'rgba(16,185,129,0.05)',
 } as const
 
 // =============================================================================
@@ -202,8 +222,8 @@ export function getTheme(isLight: boolean = true): Theme {
       textDim: 'text-slate-600',
       textAccent: TEXT.accent,      // teal
 
-      bg: 'bg-[#020617]',           // slate-950 (Monitor BG)
-      bgAlt: 'bg-[#0f172a]',        // slate-900 (Monitor Alt)
+      bg: 'bg-[var(--bg-ink-950)]', // slate-950 (Monitor BG)
+      bgAlt: 'bg-[var(--bg-ink-900)]', // slate-900 (Monitor Alt)
       bgAccent: 'bg-[var(--accent-teal)]/10',
 
       border: 'border-slate-800',
@@ -212,8 +232,8 @@ export function getTheme(isLight: boolean = true): Theme {
       borderAccent: 'border-[var(--accent-teal)]/50',
 
       divider: 'bg-slate-800',
-      surface: 'bg-[#0f172a]',
-      cardBg: 'bg-[#0f172a]',
+      surface: 'bg-[var(--bg-ink-900)]',
+      cardBg: 'bg-[var(--bg-ink-900)]',
 
       accentVar: cssVars.accent,
       isLight: false,
@@ -321,7 +341,7 @@ export const effects = {
   hover: {
     lift: 'hover:-translate-y-[2px] hover:shadow-lg',
     scale: 'hover:scale-[1.015]',
-    glow: 'hover:shadow-[0_4px_24px_rgba(0,162,183,0.12)]',
+    glow: 'hover:shadow-[0_4px_24px_var(--overlay-teal-core-12)]',
   },
 } as const
 

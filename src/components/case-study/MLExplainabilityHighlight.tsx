@@ -126,7 +126,7 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
             </div>
 
             <div
-              className="relative w-full rounded-md overflow-hidden shadow-2xl border border-[var(--accent-teal-200)] cursor-zoom-in group hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-300"
+              className="relative w-full rounded-md overflow-hidden shadow-2xl border border-[var(--accent-teal-200)] cursor-zoom-in group hover:shadow-[0_20px_50px_-12px_var(--overlay-black-25)] transition-all duration-300"
               onClick={() => openLightbox(newImage, allImages, 1)}
             >
               <Image

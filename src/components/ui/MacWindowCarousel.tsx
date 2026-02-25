@@ -97,8 +97,8 @@ export default function MacWindowCarousel({
     }
 
     // Determine header colors - Mac windows usually have gray headers
-    const headerBg = 'bg-[#1e1e1e]' // Dark header like VS Code or Terminal
-    const headerBorder = 'border-[#333]'
+    const headerBg = 'bg-[var(--surface-neutral-900)]' // Dark header like VS Code or Terminal
+    const headerBorder = 'border-[var(--border-monitor)]'
     const headerText = 'text-slate-400'
 
     return (

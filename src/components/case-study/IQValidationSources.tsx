@@ -137,7 +137,7 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-24 max-w-5xl mx-auto"
         >
-          <div className="bg-[#1D1D20] rounded-xl overflow-hidden border border-white/10 relative">
+          <div className="bg-[var(--surface-panel-dark)] rounded-xl overflow-hidden border border-white/10 relative">
             <div className="absolute top-0 left-0 w-1 h-full bg-amber-400" />
             <div className="p-8 md:p-12">
               <span className="font-mono text-xs text-amber-400 block mb-4 tracking-widest">

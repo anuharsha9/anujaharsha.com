@@ -4,6 +4,7 @@ import { useRef, useCallback, useEffect, useState, useMemo } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Code2, FlaskConical, ClipboardList, Headphones, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -15,10 +16,10 @@ interface TeamMember {
 }
 
 const TEAM: TeamMember[] = [
-    { role: 'Engineers', count: 12, icon: Code2, color: '#60a5fa' },
-    { role: 'QA', count: 4, icon: FlaskConical, color: '#a78bfa' },
-    { role: 'PMs', count: 2, icon: ClipboardList, color: '#f97316' },
-    { role: 'Support', count: 2, icon: Headphones, color: '#34d399' },
+    { role: 'Engineers', count: 12, icon: Code2, color: 'var(--semantic-blue-400)' },
+    { role: 'QA', count: 4, icon: FlaskConical, color: 'var(--semantic-violet-400)' },
+    { role: 'PMs', count: 2, icon: ClipboardList, color: 'var(--semantic-orange-500)' },
+    { role: 'Support', count: 2, icon: Headphones, color: 'var(--semantic-emerald-400)' },
 ]
 
 const ONBOARDING_STEPS = [
@@ -180,7 +181,7 @@ export default function BeatTeamBuilding() {
                                     key={`ring-${r}`}
                                     cx={cx} cy={cy} r={r}
                                     fill="none"
-                                    stroke="rgba(255,255,255,0.02)"
+                                    stroke="var(--overlay-white-02)"
                                     strokeWidth={0.5}
                                     strokeDasharray="3 6"
                                     initial={{ opacity: 0 }}
@@ -247,7 +248,7 @@ export default function BeatTeamBuilding() {
                                         <motion.circle
                                             cx={cx} cy={cy} r={20}
                                             fill="none"
-                                            stroke="rgba(255,255,255,0.15)"
+                                            stroke="var(--overlay-white-15)"
                                             strokeWidth={1}
                                             animate={{
                                                 r: [20, 28, 20],
@@ -256,14 +257,14 @@ export default function BeatTeamBuilding() {
                                             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                                         />
                                         {/* Main circle */}
-                                        <circle cx={cx} cy={cy} r={14} fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" strokeWidth={1.5} />
+                                        <circle cx={cx} cy={cy} r={14} fill="var(--overlay-white-08)" stroke="var(--overlay-white-20)" strokeWidth={1.5} />
                                         <circle cx={cx} cy={cy} r={5} fill="white" opacity={0.9} />
                                         {/* Label */}
                                         <text
                                             x={cx} y={cy + 30}
                                             textAnchor="middle"
                                             className="text-[8px] font-mono uppercase tracking-widest"
-                                            fill="rgba(255,255,255,0.4)"
+                                            fill="var(--overlay-white-40)"
                                         >
                                             YOU
                                         </text>
@@ -284,7 +285,7 @@ export default function BeatTeamBuilding() {
                                         textAnchor="middle"
                                         dominantBaseline="middle"
                                         className="text-[8px] font-mono uppercase tracking-wider"
-                                        fill={`${member.color}80`}
+                                        fill={withHexAlpha(member.color, '80')}
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
@@ -315,15 +316,15 @@ export default function BeatTeamBuilding() {
                                                 transition={{ duration: 0.4, delay: i * 0.12, ease }}
                                                 className="rounded-xl border p-4 text-center"
                                                 style={{
-                                                    borderColor: `${member.color}20`,
-                                                    background: `${member.color}05`,
+                                                    borderColor: withHexAlpha(member.color, '20'),
+                                                    background: withHexAlpha(member.color, '05'),
                                                 }}
                                             >
                                                 <div className="flex items-center justify-center mb-2">
                                                     <Icon className="w-5 h-5" style={{ color: member.color }} strokeWidth={1.5} />
                                                 </div>
                                                 <TeamCounter target={member.count} active={phase >= 4} color={member.color} />
-                                                <div className="text-[10px] font-mono uppercase tracking-wider mt-0.5" style={{ color: `${member.color}80` }}>
+                                                <div className="text-[10px] font-mono uppercase tracking-wider mt-0.5" style={{ color: withHexAlpha(member.color, '80') }}>
                                                     {member.role}
                                                 </div>
                                             </motion.div>
@@ -373,9 +374,9 @@ export default function BeatTeamBuilding() {
                                             <motion.span
                                                 className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-mono mt-0.5"
                                                 style={{
-                                                    background: 'rgba(52,211,153,0.1)',
-                                                    color: '#34d399',
-                                                    border: '1px solid rgba(52,211,153,0.2)',
+                                                    background: 'var(--overlay-emerald-light-10)',
+                                                    color: 'var(--semantic-emerald-400)',
+                                                    border: '1px solid var(--overlay-emerald-light-20)',
                                                 }}
                                                 initial={{ scale: 0 }}
                                                 animate={phase >= 7 + i ? { scale: 1 } : { scale: 0 }}

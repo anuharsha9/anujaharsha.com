@@ -61,11 +61,11 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
             >
                 {/* Re-using InterstitialContent but ensuring it fits mobile */}
                 <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/[0.07] rounded-2xl p-6 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#078B9C]/[0.06] via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-teal)]/[0.06] via-transparent to-transparent pointer-events-none" />
 
                     <div className="relative z-10 mb-6">
                         <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-white/25 mb-2">Life Context</p>
-                        <div className="w-8 h-px bg-[#078B9C]/30" />
+                        <div className="w-8 h-px bg-[var(--accent-teal)]/30" />
                     </div>
 
                     <div className="space-y-6">
@@ -77,7 +77,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                                         {IconComp && (typeof IconComp === 'string' ? IconComp : <IconComp className="w-5 h-5" />)}
                                     </div>
                                     <div>
-                                        <p className="font-mono text-[#078B9C] text-[10px] tracking-[0.2em] uppercase mb-1">{milestone.year}</p>
+                                        <p className="font-mono text-[var(--accent-teal)] text-[10px] tracking-[0.2em] uppercase mb-1">{milestone.year}</p>
                                         <p className="text-white text-sm font-medium leading-tight mb-1">{milestone.title}</p>
                                         <p className="text-slate-500 text-xs">{milestone.subtitle}</p>
                                     </div>
@@ -114,16 +114,13 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-            {/* Watermark Year (Background) */}
-            <div className="absolute -top-12 -left-4 text-[6rem] font-bold text-white/[0.03] select-none font-mono pointer-events-none z-0">
-                {startYear}
-            </div>
+            {/* Watermark Year (Removed to reduce text clutter) */}
 
             {/* Header */}
             <div className="space-y-4 relative z-10">
                 <div className="flex items-center gap-3">
-                    <div className="w-1 h-6 bg-[#078B9C]" />
-                    <span className="font-mono text-[#078B9C] text-xs tracking-widest">{era.period}</span>
+                    <div className="w-1 h-6 bg-[var(--accent-teal)]" />
+                    <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest">{era.period}</span>
                 </div>
 
                 <h2 className="text-3xl xs:text-4xl font-black text-white leading-none tracking-tight">
@@ -136,7 +133,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 {ERA_TAGS[era.id] && (
                     <div className="flex flex-wrap gap-2 pt-1">
                         {ERA_TAGS[era.id].map(tag => (
-                            <span key={tag} className="text-[10px] font-mono text-[#078B9C] border border-[#078B9C]/30 px-2 py-1 rounded bg-[#078B9C]/5">
+                            <span key={tag} className="text-[10px] font-mono text-[var(--accent-teal)] border border-[var(--accent-teal)]/30 px-2 py-1 rounded bg-[var(--accent-teal)]/5">
                                 {tag}
                             </span>
                         ))}
@@ -158,12 +155,12 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 {(era.platformUrl || (era.articles && era.articles.length > 0)) && (
                     <div className="flex flex-wrap gap-4 pt-2">
                         {era.platformUrl && (
-                            <a href={era.platformUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors">
+                            <a href={era.platformUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors">
                                 See Platform ↗
                             </a>
                         )}
                         {era.articles?.map(article => (
-                            <a key={article.id} href={article.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors">
+                            <a key={article.id} href={article.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors">
                                 {article.title} ↗
                             </a>
                         ))}
@@ -193,7 +190,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
             {/* Inline Testimonials */}
             {hasTestimonials && (
                 <div className="space-y-6 pt-4 border-t border-white/5">
-                    <span className="text-xs font-mono text-white/30 uppercase tracking-widest block mb-4">Feedback</span>
+                    <span className="text-xs font-mono text-white/30 uppercase tracking-widest block mb-4">SOCIAL PROOF :</span>
                     {era.testimonials.map(testimonial => (
                         <div key={testimonial.id} className="bg-white/[0.03] p-5 rounded-xl border border-white/5 relative">
                             {/*<Quote className="absolute top-4 right-4 w-6 h-6 text-white/5" />*/}

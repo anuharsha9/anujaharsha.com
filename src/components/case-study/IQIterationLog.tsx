@@ -330,13 +330,13 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
       {/* Validation Outcome Footer - Terminal Style */}
       <motion.div
         variants={itemVariants}
-        className="bg-[#1D1D20] p-6 rounded-xl shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
+        className="bg-[var(--surface-panel-dark)] p-6 rounded-xl shadow-lg border border-white/10 max-w-4xl mx-auto font-mono"
       >
         {/* Terminal Header */}
         <div className="flex gap-2 mb-4 opacity-50">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+          <div className="w-3 h-3 rounded-full bg-[var(--terminal-red-alt)]" />
+          <div className="w-3 h-3 rounded-full bg-[var(--terminal-orange)]" />
+          <div className="w-3 h-3 rounded-full bg-[var(--terminal-green)]" />
         </div>
 
         <div className="flex items-start gap-3">

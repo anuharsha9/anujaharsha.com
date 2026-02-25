@@ -13,6 +13,8 @@ interface PresenterBarProps {
     children?: ReactNode
     /** Optional delay before appearing */
     delay?: number
+    /** Whether to show the presenter avatar and speech bubble pointer (default: true) */
+    showAvatar?: boolean
 }
 
 /* ── Typing indicator (three pulsing dots) ──────── */
@@ -39,7 +41,7 @@ function TypingDots() {
     )
 }
 
-export default function PresenterBar({ narration, children, delay = 0 }: PresenterBarProps) {
+export default function PresenterBar({ narration, children, delay = 0, showAvatar = true }: PresenterBarProps) {
     const [phase, setPhase] = useState<'typing' | 'content'>('typing')
 
     useEffect(() => {
@@ -56,21 +58,23 @@ export default function PresenterBar({ narration, children, delay = 0 }: Present
             transition={{ duration: 0.6, delay, ease }}
             className="flex items-start gap-4 md:gap-5 mb-8 md:mb-10"
         >
-            {/* Avatar — large, prominent */}
-            <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5, delay: delay + 0.1, ease }}
-                className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl border border-white/[0.08] overflow-hidden shadow-lg shadow-black/20"
-            >
-                <Image
-                    src="/images/presenter-avatar.png"
-                    alt="Anuja"
-                    width={96}
-                    height={96}
-                    className="w-full h-full object-cover"
-                />
-            </motion.div>
+            {/* Avatar — large, prominent. Only show if showAvatar is true (default to true) */}
+            {showAvatar && (
+                <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: delay + 0.1, ease }}
+                    className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl border border-white/[0.08] overflow-hidden shadow-lg shadow-black/20"
+                >
+                    <Image
+                        src="/images/presenter-avatar.png"
+                        alt="Anuja"
+                        width={96}
+                        height={96}
+                        className="w-full h-full object-cover"
+                    />
+                </motion.div>
+            )}
 
             {/* Speech bubble with typing → reveal animation */}
             <motion.div
@@ -81,17 +85,19 @@ export default function PresenterBar({ narration, children, delay = 0 }: Present
                     delay: delay + 0.15,
                     ease: [0.34, 1.56, 0.64, 1], // spring overshoot for iMessage pop
                 }}
-                className="relative flex-1 bg-white/[0.04] border border-white/[0.08] rounded-2xl rounded-tl-md px-5 py-4 md:px-6 md:py-5 overflow-hidden"
+                className={`relative flex-1 bg-white/[0.04] border border-white/[0.08] rounded-2xl ${showAvatar ? 'rounded-tl-md' : ''} px-5 py-4 md:px-6 md:py-5 overflow-hidden`}
             >
-                {/* Speech bubble pointer */}
-                <div
-                    className="absolute left-0 top-8 -translate-x-full w-0 h-0"
-                    style={{
-                        borderTop: '6px solid transparent',
-                        borderBottom: '6px solid transparent',
-                        borderRight: '6px solid rgba(255,255,255,0.08)',
-                    }}
-                />
+                {/* Speech bubble pointer (only if avatar is showing) */}
+                {showAvatar && (
+                    <div
+                        className="absolute left-0 top-8 -translate-x-full w-0 h-0"
+                        style={{
+                            borderTop: '6px solid transparent',
+                            borderBottom: '6px solid transparent',
+                            borderRight: '6px solid var(--overlay-white-08)',
+                        }}
+                    />
+                )}
 
                 {/* Shimmer sweep after content lands */}
                 <AnimatePresence>
@@ -105,7 +111,7 @@ export default function PresenterBar({ narration, children, delay = 0 }: Present
                             <div
                                 className="w-1/3 h-full"
                                 style={{
-                                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)',
+                                    background: 'linear-gradient(90deg, transparent, var(--overlay-white-04), transparent)',
                                 }}
                             />
                         </motion.div>

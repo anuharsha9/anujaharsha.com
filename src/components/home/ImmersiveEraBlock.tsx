@@ -89,7 +89,7 @@ const WordUGameCard = ({ work, onPlay }: { work: WorkItem, onPlay: () => void })
                 console.log('Calling onPlay');
                 onPlay();
             }}
-            className="group/game relative bg-slate-900/60 border border-white/[0.06] rounded-2xl overflow-hidden hover:border-[var(--accent-teal)]/50 hover:shadow-[0_0_30px_rgba(45,212,191,0.2)] transition-all duration-500 block aspect-[4/3] cursor-pointer"
+            className="group/game relative bg-slate-900/60 border border-white/[0.06] rounded-2xl overflow-hidden hover:border-[var(--accent-teal)]/50 hover:shadow-[0_0_30px_var(--overlay-teal-20)] transition-all duration-500 block aspect-[4/3] cursor-pointer"
         >
             {/* Background Image with Zoom Effect */}
             <div className="absolute inset-0 overflow-hidden">
@@ -354,7 +354,7 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-white font-bold text-lg">{era.testimonials[0].name}</span>
                                                             {era.testimonials[0].linkedInProfile && (
-                                                                <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                                <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[var(--brand-linkedin)] transition-colors">
                                                                     <Linkedin className="w-4 h-4" />
                                                                 </Link>
                                                             )}
@@ -380,7 +380,7 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
                                                             <div className="flex items-center gap-2">
                                                                 <span className="text-white font-bold text-sm">{testimonial.name}</span>
                                                                 {testimonial.linkedInProfile && (
-                                                                    <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                                    <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[var(--brand-linkedin)] transition-colors">
                                                                         <Linkedin className="w-3 h-3" />
                                                                     </Link>
                                                                 )}

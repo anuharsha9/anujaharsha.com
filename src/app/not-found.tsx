@@ -9,9 +9,9 @@ import Magnetic from '@/components/ui/Magnetic'
 // Custom 404 Page - "The Void" Concept
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-[#070B14] flex flex-col items-center justify-center relative overflow-hidden text-center px-4 selection:bg-[var(--accent-teal)] selection:text-white">
+    <div className="min-h-screen bg-[var(--surface-night)] flex flex-col items-center justify-center relative overflow-hidden text-center px-4 selection:bg-[var(--accent-teal)] selection:text-white">
       {/* Background: Subtle animated noise/grain could be good here if we had the asset, but CSS grid is safe */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-30" />
+      <div className="absolute inset-0 bg-[linear-gradient(var(--overlay-white-03)_1px,transparent_1px),linear-gradient(90deg,var(--overlay-white-03)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-30" />
 
       {/* Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--accent-teal)]/5 rounded-full blur-[120px] pointer-events-none" />
@@ -20,7 +20,7 @@ export default function NotFound() {
 
         {/* The "404" Graphic */}
         <div className="relative font-mono font-bold text-[12rem] md:text-[16rem] leading-none tracking-tighter text-transparent select-none">
-          <span className="bg-clip-text bg-gradient-to-b from-white/20 to-white/0" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>404</span>
+          <span className="bg-clip-text bg-gradient-to-b from-white/20 to-white/0" style={{ WebkitTextStroke: '1px var(--overlay-white-10)' }}>404</span>
 
           {/* Floating Element in the center */}
           <motion.div
@@ -41,7 +41,7 @@ export default function NotFound() {
               animate={{ rotate: -360 }}
               transition={{ duration: 15, ease: "linear", repeat: Infinity }}
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 border border-white/50 rounded-full bg-[#070B14]" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 border border-white/50 rounded-full bg-[var(--surface-night)]" />
             </motion.div>
           </motion.div>
         </div>
@@ -61,7 +61,7 @@ export default function NotFound() {
           <Magnetic strength={0.3}>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--accent-teal)] text-white rounded-full font-medium text-sm transition-all hover:bg-[var(--accent-teal-dark)] hover:shadow-[0_0_30px_rgba(7,139,156,0.3)]"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--accent-teal)] text-white rounded-full font-medium text-sm transition-all hover:bg-[var(--accent-teal-dark)] hover:shadow-[0_0_30px_var(--overlay-accent-30)]"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
               Return to Base

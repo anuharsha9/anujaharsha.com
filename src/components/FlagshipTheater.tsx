@@ -24,78 +24,80 @@ import {
 } from './case-study/storyboard/RCMovieBeats'
 
 const ease = [0.22, 1, 0.36, 1] as const
+const MOVIE_PACE = 1.28
+const d = (ms: number) => Math.round(ms * MOVIE_PACE)
 
 /* ── The movie sequence ── */
 const RC_MOVIE_BEATS: MovieBeat[] = [
     {
         id: 'assignment',
-        duration: 7600,
+        duration: d(7600),
         label: 'The Business Problem',
         signal: 'CUSTOMER LOSS',
-        narration: 'Week one: I inherited a 40-year-old mission-critical system that was actively losing customers.',
+        narration: 'The platform\'s enterprise scheduler — powering 20M+ weekly jobs — was losing customers.',
         narrationDelay: 0.1,
         component: <MovieBeatAssignment />,
     },
     {
         id: 'discovery',
-        duration: 7600,
+        duration: d(7600),
         label: 'Discovery Arc',
         signal: 'SYSTEM ARCHAEOLOGY',
-        narration: 'I had zero domain context, so I built the mental model from scratch with SMEs and raw artifacts.',
+        narration: 'I volunteered one week in and mapped 5 undocumented subsystems from scratch.',
         narrationDelay: 0.1,
         component: <MovieBeatDiscovery />,
     },
     {
         id: 'chaos',
-        duration: 8600,
+        duration: d(8600),
         label: 'The Chaos',
         signal: 'LEGACY DEBT',
-        narration: 'What looked like one product was actually five disconnected tools, scattered across broken workflows.',
+        narration: '5 fragmented sub-products. Zero documentation. 4 clicks just to start a task.',
         narrationDelay: 0.05,
         component: <MovieBeatChaos />,
     },
     {
         id: 'pivots',
-        duration: 8400,
+        duration: d(8400),
         label: 'Three Pivots',
         signal: 'ITERATION',
-        narration: 'V1 failed. V2 failed. The third pivot aligned engineering reality with customer outcomes.',
+        narration: 'V1 rejected. V2 rejected. V3 — the breakthrough.',
         narrationDelay: 0.08,
         component: <MovieBeatPivots />,
     },
     {
         id: 'breakthrough',
-        duration: 9000,
+        duration: d(9000),
         label: 'The Breakthrough',
         signal: 'UNIFIED HUB',
-        narration: 'The + Menu became the strategic hinge: one command center replacing fragmented entry points.',
+        narration: 'Three workflows. One button. Zero context switching.',
         narrationDelay: 0.06,
         component: <MovieBeatBreakthrough />,
     },
     {
         id: 'execution',
-        duration: 8400,
+        duration: d(8400),
         label: 'Execution Arc',
         signal: 'FEATURE SYSTEM',
-        narration: 'Then I rebuilt Scheduler, Recurrence, and Job Logs as one coherent interaction system.',
+        narration: 'Consolidated 3 workflows into one "+" menu. Reduced creation clicks from 4 to 2.',
         narrationDelay: 0.06,
         component: <MovieBeatExecution />,
     },
     {
         id: 'scale',
-        duration: 7600,
+        duration: d(7600),
         label: '250 Screens',
         signal: 'SCALE + HANDOFF',
-        narration: '250-plus screens, every edge state documented, and a living handoff system for a 20-person team.',
+        narration: 'I independently mapped the entire system and aligned a 20-person cross-functional team.',
         narrationDelay: 0.1,
         component: <MovieBeatScale />,
     },
     {
         id: 'shipped',
-        duration: 10400,
+        duration: d(10400),
         label: 'Shipped + Impact',
         signal: 'OUTCOME',
-        narration: 'We shipped at enterprise scale with zero regressions and retained trust in a mission-critical product.',
+        narration: 'Customers retained. Brand-new integrated system. Shipped April 2024.',
         narrationDelay: 0.08,
         component: <MovieBeatShipped />,
     },
@@ -135,7 +137,7 @@ export default function FlagshipTheater() {
                     className="mb-8"
                 >
                     <div className="flex items-center justify-center gap-2 mb-4">
-                        <div className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_10px_var(--overlay-amber-50)]" />
                         <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] text-amber-400/90 uppercase">
                             Flagship Case Study
                         </span>
@@ -160,7 +162,7 @@ export default function FlagshipTheater() {
                         href="/work/reportcaster"
                         className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full
                                    bg-white text-black overflow-hidden
-                                   hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+                                   hover:scale-105 transition-all duration-300 shadow-[0_0_40px_var(--overlay-white-20)]"
                     >
                         {/* Hover glow inside button */}
                         <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

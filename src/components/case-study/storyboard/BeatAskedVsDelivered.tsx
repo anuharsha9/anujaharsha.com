@@ -104,8 +104,8 @@ export default function BeatAskedVsDelivered() {
                                             animate={{ opacity: 1 }}
                                             transition={{ duration: 0.5 }}
                                         >
-                                            <polygon points="250,200 235,170 265,170" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                                            <circle cx="250" cy="165" r="4" fill="rgba(255,255,255,0.15)" />
+                                            <polygon points="250,200 235,170 265,170" fill="var(--overlay-white-05)" stroke="var(--overlay-white-10)" strokeWidth="1" />
+                                            <circle cx="250" cy="165" r="4" fill="var(--overlay-white-15)" />
                                         </motion.g>
 
                                         {/* Beam — tilts! */}
@@ -117,8 +117,8 @@ export default function BeatAskedVsDelivered() {
                                             {/* Beam bar */}
                                             <motion.rect
                                                 x="60" y="162" width="380" height="6" rx="3"
-                                                fill="rgba(255,255,255,0.06)"
-                                                stroke="rgba(255,255,255,0.1)"
+                                                fill="var(--overlay-white-06)"
+                                                stroke="var(--overlay-white-10)"
                                                 strokeWidth="0.5"
                                                 initial={{ scaleX: 0 }}
                                                 animate={{ scaleX: 1 }}
@@ -127,10 +127,10 @@ export default function BeatAskedVsDelivered() {
                                             />
 
                                             {/* Left pan — "ASKED" */}
-                                            <line x1="110" y1="168" x2="110" y2="130" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                                            <line x1="70" y1="130" x2="150" y2="130" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
+                                            <line x1="110" y1="168" x2="110" y2="130" stroke="var(--overlay-white-08)" strokeWidth="1" />
+                                            <line x1="70" y1="130" x2="150" y2="130" stroke="var(--overlay-white-10)" strokeWidth="1.5" />
                                             {/* Pan arc */}
-                                            <path d="M 70 130 Q 110 145 150 130" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+                                            <path d="M 70 130 Q 110 145 150 130" fill="none" stroke="var(--overlay-white-06)" strokeWidth="1" />
 
                                             {/* Stacked "asked" blocks */}
                                             {ASKED.map((_, i) => (
@@ -142,8 +142,8 @@ export default function BeatAskedVsDelivered() {
                                                             width={50 - i * 10}
                                                             height={10}
                                                             rx={2}
-                                                            fill="rgba(239,68,68,0.15)"
-                                                            stroke="rgba(239,68,68,0.3)"
+                                                            fill="var(--overlay-red-15)"
+                                                            stroke="var(--overlay-red-30)"
                                                             strokeWidth={0.5}
                                                             initial={{ opacity: 0, y: -30 }}
                                                             animate={{ opacity: 1, y: 0 }}
@@ -159,14 +159,14 @@ export default function BeatAskedVsDelivered() {
                                             ))}
 
                                             {/* Left label */}
-                                            <text x="110" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="rgba(239,68,68,0.4)">
+                                            <text x="110" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="var(--overlay-red-40)">
                                                 Asked
                                             </text>
 
                                             {/* Right pan — "DELIVERED" */}
-                                            <line x1="390" y1="168" x2="390" y2="130" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                                            <line x1="340" y1="130" x2="440" y2="130" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
-                                            <path d="M 340 130 Q 390 145 440 130" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+                                            <line x1="390" y1="168" x2="390" y2="130" stroke="var(--overlay-white-08)" strokeWidth="1" />
+                                            <line x1="340" y1="130" x2="440" y2="130" stroke="var(--overlay-white-10)" strokeWidth="1.5" />
+                                            <path d="M 340 130 Q 390 145 440 130" fill="none" stroke="var(--overlay-white-06)" strokeWidth="1" />
 
                                             {/* Stacked "delivered" blocks */}
                                             {DELIVERED.map((_, i) => (
@@ -178,8 +178,8 @@ export default function BeatAskedVsDelivered() {
                                                             width={70}
                                                             height={10}
                                                             rx={2}
-                                                            fill="rgba(52,211,153,0.15)"
-                                                            stroke="rgba(52,211,153,0.3)"
+                                                            fill="var(--overlay-emerald-light-15)"
+                                                            stroke="var(--overlay-emerald-light-30)"
                                                             strokeWidth={0.5}
                                                             initial={{ opacity: 0, y: -40 }}
                                                             animate={{ opacity: 1, y: 0 }}
@@ -195,7 +195,7 @@ export default function BeatAskedVsDelivered() {
                                             ))}
 
                                             {/* Right label */}
-                                            <text x="390" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="rgba(52,211,153,0.4)">
+                                            <text x="390" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="var(--overlay-emerald-light-40)">
                                                 Delivered
                                             </text>
                                         </motion.g>
@@ -272,11 +272,11 @@ export default function BeatAskedVsDelivered() {
                                                                     transition={{ type: 'spring', stiffness: 400 }}
                                                                 >
                                                                     <svg width="12" height="12" viewBox="0 0 12 12">
-                                                                        <circle cx="6" cy="6" r="5.5" fill="none" stroke="rgba(52,211,153,0.4)" strokeWidth="1" />
+                                                                        <circle cx="6" cy="6" r="5.5" fill="none" stroke="var(--overlay-emerald-light-40)" strokeWidth="1" />
                                                                         <motion.path
                                                                             d="M3.5 6l2 2 3-3.5"
                                                                             fill="none"
-                                                                            stroke="#34d399"
+                                                                            stroke="var(--semantic-emerald-400)"
                                                                             strokeWidth="1.2"
                                                                             strokeLinecap="round"
                                                                             strokeLinejoin="round"

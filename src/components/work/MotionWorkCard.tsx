@@ -3,7 +3,7 @@
 import React, { useRef } from 'react'
 import { motion, useMotionTemplate, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Lock } from 'lucide-react'
+import { ArrowRight, Lock, Play } from 'lucide-react'
 import { WorkItem } from '@/data/career-data'
 import Image from 'next/image'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
@@ -60,7 +60,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                             background: useMotionTemplate`
                   radial-gradient(
                     650px circle at ${mouseX}px ${mouseY}px,
-                    rgba(255, 255, 255, 0.08),
+                    var(--overlay-white-08),
                     transparent 80%
                   )
                 `,
@@ -126,12 +126,12 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
 
                                 <div className="flex items-end justify-between gap-6">
                                     <div className="max-w-[80%]">
-                                        <h3 className="font-sans text-xl sm:text-2xl font-bold text-white leading-snug mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                                        <h3 className="font-sans text-xl sm:text-2xl font-bold text-white leading-snug mb-3 drop-shadow-[0_2px_8px_var(--overlay-black-60)]">
                                             {work.title}
                                         </h3>
                                         {work.metric && (
                                             <div className="inline-flex items-baseline gap-2.5">
-                                                <span className="font-sans text-2xl sm:text-3xl font-extrabold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                                                <span className="font-sans text-2xl sm:text-3xl font-extrabold text-white drop-shadow-[0_2px_8px_var(--overlay-black-60)]">
                                                     <AnimatedCounter value={work.metric} duration={1.2} />
                                                 </span>
                                                 <span className="font-normal text-sm text-white/50 tracking-wide">
@@ -159,35 +159,42 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                             </div>
                         </div>
                     )}
+
+                    {/* EDITORIAL OVERLAY (Watch Case Study) */}
+                    {variant === 'editorial' && (
+                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center opacity-0 group-hover/work:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
+                            <div className="flex flex-col items-center gap-3 transform translate-y-4 group-hover/work:translate-y-0 transition-transform duration-500 ease-[0.22,1,0.36,1]">
+                                <div className="w-12 h-12 rounded-full border border-white/20 bg-black/60 flex items-center justify-center backdrop-blur-md">
+                                    <Play className="w-5 h-5 text-white ml-1" fill="white" />
+                                </div>
+                                <span className="font-mono text-[10px] tracking-[0.2em] font-medium text-white uppercase drop-shadow-md">
+                                    Watch Case Study
+                                </span>
+                            </div>
+                        </div>
+                    )}
                 </motion.div>
 
                 {/* EDITORIAL CONTENT (Below image) */}
                 {variant === 'editorial' && (
-                    <div className="mt-6 flex items-start justify-between gap-6 px-1">
-                        <div className="space-y-1.5">
-                            {work.statusLabel && (
-                                <p className={`text-[10px] font-mono uppercase tracking-[0.2em] mb-2 ${work.statusLabel.toLowerCase().includes('flagship')
-                                        ? 'text-amber-400 font-bold'
-                                        : 'text-slate-500'
-                                    }`}>
-                                    {work.statusLabel}
-                                </p>
-                            )}
-                            <h3 className="font-sans text-lg font-medium text-white/90 group-hover/work:text-white transition-colors">
-                                {work.title}
-                            </h3>
-                            {work.metric && (
-                                <div className="flex items-center gap-2 text-sm text-slate-400 font-mono">
-                                    <span className="text-white/80 font-semibold">{work.metric}</span>
-                                    <span>{work.metricLabel}</span>
-                                </div>
-                            )}
-                        </div>
+                    <div className="mt-8 flex flex-col gap-4 px-1">
+                        {/* 1. Problem Statement */}
+                        <p className="font-sans text-sm sm:text-base text-slate-300 leading-snug">
+                            {work.problemStatement || work.description}
+                        </p>
 
-                        {!isExternal && (
-                            <div className="pt-1 opacity-0 -translate-x-2 group-hover/work:opacity-100 group-hover/work:translate-x-0 transition-all duration-300">
-                                <ArrowRight className="w-4 h-4 text-[#078B9C]" />
-                            </div>
+                        {/* 2. Goal */}
+                        {(work.goal || work.statusLabel) && (
+                            <p className="font-mono text-[11px] sm:text-xs tracking-[0.2em] text-[var(--accent-teal)] uppercase">
+                                GOAL: {work.goal || work.statusLabel}
+                            </p>
+                        )}
+
+                        {/* 3. Result / Payoff */}
+                        {(work.result || work.metric) && (
+                            <p className="font-sans text-sm sm:text-base font-bold text-white uppercase tracking-wide">
+                                RESULT: {work.result || `${work.metric} ${work.metricLabel}`}
+                            </p>
                         )}
                     </div>
                 )}

@@ -1,6 +1,7 @@
 'use client'
 
 import { getTheme } from '@/lib/design-system'
+import { withHexAlpha } from '@/lib/color-utils'
 
 interface FourStepFlowBreakdownProps {
   isLightBackground?: boolean
@@ -8,7 +9,7 @@ interface FourStepFlowBreakdownProps {
 
 export default function FourStepFlowBreakdown({ isLightBackground = false }: FourStepFlowBreakdownProps) {
   const t = getTheme(isLightBackground)
-  const subtleBorder = isLightBackground ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)'
+  const subtleBorder = isLightBackground ? 'var(--overlay-black-15)' : 'var(--overlay-white-15)'
 
   const steps = [
     { number: 1, title: 'Problem Type', description: 'What kind of problem is this?', details: ['Classification vs regression', 'Choose prediction type'], userBenefit: 'Clear starting point' },
@@ -31,7 +32,11 @@ export default function FourStepFlowBreakdown({ isLightBackground = false }: Fou
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {steps.map((s, i) => (
-            <div key={i} className={`${t.cardBg} border-2 p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg rounded-xl`} style={{ borderColor: s.optional ? `${t.accentVar}60` : `${t.accentVar}40` }}>
+            <div
+              key={i}
+              className={`${t.cardBg} border-2 p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg rounded-xl`}
+              style={{ borderColor: s.optional ? withHexAlpha(t.accentVar, '60') : withHexAlpha(t.accentVar, '40') }}
+            >
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 rounded-lg" style={{ backgroundColor: t.accentVar }}>
@@ -75,7 +80,7 @@ export default function FourStepFlowBreakdown({ isLightBackground = false }: Fou
               ))}
             </ul>
           </div>
-          <div className={`${t.cardBg} border-2 p-6 rounded-xl`} style={{ borderColor: `${t.accentVar}60` }}>
+          <div className={`${t.cardBg} border-2 p-6 rounded-xl`} style={{ borderColor: withHexAlpha(t.accentVar, '60') }}>
             <h4 className={`text-lg font-semibold mb-4 ${t.textAccent}`}>New Guided Flow</h4>
             <p className={`${t.textMuted} text-sm leading-relaxed mb-3`}>
               The workflow is honest and linear: you see what you&apos;re about to train, and you decide how deep you want to go.

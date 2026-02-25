@@ -4,6 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -16,9 +17,9 @@ interface ConsolidationItem {
 }
 
 const CONSOLIDATIONS: ConsolidationItem[] = [
-    { from: 'Scheduler', to: '+ Menu', icon: Calendar, color: '#34d399', angle: 150 },
-    { from: 'Distribution Lists', to: '+ Menu', icon: Mail, color: '#60a5fa', angle: 30 },
-    { from: 'Access Lists', to: '+ Menu', icon: Lock, color: '#a78bfa', angle: 270 },
+    { from: 'Scheduler', to: '+ Menu', icon: Calendar, color: 'var(--semantic-emerald-400)', angle: 150 },
+    { from: 'Distribution Lists', to: '+ Menu', icon: Mail, color: 'var(--semantic-blue-400)', angle: 30 },
+    { from: 'Access Lists', to: '+ Menu', icon: Lock, color: 'var(--semantic-violet-400)', angle: 270 },
 ]
 
 const METRICS = [
@@ -185,7 +186,7 @@ export default function BeatBreakthrough() {
                                     <motion.circle
                                         cx={cx} cy={cy} r={radius}
                                         fill="none"
-                                        stroke="rgba(255,255,255,0.04)"
+                                        stroke="var(--overlay-white-04)"
                                         strokeWidth={1}
                                         strokeDasharray="4 8"
                                         initial={{ opacity: 0, scale: 0.5 }}
@@ -217,7 +218,7 @@ export default function BeatBreakthrough() {
                                                 key={`shock-${ring}`}
                                                 cx={cx} cy={cy}
                                                 fill="none"
-                                                stroke="rgba(16,185,129,0.3)"
+                                                stroke="var(--overlay-emerald-30)"
                                                 strokeWidth={1.5}
                                                 initial={{ r: 20, opacity: 0.6 }}
                                                 animate={{ r: 120 + ring * 30, opacity: 0 }}
@@ -266,8 +267,8 @@ export default function BeatBreakthrough() {
                                             <div
                                                 className="rounded-xl px-4 py-2.5 border backdrop-blur-sm flex items-center gap-2.5"
                                                 style={{
-                                                    borderColor: `${item.color}30`,
-                                                    background: `${item.color}08`,
+                                                    borderColor: withHexAlpha(item.color, '30'),
+                                                    background: withHexAlpha(item.color, '08'),
                                                 }}
                                             >
                                                 {(() => { const Icon = item.icon; return <Icon className="w-4 h-4" style={{ color: item.color }} strokeWidth={1.5} /> })()}
@@ -301,7 +302,7 @@ export default function BeatBreakthrough() {
                                         className="absolute rounded-full"
                                         style={{
                                             width: 120, height: 120,
-                                            background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)',
+                                            background: 'radial-gradient(circle, var(--overlay-emerald-15) 0%, transparent 70%)',
                                         }}
                                         initial={{ scale: 0 }}
                                         animate={{ scale: [0, 1.5, 1.2] }}
@@ -311,7 +312,7 @@ export default function BeatBreakthrough() {
                                         className="absolute rounded-full"
                                         style={{
                                             width: 80, height: 80,
-                                            background: 'radial-gradient(circle, rgba(16,185,129,0.2) 0%, transparent 70%)',
+                                            background: 'radial-gradient(circle, var(--overlay-emerald-20) 0%, transparent 70%)',
                                         }}
                                         animate={{
                                             scale: [1, 1.3, 1],
@@ -328,12 +329,12 @@ export default function BeatBreakthrough() {
                             <div
                                 className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center border transition-all duration-700"
                                 style={{
-                                    borderColor: phase >= 3 ? 'rgba(16,185,129,0.5)' : 'rgba(255,255,255,0.06)',
+                                    borderColor: phase >= 3 ? 'var(--overlay-emerald-50)' : 'var(--overlay-white-06)',
                                     background: phase >= 3
-                                        ? 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(20,184,166,0.1))'
-                                        : 'rgba(255,255,255,0.02)',
+                                        ? 'linear-gradient(135deg, var(--overlay-emerald-15), var(--overlay-teal-bright-10))'
+                                        : 'var(--overlay-white-02)',
                                     boxShadow: phase >= 3
-                                        ? '0 0 40px rgba(16,185,129,0.2), 0 0 80px rgba(16,185,129,0.1)'
+                                        ? '0 0 40px var(--overlay-emerald-20), 0 0 80px var(--overlay-emerald-10)'
                                         : 'none',
                                 }}
                             >
@@ -341,13 +342,13 @@ export default function BeatBreakthrough() {
                                     className="font-light"
                                     style={{
                                         fontSize: phase >= 3 ? 40 : 28,
-                                        color: phase >= 3 ? '#34d399' : 'rgba(255,255,255,0.15)',
+                                        color: phase >= 3 ? 'var(--semantic-emerald-400)' : 'var(--overlay-white-15)',
                                     }}
                                     animate={phase >= 3 ? {
                                         textShadow: [
-                                            '0 0 10px rgba(52,211,153,0.5)',
-                                            '0 0 30px rgba(52,211,153,0.8)',
-                                            '0 0 10px rgba(52,211,153,0.5)',
+                                            '0 0 10px var(--overlay-emerald-light-50)',
+                                            '0 0 30px var(--overlay-emerald-light-80)',
+                                            '0 0 10px var(--overlay-emerald-light-50)',
                                         ],
                                     } : {}}
                                     transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
@@ -376,8 +377,8 @@ export default function BeatBreakthrough() {
                                                     className="rounded-full px-2.5 py-1 text-[9px] font-mono font-bold tracking-wide whitespace-nowrap border"
                                                     style={{
                                                         color: item.color,
-                                                        borderColor: `${item.color}30`,
-                                                        background: `${item.color}10`,
+                                                        borderColor: withHexAlpha(item.color, '30'),
+                                                        background: withHexAlpha(item.color, '10'),
                                                     }}
                                                 >
                                                     {item.from.split(' ')[0]}
@@ -402,7 +403,7 @@ export default function BeatBreakthrough() {
                                 <motion.div
                                     className="h-px mb-8 mx-auto max-w-sm"
                                     style={{
-                                        background: 'linear-gradient(90deg, transparent, rgba(16,185,129,0.3), transparent)',
+                                        background: 'linear-gradient(90deg, transparent, var(--overlay-emerald-30), transparent)',
                                     }}
                                     initial={{ scaleX: 0 }}
                                     animate={{ scaleX: 1 }}
@@ -433,7 +434,7 @@ export default function BeatBreakthrough() {
                                                 from={m.before}
                                                 to={m.after}
                                                 active={phase >= 5}
-                                                color="#34d399"
+                                                color="var(--semantic-emerald-400)"
                                             />
 
                                             {/* Label */}
@@ -445,7 +446,7 @@ export default function BeatBreakthrough() {
                                             <div className="mt-3 mx-auto max-w-[60px] h-1 rounded-full bg-white/[0.04] overflow-hidden">
                                                 <motion.div
                                                     className="h-full rounded-full"
-                                                    style={{ background: '#34d399' }}
+                                                    style={{ background: 'var(--semantic-emerald-400)' }}
                                                     initial={{ width: '100%' }}
                                                     animate={phase >= 5
                                                         ? { width: `${(m.after / m.before) * 100}%` }

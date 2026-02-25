@@ -204,16 +204,7 @@ export default function TimelineSlide({
                 willChange: 'transform, opacity, filter',
             }}
         >
-            {/* Large watermark year */}
-            <div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-                aria-hidden
-            >
-                <span className="text-[18vw] lg:text-[16vw] font-bold text-white/[0.03] tracking-tighter leading-none font-mono">
-                    {startYear}
-                </span>
-            </div>
-
+            {/* Large watermark year removed to reduce text clutter */}
             <div className="relative w-full max-w-[1440px] mx-auto overflow-y-auto max-h-[85vh] scrollbar-hide">
                 {isInterstitial ? (
                     /* ═══ INTERSTITIAL: Life Context ═══ */
@@ -236,8 +227,8 @@ export default function TimelineSlide({
                                 {/* ERA — YEAR · Company */}
                                 <div className="flex items-center gap-3">
                                     <span className="font-mono text-white/40 text-xs tracking-[0.3em] uppercase">ERA</span>
-                                    <div className="w-6 h-px bg-[#078B9C]" />
-                                    <span className="font-mono text-[#078B9C] text-xs sm:text-sm tracking-[0.2em]">
+                                    <div className="w-6 h-px bg-[var(--accent-teal)]" />
+                                    <span className="font-mono text-[var(--accent-teal)] text-xs sm:text-sm tracking-[0.2em]">
                                         {era.period}
                                     </span>
                                     <span className="font-mono text-white/20 text-xs">·</span>
@@ -255,7 +246,7 @@ export default function TimelineSlide({
                                 {ERA_TAGS[era.id] && (
                                     <div className="flex flex-wrap gap-2 pt-2">
                                         {ERA_TAGS[era.id].map(tag => (
-                                            <span key={tag} className="text-[10px] font-mono text-[#078B9C] border border-[#078B9C]/30 px-2 py-1 rounded bg-[#078B9C]/5 tracking-wider">
+                                            <span key={tag} className="text-[10px] font-mono text-[var(--accent-teal)] border border-[var(--accent-teal)]/30 px-2 py-1 rounded bg-[var(--accent-teal)]/5 tracking-wider">
                                                 {tag}
                                             </span>
                                         ))}
@@ -264,17 +255,8 @@ export default function TimelineSlide({
 
                             </div>
 
-                            {/* Description */}
+                            {/* Description removed completely to reduce clutter */}
                             <div className="space-y-2 max-w-xl">
-                                <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                                    {era.description}
-                                </p>
-                                {era.secondaryDescription && (
-                                    <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
-                                        {era.secondaryDescription}
-                                    </p>
-                                )}
-
                                 {/* Platform proof link + article links */}
                                 {(era.platformUrl || (era.articles && era.articles.length > 0)) && (
                                     <div className="flex items-center gap-x-3 mt-2 flex-nowrap overflow-x-auto">
@@ -283,7 +265,7 @@ export default function TimelineSlide({
                                                 href={era.platformUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors duration-300 whitespace-nowrap shrink-0"
+                                                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors duration-300 whitespace-nowrap shrink-0"
                                             >
                                                 See the platform
                                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -298,7 +280,7 @@ export default function TimelineSlide({
                                                     href={article.link}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[#078B9C] transition-colors duration-300 whitespace-nowrap"
+                                                    className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors duration-300 whitespace-nowrap"
                                                 >
                                                     {article.title}
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -348,7 +330,7 @@ export default function TimelineSlide({
                                     {era.testimonials.length === 1 ? (
                                         <div className="relative overflow-hidden group/quote max-w-2xl">
                                             {/* Subtle left accent */}
-                                            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#078B9C]/40 via-[#078B9C]/20 to-transparent" />
+                                            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--accent-teal)]/40 via-[var(--accent-teal)]/20 to-transparent" />
                                             <div className="pl-6">
                                                 <p className="font-sans text-lg md:text-xl text-slate-200/90 leading-relaxed mb-5 font-light">
                                                     &ldquo;{era.testimonials[0].quote}&rdquo;
@@ -357,7 +339,7 @@ export default function TimelineSlide({
                                                     <div className="w-5 h-px bg-white/10" />
                                                     <span className="text-white font-semibold text-sm">{era.testimonials[0].name}</span>
                                                     {era.testimonials[0].linkedInProfile && (
-                                                        <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                        <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[var(--brand-linkedin)] transition-colors">
                                                             <Linkedin className="w-3.5 h-3.5" />
                                                         </Link>
                                                     )}
@@ -371,7 +353,7 @@ export default function TimelineSlide({
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             {era.testimonials.map((testimonial) => (
                                                 <div key={testimonial.id} className="bg-white/[0.02] border border-white/5 p-5 rounded-xl relative overflow-hidden group/quote">
-                                                    <Quote className="absolute top-4 right-4 w-8 h-8 text-white/5 group-hover/quote:text-[#078B9C]/10 transition-colors" />
+                                                    <Quote className="absolute top-4 right-4 w-8 h-8 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
                                                     <blockquote className="relative z-10">
                                                         <p className="font-sans text-sm text-slate-200 leading-relaxed mb-4">
                                                             &ldquo;{testimonial.quote}&rdquo;
@@ -380,7 +362,7 @@ export default function TimelineSlide({
                                                             <div className="flex items-center gap-2">
                                                                 <span className="text-white font-bold text-sm">{testimonial.name}</span>
                                                                 {testimonial.linkedInProfile && (
-                                                                    <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[#0077b5] transition-colors">
+                                                                    <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[var(--brand-linkedin)] transition-colors">
                                                                         <Linkedin className="w-3 h-3" />
                                                                     </Link>
                                                                 )}
@@ -410,14 +392,14 @@ export default function TimelineSlide({
                             <div className="relative lg:sticky lg:top-[15vh]">
                                 <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/[0.07] rounded-2xl p-6 lg:p-8 overflow-hidden">
                                     {/* Gradient accent */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#078B9C]/[0.06] via-transparent to-transparent rounded-2xl pointer-events-none" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-teal)]/[0.06] via-transparent to-transparent rounded-2xl pointer-events-none" />
 
                                     {/* Card header */}
                                     <div className="relative z-10 mb-6">
                                         <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-white/25 mb-2">
                                             Life Context
                                         </p>
-                                        <div className="w-8 h-px bg-[#078B9C]/30" />
+                                        <div className="w-8 h-px bg-[var(--accent-teal)]/30" />
                                     </div>
 
                                     {/* Animated line + nodes */}
@@ -434,7 +416,7 @@ export default function TimelineSlide({
                                                     y1="0"
                                                     x2="1"
                                                     y2="100%"
-                                                    stroke="rgba(255,255,255,0.05)"
+                                                    stroke="var(--overlay-white-05)"
                                                     strokeWidth="1"
                                                 />
                                                 {/* Animated cyan line — neon glow */}
@@ -443,7 +425,7 @@ export default function TimelineSlide({
                                                     y1="0"
                                                     x2="1"
                                                     y2="100%"
-                                                    stroke="#078B9C"
+                                                    stroke="var(--accent-teal)"
                                                     strokeWidth="1.5"
                                                     className="neon-line-glow"
                                                     style={{ pathLength: lineProgress }}
@@ -456,7 +438,7 @@ export default function TimelineSlide({
                                                 return (
                                                     <motion.div
                                                         key={i}
-                                                        className="absolute rounded-full bg-[#078B9C]"
+                                                        className="absolute rounded-full bg-[var(--accent-teal)]"
                                                         style={{
                                                             width: 10,
                                                             height: 10,
@@ -466,7 +448,7 @@ export default function TimelineSlide({
                                                             y: '-50%',
                                                             opacity: dotOpacities[i],
                                                             scale: dotScales[i],
-                                                            boxShadow: '0 0 14px rgba(7,139,156,0.7)',
+                                                            boxShadow: '0 0 14px var(--overlay-accent-70)',
                                                         }}
                                                     />
                                                 )
@@ -494,7 +476,7 @@ export default function TimelineSlide({
                                                             </div>
                                                         )}
                                                         <div>
-                                                            <p className="font-mono text-[#078B9C] text-[10px] tracking-[0.25em] uppercase">
+                                                            <p className="font-mono text-[var(--accent-teal)] text-[10px] tracking-[0.25em] uppercase">
                                                                 {milestone.year}
                                                             </p>
                                                             <p className="text-white/80 text-sm font-medium leading-snug">
@@ -517,6 +499,6 @@ export default function TimelineSlide({
                     </div>
                 )}
             </div>
-        </motion.div>
+        </motion.div >
     )
 }

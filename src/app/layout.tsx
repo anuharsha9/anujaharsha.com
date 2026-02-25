@@ -126,31 +126,7 @@ export default function RootLayout({
             <PageShell>{children}</PageShell>
           </PdfProvider>
         </LightboxProvider>
-        {/* Service worker cleanup - unregister any existing service workers */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                if ('serviceWorker' in navigator) {
-                  navigator.serviceWorker.getRegistrations().then((registrations) => {
-                    registrations.forEach((registration) => {
-                      registration.unregister();
-                    });
-                  });
-                  if ('caches' in window) {
-                    caches.keys().then((cacheNames) => {
-                      cacheNames.forEach((cacheName) => {
-                        caches.delete(cacheName);
-                      });
-                    });
-                  }
-                }
-              })();
-            `,
-          }}
-        />
       </body>
     </html>
   )
 }
-

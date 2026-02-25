@@ -4,6 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, CheckCircle2, Shield, Rocket, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -17,10 +18,10 @@ interface MetricItem {
 }
 
 const METRICS: MetricItem[] = [
-    { value: '20M+', numericTarget: 20, suffix: 'M+', label: 'Weekly schedules', icon: Calendar, color: '#3b82f6' },
-    { value: '100%', numericTarget: 100, suffix: '%', label: 'Legacy parity', icon: CheckCircle2, color: '#22c55e' },
-    { value: '0', numericTarget: 0, label: 'Regressions', icon: Shield, color: '#f59e0b' },
-    { value: 'Apr 2024', label: 'Ship date', icon: Rocket, color: '#ec4899' },
+    { value: '20M+', numericTarget: 20, suffix: 'M+', label: 'Weekly schedules', icon: Calendar, color: 'var(--semantic-blue-500)' },
+    { value: '100%', numericTarget: 100, suffix: '%', label: 'Legacy parity', icon: CheckCircle2, color: 'var(--semantic-green-500)' },
+    { value: '0', numericTarget: 0, label: 'Regressions', icon: Shield, color: 'var(--accent-amber)' },
+    { value: 'Apr 2024', label: 'Ship date', icon: Rocket, color: 'var(--semantic-pink-500)' },
 ]
 
 /* ── Animated metric counter ── */
@@ -167,7 +168,7 @@ export default function BeatImpact() {
                                 <div
                                     className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-24 pointer-events-none"
                                     style={{
-                                        background: 'radial-gradient(ellipse, rgba(34,197,94,0.15) 0%, transparent 70%)',
+                                        background: 'radial-gradient(ellipse, var(--overlay-green-15) 0%, transparent 70%)',
                                         filter: 'blur(20px)',
                                     }}
                                 />
@@ -175,15 +176,15 @@ export default function BeatImpact() {
                                 <motion.div
                                     className="text-5xl md:text-7xl font-black tracking-tighter mb-2 relative"
                                     style={{
-                                        background: 'linear-gradient(135deg, #ffffff 0%, #22c55e 50%, #14b8a6 100%)',
+                                        background: 'linear-gradient(135deg, var(--white) 0%, var(--semantic-green-500) 50%, var(--accent-teal-bright) 100%)',
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
                                     }}
                                     animate={{
                                         textShadow: [
-                                            '0 0 20px rgba(34,197,94,0.3)',
-                                            '0 0 60px rgba(34,197,94,0.1)',
-                                            '0 0 20px rgba(34,197,94,0.3)',
+                                            '0 0 20px var(--overlay-green-30)',
+                                            '0 0 60px var(--overlay-green-10)',
+                                            '0 0 20px var(--overlay-green-30)',
                                         ],
                                     }}
                                     transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -222,7 +223,7 @@ export default function BeatImpact() {
                                     }}
                                     className="relative rounded-xl border bg-white/[0.02] p-4 md:p-5 text-center overflow-hidden"
                                     style={{
-                                        borderColor: isActive ? `${m.color}20` : 'rgba(255,255,255,0.04)',
+                                        borderColor: isActive ? withHexAlpha(m.color, '20') : 'var(--overlay-white-04)',
                                     }}
                                 >
                                     {/* Top accent */}
@@ -244,11 +245,11 @@ export default function BeatImpact() {
                                         <div
                                             className="w-10 h-10 rounded-full flex items-center justify-center"
                                             style={{
-                                                background: `${m.color}15`,
-                                                border: `1px solid ${m.color}25`,
+                                                background: withHexAlpha(m.color, '15'),
+                                                border: `1px solid ${withHexAlpha(m.color, '25')}`,
                                             }}
                                         >
-                                            <Icon className="w-5 h-5" style={{ color: `${m.color}99` }} strokeWidth={1.5} />
+                                            <Icon className="w-5 h-5" style={{ color: withHexAlpha(m.color, '99') }} strokeWidth={1.5} />
                                         </div>
                                     </motion.div>
 
@@ -275,7 +276,7 @@ export default function BeatImpact() {
                                             transition={{ duration: 1, delay: 0.2, ease: 'easeInOut' }}
                                             className="absolute inset-0 pointer-events-none"
                                             style={{
-                                                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%)',
+                                                background: 'linear-gradient(90deg, transparent 0%, var(--overlay-white-04) 50%, transparent 100%)',
                                             }}
                                         />
                                     )}

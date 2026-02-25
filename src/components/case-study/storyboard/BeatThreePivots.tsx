@@ -22,7 +22,7 @@ const PIVOTS: Pivot[] = [
         desc: 'Designed as a standalone product — consistent with how the platform handled other complex tools.',
         verdict: 'rejected',
         reason: '"Leadership wants all workflows centralized in the Hub."',
-        color: '#f87171',
+        color: 'var(--tone-red-400)',
     },
     {
         version: 'V2',
@@ -30,7 +30,7 @@ const PIVOTS: Pivot[] = [
         desc: 'Embedded as a plugin in the Hub, with its own icon on the side nav. I loved this version the most.',
         verdict: 'rejected',
         reason: '"Too much engineering effort. Too big of an addition this year."',
-        color: '#f87171',
+        color: 'var(--tone-red-400)',
     },
     {
         version: 'V3',
@@ -38,7 +38,7 @@ const PIVOTS: Pivot[] = [
         desc: 'Reframed. Redesigned. Built as a panel within the existing Hub — technically feasible, strategically aligned.',
         verdict: 'accepted',
         reason: '"This is the one. Ship it."',
-        color: '#34d399',
+        color: 'var(--semantic-emerald-400)',
     },
 ]
 
@@ -117,7 +117,7 @@ export default function BeatThreePivots() {
                             <svg className="w-full h-full" preserveAspectRatio="none">
                                 <motion.line
                                     x1="50%" y1="0" x2="50%" y2="100%"
-                                    stroke="rgba(255,255,255,0.06)"
+                                    stroke="var(--overlay-white-06)"
                                     strokeWidth="2"
                                     initial={{ pathLength: 0 }}
                                     animate={phase >= 1 ? { pathLength: 1 } : { pathLength: 0 }}
@@ -127,7 +127,7 @@ export default function BeatThreePivots() {
                                 {phase >= 1 && (
                                     <motion.circle
                                         cx="50%" r="3"
-                                        fill="rgba(255,255,255,0.15)"
+                                        fill="var(--overlay-white-15)"
                                         initial={{ cy: '0%' }}
                                         animate={{ cy: '100%' }}
                                         transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
@@ -157,14 +157,14 @@ export default function BeatThreePivots() {
                                     }
                                     style={{
                                         background: phase >= 2
-                                            ? 'rgba(239, 68, 68, 0.15)'
-                                            : 'rgba(255,255,255,0.06)',
-                                        border: `2px solid ${phase >= 2 ? 'rgba(239, 68, 68, 0.4)' : 'rgba(255,255,255,0.1)'}`,
+                                            ? 'var(--overlay-red-15)'
+                                            : 'var(--overlay-white-06)',
+                                        border: `2px solid ${phase >= 2 ? 'var(--overlay-red-40)' : 'var(--overlay-white-10)'}`,
                                         transition: 'background 0.4s, border-color 0.4s',
                                     }}
                                 >
                                     <span className="font-mono text-xs font-bold" style={{
-                                        color: phase >= 2 ? '#ef4444' : '#fff',
+                                        color: phase >= 2 ? 'var(--semantic-red-500)' : 'var(--white)',
                                         transition: 'color 0.4s',
                                     }}>V1</span>
 
@@ -179,14 +179,14 @@ export default function BeatThreePivots() {
                                         >
                                             <motion.line
                                                 x1="14" y1="14" x2="34" y2="34"
-                                                stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round"
+                                                stroke="var(--semantic-red-500)" strokeWidth="2.5" strokeLinecap="round"
                                                 initial={{ pathLength: 0 }}
                                                 animate={{ pathLength: 1 }}
                                                 transition={{ duration: 0.25 }}
                                             />
                                             <motion.line
                                                 x1="34" y1="14" x2="14" y2="34"
-                                                stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round"
+                                                stroke="var(--semantic-red-500)" strokeWidth="2.5" strokeLinecap="round"
                                                 initial={{ pathLength: 0 }}
                                                 animate={{ pathLength: 1 }}
                                                 transition={{ duration: 0.25, delay: 0.1 }}
@@ -201,7 +201,7 @@ export default function BeatThreePivots() {
                                             initial={{ scale: 1, opacity: 0.5 }}
                                             animate={{ scale: 2.5, opacity: 0 }}
                                             transition={{ duration: 0.8, ease: 'easeOut' }}
-                                            style={{ border: '2px solid rgba(239,68,68,0.4)' }}
+                                            style={{ border: '2px solid var(--overlay-red-40)' }}
                                         />
                                     )}
                                 </motion.div>
@@ -285,14 +285,14 @@ export default function BeatThreePivots() {
                                     }
                                     style={{
                                         background: phase >= 4
-                                            ? 'rgba(239, 68, 68, 0.15)'
-                                            : 'rgba(255,255,255,0.06)',
-                                        border: `2px solid ${phase >= 4 ? 'rgba(239, 68, 68, 0.4)' : 'rgba(255,255,255,0.1)'}`,
+                                            ? 'var(--overlay-red-15)'
+                                            : 'var(--overlay-white-06)',
+                                        border: `2px solid ${phase >= 4 ? 'var(--overlay-red-40)' : 'var(--overlay-white-10)'}`,
                                         transition: 'background 0.4s, border-color 0.4s',
                                     }}
                                 >
                                     <span className="font-mono text-xs font-bold" style={{
-                                        color: phase >= 4 ? '#ef4444' : '#fff',
+                                        color: phase >= 4 ? 'var(--semantic-red-500)' : 'var(--white)',
                                         transition: 'color 0.4s',
                                     }}>V2</span>
 
@@ -307,14 +307,14 @@ export default function BeatThreePivots() {
                                         >
                                             <motion.line
                                                 x1="14" y1="14" x2="34" y2="34"
-                                                stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round"
+                                                stroke="var(--semantic-red-500)" strokeWidth="2.5" strokeLinecap="round"
                                                 initial={{ pathLength: 0 }}
                                                 animate={{ pathLength: 1 }}
                                                 transition={{ duration: 0.25 }}
                                             />
                                             <motion.line
                                                 x1="34" y1="14" x2="14" y2="34"
-                                                stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round"
+                                                stroke="var(--semantic-red-500)" strokeWidth="2.5" strokeLinecap="round"
                                                 initial={{ pathLength: 0 }}
                                                 animate={{ pathLength: 1 }}
                                                 transition={{ duration: 0.25, delay: 0.1 }}
@@ -329,7 +329,7 @@ export default function BeatThreePivots() {
                                             initial={{ scale: 1, opacity: 0.5 }}
                                             animate={{ scale: 2.5, opacity: 0 }}
                                             transition={{ duration: 0.8, ease: 'easeOut' }}
-                                            style={{ border: '2px solid rgba(239,68,68,0.4)' }}
+                                            style={{ border: '2px solid var(--overlay-red-40)' }}
                                         />
                                     )}
                                 </motion.div>
@@ -435,17 +435,17 @@ export default function BeatThreePivots() {
                                             transition={{ duration: 0.6, ease }}
                                             style={{
                                                 background: phase >= 7
-                                                    ? 'rgba(52, 211, 153, 0.2)'
-                                                    : 'rgba(255,255,255,0.06)',
-                                                border: `2px solid ${phase >= 7 ? 'rgba(52, 211, 153, 0.5)' : 'rgba(255,255,255,0.15)'}`,
+                                                    ? 'var(--overlay-emerald-light-20)'
+                                                    : 'var(--overlay-white-06)',
+                                                border: `2px solid ${phase >= 7 ? 'var(--overlay-emerald-light-50)' : 'var(--overlay-white-15)'}`,
                                                 transition: 'background 0.6s, border-color 0.6s',
                                                 boxShadow: phase >= 7
-                                                    ? '0 0 20px rgba(52, 211, 153, 0.3), 0 0 40px rgba(52, 211, 153, 0.1)'
+                                                    ? '0 0 20px var(--overlay-emerald-light-30), 0 0 40px var(--overlay-emerald-light-10)'
                                                     : 'none',
                                             }}
                                         >
                                             <span className="font-mono text-xs font-bold" style={{
-                                                color: phase >= 7 ? '#34d399' : '#fff',
+                                                color: phase >= 7 ? 'var(--semantic-emerald-400)' : 'var(--white)',
                                                 transition: 'color 0.6s',
                                             }}>V3</span>
 
@@ -461,7 +461,7 @@ export default function BeatThreePivots() {
                                                     <motion.path
                                                         d="M 15 25 L 22 32 L 35 18"
                                                         fill="none"
-                                                        stroke="#34d399"
+                                                        stroke="var(--semantic-emerald-400)"
                                                         strokeWidth="2.5"
                                                         strokeLinecap="round"
                                                         strokeLinejoin="round"
@@ -486,7 +486,7 @@ export default function BeatThreePivots() {
                                                         repeatDelay: 1,
                                                         ease: 'easeOut',
                                                     }}
-                                                    style={{ border: '1.5px solid rgba(52,211,153,0.3)' }}
+                                                    style={{ border: '1.5px solid var(--overlay-emerald-light-30)' }}
                                                 />
                                             ))}
                                         </motion.div>
@@ -505,7 +505,7 @@ export default function BeatThreePivots() {
                                         <div className="flex items-baseline gap-3 mb-1">
                                             <span className="text-lg md:text-xl font-bold tracking-tight"
                                                 style={{
-                                                    color: phase >= 7 ? '#34d399' : '#fff',
+                                                    color: phase >= 7 ? 'var(--semantic-emerald-400)' : 'var(--white)',
                                                     transition: 'color 0.6s',
                                                 }}>
                                                 Hub Panel Integration
@@ -542,7 +542,7 @@ export default function BeatThreePivots() {
                                             >
                                                 <span className="inline-block font-mono text-[10px] tracking-[0.3em] text-emerald-400/80 border border-emerald-500/30 rounded px-3 py-1 uppercase"
                                                     style={{
-                                                        boxShadow: '0 0 12px rgba(52,211,153,0.15)',
+                                                        boxShadow: '0 0 12px var(--overlay-emerald-light-15)',
                                                     }}>
                                                     Approved ✓
                                                 </span>

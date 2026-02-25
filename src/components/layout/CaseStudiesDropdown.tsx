@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useId, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -16,7 +16,10 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
   const [isMounted, setIsMounted] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+  const menuId = useId()
 
   // Ensure component only renders on client to avoid hydration issues
   useEffect(() => {
@@ -70,6 +73,47 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
     }
   }
 
+  const focusMenuItem = (selector: 'first' | 'last' = 'first') => {
+    const items = menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]')
+    if (!items || items.length === 0) return
+    const target = selector === 'last' ? items[items.length - 1] : items[0]
+    target?.focus()
+  }
+
+  const handleTriggerClick = () => {
+    setIsOpen((prev) => !prev)
+  }
+
+  const handleTriggerKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      setIsOpen(true)
+      requestAnimationFrame(() => focusMenuItem('first'))
+      return
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setIsOpen(true)
+      requestAnimationFrame(() => focusMenuItem('last'))
+      return
+    }
+
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      setIsOpen(false)
+      triggerRef.current?.focus()
+    }
+  }
+
+  const handleMenuKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      setIsOpen(false)
+      triggerRef.current?.focus()
+    }
+  }
+
   // Don't render until mounted on client
   if (!isMounted) {
     return (
@@ -94,12 +138,22 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
       className="relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onBlur={(event) => {
+        if (!containerRef.current?.contains(event.relatedTarget as Node)) {
+          setIsOpen(false)
+        }
+      }}
     >
       {/* Trigger */}
       <button
+        ref={triggerRef}
         className={`${className} inline-flex items-center gap-1`}
+        onClick={handleTriggerClick}
+        onKeyDown={handleTriggerKeyDown}
         aria-expanded={isOpen}
-        aria-haspopup="true"
+        aria-haspopup="menu"
+        aria-controls={menuId}
+        type="button"
       >
         Work
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -108,6 +162,8 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={menuId}
+            ref={menuRef}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -116,6 +172,9 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
             style={{ zIndex: 10001 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onKeyDown={handleMenuKeyDown}
+            role="menu"
+            aria-label="Case studies"
           >
             {/* Header */}
             <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
@@ -131,6 +190,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                 href="/#work-overview"
                 onClick={handleClick}
                 className="block px-4 py-2.5 text-slate-600 text-sm hover:bg-slate-50 hover:text-slate-900 transition-colors border-b border-slate-100"
+                role="menuitem"
               >
                 <span className="font-medium">View All Work</span>
               </Link>
@@ -142,6 +202,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                   href={item.href}
                   onClick={handleClick}
                   className="group block px-4 py-3 hover:bg-slate-50 transition-colors"
+                  role="menuitem"
                 >
                   <div className="flex items-center gap-3">
                     {/* System ID */}
@@ -168,11 +229,12 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
             {/* Footer */}
             <div className="px-4 py-2 border-t border-slate-100 bg-slate-50">
               <Link
-                href="/#work-archive"
+                href="/#lets-talk"
                 onClick={handleClick}
                 className="font-mono text-[10px] text-slate-500 hover:text-[var(--accent-teal)] uppercase tracking-wider transition-colors"
+                role="menuitem"
               >
-                → SECONDARY CASE STUDIES
+                → LET&apos;S TALK
               </Link>
             </div>
           </motion.div>

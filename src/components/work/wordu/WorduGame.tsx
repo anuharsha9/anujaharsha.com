@@ -182,7 +182,7 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                                 {data.phonetics?.some(p => p.audio) && (
                                     <button
                                         onClick={playAudio}
-                                        className="p-2 bg-[#00ADEE]/10 text-[#00ADEE] rounded-full hover:bg-[#00ADEE]/20 hover:scale-105 transition-all"
+                                        className="p-2 bg-[var(--accent-wordu)]/10 text-[var(--accent-wordu)] rounded-full hover:bg-[var(--accent-wordu)]/20 hover:scale-105 transition-all"
                                     >
                                         <Volume2 size={18} />
                                     </button>
@@ -201,7 +201,7 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                 <div className="px-8 pb-12 overflow-y-auto flex-1 overscroll-contain">
                     {loading && (
                         <div className="flex flex-col items-center justify-center py-20 space-y-4 opacity-50">
-                            <Loader2 size={40} className="animate-spin text-[#00ADEE]" />
+                            <Loader2 size={40} className="animate-spin text-[var(--accent-wordu)]" />
                             <p className="text-zinc-400 font-medium tracking-wide">Searching Dictionary...</p>
                         </div>
                     )}
@@ -231,7 +231,7 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                                                 <span className="text-zinc-400 mr-2">{j + 1}.</span>
                                                 {d.definition}
                                                 {d.example && (
-                                                    <div className="mt-2 pl-4 border-l-2 border-[#00ADEE]/30 text-zinc-500 italic text-base">
+                                                    <div className="mt-2 pl-4 border-l-2 border-[var(--accent-wordu)]/30 text-zinc-500 italic text-base">
                                                         &quot;{d.example}&quot;
                                                     </div>
                                                 )}
@@ -543,8 +543,8 @@ export default function WorduGame() {
 
     // --- Render ---
     return (
-        <div className="flex w-full h-full flex-col items-center justify-center bg-[#F7F7F7] font-sans text-zinc-900 overflow-hidden relative selection:bg-[#00ADEE]/30">
-            <AnimatePresence mode="wait">
+        <div className="flex w-full h-full flex-col items-center justify-center bg-[var(--surface-wordu)] font-sans text-zinc-900 overflow-hidden relative selection:bg-[var(--accent-wordu)]/30">
+            <AnimatePresence initial={false}>
 
                 {/* === MENU STATE === */}
                 {gameState === "menu" && (
@@ -571,7 +571,7 @@ export default function WorduGame() {
                                 initial={{ y: 20, opacity: 0, rotate: -180 }}
                                 animate={{ y: 0, opacity: 1, rotate: 0 }}
                                 transition={{ delay: 0.5, type: "spring" }}
-                                className="w-12 h-12 bg-[#00ADEE] text-white rounded-lg flex items-center justify-center text-2xl font-bold mx-1 shadow-lg shadow-blue-500/25 relative z-10"
+                                className="w-12 h-12 bg-[var(--accent-wordu)] text-white rounded-lg flex items-center justify-center text-2xl font-bold mx-1 shadow-lg shadow-blue-500/25 relative z-10"
                             >
                                 U
                             </motion.div>
@@ -584,7 +584,7 @@ export default function WorduGame() {
                         <div className="grid gap-3 w-full max-w-sm flex-1 overflow-y-auto px-2 pb-2 scrollbar-hide content-center">
                             {isLoading ? (
                                 <div className="flex flex-col items-center justify-center h-40 space-y-4">
-                                    <div className="w-10 h-10 border-4 border-[#00ADEE] border-t-transparent rounded-full animate-spin" />
+                                    <div className="w-10 h-10 border-4 border-[var(--accent-wordu)] border-t-transparent rounded-full animate-spin" />
                                     <p className="text-zinc-400 font-bold text-sm tracking-wide uppercase">Loading Dictionary...</p>
                                 </div>
                             ) : (
@@ -597,7 +597,7 @@ export default function WorduGame() {
                                         onClick={() => startGame(mode.id)}
                                         className={clsx(
                                             "group relative overflow-hidden rounded-xl p-4 text-left transition-all border",
-                                            "bg-white hover:bg-white hover:border-[#00ADEE]/50 shadow-sm hover:shadow-lg hover:shadow-blue-500/5"
+                                            "bg-white hover:bg-white hover:border-[var(--accent-wordu)]/50 shadow-sm hover:shadow-lg hover:shadow-blue-500/5"
                                         )}
                                     >
                                         <div className="flex items-center gap-4 relative z-10">
@@ -611,7 +611,7 @@ export default function WorduGame() {
                                                 </div>
                                                 <p className="text-xs text-zinc-400 font-bold leading-tight truncate">{mode.desc}</p>
                                             </div>
-                                            <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center text-zinc-400 group-hover:bg-[#00ADEE] group-hover:text-white transition-colors">
+                                            <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center text-zinc-400 group-hover:bg-[var(--accent-wordu)] group-hover:text-white transition-colors">
                                                 <ArrowRight size={18} />
                                             </div>
                                         </div>
@@ -644,11 +644,11 @@ export default function WorduGame() {
                             <div className="flex-1 px-4 flex flex-col items-center">
                                 <div className="text-[10px] font-black tracking-widest text-zinc-300 uppercase mb-1">Score</div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-2xl font-black text-[#00ADEE] tracking-tight">
+                                    <span className="text-2xl font-black text-[var(--accent-wordu)] tracking-tight">
                                         <AnimatedCounter value={score} />
                                     </span>
                                     {multiplier > 1 && (
-                                        <div className="bg-[#00ADEE]/10 text-[#00ADEE] text-xs font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
+                                        <div className="bg-[var(--accent-wordu)]/10 text-[var(--accent-wordu)] text-xs font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
                                             {multiplier}x Combo
                                         </div>
                                     )}
@@ -661,7 +661,7 @@ export default function WorduGame() {
                                         <div className="absolute inset-0 rounded-full border-4 border-zinc-100" />
                                         <div
                                             className={clsx("absolute inset-0 rounded-full border-4 border-t-transparent animate-spin duration-[3s]",
-                                                timeLeft < 10 ? "border-red-500" : "border-[#00ADEE]")}
+                                                timeLeft < 10 ? "border-red-500" : "border-[var(--accent-wordu)]")}
                                         />
                                         <span className={clsx("text-xs font-black", timeLeft < 10 ? "text-red-500" : "text-zinc-400")}>
                                             {selectedMode === 'target' ? movesLeft : timeLeft}
@@ -706,7 +706,7 @@ export default function WorduGame() {
                                                 className={clsx(
                                                     "relative px-5 py-3 text-lg max-w-[80%] break-all group cursor-pointer hover:scale-[1.01] transition-transform select-none border",
                                                     isUser
-                                                        ? "bg-[#00ADEE] border-[#00ADEE] text-white rounded-2xl rounded-tr-sm shadow-md shadow-blue-500/10"
+                                                        ? "bg-[var(--accent-wordu)] border-[var(--accent-wordu)] text-white rounded-2xl rounded-tr-sm shadow-md shadow-blue-500/10"
                                                         : "bg-white border-zinc-200 text-zinc-700 rounded-2xl rounded-tl-sm shadow-sm"
                                                 )}>
                                                 <div className="font-bold tracking-normal flex items-center gap-2">
@@ -714,7 +714,7 @@ export default function WorduGame() {
                                                         {entry.player === "opponent" ? (
                                                             <>
                                                                 {entry.word.slice(0, -1)}
-                                                                <span className="text-[#00ADEE] underline decoration-2 underline-offset-4">{entry.word.slice(-1)}</span>
+                                                                <span className="text-[var(--accent-wordu)] underline decoration-2 underline-offset-4">{entry.word.slice(-1)}</span>
                                                             </>
                                                         ) : (
                                                             <>
@@ -735,7 +735,7 @@ export default function WorduGame() {
                                                 )}
                                                 {isUser && (
                                                     <div className="absolute -right-2 -top-2 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-zinc-100 shadow-sm">
-                                                        <UserCircle size={14} className="text-[#00ADEE]" strokeWidth={2} />
+                                                        <UserCircle size={14} className="text-[var(--accent-wordu)]" strokeWidth={2} />
                                                     </div>
                                                 )}
 
@@ -798,7 +798,7 @@ export default function WorduGame() {
                                     exit={{ opacity: 0 }}
                                     className="absolute bottom-[100px] left-0 right-0 mx-auto w-max z-30"
                                 >
-                                    <div className="bg-[#00ADEE] text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-500/30 animate-bounce">
+                                    <div className="bg-[var(--accent-wordu)] text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-500/30 animate-bounce">
                                         Excellent! +{currentInput.length * multiplier} pts
                                     </div>
                                 </motion.div>
@@ -836,13 +836,13 @@ export default function WorduGame() {
                                     placeholder={turn === "you"
                                         ? (wordChain.length ? `Start with ${wordChain[wordChain.length - 1].word.slice(-1).toUpperCase()}...` : "Type first word...")
                                         : "Waiting..."}
-                                    className="flex-1 bg-zinc-50 border border-zinc-200 focus:bg-white focus:border-[#00ADEE] focus:ring-4 focus:ring-[#00ADEE]/10 outline-none rounded-xl px-4 py-3 text-lg font-bold text-zinc-800 placeholder:text-zinc-400 transition-all disabled:opacity-70"
+                                    className="flex-1 bg-zinc-50 border border-zinc-200 focus:bg-white focus:border-[var(--accent-wordu)] focus:ring-4 focus:ring-[var(--accent-wordu)]/10 outline-none rounded-xl px-4 py-3 text-lg font-bold text-zinc-800 placeholder:text-zinc-400 transition-all disabled:opacity-70"
                                     autoComplete="off"
                                 />
                                 <button
                                     type="submit"
                                     disabled={turn === "opponent" || !currentInput || isSubmitting}
-                                    className="w-14 h-12 shrink-0 bg-[#00ADEE] text-white rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20 hover:bg-[#0095CC] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm transition-all disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                                    className="w-14 h-12 shrink-0 bg-[var(--accent-wordu)] text-white rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20 hover:bg-[var(--accent-wordu-hover)] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm transition-all disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
                                 >
                                     {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} strokeWidth={2.5} className="ml-0.5" />}
                                 </button>
@@ -879,7 +879,7 @@ export default function WorduGame() {
                         </motion.div>
 
                         <div className="bg-white border-2 border-zinc-100 rounded-3xl p-8 w-full max-w-xs mb-8 flex flex-col items-center">
-                            <div className="text-6xl font-black text-[#00ADEE] tracking-tighter mb-2">
+                            <div className="text-6xl font-black text-[var(--accent-wordu)] tracking-tighter mb-2">
                                 <AnimatedCounter value={score} />
                             </div>
                             <div className="text-zinc-400 text-xs font-bold uppercase tracking-widest bg-zinc-100 px-3 py-1 rounded-full">
@@ -890,7 +890,7 @@ export default function WorduGame() {
                         <div className="flex flex-col gap-3 w-full max-w-xs">
                             <button
                                 onClick={() => startGame(selectedMode)}
-                                className="w-full bg-[#00ADEE] hover:bg-[#0095CC] text-white text-lg font-black tracking-wide py-4 rounded-xl shadow-[0_4px_0_#008DBD] active:shadow-none active:translate-y-[4px] transition-all border-b-4 border-[#008DBD] active:border-b-0 uppercase flex items-center justify-center gap-2"
+                                className="w-full bg-[var(--accent-wordu)] hover:bg-[var(--accent-wordu-hover)] text-white text-lg font-black tracking-wide py-4 rounded-xl shadow-[0_4px_0_var(--accent-wordu-active)] active:shadow-none active:translate-y-[4px] transition-all border-b-4 border-[var(--accent-wordu-active)] active:border-b-0 uppercase flex items-center justify-center gap-2"
                             >
                                 <RotateCcw size={20} strokeWidth={3} />
                                 Play Again

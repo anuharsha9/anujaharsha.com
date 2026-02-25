@@ -75,7 +75,7 @@ export default function CinematicTimeline() {
                     <div
                         ref={containerRef}
                         className="relative"
-                        style={{ height: `${(TOTAL + 1) * 100}vh` }}
+                        style={{ height: `${(TOTAL * 2.5) * 100}vh` }} // Increased from (TOTAL+1)*100vh to slow down the scroll
                     >
                         {/* ── Sticky Stage ── */}
                         <div className="sticky top-0 h-screen overflow-hidden">
@@ -84,7 +84,7 @@ export default function CinematicTimeline() {
                                 className="absolute inset-0 pointer-events-none z-20"
                                 style={{
                                     opacity: transitionGlowOpacity,
-                                    background: 'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(7,139,156,0.3), transparent 70%)',
+                                    background: 'radial-gradient(ellipse 60% 40% at 50% 50%, var(--overlay-accent-30), transparent 70%)',
                                 }}
                             />
 
@@ -117,7 +117,7 @@ export default function CinematicTimeline() {
                                     <div
                                         key={i}
                                         className={`rounded-full transition-all duration-500 ${i === currentIndex
-                                            ? 'w-2 h-2 bg-[#078B9C] shadow-[0_0_10px_rgba(7,139,156,0.6)]'
+                                            ? 'w-2 h-2 bg-[var(--accent-teal)] shadow-[0_0_10px_var(--overlay-accent-60)]'
                                             : i < currentIndex
                                                 ? 'w-1.5 h-1.5 bg-white/20'
                                                 : 'w-1.5 h-1.5 bg-white/8'

@@ -24,8 +24,8 @@ export default function InterstitialContent({
                 <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-white/20 mb-3">
                     Life Context
                 </p>
-                <div className="w-10 h-px bg-[#078B9C]/40 mx-auto mb-4" />
-                <p className="font-mono text-[#078B9C]/60 text-xs tracking-[0.2em] uppercase">
+                <div className="w-10 h-px bg-[var(--accent-teal)]/40 mx-auto mb-4" />
+                <p className="font-mono text-[var(--accent-teal)]/60 text-xs tracking-[0.2em] uppercase">
                     {era.period}
                 </p>
             </div>
@@ -38,7 +38,7 @@ export default function InterstitialContent({
                 {/* Animated cyan line */}
                 <div className="absolute left-6 sm:left-1/2 sm:-translate-x-[0.5px] top-0 bottom-0 w-px overflow-hidden neon-line-glow">
                     <motion.div
-                        className="w-full bg-gradient-to-b from-[#078B9C] to-[#078B9C]/30 origin-top"
+                        className="w-full bg-gradient-to-b from-[var(--accent-teal)] to-[var(--accent-teal)]/30 origin-top"
                         style={{ height: '100%', scaleY: lineProgress }}
                     />
                 </div>
@@ -55,25 +55,25 @@ export default function InterstitialContent({
                             >
                                 {/* Glowing dot */}
                                 <motion.div
-                                    className="absolute left-[18px] sm:left-1/2 sm:-translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#078B9C] bg-slate-950 z-10"
+                                    className="absolute left-[18px] sm:left-1/2 sm:-translate-x-1/2 w-4 h-4 rounded-full border-2 border-[var(--accent-teal)] bg-slate-950 z-10"
                                     style={{
                                         scale: dotScales[i],
-                                        boxShadow: '0 0 16px rgba(7,139,156,0.5)',
+                                        boxShadow: '0 0 16px var(--overlay-accent-50)',
                                     }}
                                 >
-                                    <div className="absolute inset-[3px] rounded-full bg-[#078B9C]" />
+                                    <div className="absolute inset-[3px] rounded-full bg-[var(--accent-teal)]" />
                                 </motion.div>
 
                                 {/* Year — left side on desktop */}
                                 <div className="hidden sm:block sm:w-1/2 sm:text-right sm:pr-10">
-                                    <span className="font-mono text-[#078B9C] text-sm tracking-[0.15em] uppercase">
+                                    <span className="font-mono text-[var(--accent-teal)] text-sm tracking-[0.15em] uppercase">
                                         {milestone.year}
                                     </span>
                                 </div>
 
                                 {/* Content — right side on desktop, below on mobile */}
                                 <div className="sm:w-1/2 sm:pl-10">
-                                    <span className="sm:hidden font-mono text-[#078B9C] text-[10px] tracking-[0.2em] uppercase block mb-1">
+                                    <span className="sm:hidden font-mono text-[var(--accent-teal)] text-[10px] tracking-[0.2em] uppercase block mb-1">
                                         {milestone.year}
                                     </span>
                                     <div className="flex items-center gap-2.5 mb-0.5">

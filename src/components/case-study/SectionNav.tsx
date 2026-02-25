@@ -206,11 +206,11 @@ export default function SectionNav({ sections }: SectionNavProps) {
         {/* Scroll Indicators (for mobile) */}
         <div
           className={`absolute left-0 top-0 bottom-0 w-8 pointer-events-none transition-opacity duration-300 ${showLeftIndicator ? 'opacity-100' : 'opacity-0'}`}
-          style={{ background: 'linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent)' }}
+          style={{ background: 'linear-gradient(to right, var(--overlay-white-95), transparent)' }}
         />
         <div
           className={`absolute right-0 top-0 bottom-0 w-8 pointer-events-none transition-opacity duration-300 ${showRightIndicator ? 'opacity-100' : 'opacity-0'}`}
-          style={{ background: 'linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent)' }}
+          style={{ background: 'linear-gradient(to left, var(--overlay-white-95), transparent)' }}
         />
       </div>
     </nav>

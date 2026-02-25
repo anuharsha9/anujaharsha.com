@@ -47,5 +47,5 @@ export const metadata: Metadata = {
 }
 
 export default function IQPluginPage() {
-  return <CaseStudyLayout data={iqPluginCaseStudy} />
+  return <CaseStudyLayout data={iqPluginCaseStudy} defaultViewMode="presentation" />
 }

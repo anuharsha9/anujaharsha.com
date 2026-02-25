@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og'
 export const dynamic = 'force-static'
 import { readFile } from 'fs/promises'
 import { join } from 'path'
+import { staticPalette } from '@/lib/design-system'
 
 export const alt = 'Anuja Harsha Nimmagadda | Senior Product Designer'
 export const size = { width: 1200, height: 630 }
@@ -25,7 +26,7 @@ export default async function Image() {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    backgroundColor: '#0a0a0a',
+                    backgroundColor: staticPalette.surfaceCharcoal950,
                     padding: '60px 80px',
                     fontFamily: 'system-ui, -apple-system, sans-serif',
                     position: 'relative',
@@ -41,7 +42,7 @@ export default async function Image() {
                         right: 0,
                         bottom: 0,
                         backgroundImage:
-                            'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
+                            `linear-gradient(${staticPalette.overlayWhite02} 1px, transparent 1px), linear-gradient(90deg, ${staticPalette.overlayWhite02} 1px, transparent 1px)`,
                         backgroundSize: '40px 40px',
                     }}
                 />
@@ -55,7 +56,7 @@ export default async function Image() {
                         width: 500,
                         height: 500,
                         borderRadius: '50%',
-                        background: 'radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%)',
+                        background: `radial-gradient(circle, ${staticPalette.overlayEmerald05} 0%, transparent 70%)`,
                     }}
                 />
 
@@ -66,7 +67,7 @@ export default async function Image() {
                         style={{
                             fontSize: 48,
                             fontWeight: 700,
-                            color: '#ffffff',
+                            color: staticPalette.white,
                             letterSpacing: '-0.02em',
                             lineHeight: 1.15,
                         }}
@@ -77,7 +78,7 @@ export default async function Image() {
                         style={{
                             fontSize: 48,
                             fontWeight: 700,
-                            color: '#ffffff',
+                            color: staticPalette.white,
                             letterSpacing: '-0.02em',
                             lineHeight: 1.15,
                         }}
@@ -90,7 +91,7 @@ export default async function Image() {
                         style={{
                             fontSize: 20,
                             fontWeight: 400,
-                            color: '#d4d4d8',
+                            color: staticPalette.neutralZinc300,
                             marginTop: 14,
                         }}
                     >
@@ -102,7 +103,7 @@ export default async function Image() {
                         style={{
                             width: 400,
                             height: 1,
-                            backgroundColor: 'rgba(255,255,255,0.12)',
+                            backgroundColor: staticPalette.overlayWhite12,
                             marginTop: 24,
                         }}
                     />
@@ -115,15 +116,15 @@ export default async function Image() {
                             marginTop: 18,
                             fontSize: 12,
                             fontWeight: 500,
-                            color: '#a1a1aa',
+                            color: staticPalette.neutralZinc400,
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase' as const,
                         }}
                     >
                         <span>Enterprise UX</span>
-                        <span style={{ color: '#52525b' }}>·</span>
+                        <span style={{ color: staticPalette.neutralZinc600 }}>·</span>
                         <span>Design Systems</span>
-                        <span style={{ color: '#52525b' }}>·</span>
+                        <span style={{ color: staticPalette.neutralZinc600 }}>·</span>
                         <span>13 Years</span>
                     </div>
 
@@ -132,7 +133,7 @@ export default async function Image() {
                         style={{
                             fontSize: 15,
                             fontWeight: 400,
-                            color: '#a1a1aa',
+                            color: staticPalette.neutralZinc400,
                             marginTop: 22,
                             lineHeight: 1.7,
                             maxWidth: 480,
@@ -147,7 +148,7 @@ export default async function Image() {
                         style={{
                             fontSize: 13,
                             fontWeight: 400,
-                            color: '#71717a',
+                            color: staticPalette.neutralZinc500,
                             marginTop: 40,
                             letterSpacing: '0.05em',
                         }}
@@ -174,17 +175,18 @@ export default async function Image() {
                             width: 340,
                             height: 340,
                             borderRadius: '50%',
-                            border: '1px solid rgba(255,255,255,0.06)',
+                            border: `1px solid ${staticPalette.overlayWhite06}`,
                         }}
                     />
                     {/* Avatar image */}
                     <img
                         src={avatarBase64}
+                        alt=""
                         width={300}
                         height={300}
                         style={{
                             borderRadius: '50%',
-                            border: '2px solid rgba(255,255,255,0.1)',
+                            border: `2px solid ${staticPalette.overlayWhite10}`,
                             objectFit: 'cover',
                         }}
                     />
@@ -198,7 +200,7 @@ export default async function Image() {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        border: '1px solid rgba(255,255,255,0.06)',
+                        border: `1px solid ${staticPalette.overlayWhite06}`,
                     }}
                 />
             </div>

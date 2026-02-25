@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import ComponentHeading from '@/components/ui/ComponentHeading'
+import { withHexAlpha } from '@/lib/color-utils'
 
 import { ChevronDown, BarChart2, RefreshCw, Search } from 'lucide-react'
 
@@ -16,9 +17,9 @@ const existingWorkflows = [
 ]
 
 const newWorkflows = [
-    { label: 'Create Schedule', color: '#10b981' },
-    { label: 'Create Distribution List', color: '#10b981' },
-    { label: 'Create Access List', color: '#10b981' },
+    { label: 'Create Schedule', color: 'var(--semantic-emerald-500)' },
+    { label: 'Create Distribution List', color: 'var(--semantic-emerald-500)' },
+    { label: 'Create Access List', color: 'var(--semantic-emerald-500)' },
 ]
 
 const containerVariants = {
@@ -165,8 +166,8 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                                             key={wf.label}
                                             className="flex items-center gap-2 px-3 py-2 rounded-md border"
                                             style={{
-                                                backgroundColor: `${wf.color}08`,
-                                                borderColor: `${wf.color}30`,
+                                                backgroundColor: withHexAlpha(wf.color, '08'),
+                                                borderColor: withHexAlpha(wf.color, '30'),
                                             }}
                                             initial={{ opacity: 0, x: -10 }}
                                             whileInView={{ opacity: 1, x: 0 }}

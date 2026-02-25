@@ -97,7 +97,7 @@ export default function NaturalLanguageInsight({ isLightBackground = true }: Nat
                             <span className="text-[9px] font-mono text-emerald-600 uppercase tracking-wider">why not just show that?</span>
                             <div className="w-px h-3 bg-emerald-400" />
                             <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" />
+                                <path d="M1 1L6 6L11 1" stroke="var(--semantic-emerald-500)" strokeWidth="1.5" strokeLinecap="round" />
                             </svg>
                         </div>
                     </motion.div>

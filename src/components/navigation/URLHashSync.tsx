@@ -5,10 +5,7 @@ import { usePathname } from 'next/navigation'
 
 // Sections to track for URL hash updates
 const landingPageSections = [
-  'executive-summary',
   'work-overview',
-  'testimonials',
-  'work-archive',
   'lets-talk',
 ]
 
@@ -49,13 +46,12 @@ export default function URLHashSync() {
     window.history.replaceState(null, '', window.location.pathname)
     window.scrollTo({ top: 0, behavior: 'instant' })
 
-    let isScrolling = false
     let scrollTimeout: NodeJS.Timeout | null = null
     let hasInitialized = false
     let userHasScrolled = false
 
     const updateHash = () => {
-      if (isScrolling || !hasInitialized || !userHasScrolled) return
+      if (!hasInitialized || !userHasScrolled) return
 
       // Don't update hash if we're at the top (hero section)
       if (window.scrollY < 100) {

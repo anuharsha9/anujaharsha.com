@@ -24,12 +24,12 @@ export default function TalkSection() {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="text-center space-y-space-6"
         >
-          {/* Headline - "Breathing" Gradient Text */}
+          {/* Headline — Mission Statement Bookend */}
           <div>
             <h2
-              className="font-sans font-black text-6xl md:text-8xl lg:text-9xl leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-slate-400 animate-gradient-y"
+              className="font-sans font-extrabold text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-slate-400"
             >
-              Let&apos;s build.
+              I design so I can be part of making people&apos;s lives a little easier every day.
             </h2>
           </div>
 
@@ -86,7 +86,7 @@ export default function TalkSection() {
                   trackResumeDownload()
                   openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
                 }}
-                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-sm text-amber-200 font-medium text-sm hover:bg-amber-500/20 hover:text-amber-100 hover:border-amber-500/60 transition-all duration-300 overflow-hidden shadow-[0_0_15px_rgba(245,158,11,0.1)] hover:shadow-[0_0_25px_rgba(245,158,11,0.2)]`}
+                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-sm text-amber-200 font-medium text-sm hover:bg-amber-500/20 hover:text-amber-100 hover:border-amber-500/60 transition-all duration-300 overflow-hidden shadow-[0_0_15px_var(--overlay-amber-10)] hover:shadow-[0_0_25px_var(--overlay-amber-20)]`}
                 aria-label="View Resume PDF"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-200/20 to-transparent translate-x-[-100%] group-hover:animate-shine" />

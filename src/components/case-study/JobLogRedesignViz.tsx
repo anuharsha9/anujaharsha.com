@@ -391,7 +391,7 @@ export default function JobLogRedesignViz() {
                                                     ].map((r, i) => (
                                                         <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{
                                                             opacity: 1, x: 0,
-                                                            backgroundColor: showModal && i === 2 ? 'rgba(99,102,241,0.1)' : 'transparent'
+                                                            backgroundColor: showModal && i === 2 ? 'var(--overlay-indigo-10)' : 'transparent'
                                                         }} transition={{ delay: 0.2 + i * 0.06, duration: 0.25, ease }}
                                                             className="grid grid-cols-[28px_1fr_90px_90px_52px] text-[8px] font-mono px-0 py-1 border-b border-white/[0.02] items-center">
                                                             <span className="text-zinc-600">{r.n}</span>
@@ -522,7 +522,7 @@ export default function JobLogRedesignViz() {
                 <div className="h-[2px] bg-zinc-900 relative overflow-hidden">
                     <motion.div key={`prog-${act}`} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
                         transition={{ duration: LOOP_MS / 1000, ease: 'linear' }} className="absolute inset-0 origin-left"
-                        style={{ background: act < 6 ? '#f43f5e' : '#10b981' }} />
+                        style={{ background: act < 6 ? 'var(--semantic-rose-500)' : 'var(--semantic-emerald-500)' }} />
                 </div>
             </div>
         </div>

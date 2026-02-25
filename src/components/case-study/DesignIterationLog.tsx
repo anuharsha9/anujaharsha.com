@@ -364,13 +364,13 @@ export default function DesignIterationLog({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
-        className="bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl border border-white/10 max-w-4xl mx-auto"
+        className="bg-[var(--surface-neutral-900)] rounded-xl overflow-hidden shadow-2xl border border-white/10 max-w-4xl mx-auto"
       >
         {/* Terminal Window Controls */}
-        <div className="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-white/5">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-          <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+        <div className="bg-[var(--surface-neutral-800)] px-4 py-2 flex items-center gap-2 border-b border-white/5">
+          <div className="w-3 h-3 rounded-full bg-[var(--terminal-red-alt)]" />
+          <div className="w-3 h-3 rounded-full bg-[var(--terminal-orange)]" />
+          <div className="w-3 h-3 rounded-full bg-[var(--terminal-green)]" />
         </div>
 
         <div className="p-8">

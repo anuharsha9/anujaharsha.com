@@ -51,6 +51,7 @@
 
    /* Teal palette */
    --accent-teal: #078B9C;
+   --accent-teal-rgb: 7, 139, 156;
    --accent-teal-soft: rgba(7, 139, 156, 0.08);
    --accent-teal-50: #E6F7F9;
    --accent-teal-100: #CCEFF3;
@@ -62,6 +63,12 @@
    --accent-teal-700: #0990A2;
    --accent-teal-800: #077D8E;
    --accent-teal-900: #056A7A;
+   --accent-teal-bright: #14b8a6;
+
+   /* Product-specific accent (Wordu) */
+   --accent-wordu: #00ADEE;
+   --accent-wordu-hover: #0095CC;
+   --accent-wordu-active: #008DBD;
 
    /* ============================================
      SECONDARY ACCENT - Blue (#0071e3 - Apple Blue)
@@ -291,4 +298,202 @@
    --text-monitor: #ffffff;
    --text-monitor-muted: #86868b;
    --text-monitor-dim: #6e6e73;
+
+   /* Cinematic dark surfaces */
+   --bg-ink-950: #020617;
+   --bg-ink-900: #0f172a;
+   --bg-cinematic: #010204;
+   --surface-panel-dark: #1D1D20;
+   --surface-night: #070B14;
+   --surface-charcoal-950: #0a0a0a;
+   --surface-charcoal-900: #1a1a1a;
+   --surface-charcoal-800: #2a2a2a;
+   --surface-wordu: #F7F7F7;
+
+   /* Utility neutrals */
+   --white: #ffffff;
+   --white-rgb: 255, 255, 255;
+   --neutral-zinc-500: #71717a;
+   --neutral-zinc-400: #a1a1aa;
+   --neutral-zinc-600: #52525b;
+   --neutral-zinc-300: #d4d4d8;
+
+   /* Common cinematic overlays */
+   --overlay-white-20: rgba(255,255,255,0.2);
+   --overlay-white-15: rgba(255,255,255,0.15);
+   --overlay-white-10: rgba(255,255,255,0.1);
+   --overlay-white-08: rgba(255,255,255,0.08);
+   --overlay-white-06: rgba(255,255,255,0.06);
+   --overlay-white-05: rgba(255,255,255,0.05);
+   --overlay-white-04: rgba(255,255,255,0.04);
+   --overlay-white-03: rgba(255,255,255,0.03);
+   --overlay-white-02: rgba(255,255,255,0.02);
+
+   --overlay-black-30: rgba(0,0,0,0.3);
+   --overlay-black-50: rgba(0,0,0,0.5);
+   --overlay-black-60: rgba(0,0,0,0.6);
+   --overlay-black-80: rgba(0,0,0,0.8);
+   --overlay-black-95: rgba(0,0,0,0.95);
+   --overlay-white-90: rgba(255,255,255,0.9);
+   --overlay-white-50: rgba(255,255,255,0.5);
+   --overlay-white-46: rgba(255,255,255,0.46);
+   --overlay-white-45: rgba(255,255,255,0.45);
+   --overlay-white-30: rgba(255,255,255,0.3);
+   --overlay-white-22: rgba(255,255,255,0.22);
+   --overlay-white-12: rgba(255,255,255,0.12);
+   --overlay-white-025: rgba(255,255,255,0.025);
+
+   /* Expanded semantic palette used by motion/case-study visuals */
+   --semantic-emerald-500: #10b981;
+   --semantic-emerald-400: #34d399;
+   --semantic-green-500: #22c55e;
+   --semantic-blue-500: #3b82f6;
+   --semantic-blue-400: #60a5fa;
+   --semantic-rose-500: #f43f5e;
+   --semantic-red-500: #ef4444;
+   --semantic-orange-500: #f97316;
+   --semantic-violet-400: #a78bfa;
+   --semantic-purple-500: #a855f7;
+   --semantic-cyan-500: #06b6d4;
+   --semantic-pink-500: #ec4899;
+   --semantic-navy-700: #1a3344;
+   --semantic-magenta-500: #E91E8C;
+   --semantic-orange-vivid: #FF6B35;
+   --semantic-cyan-vivid: #22D3EE;
+   --semantic-purple-vivid: #A855F7;
+
+   /* Brand-specific accents */
+   --brand-linkedin: #0077b5;
+
+   /* Accent overlays */
+   --overlay-accent-50: rgba(7,139,156,0.5);
+   --overlay-accent-30: rgba(7,139,156,0.3);
+   --overlay-accent-20: rgba(7,139,156,0.2);
+   --overlay-accent-40: rgba(7,139,156,0.4);
+   --overlay-accent-08: rgba(7,139,156,0.08);
+   --overlay-accent-06: rgba(7,139,156,0.06);
+   --overlay-accent-05: rgba(7,139,156,0.05);
+   --overlay-accent-60: rgba(7,139,156,0.6);
+   --overlay-accent-70: rgba(7,139,156,0.7);
+
+   --overlay-black-10: rgba(0,0,0,0.1);
+   --overlay-black-15: rgba(0,0,0,0.15);
+   --overlay-black-25: rgba(0,0,0,0.25);
+   --overlay-ink-60: rgba(2,6,23,0.6);
+
+   --overlay-white-95: rgba(255,255,255,0.95);
+   --overlay-white-70: rgba(255,255,255,0.7);
+   --overlay-white-40: rgba(255,255,255,0.4);
+   --overlay-white-35: rgba(255,255,255,0.35);
+   --overlay-white-01: rgba(255,255,255,0.01);
+   --overlay-white-67: rgba(255,255,255,0.67);
+
+   --overlay-zinc-05: rgba(161,161,170,0.05);
+   --overlay-zinc-100: rgba(161,161,170,1);
+   --overlay-zinc-900: rgba(24,24,27,1);
+
+   --overlay-amber-10: rgba(245,158,11,0.1);
+   --overlay-amber-20: rgba(245,158,11,0.2);
+   --overlay-amber-08: rgba(245,158,11,0.08);
+   --overlay-amber-50: rgba(251,191,36,0.5);
+
+   --overlay-teal-bright-70: rgba(20,184,166,0.7);
+   --overlay-teal-bright-15: rgba(20,184,166,0.15);
+   --overlay-teal-bright-10: rgba(20,184,166,0.1);
+
+   --overlay-sky-45: rgba(56,189,248,0.45);
+   --overlay-sky-70: rgba(125,211,252,0.7);
+   --overlay-sky-08: rgba(14,165,233,0.08);
+
+   --overlay-teal-45: rgba(45,212,191,0.45);
+   --overlay-teal-20: rgba(45,212,191,0.2);
+   --overlay-teal-18: rgba(45,212,191,0.18);
+   --overlay-teal-core-30: rgba(11,162,181,0.3);
+   --overlay-teal-core-12: rgba(0,162,183,0.12);
+   --overlay-cyan-electric-22: rgba(0,229,255,0.22);
+   --overlay-cyan-electric-15: rgba(64,221,255,0.15);
+   --overlay-cyan-light-22: rgba(20,184,200,0.22);
+   --overlay-cyan-frost-96: rgba(232,252,255,0.96);
+   --overlay-cyan-deep-86: rgba(7,139,156,0.86);
+   --overlay-cyan-wire-18: rgba(80,230,245,0.18);
+   --overlay-cyan-wire-26: rgba(80,230,245,0.26);
+   --overlay-cyan-neon-26: rgba(96,245,255,0.26);
+   --overlay-cyan-neon-38: rgba(96,245,255,0.38);
+
+   --overlay-violet-08: rgba(139,92,246,0.08);
+   --overlay-blue-08: rgba(59,130,246,0.08);
+   --overlay-indigo-08: rgba(99,102,241,0.08);
+   --overlay-indigo-10: rgba(99,102,241,0.1);
+
+   --overlay-emerald-05: rgba(16,185,129,0.05);
+   --overlay-emerald-08: rgba(16,185,129,0.08);
+   --overlay-emerald-10: rgba(16,185,129,0.1);
+   --overlay-emerald-15: rgba(16,185,129,0.15);
+   --overlay-emerald-20: rgba(16,185,129,0.2);
+   --overlay-emerald-30: rgba(16,185,129,0.3);
+   --overlay-emerald-50: rgba(16,185,129,0.5);
+
+   --overlay-emerald-light-10: rgba(52,211,153,0.1);
+   --overlay-emerald-light-15: rgba(52,211,153,0.15);
+   --overlay-emerald-light-20: rgba(52,211,153,0.2);
+   --overlay-emerald-light-30: rgba(52,211,153,0.3);
+   --overlay-emerald-light-40: rgba(52,211,153,0.4);
+   --overlay-emerald-light-50: rgba(52,211,153,0.5);
+   --overlay-emerald-light-80: rgba(52,211,153,0.8);
+
+   --overlay-green-08: rgba(34,197,94,0.08);
+   --overlay-green-10: rgba(34,197,94,0.1);
+   --overlay-green-15: rgba(34,197,94,0.15);
+   --overlay-green-30: rgba(34,197,94,0.3);
+
+   --overlay-red-15: rgba(239,68,68,0.15);
+   --overlay-red-30: rgba(239,68,68,0.3);
+   --overlay-red-40: rgba(239,68,68,0.4);
+
+   --overlay-rose-08: rgba(244,63,94,0.08);
+   --overlay-rose-10: rgba(244,63,94,0.1);
+   --overlay-rose-20: rgba(244,63,94,0.2);
+   --overlay-rose-25: rgba(244,63,94,0.25);
+   --overlay-rose-40: rgba(244,63,94,0.4);
+   --overlay-rose-50: rgba(244,63,94,0.5);
+   --overlay-rose-60: rgba(244,63,94,0.6);
+   --overlay-rose-70: rgba(244,63,94,0.7);
+
+   /* Extended cinematic surfaces + signal palette */
+   --surface-zinc-950: #09090b;
+   --surface-obsidian-900: #0a0e14;
+   --surface-indigo-950: #0c1222;
+   --surface-violet-950: #0d0d1a;
+   --surface-navy-900: #0d1a2a;
+   --surface-emerald-900: #0d3328;
+   --surface-slate-925: #0f1720;
+   --surface-navy-850: #132030;
+   --surface-slate-800: #1E293B;
+   --surface-indigo-900: #1a1a2e;
+   --surface-navy-780: #1a2744;
+   --surface-neutral-900: #1e1e1e;
+   --surface-neutral-850: #2A2A2D;
+   --surface-neutral-800: #2d2d2d;
+   --surface-purple-900: #2d1b4e;
+   --surface-amber-950: #2a1a0a;
+   --surface-rose-900: #3d1520;
+   --surface-amber-900: #3d2b10;
+
+   --terminal-red: #ff5f57;
+   --terminal-red-alt: #ff5f56;
+   --terminal-orange: #ffbd2e;
+   --terminal-yellow: #febc2e;
+   --terminal-green: #27c93f;
+   --terminal-green-alt: #28c840;
+
+   --tone-teal-muted: #5b8a8a;
+   --tone-indigo-500: #6366f1;
+   --tone-cyan-200: #a5f3fc;
+   --tone-sky-200: #bae6fd;
+   --tone-violet-300: #c4b5fd;
+   --tone-amber-500: #eab308;
+   --tone-pink-400: #f472b6;
+   --tone-red-400: #f87171;
+   --tone-amber-400: #fbbf24;
+   --tone-amber-200: #fde68a;
 }

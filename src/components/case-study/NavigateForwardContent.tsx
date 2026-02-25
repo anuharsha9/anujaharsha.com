@@ -106,7 +106,7 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
 
       {/* Customer Recognition — Premium Card */}
       <div className="w-full">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0f1720] via-[#132030] to-[#0d1a2a] p-10 md:p-14
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--surface-slate-925)] via-[var(--surface-navy-850)] to-[var(--surface-navy-900)] p-10 md:p-14
           border border-white/5 shadow-2xl">
           {/* Ambient glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/[0.04] rounded-full blur-3xl" />

@@ -139,7 +139,7 @@ export default function BeatFragmentation() {
                                         transition={{ duration: 0.5, ease }}
                                         className="relative rounded-xl border bg-white/[0.02] overflow-hidden"
                                         style={{
-                                            borderColor: isChaos ? 'rgba(244,63,94,0.25)' : 'rgba(255,255,255,0.08)',
+                                            borderColor: isChaos ? 'var(--overlay-rose-25)' : 'var(--overlay-white-08)',
                                             transition: 'border-color 0.8s ease',
                                         }}
                                     >
@@ -151,8 +151,8 @@ export default function BeatFragmentation() {
                                             className="h-1 origin-left"
                                             style={{
                                                 background: isChaos
-                                                    ? 'linear-gradient(90deg, rgba(244,63,94,0.4), rgba(244,63,94,0.1))'
-                                                    : 'linear-gradient(90deg, rgba(255,255,255,0.1), transparent)',
+                                                    ? 'linear-gradient(90deg, var(--overlay-rose-40), var(--overlay-rose-10))'
+                                                    : 'linear-gradient(90deg, var(--overlay-white-10), transparent)',
                                                 transition: 'background 0.8s ease',
                                             }}
                                         />
@@ -170,7 +170,7 @@ export default function BeatFragmentation() {
                                                     transition={{ duration: 0.4, delay: 0.3, ease }}
                                                 >
                                                     <Icon className="w-4 h-4 text-zinc-400" strokeWidth={1.5} style={{
-                                                        color: isChaos ? 'rgba(244,63,94,0.7)' : undefined,
+                                                        color: isChaos ? 'var(--overlay-rose-70)' : undefined,
                                                         transition: 'color 0.8s ease',
                                                     }} />
                                                 </motion.div>
@@ -214,7 +214,7 @@ export default function BeatFragmentation() {
                                                 transition={{ duration: 0.4, delay: 0.9, ease }}
                                                 className="text-[10px] text-zinc-500 font-mono mt-2 leading-snug"
                                                 style={{
-                                                    color: isChaos ? 'rgba(244,63,94,0.6)' : undefined,
+                                                    color: isChaos ? 'var(--overlay-rose-60)' : undefined,
                                                     transition: 'color 0.8s ease',
                                                 }}
                                             >
@@ -230,7 +230,7 @@ export default function BeatFragmentation() {
                                                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                                                 className="absolute inset-0 pointer-events-none rounded-xl"
                                                 style={{
-                                                    background: 'radial-gradient(circle at center, rgba(244,63,94,0.2) 0%, transparent 70%)',
+                                                    background: 'radial-gradient(circle at center, var(--overlay-rose-20) 0%, transparent 70%)',
                                                 }}
                                             />
                                         )}
@@ -254,7 +254,7 @@ export default function BeatFragmentation() {
                                                 key={i}
                                                 d={d}
                                                 fill="none"
-                                                stroke="rgba(244,63,94,0.2)"
+                                                stroke="var(--overlay-rose-20)"
                                                 strokeWidth="0.3"
                                                 strokeDasharray="2 2"
                                                 initial={{ pathLength: 0, opacity: 0 }}
@@ -271,7 +271,7 @@ export default function BeatFragmentation() {
                                             <motion.circle
                                                 key={`dot-${i}`}
                                                 r="0.8"
-                                                fill="rgba(244,63,94,0.5)"
+                                                fill="var(--overlay-rose-50)"
                                             >
                                                 <animateMotion
                                                     dur={`${3 + i * 0.5}s`}

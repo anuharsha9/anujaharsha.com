@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -15,10 +16,10 @@ interface Fact {
 }
 
 const FACTS: Fact[] = [
-    { label: 'Days at the company', value: '7', ring: 0.019, color: '#60a5fa' },
-    { label: 'BI tools used before', value: '0', ring: 0, color: '#f472b6' },
-    { label: 'Data analytics experience', value: 'Zero', ring: 0, color: '#a78bfa' },
-    { label: 'Knowledge of ReportCaster', value: 'Zero', ring: 0, color: '#fbbf24' },
+    { label: 'Days at the company', value: '7', ring: 0.019, color: 'var(--semantic-blue-400)' },
+    { label: 'BI tools used before', value: '0', ring: 0, color: 'var(--tone-pink-400)' },
+    { label: 'Data analytics experience', value: 'Zero', ring: 0, color: 'var(--semantic-violet-400)' },
+    { label: 'Knowledge of ReportCaster', value: 'Zero', ring: 0, color: 'var(--tone-amber-400)' },
 ]
 
 const RING_R = 38
@@ -111,7 +112,7 @@ export default function BeatWeekOne() {
                                             <circle
                                                 cx="48" cy="48" r={RING_R}
                                                 fill="none"
-                                                stroke="rgba(255,255,255,0.04)"
+                                                stroke="var(--overlay-white-04)"
                                                 strokeWidth="3"
                                             />
                                             {/* Animated arc */}
@@ -143,7 +144,7 @@ export default function BeatWeekOne() {
                                                     <motion.line
                                                         key={ti}
                                                         x1={x1} y1={y1} x2={x2} y2={y2}
-                                                        stroke="rgba(255,255,255,0.08)"
+                                                        stroke="var(--overlay-white-08)"
                                                         strokeWidth="1"
                                                         initial={{ opacity: 0 }}
                                                         animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
@@ -180,7 +181,7 @@ export default function BeatWeekOne() {
                                                 animate={{ opacity: [0, 0.15, 0] }}
                                                 transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
                                                 style={{
-                                                    background: `radial-gradient(circle, ${fact.color}22 0%, transparent 60%)`,
+                                                    background: `radial-gradient(circle, ${withHexAlpha(fact.color, '22')} 0%, transparent 60%)`,
                                                 }}
                                             />
                                         )}
@@ -219,7 +220,7 @@ export default function BeatWeekOne() {
                             animate={step >= 4 ? { left: '110%' } : { left: '-10%' }}
                             transition={{ duration: 1.5, ease: 'easeInOut' }}
                             style={{
-                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
+                                background: 'linear-gradient(90deg, transparent, var(--overlay-white-15), transparent)',
                             }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-700/20 to-transparent" />

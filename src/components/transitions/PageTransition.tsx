@@ -102,7 +102,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
               key="radial-overlay"
               className="fixed inset-0 z-[9998]"
               style={{
-                backgroundColor: 'var(--bg-dark, #0c1222)',
+                backgroundColor: 'var(--bg-dark, var(--surface-indigo-950))',
               }}
               initial={{
                 clipPath: `circle(0px at ${clickPos.x}px ${clickPos.y}px)`,
@@ -131,7 +131,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
               key="radial-accent"
               className="fixed inset-0 z-[9999]"
               style={{
-                backgroundColor: 'var(--accent-teal, #5b8a8a)',
+                backgroundColor: 'var(--accent-teal, var(--tone-teal-muted))',
               }}
               initial={{
                 clipPath: `circle(0px at ${clickPos.x}px ${clickPos.y}px)`,

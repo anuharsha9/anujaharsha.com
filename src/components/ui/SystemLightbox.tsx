@@ -138,7 +138,7 @@ export default function SystemLightbox({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="absolute inset-0 bg-[#020617]"
+                        className="absolute inset-0 bg-[var(--bg-ink-950)]"
                         onClick={onClose}
                     />
 
@@ -195,13 +195,13 @@ export default function SystemLightbox({
                             <>
                                 <button
                                     onClick={onPrev}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[#0F172A] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
                                 >
                                     <ArrowLeft size={32} />
                                 </button>
                                 <button
                                     onClick={onNext}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[#0F172A] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
                                 >
                                     <ArrowRight size={32} />
                                 </button>
@@ -219,7 +219,7 @@ export default function SystemLightbox({
                     >
                         {shortcuts.map((shortcut, i) => (
                             <div key={i} className="flex items-center gap-3">
-                                <kbd className="hidden md:inline-flex h-8 px-2.5 items-center justify-center bg-[#1E293B] border border-slate-700/50 rounded-md text-sm font-mono text-slate-400 min-w-[32px]">
+                                <kbd className="hidden md:inline-flex h-8 px-2.5 items-center justify-center bg-[var(--surface-slate-800)] border border-slate-700/50 rounded-md text-sm font-mono text-slate-400 min-w-[32px]">
                                     {shortcut.key}
                                 </kbd>
                                 <span className="font-mono text-xs tracking-[0.2em] text-slate-500 uppercase">

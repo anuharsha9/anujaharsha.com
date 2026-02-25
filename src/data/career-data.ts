@@ -30,6 +30,9 @@ export interface WorkItem {
     statusLabel?: string;
     impactDirectional?: string;
     caseStudyType?: 'Flagship' | 'Secondary' | 'Third';
+    problemStatement?: string;
+    goal?: string;
+    result?: string;
 }
 
 export interface Milestone {
@@ -129,7 +132,10 @@ export const CAREER_DATA: CareerEra[] = [
                 locked: false,
                 statusLabel: 'Flagship Case Study',
                 impactDirectional: 'Consolidated into 1 unified hub; powering 20M+ weekly schedules.',
-                caseStudyType: 'Flagship'
+                caseStudyType: 'Flagship',
+                problemStatement: 'Customers were leaving due to legacy UX.',
+                goal: 'RETENTION & MODERNIZATION',
+                result: 'SUCCESS! 75% fewer clicks'
             },
             {
                 id: "ml-functions",
@@ -146,7 +152,10 @@ export const CAREER_DATA: CareerEra[] = [
                 locked: false,
                 statusLabel: 'Shipping 2026',
                 impactDirectional: 'Reduced 12-step coding task to a 4-step visual wizard.',
-                caseStudyType: 'Secondary'
+                caseStudyType: 'Secondary',
+                problemStatement: 'Lack of feature adoptability (0%).',
+                goal: 'DISCOVERABILITY & EASE OF USE',
+                result: '50% faster task achievement'
             },
             {
                 id: "iq-plugin",
@@ -163,34 +172,20 @@ export const CAREER_DATA: CareerEra[] = [
                 locked: false,
                 statusLabel: 'Not shipped yet — in production pipeline',
                 impactDirectional: 'Unified 3 tools into one discovery hub (in production pipeline).',
-                caseStudyType: 'Third'
+                caseStudyType: 'Third',
+                problemStatement: 'AI/ML capabilities were siloed and hidden.',
+                goal: 'MAKE AI/ML PROMINENT',
+                result: 'SUCCESS! 1 click to each feature'
             }
         ],
-        articles: [
-            {
-                id: "better-bi",
-                title: "The Secret Behind Better BI",
-                description: "Defining user personas in enterprise analytics.",
-                image: "/images/articles/better-bi-thumb.png",
-                link: "https://community.ibi.com/articles/the-secret-behind-better-bi-who%E2%80%99s-your-business-user-r44/",
-                tags: ["UX Strategy", "Article"]
-            },
-            {
-                id: "enhancing-ux",
-                title: "Enhancing UX in WebFOCUS",
-                description: "Improving UX in data science and ML workflows.",
-                image: "/images/articles/enhancing-ux-webfocus.jpg",
-                link: "https://community.ibi.com/forums/topic/16161-enhancing-user-experience-in-webfocus-dsml/",
-                tags: ["AI/ML", "Article"]
-            }
-        ]
+        articles: []
     },
 
     // ZONE 2.5: CSG TESTIMONIALS (Dedicated Block)
     {
         id: "csg-testimonials",
         company: "Cloud Software Group",
-        role: "What They Say",
+        role: "Social Proof",
         period: "2022 — 2025",
         description: "Endorsements from the team I worked with every day.",
         testimonials: [

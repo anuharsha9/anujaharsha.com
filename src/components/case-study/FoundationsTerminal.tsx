@@ -16,14 +16,14 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-                className="rounded-xl bg-[#0a0e14] border border-white/[0.08] overflow-hidden shadow-2xl"
+                className="rounded-xl bg-[var(--surface-obsidian-900)] border border-white/[0.08] overflow-hidden shadow-2xl"
             >
                 {/* Title Bar */}
                 <div className="flex items-center gap-2 px-4 py-3 bg-white/[0.03] border-b border-white/[0.06]">
                     <div className="flex gap-1.5">
-                        <div className="w-3 h-3 rounded-full bg-[#ff5f57]/80" />
-                        <div className="w-3 h-3 rounded-full bg-[#febc2e]/80" />
-                        <div className="w-3 h-3 rounded-full bg-[#28c840]/80" />
+                        <div className="w-3 h-3 rounded-full bg-[var(--terminal-red)]/80" />
+                        <div className="w-3 h-3 rounded-full bg-[var(--terminal-yellow)]/80" />
+                        <div className="w-3 h-3 rounded-full bg-[var(--terminal-green-alt)]/80" />
                     </div>
                     <span className="ml-2 text-[11px] font-mono text-white/25 tracking-wider uppercase">foundations.sh</span>
                 </div>

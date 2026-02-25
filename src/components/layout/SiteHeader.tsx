@@ -17,11 +17,11 @@ export default function SiteHeader() {
   const pathname = usePathname()
   const { openPdf } = usePdf()
   const isLandingPage = pathname === '/'
-  const isCaseStudyPage = pathname?.startsWith('/work/') ?? false
+  const isWorduPage = pathname?.startsWith('/work/wordu') ?? false
   const isAboutPage = pathname === '/me' || pathname === '/me/'
 
-  // Always visible on case study pages, otherwise start hidden
-  const [isVisible, setIsVisible] = useState(isCaseStudyPage)
+  // Always visible off the landing page, otherwise start hidden.
+  const [isVisible, setIsVisible] = useState(!isLandingPage)
   const [isPresentationMode, setIsPresentationMode] = useState(false)
 
   // Keep track of whether we're on mobile to control visibility behavior
@@ -50,8 +50,6 @@ export default function SiteHeader() {
     }
   }, [isLandingPage])
 
-  const [hasShadow, setHasShadow] = useState(false)
-
   // Detect presentation mode (case study presentation overlay)
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -67,19 +65,22 @@ export default function SiteHeader() {
   // Use centralized scroll manager
   useScrollManager((scrollY) => {
     if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-      // On mobile (ALL pages): header always visible, only toggle shadow
+      // On mobile (ALL pages): header stays visible.
       setIsVisible(true)
-      setHasShadow(scrollY > 0)
       return
     }
 
-    // On desktop AND on landing page (all viewports): show header only after scrolling
-    const hasScrolled = scrollY > 0
+    // On desktop landing page: hide navbar until user scrolls past the hero intro (~55% of 300vh)
+    const heroThreshold = isLandingPage ? window.innerHeight * 1.65 : 0
+    const hasScrolled = scrollY > heroThreshold
     setIsVisible(hasScrolled)
-    setHasShadow(hasScrolled)
-  }, [isLandingPage, isCaseStudyPage])
+  }, [isLandingPage])
 
   const t = getTheme(!isLandingPage)
+
+  if (isWorduPage) {
+    return null
+  }
 
   return (
     <header
@@ -91,7 +92,7 @@ export default function SiteHeader() {
         zIndex: 10000,
         isolation: 'isolate',
         position: 'fixed',
-        background: isLandingPage ? 'rgba(2, 6, 23, 0.6)' : `${t.bgAlt}e6`,
+        background: isLandingPage ? 'var(--overlay-ink-60)' : 'color-mix(in srgb, var(--bg-secondary) 90%, transparent)',
       }}
     >
       <nav className={`${spacing.containerFull} py-space-4 flex items-center justify-center relative min-h-[56px] sm:min-h-[60px]`}>
@@ -194,7 +195,7 @@ export default function SiteHeader() {
 
         {/* Mobile Menu */}
         <div className="lg:hidden absolute right-4 xs:right-5 sm:right-6 md:right-8 z-[60]">
-          <MobileMenu isLandingPage={isLandingPage} isLightBackground={!isLandingPage} />
+          <MobileMenu isLightBackground={!isLandingPage} />
         </div>
       </nav>
     </header>

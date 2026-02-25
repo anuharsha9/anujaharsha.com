@@ -208,8 +208,8 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
                                     className="absolute inset-0 rounded-full"
                                     style={{
                                         background: idx === currentIndex
-                                            ? 'linear-gradient(90deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5))'
-                                            : 'rgba(255,255,255,0.35)',
+                                            ? 'linear-gradient(90deg, var(--overlay-white-70), var(--overlay-white-50))'
+                                            : 'var(--overlay-white-35)',
                                     }}
                                     layoutId={idx === currentIndex ? 'progress-active' : undefined}
                                     initial={idx === currentIndex ? { scaleX: 0, originX: 0 } : false}
@@ -297,12 +297,12 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
                 ) : (
                     <div className="flex items-center gap-5 font-mono text-[10px] text-slate-500 uppercase tracking-widest">
                         <span className="flex items-center gap-2">
-                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">ESC</kbd>
+                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">ESC</kbd>
                             Close
                         </span>
                         <span className="flex items-center gap-2">
-                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">←</kbd>
-                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">→</kbd>
+                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">←</kbd>
+                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">→</kbd>
                             Navigate
                         </span>
                     </div>

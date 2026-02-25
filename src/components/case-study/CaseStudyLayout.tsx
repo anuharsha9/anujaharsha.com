@@ -126,9 +126,10 @@ import OwnershipScope from './OwnershipScope'
 
 interface CaseStudyLayoutProps {
   data: CaseStudyData
+  defaultViewMode?: 'full' | 'presentation'
 }
 
-export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
+export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: CaseStudyLayoutProps) {
   const {
     isUnlocked: showPasswordContent,
     unlock,
@@ -147,7 +148,7 @@ export default function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
   // Password state for ML and RC case studies
   const [mlRcPassword, setMlRcPassword] = useState('')
   const [mlRcError, setMlRcError] = useState('')
-  const [viewMode, setViewMode] = useState<'full' | 'presentation'>('full')
+  const [viewMode, setViewMode] = useState<'full' | 'presentation'>(defaultViewMode)
 
   const pathname = usePathname()
 

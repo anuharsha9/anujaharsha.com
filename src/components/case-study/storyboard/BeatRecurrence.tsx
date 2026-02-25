@@ -3,6 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -18,19 +19,19 @@ const EXAMPLES: RecurrenceExample[] = [
         label: 'Weekly',
         before: 'RR=WEEKLY;BYDAY=MO,WE,FR;UNTIL=20241231',
         after: 'Every Monday, Wednesday, and Friday until Dec 31',
-        color: '#f97316',
+        color: 'var(--semantic-orange-500)',
     },
     {
         label: 'Monthly',
         before: 'RR=MONTHLY;BYMONTHDAY=15;INTERVAL=2',
         after: 'Every 2 months on the 15th',
-        color: '#a78bfa',
+        color: 'var(--semantic-violet-400)',
     },
     {
         label: 'Yearly',
         before: 'RR=YEARLY;BYMONTH=3;BYDAY=2MO',
         after: 'Every March on the 2nd Monday',
-        color: '#60a5fa',
+        color: 'var(--semantic-blue-400)',
     },
 ]
 
@@ -111,18 +112,18 @@ function ExampleRow({
                     <div
                         className="rounded-xl overflow-hidden border"
                         style={{
-                            borderColor: decoded ? `${example.color}30` : 'rgba(255,255,255,0.04)',
-                            background: decoded ? `${example.color}04` : 'rgba(255,255,255,0.01)',
+                            borderColor: decoded ? withHexAlpha(example.color, '30') : 'var(--overlay-white-04)',
+                            background: decoded ? withHexAlpha(example.color, '04') : 'var(--overlay-white-01)',
                         }}
                     >
                         {/* Top bar */}
-                        <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ borderColor: 'rgba(255,255,255,0.04)' }}>
+                        <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ borderColor: 'var(--overlay-white-04)' }}>
                             <div className="flex gap-1.5">
-                                <div className="w-2 h-2 rounded-full" style={{ background: `${example.color}40` }} />
+                                <div className="w-2 h-2 rounded-full" style={{ background: withHexAlpha(example.color, '40') }} />
                                 <div className="w-2 h-2 rounded-full bg-white/[0.06]" />
                                 <div className="w-2 h-2 rounded-full bg-white/[0.06]" />
                             </div>
-                            <span className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: `${example.color}80` }}>
+                            <span className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: withHexAlpha(example.color, '80') }}>
                                 {example.label}
                             </span>
                         </div>
@@ -159,7 +160,7 @@ function ExampleRow({
                                             className="absolute top-0 h-full w-1"
                                             style={{
                                                 background: `linear-gradient(180deg, transparent, ${example.color}, transparent)`,
-                                                boxShadow: `0 0 20px ${example.color}60`,
+                                                boxShadow: `0 0 20px ${withHexAlpha(example.color, '60')}`,
                                             }}
                                             initial={{ left: '0%' }}
                                             animate={{ left: '100%' }}
@@ -177,7 +178,7 @@ function ExampleRow({
                                         animate={{ opacity: 1, height: 'auto', y: 0 }}
                                         transition={{ duration: 0.6, delay: 0.3, ease }}
                                         className="mt-3 pt-3 border-t"
-                                        style={{ borderColor: `${example.color}15` }}
+                                        style={{ borderColor: withHexAlpha(example.color, '15') }}
                                     >
                                         <div className="flex items-center gap-2 mb-2">
                                             <motion.div
@@ -186,7 +187,7 @@ function ExampleRow({
                                                 transition={{ duration: 0.3, delay: 0.4, type: 'spring' }}
                                             >
                                                 <svg width="20" height="20" viewBox="0 0 20 20">
-                                                    <circle cx="10" cy="10" r="9" fill="none" stroke={`${example.color}40`} strokeWidth="1.5" />
+                                                    <circle cx="10" cy="10" r="9" fill="none" stroke={withHexAlpha(example.color, '40')} strokeWidth="1.5" />
                                                     <motion.path
                                                         d="M6 10l3 3 5-6"
                                                         fill="none"
@@ -200,7 +201,7 @@ function ExampleRow({
                                                     />
                                                 </svg>
                                             </motion.div>
-                                            <span className="font-mono text-[9px] uppercase tracking-wider" style={{ color: `${example.color}60` }}>
+                                            <span className="font-mono text-[9px] uppercase tracking-wider" style={{ color: withHexAlpha(example.color, '60') }}>
                                                 DECODED
                                             </span>
                                         </div>

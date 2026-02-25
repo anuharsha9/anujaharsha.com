@@ -4,6 +4,7 @@ import { useRef, useEffect, type ReactNode } from 'react'
 import { motion, useInView, useScroll, useTransform, useSpring } from 'framer-motion'
 import Image from 'next/image'
 import { X, ArrowDown } from 'lucide-react'
+import { withHexAlpha } from '@/lib/color-utils'
 
 /* ─── types ───────────────────────────────────────── */
 export interface StorySlide {
@@ -28,14 +29,14 @@ const ease = [0.22, 1, 0.36, 1] as const
 /* ─── accent colors per type ──────────────────────── */
 function getAccentColor(type: string): string {
     switch (type) {
-        case 'problem': return '#f43f5e'
-        case 'research': return '#8b5cf6'
-        case 'decision': return '#3b82f6'
-        case 'execution': return '#10b981'
-        case 'impact': return '#f59e0b'
-        case 'lesson': return '#6366f1'
-        case 'title': return '#71717a'
-        default: return '#71717a'
+        case 'problem': return 'var(--semantic-rose-500)'
+        case 'research': return 'var(--accent-violet)'
+        case 'decision': return 'var(--semantic-blue-500)'
+        case 'execution': return 'var(--semantic-emerald-500)'
+        case 'impact': return 'var(--accent-amber)'
+        case 'lesson': return 'var(--tone-indigo-500)'
+        case 'title': return 'var(--neutral-zinc-500)'
+        default: return 'var(--neutral-zinc-500)'
     }
 }
 
@@ -94,7 +95,7 @@ function Deck({
                 ref={ref}
                 id={`deck-${index}`}
                 className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-12 py-16 md:py-24 overflow-hidden"
-                style={{ background: '#09090b' }}
+                style={{ background: 'var(--surface-zinc-950)' }}
             >
                 {/* Section header */}
                 <motion.div
@@ -149,13 +150,13 @@ function Deck({
             <section
                 ref={ref}
                 className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-12 overflow-hidden"
-                style={{ background: '#09090b' }}
+                style={{ background: 'var(--surface-zinc-950)' }}
             >
                 {/* Subtle grid */}
                 <div
                     className="absolute inset-0 opacity-[0.02]"
                     style={{
-                        backgroundImage: 'linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)',
+                        backgroundImage: 'linear-gradient(var(--overlay-white-15) 1px, transparent 1px), linear-gradient(90deg, var(--overlay-white-15) 1px, transparent 1px)',
                         backgroundSize: '80px 80px',
                     }}
                 />
@@ -308,7 +309,7 @@ function Deck({
         <section
             ref={ref}
             className="relative min-h-screen flex items-center overflow-hidden"
-            style={{ background: '#09090b' }}
+            style={{ background: 'var(--surface-zinc-950)' }}
         >
             {/* Accent glow — top corner, very subtle */}
             <motion.div
@@ -365,9 +366,9 @@ function Deck({
                             transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 20 }}
                             className="inline-block text-[9px] md:text-[10px] font-mono tracking-wider uppercase px-2.5 py-1 rounded-full border mb-4"
                             style={{
-                                color: `${accent}cc`,
-                                borderColor: `${accent}22`,
-                                background: `${accent}08`,
+                                color: withHexAlpha(accent, 'cc'),
+                                borderColor: withHexAlpha(accent, '22'),
+                                background: withHexAlpha(accent, '08'),
                             }}
                         >
                             {slide.signal}
@@ -391,7 +392,7 @@ function Deck({
                         transition={{ delay: 0.3, duration: 0.8, ease }}
                         className="h-[2px] w-16 rounded-full mb-5"
                         style={{
-                            background: `linear-gradient(90deg, ${accent}80, transparent)`,
+                            background: `linear-gradient(90deg, ${withHexAlpha(accent, '80')}, transparent)`,
                             transformOrigin: !hasImage ? 'center' : 'left',
                             margin: !hasImage ? '0 auto 1.25rem' : undefined,
                             marginBottom: '1.25rem',
@@ -512,7 +513,7 @@ export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
     }, [])
 
     return (
-        <div className="relative w-full bg-[#09090b]">
+        <div className="relative w-full bg-[var(--surface-zinc-950)]">
 
             {/* Sticky exit button */}
             <motion.button
@@ -568,25 +569,40 @@ export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
                 </div>
             ))}
 
-            {/* End card */}
-            <section className="min-h-[40vh] flex flex-col items-center justify-center bg-[#09090b] px-6">
+            {/* End card CTA */}
+            <section className="min-h-[60vh] flex flex-col items-center justify-center bg-[var(--surface-zinc-950)] px-6">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center"
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    className="max-w-2xl w-full"
                 >
-                    <p className="text-zinc-600 font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase mb-6">
-                        End of Presentation
-                    </p>
                     <button
                         onClick={onExit}
-                        className="text-zinc-300 hover:text-white text-sm font-medium px-6 py-3 rounded-full
-                                   border border-white/10 hover:border-white/20 hover:bg-white/5
-                                   transition-all duration-300 cursor-pointer"
+                        className="w-full group relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/10 bg-white/[0.02] p-8 md:p-12 hover:bg-white/[0.04] hover:border-white/20 transition-all duration-500 text-left flex flex-col md:flex-row items-center gap-6 md:gap-8 cursor-pointer active:scale-[0.98]"
                     >
-                        ← Back to Full Case Study
+                        {/* Thumbnail/Icon */}
+                        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black/40 border border-white/10 flex items-center justify-center shadow-2xl shrink-0 group-hover:scale-105 transition-transform duration-500">
+                            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                                <svg className="w-5 h-5 text-white/80 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        {/* Text Content */}
+                        <div className="flex-1 text-center md:text-left">
+                            <p className="text-[var(--accent-teal)] font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase mb-3 drop-shadow-sm">
+                                End of Presentation
+                            </p>
+                            <h3 className="text-xl md:text-3xl font-semibold text-white tracking-tight leading-snug mb-3 transition-colors">
+                                Interested in knowing more?
+                            </h3>
+                            <p className="text-zinc-400 text-sm md:text-base leading-relaxed group-hover:text-zinc-300 transition-colors">
+                                Read the full in-depth case study.
+                            </p>
+                        </div>
                     </button>
                 </motion.div>
             </section>

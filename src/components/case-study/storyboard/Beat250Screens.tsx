@@ -56,7 +56,7 @@ function AnimatedCounter({ active }: { active: boolean }) {
                     <div
                         className="w-48 h-32 rounded-full"
                         style={{
-                            background: 'radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, transparent 70%)',
+                            background: 'radial-gradient(ellipse, var(--overlay-white-06) 0%, transparent 70%)',
                         }}
                     />
                 </motion.div>
@@ -79,7 +79,7 @@ function AnimatedCounter({ active }: { active: boolean }) {
                     >
                         <div
                             className="w-32 h-32 rounded-full border"
-                            style={{ borderColor: 'rgba(255,255,255,0.2)' }}
+                            style={{ borderColor: 'var(--overlay-white-20)' }}
                         />
                     </motion.div>
                 )}

@@ -45,6 +45,6 @@ export const metadata: Metadata = {
 }
 
 export default function ReportCasterPage() {
-  return <CaseStudyLayout data={reportcasterCaseStudy} />
+  return <CaseStudyLayout data={reportcasterCaseStudy} defaultViewMode="presentation" />
 }
 

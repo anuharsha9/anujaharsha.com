@@ -80,15 +80,6 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Hide default cursor via CSS */}
-      <style jsx global>{`
-        @media (pointer: fine) {
-          * {
-            cursor: none !important;
-          }
-        }
-      `}</style>
-
       {/* Main Cursor (Exact Position) - Small Dot */}
       <motion.div
         className="fixed top-0 left-0 z-[99999] pointer-events-none"

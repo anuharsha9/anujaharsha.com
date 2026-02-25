@@ -29,7 +29,7 @@ export default function MilestoneConnector({ milestones }: { milestones: Milesto
                         className="relative flex items-center w-full max-w-4xl px-4 md:px-0 mb-16 last:mb-0 group/milestone"
                     >
                         {/* Center Dot on the Spine */}
-                        <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-slate-900 border border-white/20 z-20 shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover/milestone:border-[var(--accent-teal)] group-hover/milestone:scale-125 transition-all duration-300 flex items-center justify-center">
+                        <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-slate-900 border border-white/20 z-20 shadow-[0_0_15px_var(--overlay-black-50)] group-hover/milestone:border-[var(--accent-teal)] group-hover/milestone:scale-125 transition-all duration-300 flex items-center justify-center">
                             <div className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover/milestone:bg-[var(--accent-teal)] transition-colors" />
                         </div>
 

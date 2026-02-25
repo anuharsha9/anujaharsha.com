@@ -25,7 +25,7 @@ export default function ArchiveWorkCard({ work, onOpenLightbox }: ArchiveWorkCar
             onClick={handleClick}
             target={work.link.startsWith('http') ? "_blank" : "_self"}
             rel={work.link.startsWith('http') ? "noopener noreferrer" : ""}
-            className="group/archive relative block h-full aspect-square cursor-pointer overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] active:scale-[0.98]"
+            className="group/archive relative block h-full aspect-square cursor-pointer overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_8px_30px_var(--overlay-black-50)] active:scale-[0.98]"
         >
             {work.image ? (
                 <div className="absolute inset-0 z-0">

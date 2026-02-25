@@ -4,6 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 import { Mic, MicOff, Video, Monitor, MessageSquare, User, PhoneOff } from 'lucide-react'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -18,13 +19,13 @@ interface ZoomParticipant {
 }
 
 const PARTICIPANTS: ZoomParticipant[] = [
-    { name: 'Dave', role: 'Head PM', years: '15 yrs', initials: 'DV', bg: '#1a2744', accent: '#3b82f6' },
-    { name: 'Angie', role: 'Gold Support Lead', years: '20+ yrs', initials: 'AG', bg: '#2d1b4e', accent: '#8b5cf6' },
-    { name: 'Yingchun', role: 'OG RC Engineer', years: '30+ yrs', initials: 'YC', bg: '#3d2b10', accent: '#f59e0b' },
-    { name: 'Julian', role: 'Lead WF Architect', years: '40 yrs', initials: 'JL', bg: '#2a1a0a', accent: '#d97706' },
-    { name: 'Chris', role: 'Support TAM Lead', years: '20 yrs', initials: 'CH', bg: '#0d3328', accent: '#10b981' },
-    { name: 'Alan', role: 'Backend Lead', years: '30+ yrs', initials: 'AL', bg: '#1a3344', accent: '#06b6d4' },
-    { name: 'Anuja', role: 'Me', years: '3 weeks', initials: 'AH', bg: '#3d1520', accent: '#f43f5e', me: true },
+    { name: 'Dave', role: 'Head PM', years: '15 yrs', initials: 'DV', bg: 'var(--surface-navy-780)', accent: 'var(--semantic-blue-500)' },
+    { name: 'Angie', role: 'Gold Support Lead', years: '20+ yrs', initials: 'AG', bg: 'var(--surface-purple-900)', accent: 'var(--accent-violet)' },
+    { name: 'Yingchun', role: 'OG RC Engineer', years: '30+ yrs', initials: 'YC', bg: 'var(--surface-amber-900)', accent: 'var(--accent-amber)' },
+    { name: 'Julian', role: 'Lead WF Architect', years: '40 yrs', initials: 'JL', bg: 'var(--surface-amber-950)', accent: 'var(--accent-amber-600)' },
+    { name: 'Chris', role: 'Support TAM Lead', years: '20 yrs', initials: 'CH', bg: 'var(--surface-emerald-900)', accent: 'var(--semantic-emerald-500)' },
+    { name: 'Alan', role: 'Backend Lead', years: '30+ yrs', initials: 'AL', bg: 'var(--semantic-navy-700)', accent: 'var(--semantic-cyan-500)' },
+    { name: 'Anuja', role: 'Me', years: '3 weeks', initials: 'AH', bg: 'var(--surface-rose-900)', accent: 'var(--semantic-rose-500)', me: true },
 ]
 
 const REVELATIONS = [
@@ -115,13 +116,13 @@ export default function BeatTheRoom() {
                                 className="relative"
                             >
                                 {/* Window chrome */}
-                                <div className="rounded-xl border border-white/[0.08] bg-[#1a1a2e] overflow-hidden shadow-2xl shadow-black/40">
+                                <div className="rounded-xl border border-white/[0.08] bg-[var(--surface-indigo-900)] overflow-hidden shadow-2xl shadow-black/40">
                                     {/* Title bar */}
-                                    <div className="flex items-center justify-between px-4 py-2.5 bg-[#0d0d1a] border-b border-white/[0.04]">
+                                    <div className="flex items-center justify-between px-4 py-2.5 bg-[var(--surface-violet-950)] border-b border-white/[0.04]">
                                         <div className="flex items-center gap-1.5">
-                                            <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-                                            <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-                                            <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                                            <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-red)]" />
+                                            <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-yellow)]" />
+                                            <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-green-alt)]" />
                                         </div>
                                         <div className="font-mono text-[9px] text-zinc-500 tracking-wider">
                                             ReportCaster Kickoff — Zoom
@@ -164,18 +165,18 @@ export default function BeatTheRoom() {
                                                             className="w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center border-2"
                                                             style={{
                                                                 borderColor: isHighlight
-                                                                    ? isMe ? p.accent : 'rgba(255,255,255,0.08)'
-                                                                    : `${p.accent}50`,
+                                                                    ? isMe ? p.accent : 'var(--overlay-white-08)'
+                                                                    : withHexAlpha(p.accent, '50'),
                                                                 background: isMe
-                                                                    ? `${p.accent}20`
-                                                                    : 'rgba(255,255,255,0.03)',
+                                                                    ? withHexAlpha(p.accent, '20')
+                                                                    : 'var(--overlay-white-03)',
                                                             }}
                                                         >
                                                             <span
                                                                 className="font-mono text-xs md:text-sm font-bold"
                                                                 style={{
                                                                     color: isHighlight && !isMe
-                                                                        ? 'rgba(255,255,255,0.15)'
+                                                                        ? 'var(--overlay-white-15)'
                                                                         : p.accent,
                                                                 }}
                                                             >
@@ -194,7 +195,7 @@ export default function BeatTheRoom() {
                                                                 animate={
                                                                     isHighlight
                                                                         ? {
-                                                                            color: isMe ? '#f43f5e' : 'rgba(255,255,255,0.2)',
+                                                                            color: isMe ? 'var(--semantic-rose-500)' : 'var(--overlay-white-20)',
                                                                             scale: isMe ? 1.1 : 1,
                                                                         }
                                                                         : {}
@@ -231,7 +232,7 @@ export default function BeatTheRoom() {
                                     </div>
 
                                     {/* Zoom toolbar */}
-                                    <div className="flex items-center justify-center gap-4 px-4 py-2.5 bg-[#0d0d1a] border-t border-white/[0.04]">
+                                    <div className="flex items-center justify-center gap-4 px-4 py-2.5 bg-[var(--surface-violet-950)] border-t border-white/[0.04]">
                                         {[Mic, Video, Monitor, MessageSquare, User].map((ToolbarIcon, i) => (
                                             <div key={i} className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center">
                                                 <ToolbarIcon className="w-3.5 h-3.5 text-zinc-500" strokeWidth={1.5} />
@@ -279,7 +280,7 @@ export default function BeatTheRoom() {
                                         </p>
                                         <motion.div
                                             className="w-8 h-px mx-auto mt-2"
-                                            style={{ background: 'linear-gradient(90deg, transparent, rgba(244,63,94,0.4), transparent)' }}
+                                            style={{ background: 'linear-gradient(90deg, transparent, var(--overlay-rose-40), transparent)' }}
                                             animate={{ opacity: [0.3, 0.7, 0.3] }}
                                             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                                         />

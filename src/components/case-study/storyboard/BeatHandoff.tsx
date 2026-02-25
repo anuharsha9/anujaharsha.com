@@ -4,6 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { FileText, Video, PenTool, Ticket, StickyNote, Map, FolderOpen, Check } from 'lucide-react'
 import PresenterBar from './PresenterBar'
+import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -16,12 +17,12 @@ interface FolderItem {
 }
 
 const FOLDER_CONTENTS: FolderItem[] = [
-    { icon: StickyNote, label: 'Research & findings', count: 40, displayCount: '40+', color: '#f59e0b' },
-    { icon: Map, label: 'Pain point maps & flows', count: 25, displayCount: '25+', color: '#3b82f6' },
-    { icon: PenTool, label: 'Sketch files & prototypes', count: 80, displayCount: '80+', color: '#a855f7' },
-    { icon: Video, label: 'Zoom demo recordings', count: 15, displayCount: '15+', color: '#f43f5e' },
-    { icon: FileText, label: 'Current-state docs & scratchpads', count: 30, displayCount: '30+', color: '#22c55e' },
-    { icon: Ticket, label: 'JIRA epics & ticket tracking', count: 60, displayCount: '60+', color: '#06b6d4' },
+    { icon: StickyNote, label: 'Research & findings', count: 40, displayCount: '40+', color: 'var(--accent-amber)' },
+    { icon: Map, label: 'Pain point maps & flows', count: 25, displayCount: '25+', color: 'var(--semantic-blue-500)' },
+    { icon: PenTool, label: 'Sketch files & prototypes', count: 80, displayCount: '80+', color: 'var(--semantic-purple-500)' },
+    { icon: Video, label: 'Zoom demo recordings', count: 15, displayCount: '15+', color: 'var(--semantic-rose-500)' },
+    { icon: FileText, label: 'Current-state docs & scratchpads', count: 30, displayCount: '30+', color: 'var(--semantic-green-500)' },
+    { icon: Ticket, label: 'JIRA epics & ticket tracking', count: 60, displayCount: '60+', color: 'var(--semantic-cyan-500)' },
 ]
 
 /* ── Animated file counter ── */
@@ -178,7 +179,7 @@ export default function BeatHandoff() {
                                             transition={{ duration: 0.4, ease }}
                                             className="h-full rounded-full"
                                             style={{
-                                                background: 'linear-gradient(90deg, #3b82f6, #22c55e)',
+                                                background: 'linear-gradient(90deg, var(--semantic-blue-500), var(--semantic-green-500))',
                                             }}
                                         />
                                     </div>
@@ -206,7 +207,7 @@ export default function BeatHandoff() {
                                         }}
                                         className="relative rounded-xl border bg-white/[0.02] p-4 overflow-hidden group"
                                         style={{
-                                            borderColor: isVisible ? `${item.color}20` : 'rgba(255,255,255,0.04)',
+                                            borderColor: isVisible ? withHexAlpha(item.color, '20') : 'var(--overlay-white-04)',
                                         }}
                                     >
                                         {/* Top accent */}
@@ -226,8 +227,8 @@ export default function BeatHandoff() {
                                                 transition={{ duration: 0.4, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
                                                 className="w-9 h-9 rounded-lg flex items-center justify-center"
                                                 style={{
-                                                    background: `${item.color}15`,
-                                                    border: `1px solid ${item.color}25`,
+                                                    background: withHexAlpha(item.color, '15'),
+                                                    border: `1px solid ${withHexAlpha(item.color, '25')}`,
                                                 }}
                                             >
                                                 <Icon className="w-4 h-4" style={{ color: item.color }} strokeWidth={1.5} />
@@ -253,7 +254,7 @@ export default function BeatHandoff() {
                                                 transition={{ duration: 1, delay: 0.1, ease: 'easeInOut' }}
                                                 className="absolute inset-0 pointer-events-none"
                                                 style={{
-                                                    background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%)',
+                                                    background: 'linear-gradient(90deg, transparent 0%, var(--overlay-white-04) 50%, transparent 100%)',
                                                 }}
                                             />
                                         )}
@@ -276,7 +277,7 @@ export default function BeatHandoff() {
                                         <div
                                             className="absolute inset-0 pointer-events-none"
                                             style={{
-                                                background: 'radial-gradient(ellipse at center, rgba(34,197,94,0.08) 0%, transparent 70%)',
+                                                background: 'radial-gradient(ellipse at center, var(--overlay-green-08) 0%, transparent 70%)',
                                             }}
                                         />
 

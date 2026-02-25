@@ -20,6 +20,8 @@ export interface MovieBeat {
     narration?: string
     /** Optional delay before narration appears (seconds) */
     narrationDelay?: number
+    /** Whether to show the presenter avatar */
+    presenter?: boolean
 }
 
 interface AutoPlayStoryProps {
@@ -149,7 +151,7 @@ export default function AutoPlayStory({
                 `}>
 
                 {/* Wireframe morph sweep between beats for cinematic continuity */}
-                <AnimatePresence mode="sync" initial={false}>
+                <AnimatePresence mode="wait" initial={false}>
                     <motion.div
                         key={`morph-overlay-${currentBeat}`}
                         className="pointer-events-none absolute inset-0 z-[12]"
@@ -159,16 +161,10 @@ export default function AutoPlayStory({
                         transition={{ duration: 0.55, ease }}
                     >
                         <motion.div
-                            className="absolute -left-[18%] top-0 h-full w-[40%] bg-[linear-gradient(90deg,transparent,rgba(64,221,255,0.15),transparent)] blur-2xl"
+                            className="absolute -left-[18%] top-0 h-full w-[40%] bg-[linear-gradient(90deg,transparent,var(--overlay-cyan-electric-15),transparent)] blur-2xl"
                             initial={{ x: '-18%', opacity: 0 }}
                             animate={{ x: '138%', opacity: [0, 0.75, 0] }}
                             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], times: [0, 0.48, 1] }}
-                        />
-                        <motion.div
-                            className="absolute inset-y-0 left-0 w-1/3 bg-[linear-gradient(90deg,rgba(3,6,12,0.9),rgba(3,6,12,0.35),transparent)]"
-                            initial={{ x: '-120%' }}
-                            animate={{ x: ['-120%', '0%', '110%'] }}
-                            transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1], times: [0, 0.45, 1] }}
                         />
                         <motion.svg
                             className="absolute inset-0 h-full w-full"
@@ -182,7 +178,7 @@ export default function AutoPlayStory({
                             <motion.path
                                 d="M0,34 C20,26 36,42 50,36 C64,30 78,42 100,32"
                                 fill="none"
-                                stroke="rgba(96,245,255,0.38)"
+                                stroke="var(--overlay-cyan-neon-38)"
                                 strokeWidth="0.35"
                                 strokeDasharray="2 2"
                                 initial={{ pathLength: 0 }}
@@ -192,7 +188,7 @@ export default function AutoPlayStory({
                             <motion.path
                                 d="M0,66 C22,58 37,74 52,67 C70,59 82,70 100,63"
                                 fill="none"
-                                stroke="rgba(96,245,255,0.26)"
+                                stroke="var(--overlay-cyan-neon-26)"
                                 strokeWidth="0.3"
                                 strokeDasharray="2 2"
                                 initial={{ pathLength: 0 }}
@@ -223,16 +219,13 @@ export default function AutoPlayStory({
 
                 {/* Beat content with morph-style overlap transition */}
                 <div className="relative h-full w-full">
-                    <AnimatePresence mode="sync" initial={false}>
+                    <AnimatePresence mode="wait" initial={false}>
                         <motion.div
                             key={`beat-${currentBeat}`}
                             initial={{
                                 opacity: 0,
                                 y: 22,
                                 scale: 1.035,
-                                rotateX: 6,
-                                rotateY: -2,
-                                transformPerspective: 1200,
                                 filter: 'blur(14px)',
                                 clipPath: 'inset(3% 1.5% 4% 1.5% round 14px)',
                             }}
@@ -240,8 +233,6 @@ export default function AutoPlayStory({
                                 opacity: 1,
                                 y: 0,
                                 scale: 1,
-                                rotateX: 0,
-                                rotateY: 0,
                                 filter: 'blur(0px)',
                                 clipPath: 'inset(0% 0% 0% 0% round 0px)',
                             }}
@@ -249,12 +240,10 @@ export default function AutoPlayStory({
                                 opacity: 0,
                                 y: -14,
                                 scale: 0.985,
-                                rotateX: -4,
-                                rotateY: 1,
                                 filter: 'blur(12px)',
                                 clipPath: 'inset(4% 2% 3% 2% round 16px)',
                             }}
-                            transition={{ duration: 0.85, ease: [0.18, 1, 0.28, 1] }}
+                            transition={{ duration: 1.02, ease: [0.18, 1, 0.28, 1] }}
                             className="absolute inset-0 flex h-full w-full items-center justify-center p-4 md:p-8"
                         >
                             {currentBeatData?.component}
@@ -264,7 +253,7 @@ export default function AutoPlayStory({
 
                 {/* Graphic-novel narrator layer for full-bleed mode */}
                 {fullBleedBackground && currentBeatData?.narration && (
-                    <div className="pointer-events-none absolute bottom-6 left-4 right-4 z-[25] sm:bottom-8 sm:left-8 sm:right-auto sm:max-w-[48rem]">
+                    <div className="pointer-events-none absolute left-1/2 top-16 z-[25] w-[min(94vw,58rem)] -translate-x-1/2 sm:top-8">
                         <AnimatePresence mode="wait" initial={false}>
                             <motion.div
                                 key={`narration-${currentBeat}`}
@@ -273,7 +262,11 @@ export default function AutoPlayStory({
                                 exit={{ opacity: 0, y: -8, filter: 'blur(6px)' }}
                                 transition={{ duration: 0.45, ease }}
                             >
-                                <PresenterBar narration={currentBeatData.narration} delay={currentBeatData.narrationDelay ?? 0} />
+                                <PresenterBar
+                                    narration={currentBeatData.narration}
+                                    delay={currentBeatData.narrationDelay ?? 0}
+                                    showAvatar={currentBeatData.presenter}
+                                />
                             </motion.div>
                         </AnimatePresence>
                     </div>

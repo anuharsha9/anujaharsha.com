@@ -1,27 +1,32 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import { usePdf } from '@/contexts/PdfContext'
+import { useFocusTrap } from '@/hooks/useFocusTrap'
 
 import { getCaseStudyData } from '@/lib/getCaseStudyData'
 
 import { getTheme, spacing } from '@/lib/design-system'
 
 interface MobileMenuProps {
-  isLandingPage?: boolean
   isLightBackground?: boolean
 }
 
-export default function MobileMenu({ isLandingPage = false, isLightBackground = false }: MobileMenuProps) {
+export default function MobileMenu({ isLightBackground = false }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const t = getTheme(isLightBackground)
   const { openPdf } = usePdf()
+  const closeMenu = useCallback(() => setIsOpen(false), [])
+  const panelRef = useFocusTrap<HTMLDivElement>(isOpen, {
+    onEscape: closeMenu,
+    initialFocusSelector: '[data-mobile-menu-close]',
+  })
 
   // Simple scroll prevention - just overflow hidden, no position changes
   useEffect(() => {
@@ -39,6 +44,18 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
   useEffect(() => {
     setIsOpen(false)
   }, [pathname])
+
+  // Escape fallback for cases where focus is outside panel
+  useEffect(() => {
+    if (!isOpen) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMenu()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [isOpen, closeMenu])
 
   // Check if we're on a case study page and get sections
   const caseStudySections = useMemo(() => {
@@ -76,6 +93,8 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
               className="lg:hidden flex flex-col items-center justify-center w-10 h-10 gap-1.5 relative pointer-events-auto -mr-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:ring-offset-2 rounded-md"
               style={{ zIndex: 10003 }}
               aria-label="Open menu"
+              aria-haspopup="dialog"
+              aria-controls="mobile-nav-dialog"
               aria-expanded={isOpen}
               type="button"
               initial={{ opacity: 1 }}
@@ -110,12 +129,18 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              onClick={() => setIsOpen(false)}
+              onClick={closeMenu}
             />
 
             {/* Menu Panel - Full Screen Overlay - above header */}
             <motion.div
+              id="mobile-nav-dialog"
+              ref={panelRef}
               className={`fixed inset-0 lg:hidden flex flex-col ${t.bg} ${t.text}`}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
+              tabIndex={-1}
               style={{
                 height: '100vh',
                 maxHeight: '100vh',
@@ -146,7 +171,8 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                     />
                   </div>
                   <button
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeMenu}
+                    data-mobile-menu-close
                     className={`w-8 h-8 flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.textSecondary} hover:${t.text} focus-visible:outline-slate-900`}
                     aria-label="Close menu"
                   >
@@ -157,7 +183,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                 </div>
                 <Link
                   href="/"
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeMenu}
                   className={`text-xl font-sans font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                 >
                   Anuja Harsha Nimmagadda
@@ -176,7 +202,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                   <button
                     type="button"
                     onClick={() => {
-                      setIsOpen(false)
+                      closeMenu()
                       // Small delay to let menu close animation start
                       setTimeout(() => {
                         const el = document.getElementById('work-overview')
@@ -195,7 +221,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
 
                   <Link
                     href="/me"
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeMenu}
                     className={`block px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:${t.bgAccent} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                   >
                     Me
@@ -204,7 +230,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                   <button
                     onClick={() => {
                       trackResumeDownload()
-                      setIsOpen(false)
+                      closeMenu()
                       openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
                     }}
                     className={`block w-full text-left px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 border-2 mt-4 ${t.textAccent} border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/5 hover:bg-[var(--accent-teal)]/10 focus-visible:outline-[var(--accent-teal)]`}
@@ -224,7 +250,7 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
                       <Link
                         key={section.href}
                         href={section.href}
-                        onClick={() => setIsOpen(false)}
+                        onClick={closeMenu}
                         className={`block px-6 py-3 rounded-lg text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.textSecondary} hover:${t.bgAccent} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                       >
                         {section.label}
@@ -247,5 +273,3 @@ export default function MobileMenu({ isLandingPage = false, isLightBackground = 
     </>
   )
 }
-
-
