@@ -368,16 +368,27 @@ export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
 
     return (
         <div className="fixed inset-0 z-50 bg-[var(--bg-primary)] flex flex-col">
-            {/* ── X Close Button — top right ── */}
-            <button
-                onClick={onExit}
-                className="absolute top-5 right-5 z-50 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md
-                           flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer
-                           border border-white/10"
-                aria-label="Exit presentation"
-            >
-                <X className="w-4 h-4 text-white" />
-            </button>
+            {/* ── Top right: Full case study link + X close ── */}
+            <div className="absolute top-5 right-5 z-50 flex items-center gap-2">
+                <button
+                    onClick={onExit}
+                    className="h-10 px-4 rounded-full bg-white/[0.06] backdrop-blur-md
+                               flex items-center gap-2 hover:bg-white/[0.12] transition-colors cursor-pointer
+                               border border-white/[0.08] text-zinc-400 hover:text-white"
+                    aria-label="Read full case study"
+                >
+                    <span className="font-mono text-[10px] tracking-wider uppercase">Full Case Study</span>
+                </button>
+                <button
+                    onClick={onExit}
+                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md
+                               flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer
+                               border border-white/10"
+                    aria-label="Exit presentation"
+                >
+                    <X className="w-4 h-4 text-white" />
+                </button>
+            </div>
 
             {/* ── Slide counter — top left ── */}
             <div className="absolute top-5 left-5 z-50">
