@@ -1163,62 +1163,65 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
       {/* Brain content — fills the CinematicTimeline slide container */}
       <div className="absolute inset-0 flex flex-col overflow-hidden">
 
-        {/* === 3D DEPTH ENVIRONMENT === */}
+        {/* === 3D DEPTH ENVIRONMENT (post-quiz only) === */}
+        {showImmersiveCompleteState && (
+          <>
+            {/* Overhead ambient light — soft teal glow from above */}
+            <div
+              ref={ambientLightRef}
+              className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-[2000ms]"
+              style={{
+                background: 'radial-gradient(ellipse 65% 45% at 50% 25%, rgba(11, 162, 181, 0.10) 0%, rgba(11, 162, 181, 0.04) 40%, transparent 70%)',
+              }}
+            />
 
-        {/* Overhead ambient light — soft teal glow from above */}
-        <div
-          ref={ambientLightRef}
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{
-            background: 'radial-gradient(ellipse 65% 45% at 50% 25%, rgba(11, 162, 181, 0.10) 0%, rgba(11, 162, 181, 0.04) 40%, transparent 70%)',
-          }}
-        />
+            {/* Ground plane — visible studio floor with clear horizon */}
+            <div
+              className="absolute inset-0 pointer-events-none z-[9] transition-opacity duration-[2000ms]"
+              style={{
+                background: `
+                  linear-gradient(to bottom,
+                    transparent 0%,
+                    transparent 35%,
+                    rgba(18, 24, 33, 0.45) 48%,
+                    rgba(28, 36, 50, 0.7) 58%,
+                    rgba(38, 48, 65, 0.75) 68%,
+                    rgba(45, 55, 72, 0.65) 78%,
+                    rgba(38, 48, 65, 0.5) 90%,
+                    rgba(30, 38, 52, 0.35) 100%
+                  )
+                `,
+              }}
+            />
 
-        {/* Ground plane — visible studio floor with clear horizon */}
-        <div
-          className="absolute inset-0 pointer-events-none z-[9]"
-          style={{
-            background: `
-              linear-gradient(to bottom,
-                transparent 0%,
-                transparent 40%,
-                rgba(18, 24, 33, 0.4) 52%,
-                rgba(28, 36, 50, 0.65) 62%,
-                rgba(38, 48, 65, 0.7) 72%,
-                rgba(45, 55, 72, 0.6) 82%,
-                rgba(38, 48, 65, 0.45) 92%,
-                rgba(30, 38, 52, 0.3) 100%
-              )
-            `,
-          }}
-        />
+            {/* Specular floor highlight — light reflection on the surface */}
+            <div
+              className="absolute pointer-events-none z-[10]"
+              style={{
+                left: '50%',
+                bottom: '14%',
+                transform: 'translateX(-50%)',
+                width: '45%',
+                height: '18%',
+                background: 'radial-gradient(ellipse 100% 60% at 50% 30%, rgba(120, 145, 175, 0.08) 0%, transparent 70%)',
+              }}
+            />
 
-        {/* Specular floor highlight — light reflection on the surface */}
-        <div
-          className="absolute pointer-events-none z-[10]"
-          style={{
-            left: '50%',
-            bottom: '12%',
-            transform: 'translateX(-50%)',
-            width: '40%',
-            height: '15%',
-            background: 'radial-gradient(ellipse 100% 60% at 50% 30%, rgba(120, 145, 175, 0.06) 0%, transparent 70%)',
-          }}
-        />
-
-        {/* Floor shadow — large soft contact shadow beneath the brain */}
-        <div
-          className="absolute pointer-events-none z-[11]"
-          style={{
-            left: '50%',
-            bottom: '12%',
-            transform: 'translateX(-50%)',
-            width: '60%',
-            height: '5%',
-            background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 70%)',
-            filter: 'blur(30px)',
-          }}
-        />
+            {/* Floor shadow — large soft contact shadow beneath the brain */}
+            <div
+              className="absolute pointer-events-none z-[11]"
+              style={{
+                left: '50%',
+                bottom: '14%',
+                transform: 'translateX(-50%)',
+                width: '55%',
+                height: '4%',
+                background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 40%, transparent 70%)',
+                filter: 'blur(28px)',
+              }}
+            />
+          </>
+        )}
 
         {/* Subtle grid background */}
         {quizState !== 'quiz' && (
@@ -1250,13 +1253,19 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
               {/* Centered Gears - THE HERO (with 3D parallax wrapper) */}
               <div
                 ref={parallaxRef}
-                className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz'
+                className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding,filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz'
                   ? 'max-w-[360px] sm:max-w-[460px] md:max-w-[620px] lg:max-w-[760px] xl:max-w-[840px] max-h-[62vh] sm:max-h-[70vh] lg:max-h-[82vh] mt-0 brain-entry-container'
                   : showImmersiveCompleteState
                     ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0'
                     : 'max-w-[150px] sm:max-w-[170px] md:max-w-[250px] lg:max-w-[290px] xl:max-w-[320px] max-h-[30vh] sm:max-h-[35vh] lg:max-h-[40vh] mt-0'
                   }`}
-                style={{ transformOrigin: 'center center', willChange: 'transform' }}
+                style={{
+                  transformOrigin: 'center center',
+                  willChange: 'transform',
+                  filter: showImmersiveCompleteState
+                    ? 'drop-shadow(0 40px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3))'
+                    : 'none',
+                }}
               >
                 <GearsSvgContainer
                   svgContent={baseSvg}
