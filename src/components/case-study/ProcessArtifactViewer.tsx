@@ -54,14 +54,14 @@ export default function ProcessArtifactViewer({
     return (
         <div className="space-y-12 py-8">
             {/* Header - Centered & Clean */}
-            <div className="flex flex-col items-center justify-center gap-6 border-b border-slate-100 pb-8 text-center">
+            <div className="flex flex-col gap-6 border-b border-white/[0.06] pb-8">
                 <ComponentHeading
                     align="center"
-                    tag="Archive Evidence"
+                    tag="ARCHIVE EVIDENCE"
                     title={title}
                     description={description}
-                    color="text-slate-400"
-                    className="mb-0 w-full max-w-3xl"
+                    color="teal"
+                    className="mb-0 w-full max-w-3xl mx-auto"
                 />
 
                 {/* PDF Download Action - sleek pill */}
@@ -70,11 +70,11 @@ export default function ProcessArtifactViewer({
                         href={pdfUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center gap-3 px-6 py-3 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 flex-shrink-0"
+                        className="group flex items-center gap-3 px-6 py-3 bg-white/[0.08] text-white rounded-full hover:bg-white/[0.12] transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 flex-shrink-0 border border-white/[0.06]"
                     >
-                        <FileText className="w-4 h-4 text-slate-300 group-hover:text-white transition-colors" />
+                        <FileText className="w-4 h-4 text-white/60 group-hover:text-white transition-colors" />
                         <span className="text-sm font-medium">View Original PDF</span>
-                        <Download className="w-3 h-3 text-slate-500 group-hover:text-slate-300 ml-1 transition-transform group-hover:translate-y-0.5" />
+                        <Download className="w-3 h-3 text-white/40 group-hover:text-white/70 ml-1 transition-transform group-hover:translate-y-0.5" />
                     </a>
                 )}
             </div>
@@ -95,7 +95,7 @@ export default function ProcessArtifactViewer({
                         onClick={() => openLightbox(index)}
                     >
                         {/* Image Container */}
-                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100 border border-slate-100 shadow-sm transition-all duration-500 group-hover:shadow-md">
+                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-white/[0.03] border border-white/[0.06] shadow-sm transition-all duration-500 group-hover:shadow-md group-hover:border-white/[0.12]">
 
                             <Image
                                 src={artifact.src}
@@ -106,16 +106,16 @@ export default function ProcessArtifactViewer({
                             />
 
                             {/* Overlay on Hover - Subtle */}
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <div className="bg-white/90 backdrop-blur-md rounded-full p-3 shadow-sm transform scale-90 group-hover:scale-100 transition-all duration-300">
-                                    <ZoomIn className="w-5 h-5 text-slate-900" strokeWidth={1.5} />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                <div className="bg-white/10 backdrop-blur-md rounded-full p-3 shadow-sm transform scale-90 group-hover:scale-100 transition-all duration-300 border border-white/20">
+                                    <ZoomIn className="w-5 h-5 text-white" strokeWidth={1.5} />
                                 </div>
                             </div>
                         </div>
 
                         {/* Caption - Clean Sans */}
                         <div className="px-1">
-                            <p className="text-[11px] font-medium text-slate-500 uppercase tracking-wider truncate">
+                            <p className="text-[11px] font-medium text-[var(--text-muted)] uppercase tracking-wider truncate">
                                 {artifact.alt}
                             </p>
                         </div>
@@ -124,12 +124,12 @@ export default function ProcessArtifactViewer({
 
                 {/* "More" Card Indicator - Minimal */}
                 {artifacts.length > 6 && (
-                    <div className="flex items-center justify-center p-6 text-center border border-dashed border-slate-200 rounded-2xl bg-slate-50/50 hover:bg-slate-50 transition-colors cursor-pointer group">
+                    <div className="flex items-center justify-center p-6 text-center border border-dashed border-white/[0.08] rounded-2xl bg-white/[0.02] hover:bg-white/[0.04] transition-colors cursor-pointer group">
                         <div className="space-y-2">
-                            <span className="inline-block p-3 rounded-full bg-white shadow-sm mb-1 group-hover:scale-110 transition-transform">
-                                <span className="font-light text-2xl text-slate-900">+{artifacts.length - 6}</span>
+                            <span className="inline-block p-3 rounded-full bg-white/[0.05] shadow-sm mb-1 group-hover:scale-110 transition-transform border border-white/[0.06]">
+                                <span className="font-light text-2xl text-[var(--text-heading)]">+{artifacts.length - 6}</span>
                             </span>
-                            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">more pages</p>
+                            <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">more pages</p>
                         </div>
                     </div>
                 )}

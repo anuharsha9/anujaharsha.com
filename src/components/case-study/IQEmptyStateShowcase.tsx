@@ -40,15 +40,13 @@ export default function IQEmptyStateShowcase({ isLightBackground = false }: IQEm
   const { openLightbox } = useLightbox()
 
   return (
-    <div className={`w-full py-10 md:py-16 ${isLightBackground ? 'bg-white' : 'bg-slate-50'}`}>
+    <div className={`w-full py-10 md:py-16 `}>
       <div className="max-w-[1440px] mx-auto">
         {/* Header */}
         <ComponentHeading
-          tag="// UX_DECISION: EMPTY_STATES"
-          title="Intuitive Empty States for Guidance"
-          description="Every empty state teaches. Clear visual cues guide users to their first action—reducing friction, increasing adoption."
-          color="text-teal-600"
-          align="center"
+          tag="EMPTY STATES"
+          title="Guiding First Impressions"
+          description="Every empty state is a teaching moment. No blank screens — each guides users toward their first action."
           className="mb-12 md:mb-16"
         />
 
@@ -87,10 +85,10 @@ export default function IQEmptyStateShowcase({ isLightBackground = false }: IQEm
                   <span className="text-[10px] font-mono uppercase tracking-widest text-teal-600 font-semibold">
                     {`// ${state.label}`}
                   </span>
-                  <span className="h-px flex-1 bg-slate-100 hidden group-hover:block transition-all" />
+                  <span className="h-px flex-1 bg-white/[0.05] hidden group-hover:block transition-all" />
                 </div>
-                <h4 className="font-sans text-lg text-slate-900">{state.title}</h4>
-                <p className="text-sm text-slate-500 leading-relaxed max-w-lg">
+                <h4 className="font-sans text-lg text-[var(--text-heading)]">{state.title}</h4>
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed max-w-lg">
                   {state.description}
                 </p>
               </div>

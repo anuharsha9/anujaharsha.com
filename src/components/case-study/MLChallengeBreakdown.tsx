@@ -82,11 +82,11 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
       {/* System Audit Header */}
       <ComponentHeading
         variant="block"
-        tag="// SYSTEM_AUDIT"
+        align="center"
+        tag="SYSTEM AUDIT"
         title="System Audit: The Baseline"
         description="Identified critical friction points in the legacy 9.2 workflow."
         color="red"
-        align="center"
         className="mb-12"
       />
 
@@ -103,7 +103,7 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
           >
             {/* Screenshot Area - Standalone Rounded */}
             <div
-              className="relative aspect-video cursor-pointer overflow-hidden rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300"
+              className="relative aspect-video cursor-pointer overflow-hidden rounded-xl border border-white/[0.06] shadow-sm hover:shadow-md hover:shadow-black/10 hover:border-white/[0.12] transition-all duration-300"
               onClick={() => openLightbox(card.screenshot, card.screenshotAlt, card.title)}
             >
               <Image
@@ -132,7 +132,7 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
               {/* Title & Code */}
               <div className="flex flex-col gap-1">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-slate-900 text-lg font-medium">
+                  <h4 className="text-[var(--text-heading)] text-lg font-medium">
                     {card.title}
                   </h4>
                   <code className="font-mono text-[10px] text-red-400 opacity-60">
@@ -144,7 +144,7 @@ export default function MLChallengeBreakdown({ isLightBackground = true }: MLCha
               {/* Pain Points - Clean List */}
               <ul className="space-y-2">
                 {card.painPoints.map((point, j) => (
-                  <li key={j} className="text-slate-600 text-sm flex items-start gap-2.5">
+                  <li key={j} className="text-[var(--text-body)] text-sm flex items-start gap-2.5">
                     <span className="text-red-400 font-mono text-[10px] mt-1 flex-shrink-0">
                       {point.startsWith('x') ? '✕' : '>'}
                     </span>

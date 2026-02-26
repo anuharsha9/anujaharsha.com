@@ -26,6 +26,8 @@ import SectionNav from './SectionNav'
 import CaseStudyNav from './CaseStudyNav'
 import StructuredData from '@/components/structured-data/StructuredData'
 import FrameworkMatrix from './FrameworkMatrix'
+import ViewModeToggle from './ViewModeToggle'
+import CaseStudySection from './CaseStudySection'
 import LockedContent from './LockedContent'
 import LetsTalkCTA from './LetsTalkCTA'
 
@@ -129,7 +131,7 @@ interface CaseStudyLayoutProps {
   defaultViewMode?: 'full' | 'presentation'
 }
 
-export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: CaseStudyLayoutProps) {
+export default function CaseStudyLayout({ data, defaultViewMode = 'presentation' }: CaseStudyLayoutProps) {
   const {
     isUnlocked: showPasswordContent,
     unlock,
@@ -478,6 +480,13 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
           }),
         }}
       />
+      {/* Sticky View Mode Toggle */}
+      <ViewModeToggle
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        hasPresentation={!!data.presentation}
+      />
+
       {/* Reading Progress Indicator - Full Mode Only */}
       {viewMode === 'full' && <ReadingProgress />}
 
@@ -488,8 +497,6 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
           onExit={() => setViewMode('full')}
         />
       )}
-
-
 
       {/* Table of Contents - Sticky Navigation */}
       {/* Section Navigation - shows on all case study pages (Full Mode Only) */}
@@ -587,7 +594,7 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
                           }}
                           placeholder="Enter password"
                           aria-label="Enter password to unlock IQ Plugin case study"
-                          className="flex-1 px-4 py-3 border border-black/20 text-[var(--text-primary-light)] bg-white/90 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-teal)] focus:border-transparent placeholder:text-[var(--text-muted-light)] shadow-sm"
+                          className="flex-1 px-4 py-3 border border-white/[0.1] text-[var(--text-heading)] bg-white/[0.04] backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-teal)] focus:border-transparent placeholder:text-[var(--text-muted)] shadow-sm rounded-lg"
                           autoFocus
                         />
                         <button
@@ -749,7 +756,7 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
                         }}
                         placeholder="Enter password"
                         aria-label="Enter password to unlock protected content"
-                        className="flex-1 px-4 py-3 border border-black/20 text-[var(--text-primary-light)] bg-white/90 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-teal)] focus:border-transparent placeholder:text-[var(--text-muted-light)] shadow-sm"
+                        className="flex-1 px-4 py-3 border border-white/[0.1] text-[var(--text-heading)] bg-white/[0.04] backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-teal)] focus:border-transparent placeholder:text-[var(--text-muted)] shadow-sm rounded-lg"
                         autoFocus
                       />
                       <button
@@ -798,32 +805,20 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
         {
           (showPasswordContent || !data.passwordGate) && (
             <>
-              {/* Quick Overview - light background with White Cards */}
-              <section className="surface-light py-8 sm:py-10 md:py-12 relative space-y-8">
-                {/* Subtle Logo Watermark - Top Left Corner */}
-                <div className="absolute top-8 left-8 opacity-[0.02] pointer-events-none hidden lg:block">
-                  <div className="w-24 h-24">
-                    <SignatureLogo className="w-full h-full text-black" />
-                  </div>
-                </div>
+              {/* Quick Overview */}
+              <CaseStudySection eyebrow="Overview" divider={false}>
+                <QuickOverview data={data.quickOverview} heroSubtitle={data.heroSubtitle} caseStudySlug={data.slug} />
+              </CaseStudySection>
 
-                {/* Quick Overview Card */}
-                <CaseStudyCard noPadding={true}>
-                  <QuickOverview data={data.quickOverview} heroSubtitle={data.heroSubtitle} caseStudySlug={data.slug} />
-                </CaseStudyCard>
-
-                {/* Scale & Responsibility Card */}
-                {data.scaleAndResponsibility && (
-                  <CaseStudyCard noPadding={true}>
-                    <ScaleAndResponsibility
-                      data={data.scaleAndResponsibility}
-                      accentColor={data.slug === 'reportcaster' ? 'teal' : data.slug === 'iq-plugin' ? 'violet' : 'teal'}
-                    />
-                  </CaseStudyCard>
-                )}
-
-                {/* ExecutiveSummaryArc removed — V1→V2→V3 story now told once in VersionIteration (section-04) */}
-              </section>
+              {/* Scale & Responsibility */}
+              {data.scaleAndResponsibility && (
+                <CaseStudySection>
+                  <ScaleAndResponsibility
+                    data={data.scaleAndResponsibility}
+                    accentColor={data.slug === 'reportcaster' ? 'teal' : data.slug === 'iq-plugin' ? 'violet' : 'teal'}
+                  />
+                </CaseStudySection>
+              )}
 
               {/* Prototype Block - Transformation in Motion (Before Framework) */}
               {data.prototypeMedia && (
@@ -850,42 +845,34 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
 
               {/* ReportCaster Timeline */}
               {data.slug === 'reportcaster' && (
-                <section className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
-                  <CaseStudyCard>
-                    <ReportCasterTimeline isLightBackground={true} />
-                  </CaseStudyCard>
-                </section>
+                <CaseStudySection eyebrow="Project Timeline">
+                  <ReportCasterTimeline isLightBackground={false} />
+                </CaseStudySection>
               )}
 
-              {/* ML Functions Timeline - Moved Outside Discover */}
+              {/* ML Functions Timeline */}
               {data.slug === 'ml-functions' && (
-                <section className="surface-light py-8 md:py-10">
-                  <CaseStudyCard>
-                    <MLFunctionsTimeline isLightBackground={true} />
-                  </CaseStudyCard>
-                </section>
+                <CaseStudySection eyebrow="Project Timeline">
+                  <MLFunctionsTimeline isLightBackground={false} />
+                </CaseStudySection>
               )}
 
-              {/* IQ Plugin Project Timeline - Outside Discover Section */}
+              {/* IQ Plugin Timeline */}
               {data.slug === 'iq-plugin' && (
-                <section className="surface-light py-section-mobile md:py-section-tablet lg:py-section-desktop">
-                  <CaseStudyCard>
-                    <IQPluginTimeline isLightBackground={true} />
-                  </CaseStudyCard>
-                </section>
+                <CaseStudySection eyebrow="Project Timeline">
+                  <IQPluginTimeline isLightBackground={false} />
+                </CaseStudySection>
               )}
 
               {/* D.E.S.I.G.N. Framework Matrix */}
               {data.frameworkConnection && (
-                <section id="framework-connection" className="surface-light py-8 md:py-10">
-                  <CaseStudyCard>
-                    <FrameworkMatrix
-                      principles={data.frameworkConnection.principles}
-                      caseStudyContext={data.slug.toUpperCase().replace(/-/g, '_')}
-                      sectionMappings={frameworkSectionMappings}
-                    />
-                  </CaseStudyCard>
-                </section>
+                <CaseStudySection id="framework-connection" eyebrow="Framework">
+                  <FrameworkMatrix
+                    principles={data.frameworkConnection.principles}
+                    caseStudyContext={data.slug.toUpperCase().replace(/-/g, '_')}
+                    sectionMappings={frameworkSectionMappings}
+                  />
+                </CaseStudySection>
               )}
 
 
@@ -898,22 +885,15 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
                   const borderClass = sectionBg.includes('dark') ? 'border-refined-dark' : 'border-refined-light'
 
                   return (
-                    <div key={section.id}>
-                      <section
-                        className={`${sectionBg} py-8 sm:py-10 md:py-12 ${borderClass}`}
-                      >
-                        <CaseStudyCard>
-                          <SectionBlock
-                            section={section}
-                            isLightBackground={sectionBg === 'surface-light'}
-                            caseStudySlug={data.slug}
-                            isUnlocked={showPasswordContent}
-                            password={data.passwordGate?.password || 'anu-access'}
-                          />
-                        </CaseStudyCard>
-                      </section>
-
-                    </div>
+                    <CaseStudySection key={section.id} id={section.id}>
+                      <SectionBlock
+                        section={section}
+                        isLightBackground={false}
+                        caseStudySlug={data.slug}
+                        isUnlocked={showPasswordContent}
+                        password={data.passwordGate?.password || 'anu-access'}
+                      />
+                    </CaseStudySection>
                   )
                 })}
             </>
@@ -952,556 +932,456 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
                   <div key={section.id}>
                     {/* Special handling for section-04 (version iteration) for ReportCaster */}
                     {section.id === 'section-04' && data.slug === 'reportcaster' ? (
-                      <>
-                        {/* Render as proper section with header */}
-                        <section
-                          id={section.id}
-                          className={`${sectionBg} ${paddingClass} ${borderClass}`}
-                        >
-                          <CaseStudyCard>
-                            {/* Section Header - Letter badges removed for senior energy */}
-                            <div className="space-y-4 mb-8">
-                              <ComponentHeading
-                                variant="section"
-                                tag={undefined}
-                                title={section.title}
-                                color="slate"
-                              />
-                              {section.summary && (
-                                <div className="mt-6 max-w-4xl">
-                                  <p className="text-xl md:text-2xl leading-relaxed text-slate-500 font-light">
-                                    {section.summary}
-                                  </p>
-                                </div>
-                              )}
-                            </div>
+                      <CaseStudySection
+                        id={section.id}
+                        title={section.title}
+                        subtitle={section.summary}
+                      >
+                        {/* UX Principles / Architectural Standards */}
+                        {data.uxPrinciples && (
+                          <div className="mb-12">
+                            <UXPrinciples
+                              title={data.uxPrinciples.title}
+                              intro={data.uxPrinciples.intro}
+                              principles={data.uxPrinciples.principles}
+                              isLightBackground={false}
+                            />
+                          </div>
+                        )}
 
-                            {/* UX Principles / Architectural Standards - At the start of Iterate section */}
+                        {/* Plus Menu Insight */}
+                        <PlusMenuInsight isLightBackground={false} />
+
+                        {/* Workflow Transformation Visual */}
+                        <ScheduleWorkflowComparison isLightBackground={false} />
+
+                        {/* Natural Language Insight */}
+                        <NaturalLanguageInsight isLightBackground={false} />
+
+                        {/* Version Iteration Details */}
+                        <div className="mt-8">
+                          <VersionIteration
+                            v1={section.v1Data}
+                            v2={section.v2Data}
+                            v3={section.v3Data}
+                            isLightBackground={false}
+                          />
+                        </div>
+                      </CaseStudySection>
+                    ) : (
+                      <CaseStudySection id={section.id} noAnimation>
+                        {/* Lock entire section-04 (Iterate) for ML Functions */}
+                        {data.slug === 'ml-functions' && section.id === 'section-04' ? (
+                          <LockedContent
+                            password={data.passwordGate?.password || 'anu-access'}
+                            caseStudySlug={data.slug}
+                            unlockMessage="Password required to view iteration details and new workflow designs"
+                            isLightBackground={false}
+                          >
+                            <SectionBlock
+                              section={section}
+                              isLightBackground={false}
+                              caseStudySlug={data.slug}
+                              isUnlocked={showPasswordContent}
+                              password={data.passwordGate?.password || 'anu-access'}
+                              frameworkMapping={frameworkSectionMappings}
+                            />
+                          </LockedContent>
+                        ) : (
+                          <SectionBlock
+                            section={section}
+                            isLightBackground={false}
+                            caseStudySlug={data.slug}
+                            isUnlocked={showPasswordContent}
+                            password={data.passwordGate?.password || 'anu-access'}
+                            frameworkMapping={frameworkSectionMappings}
+                          />
+                        )}
+
+                        {/* === INLINE SUB-COMPONENTS === */}
+
+                        {/* RC Section 01: SystemArchaeology */}
+                        {section.id === 'section-01' && data.slug === 'reportcaster' && (
+                          <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                            <SystemArchaeology isLightBackground={false} caseStudySlug={data.slug} />
+                          </div>
+                        )}
+
+                        {/* ML Section 01: Knowledge Gap + Challenge Breakdown */}
+                        {section.id === 'section-01' && data.slug === 'ml-functions' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLKnowledgeGapSystem isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLChallengeBreakdown isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
+
+                        {/* IQ Section 01: Business Case + Workflows + NLQ */}
+                        {section.id === 'section-01' && data.slug === 'iq-plugin' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQBusinessCase isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQWorkflowsAndFoundation isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
+
+                        {/* RC Section 06: ImpactVisual — REMOVED: metrics shown elsewhere */}
+
+                        {/* RC Section 02: Research Network + Strategy only — MarketAnalysis, Personas, EmpathizeGrid removed (generic filler) */}
+                        {isSectionTwo && data.slug === 'reportcaster' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <TribalKnowledgeNetwork isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
+
+                        {/* ML Section 02: Research + Access Strategy + Personas + Market */}
+                        {isSectionTwo && data.slug === 'ml-functions' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <ResearchApproach data={researchApproachData['ml-functions']} accentColor="teal" />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLUserAccessStrategy isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLPersonaCards isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MarketAnalysis {...mlFunctionsMarketAnalysis} isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
+
+                        {/* IQ Section 02: Research + Personas + Market */}
+                        {section.id === 'section-02' && data.slug === 'iq-plugin' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <ResearchApproach data={researchApproachData['iq-plugin']} accentColor="violet" />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQPersonaCards isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MarketAnalysis {...iqPluginMarketAnalysis} isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
+
+                        {/* RC Section 03: SystemConsolidationMap + ProcessArtifacts + SystemMapping — SubsystemConsolidation removed (duplicates consolidation map) */}
+                        {section.id === 'section-03' && data.slug === 'reportcaster' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <SystemConsolidationMap isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <ProcessArtifactViewer
+                                artifacts={reportCasterArtifacts}
+                                pdfUrl="/assets/rc-sketchbook.pdf"
+                              />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <SystemMappingBreakdown isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
+
+                        {/* ML Section 03: Topology + Workflow + Pivots + Principles + Artifacts */}
+                        {section.id === 'section-03' && data.slug === 'ml-functions' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <ProcessArtifactViewer
+                                artifacts={mlArtifacts}
+                                title="The System Blueprint"
+                                description="Before solving for UI, I had to solve for system logic. These diagrams map the complex relationships between model types, training workflows, and user personas."
+                                pdfUrl="/assets/ml-iq-sketchbook.pdf"
+                              />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <SystemTopologyBlueprint isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLWorkflowMapping isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+
+                            </div>
                             {data.uxPrinciples && (
-                              <div className="mb-12">
+                              <div className="mt-12 pt-12 border-t border-white/[0.06]">
                                 <UXPrinciples
                                   title={data.uxPrinciples.title}
                                   intro={data.uxPrinciples.intro}
                                   principles={data.uxPrinciples.principles}
-                                  isLightBackground={true}
+                                  isLightBackground={false}
                                 />
                               </div>
                             )}
+                          </>
+                        )}
 
-                            {/* Plus Menu Insight - The reframing moment */}
-                            <PlusMenuInsight isLightBackground={sectionBg === 'surface-light'} />
-
-                            {/* Workflow Transformation Visual - Show separately (not locked) */}
-                            <ScheduleWorkflowComparison isLightBackground={sectionBg === 'surface-light'} />
-
-                            {/* Natural Language Insight - The recurrence summary micro-detail */}
-                            <NaturalLanguageInsight isLightBackground={sectionBg === 'surface-light'} />
-
-                            {/* RecurrenceDesignDetail REMOVED — duplicates NaturalLanguageInsight */}
-
-                            {/* Version Iteration Details - NOW PUBLIC */}
-                            <div className="mt-8">
-                              <VersionIteration
-                                v1={section.v1Data}
-                                v2={section.v2Data}
-                                v3={section.v3Data}
-                                isLightBackground={sectionBg === 'surface-light'}
-                              />
-
-                              {/* RCDesignEvolution REMOVED — too granular for the narrative flow */}
+                        {/* IQ Section 03: ProcessArtifacts + Architecture + Blueprint + Principles */}
+                        {section.id === 'section-03' && data.slug === 'iq-plugin' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQIdeaLab isLightBackground={false} />
                             </div>
-                          </CaseStudyCard>
-                        </section>
-                      </>
-                    ) : (
-                      <>
-                        {/* Each section */}
-                        <section
-                          id={section.id}
-                          className={`${sectionBg} ${paddingClass} ${borderClass}`}
-                        >
-                          <CaseStudyCard>
-                            {/* Lock entire section-04 (Iterate) for ML Functions */}
-                            {data.slug === 'ml-functions' && section.id === 'section-04' ? (
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQBuildingSystem isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQPluginArchitecture isLightBackground={false} />
+                            </div>
+
+                            {data.uxPrinciples && (
+                              <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                                <UXPrinciples
+                                  title={data.uxPrinciples.title}
+                                  intro={data.uxPrinciples.intro}
+                                  principles={data.uxPrinciples.principles}
+                                  isLightBackground={false}
+                                />
+                              </div>
+                            )}
+                          </>
+                        )}
+
+                        {/* ML Section 04: Layered Disclosure + Design Iteration Log */}
+                        {section.id === 'section-04' && data.slug === 'ml-functions' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
                               <LockedContent
                                 password={data.passwordGate?.password || 'anu-access'}
                                 caseStudySlug={data.slug}
-                                unlockMessage="Password required to view iteration details and new workflow designs"
-                                isLightBackground={sectionBg === 'surface-light'}
+                                unlockMessage="Password required to view layered disclosure strategy"
+                                isLightBackground={false}
                               >
-                                <SectionBlock
-                                  section={section}
-                                  isLightBackground={sectionBg === 'surface-light'}
-                                  caseStudySlug={data.slug}
-                                  isUnlocked={showPasswordContent}
-                                  password={data.passwordGate?.password || 'anu-access'}
-                                  frameworkMapping={data.frameworkConnection ? (() => {
-                                    // Create reverse mapping: sectionId -> framework letter
-                                    const mapping: Record<string, string> = {}
-                                    data.frameworkConnection.principles.forEach((principle) => {
-                                      let sectionId = ''
-                                      if (data.slug === 'reportcaster') {
-                                        if (principle.letter === 'D') sectionId = 'section-01'
-                                        else if (principle.letter === 'E') sectionId = 'section-02'
-                                        else if (principle.letter === 'S') sectionId = 'section-03'
-                                        else if (principle.letter === 'I') sectionId = 'version-iteration'
-                                        else if (principle.letter === 'G') sectionId = 'section-05'
-                                        else if (principle.letter === 'N') sectionId = 'section-06'
-                                      } else if (data.slug === 'ml-functions') {
-                                        if (principle.letter === 'D') sectionId = 'section-01'
-                                        else if (principle.letter === 'E') sectionId = 'section-02'
-                                        else if (principle.letter === 'S') sectionId = 'section-03'
-                                        else if (principle.letter === 'I') sectionId = 'section-04'
-                                        else if (principle.letter === 'G') sectionId = 'section-05'
-                                        else if (principle.letter === 'N') sectionId = 'section-06'
-                                      } else if (data.slug === 'iq-plugin') {
-                                        if (principle.letter === 'D') sectionId = 'section-01'
-                                        else if (principle.letter === 'E') sectionId = 'section-02'
-                                        else if (principle.letter === 'S') sectionId = 'section-03'
-                                        else if (principle.letter === 'I') sectionId = 'section-04'
-                                        else if (principle.letter === 'G') sectionId = 'section-05'
-                                        else if (principle.letter === 'N') sectionId = 'section-06'
-                                      }
-                                      // For sections that map to multiple principles, use the first one found
-                                      if (sectionId && !mapping[sectionId]) {
-                                        mapping[sectionId] = principle.letter
-                                      }
-                                    })
-                                    return mapping
-                                  })() : undefined}
+                                <LayeredDisclosureVisual isLightBackground={false} />
+                              </LockedContent>
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <LockedContent
+                                password={data.passwordGate?.password || 'anu-access'}
+                                caseStudySlug={data.slug}
+                                unlockMessage="Password required to view design artifacts"
+                                isLightBackground={false}
+                              >
+                                <DesignIterationLog isLightBackground={false} />
+                              </LockedContent>
+                            </div>
+                          </>
+                        )}
+
+                        {/* IQ Section 04: Evolution + Empty States + Design Log */}
+                        {section.id === 'section-04' && data.slug === 'iq-plugin' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <LockedContent
+                                password={data.passwordGate?.password || 'anu-access'}
+                                caseStudySlug={data.slug}
+                                unlockMessage="Password required to view design evolution"
+                                isLightBackground={false}
+                              >
+                                <IQEvolution isLightBackground={false} />
+                              </LockedContent>
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <LockedContent
+                                password={data.passwordGate?.password || 'anu-access'}
+                                caseStudySlug={data.slug}
+                                unlockMessage="Password required to view empty states"
+                                isLightBackground={false}
+                              >
+                                <IQEmptyStateShowcase isLightBackground={false} />
+                              </LockedContent>
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <LockedContent
+                                password={data.passwordGate?.password || 'anu-access'}
+                                caseStudySlug={data.slug}
+                                unlockMessage="Password required to view design specifications"
+                                isLightBackground={false}
+                              >
+                                <DesignIterationLog
+                                  isLightBackground={false}
+                                  tabs={iqTabs}
+                                  footerContent={iqFooterContent}
                                 />
                               </LockedContent>
-                            ) : (
-                              <SectionBlock
-                                section={section}
-                                isLightBackground={sectionBg === 'surface-light'}
-                                caseStudySlug={data.slug}
+                            </div>
+                          </>
+                        )}
+
+                        {/* RC Section 05: Ownership Scope + Team Collaboration — KnowledgeTransferSystem removed (overlaps with TeamCollaboration) */}
+                        {section.id === 'section-05' && data.slug === 'reportcaster' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <OwnershipScope isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <TeamCollaboration data={teamCollaborationData['reportcaster']} accentColor="amber" />
+                            </div>
+                          </>
+                        )}
+
+                        {/* ML Section 05: Explainability + Team Collaboration */}
+                        {section.id === 'section-05' && data.slug === 'ml-functions' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLExplainabilityHighlight isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <TeamCollaboration data={teamCollaborationData['ml-functions']} accentColor="teal" />
+                            </div>
+                          </>
+                        )}
+
+                        {/* IQ Section 05: Team Collaboration + Challenges */}
+                        {section.id === 'section-05' && data.slug === 'iq-plugin' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <TeamCollaboration data={teamCollaborationData['iq-plugin']} accentColor="violet" />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <LockedContent
                                 isUnlocked={showPasswordContent}
-                                password={data.passwordGate?.password || 'anu-access'}
-                                frameworkMapping={data.frameworkConnection ? (() => {
-                                  // Create reverse mapping: sectionId -> framework letter
-                                  const mapping: Record<string, string> = {}
-                                  data.frameworkConnection.principles.forEach((principle) => {
-                                    let sectionId = ''
-                                    if (data.slug === 'reportcaster') {
-                                      if (principle.letter === 'D') sectionId = 'section-01'
-                                      else if (principle.letter === 'E') sectionId = 'section-02'
-                                      else if (principle.letter === 'S') sectionId = 'section-03'
-                                      else if (principle.letter === 'I') sectionId = 'version-iteration'
-                                      else if (principle.letter === 'G') sectionId = 'section-05'
-                                      else if (principle.letter === 'N') sectionId = 'section-06'
-                                    } else if (data.slug === 'ml-functions') {
-                                      if (principle.letter === 'D') sectionId = 'section-01'
-                                      else if (principle.letter === 'E') sectionId = 'section-02'
-                                      else if (principle.letter === 'S') sectionId = 'section-03'
-                                      else if (principle.letter === 'I') sectionId = 'section-04'
-                                      else if (principle.letter === 'G') sectionId = 'section-05'
-                                      else if (principle.letter === 'N') sectionId = 'section-06'
-                                    } else if (data.slug === 'iq-plugin') {
-                                      if (principle.letter === 'D') sectionId = 'section-01'
-                                      else if (principle.letter === 'E') sectionId = 'section-02'
-                                      else if (principle.letter === 'S') sectionId = 'section-03'
-                                      else if (principle.letter === 'I') sectionId = 'section-04'
-                                      else if (principle.letter === 'G') sectionId = 'section-05'
-                                      else if (principle.letter === 'N') sectionId = 'section-06'
-                                    }
-                                    // For sections that map to multiple principles, use the first one found
-                                    if (sectionId && !mapping[sectionId]) {
-                                      mapping[sectionId] = principle.letter
-                                    }
-                                  })
-                                  return mapping
-                                })() : undefined}
+                                password="access"
+                                caseStudySlug={data.slug}
+                                unlockMessage="Password required to view architectural decisions"
+                                isLightBackground={false}
+                              >
+                                <IQChallengesBreakdown isLightBackground={false} />
+                              </LockedContent>
+                            </div>
+                          </>
+                        )}
+
+                        {/* RC Section 06: Testimonials + ShippedImpact + ImpactDiff + NavigateForward — PatternConnections removed (filler) */}
+                        {section.id === 'section-06' && data.slug === 'reportcaster' && (
+                          <>
+
+
+
+
+
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <div className="mb-8">
+                                <ComponentHeading
+                                  variant="block"
+                                  align="center"
+                                  tag="VISUAL_DIFF"
+                                  title="Side-by-Side Comparison"
+                                  color="teal"
+                                />
+                              </div>
+                              <ImpactDiff
+                                beforeImage="/images/case-study/ReportCaster/Before.png"
+                                afterImage="/images/case-study/ReportCaster/After.png"
+                                beforeLabel="Legacy"
+                                afterLabel="Redesign"
+                                beforeTitle="legacy_report.exe"
+                                afterTitle="modern_dashboard.tsx"
+                                isLightBackground={false}
                               />
-                            )}
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <NavigateForwardContent isLightBackground={false} reflection={data.reflection} />
+                            </div>
+                          </>
+                        )}
 
-                            {/* === INLINE SUB-COMPONENTS: All in the SAME white box === */}
+                        {/* ML Section 06: Visual Diffs + Impact + Reflection + Patterns */}
+                        {section.id === 'section-06' && data.slug === 'ml-functions' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <div className="text-center mb-8">
+                                <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase block mb-2">
+                                  {'// VISUAL_DIFF'}
+                                </span>
+                                <h4 className="font-sans text-[var(--text-heading)] text-xl md:text-2xl">
+                                  Legacy vs. Redesigned Workflow
+                                </h4>
+                              </div>
+                              <ImpactDiff
+                                beforeImage="/images/case-study/ml-functions/Legacy Train Model UI.png"
+                                afterImage="/images/case-study/ml-functions/4. Train Model Workflow - Step 1 - Select Problem Type.png"
+                                beforeLabel="Legacy"
+                                afterLabel="Redesign"
+                                beforeTitle="legacy_ui.exe"
+                                afterTitle="workflow_step_1.tsx"
+                                isLightBackground={false}
+                              />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <ImpactDiff
+                                beforeImage="/images/case-study/ml-functions/Legacy Train Model Results UI.png"
+                                afterImage="/images/case-study/ml-functions/8. Train Model Workflow - Compare Models.png"
+                                beforeLabel="Legacy"
+                                afterLabel="Redesign"
+                                beforeTitle="legacy_results.exe"
+                                afterTitle="model_comparison.tsx"
+                                isLightBackground={false}
+                              />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLImpactMetrics isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={false} />}
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <MLPatternConnections isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
 
-                            {/* RC Section 01: SystemArchaeology only — ScopeExpansionReveal removed (duplicates ExecutiveSummaryArc) */}
-                            {section.id === 'section-01' && data.slug === 'reportcaster' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <SystemArchaeology isLightBackground={true} caseStudySlug={data.slug} />
-                                </div>
-                              </>
-                            )}
+                        {/* IQ Section 06: Workflow Comparison + Validation + Reflection + Patterns */}
+                        {section.id === 'section-06' && data.slug === 'iq-plugin' && (
+                          <>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <LockedContent
+                                password={data.passwordGate?.password || 'anu-access'}
+                                caseStudySlug={data.slug}
+                                unlockMessage="Password required to view workflow comparison"
+                                isLightBackground={false}
+                              >
+                                <IQWorkflowComparison isLightBackground={false} />
+                              </LockedContent>
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQValidationSources isLightBackground={false} />
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={false} />}
+                            </div>
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <IQPatternConnections isLightBackground={false} />
+                            </div>
+                          </>
+                        )}
 
-                            {/* ML Section 01: Knowledge Gap + Challenge Breakdown */}
-                            {section.id === 'section-01' && data.slug === 'ml-functions' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLKnowledgeGapSystem isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLChallengeBreakdown isLightBackground={true} />
-                                </div>
-                              </>
-                            )}
+                        {/* Generic UX Principles for other case studies section-03 */}
+                        {section.id === 'section-03' && data.uxPrinciples &&
+                          !(data.slug === 'ml-functions' || data.slug === 'iq-plugin' || data.slug === 'reportcaster') && (
+                            <div className="mt-12 pt-12 border-t border-white/[0.06]">
+                              <UXPrinciples
+                                title={data.uxPrinciples.title}
+                                intro={data.uxPrinciples.intro}
+                                principles={data.uxPrinciples.principles}
+                                isLightBackground={false}
+                              />
+                            </div>
+                          )}
 
-                            {/* IQ Section 01: Business Case + Workflows + NLQ */}
-                            {section.id === 'section-01' && data.slug === 'iq-plugin' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQBusinessCase isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQWorkflowsAndFoundation isLightBackground={true} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* RC Section 06: ImpactVisual — REMOVED: metrics shown elsewhere */}
-
-                            {/* RC Section 02: Research Network + Strategy only — MarketAnalysis, Personas, EmpathizeGrid removed (generic filler) */}
-                            {isSectionTwo && data.slug === 'reportcaster' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <TribalKnowledgeNetwork isLightBackground={true} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* ML Section 02: Research + Access Strategy + Personas + Market */}
-                            {isSectionTwo && data.slug === 'ml-functions' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <ResearchApproach data={researchApproachData['ml-functions']} accentColor="teal" />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLUserAccessStrategy isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLPersonaCards isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MarketAnalysis {...mlFunctionsMarketAnalysis} isLightBackground={true} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* IQ Section 02: Research + Personas + Market */}
-                            {section.id === 'section-02' && data.slug === 'iq-plugin' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <ResearchApproach data={researchApproachData['iq-plugin']} accentColor="violet" />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQPersonaCards isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MarketAnalysis {...iqPluginMarketAnalysis} isLightBackground={true} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* RC Section 03: SystemConsolidationMap + ProcessArtifacts + SystemMapping — SubsystemConsolidation removed (duplicates consolidation map) */}
-                            {section.id === 'section-03' && data.slug === 'reportcaster' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <SystemConsolidationMap isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <ProcessArtifactViewer
-                                    artifacts={reportCasterArtifacts}
-                                    pdfUrl="/assets/rc-sketchbook.pdf"
-                                  />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <SystemMappingBreakdown isLightBackground={sectionBg === 'surface-light'} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* ML Section 03: Topology + Workflow + Pivots + Principles + Artifacts */}
-                            {section.id === 'section-03' && data.slug === 'ml-functions' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <ProcessArtifactViewer
-                                    artifacts={mlArtifacts}
-                                    title="The System Blueprint"
-                                    description="Before solving for UI, I had to solve for system logic. These diagrams map the complex relationships between model types, training workflows, and user personas."
-                                    pdfUrl="/assets/ml-iq-sketchbook.pdf"
-                                  />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <SystemTopologyBlueprint isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLWorkflowMapping isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-
-                                </div>
-                                {data.uxPrinciples && (
-                                  <div className="mt-12 pt-12 border-t border-slate-100">
-                                    <UXPrinciples
-                                      title={data.uxPrinciples.title}
-                                      intro={data.uxPrinciples.intro}
-                                      principles={data.uxPrinciples.principles}
-                                      isLightBackground={true}
-                                    />
-                                  </div>
-                                )}
-                              </>
-                            )}
-
-                            {/* IQ Section 03: ProcessArtifacts + Architecture + Blueprint + Principles */}
-                            {section.id === 'section-03' && data.slug === 'iq-plugin' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQIdeaLab isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQBuildingSystem isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQPluginArchitecture isLightBackground={true} />
-                                </div>
-
-                                {data.uxPrinciples && (
-                                  <div className="mt-12 pt-12 border-t border-slate-100">
-                                    <UXPrinciples
-                                      title={data.uxPrinciples.title}
-                                      intro={data.uxPrinciples.intro}
-                                      principles={data.uxPrinciples.principles}
-                                      isLightBackground={true}
-                                    />
-                                  </div>
-                                )}
-                              </>
-                            )}
-
-                            {/* ML Section 04: Layered Disclosure + Design Iteration Log */}
-                            {section.id === 'section-04' && data.slug === 'ml-functions' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <LockedContent
-                                    password={data.passwordGate?.password || 'anu-access'}
-                                    caseStudySlug={data.slug}
-                                    unlockMessage="Password required to view layered disclosure strategy"
-                                    isLightBackground={true}
-                                  >
-                                    <LayeredDisclosureVisual isLightBackground={true} />
-                                  </LockedContent>
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <LockedContent
-                                    password={data.passwordGate?.password || 'anu-access'}
-                                    caseStudySlug={data.slug}
-                                    unlockMessage="Password required to view design artifacts"
-                                    isLightBackground={true}
-                                  >
-                                    <DesignIterationLog isLightBackground={true} />
-                                  </LockedContent>
-                                </div>
-                              </>
-                            )}
-
-                            {/* IQ Section 04: Evolution + Empty States + Design Log */}
-                            {section.id === 'section-04' && data.slug === 'iq-plugin' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <LockedContent
-                                    password={data.passwordGate?.password || 'anu-access'}
-                                    caseStudySlug={data.slug}
-                                    unlockMessage="Password required to view design evolution"
-                                    isLightBackground={true}
-                                  >
-                                    <IQEvolution isLightBackground={true} />
-                                  </LockedContent>
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <LockedContent
-                                    password={data.passwordGate?.password || 'anu-access'}
-                                    caseStudySlug={data.slug}
-                                    unlockMessage="Password required to view empty states"
-                                    isLightBackground={true}
-                                  >
-                                    <IQEmptyStateShowcase isLightBackground={true} />
-                                  </LockedContent>
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <LockedContent
-                                    password={data.passwordGate?.password || 'anu-access'}
-                                    caseStudySlug={data.slug}
-                                    unlockMessage="Password required to view design specifications"
-                                    isLightBackground={true}
-                                  >
-                                    <DesignIterationLog
-                                      isLightBackground={true}
-                                      tabs={iqTabs}
-                                      footerContent={iqFooterContent}
-                                    />
-                                  </LockedContent>
-                                </div>
-                              </>
-                            )}
-
-                            {/* RC Section 05: Ownership Scope + Team Collaboration — KnowledgeTransferSystem removed (overlaps with TeamCollaboration) */}
-                            {section.id === 'section-05' && data.slug === 'reportcaster' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <OwnershipScope isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <TeamCollaboration data={teamCollaborationData['reportcaster']} accentColor="amber" />
-                                </div>
-                              </>
-                            )}
-
-                            {/* ML Section 05: Explainability + Team Collaboration */}
-                            {section.id === 'section-05' && data.slug === 'ml-functions' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLExplainabilityHighlight isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <TeamCollaboration data={teamCollaborationData['ml-functions']} accentColor="teal" />
-                                </div>
-                              </>
-                            )}
-
-                            {/* IQ Section 05: Team Collaboration + Challenges */}
-                            {section.id === 'section-05' && data.slug === 'iq-plugin' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <TeamCollaboration data={teamCollaborationData['iq-plugin']} accentColor="violet" />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <LockedContent
-                                    isUnlocked={showPasswordContent}
-                                    password="access"
-                                    caseStudySlug={data.slug}
-                                    unlockMessage="Password required to view architectural decisions"
-                                    isLightBackground={true}
-                                  >
-                                    <IQChallengesBreakdown isLightBackground={true} />
-                                  </LockedContent>
-                                </div>
-                              </>
-                            )}
-
-                            {/* RC Section 06: Testimonials + ShippedImpact + ImpactDiff + NavigateForward — PatternConnections removed (filler) */}
-                            {section.id === 'section-06' && data.slug === 'reportcaster' && (
-                              <>
-
-
-
-
-
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <div className="mb-8">
-                                    <ComponentHeading
-                                      variant="block"
-                                      align="center"
-                                      tag="VISUAL_DIFF"
-                                      title="Side-by-Side Comparison"
-                                      color="teal"
-                                    />
-                                  </div>
-                                  <ImpactDiff
-                                    beforeImage="/images/case-study/ReportCaster/Before.png"
-                                    afterImage="/images/case-study/ReportCaster/After.png"
-                                    beforeLabel="Legacy"
-                                    afterLabel="Redesign"
-                                    beforeTitle="legacy_report.exe"
-                                    afterTitle="modern_dashboard.tsx"
-                                    isLightBackground={true}
-                                  />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <NavigateForwardContent isLightBackground={true} reflection={data.reflection} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* ML Section 06: Visual Diffs + Impact + Reflection + Patterns */}
-                            {section.id === 'section-06' && data.slug === 'ml-functions' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <div className="text-center mb-8">
-                                    <span className="font-mono text-[var(--accent-teal)] text-xs tracking-widest uppercase block mb-2">
-                                      {'// VISUAL_DIFF'}
-                                    </span>
-                                    <h4 className="font-sans text-slate-900 text-xl md:text-2xl">
-                                      Legacy vs. Redesigned Workflow
-                                    </h4>
-                                  </div>
-                                  <ImpactDiff
-                                    beforeImage="/images/case-study/ml-functions/Legacy Train Model UI.png"
-                                    afterImage="/images/case-study/ml-functions/4. Train Model Workflow - Step 1 - Select Problem Type.png"
-                                    beforeLabel="Legacy"
-                                    afterLabel="Redesign"
-                                    beforeTitle="legacy_ui.exe"
-                                    afterTitle="workflow_step_1.tsx"
-                                    isLightBackground={true}
-                                  />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <ImpactDiff
-                                    beforeImage="/images/case-study/ml-functions/Legacy Train Model Results UI.png"
-                                    afterImage="/images/case-study/ml-functions/8. Train Model Workflow - Compare Models.png"
-                                    beforeLabel="Legacy"
-                                    afterLabel="Redesign"
-                                    beforeTitle="legacy_results.exe"
-                                    afterTitle="model_comparison.tsx"
-                                    isLightBackground={true}
-                                  />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLImpactMetrics isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={true} />}
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <MLPatternConnections isLightBackground={true} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* IQ Section 06: Workflow Comparison + Validation + Reflection + Patterns */}
-                            {section.id === 'section-06' && data.slug === 'iq-plugin' && (
-                              <>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <LockedContent
-                                    password={data.passwordGate?.password || 'anu-access'}
-                                    caseStudySlug={data.slug}
-                                    unlockMessage="Password required to view workflow comparison"
-                                    isLightBackground={true}
-                                  >
-                                    <IQWorkflowComparison isLightBackground={true} />
-                                  </LockedContent>
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQValidationSources isLightBackground={true} />
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  {data.reflection && <CaseStudyReflection data={data.reflection} isLightBackground={true} />}
-                                </div>
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <IQPatternConnections isLightBackground={true} />
-                                </div>
-                              </>
-                            )}
-
-                            {/* Generic UX Principles for other case studies section-03 */}
-                            {section.id === 'section-03' && data.uxPrinciples &&
-                              !(data.slug === 'ml-functions' || data.slug === 'iq-plugin' || data.slug === 'reportcaster') && (
-                                <div className="mt-12 pt-12 border-t border-slate-100">
-                                  <UXPrinciples
-                                    title={data.uxPrinciples.title}
-                                    intro={data.uxPrinciples.intro}
-                                    principles={data.uxPrinciples.principles}
-                                    isLightBackground={true}
-                                  />
-                                </div>
-                              )}
-
-                          </CaseStudyCard>
-                        </section>
-                      </>
+                      </CaseStudySection>
                     )}
+
 
 
 
@@ -1557,7 +1437,7 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'full' }: Case
         }
 
         {/* end: full case study content wrapper */}
-      </div>
+      </div >
 
       {/* Scroll Progress Gear - Only in full mode */}
       {viewMode === 'full' && <ScrollGear />}

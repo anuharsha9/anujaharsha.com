@@ -81,11 +81,11 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
         className="space-y-6"
       >
         <div className="flex items-center gap-4 justify-center opacity-40">
-          <div className="h-px w-12 bg-slate-200"></div>
+          <div className="h-px w-12 bg-white/[0.08]"></div>
           <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
             Cross-Functional Reach
           </span>
-          <div className="h-px w-12 bg-slate-200"></div>
+          <div className="h-px w-12 bg-white/[0.08]"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -108,7 +108,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
                   <motion.div
                     key={j}
                     whileHover={{ scale: 1.05 }}
-                    className="bg-white border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:border-teal-200 hover:text-teal-700 hover:bg-teal-50 hover:shadow-sm transition-all duration-200 rounded-lg"
+                    className="bg-white/[0.04] border border-white/[0.06] px-4 py-2 text-sm font-medium text-[var(--text-body)] hover:border-teal-500/[0.3] hover:text-teal-400 hover:bg-teal-500/[0.06] hover:shadow-sm transition-all duration-200 rounded-lg"
                   >
                     {item}
                   </motion.div>
@@ -125,10 +125,10 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
         className="space-y-8"
       >
         <div className="text-center">
-          <span className="font-mono text-xs text-slate-400 uppercase tracking-widest block mb-2">
+          <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest block mb-2">
             {'// PROCESS_FLOW'}
           </span>
-          <h4 className="text-slate-900 text-xl font-sans">
+          <h4 className="text-[var(--text-heading)] text-xl font-sans">
             Onboarding Activities
           </h4>
         </div>
@@ -140,15 +140,15 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
               <motion.div
                 variants={cardVariants}
                 whileHover={{ y: -4 }}
-                className="bg-white border border-slate-200 p-6 hover:shadow-lg hover:border-teal-200 transition-all duration-300 rounded-2xl h-full flex flex-col"
+                className="bg-white/[0.03] border border-white/[0.06] p-6 hover:shadow-lg hover:shadow-black/10 hover:border-teal-500/[0.3] transition-all duration-300 rounded-2xl h-full flex flex-col"
               >
                 <div className="space-y-4 flex-1">
                   {/* Phase Header */}
-                  <div className="flex items-center gap-3 border-b border-slate-100 pb-3 mb-2">
-                    <div className="w-6 h-6 flex items-center justify-center text-white font-mono text-xs font-bold bg-slate-900 rounded">
+                  <div className="flex items-center gap-3 border-b border-white/[0.06] pb-3 mb-2">
+                    <div className="w-6 h-6 flex items-center justify-center text-white font-mono text-xs font-bold bg-white/[0.10] rounded">
                       {i + 1}
                     </div>
-                    <h5 className="text-slate-900 font-sans font-semibold">{a.phase}</h5>
+                    <h5 className="text-[var(--text-heading)] font-sans font-semibold">{a.phase}</h5>
                   </div>
 
                   {/* Items */}
@@ -156,7 +156,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
                     {a.items.map((item, j) => (
                       <li key={j} className="flex items-start gap-2">
                         <span className="text-teal-400 font-mono text-xs mt-1 flex-shrink-0">→</span>
-                        <span className="text-slate-600 text-sm leading-relaxed">{item}</span>
+                        <span className="text-[var(--text-body)] text-sm leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -180,7 +180,7 @@ export default function TeamOnboardingProcess({ isLightBackground = true }: Team
             <span className="text-emerald-400/90 font-bold shrink-0 mt-0.5">&gt;</span>
             <p className="opacity-90 leading-7">
               Engineers who initially intimidated me became collaborators I respected — and who respected me.
-              <span className="text-slate-400 block mt-2 text-sm font-light">
+              <span className="text-[var(--text-muted)] block mt-2 text-sm font-light">
                 The documentation work gave me context to contribute meaningfully in cross-functional discussions.
               </span>
             </p>

@@ -257,7 +257,7 @@ export default function DesignIterationLog({
       <div className="space-y-8">
         {/* Navigation Tabs */}
         <div className="flex justify-center">
-          <div className="inline-flex bg-slate-100 p-1.5 rounded-full overflow-x-auto max-w-full">
+          <div className="inline-flex bg-white/[0.05] p-1.5 rounded-full overflow-x-auto max-w-full">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.id
               return (
@@ -266,13 +266,13 @@ export default function DesignIterationLog({
                   onClick={() => setActiveTab(tab.id)}
                   className={`
                                 relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                ${isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-700'}
+                                ${isActive ? 'text-[var(--text-heading)]' : 'text-[var(--text-muted)] hover:text-[var(--text-body)]'}
                             `}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-white shadow-sm rounded-full"
+                      className="absolute inset-0 bg-white/[0.10] shadow-sm rounded-full"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -300,10 +300,10 @@ export default function DesignIterationLog({
               {/* Context Header */}
               <div className="text-center max-w-3xl mx-auto space-y-4">
                 <div>
-                  <h4 className="text-2xl font-light text-slate-900 mb-2">
+                  <h4 className="text-2xl font-light text-[var(--text-heading)] mb-2">
                     {activeTabData.title}
                   </h4>
-                  <p className="text-slate-600 leading-relaxed font-light">
+                  <p className="text-[var(--text-body)] leading-relaxed font-light">
                     {activeTabData.description}
                   </p>
                 </div>
@@ -311,10 +311,10 @@ export default function DesignIterationLog({
                 {/* Featured Quote */}
                 {activeTabData.quote && (
                   <div className="mt-6">
-                    <blockquote className="text-xl font-sans italic text-slate-800 leading-relaxed">
+                    <blockquote className="text-xl font-sans italic text-[var(--text-heading)] leading-relaxed">
                       &ldquo;{activeTabData.quote.text}&rdquo;
                     </blockquote>
-                    <cite className="block mt-2 text-xs font-bold uppercase tracking-widest text-slate-400 not-italic">
+                    <cite className="block mt-2 text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] not-italic">
                       — {activeTabData.quote.attribution}
                     </cite>
                   </div>
@@ -326,13 +326,13 @@ export default function DesignIterationLog({
                 {activeTabData.images.map((img, index) => (
                   <div
                     key={index}
-                    className="group relative rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white cursor-pointer hover:shadow-md transition-all duration-300"
+                    className="group relative rounded-2xl overflow-hidden shadow-sm border border-white/[0.06] bg-white/[0.03] cursor-pointer hover:shadow-md hover:shadow-black/10 hover:border-white/[0.12] transition-all duration-300"
                     onClick={() => {
                       setLightboxIndex(index)
                       setLightboxOpen(true)
                     }}
                   >
-                    <div className="aspect-video relative bg-slate-50">
+                    <div className="aspect-video relative bg-white/[0.02]">
                       <Image
                         src={img.src}
                         alt={img.alt}
@@ -341,11 +341,11 @@ export default function DesignIterationLog({
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     </div>
-                    <div className="p-4 bg-white border-t border-slate-50 flex items-start gap-3">
-                      <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mt-0.5 whitespace-nowrap">
+                    <div className="p-4 bg-white/[0.02] border-t border-white/[0.04] flex items-start gap-3">
+                      <span className="text-[10px] font-mono font-bold text-[var(--text-muted)] uppercase tracking-widest mt-0.5 whitespace-nowrap">
                         {img.figNumber}
                       </span>
-                      <p className="text-sm text-slate-600 font-light leading-snug">
+                      <p className="text-sm text-[var(--text-body)] font-light leading-snug">
                         {img.caption}
                       </p>
                     </div>
@@ -383,13 +383,13 @@ export default function DesignIterationLog({
                 {footerContent ? footerContent.label : '> IDENTIFIED_PATTERN:'}
               </span>
               {footerContent ? (
-                <div className="text-slate-300 text-sm font-mono leading-relaxed">
+                <div className="text-[var(--text-muted)] text-sm font-mono leading-relaxed">
                   {footerContent.text}
                 </div>
               ) : (
-                <p className="text-slate-300 text-sm font-mono leading-relaxed">
+                <p className="text-[var(--text-muted)] text-sm font-mono leading-relaxed">
                   <span className="text-emerald-300 font-bold">USER_OUTCOME:</span> The tension between data scientist depth and user clarity produced the best results.
-                  <span className="block mt-2 text-slate-500 italic">
+                  <span className="block mt-2 text-[var(--text-muted)] italic">
                     {'//'} 21 key artifacts documenting 6–8 months of cross-functional iteration.
                   </span>
                 </p>

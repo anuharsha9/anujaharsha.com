@@ -41,21 +41,21 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
 
   const accentClasses = {
     teal: {
-      text: 'text-teal-600',
-      bg: 'bg-teal-50',
-      border: 'border-teal-100',
+      text: 'text-teal-400',
+      bg: 'bg-teal-500/[0.10]',
+      border: 'border-teal-500/[0.15]',
       marker: 'bg-teal-400',
     },
     amber: {
-      text: 'text-amber-600',
-      bg: 'bg-amber-50',
-      border: 'border-amber-100',
+      text: 'text-amber-400',
+      bg: 'bg-amber-500/[0.10]',
+      border: 'border-amber-500/[0.15]',
       marker: 'bg-amber-400',
     },
     violet: {
-      text: 'text-violet-600',
-      bg: 'bg-violet-50',
-      border: 'border-violet-100',
+      text: 'text-violet-400',
+      bg: 'bg-violet-500/[0.10]',
+      border: 'border-violet-500/[0.15]',
       marker: 'bg-violet-400',
     },
   }
@@ -68,11 +68,11 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
 
         {/* Header */}
         <ComponentHeading
-          tag={`// ${sectionTag}`}
+          align="center"
+          tag={sectionTag}
           title={title}
           description={subtitle}
-          color={accentColor === 'violet' ? 'indigo' : accentColor}
-          align="center"
+          color="teal"
           className="mb-16 md:mb-20"
         />
 
@@ -94,17 +94,17 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
                   <div className={`w-12 h-12 rounded-2xl ${accent.bg} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
                     <IconComponent className={`w-6 h-6 ${accent.text}`} strokeWidth={1.5} />
                   </div>
-                  <h4 className="font-sans text-lg md:text-xl text-slate-900 leading-tight group-hover:text-[var(--accent-primary)] transition-colors">
+                  <h4 className="font-sans text-lg md:text-xl text-[var(--text-heading)] leading-tight group-hover:text-[var(--accent-primary)] transition-colors">
                     {column.title}
                   </h4>
                 </div>
 
                 {/* List Items - Clean */}
-                <ul className="space-y-4 pl-2 border-l border-slate-100 group-hover:border-slate-200 transition-colors">
+                <ul className="space-y-4 pl-2 border-l border-white/[0.06] group-hover:border-white/[0.12] transition-colors">
                   {column.items.map((item, j) => (
-                    <li key={j} className="pl-4 relative flex items-start text-sm md:text-base text-slate-600 leading-relaxed">
+                    <li key={j} className="pl-4 relative flex items-start text-sm md:text-base text-[var(--text-body)] leading-relaxed">
                       {/* Custom Bullet */}
-                      <span className={`absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full border-2 border-white ${accent.marker} shadow-sm transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-${j * 50}`} />
+                      <span className={`absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full border-2 border-[var(--bg-primary)] ${accent.marker} shadow-sm transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-${j * 50}`} />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -123,12 +123,12 @@ export default function TeamCollaboration({ data, accentColor = 'teal' }: TeamCo
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-20 max-w-4xl mx-auto"
           >
-            <div className="relative pl-8 md:pl-12 border-l-2 border-slate-200">
-              <span className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 border-white ${accent.marker}`} />
+            <div className="relative pl-8 md:pl-12 border-l-2 border-white/[0.08]">
+              <span className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 border-[var(--bg-primary)] ${accent.marker}`} />
               <span className={`font-mono text-xs uppercase tracking-widest ${accent.text} block mb-3 opacity-80`}>
                 {`// ${highlight.label}`}
               </span>
-              <p className="font-sans text-2xl md:text-3xl font-light italic text-slate-800 leading-relaxed">
+              <p className="font-sans text-2xl md:text-3xl font-light italic text-[var(--text-heading)] leading-relaxed opacity-90">
                 &ldquo;{highlight.text}&rdquo;
               </p>
             </div>

@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
 import { useLightbox } from '@/contexts/LightboxContext'
-import ComponentHeading from '@/components/ui/ComponentHeading'
 
 interface TimelinePhase {
   id: string
@@ -35,6 +34,18 @@ interface UnifiedTimelineProps {
   accentColor?: 'teal' | 'amber' | 'violet'
 }
 
+const accentCSSMap = {
+  teal: 'var(--accent-teal)',
+  amber: '#f59e0b',
+  violet: '#8b5cf6',
+}
+
+const accentGradientMap = {
+  teal: 'from-[var(--accent-teal)]/60 via-[var(--accent-teal)]/20 to-transparent',
+  amber: 'from-amber-500/60 via-amber-500/20 to-transparent',
+  violet: 'from-violet-500/60 via-violet-500/20 to-transparent',
+}
+
 /** Scroll-triggered de-blur for timeline images */
 function ScrollRevealImage({ image, onOpen }: {
   image: { src: string; alt: string; caption?: string; isBlurred?: boolean }
@@ -46,7 +57,7 @@ function ScrollRevealImage({ image, onOpen }: {
   return (
     <div
       ref={imgRef}
-      className="relative aspect-video rounded-lg overflow-hidden border border-slate-100 bg-slate-50 cursor-zoom-in group/img shadow-sm hover:shadow-md transition-all duration-300"
+      className="relative aspect-video overflow-hidden border border-white/[0.06] bg-white/[0.02] cursor-zoom-in group/img transition-all duration-300 hover:border-white/[0.12]"
       onClick={onOpen}
     >
       <Image
@@ -56,6 +67,8 @@ function ScrollRevealImage({ image, onOpen }: {
         className={`object-cover transition-all duration-[1.2s] ease-out group-hover/img:scale-105 ${image.isBlurred && !isInView ? 'blur-md scale-105' : 'blur-0 scale-100'
           }`}
       />
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-white/[0.02] opacity-0 group-hover/img:opacity-100 transition-opacity duration-300" />
     </div>
   )
 }
@@ -71,51 +84,21 @@ export default function UnifiedTimeline({
   accentColor = 'teal'
 }: UnifiedTimelineProps) {
   const { openLightbox } = useLightbox()
-
-  const accentClasses = {
-    teal: {
-      tag: 'teal',
-      line: 'from-teal-300 via-teal-500 to-teal-400',
-      completed: 'bg-slate-400 border border-slate-300',
-      inProgress: 'bg-slate-300 border border-slate-200',
-      rejected: 'bg-slate-300 border border-slate-200',
-    },
-    amber: {
-      tag: 'teal',
-      line: 'from-slate-200 via-slate-300 to-slate-200',
-      completed: 'bg-slate-400 border border-slate-300',
-      inProgress: 'bg-slate-300 border border-slate-200',
-      rejected: 'bg-slate-300 border border-slate-200',
-    },
-    violet: {
-      tag: 'indigo',
-      line: 'from-violet-300 via-violet-500 to-violet-400',
-      completed: 'bg-slate-400 border border-slate-300',
-      inProgress: 'bg-slate-300 border border-slate-200',
-      rejected: 'bg-slate-300 border border-slate-200',
-    },
-  }
-
-  // Cast specific color strings from the map to compatible HeadingColor types
-  const accent = accentClasses[accentColor]
-  const headingColor = accent.tag as 'teal' | 'amber' | 'indigo'
+  const accentCss = accentCSSMap[accentColor]
 
   const getStatusDot = (status: string, isCriticalPivot?: boolean) => {
-    // Critical Pivot gets a subtle distinguished ring
-    if (isCriticalPivot) return `bg-slate-600 ring-2 ring-slate-300`
-
-    // Standard statuses — all subtle, no bright colors
-    if (status === 'COMPLETED') return `${accent.completed}`
-    if (status === 'IN_PROGRESS') return `${accent.inProgress} ring-2 ring-slate-200`
-    if (status === 'REJECTED') return accent.rejected
-    return 'bg-slate-200'
+    if (isCriticalPivot) return { bg: accentCss, ring: true }
+    if (status === 'COMPLETED') return { bg: 'rgba(255,255,255,0.4)', ring: false }
+    if (status === 'IN_PROGRESS') return { bg: accentCss, ring: true }
+    if (status === 'REJECTED') return { bg: 'rgba(255,255,255,0.15)', ring: false }
+    return { bg: 'rgba(255,255,255,0.1)', ring: false }
   }
 
-  const getStatusTextColor = (status: string) => {
-    if (status === 'COMPLETED') return 'text-slate-500'
-    if (status === 'IN_PROGRESS') return 'text-slate-400'
-    if (status === 'REJECTED') return 'text-slate-400'
-    return 'text-slate-400'
+  const getStatusBadge = (status: string, isCriticalPivot?: boolean) => {
+    if (isCriticalPivot) return { label: 'Critical Pivot', color: accentCss }
+    if (status === 'REJECTED') return { label: 'Rejected', color: 'rgba(255,255,255,0.3)' }
+    if (status === 'IN_PROGRESS') return { label: 'In Progress', color: accentCss }
+    return null
   }
 
   const allImages = phases
@@ -127,28 +110,45 @@ export default function UnifiedTimeline({
     }))
 
   return (
-    <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-16">
+    <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8">
       <div className="space-y-16">
-        {/* Header - Clean & Minimal */}
-        <ComponentHeading
-          variant="block"
-          align="center"
-          tag={header.tag}
-          title={header.title}
-          description={header.subtitle}
-          color={headingColor}
-          className="mb-0 max-w-3xl"
-        />
 
-        {/* Timeline Container */}
+        {/* ── Header ─── */}
+        <motion.div
+          className="max-w-3xl"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p
+            className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase mb-4"
+            style={{ color: accentCss }}
+          >
+            {header.tag.replace('//', '').trim()}
+          </p>
+          <h3 className="text-2xl md:text-3xl font-sans font-bold text-[var(--text-heading)] tracking-tight mb-3">
+            {header.title}
+          </h3>
+          <p className="text-[var(--text-body)] text-base md:text-lg leading-relaxed font-light">
+            {header.subtitle}
+          </p>
+        </motion.div>
+
+        {/* ── Timeline ─── */}
         <div className="relative pl-4 md:pl-0">
-          {/* Vertical Guide Line - Lively & Pulsing - Extended */}
-          <div className={`absolute left-[6px] md:left-[6px] -top-24 -bottom-24 w-[2px] bg-gradient-to-b ${accent.line} rounded-full opacity-60`}></div>
 
-          {/* Phase Nodes */}
-          <div className="space-y-12">
+          {/* Vertical guide line */}
+          <div
+            className={`absolute left-[7px] md:left-[7px] -top-12 -bottom-12 w-[2px] rounded-full bg-gradient-to-b ${accentGradientMap[accentColor]}`}
+          />
+
+          {/* Phase nodes */}
+          <div className="space-y-10 md:space-y-14">
             {phases.map((phase, index) => {
               const imageIndex = allImages.findIndex(img => img.src === phase.image?.src)
+              const dot = getStatusDot(phase.status, phase.isCriticalPivot)
+              const badge = getStatusBadge(phase.status, phase.isCriticalPivot)
 
               return (
                 <motion.div
@@ -156,54 +156,61 @@ export default function UnifiedTimeline({
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.5, delay: index * 0.06 }}
                   className="relative pl-10 md:pl-12 group"
                 >
-                  {/* Semantic Node Dot - Clean, no borders */}
-                  <div className={`
-                    absolute left-0 top-2 w-4 h-4 rounded-full transition-all duration-300
-                    ${getStatusDot(phase.status, phase.isCriticalPivot)}
-                  `}></div>
+                  {/* Node dot */}
+                  <div
+                    className={`absolute left-0 top-[6px] w-4 h-4 rounded-full transition-all duration-300 ${dot.ring ? 'ring-2 ring-white/[0.1]' : ''}`}
+                    style={{ backgroundColor: dot.bg }}
+                  />
 
-                  {/* Content Container */}
+                  {/* Content */}
                   <div className="space-y-3">
-                    {/* Phase Tag & Title */}
+
+                    {/* Phase tag + Title */}
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                         Phase {phase.phase}
                       </span>
-                      <h4 className={`text-lg md:text-xl font-medium tracking-tight ${phase.isCriticalPivot ? 'text-teal-700' : 'text-slate-900'}`}>
+                      <h4 className={`text-lg md:text-xl font-medium tracking-tight ${phase.isCriticalPivot
+                        ? ''
+                        : 'text-[var(--text-heading)]'
+                        }`}
+                        style={phase.isCriticalPivot ? { color: accentCss } : undefined}
+                      >
                         {phase.title.replace(/_/g, ' ')}
                       </h4>
 
-                      {/* Status Tags - Ghost Outlined */}
-                      {phase.isCriticalPivot && (
-                        <span className="text-[9px] uppercase tracking-widest font-bold text-slate-500 border border-slate-300 px-2 py-0.5 rounded-full">
-                          Critical Pivot
-                        </span>
-                      )}
-                      {phase.status === 'REJECTED' && (
-                        <span className="text-[9px] uppercase tracking-widest font-bold text-slate-400 border border-slate-300 px-2 py-0.5 rounded-full">
-                          Rejected
+                      {/* Status badge */}
+                      {badge && (
+                        <span
+                          className="text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full border"
+                          style={{
+                            color: badge.color,
+                            borderColor: badge.color,
+                            opacity: 0.7,
+                          }}
+                        >
+                          {badge.label}
                         </span>
                       )}
                     </div>
 
-                    {/* Body & Image Layout */}
+                    {/* Body + Image */}
                     <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8">
-                      {/* Text Content */}
                       <div className="space-y-4">
-                        <p className="text-slate-600 text-base leading-relaxed font-light">
+                        <p className="text-[var(--text-body)] text-base leading-relaxed font-light">
                           {phase.body}
                         </p>
 
-                        {/* Status Indicator text */}
-                        <div className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] ${getStatusTextColor(phase.status)}`}>
+                        {/* Status indicator */}
+                        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--text-muted)]">
                           <span>{phase.status.replace('_', ' ')}</span>
                         </div>
                       </div>
 
-                      {/* Optional Image Attachment — Scroll-triggered De-blur */}
+                      {/* Image */}
                       {phase.image && (
                         <ScrollRevealImage
                           image={phase.image}
@@ -222,14 +229,17 @@ export default function UnifiedTimeline({
           </div>
         </div>
 
-        {/* Footer Note - No Box, Clean Divider */}
+        {/* ── Footer ─── */}
         {footer && (
-          <div className="pt-8 border-t border-slate-100 mt-12">
+          <div className="pt-8 border-t border-white/[0.06] mt-12">
             <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start">
-              <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mt-1 shrink-0 ${accentColor === 'teal' ? 'text-teal-600' : accentColor === 'amber' ? 'text-slate-500' : 'text-indigo-600'}`}>
+              <span
+                className="text-[10px] font-bold uppercase tracking-[0.2em] mt-1 shrink-0"
+                style={{ color: accentCss }}
+              >
                 {footer.tag.replace(':', '')}
               </span>
-              <p className="text-slate-600 text-base md:text-lg font-light leading-relaxed max-w-3xl">
+              <p className="text-[var(--text-body)] text-base md:text-lg font-light leading-relaxed max-w-3xl">
                 {footer.body}
               </p>
             </div>
@@ -239,4 +249,3 @@ export default function UnifiedTimeline({
     </div>
   )
 }
-

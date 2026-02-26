@@ -1,42 +1,38 @@
 :root {
    /* ============================================
-     LIGHT THEME - APPLE MINIMALISM
-     Clean, Soft, Human-Centric
+     DARK-FIRST DESIGN SYSTEM
+     Portfolio-wide dark theme
      ============================================ */
 
    /* ============================================
-     BACKGROUND COLORS - Soft & Clean
+     BACKGROUND COLORS - Dark Surfaces
      ============================================ */
-   /* Primary background - Pure White */
-   --bg-primary: #ffffff;
-   /* Secondary - Apple's Light Gray */
-   --bg-secondary: #F5F5F7;
-   /* Tertiary - Very subtle for differentiation */
-   --bg-tertiary: #FAFAFA;
+   --bg-primary: #09090b;
+   --bg-secondary: #0f1115;
+   --bg-tertiary: #131518;
 
-   /* Legacy dark backgrounds (kept for compatibility) */
-   --bg-dark: #F5F5F7;
-   --bg-dark-alt: #ffffff;
-   --bg-light: #F5F5F7;
-   --bg-light-alt: #ffffff;
+   /* Surface aliases */
+   --bg-dark: #09090b;
+   --bg-dark-alt: #0f1115;
+   --bg-light: #0f1115;
+   --bg-light-alt: #131518;
 
    /* ============================================
-     TEXT COLORS - High Legibility
+     TEXT COLORS - Light on Dark
      ============================================ */
-   /* Headings - Soft Black */
-   --text-heading: #1d1d1f;
-   --text-primary: #1d1d1f;
+   --text-heading: #f4f4f5;
+   --text-primary: #e4e4e7;
 
-   /* Body text - Dark Gray for readability */
-   --text-body: #424245;
-   --text-muted: #86868b;
-   --text-dim: #d2d2d7;
+   /* Body text */
+   --text-body: #a1a1aa;
+   --text-muted: #71717a;
+   --text-dim: #3f3f46;
 
-   /* Legacy support */
-   --text-primary-dark: #1d1d1f;
-   --text-muted-dark: #86868b;
-   --text-primary-light: #1d1d1f;
-   --text-muted-light: #424245;
+   /* Legacy support — all now dark-friendly */
+   --text-primary-dark: #f4f4f5;
+   --text-muted-dark: #a1a1aa;
+   --text-primary-light: #f4f4f5;
+   --text-muted-light: #a1a1aa;
 
    /* ============================================
      ACCENT COLORS - Teal (#0BA2B5)
@@ -90,6 +86,7 @@
      AMBER ACCENT
      ============================================ */
    --accent-amber: #F59E0B;
+   --accent-amber-rgb: 245, 158, 11;
    --accent-amber-soft: rgba(245, 158, 11, 0.1);
    --accent-amber-600: #D97706;
    --accent-amber-700: #B45309;
@@ -98,6 +95,7 @@
      VIOLET ACCENT
      ============================================ */
    --accent-violet: #8B5CF6;
+   --accent-violet-rgb: 139, 92, 246;
    --accent-violet-soft: rgba(139, 92, 246, 0.1);
    --accent-violet-600: #7C3AED;
    --accent-violet-700: #6D28D9;
@@ -121,45 +119,45 @@
    /* Apple Red */
    --color-info: #078B9C;
 
-   /* Semantic Surfaces */
-   --bg-success: #ecfdf5;
-   --bg-warning: #fffbeb;
-   --bg-error: #fef2f2;
-   --bg-info: #f0f9ff;
+   /* Semantic Surfaces — dark variants */
+   --bg-success: rgba(16, 185, 129, 0.1);
+   --bg-warning: rgba(245, 158, 11, 0.1);
+   --bg-error: rgba(239, 68, 68, 0.1);
+   --bg-info: rgba(7, 139, 156, 0.1);
 
    /* ============================================
-     BORDER COLORS - Clean & Minimal
+     BORDER COLORS - Subtle white overlays
      ============================================ */
-   --border-primary: #d2d2d7;
-   --border-secondary: #e5e5e5;
-   --border-subtle: #f5f5f7;
+   --border-primary: rgba(255, 255, 255, 0.08);
+   --border-secondary: rgba(255, 255, 255, 0.06);
+   --border-subtle: rgba(255, 255, 255, 0.04);
 
    /* Legacy support */
-   --border-light: #e5e5e5;
-   --border-dark: #d2d2d7;
-   --border-refined-light: #e5e5e5;
+   --border-light: rgba(255, 255, 255, 0.06);
+   --border-dark: rgba(255, 255, 255, 0.08);
+   --border-refined-light: rgba(255, 255, 255, 0.06);
 
    /* ============================================
      STATE COLORS
      ============================================ */
-   --hover-overlay: rgba(0, 0, 0, 0.02);
-   --active-overlay: rgba(0, 0, 0, 0.04);
-   --focus-ring: rgba(0, 113, 227, 0.4);
+   --hover-overlay: rgba(255, 255, 255, 0.04);
+   --active-overlay: rgba(255, 255, 255, 0.06);
+   --focus-ring: rgba(7, 139, 156, 0.5);
    --focus-ring-width: 3px;
    --focus-ring-offset: 1px;
 
    /* ============================================
-     ELEVATION SYSTEM (SHADOWS) - Soft & Diffused
+     ELEVATION SYSTEM (SHADOWS) - Dark diffusion
      ============================================ */
-   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
-   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-   --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.04);
-   --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.06);
-   --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.08);
+   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+   --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.4);
+   --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.5);
+   --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.6);
 
    /* Card-specific shadow */
-   --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.04);
-   --shadow-card-hover: 0 12px 24px rgba(0, 0, 0, 0.08);
+   --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.4);
+   --shadow-card-hover: 0 12px 24px rgba(0, 0, 0, 0.5);
 
    /* ============================================
      BORDER RADIUS - Friendly & Modern
@@ -319,29 +317,29 @@
    --neutral-zinc-300: #d4d4d8;
 
    /* Common cinematic overlays */
-   --overlay-white-20: rgba(255,255,255,0.2);
-   --overlay-white-15: rgba(255,255,255,0.15);
-   --overlay-white-10: rgba(255,255,255,0.1);
-   --overlay-white-08: rgba(255,255,255,0.08);
-   --overlay-white-06: rgba(255,255,255,0.06);
-   --overlay-white-05: rgba(255,255,255,0.05);
-   --overlay-white-04: rgba(255,255,255,0.04);
-   --overlay-white-03: rgba(255,255,255,0.03);
-   --overlay-white-02: rgba(255,255,255,0.02);
+   --overlay-white-20: rgba(255, 255, 255, 0.2);
+   --overlay-white-15: rgba(255, 255, 255, 0.15);
+   --overlay-white-10: rgba(255, 255, 255, 0.1);
+   --overlay-white-08: rgba(255, 255, 255, 0.08);
+   --overlay-white-06: rgba(255, 255, 255, 0.06);
+   --overlay-white-05: rgba(255, 255, 255, 0.05);
+   --overlay-white-04: rgba(255, 255, 255, 0.04);
+   --overlay-white-03: rgba(255, 255, 255, 0.03);
+   --overlay-white-02: rgba(255, 255, 255, 0.02);
 
-   --overlay-black-30: rgba(0,0,0,0.3);
-   --overlay-black-50: rgba(0,0,0,0.5);
-   --overlay-black-60: rgba(0,0,0,0.6);
-   --overlay-black-80: rgba(0,0,0,0.8);
-   --overlay-black-95: rgba(0,0,0,0.95);
-   --overlay-white-90: rgba(255,255,255,0.9);
-   --overlay-white-50: rgba(255,255,255,0.5);
-   --overlay-white-46: rgba(255,255,255,0.46);
-   --overlay-white-45: rgba(255,255,255,0.45);
-   --overlay-white-30: rgba(255,255,255,0.3);
-   --overlay-white-22: rgba(255,255,255,0.22);
-   --overlay-white-12: rgba(255,255,255,0.12);
-   --overlay-white-025: rgba(255,255,255,0.025);
+   --overlay-black-30: rgba(0, 0, 0, 0.3);
+   --overlay-black-50: rgba(0, 0, 0, 0.5);
+   --overlay-black-60: rgba(0, 0, 0, 0.6);
+   --overlay-black-80: rgba(0, 0, 0, 0.8);
+   --overlay-black-95: rgba(0, 0, 0, 0.95);
+   --overlay-white-90: rgba(255, 255, 255, 0.9);
+   --overlay-white-50: rgba(255, 255, 255, 0.5);
+   --overlay-white-46: rgba(255, 255, 255, 0.46);
+   --overlay-white-45: rgba(255, 255, 255, 0.45);
+   --overlay-white-30: rgba(255, 255, 255, 0.3);
+   --overlay-white-22: rgba(255, 255, 255, 0.22);
+   --overlay-white-12: rgba(255, 255, 255, 0.12);
+   --overlay-white-025: rgba(255, 255, 255, 0.025);
 
    /* Expanded semantic palette used by motion/case-study visuals */
    --semantic-emerald-500: #10b981;
@@ -359,105 +357,108 @@
    --semantic-navy-700: #1a3344;
    --semantic-magenta-500: #E91E8C;
    --semantic-orange-vivid: #FF6B35;
+   --semantic-orange-vivid-rgb: 255, 107, 53;
    --semantic-cyan-vivid: #22D3EE;
+   --semantic-cyan-vivid-rgb: 34, 211, 238;
    --semantic-purple-vivid: #A855F7;
+   --semantic-purple-vivid-rgb: 168, 85, 247;
 
    /* Brand-specific accents */
    --brand-linkedin: #0077b5;
 
    /* Accent overlays */
-   --overlay-accent-50: rgba(7,139,156,0.5);
-   --overlay-accent-30: rgba(7,139,156,0.3);
-   --overlay-accent-20: rgba(7,139,156,0.2);
-   --overlay-accent-40: rgba(7,139,156,0.4);
-   --overlay-accent-08: rgba(7,139,156,0.08);
-   --overlay-accent-06: rgba(7,139,156,0.06);
-   --overlay-accent-05: rgba(7,139,156,0.05);
-   --overlay-accent-60: rgba(7,139,156,0.6);
-   --overlay-accent-70: rgba(7,139,156,0.7);
+   --overlay-accent-50: rgba(7, 139, 156, 0.5);
+   --overlay-accent-30: rgba(7, 139, 156, 0.3);
+   --overlay-accent-20: rgba(7, 139, 156, 0.2);
+   --overlay-accent-40: rgba(7, 139, 156, 0.4);
+   --overlay-accent-08: rgba(7, 139, 156, 0.08);
+   --overlay-accent-06: rgba(7, 139, 156, 0.06);
+   --overlay-accent-05: rgba(7, 139, 156, 0.05);
+   --overlay-accent-60: rgba(7, 139, 156, 0.6);
+   --overlay-accent-70: rgba(7, 139, 156, 0.7);
 
-   --overlay-black-10: rgba(0,0,0,0.1);
-   --overlay-black-15: rgba(0,0,0,0.15);
-   --overlay-black-25: rgba(0,0,0,0.25);
-   --overlay-ink-60: rgba(2,6,23,0.6);
+   --overlay-black-10: rgba(0, 0, 0, 0.1);
+   --overlay-black-15: rgba(0, 0, 0, 0.15);
+   --overlay-black-25: rgba(0, 0, 0, 0.25);
+   --overlay-ink-60: rgba(2, 6, 23, 0.6);
 
-   --overlay-white-95: rgba(255,255,255,0.95);
-   --overlay-white-70: rgba(255,255,255,0.7);
-   --overlay-white-40: rgba(255,255,255,0.4);
-   --overlay-white-35: rgba(255,255,255,0.35);
-   --overlay-white-01: rgba(255,255,255,0.01);
-   --overlay-white-67: rgba(255,255,255,0.67);
+   --overlay-white-95: rgba(255, 255, 255, 0.95);
+   --overlay-white-70: rgba(255, 255, 255, 0.7);
+   --overlay-white-40: rgba(255, 255, 255, 0.4);
+   --overlay-white-35: rgba(255, 255, 255, 0.35);
+   --overlay-white-01: rgba(255, 255, 255, 0.01);
+   --overlay-white-67: rgba(255, 255, 255, 0.67);
 
-   --overlay-zinc-05: rgba(161,161,170,0.05);
-   --overlay-zinc-100: rgba(161,161,170,1);
-   --overlay-zinc-900: rgba(24,24,27,1);
+   --overlay-zinc-05: rgba(161, 161, 170, 0.05);
+   --overlay-zinc-100: rgba(161, 161, 170, 1);
+   --overlay-zinc-900: rgba(24, 24, 27, 1);
 
-   --overlay-amber-10: rgba(245,158,11,0.1);
-   --overlay-amber-20: rgba(245,158,11,0.2);
-   --overlay-amber-08: rgba(245,158,11,0.08);
-   --overlay-amber-50: rgba(251,191,36,0.5);
+   --overlay-amber-10: rgba(245, 158, 11, 0.1);
+   --overlay-amber-20: rgba(245, 158, 11, 0.2);
+   --overlay-amber-08: rgba(245, 158, 11, 0.08);
+   --overlay-amber-50: rgba(251, 191, 36, 0.5);
 
-   --overlay-teal-bright-70: rgba(20,184,166,0.7);
-   --overlay-teal-bright-15: rgba(20,184,166,0.15);
-   --overlay-teal-bright-10: rgba(20,184,166,0.1);
+   --overlay-teal-bright-70: rgba(20, 184, 166, 0.7);
+   --overlay-teal-bright-15: rgba(20, 184, 166, 0.15);
+   --overlay-teal-bright-10: rgba(20, 184, 166, 0.1);
 
-   --overlay-sky-45: rgba(56,189,248,0.45);
-   --overlay-sky-70: rgba(125,211,252,0.7);
-   --overlay-sky-08: rgba(14,165,233,0.08);
+   --overlay-sky-45: rgba(56, 189, 248, 0.45);
+   --overlay-sky-70: rgba(125, 211, 252, 0.7);
+   --overlay-sky-08: rgba(14, 165, 233, 0.08);
 
-   --overlay-teal-45: rgba(45,212,191,0.45);
-   --overlay-teal-20: rgba(45,212,191,0.2);
-   --overlay-teal-18: rgba(45,212,191,0.18);
-   --overlay-teal-core-30: rgba(11,162,181,0.3);
-   --overlay-teal-core-12: rgba(0,162,183,0.12);
-   --overlay-cyan-electric-22: rgba(0,229,255,0.22);
-   --overlay-cyan-electric-15: rgba(64,221,255,0.15);
-   --overlay-cyan-light-22: rgba(20,184,200,0.22);
-   --overlay-cyan-frost-96: rgba(232,252,255,0.96);
-   --overlay-cyan-deep-86: rgba(7,139,156,0.86);
-   --overlay-cyan-wire-18: rgba(80,230,245,0.18);
-   --overlay-cyan-wire-26: rgba(80,230,245,0.26);
-   --overlay-cyan-neon-26: rgba(96,245,255,0.26);
-   --overlay-cyan-neon-38: rgba(96,245,255,0.38);
+   --overlay-teal-45: rgba(45, 212, 191, 0.45);
+   --overlay-teal-20: rgba(45, 212, 191, 0.2);
+   --overlay-teal-18: rgba(45, 212, 191, 0.18);
+   --overlay-teal-core-30: rgba(11, 162, 181, 0.3);
+   --overlay-teal-core-12: rgba(0, 162, 183, 0.12);
+   --overlay-cyan-electric-22: rgba(0, 229, 255, 0.22);
+   --overlay-cyan-electric-15: rgba(64, 221, 255, 0.15);
+   --overlay-cyan-light-22: rgba(20, 184, 200, 0.22);
+   --overlay-cyan-frost-96: rgba(232, 252, 255, 0.96);
+   --overlay-cyan-deep-86: rgba(7, 139, 156, 0.86);
+   --overlay-cyan-wire-18: rgba(80, 230, 245, 0.18);
+   --overlay-cyan-wire-26: rgba(80, 230, 245, 0.26);
+   --overlay-cyan-neon-26: rgba(96, 245, 255, 0.26);
+   --overlay-cyan-neon-38: rgba(96, 245, 255, 0.38);
 
-   --overlay-violet-08: rgba(139,92,246,0.08);
-   --overlay-blue-08: rgba(59,130,246,0.08);
-   --overlay-indigo-08: rgba(99,102,241,0.08);
-   --overlay-indigo-10: rgba(99,102,241,0.1);
+   --overlay-violet-08: rgba(139, 92, 246, 0.08);
+   --overlay-blue-08: rgba(59, 130, 246, 0.08);
+   --overlay-indigo-08: rgba(99, 102, 241, 0.08);
+   --overlay-indigo-10: rgba(99, 102, 241, 0.1);
 
-   --overlay-emerald-05: rgba(16,185,129,0.05);
-   --overlay-emerald-08: rgba(16,185,129,0.08);
-   --overlay-emerald-10: rgba(16,185,129,0.1);
-   --overlay-emerald-15: rgba(16,185,129,0.15);
-   --overlay-emerald-20: rgba(16,185,129,0.2);
-   --overlay-emerald-30: rgba(16,185,129,0.3);
-   --overlay-emerald-50: rgba(16,185,129,0.5);
+   --overlay-emerald-05: rgba(16, 185, 129, 0.05);
+   --overlay-emerald-08: rgba(16, 185, 129, 0.08);
+   --overlay-emerald-10: rgba(16, 185, 129, 0.1);
+   --overlay-emerald-15: rgba(16, 185, 129, 0.15);
+   --overlay-emerald-20: rgba(16, 185, 129, 0.2);
+   --overlay-emerald-30: rgba(16, 185, 129, 0.3);
+   --overlay-emerald-50: rgba(16, 185, 129, 0.5);
 
-   --overlay-emerald-light-10: rgba(52,211,153,0.1);
-   --overlay-emerald-light-15: rgba(52,211,153,0.15);
-   --overlay-emerald-light-20: rgba(52,211,153,0.2);
-   --overlay-emerald-light-30: rgba(52,211,153,0.3);
-   --overlay-emerald-light-40: rgba(52,211,153,0.4);
-   --overlay-emerald-light-50: rgba(52,211,153,0.5);
-   --overlay-emerald-light-80: rgba(52,211,153,0.8);
+   --overlay-emerald-light-10: rgba(52, 211, 153, 0.1);
+   --overlay-emerald-light-15: rgba(52, 211, 153, 0.15);
+   --overlay-emerald-light-20: rgba(52, 211, 153, 0.2);
+   --overlay-emerald-light-30: rgba(52, 211, 153, 0.3);
+   --overlay-emerald-light-40: rgba(52, 211, 153, 0.4);
+   --overlay-emerald-light-50: rgba(52, 211, 153, 0.5);
+   --overlay-emerald-light-80: rgba(52, 211, 153, 0.8);
 
-   --overlay-green-08: rgba(34,197,94,0.08);
-   --overlay-green-10: rgba(34,197,94,0.1);
-   --overlay-green-15: rgba(34,197,94,0.15);
-   --overlay-green-30: rgba(34,197,94,0.3);
+   --overlay-green-08: rgba(34, 197, 94, 0.08);
+   --overlay-green-10: rgba(34, 197, 94, 0.1);
+   --overlay-green-15: rgba(34, 197, 94, 0.15);
+   --overlay-green-30: rgba(34, 197, 94, 0.3);
 
-   --overlay-red-15: rgba(239,68,68,0.15);
-   --overlay-red-30: rgba(239,68,68,0.3);
-   --overlay-red-40: rgba(239,68,68,0.4);
+   --overlay-red-15: rgba(239, 68, 68, 0.15);
+   --overlay-red-30: rgba(239, 68, 68, 0.3);
+   --overlay-red-40: rgba(239, 68, 68, 0.4);
 
-   --overlay-rose-08: rgba(244,63,94,0.08);
-   --overlay-rose-10: rgba(244,63,94,0.1);
-   --overlay-rose-20: rgba(244,63,94,0.2);
-   --overlay-rose-25: rgba(244,63,94,0.25);
-   --overlay-rose-40: rgba(244,63,94,0.4);
-   --overlay-rose-50: rgba(244,63,94,0.5);
-   --overlay-rose-60: rgba(244,63,94,0.6);
-   --overlay-rose-70: rgba(244,63,94,0.7);
+   --overlay-rose-08: rgba(244, 63, 94, 0.08);
+   --overlay-rose-10: rgba(244, 63, 94, 0.1);
+   --overlay-rose-20: rgba(244, 63, 94, 0.2);
+   --overlay-rose-25: rgba(244, 63, 94, 0.25);
+   --overlay-rose-40: rgba(244, 63, 94, 0.4);
+   --overlay-rose-50: rgba(244, 63, 94, 0.5);
+   --overlay-rose-60: rgba(244, 63, 94, 0.6);
+   --overlay-rose-70: rgba(244, 63, 94, 0.7);
 
    /* Extended cinematic surfaces + signal palette */
    --surface-zinc-950: #09090b;

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import CaseStudyLayout from '@/components/case-study/CaseStudyLayout'
+import CaseStudyPage from '@/components/case-study-v2/CaseStudyPage'
 import { iqPluginCaseStudy } from '@/data/iq-plugin'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
@@ -47,5 +47,5 @@ export const metadata: Metadata = {
 }
 
 export default function IQPluginPage() {
-  return <CaseStudyLayout data={iqPluginCaseStudy} defaultViewMode="presentation" />
+  return <CaseStudyPage data={iqPluginCaseStudy} defaultViewMode="presentation" />
 }

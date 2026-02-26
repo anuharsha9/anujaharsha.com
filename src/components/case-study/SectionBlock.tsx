@@ -24,6 +24,7 @@ interface SectionBlockProps {
   frameworkMapping?: Record<string, string> // Maps sectionId to framework letter
   isUnlocked?: boolean // Whether password-protected content should be shown
   password?: string // Password for unlocking sensitive content
+  hideHeader?: boolean // When nested inside an Act section that already shows its own heading
 }
 
 import { extractMetrics, parseBodyWithAhaMoments, renderFormattedContent, createImageGroups } from '@/lib/content-utils'
@@ -32,7 +33,7 @@ import ComponentHeading from '@/components/ui/ComponentHeading'
 // Helper to create image groups based on content
 // (Moved to content-utils.tsx)
 
-export default function SectionBlock({ section, isLightBackground = false, caseStudySlug, frameworkMapping, isUnlocked = false, password }: SectionBlockProps) {
+export default function SectionBlock({ section, isLightBackground = false, caseStudySlug, frameworkMapping, isUnlocked = false, password, hideHeader = false }: SectionBlockProps) {
   // Check global unlock state in addition to prop
   const [globalUnlocked, setGlobalUnlocked] = useState(false)
 
@@ -138,7 +139,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
   }
 
   // Use design system (Architect aesthetic)
-  const t = getTheme(true)
+  const t = getTheme(isLightBackground)
   const textColor = t.text
   const mutedColor = t.textMuted
   const borderColor = t.border
@@ -192,7 +193,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
   // Header Section (always visible) - Senior energy: no letter badges
 
   const sectionHeader = (
-    <div className="space-y-8 relative mb-16">
+    <div className="space-y-6 relative mb-10">
       {/* Section Title - Apple Style: Clean, Sans-Serif, Light */}
       <div className="relative">
         <ComponentHeading
@@ -224,7 +225,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
             {metrics.slice(0, 5).map((metric, index) => (
               <motion.span
                 key={index}
-                className="inline-flex items-center px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full border border-slate-200"
+                className="inline-flex items-center px-3 py-1 bg-white/[0.04] text-[var(--text-body)] text-xs font-medium rounded-full border border-white/[0.06]"
                 variants={{
                   hidden: { opacity: 0, scale: 0.85, filter: 'blur(4px)' },
                   visible: { opacity: 1, scale: 1, filter: 'blur(0px)', transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
@@ -241,13 +242,13 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
 
   // Body Content (can be locked)
   const sectionBody = (
-    <div className="space-y-12">
+    <div className="space-y-8">
       {/* "What this reveals" - REMOVED: Redundant self-praise. Evidence speaks for itself. */}
 
       {/* Body Text - Render at top only if no visual content */}
       {renderBodyAtTop && section.body && (
-        <div className="">
-          <div className={`${mutedColor} leading-relaxed text-base md:text-lg space-y-space-4`}>
+        <div className="relative border-l border-white/[0.10] pl-6 md:pl-8 py-2">
+          <div className={`${mutedColor} leading-[1.8] text-[15px] md:text-[17px] space-y-4`}>
             {caseStudySlug === 'reportcaster' ? (
               parseBodyWithAhaMoments(section.body).map((part, index) => {
                 if (part.type === 'aha') {
@@ -715,7 +716,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                         onClick={() => toggleSubsection(subIndex)}
                         aria-label={`${isExpanded ? 'Collapse' : 'Expand'} subsection: ${subsection.title}`}
                         aria-expanded={isExpanded}
-                        className={`w-full text-left group border-b border-slate-100 py-6 transition-all duration-300 hover:bg-slate-50/50 -mx-6 px-6 md:-mx-8 md:px-8`}
+                        className={`w-full text-left group border-b border-white/[0.06] py-6 transition-all duration-300 hover:bg-white/[0.02] -mx-6 px-6 md:-mx-8 md:px-8`}
                       >
                         <div className="flex items-center justify-between gap-6">
                           <div className="flex-1 space-y-2">
@@ -726,7 +727,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                               {subsection.images && subsection.images.length > 0 && (
                                 <span className={`flex items-center justify-center w-6 h-6 rounded-full text-[10px] font-bold transition-colors ${isExpanded
                                   ? 'bg-[var(--accent-teal)] text-white'
-                                  : 'bg-slate-100 text-slate-500 group-hover:bg-[var(--accent-teal-soft)] group-hover:text-[var(--accent-teal)]'
+                                  : 'bg-white/[0.06] text-[var(--text-muted)] group-hover:bg-[var(--accent-teal-soft)] group-hover:text-[var(--accent-teal)]'
                                   }`}>
                                   {subsection.images.length}
                                 </span>
@@ -742,7 +743,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
                           {/* Chevron Icon */}
                           <div className={`flex flex-col items-center justify-center w-8 h-8 rounded-full border transition-all duration-300 ${isExpanded
                             ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)] text-white rotate-180'
-                            : 'border-slate-200 text-slate-400 group-hover:border-[var(--accent-teal)] group-hover:text-[var(--accent-teal)]'
+                            : 'border-white/[0.1] text-[var(--text-muted)] group-hover:border-[var(--accent-teal)] group-hover:text-[var(--accent-teal)]'
                             }`}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                               <path d="m6 9 6 6 6-6" />
@@ -1604,8 +1605,8 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
       {
         !renderBodyAtTop && section.body && (
           <div className="space-y-4">
-            <div className={`${bgColor} p-6 md:p-8`}>
-              <div className={`${mutedColor} leading-relaxed text-base md:text-lg space-y-4`}>
+            <div className="relative border-l border-white/[0.10] pl-6 md:pl-8 py-2">
+              <div className={`${mutedColor} leading-[1.8] text-[15px] md:text-[17px] space-y-4`}>
                 {/* Only parse Aha moments for ReportCaster */}
                 {caseStudySlug === 'reportcaster' ? (
                   parseBodyWithAhaMoments(section.body).map((part, index) => {
@@ -1707,8 +1708,8 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
         id={section.id}
         className="space-y-6 scroll-mt-24"
       >
-        {/* Header - Always visible */}
-        {sectionHeader}
+        {/* Header - Always visible (unless parent Act already shows one) */}
+        {!hideHeader && sectionHeader}
 
         {/* Body - Locked */}
         {actuallyUnlocked ? (
@@ -1734,7 +1735,7 @@ export default function SectionBlock({ section, isLightBackground = false, caseS
       id={section.id}
       className="scroll-mt-24"
     >
-      {sectionHeader}
+      {!hideHeader && sectionHeader}
       {sectionBody}
     </div>
   )

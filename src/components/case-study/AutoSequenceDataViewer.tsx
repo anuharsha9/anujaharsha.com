@@ -99,13 +99,13 @@ export default function AutoSequenceDataViewer({
     return (
         <>
             <div
-                className={`w-full ${aspectRatio} relative overflow-hidden rounded-xl border border-slate-200 shadow-md select-none bg-slate-50 group/carousel ${className}`}
+                className={`w-full ${aspectRatio} relative overflow-hidden rounded-xl border border-white/[0.06] shadow-md select-none bg-white/[0.03] group/carousel ${className}`}
                 style={{ aspectRatio: aspectRatio === 'aspect-video' ? '16/9' : '16/10' }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
                 {/* Content Area - No Chrome Header */}
-                <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                <div className="absolute inset-0 bg-white/[0.05] dark:bg-slate-800 overflow-hidden">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.div
                             key={currentIndex}
@@ -118,7 +118,7 @@ export default function AutoSequenceDataViewer({
                                 x: { type: "spring", stiffness: 300, damping: 30 },
                                 opacity: { duration: 0.2 }
                             }}
-                            className="absolute inset-0 w-full h-full cursor-pointer bg-white"
+                            className="absolute inset-0 w-full h-full cursor-pointer bg-white/[0.03]"
                             onClick={() => setLightboxOpen(true)}
                         >
                             {images[currentIndex].videoSrc ? (
@@ -147,13 +147,13 @@ export default function AutoSequenceDataViewer({
                     {images.length > 1 && (
                         <>
                             <button
-                                className={`absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-slate-700 hover:bg-white shadow-sm transition-all z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+                                className={`absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white/70 hover:bg-black/80 shadow-sm transition-all z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
                                 onClick={(e) => { e.stopPropagation(); paginate(-1); }}
                             >
                                 <ChevronLeft className="w-5 h-5" />
                             </button>
                             <button
-                                className={`absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-slate-700 hover:bg-white shadow-sm transition-all z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+                                className={`absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white/70 hover:bg-black/80 shadow-sm transition-all z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
                                 onClick={(e) => { e.stopPropagation(); paginate(1); }}
                             >
                                 <ChevronRight className="w-5 h-5" />
@@ -179,7 +179,7 @@ export default function AutoSequenceDataViewer({
                     {/* Caption Overlay */}
                     {images[currentIndex].caption && (
                         <div className={`absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md p-3 transition-transform duration-300 transform ${isHovered ? 'translate-y-0' : 'translate-y-full'}`}>
-                            <p className="text-slate-700 text-xs md:text-sm font-medium text-center font-mono">
+                            <p className="text-[var(--text-body)] text-xs md:text-sm font-medium text-center font-mono">
                                 {images[currentIndex].caption}
                             </p>
                         </div>
@@ -189,7 +189,7 @@ export default function AutoSequenceDataViewer({
                     <div className="absolute top-4 right-4 z-20 flex items-center gap-2 opacity-0 group-hover/carousel:opacity-100 transition-opacity">
                         <button
                             onClick={(e) => { e.stopPropagation(); setLightboxOpen(true); }}
-                            className="p-2 bg-white/80 hover:bg-white rounded-full text-slate-700 shadow-sm transition-colors"
+                            className="p-2 bg-black/60 hover:bg-black/80 rounded-full text-[var(--text-body)] shadow-sm transition-colors"
                             aria-label="Open fullscreen"
                         >
                             <Maximize2 className="w-4 h-4" />

@@ -21,7 +21,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
     {
       filename: 'LEGACY_SCHEDULER.EXE',
       status: 'FRAGMENTED',
-      statusColor: 'text-red-600',
+      statusColor: 'text-red-400',
       image: '/images/case-study/ReportCaster/RC legacy schedule dialog properties.png',
       alt: 'Legacy Schedule Dialog Properties',
       annotation: '// UX_FAILURE: 5 distinct interfaces required for 1 workflow.',
@@ -29,7 +29,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
     {
       filename: 'DISTRIBUTION_MODULE.DLL',
       status: 'UNDOCUMENTED',
-      statusColor: 'text-amber-600',
+      statusColor: 'text-amber-400',
       image: '/images/case-study/ReportCaster/RC legacy distribution list UI.png',
       alt: 'Legacy Distribution List',
       annotation: '// UX_FAILURE: Separate screen for a sub-task of scheduling.',
@@ -37,7 +37,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
     {
       filename: 'ACCESS_CONTROL.SYS',
       status: 'HIDDEN',
-      statusColor: 'text-purple-600',
+      statusColor: 'text-purple-400',
       image: '/images/case-study/ReportCaster/RC legacy access list UI.png',
       alt: 'Legacy Access List',
       annotation: '// UX_FAILURE: Critical security settings buried in separate app.',
@@ -45,7 +45,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
     {
       filename: 'RC_EXPLORER.EXE',
       status: 'SCATTERED',
-      statusColor: 'text-blue-600',
+      statusColor: 'text-blue-400',
       image: '/images/case-study/ReportCaster/RC legacy explorer.png',
       alt: 'Legacy RC Explorer',
       annotation: '// UX_FAILURE: Disconnected asset browser with no hub integration.',
@@ -53,7 +53,7 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
     {
       filename: 'RC_ADMIN.SYS',
       status: 'ISOLATED',
-      statusColor: 'text-orange-600',
+      statusColor: 'text-orange-400',
       image: '/images/case-study/ReportCaster/RC legacy admin status.png',
       alt: 'Legacy RC Admin Status',
       annotation: '// UX_FAILURE: Admin functions siloed in completely separate tool.',
@@ -79,11 +79,11 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
-          className="bg-slate-50 border border-slate-200 overflow-hidden hover:border-slate-300 transition-all duration-300"
+          className="bg-white/[0.03] border border-white/[0.06] overflow-hidden hover:border-white/[0.12] transition-all duration-300"
         >
           {/* Header Bar */}
-          <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex justify-between items-center">
-            <span className="font-mono text-xs text-slate-500 truncate">
+          <div className="bg-white/[0.04] border-b border-white/[0.06] px-4 py-2 flex justify-between items-center">
+            <span className="font-mono text-xs text-[var(--text-muted)] truncate">
               FILE: {file.filename}
             </span>
             <span className={`font-mono text-[10px] uppercase tracking-widest ${file.statusColor}`}>
@@ -106,13 +106,13 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
             {/* Hover/Tap Overlay */}
             <div className="absolute inset-0 flex items-center justify-center transition-all duration-300">
               {/* Desktop Hover State */}
-              <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-900/90 text-white px-4 py-2 items-center gap-2 transform translate-y-2 group-hover:translate-y-0 text-sm font-medium border border-white/10">
+              <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/80 text-white px-4 py-2 items-center gap-2 transform translate-y-2 group-hover:translate-y-0 text-sm font-medium border border-white/10">
                 <ZoomIn className="w-4 h-4" />
                 <span>Click to examine</span>
               </div>
 
               {/* Mobile Tap Indication (Always visible but subtle) */}
-              <div className="lg:hidden flex bg-slate-900/80 text-white px-3 py-1.5 items-center gap-1.5 text-xs font-medium backdrop-blur-sm border border-white/10 shadow-lg">
+              <div className="lg:hidden flex bg-black/70 text-white px-3 py-1.5 items-center gap-1.5 text-xs font-medium backdrop-blur-sm border border-white/10 shadow-lg">
                 <Eye className="w-3 h-3" />
                 <span>Tap to view</span>
               </div>
@@ -120,8 +120,8 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
           </div>
 
           {/* Caption / Annotation */}
-          <div className="p-4 border-t border-slate-200 bg-white">
-            <p className="font-mono text-xs text-slate-600 leading-relaxed">
+          <div className="p-4 border-t border-white/[0.06] bg-white/[0.02]">
+            <p className="font-mono text-xs text-[var(--text-muted)] leading-relaxed">
               {file.annotation}
             </p>
           </div>
@@ -143,11 +143,11 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
       <ComponentHeading
         variant="block"
         align="center"
-        tag="// UNDOCUMENTED_LEGACY"
+        tag="UNDOCUMENTED LEGACY"
         title="50-year-old black box. Zero documentation."
         description="I had to reverse-engineer the entire system logic by interviewing 12 engineers and reading 5,000 lines of legacy code."
         className="mb-16"
-        color="blue"
+        color="teal"
       />
 
       {/* THE EVIDENCE GRID: Legacy Audit Files - LOCKED */}
@@ -181,4 +181,3 @@ export default function SystemArchaeology({ isLightBackground = true, caseStudyS
     </motion.div>
   )
 }
-

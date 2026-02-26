@@ -122,7 +122,21 @@ export default function TestimonialsBlock() {
     const secondary = TESTIMONIALS.filter(t => !t.isPrimary)
 
     return (
-        <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto">
+        <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+            {/* Era label — decorative, above content */}
+            <motion.div
+                className="mb-6 md:mb-8 pointer-events-none select-none"
+                aria-hidden="true"
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+                <span className="font-extrabold text-[clamp(3rem,8vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                    SOCIAL PROOF
+                </span>
+            </motion.div>
+
             {/* Header */}
             <motion.div
                 className="mb-12 md:mb-16"
@@ -133,6 +147,7 @@ export default function TestimonialsBlock() {
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
                     What they say
+                    <span className="text-white/40 font-normal"> — CSG colleagues</span>
                 </h2>
             </motion.div>
 

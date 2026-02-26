@@ -111,7 +111,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
             <motion.div
               key={i}
               variants={itemVariants}
-              className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              className="bg-white/[0.03] p-6 rounded-2xl shadow-sm border border-white/[0.06] hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
               <div className="space-y-4">
                 {/* Top: Icon + Headline */}
@@ -120,8 +120,8 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
                     <IconComponent className="w-5 h-5 text-[var(--accent-teal)]" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-lg text-slate-900">{l.level}</h4>
-                    <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">
+                    <h4 className="font-medium text-lg text-[var(--text-heading)]">{l.level}</h4>
+                    <p className="text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1">
                       {l.user}
                     </p>
                   </div>
@@ -130,7 +130,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
                 {/* Features List - Clean */}
                 <ul className="space-y-2 pt-2">
                   {l.features.map((f, j) => (
-                    <li key={j} className="text-slate-600 text-sm flex items-start gap-2">
+                    <li key={j} className="text-[var(--text-body)] text-sm flex items-start gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] mt-1.5 flex-shrink-0 opacity-50"></span>
                       <span className="leading-relaxed">{f}</span>
                     </li>
@@ -157,7 +157,7 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
           </div>
           <ul className="grid grid-cols-1 gap-3">
             {safetyChecks.map((check, i) => (
-              <li key={i} className="text-slate-700 text-sm flex items-start gap-3">
+              <li key={i} className="text-[var(--text-body)] text-sm flex items-start gap-3">
                 <span className="text-emerald-400 mt-0.5">•</span>
                 <span className="leading-relaxed">{check}</span>
               </li>
@@ -168,18 +168,18 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
         {/* Architectural Backlog - Clean */}
         <motion.div
           variants={itemVariants}
-          className="bg-slate-50/50 border border-slate-100 p-6 rounded-2xl"
+          className="bg-white/[0.03]/50 border border-white/[0.06] p-6 rounded-2xl"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-slate-200/50 flex items-center justify-center">
-              <span className="font-mono text-xs font-bold text-slate-500">..</span>
+            <div className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center">
+              <span className="font-mono text-xs font-bold text-[var(--text-muted)]">..</span>
             </div>
-            <h5 className="font-medium text-slate-900 text-sm uppercase tracking-wider">Future Roadmap</h5>
+            <h5 className="font-medium text-[var(--text-heading)] text-sm uppercase tracking-wider">Future Roadmap</h5>
           </div>
           <ul className="grid grid-cols-1 gap-3">
             {backlog.map((item, i) => (
-              <li key={i} className="text-slate-500 text-sm flex items-start gap-3">
-                <span className="text-slate-300 mt-0.5">→</span>
+              <li key={i} className="text-[var(--text-muted)] text-sm flex items-start gap-3">
+                <span className="text-[var(--text-muted)] mt-0.5">→</span>
                 <span className="leading-relaxed italic">{item}</span>
               </li>
             ))}
@@ -190,13 +190,13 @@ export default function LayeredDisclosureVisual({ isLightBackground = false }: L
       {/* System Outcome Footer - Compact */}
       <motion.div
         variants={itemVariants}
-        className="bg-slate-900 p-4"
+        className="bg-white/[0.03] border border-white/[0.06] p-4 rounded-xl"
       >
         <div className="flex items-start gap-3">
           <span className="font-mono text-xs text-emerald-400 flex-shrink-0">
             &gt;
           </span>
-          <p className="text-slate-300 text-xs leading-relaxed">
+          <p className="text-[var(--text-muted)] text-xs leading-relaxed">
             Default users never see expert controls unless needed. Experts can dive deep without wading through tutorials.
           </p>
         </div>

@@ -89,7 +89,7 @@ export default function IQBuildingSystem({ isLightBackground = true }: IQBuildin
                     <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-violet)] font-semibold">
                         {`// ${artifact.alt.toUpperCase().substring(0, 20)}...`}
                     </span>
-                    <p className="text-sm text-slate-500 leading-relaxed max-w-lg">
+                    <p className="text-sm text-[var(--text-muted)] leading-relaxed max-w-lg">
                         {artifact.caption}
                     </p>
                 </div>
@@ -102,11 +102,10 @@ export default function IQBuildingSystem({ isLightBackground = true }: IQBuildin
             <div className="max-w-[1440px] mx-auto">
 
                 <ComponentHeading
-                    tag="// SYSTEM_ARCHITECTURE"
+                    tag="SYSTEM ARCHITECTURE"
                     title="Building the System"
                     description="From flowcharts to responsive mockups—the structural foundation that makes three complex features feel like one unified experience."
-                    color="text-[var(--accent-violet)]"
-                    align="center"
+                    color="teal"
                     className="mb-12 md:mb-16"
                 />
 

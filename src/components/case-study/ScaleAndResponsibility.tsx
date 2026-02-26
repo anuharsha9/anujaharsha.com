@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import ComponentHeading from '@/components/ui/ComponentHeading';
 
 interface Metric {
     value: string;
@@ -17,7 +18,29 @@ interface ScaleAndResponsibilityProps {
     accentColor?: 'teal' | 'amber' | 'violet';
 }
 
-// Animated counter component
+const accentMap = {
+    teal: {
+        css: 'var(--accent-teal)',
+        glow: 'bg-teal-500/[0.08]',
+        pulse: 'bg-teal-400',
+        tag: 'text-teal-400',
+    },
+    amber: {
+        css: '#f59e0b',
+        glow: 'bg-amber-500/[0.08]',
+        pulse: 'bg-amber-400',
+        tag: 'text-amber-400',
+    },
+    violet: {
+        css: '#8b5cf6',
+        glow: 'bg-violet-500/[0.08]',
+        pulse: 'bg-violet-400',
+        tag: 'text-violet-400',
+    },
+}
+
+// ─── Animated Counter ────────────────────────────────────
+
 function AnimatedMetric({ value, color, delay }: { value: string; color: string; delay: number }) {
     const ref = useRef<HTMLSpanElement>(null)
     const isInView = useInView(ref, { once: true, amount: 0.5 })
@@ -26,7 +49,6 @@ function AnimatedMetric({ value, color, delay }: { value: string; color: string;
     useEffect(() => {
         if (!isInView) return
 
-        // Extract numeric part for animation
         const numericMatch = value.match(/^([\d,.]+)(.*)$/)
         if (!numericMatch) {
             setDisplayValue(value)
@@ -44,7 +66,7 @@ function AnimatedMetric({ value, color, delay }: { value: string; color: string;
             return
         }
 
-        const duration = 1200 // ms
+        const duration = 1200
         const startTime = performance.now() + delay
         let animationFrame: number
 
@@ -56,7 +78,6 @@ function AnimatedMetric({ value, color, delay }: { value: string; color: string;
             }
 
             const progress = Math.min(elapsed / duration, 1)
-            // Ease out cubic
             const eased = 1 - Math.pow(1 - progress, 3)
             const currentValue = targetNum * eased
 
@@ -83,7 +104,7 @@ function AnimatedMetric({ value, color, delay }: { value: string; color: string;
     return (
         <span
             ref={ref}
-            className="text-5xl md:text-6xl font-extralight mb-2 tracking-tighter number-font tabular-nums"
+            className="text-3xl md:text-4xl font-extralight tracking-tighter tabular-nums"
             style={{ color, fontVariantNumeric: 'tabular-nums' }}
         >
             {isInView ? displayValue : '0'}
@@ -91,13 +112,22 @@ function AnimatedMetric({ value, color, delay }: { value: string; color: string;
     )
 }
 
+// ─── Component ───────────────────────────────────────────
+
 export const ScaleAndResponsibility: React.FC<ScaleAndResponsibilityProps> = ({ data, accentColor = 'teal' }) => {
-    const accentVar = accentColor === 'teal' ? 'var(--accent-teal)'
-        : accentColor === 'amber' ? 'var(--accent-amber)'
-            : 'var(--accent-violet)';
+    const accent = accentMap[accentColor];
 
     return (
-        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6">
+        <section className="w-full">
+            <ComponentHeading
+                variant="block"
+                align="center"
+                tag="SCALE & RESPONSIBILITY"
+                title="System at Scale"
+                color={accentColor}
+                className="mb-10"
+            />
+
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -105,38 +135,40 @@ export const ScaleAndResponsibility: React.FC<ScaleAndResponsibilityProps> = ({ 
                 variants={{
                     hidden: {},
                     visible: {
-                        transition: {
-                            staggerChildren: 0.15,
-                        }
+                        transition: { staggerChildren: 0.12 }
                     }
                 }}
-                className="py-12 md:py-16"
+                className="space-y-8"
             >
-                {/* Metrics Grid — Minimal & Large Type with counting animation */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 mb-16 items-center">
+                {/* Metrics — Glass Cards */}
+                <div className={`grid grid-cols-1 ${data.metrics.length <= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'} gap-5`}>
                     {data.metrics.map((metric, idx) => (
                         <motion.div
                             key={idx}
                             variants={{
-                                hidden: { opacity: 0, y: 24, scale: 0.95 },
+                                hidden: { opacity: 0, y: 20, scale: 0.97 },
                                 visible: {
                                     opacity: 1,
                                     y: 0,
                                     scale: 1,
                                     transition: {
-                                        duration: 0.7,
+                                        duration: 0.6,
                                         ease: [0.22, 1, 0.36, 1]
                                     }
                                 }
                             }}
-                            className={`
-                                flex flex-col items-center justify-center text-center
-                                ${idx !== data.metrics.length - 1 ? 'md:border-r border-slate-100' : ''}
-                            `}
+                            className="relative bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 md:p-8 flex flex-col items-center text-center hover:border-white/[0.10] transition-all duration-300 overflow-hidden group"
                         >
-                            <AnimatedMetric value={metric.value} color={accentVar} delay={idx * 150} />
+                            {/* Glow */}
+                            <div
+                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-full blur-3xl opacity-[0.05] group-hover:opacity-[0.10] transition-opacity duration-500 pointer-events-none"
+                                style={{ backgroundColor: accent.css }}
+                            />
+
+                            <AnimatedMetric value={metric.value} color={accent.css} delay={idx * 150} />
+
                             <motion.span
-                                className="text-slate-400 text-[11px] uppercase tracking-[0.2em] font-medium"
+                                className="text-[var(--text-muted)] text-[10px] uppercase tracking-[0.2em] font-medium mt-3"
                                 variants={{
                                     hidden: { opacity: 0 },
                                     visible: { opacity: 1, transition: { delay: 0.3, duration: 0.5 } }
@@ -148,7 +180,7 @@ export const ScaleAndResponsibility: React.FC<ScaleAndResponsibilityProps> = ({ 
                     ))}
                 </div>
 
-                {/* Status + Description — Clean Text */}
+                {/* Status + Description */}
                 <motion.div
                     className="text-center max-w-3xl mx-auto space-y-4"
                     variants={{
@@ -163,15 +195,14 @@ export const ScaleAndResponsibility: React.FC<ScaleAndResponsibilityProps> = ({ 
                         }
                     }}
                 >
-                    <div className="inline-flex items-center gap-2 mb-2">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-full">
                         <div
-                            className="w-1.5 h-1.5 rounded-full animate-pulse"
-                            style={{ backgroundColor: accentVar }}
+                            className={`w-2 h-2 rounded-full animate-pulse ${accent.pulse}`}
                         />
-                        <span className="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-medium">{data.status}</span>
+                        <span className="text-[var(--text-muted)] text-[10px] uppercase tracking-[0.2em] font-medium">{data.status}</span>
                     </div>
 
-                    <p className="text-slate-700 text-lg md:text-xl leading-relaxed font-light text-balance">
+                    <p className="text-[var(--text-body)] text-base md:text-lg leading-relaxed font-light text-balance">
                         {data.description}
                     </p>
                 </motion.div>

@@ -50,21 +50,18 @@ export default function ResearchApproach({ data, accentColor = 'teal' }: Researc
   const accentClasses = {
     teal: {
       tag: 'text-[var(--accent-teal)]',
-      icon: 'text-[var(--accent-teal)]',
-      bg: 'bg-teal-50',
-      border: 'border-teal-100',
+      icon: 'text-teal-400',
+      dot: 'bg-teal-400',
     },
     amber: {
-      tag: 'text-amber-600',
-      icon: 'text-amber-600',
-      bg: 'bg-amber-50',
-      border: 'border-amber-100',
+      tag: 'text-amber-400',
+      icon: 'text-amber-400',
+      dot: 'bg-amber-400',
     },
     violet: {
-      tag: 'text-violet-600',
-      icon: 'text-violet-600',
-      bg: 'bg-violet-50',
-      border: 'border-violet-100',
+      tag: 'text-violet-400',
+      icon: 'text-violet-400',
+      dot: 'bg-violet-400',
     },
   }
 
@@ -92,20 +89,20 @@ export default function ResearchApproach({ data, accentColor = 'teal' }: Researc
 
       {/* Strategic Constraints - Clean Blocks */}
       {(constraint || strategy) && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-y border-slate-100 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-y border-white/[0.06] py-12">
           {constraint && (
             <motion.div
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-3 pr-8 md:border-r border-slate-100"
+              className="space-y-3 pr-8 md:border-r border-white/[0.06]"
             >
-              <div className="flex items-center gap-2 text-rose-500 mb-2">
+              <div className="flex items-center gap-2 text-rose-400 mb-2">
                 <Ban className="w-5 h-5" strokeWidth={1.5} />
                 <span className="text-[11px] font-bold uppercase tracking-widest">Constraint</span>
               </div>
-              <h4 className="text-lg font-medium text-slate-900">{constraint.label}</h4>
-              <p className="text-slate-600 text-base leading-relaxed font-light">{constraint.body}</p>
+              <h4 className="text-lg font-medium text-[var(--text-heading)]">{constraint.label}</h4>
+              <p className="text-[var(--text-body)] text-base leading-relaxed font-light">{constraint.body}</p>
             </motion.div>
           )}
 
@@ -120,8 +117,8 @@ export default function ResearchApproach({ data, accentColor = 'teal' }: Researc
                 <Target className="w-5 h-5" strokeWidth={1.5} />
                 <span className="text-[11px] font-bold uppercase tracking-widest">Strategy</span>
               </div>
-              <h4 className="text-lg font-medium text-slate-900">{strategy.label}</h4>
-              <p className="text-slate-600 text-base leading-relaxed font-light">{strategy.body}</p>
+              <h4 className="text-lg font-medium text-[var(--text-heading)]">{strategy.label}</h4>
+              <p className="text-[var(--text-body)] text-base leading-relaxed font-light">{strategy.body}</p>
             </motion.div>
           )}
         </div>
@@ -130,10 +127,6 @@ export default function ResearchApproach({ data, accentColor = 'teal' }: Researc
       {/* Methods Grid - Clean & Open */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
         {methods.map((method, i) => {
-          // const IconComponent = iconMap[method.icon] // Keeping generic if needed, or mapping
-          // For simplicity in replacement, assuming iconMap is available or re-mapping 
-          // Re-mapping for safety inside replacement block scope if needed, but 'iconMap' is outer scope usually suitable.
-          // Let's use the outer scope iconMap.
           const IconComponent = iconMap[method.icon] || Lightbulb
 
           return (
@@ -147,25 +140,25 @@ export default function ResearchApproach({ data, accentColor = 'teal' }: Researc
             >
               {/* Header */}
               <div className="flex items-start justify-between">
-                <h4 className="text-lg font-medium text-slate-900 group-hover:text-[var(--accent-teal)] transition-colors">
+                <h4 className="text-lg font-medium text-[var(--text-heading)] group-hover:text-[var(--accent-teal)] transition-colors">
                   {method.category}
                 </h4>
-                <IconComponent className={`w-5 h-5 text-slate-300 group-hover:${accent.icon} transition-colors`} strokeWidth={1.5} />
+                <IconComponent className={`w-5 h-5 text-[var(--text-muted)] group-hover:${accent.icon} transition-colors`} strokeWidth={1.5} />
               </div>
 
               {/* Divider */}
-              <div className="h-px w-12 bg-slate-200 group-hover:w-full group-hover:bg-[var(--accent-teal)] transition-all duration-500" />
+              <div className="h-px w-12 bg-white/[0.08] group-hover:w-full group-hover:bg-[var(--accent-teal)] transition-all duration-500" />
 
               {/* Description */}
-              <p className="text-slate-600 text-sm leading-relaxed font-light">
+              <p className="text-[var(--text-body)] text-sm leading-relaxed font-light">
                 {method.description}
               </p>
 
               {/* Items List - Clean */}
               <ul className="space-y-2 pt-2">
                 {method.items.map((item, j) => (
-                  <li key={j} className="flex items-start gap-3 text-sm text-slate-500">
-                    <span className={`w-1 h-1 rounded-full bg-slate-300 mt-2 shrink-0 group-hover:${accent.bg.replace('bg-', 'bg-')}-400 transition-colors`} />
+                  <li key={j} className="flex items-start gap-3 text-sm text-[var(--text-muted)]">
+                    <span className={`w-1 h-1 rounded-full bg-white/[0.20] mt-2 shrink-0`} />
                     <span className="font-light">{item}</span>
                   </li>
                 ))}
@@ -177,4 +170,3 @@ export default function ResearchApproach({ data, accentColor = 'teal' }: Researc
     </div>
   )
 }
-

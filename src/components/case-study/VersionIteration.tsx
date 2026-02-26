@@ -34,7 +34,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
 
   const imageBorderRadius = ''
   const imageShadow = 'shadow-md'
-  const imageOutline = 'outline outline-1 outline-slate-200/50 outline-offset-[-1px]'
+  const imageOutline = 'outline outline-1 outline-white/[0.06] outline-offset-[-1px]'
 
   const openLightbox = (src: string, alt: string, caption?: string, images?: Array<{ src: string; alt: string; caption?: string }>, index?: number) => {
     setLightboxImage({ src, alt, caption })
@@ -130,7 +130,6 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
       >
         <ComponentHeading
           variant="block"
-          align="center"
           tag="DESIGN EVOLUTION"
           title="Three Architectures. Two Rejections. One Shipped."
           description="Each rejection narrowed the constraint space until the right solution emerged."
@@ -142,7 +141,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
       {/* Vertical Timeline */}
       <div className="relative">
         {/* Timeline Spine */}
-        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-slate-200" />
+        <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-white/[0.08]" />
 
         {/* Version Cards */}
         <div className="space-y-16 md:space-y-24">
@@ -154,7 +153,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
               <div key={version.id} className="relative">
                 {/* Timeline Node */}
                 <div className="absolute left-4 md:left-8 top-0 flex flex-col items-center h-full -ml-[9px] md:-ml-[1px]">
-                  <div className={`w-4 h-4 rounded-full border-[3px] bg-white z-10 ${isSuccess ? 'border-emerald-500' : 'border-slate-300'
+                  <div className={`w-4 h-4 rounded-full border-[3px] bg-[var(--bg-primary)] z-10 ${isSuccess ? 'border-emerald-500' : 'border-white/20'
                     }`} />
                 </div>
 
@@ -178,34 +177,34 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                       {/* Header Group */}
                       <div className="space-y-4">
                         <div className="flex items-center gap-4">
-                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                             {version.label}
                           </span>
                           {version.status === 'shipped' ? (
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/[0.10] px-2 py-1 rounded-full border border-emerald-500/[0.20]">
                               Shipped
                             </span>
                           ) : (
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-100 px-2 py-1 rounded-full">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] bg-white/[0.05] px-2 py-1 rounded-full border border-white/[0.08]">
                               Rejected
                             </span>
                           )}
                         </div>
 
-                        <h3 className="text-3xl md:text-4xl font-sans text-slate-900 leading-tight">
+                        <h3 className="text-3xl md:text-4xl font-sans text-[var(--text-heading)] leading-tight">
                           {version.approach}
                         </h3>
 
-                        <p className="text-lg text-slate-600 font-light leading-relaxed">
+                        <p className="text-lg text-[var(--text-body)] font-light leading-relaxed">
                           {version.description}
                         </p>
                       </div>
 
                       {/* Rationale & Insights - No Boxes */}
-                      <div className="space-y-6 pt-4 border-t border-slate-100">
+                      <div className="space-y-6 pt-4 border-t border-white/[0.06]">
                         <div>
-                          <h5 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Rationale</h5>
-                          <p className="text-sm text-slate-600 leading-relaxed font-light">
+                          <h5 className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-2">Rationale</h5>
+                          <p className="text-sm text-[var(--text-body)] leading-relaxed font-light">
                             {version.rationale}
                           </p>
                         </div>
@@ -213,7 +212,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                         {version.rejection && (
                           <div>
                             <h5 className="text-[10px] font-bold uppercase tracking-wider text-red-400 mb-2">Constraint</h5>
-                            <p className="text-sm text-slate-600 leading-relaxed italic font-light">
+                            <p className="text-sm text-[var(--text-body)] leading-relaxed italic font-light">
                               {version.rejection}
                             </p>
                           </div>
@@ -221,7 +220,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
 
                         {version.pivotReason && !isLast && (
                           <div className="pt-4">
-                            <div className="flex items-center gap-2 text-amber-600">
+                            <div className="flex items-center gap-2 text-amber-400">
                               <ArrowDown className="w-3 h-3" />
                               <span className="text-[10px] font-bold uppercase tracking-wider">
                                 {version.pivotReason}
@@ -232,7 +231,7 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                       </div>
 
                       {/* Version Body Text */}
-                      <div className="text-slate-500 font-light text-sm leading-relaxed space-y-4">
+                      <div className="text-[var(--text-muted)] font-light text-sm leading-relaxed space-y-4">
                         {version.section.body.split('\n\n').slice(0, 2).map((paragraph, idx) => (
                           <p key={idx}>{paragraph}</p>
                         ))}
@@ -258,8 +257,8 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
 
                       {/* Shipped Subsections (Key Screens) */}
                       {isSuccess && version.section.subsections && version.section.subsections.length > 0 && (
-                        <div className="pt-12 border-t border-slate-100">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-6">
+                        <div className="pt-12 border-t border-white/[0.06]">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] mb-6">
                             Shipped Workflows
                           </p>
                           <AutoSequenceDataViewer
@@ -284,20 +283,20 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
                 {/* Extra Callouts (Validation / Extensibility) - Cleaned Up */}
                 {('extensibility' in version && version.extensibility) && (
                   <div className="pl-12 md:pl-24 mt-12 mb-12">
-                    <div className="bg-violet-50/30 p-8 md:p-10 border-l-2 border-violet-200">
+                    <div className="bg-violet-500/[0.06] p-8 md:p-10 border-l-2 border-violet-400/30 rounded-r-xl">
                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-violet-400 block mb-4">
                         Looking Forward
                       </span>
-                      <h4 className="text-2xl md:text-3xl font-sans text-violet-900 mb-4">
+                      <h4 className="text-2xl md:text-3xl font-sans text-violet-300 mb-4">
                         {version.extensibility.headline}
                       </h4>
-                      <p className="text-violet-800/80 font-light leading-relaxed max-w-2xl mb-8">
+                      <p className="text-violet-300/70 font-light leading-relaxed max-w-2xl mb-8">
                         {version.extensibility.body}
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8">
                         {version.extensibility.futureIntegrations.map((item, i) => (
-                          <div key={i} className="flex items-center gap-3 text-sm text-violet-700/70">
-                            <span className="w-1.5 h-1.5 rounded-full bg-violet-300" />
+                          <div key={i} className="flex items-center gap-3 text-sm text-violet-400/60">
+                            <span className="w-1.5 h-1.5 rounded-full bg-violet-400/40" />
                             {item}
                           </div>
                         ))}
@@ -308,14 +307,14 @@ export default function VersionIteration({ v1, v2, v3, isLightBackground = true 
 
                 {('validation' in version && version.validation) && (
                   <div className="pl-12 md:pl-24 mt-12 mb-12">
-                    <div className="bg-emerald-50/30 p-8 md:p-10 border-l-2 border-emerald-200">
+                    <div className="bg-emerald-500/[0.06] p-8 md:p-10 border-l-2 border-emerald-400/30 rounded-r-xl">
                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400 block mb-4">
                         Validation
                       </span>
-                      <h4 className="text-2xl md:text-3xl font-sans text-emerald-900 mb-4">
+                      <h4 className="text-2xl md:text-3xl font-sans text-emerald-300 mb-4">
                         {version.validation.headline}
                       </h4>
-                      <p className="text-emerald-800/80 font-light leading-relaxed max-w-2xl">
+                      <p className="text-emerald-300/70 font-light leading-relaxed max-w-2xl">
                         {version.validation.body}
                       </p>
                     </div>

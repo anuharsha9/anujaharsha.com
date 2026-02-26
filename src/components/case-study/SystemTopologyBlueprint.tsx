@@ -82,7 +82,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
         <ComponentHeading
           variant="block"
           align="center"
-          tag="// ARTIFACT_SET: ARCHITECTURE_MAPS"
+          tag="ARCHITECTURE MAPS"
           title="System Topology & Logic"
           description="Before designing pixels, I mapped the physical constraints of the WebFOCUS platform. These blueprints defined how the new ML wizard would inherit responsive behaviors from the existing 3rd-level navigation system."
           color="blue"
@@ -98,7 +98,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
           className="lg:col-span-2"
           variants={itemVariants}
         >
-          <div className="bg-slate-50 border border-slate-200 overflow-hidden h-full rounded-2xl">
+          <div className="bg-white/[0.03] border border-white/[0.06] overflow-hidden h-full rounded-2xl">
             {/* Blueprint Image */}
             <div
               className="relative aspect-video cursor-zoom-in group"
@@ -112,18 +112,18 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
                 sizes="(max-width: 768px) 100vw, 66vw"
               />
               {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm px-3 py-1.5 font-mono text-xs text-slate-600 shadow-sm">
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.10] transition-colors duration-300 flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/80 backdrop-blur-sm px-3 py-1.5 font-mono text-xs text-white/80 shadow-sm">
                   Click to inspect
                 </span>
               </div>
             </div>
             {/* Caption */}
-            <div className="bg-white border-t border-slate-200 p-4">
-              <span className="font-mono text-xs text-slate-500 block mb-1">
+            <div className="bg-white/[0.02] border-t border-white/[0.06] p-4">
+              <span className="font-mono text-xs text-[var(--text-muted)] block mb-1">
                 {blueprints.master.caption}
               </span>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <p className="text-[var(--text-body)] text-sm leading-relaxed">
                 {blueprints.master.note}
               </p>
             </div>
@@ -135,7 +135,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
           {/* Card 1 - Information Architecture */}
           <motion.div
             variants={itemVariants}
-            className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl"
+            className="bg-white/[0.03] border border-white/[0.06] overflow-hidden flex-1 rounded-xl"
           >
             <div
               className="relative aspect-[4/3] cursor-zoom-in group"
@@ -148,10 +148,10 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
                 className="object-contain p-3 group-hover:scale-[1.02] transition-transform duration-300"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.10] transition-colors duration-300" />
             </div>
-            <div className="bg-white border-t border-slate-200 p-3">
-              <span className="font-mono text-[10px] text-slate-500 block">
+            <div className="bg-white/[0.02] border-t border-white/[0.06] p-3">
+              <span className="font-mono text-[10px] text-[var(--text-muted)] block">
                 {blueprints.flowchart1.caption}
               </span>
             </div>
@@ -160,7 +160,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
           {/* Card 2 - Logic Branching */}
           <motion.div
             variants={itemVariants}
-            className="bg-slate-50 border border-slate-200 overflow-hidden flex-1 rounded-xl"
+            className="bg-white/[0.03] border border-white/[0.06] overflow-hidden flex-1 rounded-xl"
           >
             <div
               className="relative aspect-[4/3] cursor-zoom-in group"
@@ -173,10 +173,10 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
                 className="object-contain p-3 group-hover:scale-[1.02] transition-transform duration-300"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.10] transition-colors duration-300" />
             </div>
-            <div className="bg-white border-t border-slate-200 p-3">
-              <span className="font-mono text-[10px] text-slate-500 block">
+            <div className="bg-white/[0.02] border-t border-white/[0.06] p-3">
+              <span className="font-mono text-[10px] text-[var(--text-muted)] block">
                 {blueprints.flowchart2.caption}
               </span>
             </div>
@@ -187,7 +187,7 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
       {/* Full-Width System Map */}
       <motion.div
         variants={itemVariants}
-        className="bg-slate-50 border border-slate-200 overflow-hidden rounded-2xl"
+        className="bg-white/[0.03] border border-white/[0.06] overflow-hidden rounded-2xl"
       >
         <div
           className="relative w-full cursor-zoom-in group"
@@ -201,22 +201,22 @@ export default function SystemTopologyBlueprint({ isLightBackground = true }: Sy
             className="object-contain p-4 group-hover:scale-[1.01] transition-transform duration-300"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-300 flex items-center justify-center">
-            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm px-3 py-1.5 font-mono text-xs text-slate-600 shadow-sm">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.10] transition-colors duration-300 flex items-center justify-center">
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/80 backdrop-blur-sm px-3 py-1.5 font-mono text-xs text-white/80 shadow-sm">
               Click to inspect full taxonomy
             </span>
           </div>
         </div>
-        <div className="bg-white border-t border-slate-200 p-4 flex items-center justify-between">
+        <div className="bg-white/[0.02] border-t border-white/[0.06] p-4 flex items-center justify-between">
           <div>
-            <span className="font-mono text-xs text-slate-500 block mb-1">
+            <span className="font-mono text-xs text-[var(--text-muted)] block mb-1">
               {blueprints.systemMap.caption}
             </span>
-            <p className="text-slate-600 text-sm">
+            <p className="text-[var(--text-body)] text-sm">
               {blueprints.systemMap.note}
             </p>
           </div>
-          <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest hidden md:block">
+          <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest hidden md:block">
             {'// FULL_WIDTH_SPEC'}
           </span>
         </div>

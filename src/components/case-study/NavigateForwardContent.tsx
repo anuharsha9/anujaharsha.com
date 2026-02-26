@@ -19,87 +19,86 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
       <div className="space-y-6">
         <ComponentHeading
           variant="block"
-          tag="// PROJECT_OUTCOME"
+          tag="PROJECT OUTCOME"
           title="From Visual Refresh to System Architecture"
           color="teal"
-          align="center"
           className="mb-8"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Card 1: Duration */}
-          <div className="bg-white border border-slate-200 p-8 hover:shadow-xl hover:border-blue-200 transition-all duration-300 rounded-2xl group relative overflow-hidden">
+          <div className="bg-white/[0.03] border border-white/[0.06] p-8 hover:shadow-xl hover:shadow-blue-500/5 hover:border-blue-500/[0.15] transition-all duration-300 rounded-2xl group relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
               <Clock className="w-16 h-16" strokeWidth={1} />
             </div>
-            <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-blue-600 group-hover:scale-110 transition-transform duration-300">
+            <div className="w-12 h-12 bg-blue-500/[0.10] rounded-full flex items-center justify-center mb-6 text-blue-400 group-hover:scale-110 transition-transform duration-300">
               <Clock className="w-6 h-6" strokeWidth={2} />
             </div>
-            <span className="font-mono text-[10px] text-blue-600 uppercase tracking-widest mb-2 block">
+            <span className="font-mono text-[10px] text-blue-400 uppercase tracking-widest mb-2 block">
               {'// DURATION'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-sans mb-3">14 Months</h4>
-            <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
+            <h4 className="text-[var(--text-heading)] text-4xl font-sans mb-3">14 Months</h4>
+            <p className="text-[var(--text-body)] text-sm leading-relaxed max-w-sm">
               End-to-end journey from initial visual refresh concepts to a fully implemented system architecture.
             </p>
           </div>
 
           {/* Card 2: Live Status */}
-          <div className="bg-white border border-slate-200 p-8 hover:shadow-xl hover:border-teal-200 transition-all duration-300 rounded-2xl group relative overflow-hidden">
+          <div className="bg-white/[0.03] border border-white/[0.06] p-8 hover:shadow-xl hover:shadow-teal-500/5 hover:border-teal-500/[0.15] transition-all duration-300 rounded-2xl group relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
               <Activity className="w-16 h-16" strokeWidth={1} />
             </div>
-            <div className="w-12 h-12 bg-teal-50 rounded-full flex items-center justify-center mb-6 text-teal-600 group-hover:scale-110 transition-transform duration-300">
+            <div className="w-12 h-12 bg-teal-500/[0.10] rounded-full flex items-center justify-center mb-6 text-teal-400 group-hover:scale-110 transition-transform duration-300">
               <Activity className="w-6 h-6" strokeWidth={2} />
             </div>
-            <span className="font-mono text-[10px] text-teal-600 uppercase tracking-widest mb-2 block">
+            <span className="font-mono text-[10px] text-teal-400 uppercase tracking-widest mb-2 block">
               {'// STATUS'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-sans mb-3">Live</h4>
-            <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
+            <h4 className="text-[var(--text-heading)] text-4xl font-sans mb-3">Live</h4>
+            <p className="text-[var(--text-body)] text-sm leading-relaxed max-w-sm">
               Shipped April 2024. Available to all enterprise customers in the production environment.
             </p>
           </div>
 
           {/* Card 3: Scale */}
-          <div className="bg-white border border-slate-200 p-8 hover:shadow-xl hover:border-purple-200 transition-all duration-300 rounded-2xl group relative overflow-hidden">
+          <div className="bg-white/[0.03] border border-white/[0.06] p-8 hover:shadow-xl hover:shadow-purple-500/5 hover:border-purple-500/[0.15] transition-all duration-300 rounded-2xl group relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
               <BarChart3 className="w-16 h-16" strokeWidth={1} />
             </div>
-            <div className="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center mb-6 text-purple-600 group-hover:scale-110 transition-transform duration-300">
+            <div className="w-12 h-12 bg-purple-500/[0.10] rounded-full flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition-transform duration-300">
               <BarChart3 className="w-6 h-6" strokeWidth={2} />
             </div>
-            <span className="font-mono text-[10px] text-purple-600 uppercase tracking-widest mb-2 block">
+            <span className="font-mono text-[10px] text-purple-400 uppercase tracking-widest mb-2 block">
               {'// SCALE'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-sans mb-3">20M+</h4>
-            <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
+            <h4 className="text-[var(--text-heading)] text-4xl font-sans mb-3">20M+</h4>
+            <p className="text-[var(--text-body)] text-sm leading-relaxed max-w-sm">
               Schedules processed weekly. The redesign maintained 100% reliability at massive enterprise scale.
             </p>
           </div>
 
           {/* Card 4: Transformation */}
-          <div className="bg-white border border-slate-200 p-8 hover:shadow-xl hover:border-amber-200 transition-all duration-300 rounded-2xl group relative overflow-hidden">
+          <div className="bg-white/[0.03] border border-white/[0.06] p-8 hover:shadow-xl hover:shadow-amber-500/5 hover:border-amber-500/[0.15] transition-all duration-300 rounded-2xl group relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
               <FileText className="w-16 h-16" strokeWidth={1} />
             </div>
-            <div className="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center mb-6 text-amber-600 group-hover:scale-110 transition-transform duration-300">
+            <div className="w-12 h-12 bg-amber-500/[0.10] rounded-full flex items-center justify-center mb-6 text-amber-400 group-hover:scale-110 transition-transform duration-300">
               <FileText className="w-6 h-6" strokeWidth={2} />
             </div>
-            <span className="font-mono text-[10px] text-amber-600 uppercase tracking-widest mb-2 block">
+            <span className="font-mono text-[10px] text-amber-400 uppercase tracking-widest mb-2 block">
               {'// TRANSFORMATION'}
             </span>
-            <h4 className="text-slate-900 text-4xl font-sans mb-3">System Spec</h4>
-            <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
+            <h4 className="text-[var(--text-heading)] text-4xl font-sans mb-3">System Spec</h4>
+            <p className="text-[var(--text-body)] text-sm leading-relaxed max-w-sm">
               Replaced 50 years of tribal knowledge with a documented ecosystem. Architecture enabled extensibility.
             </p>
           </div>
         </div>
 
         {/* Platform Impact Footer */}
-        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mt-6 text-center shadow-sm">
-          <p className="text-slate-600 text-sm leading-relaxed">
-            <strong className="text-slate-900">Platform-wide pattern:</strong> The Explorer filter view became scalable to all asset types. The architecture became the pattern for everything.
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 mt-6 text-center shadow-sm">
+          <p className="text-[var(--text-body)] text-sm leading-relaxed">
+            <strong className="text-[var(--text-heading)]">Platform-wide pattern:</strong> The Explorer filter view became scalable to all asset types. The architecture became the pattern for everything.
           </p>
         </div>
       </div>
@@ -120,7 +119,7 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
                 &ldquo;So what are you going to do next?&rdquo;
               </p>
             </blockquote>
-            <p className="text-slate-400/80 text-sm md:text-base leading-relaxed font-light max-w-xl mx-auto">
+            <p className="text-[var(--text-muted)]/80 text-sm md:text-base leading-relaxed font-light max-w-xl mx-auto">
               A customer publicly praised the redesign during a Virtual User Group and asked what I planned next. Shipped 5 months after I transitioned—now demoed on the public YouTube channel.
             </p>
           </div>
@@ -133,12 +132,12 @@ export default function NavigateForwardContent({ isLightBackground = true, refle
       </div>
 
       {/* Compact footer */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-6 border-t border-slate-200/60 text-sm text-center sm:text-left mt-8">
-        <p className="text-slate-500 italic font-light">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-6 border-t border-white/[0.06] text-sm text-center sm:text-left mt-8">
+        <p className="text-[var(--text-muted)] italic font-light">
           The V1 I loved is actually being implemented now. Ideas find their way back.
         </p>
-        <p className="text-slate-400 font-light">
-          <span className="text-slate-600 font-medium">Lesson:</span> Chaos is just undocumented architecture.
+        <p className="text-[var(--text-muted)] font-light">
+          <span className="text-[var(--text-body)] font-medium">Lesson:</span> Chaos is just undocumented architecture.
         </p>
       </div>
     </div>

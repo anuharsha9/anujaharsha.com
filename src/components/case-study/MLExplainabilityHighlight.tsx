@@ -40,10 +40,10 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
         <span className="inline-block font-mono text-xs text-[var(--accent-teal)] uppercase tracking-widest bg-[var(--accent-teal-50)] px-3 py-1.5">
           {'// TRUST_EARNED'}
         </span>
-        <h3 className="text-slate-900 text-2xl md:text-3xl font-sans leading-tight">
+        <h3 className="text-[var(--text-heading)] text-2xl md:text-3xl font-sans leading-tight">
           The Explainability Deep Dive
         </h3>
-        <p className="text-slate-500 text-sm md:text-base max-w-2xl mx-auto">
+        <p className="text-[var(--text-muted)] text-sm md:text-base max-w-2xl mx-auto">
           How tackling the most complex ML visualization earned the trust to revamp the entire experience
         </p>
       </div>
@@ -60,7 +60,7 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
             <span className="font-mono text-xs text-blue-600 uppercase tracking-widest">
               {'// THE_CHALLENGE'}
             </span>
-            <p className="text-xl md:text-2xl font-light text-slate-900 leading-relaxed">
+            <p className="text-xl md:text-2xl font-light text-[var(--text-heading)] leading-relaxed">
               My Principal Data Scientist handed me a screenshot from an external tool and said:
               <span className="font-sans italic text-blue-700 ml-2">&quot;This is the explainability visualization I need in WebFOCUS. Can you figure it out?&quot;</span>
             </p>
@@ -79,13 +79,13 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-3 mb-2">
-              <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest bg-slate-50 px-2 py-1 rounded border border-slate-200">
+              <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest bg-white/[0.03] px-2 py-1 rounded border border-white/[0.06]">
                 {'// REFERENCE_INPUT: Data Scientist\'s Requirement'}
               </span>
             </div>
 
             <div
-              className="relative w-full rounded-md overflow-hidden shadow-lg border border-slate-200 cursor-zoom-in group hover:shadow-xl transition-all duration-300"
+              className="relative w-full rounded-md overflow-hidden shadow-lg border border-white/[0.06] cursor-zoom-in group hover:shadow-xl transition-all duration-300"
               onClick={() => openLightbox(oldImage, allImages, 0)}
             >
               <Image
@@ -98,14 +98,14 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
                 className="rounded-md grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
               />
             </div>
-            <p className="font-mono text-xs text-slate-400 max-w-3xl">
+            <p className="font-mono text-xs text-[var(--text-muted)] max-w-3xl">
               {oldImage.caption}
             </p>
           </motion.div>
 
           {/* Connector - Down Arrow */}
           <div className="flex justify-center">
-            <div className="bg-slate-50 p-3 rounded-full border border-slate-100">
+            <div className="bg-white/[0.03] p-3 rounded-full border border-white/[0.06]">
               <ArrowRight className="w-6 h-6 text-slate-300 rotate-90" />
             </div>
           </div>
@@ -151,7 +151,7 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
             href="https://www.youtube.com/watch?v=oPFKkcgNCbo"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3 border border-slate-200 bg-white text-slate-600 text-xs md:text-sm font-medium tracking-wide hover:border-[var(--accent-teal)] hover:text-[var(--accent-teal)] transition-colors rounded-full shadow-sm hover:shadow"
+            className="inline-flex items-center gap-3 px-6 py-3 border border-white/[0.06] bg-white/[0.05] text-[var(--text-body)] text-xs md:text-sm font-medium tracking-wide hover:border-[var(--accent-teal)] hover:text-[var(--accent-teal)] transition-colors rounded-full shadow-sm hover:shadow"
           >
             <Play className="w-4 h-4 fill-current" />
             <span>Watch public explainability demo</span>
@@ -174,7 +174,7 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
                   <span className="text-emerald-500 font-bold text-xs tracking-widest">&gt; AUTHOR:</span>
                   <div>
                     <p className="text-white text-sm font-bold">Marcus Horbach</p>
-                    <p className="text-slate-500 text-xs uppercase tracking-wider">Principal Data Scientist</p>
+                    <p className="text-[var(--text-muted)] text-xs uppercase tracking-wider">Principal Data Scientist</p>
                   </div>
                 </div>
               </div>
@@ -191,8 +191,8 @@ export default function MLExplainabilityHighlight({ isLightBackground = true }: 
             <span className="font-mono text-xs text-emerald-600 uppercase tracking-widest">
               {'// OUTCOME'}
             </span>
-            <p className="text-slate-600 text-base leading-relaxed">
-              <strong className="text-slate-900 font-medium">Understanding before designing:</strong> I sat with the data scientists, learned the domain, and understood <em>why</em> explainability mattered before designing <em>how</em> to show it. This approach—earning trust through genuine understanding—unlocked the opportunity to redesign the entire ML training workflow from scratch.
+            <p className="text-[var(--text-body)] text-base leading-relaxed">
+              <strong className="text-[var(--text-heading)] font-medium">Understanding before designing:</strong> I sat with the data scientists, learned the domain, and understood <em>why</em> explainability mattered before designing <em>how</em> to show it. This approach—earning trust through genuine understanding—unlocked the opportunity to redesign the entire ML training workflow from scratch.
             </p>
           </div>
         </div>

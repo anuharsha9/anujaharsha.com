@@ -134,7 +134,7 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
           {/* Navigation Controls */}
           <button
             onClick={handlePrev}
-            className="absolute left-4 md:left-8 z-50 p-3 bg-white/90 backdrop-blur rounded-full shadow-lg border border-slate-200 text-slate-600 hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal)] transition-all hover:scale-110 active:scale-95"
+            className="absolute left-4 md:left-8 z-50 p-3 bg-black/60 backdrop-blur rounded-full shadow-lg border border-white/[0.10] text-white/70 hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal)] transition-all hover:scale-110 active:scale-95"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -142,7 +142,7 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
 
           <button
             onClick={handleNext}
-            className="absolute right-4 md:right-8 z-50 p-3 bg-white/90 backdrop-blur rounded-full shadow-lg border border-slate-200 text-slate-600 hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal)] transition-all hover:scale-110 active:scale-95"
+            className="absolute right-4 md:right-8 z-50 p-3 bg-black/60 backdrop-blur rounded-full shadow-lg border border-white/[0.10] text-white/70 hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal)] transition-all hover:scale-110 active:scale-95"
             aria-label="Next image"
           >
             <ChevronRight className="w-6 h-6" />
@@ -158,8 +158,8 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
                 <motion.div
                   key={image.src}
                   className={`
-                            absolute w-[80%] md:w-[650px] lg:w-[750px] aspect-video 
-                            bg-white rounded-lg shadow-2xl border border-slate-100 overflow-hidden
+                            absolute w-[80%] md:w-[650px] lg:w-[750px] aspect-video
+                            bg-white/[0.03] rounded-lg shadow-2xl shadow-black/20 border border-white/[0.06] overflow-hidden
                             ${state.zIndex === 10 ? 'cursor-zoom-in' : 'cursor-pointer'}
                         `}
                   initial={false}
@@ -200,10 +200,10 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
 
                     {/* Hover Overlay only on Center */}
                     {state.zIndex === 10 && (
-                      <div className="absolute inset-0 bg-slate-900/0 hover:bg-slate-900/[0.03] transition-colors duration-300 flex items-center justify-center opacity-0 hover:opacity-100 pointer-events-none">
-                        <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-lg border border-slate-200 shadow-xl flex items-center gap-2 transform translate-y-4 hover:translate-y-0 transition-transform duration-300">
+                      <div className="absolute inset-0 bg-black/0 hover:bg-black/[0.15] transition-colors duration-300 flex items-center justify-center opacity-0 hover:opacity-100 pointer-events-none">
+                        <div className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-lg border border-white/[0.10] shadow-xl flex items-center gap-2 transform translate-y-4 hover:translate-y-0 transition-transform duration-300">
                           <Maximize2 className="w-3 h-3 text-[var(--accent-teal)]" />
-                          <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">
+                          <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest">
                             {image.title}
                           </span>
                         </div>
@@ -222,7 +222,7 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
             {designSystemImages.map((_, idx) => (
               <motion.div
                 key={idx}
-                className={`h-1 rounded-full ${idx === currentIndex ? 'bg-[var(--accent-teal)]' : 'bg-slate-200'}`}
+                className={`h-1 rounded-full ${idx === currentIndex ? 'bg-[var(--accent-teal)]' : 'bg-white/[0.15]'}`}
                 animate={{
                   width: idx === currentIndex ? 24 : 4,
                   opacity: idx === currentIndex ? 1 : 0.5
@@ -230,7 +230,7 @@ export default function DesignSystemShowcase({ caseStudySlug }: DesignSystemShow
               />
             ))}
           </div>
-          <p className="text-slate-400 text-[10px] uppercase tracking-widest font-mono">
+          <p className="text-[var(--text-muted)] text-[10px] uppercase tracking-widest font-mono">
             Artifact {String(currentIndex + 1).padStart(2, '0')} of {designSystemImages.length}
           </p>
         </div>

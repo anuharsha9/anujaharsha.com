@@ -199,11 +199,10 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
       {/* Section Header */}
       <motion.div variants={itemVariants}>
         <ComponentHeading
-          tag="// DESIGN_ITERATION_LOG"
+          tag="DESIGN ITERATION LOG"
           title="System Inspection: The Design Artifacts"
           description="Navigate through the key design deliverables across all 4 IQ Plugin pillars."
-          color="text-[var(--accent-teal)]"
-          align="center"
+          color="teal"
           className="mb-8"
         />
       </motion.div>
@@ -211,14 +210,14 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
       {/* IDE Layout - Large Feature Display */}
       <motion.div
         variants={itemVariants}
-        className="bg-white border border-slate-200 overflow-hidden shadow-lg rounded-xl"
+        className="bg-white/[0.03] border border-white/[0.06] overflow-hidden shadow-lg rounded-xl"
       >
         <div className="flex flex-col lg:flex-row">
 
           {/* Mobile Tabs - Horizontal Scrollable Pills */}
-          <div className="lg:hidden border-b border-slate-200 bg-slate-50/30">
+          <div className="lg:hidden border-b border-white/[0.06] bg-white/[0.02]">
             <div className="px-4 pt-4 pb-2">
-              <span className="font-mono text-xs text-slate-400 uppercase tracking-widest">
+              <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
                 {'// PILLAR_INDEX'}
               </span>
             </div>
@@ -232,10 +231,10 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
                       flex items-center gap-2 px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-all duration-200
                       ${activeTab === tab.id
                         ? 'bg-[var(--accent-violet)] text-white shadow-md'
-                        : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'}
+                        : 'bg-white/[0.05] text-[var(--text-body)] border border-white/[0.06] hover:border-white/[0.12]'}
                     `}
                   >
-                    <span className={activeTab === tab.id ? 'text-white' : 'text-slate-400'}>
+                    <span className={activeTab === tab.id ? 'text-white' : 'text-[var(--text-muted)]'}>
                       {tab.icon}
                     </span>
                     <span>{tab.label}</span>
@@ -246,8 +245,8 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
           </div>
 
           {/* Desktop Sidebar - File Tree */}
-          <div className="hidden lg:block w-[22%] border-r border-slate-200 p-6 bg-slate-50/30">
-            <span className="font-mono text-xs text-slate-400 uppercase tracking-widest block mb-6">
+          <div className="hidden lg:block w-[22%] border-r border-white/[0.06] p-6 bg-white/[0.02]">
+            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest block mb-6">
               {'// PILLAR_INDEX'}
             </span>
 
@@ -259,11 +258,11 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
                   className={`
                     w-full text-left py-4 px-4 border-l-2 transition-all duration-200 flex items-center gap-3
                     ${activeTab === tab.id
-                      ? 'border-[var(--accent-teal)] bg-[var(--accent-teal-50)] text-slate-900'
-                      : 'border-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-900'}
+                      ? 'border-[var(--accent-teal)] bg-teal-500/[0.06] text-[var(--text-heading)]'
+                      : 'border-transparent text-[var(--text-muted)] hover:bg-white/[0.03] hover:text-[var(--text-heading)]'}
                   `}
                 >
-                  <span className={`flex-shrink-0 ${activeTab === tab.id ? 'text-[var(--accent-teal)]' : 'text-slate-400'}`}>
+                  <span className={`flex-shrink-0 ${activeTab === tab.id ? 'text-[var(--accent-teal)]' : 'text-[var(--text-muted)]'}`}>
                     {tab.icon}
                   </span>
                   <div className="flex-1 min-w-0">
@@ -271,7 +270,7 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
                     <span className="font-sans font-medium text-sm">{tab.label}</span>
                   </div>
                   {tab.isKey && (
-                    <span className="flex-shrink-0 bg-violet-100 text-violet-700 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 ">
+                    <span className="flex-shrink-0 bg-violet-500/[0.10] text-violet-400 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 ">
                       Key
                     </span>
                   )}
@@ -298,16 +297,16 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
                         {'// '}{activeTabData.specCaption}
                       </span>
                     </div>
-                    <h4 className="font-sans text-2xl md:text-3xl text-slate-900 mb-3">
+                    <h4 className="font-sans text-2xl md:text-3xl text-[var(--text-heading)] mb-3">
                       {activeTabData.title}
                     </h4>
-                    <p className="text-slate-500 text-sm leading-relaxed max-w-3xl">
+                    <p className="text-[var(--text-muted)] text-sm leading-relaxed max-w-3xl">
                       {activeTabData.description}
                     </p>
                   </div>
 
                   {/* Standardized Slider Component */}
-                  <div className="rounded-xl overflow-hidden shadow-sm border border-slate-200">
+                  <div className="rounded-xl overflow-hidden shadow-sm border border-white/[0.06]">
                     <MacWindowCarousel
                       images={activeTabData.images.map(img => ({
                         src: img.src,
@@ -316,7 +315,7 @@ export default function IQIterationLog({ isLightBackground = false }: IQIteratio
                       }))}
                       title={activeTabData.title}
                       autoPlay={false}
-                      className="w-full bg-slate-50"
+                      className="w-full bg-white/[0.02]"
                       aspectRatio="aspect-[4/3]"
                     />
                   </div>

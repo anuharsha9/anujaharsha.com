@@ -170,10 +170,10 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
                 <div className="flex items-center justify-between">
                     {/* Left: Technical Label + Counter */}
                     <div className="flex items-center gap-4">
-                        <span className="hidden md:inline font-mono text-[11px] text-slate-500 uppercase tracking-widest">
+                        <span className="hidden md:inline font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-widest">
                             {'// PRESENTATION_MODE'}
                         </span>
-                        <span className="font-mono text-xs text-slate-400">
+                        <span className="font-mono text-xs text-[var(--text-muted)]">
                             [{String(currentIndex + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}]
                         </span>
                     </div>
@@ -181,7 +181,7 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
                     {/* Close Button — rotate on hover */}
                     <motion.button
                         onClick={onExit}
-                        className="p-3 md:p-2.5 text-slate-400 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 rounded-lg"
+                        className="p-3 md:p-2.5 text-[var(--text-muted)] hover:text-white hover:bg-slate-800/50 transition-colors duration-200 rounded-lg"
                         aria-label="Close presentation"
                         whileHover={{ rotate: 90, scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
@@ -253,7 +253,7 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
                         whileHover={{ scale: 1.08, x: -2 }}
                         whileTap={{ scale: 0.92 }}
                         onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-                        className="absolute left-4 md:left-8 z-20 p-3 md:p-4 text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-colors duration-200 rounded-xl pointer-events-auto"
+                        className="absolute left-4 md:left-8 z-20 p-3 md:p-4 text-[var(--text-muted)] hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-colors duration-200 rounded-xl pointer-events-auto"
                         aria-label="Previous slide"
                     >
                         <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
@@ -267,7 +267,7 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
                         whileHover={{ scale: 1.08, x: 2 }}
                         whileTap={{ scale: 0.92 }}
                         onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-                        className="absolute right-4 md:right-8 z-20 p-3 md:p-4 text-slate-400 hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-colors duration-200 rounded-xl pointer-events-auto"
+                        className="absolute right-4 md:right-8 z-20 p-3 md:p-4 text-[var(--text-muted)] hover:text-white bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700/50 hover:border-slate-600 backdrop-blur-sm transition-colors duration-200 rounded-xl pointer-events-auto"
                         aria-label="Next slide"
                     >
                         <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
@@ -284,25 +284,25 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
                 className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-center px-4 md:px-6 py-3 md:py-4 bg-gradient-to-t from-slate-950/90 to-transparent pointer-events-none"
             >
                 {isMobile ? (
-                    <div className="flex items-center gap-4 font-mono text-[10px] text-slate-500 uppercase tracking-widest">
+                    <div className="flex items-center gap-4 font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">
                         <span className="flex items-center gap-2">
-                            <span className="text-slate-400">Tap X</span>
+                            <span className="text-[var(--text-muted)]">Tap X</span>
                             Close
                         </span>
                         <span className="flex items-center gap-2">
-                            <span className="text-slate-400">←→</span>
+                            <span className="text-[var(--text-muted)]">←→</span>
                             Swipe
                         </span>
                     </div>
                 ) : (
-                    <div className="flex items-center gap-5 font-mono text-[10px] text-slate-500 uppercase tracking-widest">
+                    <div className="flex items-center gap-5 font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">
                         <span className="flex items-center gap-2">
-                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">ESC</kbd>
+                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-[var(--text-muted)] rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">ESC</kbd>
                             Close
                         </span>
                         <span className="flex items-center gap-2">
-                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">←</kbd>
-                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-slate-400 rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">→</kbd>
+                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-[var(--text-muted)] rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">←</kbd>
+                            <kbd className="px-2 py-1 bg-slate-800/80 border border-slate-700/60 text-[var(--text-muted)] rounded-md shadow-[0_1px_2px_var(--overlay-black-30),inset_0_1px_0_var(--overlay-white-05)]">→</kbd>
                             Navigate
                         </span>
                     </div>

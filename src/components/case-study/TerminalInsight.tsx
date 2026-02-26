@@ -47,7 +47,7 @@ export default function TerminalInsight({
                 {/* Header - Simplified */}
                 <div className="h-10 bg-slate-900/50 flex items-center px-4 relative border-b border-white/5 w-full">
                     {/* Title */}
-                    <span className="font-mono text-xs text-slate-400/80 tracking-wide font-medium flex items-center gap-2 truncate">
+                    <span className="font-mono text-xs text-[var(--text-muted)]/80 tracking-wide font-medium flex items-center gap-2 truncate">
                         {title}
                     </span>
                 </div>

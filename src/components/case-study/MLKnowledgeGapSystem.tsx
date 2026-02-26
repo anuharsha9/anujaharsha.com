@@ -57,7 +57,7 @@ export default function MLKnowledgeGapSystem({ isLightBackground = true }: MLKno
         <span className="font-mono text-xs text-[var(--accent-teal-700)] uppercase tracking-widest block">
           {'// CHALLENGE: ZERO_ML_KNOWLEDGE'}
         </span>
-        <h3 className="text-2xl md:text-3xl font-light text-slate-900 leading-tight">
+        <h3 className="text-2xl md:text-3xl font-light text-[var(--text-heading)] leading-tight">
           I entered this project knowing nothing about machine learning. <strong className="font-medium">So I got obsessed.</strong>
         </h3>
       </div>
@@ -87,24 +87,24 @@ export default function MLKnowledgeGapSystem({ isLightBackground = true }: MLKno
 
               {/* Content */}
               <div className="space-y-3">
-                <h4 className="font-sans text-xl text-slate-900 leading-snug">
+                <h4 className="font-sans text-xl text-[var(--text-heading)] leading-snug">
                   {m.method}
                 </h4>
 
                 {m.highlight && (
-                  <span className="inline-block px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-medium text-slate-600 uppercase tracking-wider mb-1">
+                  <span className="inline-block px-2 py-0.5 rounded-md bg-white/[0.05] text-[10px] font-medium text-[var(--text-body)] uppercase tracking-wider mb-1">
                     {m.highlight}
                   </span>
                 )}
 
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <p className="text-[var(--text-body)] text-sm leading-relaxed">
                   {m.description}
                 </p>
 
                 {/* Open List with simple markers */}
                 <ul className="space-y-2 pt-2">
                   {m.details.map((d, j) => (
-                    <li key={j} className="text-slate-500 text-xs flex items-start gap-2.5">
+                    <li key={j} className="text-[var(--text-muted)] text-xs flex items-start gap-2.5">
                       <span className="w-1 h-1 rounded-full bg-[var(--accent-teal)] mt-1.5 flex-shrink-0"></span>
                       <span className="leading-relaxed">{d}</span>
                     </li>

@@ -612,7 +612,7 @@ function FloatingShards() {
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/20">Orchestration Stack</span>
         </div>
         <p className="text-white/30 text-sm md:text-base mt-4 max-w-lg">
-          1 Architect. 6 AI Agents. A relentless design-engineering bridge.
+          1 Architect. 6 AI Agents. A relentless product-design system.
         </p>
       </div>
 
@@ -660,7 +660,7 @@ function FloatingShards() {
           {[
             { label: 'Velocity', title: '1 Architect. 6 Weeks.', desc: 'Deployed MVP in 7 days. 5 full architectural pivots. I don\'t get stuck; I deliver.' },
             { label: 'Modernization', title: '13 Years Untangled.', desc: 'Enterprise-scale digital transformation. Bridging legacy systems with modern AI/ML UX.' },
-            { label: 'Bridge', title: 'Design-Engineering.', desc: 'Custom Design Token system for pixel-perfect consistency across a multi-agent automated build.' },
+            { label: 'Bridge', title: 'Product Design.', desc: 'Custom Design Token system for pixel-perfect consistency across a multi-agent automated build.' },
           ].map((item, i) => (
             <motion.div
               key={item.label}
@@ -1328,8 +1328,6 @@ export default function AboutPage() {
   return (
     <div className="bg-black relative" style={{ overflowX: 'clip' }}>
       <GlitchPortalHero />
-      <TimeTunnel />
-      <FloatingShards />
       <DualityWriting />
       <ChaosCloud />
       <ConnectionClose />

@@ -12,19 +12,19 @@ interface IQPatternConnectionsProps {
 
 // Icon components using Lucide
 const UnifiedHubIcon = () => (
-  <div className="text-slate-400">
+  <div className="text-[var(--text-muted)]">
     <Network className="w-12 h-12" strokeWidth={1.5} />
   </div>
 )
 
 const DatasetSelectionIcon = () => (
-  <div className="text-slate-400">
+  <div className="text-[var(--text-muted)]">
     <Database className="w-12 h-12" strokeWidth={1.5} />
   </div>
 )
 
 const ResponsiveUIIcon = () => (
-  <div className="text-slate-400">
+  <div className="text-[var(--text-muted)]">
     <MonitorSmartphone className="w-12 h-12" strokeWidth={1.5} />
   </div>
 )
@@ -67,7 +67,7 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-slate-50 border border-slate-200 p-8 h-full flex flex-col hover:-translate-y-1 hover:shadow-lg hover:border-[var(--accent-violet)]/30 transition-all duration-300 group rounded-2xl"
+        className="bg-white/[0.03] border border-white/[0.06] p-8 h-full flex flex-col hover:-translate-y-1 hover:shadow-lg hover:shadow-black/10 hover:border-[var(--accent-violet)]/30 transition-all duration-300 group rounded-2xl"
       >
         {/* Schematic Icon */}
         <div className="mb-6">
@@ -80,24 +80,24 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
         </h4>
 
         {/* Description */}
-        <p className="text-slate-600 text-sm leading-relaxed flex-1">
+        <p className="text-[var(--text-body)] text-sm leading-relaxed flex-1">
           {pattern.description}
         </p>
 
         {/* Origin/Reuse Tag */}
-        <div className="mt-6 pt-4 border-t border-slate-200">
+        <div className="mt-6 pt-4 border-t border-white/[0.06]">
           {'inheritsFrom' in pattern && pattern.inheritsFrom ? (
             <div className="flex items-center justify-between">
-              <span className="font-sans text-xs text-slate-500">
-                Pattern from: <span className="font-bold text-slate-900">{pattern.inheritsFrom}</span>
+              <span className="font-sans text-xs text-[var(--text-muted)]">
+                Pattern from: <span className="font-bold text-[var(--text-heading)]">{pattern.inheritsFrom}</span>
               </span>
               <span className="font-sans text-xs text-[var(--accent-violet)] font-medium">
                 → Extended in: IQ Plugin
               </span>
             </div>
           ) : (
-            <span className="font-sans text-xs text-slate-500">
-              Origin: <span className="font-bold text-slate-900">{pattern.origin}</span>
+            <span className="font-sans text-xs text-[var(--text-muted)]">
+              Origin: <span className="font-bold text-[var(--text-heading)]">{pattern.origin}</span>
             </span>
           )}
         </div>
@@ -120,13 +120,12 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
       <div className="space-y-12">
 
         {/* Header */}
-        {/* Header */}
         <ComponentHeading
-          tag="// PATTERN_LIBRARY"
+          align="center"
+          tag="PATTERN LIBRARY"
           title="Patterns That Became Reusable"
           description="Architectural patterns that brought NLQ, Insights, and ML under one roof."
-          color="slate"
-          align="center"
+          color="teal"
           className="mb-12"
         />
 
@@ -154,4 +153,3 @@ export default function IQPatternConnections({ isLightBackground = false }: IQPa
     </div>
   )
 }
-

@@ -32,7 +32,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   // PROJECT SNAPSHOT & DEEP DIVE DATA
   // ----------------------------
   projectSnapshot: {
-    problem: '0% feature adoption. We built a powerful ML engine, but because it lived 5 clicks deep and required Python, no business analyst could use it.',
+    problem: '0% feature adoption. We built a powerful ML engine, but it lived inside a data flow canvas — 12+ clicks, cascading context menus, and confusing error states meant no business analyst could use it.',
     role: 'Lead Designer & Researcher',
     keyDecisions: [
       'Moving from complex code to a linear 4-step visual wizard',
@@ -44,7 +44,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   },
   challengeDeconstruction: {
     assumptions: [
-      'Business analysts can code in Python and know statistics.',
+      'Business analysts understand data flow canvases and cascading menus.',
       'Users know what "hyperparameters" are.',
       'Cryptic technical stack traces are acceptable errors.',
     ],
@@ -60,7 +60,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     businessGoal: 'Drive adoption and defend our market position by democratizing ML for non-technical users.',
   },
   successCriteria: {
-    baseline: '12+ clicks, requires Python knowledge, high error rate.',
+    baseline: '12+ clicks through data flow canvas, cascading context menus, high error rate.',
     target: '<10 clicks, no coding required, guided error handling.',
     result: '7-9 clicks, zero code, 5/5 success rate in usability testing.',
     disclaimer: 'Results based on internal usability testing with 5 SMEs.',
@@ -239,7 +239,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     subtitle: 'Predictive analytics for non-technical users',
     leadershipSummary: 'Led ML Functions alongside ReportCaster and IQ Plugin. Weekly sessions with our Principal Data Scientist for months — learned the domain before touching design. Guided engineering through implementation due to limited front-end resources.',
     whatTheSystemWas:
-      'Zero feature adoption. We had a wildly powerful, multi-million dollar ML engine that absolutely no one was using. It was buried 5 clicks deep in settings menus, output cryptic stack traces, and required Python proficiency. It worked for our internal engineers, but to our core customers (business analysts), it was a complete black box.',
+      'Zero feature adoption. We had a wildly powerful, multi-million dollar ML engine that absolutely no one was using. It lived inside a data flow canvas — users had to drag data pills, drag model pills, hit a hidden play button, right-click for cascading context menus to set hyperparameters, and navigate confusing "results not generated" error states. 12+ interactions just to train a single model. To our core customers (business analysts), it was a complete black box.',
     myRole:
       'I took this from a fragmented engineering tool to a design-ready, zero-code 4-step workflow. End-to-end ownership—from getting MIT certified to learn the domain, to shipping the final design.',
     scopeOfPractice: [],
@@ -263,10 +263,10 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
       },
     ],
     star: {
-      situation: 'Zero adoption. We had a wildly powerful ML engine running under the hood, but it was entirely inaccessible. Hidden 5 clicks deep and requiring Python knowledge, our business users couldn\'t touch it. It was a massive sunk cost unless we could democratize it.',
+      situation: 'Zero adoption. We had a wildly powerful ML engine running under the hood, but it was entirely inaccessible. Buried in a data flow canvas with 12+ clicks, cascading context menus, and confusing error states, our business users couldn\'t touch it. It was a massive sunk cost unless we could democratize it.',
       task: 'Transform the engineer-driven black box into an intuitive, zero-code experience so business analysts could train predictive models, while ensuring our expert Data Scientists could still access the advanced parameters they needed.',
       action: 'Got MIT certified in AI/ML product design to deeply understand the domain. Embedded weekly with the Principal Data Scientist for months. Redesigned the 12-step technical task into a sleek 4-step wizard with a "Dual Persona" architecture, and translated complex stats into a visual confusion matrix.',
-      result: '5 for 5 in usability testing. Users who didn\'t know Python successfully trained models. Our Principal Data Scientist called the confusion matrix "the best screen in the entire UX revamp," validating that we successfully bridged the gap between power and accessibility.',
+      result: '5 for 5 in usability testing. Non-technical users successfully trained models without assistance. Our Principal Data Scientist called the confusion matrix "the best screen in the entire UX revamp," validating that we successfully bridged the gap between power and accessibility.',
     },
     technologies: [],
     keyAchievements: [

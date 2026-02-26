@@ -98,7 +98,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
             title="Explore Other Architectures"
             color="slate"
             align="center"
-            className="mb-0 [&_h2]:text-white [&_p]:text-slate-400 [&_span]:text-slate-500"
+            className="mb-0 [&_h2]:text-white [&_p]:text-[var(--text-muted)] [&_span]:text-[var(--text-muted)]"
           />
         </motion.div>
 
@@ -126,14 +126,14 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                       {project.tag.replace('[SYS_ID: ', '').replace(']', '')}
                     </span>
                   </div>
-                  <p className="text-slate-400 text-sm leading-relaxed line-clamp-2">
+                  <p className="text-[var(--text-muted)] text-sm leading-relaxed line-clamp-2">
                     {project.hook}
                   </p>
                 </div>
 
                 {/* Arrow Icon */}
                 <ArrowRight
-                  className={`w-5 h-5 text-slate-600 ${project.arrowColor} transition-all duration-300 group-hover:translate-x-1 flex-shrink-0`}
+                  className={`w-5 h-5 text-[var(--text-body)] ${project.arrowColor} transition-all duration-300 group-hover:translate-x-1 flex-shrink-0`}
                 />
               </Link>
             </motion.div>

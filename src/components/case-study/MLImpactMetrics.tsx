@@ -61,11 +61,11 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
       >
         <ComponentHeading
           variant="block"
-          tag="// IMPACT_METRICS"
+          align="center"
+          tag="IMPACT METRICS"
           title="Impact & Validation"
           description="Beyond usability metrics — these outcomes demonstrate how design decisions translated into tangible business value, system trust, and market expansion."
           color="teal"
-          align="center"
           className="mb-0"
         />
       </motion.div>
@@ -81,7 +81,7 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } }
               }}
-              className="bg-white border border-slate-200 p-6 md:p-8 h-full flex flex-col hover:shadow-lg hover:border-slate-300 transition-all duration-300 rounded-2xl"
+              className="bg-white/[0.03] border border-white/[0.06] p-6 md:p-8 h-full flex flex-col hover:shadow-lg hover:border-white/[0.08] transition-all duration-300 rounded-2xl"
             >
               {/* Icon */}
               <div className={`w-12 h-12 ${o.iconBg} flex items-center justify-center mb-4 rounded-xl`}>
@@ -94,12 +94,12 @@ export default function MLImpactMetrics({ isLightBackground = false }: MLImpactM
               </span>
 
               {/* Headline */}
-              <h4 className="text-slate-900 text-lg font-sans font-semibold mb-3">
+              <h4 className="text-[var(--text-heading)] text-lg font-sans font-semibold mb-3">
                 {o.headline}
               </h4>
 
               {/* Body */}
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <p className="text-[var(--text-body)] text-sm leading-relaxed">
                 {o.body}
               </p>
             </motion.div>

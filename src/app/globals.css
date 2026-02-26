@@ -146,12 +146,12 @@ html {
 
 @layer components {
 
-  /* Light Theme Surfaces - Pure White Canvas */
+  /* Dark Theme Surfaces — Portfolio-wide */
   .surface-dark,
   .surface-dark-alt,
   .surface-light,
   .surface-light-alt {
-    background: var(--white);
+    background: var(--bg-primary);
     color: var(--text-heading);
   }
 

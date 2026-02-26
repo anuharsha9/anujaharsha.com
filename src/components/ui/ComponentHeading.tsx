@@ -56,12 +56,12 @@ export default function ComponentHeading({
     const getColorClass = (c: string) => {
         const colors: Record<string, string> = {
             teal: "text-[var(--accent-teal)]",
-            blue: "text-blue-600",
-            indigo: "text-indigo-600",
-            slate: "text-slate-500",
-            red: "text-red-600",
-            amber: "text-amber-600",
-            marketing: "text-slate-900"
+            blue: "text-blue-400",
+            indigo: "text-indigo-400",
+            slate: "text-[var(--text-muted)]",
+            red: "text-red-400",
+            amber: "text-amber-400",
+            marketing: "text-[var(--text-heading)]"
         }
         return colors[c] || c // Fallback to raw class if not found
     }
@@ -70,22 +70,22 @@ export default function ComponentHeading({
     // 2. Define Typography & Spacing based on Variant
     const styles = {
         section: {
-            container: "mb-8 md:mb-12",
-            tag: "text-sm font-bold tracking-wider mb-6 text-slate-500 uppercase",
-            title: "text-5xl md:text-6xl lg:text-7xl font-sans font-black leading-[1.05] tracking-tight mb-8 text-slate-900",
-            desc: "text-xl md:text-2xl font-normal text-slate-500 leading-relaxed max-w-7xl",
+            container: "mb-6 md:mb-10",
+            tag: "text-xs font-bold tracking-wider mb-4 text-[var(--text-muted)] uppercase",
+            title: "text-3xl md:text-4xl lg:text-5xl font-sans font-bold leading-[1.1] tracking-tight mb-4 text-[var(--text-heading)]",
+            desc: "text-lg md:text-xl font-normal text-[var(--text-muted)] leading-relaxed max-w-3xl",
         },
         block: {
-            container: "mb-12 md:mb-16",
-            tag: "text-xs font-bold tracking-wider mb-3 text-slate-500 uppercase",
-            title: "text-3xl md:text-4xl font-sans font-bold leading-tight mb-4 text-slate-900",
-            desc: "text-lg font-normal text-slate-500 leading-relaxed max-w-3xl",
+            container: "mb-8 md:mb-12",
+            tag: "text-xs font-bold tracking-wider mb-3 text-[var(--text-muted)] uppercase",
+            title: "text-2xl md:text-3xl font-sans font-bold leading-tight mb-3 text-[var(--text-heading)]",
+            desc: "text-base md:text-lg font-normal text-[var(--text-muted)] leading-relaxed max-w-3xl",
         },
         detail: {
             container: "mb-6 md:mb-8",
-            tag: "text-[10px] font-bold tracking-wider mb-2 text-slate-400 uppercase",
-            title: "text-xl md:text-2xl font-sans font-bold leading-snug mb-2 text-slate-900",
-            desc: "text-base font-normal text-slate-500 leading-relaxed max-w-2xl",
+            tag: "text-[10px] font-bold tracking-wider mb-2 text-[var(--text-dim)] uppercase",
+            title: "text-xl md:text-2xl font-sans font-bold leading-snug mb-2 text-[var(--text-heading)]",
+            desc: "text-base font-normal text-[var(--text-muted)] leading-relaxed max-w-2xl",
         }
     }
 
@@ -102,14 +102,14 @@ export default function ComponentHeading({
             )}>
                 {tag && (
                     <span className={cn(
-                        "uppercase transition-colors duration-300 text-slate-500",
+                        "uppercase transition-colors duration-300 text-[var(--text-muted)]",
                         currentStyle.tag
                     )}>
                         {tag.replace(/^\/\/\s*/, '')}
                     </span>
                 )}
                 <h2 className={cn(
-                    "text-slate-900 text-balance",
+                    "text-[var(--text-heading)] text-balance",
                     currentStyle.title
                 )}>
                     {title}
@@ -143,7 +143,7 @@ export default function ComponentHeading({
             {tag && (
                 <motion.span
                     className={cn(
-                        "uppercase transition-colors duration-300 text-slate-500",
+                        "uppercase transition-colors duration-300 text-[var(--text-muted)]",
                         currentStyle.tag
                     )}
                     variants={childVariants}
@@ -155,7 +155,7 @@ export default function ComponentHeading({
             {/* Main Title */}
             <motion.h2
                 className={cn(
-                    "text-slate-900 text-balance",
+                    "text-[var(--text-heading)] text-balance",
                     currentStyle.title
                 )}
                 variants={childVariants}

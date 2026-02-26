@@ -15,13 +15,13 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
       label: 'Situation',
       content: data.star?.situation || '',
       icon: MapPin,
-      iconColor: 'text-slate-400',
+      iconColor: 'text-[var(--text-muted)]',
     },
     {
       label: 'Task',
       content: data.star?.task || '',
       icon: Layers,
-      iconColor: 'text-slate-400',
+      iconColor: 'text-[var(--text-muted)]',
     },
     {
       label: 'Action',
@@ -55,7 +55,7 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
           }}
         >
           {/* 4-Column STAR Grid - Linear Flow with Dividers */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-0 mb-10 pb-8 border-b border-slate-100">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-0 mb-10 pb-8 border-b border-white/[0.06]">
             {items.map((item, index) => (
               <motion.div
                 key={item.label}
@@ -65,14 +65,14 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
                 }}
                 className={`
                   flex flex-col gap-3 md:px-6 first:pl-0 last:pr-0
-                  ${index !== items.length - 1 ? 'md:border-r border-slate-100' : ''}
+                  ${index !== items.length - 1 ? 'md:border-r border-white/[0.06]' : ''}
                 `}
               >
                 <div className="flex items-center gap-2">
                   <item.icon className={`w-4 h-4 ${item.iconColor}`} strokeWidth={2} />
-                  <span className="text-[11px] uppercase tracking-[0.15em] font-semibold text-slate-400">{item.label}</span>
+                  <span className="text-[11px] uppercase tracking-[0.15em] font-semibold text-[var(--text-muted)]">{item.label}</span>
                 </div>
-                <p className="text-slate-700 text-sm leading-relaxed font-light">
+                <p className="text-[var(--text-body)] text-sm leading-relaxed font-light">
                   {item.content}
                 </p>
               </motion.div>
@@ -91,10 +91,10 @@ export default function QuickOverview({ data, heroSubtitle, caseStudySlug }: Qui
                   }}
                   className="flex flex-col gap-1 md:px-6 first:pl-0"
                 >
-                  <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 font-feature-settings-tnum">
+                  <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--text-heading)] to-[var(--text-body)] font-feature-settings-tnum">
                     {metric.value}
                   </span>
-                  <span className="text-[10px] uppercase tracking-[0.15em] font-semibold text-slate-400">
+                  <span className="text-[10px] uppercase tracking-[0.15em] font-semibold text-[var(--text-muted)]">
                     {metric.label}
                   </span>
                 </motion.div>

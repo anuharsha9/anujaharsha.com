@@ -49,10 +49,10 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
         <ComponentHeading
           variant="block"
           align="center"
-          tag="// WORKFLOW_MAPPING"
+          tag="WORKFLOW MAPPING"
           title="Mapping the Existing Black-Box Workflow"
           description="I documented every workflow step, every user decision point, and every place where users got stuck."
-          color="slate"
+          color="teal"
           className="mb-8"
         />
       </motion.div>
@@ -67,15 +67,15 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="flex-1 bg-white border border-slate-200 p-5 hover:border-teal-400 transition-colors rounded-xl"
+              className="flex-1 bg-white/[0.03] border border-white/[0.06] p-5 hover:border-teal-400 transition-colors rounded-xl"
             >
               <div className="space-y-4">
                 {/* Step Number - Monospace Index */}
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-2xl font-bold text-teal-600">
+                  <span className="font-mono text-2xl font-bold text-teal-400">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h4 className="font-sans text-lg text-slate-900">{a.area}</h4>
+                  <h4 className="font-sans text-lg text-[var(--text-heading)]">{a.area}</h4>
                 </div>
 
                 {/* Items List */}
@@ -83,7 +83,7 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
                   {a.items.map((item, j) => (
                     <li key={j} className="flex items-start gap-2">
                       <span className="font-mono text-teal-500 text-xs mt-0.5">&gt;</span>
-                      <span className="text-slate-600 text-sm leading-relaxed">{item}</span>
+                      <span className="text-[var(--text-body)] text-sm leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -93,7 +93,7 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
             {/* Arrow Connector (not after last card) */}
             {i < mappedAreas.length - 1 && (
               <div className="hidden lg:flex items-center justify-center px-3">
-                <ArrowRight className="w-6 h-6 text-slate-300" />
+                <ArrowRight className="w-6 h-6 text-white/[0.15]" />
               </div>
             )}
           </div>
@@ -108,9 +108,9 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
         transition={{ duration: 0.5, delay: 0.4 }}
         className="space-y-4"
       >
-        <div className="flex items-center gap-2 pb-2 border-b border-slate-200">
+        <div className="flex items-center gap-2 pb-2 border-b border-white/[0.06]">
           <span className="w-2 h-2 bg-red-500"></span>
-          <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest">
+          <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">
             CORE_PROBLEMS_IDENTIFIED
           </span>
         </div>
@@ -123,10 +123,10 @@ export default function MLWorkflowMapping({ isLightBackground = false }: MLWorkf
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: 0.5 + i * 0.05 }}
-              className="bg-red-50 border border-red-100 px-3 py-2 flex items-center gap-2 rounded-full"
+              className="bg-red-500/[0.06] border border-red-500/[0.15] px-3 py-2 flex items-center gap-2 rounded-full"
             >
               <AlertCircle className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
-              <span className="text-red-700 font-mono text-xs">{p}</span>
+              <span className="text-red-400 font-mono text-xs">{p}</span>
             </motion.div>
           ))}
         </div>

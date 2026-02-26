@@ -236,6 +236,7 @@ const VIBE_TILES = [
         icon: Sparkles,
         cover: 'browser' as const,
         accent: 'var(--accent-teal)',
+        accentRgbVar: '--accent-teal-rgb',
         action: 'portfolio' as const,
     },
     {
@@ -245,6 +246,7 @@ const VIBE_TILES = [
         icon: Gamepad2,
         cover: 'wordu' as const,
         accent: 'var(--semantic-orange-vivid)',
+        accentRgbVar: '--semantic-orange-vivid-rgb',
         action: 'wordu' as const,
     },
     {
@@ -254,6 +256,7 @@ const VIBE_TILES = [
         icon: GraduationCap,
         cover: 'graduation' as const,
         accent: 'var(--semantic-purple-vivid)',
+        accentRgbVar: '--semantic-purple-vivid-rgb',
         action: 'college-os' as const,
     },
 ]
@@ -280,7 +283,21 @@ export default function VibeCodingBlock() {
 
     return (
         <>
-            <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto">
+            <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+                {/* Era label — decorative, above content */}
+                <motion.div
+                    className="mb-6 md:mb-8 pointer-events-none select-none"
+                    aria-hidden="true"
+                    initial={{ opacity: 0, x: -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <span className="font-extrabold text-[clamp(3rem,8vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                        NOV / 2025
+                    </span>
+                </motion.div>
+
                 {/* Header */}
                 <motion.div
                     className="mb-12 md:mb-16"
@@ -300,6 +317,7 @@ export default function VibeCodingBlock() {
                     {VIBE_TILES.map((tile, i) => {
                         const Icon = tile.icon
                         const isShell = tile.action === 'college-os'
+                        const rgb = `var(${tile.accentRgbVar})`
 
                         return (
                             <motion.div
@@ -312,52 +330,64 @@ export default function VibeCodingBlock() {
                                 <button
                                     onClick={() => handleTileClick(tile.action)}
                                     disabled={isShell}
-                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-black/60 text-left transition-all duration-500
-                                        ${isShell
-                                            ? 'opacity-60 cursor-not-allowed'
-                                            : 'cursor-pointer hover:shadow-[0_0_40px_rgba(47,198,213,0.08)]'
-                                        }`}
+                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl text-left transition-all duration-500
+                                        ${isShell ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+                                    style={{
+                                        border: `1px solid rgba(${rgb}, ${isShell ? 0.04 : 0.09})`,
+                                        backgroundColor: `rgba(${rgb}, 0.03)`,
+                                        boxShadow: `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`,
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isShell) {
+                                            e.currentTarget.style.boxShadow = `0 0 40px rgba(${rgb}, 0.08), inset 0 0 0 1px rgba(${rgb}, 0.15)`
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.boxShadow = `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`
+                                    }}
                                 >
                                     {/* Cover: animated SVG */}
                                     {tile.cover === 'browser' && <BrowserWireframeCover />}
                                     {tile.cover === 'graduation' && <GraduationCapCover />}
                                     {tile.cover === 'wordu' && <WordULogoCover />}
 
-                                    {/* Gradient */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-
-                                    {/* Play / Icon indicator */}
-                                    <div className="absolute inset-0 z-20 flex items-center justify-center">
-                                        <div className={`w-14 h-14 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center transition-all duration-500
-                                            ${isShell ? '' : 'group-hover:scale-110 group-hover:bg-white/20'}`}>
-                                            {isShell ? (
-                                                <Icon className="w-5 h-5 text-white/40" />
-                                            ) : tile.action === 'wordu' ? (
-                                                <Play className="w-5 h-5 text-white fill-white ml-0.5" />
-                                            ) : (
-                                                <Icon className="w-5 h-5 text-white" />
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* Title */}
-                                    <div className="absolute bottom-0 left-0 right-0 z-20 p-5">
-                                        <p className="text-white/90 text-base md:text-lg font-semibold mb-1">
-                                            {tile.title}
-                                        </p>
-                                        <p className="text-white/50 text-sm font-mono">
-                                            {tile.subtitle}
-                                        </p>
-                                    </div>
-
-                                    {/* Accent glow on hover */}
+                                    {/* Hover overlay: scrim + icon + title (non-shell only) */}
                                     {!isShell && (
-                                        <div
-                                            className="absolute inset-0 z-[5] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                                            style={{
-                                                background: `radial-gradient(ellipse at 50% 80%, ${tile.accent}15, transparent 70%)`,
-                                            }}
-                                        />
+                                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/0 group-hover:bg-black/55 transition-all duration-500 opacity-0 group-hover:opacity-100">
+                                            <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
+                                                <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                                                    {tile.action === 'wordu' ? (
+                                                        <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                                                    ) : (
+                                                        <Icon className="w-5 h-5 text-white" />
+                                                    )}
+                                                </div>
+                                                <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
+                                                    {tile.action === 'wordu' ? 'Play Game' : 'Explore'}
+                                                </span>
+                                                <p className="text-white/90 text-base font-semibold leading-snug mt-1">
+                                                    {tile.title}
+                                                </p>
+                                                <p className="text-white/50 text-xs font-mono">
+                                                    {tile.subtitle}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Shell state: show title + coming soon always */}
+                                    {isShell && (
+                                        <>
+                                            <div className="absolute inset-0 z-20 flex items-center justify-center">
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
+                                                        <Icon className="w-5 h-5 text-white/40" />
+                                                    </div>
+                                                    <p className="text-white/50 text-base font-semibold">{tile.title}</p>
+                                                    <p className="text-white/30 text-xs font-mono">{tile.subtitle}</p>
+                                                </div>
+                                            </div>
+                                        </>
                                     )}
                                 </button>
                             </motion.div>

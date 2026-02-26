@@ -154,14 +154,14 @@ const FeatureSection = ({ title, description, icon: Icon, iconColor, status, scr
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${iconColor} text-white shadow-md shrink-0`}>
                             <Icon size={20} />
                         </div>
-                        <h3 className="font-sans text-2xl text-slate-900 font-medium">{title}</h3>
+                        <h3 className="font-sans text-2xl text-[var(--text-heading)] font-medium">{title}</h3>
                     </div>
-                    <span className={`font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-slate-100 ${status === 'SHIPPING_NOW' ? 'text-emerald-600' : 'text-blue-600'} self-start sm:self-center mt-1 sm:mt-0`}>
+                    <span className={`font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-white/[0.05] ${status === 'SHIPPING_NOW' ? 'text-emerald-600' : 'text-blue-600'} self-start sm:self-center mt-1 sm:mt-0`}>
                         {status.replace('_', ' ')}
                     </span>
                 </div>
 
-                <p className="text-slate-600 leading-relaxed max-w-2xl">{description}</p>
+                <p className="text-[var(--text-body)] leading-relaxed max-w-2xl">{description}</p>
 
                 {demoLink && (
                     <div className="pt-1">
@@ -192,7 +192,7 @@ const FeatureSection = ({ title, description, icon: Icon, iconColor, status, scr
             <div className="grid grid-cols-2 gap-4">
                 {screens.map((screen, index) => (
                     <div key={index} className="space-y-2 group cursor-pointer" onClick={() => openLightbox(screen.imageSrc, screen.altText)}>
-                        <div className="relative aspect-video rounded-xl overflow-hidden shadow-sm border border-slate-100 group-hover:shadow-md transition-all duration-300 bg-slate-50">
+                        <div className="relative aspect-video rounded-xl overflow-hidden shadow-sm border border-white/[0.06] group-hover:shadow-md transition-all duration-300 bg-white/[0.03]">
                             <Image
                                 src={screen.imageSrc}
                                 alt={screen.altText}
@@ -202,7 +202,7 @@ const FeatureSection = ({ title, description, icon: Icon, iconColor, status, scr
                             />
                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                         </div>
-                        <p className="font-mono text-[10px] text-slate-400 uppercase tracking-widest pl-1">
+                        <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest pl-1">
                             {'//'} {screen.label}
                         </p>
                     </div>
@@ -235,7 +235,7 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
     }
 
     return (
-        <div className="w-full py-16 md:py-24 bg-white">
+        <div className="w-full py-16 md:py-24 bg-transparent">
             <motion.div
                 className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16"
                 variants={containerVariants}
@@ -248,11 +248,10 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
                 <motion.div variants={itemVariants}>
                     <ComponentHeading
                         variant="block"
-                        tag="// FOUNDATION: WHAT_I_BUILT"
+                        tag="FOUNDATION"
                         title="Three Workflows. One Foundation."
                         description="Before connecting them, I built each workflow independently. NLQ and Insights are shipping now. ML launches in 2026."
                         color="teal"
-                        align="center"
                         className="mb-20 md:mb-24"
                     />
                 </motion.div>
@@ -272,20 +271,20 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
                     variants={itemVariants}
                     className="max-w-4xl mx-auto mt-24 px-6"
                 >
-                    <div className="flex flex-col md:flex-row gap-6 items-start border-t border-slate-100 pt-8">
+                    <div className="flex flex-col md:flex-row gap-6 items-start border-t border-white/[0.06] pt-8">
                         <div className="shrink-0">
-                            <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-[var(--accent-teal)]">
+                            <div className="w-12 h-12 rounded-full bg-white/[0.03] flex items-center justify-center text-[var(--accent-teal)]">
                                 <Layout size={20} />
                             </div>
                         </div>
                         <div>
-                            <span className="font-mono text-xs uppercase tracking-widest block mb-3 text-slate-400">
+                            <span className="font-mono text-xs uppercase tracking-widest block mb-3 text-[var(--text-muted)]">
                                 {'// PATTERN_PARITY'}
                             </span>
-                            <p className="text-slate-600 leading-relaxed text-lg font-light">
+                            <p className="text-[var(--text-body)] leading-relaxed text-lg font-light">
                                 <Quote className="inline-block w-4 h-4 text-slate-300 mr-2 -mt-2 rotate-180" />
                                 Same empty state patterns. Same data selection flow. Same error handling.
-                                When I built NLQ and Insights, I designed them as a <span className="font-medium text-slate-900">system</span>—knowing
+                                When I built NLQ and Insights, I designed them as a <span className="font-medium text-[var(--text-heading)]">system</span>—knowing
                                 they&apos;d eventually live together. IQ Plugin is the result.
                             </p>
                         </div>
@@ -301,7 +300,7 @@ export default function IQWorkflowsAndFoundation({ isLightBackground = false }: 
                         <span className="font-mono text-[var(--accent-teal)] uppercase tracking-wider">
                             {`>`} THEN_I_UNIFIED_THEM:
                         </span>
-                        <span className="font-sans text-slate-900 text-lg border-b border-slate-200 pb-0.5">
+                        <span className="font-sans text-[var(--text-heading)] text-lg border-b border-white/[0.06] pb-0.5">
                             IQ Plugin brings all 3 home.
                         </span>
                     </div>

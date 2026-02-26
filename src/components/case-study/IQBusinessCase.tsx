@@ -16,23 +16,23 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
     {
       tag: 'COMPETITIVE_PRESSURE',
       body: 'The BI market is moving fast toward AI/ML. WebFOCUS needed DSML as a first-class feature, not a hidden capability buried in menus.',
-      color: 'text-indigo-600',
-      bg: 'bg-indigo-50',
-      border: 'border-indigo-100'
+      color: 'text-indigo-400',
+      bg: 'bg-indigo-500/[0.06]',
+      border: 'border-indigo-500/[0.15]'
     },
     {
       tag: 'HUB_ADOPTION',
       body: 'Users weren\'t living in the Hub. IQ Plugin gives them a reason to—a single destination for all data science workflows.',
-      color: 'text-violet-600',
-      bg: 'bg-violet-50',
-      border: 'border-violet-100'
+      color: 'text-violet-400',
+      bg: 'bg-violet-500/[0.06]',
+      border: 'border-violet-500/[0.15]'
     },
     {
       tag: 'DSML_DISCOVERABILITY',
       body: 'NLQ, Insights, and ML existed but adoption was low. Users didn\'t know they were there. One-click access changes that.',
-      color: 'text-fuchsia-600',
-      bg: 'bg-fuchsia-50',
-      border: 'border-fuchsia-100'
+      color: 'text-fuchsia-400',
+      bg: 'bg-fuchsia-500/[0.06]',
+      border: 'border-fuchsia-500/[0.15]'
     },
   ]
 
@@ -41,11 +41,11 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
       {/* Header */}
       <ComponentHeading
         variant="block"
-        tag="// BUSINESS_CASE"
+        align="center"
+        tag="BUSINESS CASE"
         title="Why Design A New Plugin?"
         description="The existing plugin was functional but created significant friction in the analyst workflow, leading to potential revenue loss."
-        color="indigo"
-        align="center"
+        color="teal"
         className="mb-12"
       />
 
@@ -55,23 +55,23 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col md:flex-row"
+        className="bg-white/[0.03] rounded-3xl shadow-xl shadow-black/10 border border-white/[0.06] overflow-hidden flex flex-col md:flex-row"
       >
         {/* Left Pane - The Problem */}
-        <div className="flex-1 p-8 md:p-12 border-b md:border-b-0 md:border-r border-slate-100 relative group">
+        <div className="flex-1 p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/[0.06] relative group">
           {/* Decorative Red Line/Glow */}
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-rose-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           <div className="space-y-6">
-            <span className="font-mono text-[10px] text-red-500 uppercase tracking-widest bg-red-50 px-2 py-1 rounded-md inline-block">
+            <span className="font-mono text-[10px] text-red-400 uppercase tracking-widest bg-red-500/[0.06] px-2 py-1 rounded-md inline-block">
               {'//'} THE_PROBLEM
             </span>
             <div className="space-y-2">
-              <h4 className="text-2xl md:text-3xl font-sans text-slate-900 leading-tight">
+              <h4 className="text-2xl md:text-3xl font-sans text-[var(--text-heading)] leading-tight">
                 Scattered & Hidden
               </h4>
-              <p className="text-slate-500 text-sm leading-relaxed">
-                DSML capabilities existed but lived in <span className="font-medium text-slate-900">different places</span> with different patterns.
+              <p className="text-[var(--text-muted)] text-sm leading-relaxed">
+                DSML capabilities existed but lived in <span className="font-medium text-[var(--text-heading)]">different places</span> with different patterns.
               </p>
             </div>
 
@@ -84,10 +84,10 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
                 "Users didn't know these capabilities existed"
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3 group/item">
-                  <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-red-100 transition-colors">
+                  <div className="w-5 h-5 rounded-full bg-red-500/[0.06] flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-red-500/[0.12] transition-colors">
                     <X className="w-3 h-3 text-red-500" />
                   </div>
-                  <p className="text-slate-600 text-sm">{item}</p>
+                  <p className="text-[var(--text-body)] text-sm">{item}</p>
                 </div>
               ))}
             </div>
@@ -95,20 +95,20 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
         </div>
 
         {/* Right Pane - The Solution */}
-        <div className="flex-1 p-8 md:p-12 bg-white relative group">
+        <div className="flex-1 p-8 md:p-12 relative group">
           {/* Decorative Green Line/Glow */}
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           <div className="space-y-6">
-            <span className="font-mono text-[10px] text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded-md inline-block">
+            <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest bg-emerald-500/[0.06] px-2 py-1 rounded-md inline-block">
               {'//'} THE_SOLUTION
             </span>
             <div className="space-y-2">
-              <h4 className="text-2xl md:text-3xl font-sans text-slate-900 leading-tight">
+              <h4 className="text-2xl md:text-3xl font-sans text-[var(--text-heading)] leading-tight">
                 Unified IQ Hub
               </h4>
-              <p className="text-slate-500 text-sm leading-relaxed">
-                One destination for all DSML. <span className="font-medium text-slate-900">One click</span> from the Hub homepage.
+              <p className="text-[var(--text-muted)] text-sm leading-relaxed">
+                One destination for all DSML. <span className="font-medium text-[var(--text-heading)]">One click</span> from the Hub homepage.
               </p>
             </div>
 
@@ -121,10 +121,10 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
                 "Consistent patterns: learn one, know them all"
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3 group/item">
-                  <div className="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-100 transition-colors">
+                  <div className="w-5 h-5 rounded-full bg-emerald-500/[0.06] flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-500/[0.12] transition-colors">
                     <ArrowRight className="w-3 h-3 text-emerald-500" />
                   </div>
-                  <p className="text-slate-600 text-sm">{item}</p>
+                  <p className="text-[var(--text-body)] text-sm">{item}</p>
                 </div>
               ))}
             </div>
@@ -134,7 +134,7 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
 
       {/* Business Drivers Grid */}
       <div className="space-y-6">
-        <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest block text-center">
+        <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest block text-center">
           {'//'} BUSINESS_DRIVERS
         </span>
 
@@ -146,14 +146,14 @@ export default function IQBusinessCase({ isLightBackground = false }: IQBusiness
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-              className="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              className="bg-white/[0.03] rounded-2xl p-7 border border-white/[0.06] shadow-sm hover:shadow-lg hover:shadow-black/10 hover:-translate-y-1 transition-all duration-300"
             >
               <div className={`inline-block px-2 py-1 rounded mb-4 ${driver.bg}`}>
                 <span className={`font-mono text-[10px] uppercase tracking-widest ${driver.color}`}>
                   &gt; {driver.tag}
                 </span>
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <p className="text-[var(--text-body)] text-sm leading-relaxed">
                 {driver.body}
               </p>
             </motion.div>

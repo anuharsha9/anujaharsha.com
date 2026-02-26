@@ -95,7 +95,7 @@ function Deck({
                 ref={ref}
                 id={`deck-${index}`}
                 className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-12 py-16 md:py-24 overflow-hidden"
-                style={{ background: 'var(--surface-zinc-950)' }}
+                style={{ background: 'var(--bg-primary)' }}
             >
                 {/* Section header */}
                 <motion.div
@@ -150,7 +150,7 @@ function Deck({
             <section
                 ref={ref}
                 className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-12 overflow-hidden"
-                style={{ background: 'var(--surface-zinc-950)' }}
+                style={{ background: 'var(--bg-primary)' }}
             >
                 {/* Subtle grid */}
                 <div
@@ -309,7 +309,7 @@ function Deck({
         <section
             ref={ref}
             className="relative min-h-screen flex items-center overflow-hidden"
-            style={{ background: 'var(--surface-zinc-950)' }}
+            style={{ background: 'var(--bg-primary)' }}
         >
             {/* Accent glow — top corner, very subtle */}
             <motion.div
@@ -492,7 +492,7 @@ function Deck({
 /* ─── main component ──────────────────────────────── */
 export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
 
-    // Hide site header, ScrollGear, and back-to-top on mount; restore on exit
+    // Hide site header and ScrollGear on mount; restore on exit
     useEffect(() => {
         // Scroll to top when entering presentation
         window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
@@ -513,25 +513,7 @@ export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
     }, [])
 
     return (
-        <div className="relative w-full bg-[var(--surface-zinc-950)]">
-
-            {/* Sticky exit button */}
-            <motion.button
-                onClick={onExit}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5, duration: 0.3 }}
-                whileHover={{ scale: 1.08, rotate: 90 }}
-                whileTap={{ scale: 0.92 }}
-                className="fixed top-4 right-4 md:top-6 md:right-6 z-50
-                           w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/5 backdrop-blur-md
-                           text-zinc-400 hover:text-white flex items-center justify-center
-                           shadow-lg border border-white/10 hover:border-white/20
-                           transition-colors cursor-pointer"
-                aria-label="Back to Case Study"
-            >
-                <X className="w-4 h-4" />
-            </motion.button>
+        <div className="relative w-full bg-[var(--bg-primary)]">
 
             {/* Sticky progress dots — right edge, desktop only */}
             <nav className="fixed right-5 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-1.5">
@@ -569,41 +551,21 @@ export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
                 </div>
             ))}
 
-            {/* End card CTA */}
-            <section className="min-h-[60vh] flex flex-col items-center justify-center bg-[var(--surface-zinc-950)] px-6">
+            {/* End card — prompt to switch to full case study */}
+            <section className="min-h-[40vh] flex flex-col items-center justify-center bg-[var(--bg-primary)] px-6">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    className="max-w-2xl w-full"
+                    className="text-center max-w-lg"
                 >
-                    <button
-                        onClick={onExit}
-                        className="w-full group relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/10 bg-white/[0.02] p-8 md:p-12 hover:bg-white/[0.04] hover:border-white/20 transition-all duration-500 text-left flex flex-col md:flex-row items-center gap-6 md:gap-8 cursor-pointer active:scale-[0.98]"
-                    >
-                        {/* Thumbnail/Icon */}
-                        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black/40 border border-white/10 flex items-center justify-center shadow-2xl shrink-0 group-hover:scale-105 transition-transform duration-500">
-                            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                                <svg className="w-5 h-5 text-white/80 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </div>
-                        </div>
-
-                        {/* Text Content */}
-                        <div className="flex-1 text-center md:text-left">
-                            <p className="text-[var(--accent-teal)] font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase mb-3 drop-shadow-sm">
-                                End of Presentation
-                            </p>
-                            <h3 className="text-xl md:text-3xl font-semibold text-white tracking-tight leading-snug mb-3 transition-colors">
-                                Interested in knowing more?
-                            </h3>
-                            <p className="text-zinc-400 text-sm md:text-base leading-relaxed group-hover:text-zinc-300 transition-colors">
-                                Read the full in-depth case study.
-                            </p>
-                        </div>
-                    </button>
+                    <p className="font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase text-[var(--accent-teal)] mb-4">
+                        End of Presentation
+                    </p>
+                    <p className="text-zinc-500 text-sm md:text-base">
+                        Switch to <button onClick={onExit} className="text-white underline underline-offset-4 hover:text-[var(--accent-teal)] transition-colors cursor-pointer">Full Case Study</button> for the in-depth breakdown.
+                    </p>
                 </motion.div>
             </section>
         </div>

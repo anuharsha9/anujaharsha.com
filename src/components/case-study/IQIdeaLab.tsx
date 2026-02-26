@@ -78,7 +78,7 @@ export default function IQIdeaLab({ isLightBackground = true }: IQIdeaLabProps) 
                     <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-teal)] font-semibold">
                         {`// ${artifact.alt.toUpperCase()}`}
                     </span>
-                    <p className="text-sm text-slate-500 leading-relaxed max-w-lg">
+                    <p className="text-sm text-[var(--text-muted)] leading-relaxed max-w-lg">
                         {artifact.caption}
                     </p>
                 </div>
@@ -91,11 +91,10 @@ export default function IQIdeaLab({ isLightBackground = true }: IQIdeaLabProps) 
             <div className="max-w-[1440px] mx-auto">
 
                 <ComponentHeading
-                    tag="// EXPERIENCE_LAB"
+                    tag="EXPERIENCE LAB"
                     title="The Idea Lab"
                     description="3 products in 1 plugin. From napkin sketches to high-fidelity wireframes, mapping out how Natural Language, Insights, and Analysis would coexist."
-                    color="text-[var(--accent-teal)]"
-                    align="center"
+                    color="teal"
                     className="mb-12 md:mb-16"
                 />
 

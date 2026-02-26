@@ -58,16 +58,16 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
   ]
 
   return (
-    <div className={`w-full py-16 md:py-24 ${isLightBackground ? 'bg-white' : 'bg-slate-50'}`}>
+    <div className={`w-full py-16 md:py-24`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <ComponentHeading
           variant="block"
-          tag="// BEFORE_&_AFTER"
+          align="center"
+          tag="BEFORE AND AFTER"
           title="Unifying Fragmented Workflows"
           description="Three features, three different entry points → One unified hub. Drag the slider to compare."
           color="teal"
-          align="center"
           className="mb-16"
         />
 
@@ -84,7 +84,7 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
             >
               {/* Comparison Title & Metric */}
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1">
-                <h4 className="text-2xl text-slate-900 font-light tracking-tight">
+                <h4 className="text-2xl text-[var(--text-heading)] font-light tracking-tight">
                   {comparison.title}
                 </h4>
                 <div className="flex items-center gap-3 text-sm font-medium text-[var(--accent-teal)]">
@@ -94,7 +94,7 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
               </div>
 
               {/* The Styled Impact Slider */}
-              <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+              <div className="rounded-2xl overflow-hidden shadow-sm border border-white/[0.06]">
                 <ImpactDiff
                   beforeImage={comparison.beforeImage}
                   afterImage={comparison.afterImage}

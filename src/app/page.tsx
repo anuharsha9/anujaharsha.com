@@ -12,6 +12,7 @@ import LifeContextStrip, {
   CONSULTANT_MILESTONES,
   AGENCY_MILESTONES,
 } from '@/components/home/LifeContextStrip'
+import FoundationBlock from '@/components/home/FoundationBlock'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -85,6 +86,9 @@ export default function Home() {
 
       {/* LIFE CONTEXT — Agency Era */}
       <LifeContextStrip milestones={AGENCY_MILESTONES} />
+
+      {/* FOUNDATION — Birth to 2012 */}
+      <FoundationBlock />
 
       {/* FOOTER — Mission statement + contact */}
       <TalkSection />

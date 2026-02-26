@@ -67,37 +67,37 @@ export default function MarketAnalysis({
   isLightBackground = true,
 }: MarketAnalysisProps) {
 
-  // Accent color classes
+  // Accent color classes — dark theme
   const accentClasses = {
     teal: {
       tag: 'text-[var(--accent-teal)]',
       border: 'border-[var(--accent-teal)]',
       bg: 'bg-[var(--accent-teal)]',
-      bgLight: 'bg-emerald-50/50',
-      borderLight: 'border-emerald-100',
-      text: 'text-[var(--accent-teal)]',
-      textAccent: 'text-emerald-600',
-      check: 'text-emerald-500',
+      bgLight: 'bg-teal-500/[0.06]',
+      borderLight: 'border-teal-500/[0.15]',
+      text: 'text-teal-400',
+      textAccent: 'text-teal-400',
+      check: 'text-emerald-400',
     },
     amber: {
-      tag: 'text-amber-600',
+      tag: 'text-amber-400',
       border: 'border-amber-500',
       bg: 'bg-amber-500',
-      bgLight: 'bg-amber-50/50',
-      borderLight: 'border-amber-100',
-      text: 'text-amber-700',
-      textAccent: 'text-amber-600',
-      check: 'text-amber-500',
+      bgLight: 'bg-amber-500/[0.06]',
+      borderLight: 'border-amber-500/[0.15]',
+      text: 'text-amber-400',
+      textAccent: 'text-amber-400',
+      check: 'text-amber-400',
     },
     violet: {
-      tag: 'text-violet-600',
+      tag: 'text-violet-400',
       border: 'border-violet-500',
       bg: 'bg-violet-500',
-      bgLight: 'bg-violet-50/50',
-      borderLight: 'border-violet-100',
-      text: 'text-violet-700',
-      textAccent: 'text-violet-600',
-      check: 'text-violet-500',
+      bgLight: 'bg-violet-500/[0.06]',
+      borderLight: 'border-violet-500/[0.15]',
+      text: 'text-violet-400',
+      textAccent: 'text-violet-400',
+      check: 'text-violet-400',
     },
   }
 
@@ -111,7 +111,7 @@ export default function MarketAnalysis({
 
   const XIcon = () => (
     <div className="flex justify-center">
-      <X className="w-5 h-5 text-slate-200" strokeWidth={2} />
+      <X className="w-5 h-5 text-white/[0.15]" strokeWidth={2} />
     </div>
   )
 
@@ -141,27 +141,27 @@ export default function MarketAnalysis({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-slate-50 rounded-2xl p-6 group hover:bg-white hover:shadow-lg transition-all duration-300"
+                className="bg-white/[0.03] rounded-2xl p-6 group hover:bg-white/[0.06] hover:shadow-lg hover:shadow-black/10 transition-all duration-300 border border-white/[0.06]"
               >
                 <div className="space-y-4">
                   {competitor.tag && (
-                    <span className="text-[10px] text-slate-400 uppercase tracking-widest font-bold block">
+                    <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-bold block">
                       {competitor.tag}
                     </span>
                   )}
                   <div>
-                    <h4 className="text-slate-900 text-lg font-medium group-hover:text-slate-700 transition-colors">
+                    <h4 className="text-[var(--text-heading)] text-lg font-medium group-hover:text-[var(--text-body)] transition-colors">
                       {competitor.name}
                     </h4>
                     {competitor.headline && (
-                      <p className="text-slate-500 text-xs mt-1 font-medium">{competitor.headline}</p>
+                      <p className="text-[var(--text-muted)] text-xs mt-1 font-medium">{competitor.headline}</p>
                     )}
                   </div>
                   {competitor.painPoints && (
                     <ul className="space-y-2 pt-2">
                       {competitor.painPoints.slice(0, 3).map((point, i) => (
-                        <li key={i} className="flex items-start gap-3 text-slate-500 text-sm leading-snug">
-                          <span className="text-red-300 mt-1 flex-shrink-0 text-xs">●</span>
+                        <li key={i} className="flex items-start gap-3 text-[var(--text-muted)] text-sm leading-snug">
+                          <span className="text-red-400/60 mt-1 flex-shrink-0 text-xs">●</span>
                           <span className="font-light">{point}</span>
                         </li>
                       ))}
@@ -179,8 +179,8 @@ export default function MarketAnalysis({
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className={`
-              relative overflow-hidden rounded-3xl bg-white shadow-xl p-8 md:p-10
-              border border-slate-100 ring-1 ring-slate-900/5
+              relative overflow-hidden rounded-3xl bg-white/[0.03] shadow-xl shadow-black/10 p-8 md:p-10
+              border border-white/[0.06]
             `}
           >
             {/* Subtle background accent */}
@@ -193,7 +193,7 @@ export default function MarketAnalysis({
                   {ourSolution.tag}
                 </span>
                 <div className="space-y-2">
-                  <h4 className="text-slate-900 text-2xl md:text-3xl font-light tracking-tight">
+                  <h4 className="text-[var(--text-heading)] text-2xl md:text-3xl font-light tracking-tight">
                     {ourSolution.name}
                   </h4>
                   <p className={`${accent.text} text-xl md:text-2xl font-medium tracking-tight`}>
@@ -201,7 +201,7 @@ export default function MarketAnalysis({
                   </p>
                 </div>
                 {ourSolution.body && (
-                  <p className="text-slate-600 text-base leading-relaxed pt-2 font-light">
+                  <p className="text-[var(--text-body)] text-base leading-relaxed pt-2 font-light">
                     {ourSolution.body}
                   </p>
                 )}
@@ -214,7 +214,7 @@ export default function MarketAnalysis({
                     <div className={`mt-1 w-5 h-5 rounded-full ${accent.bgLight} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
                       <Check className={`w-3 h-3 ${accent.textAccent}`} strokeWidth={3} />
                     </div>
-                    <span className="text-slate-700 text-base font-light">{diff}</span>
+                    <span className="text-[var(--text-body)] text-base font-light">{diff}</span>
                   </div>
                 ))}
               </div>
@@ -228,24 +228,24 @@ export default function MarketAnalysis({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm"
+          className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] shadow-sm"
         >
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-slate-100">
-                  <th className="text-left py-6 px-6 md:px-8 text-[11px] font-bold uppercase tracking-widest text-slate-400 w-1/4">
+                <tr className="border-b border-white/[0.06]">
+                  <th className="text-left py-6 px-6 md:px-8 text-[11px] font-bold uppercase tracking-widest text-[var(--text-muted)] w-1/4">
                     Platform
                   </th>
                   {featureColumns?.map((col) => (
                     <th
                       key={col.key}
-                      className="text-center py-6 px-4 text-[11px] font-bold uppercase tracking-widest text-slate-400"
+                      className="text-center py-6 px-4 text-[11px] font-bold uppercase tracking-widest text-[var(--text-muted)]"
                     >
                       {col.label}
                     </th>
                   ))}
-                  <th className="text-left py-6 px-6 md:px-8 text-[11px] font-bold uppercase tracking-widest text-slate-400 w-1/3">
+                  <th className="text-left py-6 px-6 md:px-8 text-[11px] font-bold uppercase tracking-widest text-[var(--text-muted)] w-1/3">
                     Notes
                   </th>
                 </tr>
@@ -259,10 +259,10 @@ export default function MarketAnalysis({
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors"
+                    className="border-b border-white/[0.04] hover:bg-white/[0.03] transition-colors"
                   >
                     <td className="py-6 px-6 md:px-8">
-                      <span className="font-medium text-slate-900 text-base">{competitor.name}</span>
+                      <span className="font-medium text-[var(--text-heading)] text-base">{competitor.name}</span>
                     </td>
                     {featureColumns?.map((col) => (
                       <td key={col.key} className="py-6 px-4 text-center align-middle">
@@ -270,7 +270,7 @@ export default function MarketAnalysis({
                       </td>
                     ))}
                     <td className="py-6 px-6 md:px-8">
-                      <span className="text-sm text-slate-500 font-light leading-relaxed">{competitor.note}</span>
+                      <span className="text-sm text-[var(--text-muted)] font-light leading-relaxed">{competitor.note}</span>
                     </td>
                   </motion.tr>
                 ))}
@@ -280,12 +280,12 @@ export default function MarketAnalysis({
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: competitors.length * 0.1 }}
-                  className={`${accent.bgLight} relative border-t border-slate-100`}
+                  className={`${accent.bgLight} relative border-t border-white/[0.06]`}
                 >
                   <td className="py-8 px-6 md:px-8 relative">
                     <div className={`absolute left-0 top-0 bottom-0 w-1 ${accent.bg} rounded-r`} />
                     <span className={`font-semibold text-lg ${accent.text} tracking-tight block`}>{ourSolution.name}</span>
-                    <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1 block">Your Solution</span>
+                    <span className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-bold mt-1 block">Your Solution</span>
                   </td>
                   {featureColumns?.map((col) => (
                     <td key={col.key} className="py-8 px-4 text-center align-middle">
@@ -317,12 +317,12 @@ export default function MarketAnalysis({
             </span>
           </div>
 
-          <h4 className="text-2xl font-light text-slate-900 leading-tight">
+          <h4 className="text-2xl font-light text-[var(--text-heading)] leading-tight">
             {insight.title || insight.body}
           </h4>
 
           {insight.title && (
-            <p className="text-slate-600 text-base leading-relaxed font-light">
+            <p className="text-[var(--text-body)] text-base leading-relaxed font-light">
               {insight.body}
             </p>
           )}
@@ -331,4 +331,3 @@ export default function MarketAnalysis({
     </div>
   )
 }
-

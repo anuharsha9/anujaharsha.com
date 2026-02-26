@@ -51,10 +51,10 @@ const ownershipDomains = [
 ]
 
 const accentColors: Record<string, { bg: string; border: string; text: string; dot: string }> = {
-    amber: { bg: 'bg-amber-50/60', border: 'border-amber-100', text: 'text-amber-600', dot: 'bg-amber-400' },
-    teal: { bg: 'bg-teal-50/60', border: 'border-teal-100', text: 'text-teal-600', dot: 'bg-teal-400' },
-    blue: { bg: 'bg-blue-50/60', border: 'border-blue-100', text: 'text-blue-600', dot: 'bg-blue-400' },
-    indigo: { bg: 'bg-indigo-50/60', border: 'border-indigo-100', text: 'text-indigo-600', dot: 'bg-indigo-400' },
+    amber: { bg: 'bg-amber-500/[0.06]', border: 'border-amber-500/[0.15]', text: 'text-amber-400', dot: 'bg-amber-400' },
+    teal: { bg: 'bg-teal-500/[0.06]', border: 'border-teal-500/[0.15]', text: 'text-teal-400', dot: 'bg-teal-400' },
+    blue: { bg: 'bg-blue-500/[0.06]', border: 'border-blue-500/[0.15]', text: 'text-blue-400', dot: 'bg-blue-400' },
+    indigo: { bg: 'bg-indigo-500/[0.06]', border: 'border-indigo-500/[0.15]', text: 'text-indigo-400', dot: 'bg-indigo-400' },
 }
 
 const containerVariants = {
@@ -82,6 +82,7 @@ export default function OwnershipScope({ isLightBackground = true }: OwnershipSc
         <div className="space-y-8">
             <ComponentHeading
                 variant="block"
+                align="center"
                 tag="SCOPE OF OWNERSHIP"
                 title="Sole Designer, Full Stack of Influence"
                 description="I was the only designer on this project for 12 months. This wasn't just craft — it was leadership across product, engineering, and research."
@@ -105,11 +106,11 @@ export default function OwnershipScope({ isLightBackground = true }: OwnershipSc
                         >
                             <div className="flex items-center gap-2.5">
                                 <span className="text-xl">{domain.icon}</span>
-                                <h4 className="text-base font-sans font-medium text-slate-900">{domain.domain}</h4>
+                                <h4 className="text-base font-sans font-medium text-[var(--text-heading)]">{domain.domain}</h4>
                             </div>
                             <ul className="space-y-2">
                                 {domain.items.map((item, i) => (
-                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-600 leading-relaxed">
+                                    <li key={i} className="flex items-start gap-2 text-sm text-[var(--text-body)] leading-relaxed">
                                         <div className={`w-1.5 h-1.5 rounded-full ${colors.dot} mt-1.5 shrink-0`} />
                                         {item}
                                     </li>
@@ -135,12 +136,12 @@ export default function OwnershipScope({ isLightBackground = true }: OwnershipSc
                     { value: '50+', unit: 'screens', label: 'delivered' },
                 ].map((stat, i) => (
                     <div key={i} className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-slate-800">{stat.value}</span>
+                        <span className="text-lg font-bold text-[var(--text-heading)]">{stat.value}</span>
                         <div className="flex flex-col">
-                            <span className="text-xs text-slate-600">{stat.unit}</span>
-                            <span className="text-[9px] text-slate-400 uppercase tracking-wider">{stat.label}</span>
+                            <span className="text-xs text-[var(--text-body)]">{stat.unit}</span>
+                            <span className="text-[9px] text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</span>
                         </div>
-                        {i < 3 && <div className="hidden sm:block w-px h-6 bg-slate-200 ml-4" />}
+                        {i < 3 && <div className="hidden sm:block w-px h-6 bg-white/[0.08] ml-4" />}
                     </div>
                 ))}
             </motion.div>

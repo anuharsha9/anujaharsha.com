@@ -1,12 +1,18 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { CaseStudySection } from '@/types/caseStudy'
 import { useScrollManager } from '@/hooks/useScrollManager'
 import { motion } from 'framer-motion'
 
+// Accepts any object with at least `id` and `title` — works for
+// both D.E.S.I.G.N. sections and the 6-act structure
+interface NavSection {
+  id: string
+  title: string
+}
+
 interface SectionNavProps {
-  sections: CaseStudySection[]
+  sections: NavSection[]
 }
 
 export default function SectionNav({ sections }: SectionNavProps) {
@@ -136,8 +142,8 @@ export default function SectionNav({ sections }: SectionNavProps) {
       className={`
         fixed left-0 right-0 z-40
         h-12 
-        bg-white/90 backdrop-blur-md 
-        border-b border-slate-200
+        bg-[var(--bg-primary)]/95 backdrop-blur-md 
+        border-b border-white/[0.06]
         transition-all duration-300
         opacity-100 translate-y-0
       `}
@@ -178,7 +184,7 @@ export default function SectionNav({ sections }: SectionNavProps) {
                     focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/50
                     ${isActive
                       ? 'text-[var(--accent-teal)] font-semibold'
-                      : 'text-slate-500 hover:text-[var(--accent-teal)]'
+                      : 'text-[var(--text-muted)] hover:text-[var(--accent-teal)]'
                     }
                   `}
                   aria-label={`Navigate to ${section.title}`}
@@ -206,11 +212,11 @@ export default function SectionNav({ sections }: SectionNavProps) {
         {/* Scroll Indicators (for mobile) */}
         <div
           className={`absolute left-0 top-0 bottom-0 w-8 pointer-events-none transition-opacity duration-300 ${showLeftIndicator ? 'opacity-100' : 'opacity-0'}`}
-          style={{ background: 'linear-gradient(to right, var(--overlay-white-95), transparent)' }}
+          style={{ background: 'linear-gradient(to right, var(--bg-primary), transparent)' }}
         />
         <div
           className={`absolute right-0 top-0 bottom-0 w-8 pointer-events-none transition-opacity duration-300 ${showRightIndicator ? 'opacity-100' : 'opacity-0'}`}
-          style={{ background: 'linear-gradient(to left, var(--overlay-white-95), transparent)' }}
+          style={{ background: 'linear-gradient(to left, var(--bg-primary), transparent)' }}
         />
       </div>
     </nav>

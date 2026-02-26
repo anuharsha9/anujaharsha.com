@@ -21,11 +21,11 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
       >
         <ComponentHeading
           variant="block"
-          tag="// RESEARCH_METHODOLOGY"
+          align="center"
+          tag="RESEARCH METHODOLOGY"
           title="Gathering Insights Without Direct Access"
           description="How I built user empathy through proxy networks when direct research wasn't possible."
-          color="slate"
-          align="center"
+          color="teal"
           className="mb-8"
         />
       </motion.div>
@@ -52,7 +52,7 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
             </h4>
 
             {/* Body */}
-            <p className="text-slate-700 text-base leading-relaxed">
+            <p className="text-[var(--text-body)] text-base leading-relaxed">
               Enterprise security policy blocked direct access to end users. I could not interview the actual people using the tool.
             </p>
 
@@ -62,15 +62,15 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
                 {'// BLOCKED_METHODS'}
               </span>
               <ul className="space-y-1.5">
-                <li className="font-mono text-xs text-slate-600 flex items-start gap-2">
+                <li className="font-mono text-xs text-[var(--text-body)] flex items-start gap-2">
                   <span className="text-amber-500 mt-px">×</span>
                   <span>Direct user interviews</span>
                 </li>
-                <li className="font-mono text-xs text-slate-600 flex items-start gap-2">
+                <li className="font-mono text-xs text-[var(--text-body)] flex items-start gap-2">
                   <span className="text-amber-500 mt-px">×</span>
                   <span>On-site observation sessions</span>
                 </li>
-                <li className="font-mono text-xs text-slate-600 flex items-start gap-2">
+                <li className="font-mono text-xs text-[var(--text-body)] flex items-start gap-2">
                   <span className="text-amber-500 mt-px">×</span>
                   <span>Usage analytics access</span>
                 </li>
@@ -99,7 +99,7 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
             </h4>
 
             {/* Body */}
-            <p className="text-slate-700 text-base leading-relaxed">
+            <p className="text-[var(--text-body)] text-base leading-relaxed">
               Talked to everyone I could — support reps, technical staff, and data scientist friends outside work. If they touched ML, I picked their brain.
             </p>
 
@@ -109,19 +109,19 @@ export default function MLUserAccessStrategy({ isLightBackground = true }: MLUse
                 {'// PROXY_SOURCES'}
               </span>
               <ul className="space-y-1.5">
-                <li className="font-mono text-xs text-slate-600 flex items-start gap-2">
+                <li className="font-mono text-xs text-[var(--text-body)] flex items-start gap-2">
                   <span className="text-[var(--accent-teal)] mt-px">+</span>
                   <span>Support ticket pattern analysis</span>
                 </li>
-                <li className="font-mono text-xs text-slate-600 flex items-start gap-2">
+                <li className="font-mono text-xs text-[var(--text-body)] flex items-start gap-2">
                   <span className="text-[var(--accent-teal)] mt-px">+</span>
                   <span>DS friends outside work</span>
                 </li>
-                <li className="font-mono text-xs text-slate-600 flex items-start gap-2">
+                <li className="font-mono text-xs text-[var(--text-body)] flex items-start gap-2">
                   <span className="text-[var(--accent-teal)] mt-px">+</span>
                   <span>SME usability sessions</span>
                 </li>
-                <li className="font-mono text-xs text-slate-600 flex items-start gap-2">
+                <li className="font-mono text-xs text-[var(--text-body)] flex items-start gap-2">
                   <span className="text-[var(--accent-teal)] mt-px">+</span>
                   <span>Internal domain experts</span>
                 </li>

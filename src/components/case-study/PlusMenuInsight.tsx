@@ -48,11 +48,11 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <ComponentHeading
                     variant="block"
-                    tag="// THE_REFRAME"
+                    align="center"
+                    tag="THE REFRAME"
                     title="The Question That Changed Everything"
                     description="After two rejections, I stopped asking 'Where should RC live?' and started asking something different."
                     color="teal"
-                    align="center"
                     className="mb-14"
                 />
 
@@ -65,19 +65,19 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                 >
                     {/* The Wrong Question */}
                     <motion.div variants={itemVariants}>
-                        <div className="bg-slate-100 border border-slate-200 rounded-lg p-4 relative">
-                            <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-2">Old question</div>
-                            <p className="text-base text-slate-500 italic line-through decoration-slate-300">
+                        <div className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-4 relative">
+                            <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Old question</div>
+                            <p className="text-base text-[var(--text-muted)] italic line-through decoration-white/20">
                                 &quot;Where should ReportCaster live?&quot;
                             </p>
                             <motion.div
-                                className="absolute -right-1 -top-1 w-6 h-6 bg-red-100 rounded-full flex items-center justify-center"
+                                className="absolute -right-1 -top-1 w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center border border-red-500/30"
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.5, type: 'spring' }}
                             >
-                                <span className="text-red-500 text-xs font-bold">✕</span>
+                                <span className="text-red-400 text-xs font-bold">✕</span>
                             </motion.div>
                         </div>
                     </motion.div>
@@ -85,19 +85,19 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                     {/* Connector */}
                     <motion.div variants={itemVariants} className="flex justify-center">
                         <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-px h-4 bg-gradient-to-b from-slate-300 to-emerald-400" />
-                            <span className="text-[9px] font-mono text-emerald-600 uppercase tracking-wider">reframe</span>
-                            <div className="w-px h-3 bg-emerald-400" />
-                            <div className="w-px h-3 bg-emerald-400" />
-                            <ChevronDown className="w-3 h-3 text-emerald-500" strokeWidth={3} />
+                            <div className="w-px h-4 bg-gradient-to-b from-white/10 to-emerald-400/50" />
+                            <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-wider">reframe</span>
+                            <div className="w-px h-3 bg-emerald-400/50" />
+                            <div className="w-px h-3 bg-emerald-400/50" />
+                            <ChevronDown className="w-3 h-3 text-emerald-400" strokeWidth={3} />
                         </div>
                     </motion.div>
 
                     {/* The Right Question */}
                     <motion.div variants={itemVariants}>
-                        <div className="bg-emerald-50 border-2 border-emerald-300 rounded-lg p-4 relative">
-                            <div className="text-[10px] font-mono text-emerald-600 uppercase tracking-wider mb-2">New question</div>
-                            <p className="text-lg font-semibold text-emerald-800">
+                        <div className="bg-emerald-500/[0.08] border-2 border-emerald-500/[0.30] rounded-lg p-4 relative">
+                            <div className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider mb-2">New question</div>
+                            <p className="text-lg font-semibold text-emerald-300">
                                 &quot;How does the platform <em>want</em> workflows to behave?&quot;
                             </p>
                         </div>
@@ -106,55 +106,55 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                     {/* Connector */}
                     <motion.div variants={itemVariants} className="flex justify-center">
                         <div className="flex flex-col items-center gap-0.5">
-                            <div className="w-px h-4 bg-emerald-400" />
-                            <span className="text-[9px] font-mono text-emerald-600 uppercase tracking-wider">observe the pattern</span>
-                            <div className="w-px h-3 bg-emerald-400" />
-                            <div className="w-px h-3 bg-emerald-400" />
-                            <ChevronDown className="w-3 h-3 text-emerald-500" strokeWidth={3} />
+                            <div className="w-px h-4 bg-emerald-400/50" />
+                            <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-wider">observe the pattern</span>
+                            <div className="w-px h-3 bg-emerald-400/50" />
+                            <div className="w-px h-3 bg-emerald-400/50" />
+                            <ChevronDown className="w-3 h-3 text-emerald-400" strokeWidth={3} />
                         </div>
                     </motion.div>
 
                     {/* The Pattern Card */}
                     <motion.div variants={itemVariants}>
-                        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl overflow-hidden">
                             {/* Header */}
-                            <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
-                                <div className="w-7 h-7 rounded-lg bg-slate-900 flex items-center justify-center">
+                            <div className="px-4 py-3 bg-white/[0.04] border-b border-white/[0.06] flex items-center gap-2">
+                                <div className="w-7 h-7 rounded-lg bg-white/[0.10] flex items-center justify-center">
                                     <span className="text-white font-black text-lg leading-none">+</span>
                                 </div>
                                 <div>
-                                    <div className="text-sm font-semibold text-slate-900">The + Menu</div>
-                                    <div className="text-[10px] text-slate-500">Platform architecture, not just UI</div>
+                                    <div className="text-sm font-semibold text-[var(--text-heading)]">The + Menu</div>
+                                    <div className="text-[10px] text-[var(--text-muted)]">Platform architecture, not just UI</div>
                                 </div>
                             </div>
 
                             {/* Existing Workflows */}
                             <div className="p-4">
-                                <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-3">
+                                <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-3">
                                     Every major workflow starts here:
                                 </div>
                                 <div className="space-y-2 mb-4">
                                     {existingWorkflows.map((wf) => (
-                                        <div key={wf.label} className="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-md">
-                                            <span className="text-slate-500">{wf.icon}</span>
-                                            <span className="text-sm text-slate-700">{wf.label}</span>
-                                            <span className="ml-auto text-[10px] text-slate-400 font-mono">+ menu → action</span>
+                                        <div key={wf.label} className="flex items-center gap-2 px-3 py-2 bg-white/[0.03] rounded-md">
+                                            <span className="text-[var(--text-muted)]">{wf.icon}</span>
+                                            <span className="text-sm text-[var(--text-body)]">{wf.label}</span>
+                                            <span className="ml-auto text-[10px] text-[var(--text-muted)] font-mono">+ menu → action</span>
                                         </div>
                                     ))}
                                 </div>
 
                                 {/* Divider with insight */}
                                 <div className="flex items-center gap-3 my-5">
-                                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-emerald-300 to-transparent" />
-                                    <span className="text-[10px] font-mono text-emerald-600 uppercase tracking-wider whitespace-nowrap">
+                                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent" />
+                                    <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider whitespace-nowrap">
                                         aha moment
                                     </span>
-                                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-emerald-300 to-transparent" />
+                                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent" />
                                 </div>
 
                                 {/* The Insight */}
-                                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 mb-4">
-                                    <p className="text-sm text-emerald-800 leading-relaxed">
+                                <div className="bg-emerald-500/[0.08] border border-emerald-500/[0.20] rounded-lg p-4 mb-4">
+                                    <p className="text-sm text-emerald-300 leading-relaxed">
                                         <span className="font-semibold">If ReportCaster is fundamentally a creation workflow, why isn&apos;t it initiated from the + menu?</span>
                                     </p>
                                 </div>
@@ -188,7 +188,7 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
 
                     {/* The Win */}
                     <motion.div variants={itemVariants}>
-                        <div className="bg-slate-900 rounded-xl p-5 relative overflow-hidden">
+                        <div className="bg-[var(--bg-ink-900)] rounded-xl p-5 relative overflow-hidden border border-white/[0.06]">
                             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/8 via-transparent to-teal-500/8 pointer-events-none" />
                             <div className="relative z-10">
                                 <div className="text-[10px] font-mono text-emerald-500 uppercase tracking-wider mb-3">
@@ -201,7 +201,7 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                                         </div>
                                         <div>
                                             <div className="text-sm font-medium text-white">Design wins</div>
-                                            <p className="text-xs text-slate-400 mt-1">Modals from + menu match every other creation workflow in the platform</p>
+                                            <p className="text-xs text-[var(--text-muted)] mt-1">Modals from + menu match every other creation workflow in the platform</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
@@ -210,12 +210,12 @@ export default function PlusMenuInsight({ isLightBackground = true }: PlusMenuIn
                                         </div>
                                         <div>
                                             <div className="text-sm font-medium text-white">Engineering wins</div>
-                                            <p className="text-xs text-slate-400 mt-1">Modal approach works within existing legacy code — no backend rewrite</p>
+                                            <p className="text-xs text-[var(--text-muted)] mt-1">Modal approach works within existing legacy code — no backend rewrite</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="mt-4 pt-3 border-t border-slate-700">
-                                    <p className="text-xs text-slate-400 italic">
+                                <div className="mt-4 pt-3 border-t border-white/[0.06]">
+                                    <p className="text-xs text-[var(--text-muted)] italic">
                                         &quot;When both UX and engineering won, leadership was absolutely thrilled and said yes.&quot;
                                     </p>
                                 </div>

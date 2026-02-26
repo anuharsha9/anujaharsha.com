@@ -45,6 +45,7 @@ export default function CaseStudyReflection({ data, isLightBackground = true }: 
             <motion.div variants={itemVariants}>
                 <ComponentHeading
                     variant="block"
+                    align="center"
                     tag="// TESTIMONIALS"
                     title="Voice of the Team"
                     color="teal"
@@ -60,16 +61,16 @@ export default function CaseStudyReflection({ data, isLightBackground = true }: 
                             className="relative"
                         >
                             {/* Accent border */}
-                            <div className="pl-5 border-l-2 border-slate-200">
-                                <p className="text-slate-600 text-base md:text-[17px] leading-[1.75] font-light italic">
+                            <div className="pl-5 border-l-2 border-white/[0.08]">
+                                <p className="text-[var(--text-body)] text-base md:text-[17px] leading-[1.75] font-light italic">
                                     &ldquo;{person.quote}&rdquo;
                                 </p>
                                 <div className="mt-4 flex items-center gap-3">
-                                    <span className="text-slate-900 text-sm font-semibold">
+                                    <span className="text-[var(--text-heading)] text-sm font-semibold">
                                         {person.name}
                                     </span>
-                                    <span className="text-slate-400 text-xs">—</span>
-                                    <span className="text-slate-400 text-xs uppercase tracking-wider">
+                                    <span className="text-[var(--text-muted)] text-xs">&mdash;</span>
+                                    <span className="text-[var(--text-muted)] text-xs uppercase tracking-wider">
                                         {person.role}
                                     </span>
                                 </div>
@@ -83,6 +84,7 @@ export default function CaseStudyReflection({ data, isLightBackground = true }: 
             <motion.div variants={itemVariants}>
                 <ComponentHeading
                     variant="block"
+                    align="center"
                     tag="// RETROSPECTIVE"
                     title="Honest Reflection"
                     color="teal"
@@ -93,27 +95,27 @@ export default function CaseStudyReflection({ data, isLightBackground = true }: 
                     {/* Push Harder */}
                     <motion.div
                         variants={itemVariants}
-                        className="py-6 md:pr-10 md:border-r border-slate-200"
+                        className="py-6 md:pr-10 md:border-r border-white/[0.06]"
                     >
                         <div className="flex items-center gap-2.5 mb-3">
                             <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                            <span className="font-mono text-[10px] text-amber-600/80 uppercase tracking-[0.15em] font-medium">
+                            <span className="font-mono text-[10px] text-amber-400/80 uppercase tracking-[0.15em] font-medium">
                                 What I&apos;d Push Harder For
                             </span>
                         </div>
-                        <h4 className="text-slate-900 text-lg font-semibold tracking-tight mb-3">
+                        <h4 className="text-[var(--text-heading)] text-lg font-semibold tracking-tight mb-3">
                             {data.retrospective.pushHarder.title}
                         </h4>
-                        <p className="text-slate-500 text-sm leading-[1.75] font-light"
+                        <p className="text-[var(--text-muted)] text-sm leading-[1.75] font-light"
                             dangerouslySetInnerHTML={{
                                 __html: data.retrospective.pushHarder.content
-                                    .replace(/<span[^>]*>/g, '<span class="text-amber-600 font-medium">')
+                                    .replace(/<span[^>]*>/g, '<span class="text-amber-400 font-medium">')
                             }}
                         />
                     </motion.div>
 
                     {/* Mobile divider */}
-                    <div className="h-px bg-slate-100 md:hidden my-2" />
+                    <div className="h-px bg-white/[0.06] md:hidden my-2" />
 
                     {/* Do Next */}
                     <motion.div
@@ -122,17 +124,17 @@ export default function CaseStudyReflection({ data, isLightBackground = true }: 
                     >
                         <div className="flex items-center gap-2.5 mb-3">
                             <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-                            <span className="font-mono text-[10px] text-teal-600/80 uppercase tracking-[0.15em] font-medium">
+                            <span className="font-mono text-[10px] text-teal-400/80 uppercase tracking-[0.15em] font-medium">
                                 Where I&apos;d Take It Next
                             </span>
                         </div>
-                        <h4 className="text-slate-900 text-lg font-semibold tracking-tight mb-3">
+                        <h4 className="text-[var(--text-heading)] text-lg font-semibold tracking-tight mb-3">
                             {data.retrospective.doNext.title}
                         </h4>
-                        <p className="text-slate-500 text-sm leading-[1.75] font-light"
+                        <p className="text-[var(--text-muted)] text-sm leading-[1.75] font-light"
                             dangerouslySetInnerHTML={{
                                 __html: data.retrospective.doNext.content
-                                    .replace(/<span[^>]*>/g, '<span class="text-teal-600 font-medium">')
+                                    .replace(/<span[^>]*>/g, '<span class="text-teal-400 font-medium">')
                             }}
                         />
                     </motion.div>

@@ -5,64 +5,168 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
-const ARCHIVE_ITEMS = [
-    {
-        id: 'kedazzle',
-        title: 'Kedazzle',
-        subtitle: 'EdTech MVP · Concept to shipped product',
-        image: '/images/Kedazzle-cover.png',
-        link: '/archive/kedazzle',
-        tags: ['0-to-1', 'EdTech'],
+/* ─── Testimonial data ─── */
+const TESTIMONIALS = {
+    radhika: {
+        quote: 'Smart and very attuned to user needs, she \u2018just gets it\u2019 and developed intuitive designs that were very well received by our end users.',
+        name: 'Radhika Tekumalla',
+        role: 'Founder · Kedazzle (EdTech)',
+        initial: 'R',
     },
-    {
-        id: 'infinite-analytics',
-        title: 'Infinite',
-        subtitle: 'All-in-one productivity app · Tasks, notes, goals',
-        image: '/images/Infinite-Cover.png',
-        link: '/archive/infinite-analytics',
-        tags: ['Productivity', 'Mobile App'],
+    vikram: {
+        quote: 'She quickly became the designer we trusted for everything. By the time she moved on, she was operating at a level far beyond her experience, ready for enterprise-grade work.',
+        name: 'Vikram Patel',
+        role: 'Co-Founder & CEO · 9P Studioz',
+        initial: 'V',
     },
-    {
-        id: 'travel-portal',
-        title: 'Travel Portal',
-        subtitle: 'Corporate travel booking platform',
-        image: '/images/travel-cover.png',
-        link: '/archive/travel-portal',
-        tags: ['Enterprise', 'Travel'],
-    },
-    {
-        id: 'crbs',
-        title: 'CRBS',
-        subtitle: 'Conference Room Booking · Tablet interface for enterprise',
-        image: '/images/crbs-cover.png',
-        link: '/archive/crbs',
-        tags: ['Enterprise UX', 'Tablet'],
-    },
-    {
-        id: 'wordu',
-        title: 'WordU',
-        subtitle: 'Viral word game · 12,000+ organic downloads in week one',
-        image: '/images/wordu-cover.png',
-        link: '/archive/wordu',
-        tags: ['Game Design', 'Viral Growth'],
-    },
-    {
-        id: 'graphic-design',
-        title: 'Early Graphic Design',
-        subtitle: 'Logos, print, and brand identity from the early days',
-        image: '/images/graphic-cover.png',
-        link: '/archive/graphic-design',
-        tags: ['Visual Design', 'Brand Identity'],
-    },
+}
+
+/* ─── Slide types ─── */
+type ProjectItem = {
+    type: 'project'
+    id: string
+    title: string
+    subtitle: string
+    image: string
+    link: string
+    tags: string[]
+}
+
+type QuoteItem = {
+    type: 'quote'
+    id: string
+    quote: string
+    name: string
+    role: string
+    initial: string
+}
+
+type SlideItem = ProjectItem | QuoteItem
+
+/* ─── Ordered slides: project + quote or project + project ─── */
+const SLIDES: SlideItem[][] = [
+    // Slide 1: Kedazzle + Radhika
+    [
+        {
+            type: 'project',
+            id: 'kedazzle',
+            title: 'Kedazzle',
+            subtitle: 'EdTech MVP · Concept to shipped product',
+            image: '/images/Kedazzle-cover.png',
+            link: '/archive/kedazzle',
+            tags: ['0-to-1', 'EdTech'],
+        },
+        { type: 'quote', id: 'radhika', ...TESTIMONIALS.radhika },
+    ],
+    // Slide 2: Infinite + Travel Portal
+    [
+        {
+            type: 'project',
+            id: 'infinite-analytics',
+            title: 'Infinite',
+            subtitle: 'All-in-one productivity app · Tasks, notes, goals',
+            image: '/images/Infinite-Cover.png',
+            link: '/archive/infinite-analytics',
+            tags: ['Productivity', 'Mobile App'],
+        },
+        {
+            type: 'project',
+            id: 'travel-portal',
+            title: 'Travel Portal',
+            subtitle: 'Corporate travel booking platform',
+            image: '/images/travel-cover.png',
+            link: '/archive/travel-portal',
+            tags: ['Enterprise', 'Travel'],
+        },
+    ],
+    // Slide 3: CRBS + WordU
+    [
+        {
+            type: 'project',
+            id: 'crbs',
+            title: 'CRBS',
+            subtitle: 'Conference Room Booking · Tablet interface for enterprise',
+            image: '/images/crbs-cover.png',
+            link: '/archive/crbs',
+            tags: ['Enterprise UX', 'Tablet'],
+        },
+        {
+            type: 'project',
+            id: 'wordu',
+            title: 'WordU',
+            subtitle: 'Viral word game · 12,000+ organic downloads in week one',
+            image: '/images/wordu-cover.png',
+            link: '/archive/wordu',
+            tags: ['Game Design', 'Viral Growth'],
+        },
+    ],
+    // Slide 4: Graphic Design + Vikram
+    [
+        {
+            type: 'project',
+            id: 'graphic-design',
+            title: 'Early Graphic Design',
+            subtitle: 'Logos, print, and brand identity from the early days',
+            image: '/images/graphic-cover.png',
+            link: '/archive/graphic-design',
+            tags: ['Visual Design', 'Brand Identity'],
+        },
+        { type: 'quote', id: 'vikram', ...TESTIMONIALS.vikram },
+    ],
 ]
 
-// Group into pairs for slides
-const SLIDES = ARCHIVE_ITEMS.reduce<typeof ARCHIVE_ITEMS[]>((acc, item, i) => {
-    if (i % 2 === 0) acc.push([item])
-    else acc[acc.length - 1].push(item)
-    return acc
-}, [])
+/* ─── Quote card component ─── */
+function QuoteCard({ item }: { item: QuoteItem }) {
+    return (
+        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[var(--accent-teal)]/[0.08] bg-[var(--accent-teal)]/[0.03] flex flex-col justify-center p-6 md:p-8">
+            <p className="text-white/75 text-sm md:text-[15px] leading-relaxed mb-5 italic">
+                &ldquo;{item.quote}&rdquo;
+            </p>
+            <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-[var(--accent-teal)]/15 flex items-center justify-center text-[var(--accent-teal)] text-xs font-bold shrink-0">
+                    {item.initial}
+                </div>
+                <div>
+                    <p className="text-white/85 text-sm font-semibold">{item.name}</p>
+                    <p className="text-white/40 text-[11px] font-mono">{item.role}</p>
+                </div>
+            </div>
+        </div>
+    )
+}
 
+/* ─── Project card component ─── */
+function ProjectCard({ item }: { item: ProjectItem }) {
+    return (
+        <Link href={item.link}>
+            <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
+                <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-6">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                        {item.tags.map(tag => (
+                            <span
+                                key={tag}
+                                className="text-[10px] font-mono uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/[0.06] text-white/50"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    <h3 className="text-white text-lg md:text-xl font-bold mb-1">{item.title}</h3>
+                    <p className="text-white/50 text-sm">{item.subtitle}</p>
+                </div>
+            </div>
+        </Link>
+    )
+}
+
+/* ─── Main component ─── */
 export default function ExtendedPortfolio() {
     const ref = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -92,6 +196,20 @@ export default function ExtendedPortfolio() {
 
     return (
         <section ref={ref} className="relative py-20 md:py-32 overflow-hidden">
+            {/* Era label — decorative, above content */}
+            <motion.div
+                className="mb-6 md:mb-8 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto pointer-events-none select-none"
+                aria-hidden="true"
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+                <span className="font-extrabold text-[clamp(3rem,8vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                    2012 — 2022
+                </span>
+            </motion.div>
+
             {/* Header */}
             <motion.div
                 className="mb-12 md:mb-16 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto"
@@ -105,7 +223,7 @@ export default function ExtendedPortfolio() {
                 </h2>
             </motion.div>
 
-            {/* Apple-style horizontal snap carousel */}
+            {/* Carousel */}
             <motion.div
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -132,40 +250,11 @@ export default function ExtendedPortfolio() {
                                         viewport={{ once: true, amount: 0.2 }}
                                         transition={{ duration: 0.8, delay: i * 0.15 }}
                                     >
-                                        <Link href={item.link}>
-                                            <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
-                                                {/* Image with parallax */}
-                                                <Image
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    fill
-                                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                                />
-
-                                                {/* Gradient overlay */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-
-                                                {/* Content */}
-                                                <div className="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-6">
-                                                    <div className="flex flex-wrap gap-2 mb-3">
-                                                        {item.tags.map(tag => (
-                                                            <span
-                                                                key={tag}
-                                                                className="text-[10px] font-mono uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/[0.06] text-white/50"
-                                                            >
-                                                                {tag}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                    <h3 className="text-white text-lg md:text-xl font-bold mb-1">
-                                                        {item.title}
-                                                    </h3>
-                                                    <p className="text-white/50 text-sm">
-                                                        {item.subtitle}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Link>
+                                        {item.type === 'project' ? (
+                                            <ProjectCard item={item} />
+                                        ) : (
+                                            <QuoteCard item={item} />
+                                        )}
                                     </motion.div>
                                 ))}
                             </div>

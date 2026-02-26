@@ -16,10 +16,10 @@ interface BlueprintItemProps {
 
 const BlueprintItem = ({ imageSrc, altText, label, caption, isLightBackground, size = 'half' }: BlueprintItemProps) => {
   const { openLightbox } = useLightbox()
-  const bgColor = isLightBackground ? 'bg-white' : 'bg-slate-800'
-  const borderColor = isLightBackground ? 'border-slate-200' : 'border-slate-700'
-  const labelColor = isLightBackground ? 'text-slate-400' : 'text-slate-500'
-  const captionColor = isLightBackground ? 'text-slate-600' : 'text-slate-300'
+  const bgColor = 'bg-white/[0.03]'
+  const borderColor = 'border-white/[0.06]'
+  const labelColor = 'text-[var(--text-muted)]'
+  const captionColor = 'text-[var(--text-body)]'
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -35,7 +35,7 @@ const BlueprintItem = ({ imageSrc, altText, label, caption, isLightBackground, s
       variants={itemVariants}
       className={`flex flex-col ${bgColor} ${borderColor} border shadow-sm overflow-hidden ${size === 'full' ? 'col-span-1 md:col-span-2' : ''}`}
     >
-      <div className={`px-4 py-3 border-b ${borderColor} ${isLightBackground ? 'bg-slate-50' : 'bg-slate-900'}`}>
+      <div className={`px-4 py-3 border-b ${borderColor} bg-white/[0.02]`}>
         <span className={`font-mono text-[10px] uppercase tracking-widest ${labelColor}`}>
           {'// '}{label}
         </span>
@@ -58,7 +58,7 @@ const BlueprintItem = ({ imageSrc, altText, label, caption, isLightBackground, s
           </span>
         </div>
       </div>
-      <div className={`px-4 py-3 ${isLightBackground ? 'bg-slate-50' : 'bg-slate-900'}`}>
+      <div className={`px-4 py-3 bg-white/[0.02]`}>
         <p className={`text-sm ${captionColor}`}>{caption}</p>
       </div>
     </motion.div>
@@ -104,8 +104,8 @@ export default function IQArchitectureBlueprint({ isLightBackground = true }) {
     },
   ]
 
-  const titleColor = isLightBackground ? 'text-slate-900' : 'text-white'
-  const summaryColor = isLightBackground ? 'text-slate-600' : 'text-slate-300'
+  const titleColor = 'text-[var(--text-heading)]'
+  const summaryColor = 'text-[var(--text-body)]'
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -137,11 +137,11 @@ export default function IQArchitectureBlueprint({ isLightBackground = true }) {
       >
         <motion.div variants={itemVariants}>
           <ComponentHeading
-            tag="// SYSTEM_ARCHITECTURE"
+            align="center"
+            tag="SYSTEM ARCHITECTURE"
             title="Building the System"
             description="From flowcharts to responsive mockups—the structural foundation that makes three complex features feel like one unified experience."
-            color="text-[var(--accent-violet)]"
-            align="center"
+            color="teal"
             className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-12"
           />
         </motion.div>

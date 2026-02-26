@@ -19,8 +19,8 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
     {
       category: 'Workflows & Navigation',
       icon: Workflow,
-      color: 'text-blue-500',
-      bg: 'bg-blue-50',
+      color: 'text-blue-400',
+      bg: 'bg-blue-500/[0.10]',
       items: [
         { label: 'Every scheduling workflow', detail: 'From schedule creation to distribution to monitoring' },
         { label: 'Every entry point', detail: 'Where users could access RC features (inconsistent across product)' },
@@ -30,8 +30,8 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
     {
       category: 'System Capabilities',
       icon: Cpu,
-      color: 'text-indigo-500',
-      bg: 'bg-indigo-50',
+      color: 'text-indigo-400',
+      bg: 'bg-indigo-500/[0.10]',
       items: [
         { label: 'Every admin capability', detail: 'System configuration, permissions, settings' },
         { label: 'Every explorer interaction', detail: 'How users viewed and filtered existing schedules' },
@@ -41,8 +41,8 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
     {
       category: 'Reliability & Logic',
       icon: ShieldAlert,
-      color: 'text-amber-500',
-      bg: 'bg-amber-50',
+      color: 'text-amber-400',
+      bg: 'bg-amber-500/[0.10]',
       items: [
         { label: 'Every failure & recovery rule', detail: 'Critical for enterprise reliability' },
         { label: 'Burst, retention, blackout logic', detail: 'Undocumented rules users relied on' },
@@ -93,22 +93,21 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
       <motion.div variants={itemVariants}>
         <ComponentHeading
           variant="block"
-          tag="// SYSTEM_ARCHITECTURE"
+          tag="SYSTEM ARCHITECTURE"
           title="The Complete Map"
           description="The categories below show the scope of mapping required to understand the complete 50-year-old system."
-          align="center"
-          color="slate"
+          color="teal"
         />
       </motion.div>
 
       {/* Hero Image - Emphasized */}
       <motion.div
         variants={heroVariants}
-        className="relative w-full h-[500px] md:h-[600px] bg-slate-50 rounded-2xl border border-slate-100 shadow-xl overflow-hidden group cursor-zoom-in"
+        className="relative w-full h-[500px] md:h-[600px] bg-white/[0.03] rounded-2xl border border-white/[0.06] shadow-xl overflow-hidden group cursor-zoom-in"
         onClick={() => setLightboxOpen(true)}
       >
         <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 shadow-sm flex items-center gap-2 border border-slate-200">
+          <span className="bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-medium text-white/80 shadow-sm flex items-center gap-2 border border-white/[0.10]">
             <Maximize2 className="w-3 h-3" /> Expand Map
           </span>
         </div>
@@ -123,7 +122,7 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
         />
 
         {/* Subtle Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/5 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
       </motion.div>
 
 
@@ -133,13 +132,13 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
           <motion.div
             key={i}
             variants={itemVariants}
-            className="bg-white rounded-xl border border-slate-100 p-6 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"
+            className="bg-white/[0.03] rounded-xl border border-white/[0.06] p-6 hover:shadow-lg hover:shadow-black/10 transition-all duration-300 group hover:-translate-y-1 hover:border-white/[0.10]"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className={`w-10 h-10 rounded-full ${cat.bg} flex items-center justify-center`}>
                 <cat.icon className={`w-5 h-5 ${cat.color}`} strokeWidth={1.5} />
               </div>
-              <h4 className="text-sm font-bold uppercase tracking-widest text-slate-900 group-hover:text-[var(--accent-teal)] transition-colors">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-[var(--text-heading)] group-hover:text-[var(--accent-teal)] transition-colors">
                 {cat.category}
               </h4>
             </div>
@@ -148,12 +147,12 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
               {cat.items.map((item, j) => (
                 <li key={j} className="group/item">
                   <div className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-200 mt-2 shrink-0 group-hover/item:bg-[var(--accent-teal)] transition-colors" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/[0.15] mt-2 shrink-0 group-hover/item:bg-[var(--accent-teal)] transition-colors" />
                     <div>
-                      <p className="text-slate-900 text-sm font-medium leading-snug">
+                      <p className="text-[var(--text-heading)] text-sm font-medium leading-snug">
                         {item.label}
                       </p>
-                      <p className="text-slate-500 text-xs mt-1 leading-relaxed font-light">
+                      <p className="text-[var(--text-muted)] text-xs mt-1 leading-relaxed font-light">
                         {item.detail}
                       </p>
                     </div>
@@ -178,7 +177,7 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
             <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-green-alt)] opacity-80" />
           </div>
           <div className="flex-1 text-center">
-            <span className="text-[10px] font-mono text-slate-500 opacity-60">system_status.log</span>
+            <span className="text-[10px] font-mono text-[var(--text-muted)] opacity-60">system_status.log</span>
           </div>
         </div>
 
@@ -194,15 +193,15 @@ export default function SystemMappingBreakdown({ isLightBackground = true }: Sys
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pl-6 border-t border-white/5 pt-4">
             <div>
-              <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">Subsystems Mapped</span>
+              <span className="text-[var(--text-muted)] block text-[10px] uppercase tracking-wider mb-1">Subsystems Mapped</span>
               <span className="text-emerald-400 font-bold">5 Complete</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">Undocumented Rules</span>
+              <span className="text-[var(--text-muted)] block text-[10px] uppercase tracking-wider mb-1">Undocumented Rules</span>
               <span className="text-emerald-400 font-bold">12+ Identified</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-[10px] uppercase tracking-wider mb-1">Transfer Status</span>
+              <span className="text-[var(--text-muted)] block text-[10px] uppercase tracking-wider mb-1">Transfer Status</span>
               <span className="text-emerald-400 font-bold">100% SUCCESS</span>
             </div>
           </div>

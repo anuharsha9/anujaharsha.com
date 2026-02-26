@@ -75,11 +75,10 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
           transition={{ duration: 0.6 }}
         >
           <ComponentHeading
-            tag="// VALIDATION_SOURCES"
+            tag="VALIDATION SOURCES"
             title="Research & Validation"
             description="We didn't just guess. We validated every major decision with real users from our target demographic."
-            color="slate"
-            align="center"
+            color="teal"
             className="mb-16 md:mb-24 max-w-3xl mx-auto"
           />
         </motion.div>
@@ -93,8 +92,8 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
           viewport={{ once: true }}
         >
           {/* Dividers for Desktop */}
-          <div className="hidden md:block absolute top-0 bottom-0 left-1/3 w-px bg-slate-100" />
-          <div className="hidden md:block absolute top-0 bottom-0 right-1/3 w-px bg-slate-100" />
+          <div className="hidden md:block absolute top-0 bottom-0 left-1/3 w-px bg-white/[0.05]" />
+          <div className="hidden md:block absolute top-0 bottom-0 right-1/3 w-px bg-white/[0.05]" />
 
           {outcomes.map((outcome, index) => {
             const IconComponent = outcome.icon
@@ -115,13 +114,13 @@ export default function IQValidationSources({ isLightBackground = false }: IQVal
                   <span className={`font-mono text-[10px] ${outcome.tagColor} uppercase tracking-widest block`}>
                     {outcome.tag}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-sans text-slate-900 leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-sans text-[var(--text-heading)] leading-tight">
                     {outcome.headline}
                   </h3>
                 </div>
 
                 {/* Body */}
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-sm">
+                <p className="text-[var(--text-body)] text-sm md:text-base leading-relaxed max-w-sm">
                   {outcome.body}
                 </p>
               </motion.div>

@@ -7,77 +7,68 @@ import { Play } from 'lucide-react'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
-/* ─── Wireframe primitives (matching case study style) ─── */
-function SkeletonLine({ w = '100%', h = 6, color = 'bg-white/[0.08]' }: { w?: string | number; h?: number; color?: string }) {
+/* ─── Wireframe primitives ─── */
+function Skel({ w = '100%', h = 6, color = 'bg-white/[0.15]' }: { w?: string | number; h?: number; color?: string }) {
     return <div className={`rounded-full ${color}`} style={{ width: w, height: h }} />
 }
 
-function TitleBar({ label, accent = 'white' }: { label: string; accent?: string }) {
+function Bar({ label, accent }: { label: string; accent: string }) {
     return (
-        <div className="flex items-center gap-2 mb-3">
-            <div className="flex gap-1">
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: `color-mix(in srgb, ${accent} 60%, transparent)` }} />
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: `color-mix(in srgb, ${accent} 40%, transparent)` }} />
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: `color-mix(in srgb, ${accent} 40%, transparent)` }} />
+        <div className="flex items-center gap-1.5 mb-2">
+            <div className="flex gap-0.5">
+                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent, opacity: 0.5 }} />
+                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent, opacity: 0.3 }} />
+                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent, opacity: 0.3 }} />
             </div>
-            <span className="text-[10px] font-mono uppercase tracking-wider font-medium" style={{ color: `color-mix(in srgb, ${accent} 80%, transparent)` }}>
+            <span className="text-[9px] font-mono uppercase tracking-wider font-medium" style={{ color: accent, opacity: 0.7 }}>
                 {label}
             </span>
         </div>
     )
 }
 
-/* ─── RC: Enterprise Scheduler wireframe ─── */
+/* ─── RC: Enterprise Scheduler — HORIZONTAL layout ─── */
 function RCWireframe() {
     const ref = useRef<HTMLDivElement>(null)
     const isInView = useInView(ref, { once: false, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
+    const loopRef = useRef<NodeJS.Timeout | null>(null)
 
-    const clear = useCallback(() => { timers.current.forEach(clearTimeout); timers.current = [] }, [])
+    const clear = useCallback(() => {
+        timers.current.forEach(clearTimeout)
+        timers.current = []
+        if (loopRef.current) clearTimeout(loopRef.current)
+    }, [])
+
     const play = useCallback(() => {
         clear(); setPhase(-1)
         timers.current.push(setTimeout(() => setPhase(0), 300))
-        timers.current.push(setTimeout(() => setPhase(1), 1200))
-        timers.current.push(setTimeout(() => setPhase(2), 2200))
-        timers.current.push(setTimeout(() => setPhase(3), 3200))
+        timers.current.push(setTimeout(() => setPhase(1), 1000))
+        timers.current.push(setTimeout(() => setPhase(2), 1800))
+        timers.current.push(setTimeout(() => setPhase(3), 2600))
+        // Loop: reset after full animation and replay
+        loopRef.current = setTimeout(() => play(), 5000)
     }, [clear])
 
     useEffect(() => { if (isInView) play(); else { clear(); setPhase(-1) }; return clear }, [isInView, play, clear])
 
-    const accent = '#f59e0b'
+    const a = '#f59e0b'
 
     return (
-        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-6">
-            <div className="w-full max-w-xs space-y-3">
-                {/* Nav bar */}
+        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-4 md:p-6">
+            {/* Horizontal split layout */}
+            <div className="flex gap-3 w-full max-w-md items-stretch">
+                {/* Left sidebar */}
                 <AnimatePresence>
                     {phase >= 0 && (
-                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-                            className="rounded-lg border border-amber-400/25 bg-amber-500/[0.08] p-3">
-                            <TitleBar label="ReportCaster" accent={accent} />
-                            <div className="flex gap-2">
-                                <SkeletonLine w="30%" color="bg-amber-400/35" />
-                                <SkeletonLine w="25%" color="bg-amber-400/25" />
-                                <SkeletonLine w="35%" color="bg-amber-400/25" />
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Table / data grid */}
-                <AnimatePresence>
-                    {phase >= 1 && (
-                        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}
-                            className="rounded-lg border border-amber-400/25 bg-amber-500/[0.08] p-3">
-                            <TitleBar label="Schedule Explorer" accent={accent} />
-                            <div className="space-y-1.5">
-                                {[['65%', '35%'], ['80%', '20%'], ['50%', '40%'], ['70%', '30%']].map(([a, b], i) => (
-                                    <motion.div key={i} className="flex gap-2"
-                                        initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.08, duration: 0.4 }}>
-                                        <SkeletonLine w={a} color="bg-amber-400/25" h={5} />
-                                        <SkeletonLine w={b} color="bg-amber-400/15" h={5} />
+                        <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease }}
+                            className="w-24 shrink-0 rounded-lg border p-2" style={{ borderColor: `${a}40`, backgroundColor: `${a}12` }}>
+                            <Bar label="Nav" accent={a} />
+                            <div className="space-y-1.5 mt-1">
+                                {['Views', 'Shared', 'Favorites'].map((s, i) => (
+                                    <motion.div key={s} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 + i * 0.1 }}>
+                                        <Skel w="85%" h={4} color={i === 2 ? `bg-amber-400/40` : `bg-amber-400/15`} />
                                     </motion.div>
                                 ))}
                             </div>
@@ -85,97 +76,147 @@ function RCWireframe() {
                     )}
                 </AnimatePresence>
 
-                {/* Action bar */}
-                <AnimatePresence>
-                    {phase >= 2 && (
-                        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-                            className="flex gap-2">
-                            <div className="h-7 flex-1 rounded bg-amber-400/30 flex items-center justify-center">
-                                <SkeletonLine w="60%" h={3} color="bg-amber-400/50" />
-                            </div>
-                            <div className="h-7 w-16 rounded bg-amber-400/15" />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                {/* Right content */}
+                <div className="flex-1 flex flex-col gap-2">
+                    {/* Header bar */}
+                    <AnimatePresence>
+                        {phase >= 1 && (
+                            <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}
+                                className="rounded-lg border p-2" style={{ borderColor: `${a}30`, backgroundColor: `${a}0D` }}>
+                                <Bar label="Schedule Explorer" accent={a} />
+                                <div className="flex gap-1.5">
+                                    <Skel w="25%" h={4} color="bg-amber-400/30" />
+                                    <Skel w="20%" h={4} color="bg-amber-400/20" />
+                                    <Skel w="30%" h={4} color="bg-amber-400/20" />
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
-                {/* Glow pulse */}
-                {phase >= 3 && (
-                    <motion.div animate={{ opacity: [0, 0.25, 0] }} transition={{ duration: 3, repeat: Infinity }}
-                        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent pointer-events-none" />
-                )}
+                    {/* Data grid rows */}
+                    <AnimatePresence>
+                        {phase >= 2 && (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease }}
+                                className="rounded-lg border p-2 flex-1" style={{ borderColor: `${a}25`, backgroundColor: `${a}0A` }}>
+                                <div className="space-y-1.5">
+                                    {[['55%', '25%', '15%'], ['70%', '15%', '10%'], ['45%', '30%', '20%'], ['60%', '20%', '15%']].map((widths, i) => (
+                                        <motion.div key={i} className="flex gap-1.5"
+                                            initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: i * 0.08 }}>
+                                            {widths.map((w, j) => (
+                                                <Skel key={j} w={w} h={4} color={j === 0 ? 'bg-amber-400/30' : 'bg-amber-400/15'} />
+                                            ))}
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Action buttons */}
+                    <AnimatePresence>
+                        {phase >= 3 && (
+                            <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease }}
+                                className="flex gap-2">
+                                <div className="h-5 flex-1 rounded" style={{ backgroundColor: `${a}40` }} />
+                                <div className="h-5 w-12 rounded" style={{ backgroundColor: `${a}20` }} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
+
+            {/* Glow pulse */}
+            {phase >= 3 && (
+                <motion.div animate={{ opacity: [0, 0.2, 0] }} transition={{ duration: 3, repeat: Infinity }}
+                    className="absolute inset-0 rounded-2xl pointer-events-none" style={{ background: `radial-gradient(ellipse at 50% 50%, ${a}15, transparent 70%)` }} />
+            )}
         </div>
     )
 }
 
-/* ─── ML: Train Model wireframe ─── */
+/* ─── ML: Workflow pipeline — HORIZONTAL layout ─── */
 function MLWireframe() {
     const ref = useRef<HTMLDivElement>(null)
     const isInView = useInView(ref, { once: false, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
+    const loopRef = useRef<NodeJS.Timeout | null>(null)
 
-    const clear = useCallback(() => { timers.current.forEach(clearTimeout); timers.current = [] }, [])
+    const clear = useCallback(() => {
+        timers.current.forEach(clearTimeout); timers.current = []
+        if (loopRef.current) clearTimeout(loopRef.current)
+    }, [])
     const play = useCallback(() => {
         clear(); setPhase(-1)
         timers.current.push(setTimeout(() => setPhase(0), 400))
-        timers.current.push(setTimeout(() => setPhase(1), 1500))
-        timers.current.push(setTimeout(() => setPhase(2), 2500))
+        timers.current.push(setTimeout(() => setPhase(1), 1200))
+        timers.current.push(setTimeout(() => setPhase(2), 2000))
+        loopRef.current = setTimeout(() => play(), 4500)
     }, [clear])
 
     useEffect(() => { if (isInView) play(); else { clear(); setPhase(-1) }; return clear }, [isInView, play, clear])
 
-    const accent = '#2fc6d5'
+    const a = '#2fc6d5'
+    const steps = ['Data Prep', 'Train', 'Evaluate']
 
     return (
-        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-5">
-            <div className="w-full max-w-[200px] space-y-2.5">
-                {/* Workflow header */}
+        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="w-full max-w-[260px] space-y-3">
+                {/* Pipeline steps — horizontal row */}
                 <AnimatePresence>
                     {phase >= 0 && (
-                        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-                            className="rounded-lg border border-cyan-400/25 bg-cyan-500/[0.08] p-2.5">
-                            <TitleBar label="ML Workflow" accent={accent} />
-                            <SkeletonLine w="80%" color="bg-cyan-400/30" h={5} />
-                            <div className="mt-1.5"><SkeletonLine w="55%" color="bg-cyan-400/20" h={5} /></div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Pipeline steps */}
-                <AnimatePresence>
-                    {phase >= 1 && (
-                        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-                            className="space-y-2">
-                            {['Data Prep', 'Train', 'Evaluate'].map((step, i) => (
-                                <motion.div key={step} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.12, duration: 0.3 }}
-                                    className="flex items-center gap-2">
-                                    <div className="w-5 h-5 rounded border shrink-0 flex items-center justify-center"
-                                        style={{ borderColor: `color-mix(in srgb, ${accent} 50%, transparent)` }}>
-                                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: `color-mix(in srgb, ${accent} 60%, transparent)` }} />
+                        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
+                            className="flex gap-2 items-center justify-center">
+                            {steps.map((step, i) => (
+                                <motion.div key={step}
+                                    initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: i * 0.15, type: 'spring', stiffness: 200, damping: 15 }}
+                                    className="flex flex-col items-center gap-1.5">
+                                    <div className="w-10 h-10 rounded-lg border flex items-center justify-center"
+                                        style={{ borderColor: `${a}50`, backgroundColor: `${a}15` }}>
+                                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `${a}60` }} />
                                     </div>
-                                    <span className="text-[10px] font-mono uppercase tracking-wider font-medium" style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}>
+                                    <span className="text-[8px] font-mono uppercase tracking-wider font-medium" style={{ color: `${a}90` }}>
                                         {step}
                                     </span>
+                                    {/* Connector arrow */}
+                                    {i < steps.length - 1 && (
+                                        <motion.div className="absolute" style={{ left: `${33 + i * 33}%`, top: '42%' }}
+                                            initial={{ opacity: 0 }} animate={{ opacity: 0.5 }}
+                                            transition={{ delay: 0.3 + i * 0.15 }}>
+                                        </motion.div>
+                                    )}
                                 </motion.div>
                             ))}
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                {/* Metrics */}
+                {/* Progress bar */}
+                <AnimatePresence>
+                    {phase >= 1 && (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
+                            className="rounded-full h-2 overflow-hidden" style={{ backgroundColor: `${a}15` }}>
+                            <motion.div className="h-full rounded-full" style={{ backgroundColor: `${a}50` }}
+                                initial={{ width: '0%' }} animate={{ width: '75%' }}
+                                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }} />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Metrics row */}
                 <AnimatePresence>
                     {phase >= 2 && (
-                        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, ease }}
-                            className="rounded-lg border border-cyan-400/25 bg-cyan-500/[0.08] p-2.5">
-                            <div className="flex gap-2">
-                                <div className="flex-1 h-10 rounded bg-cyan-400/20 flex items-center justify-center">
-                                    <span className="text-[10px] font-mono text-cyan-400/70 font-medium">Accuracy</span>
-                                </div>
-                                <div className="flex-1 h-10 rounded bg-cyan-400/12 flex items-center justify-center">
-                                    <span className="text-[10px] font-mono text-cyan-400/50 font-medium">Loss</span>
-                                </div>
+                        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}
+                            className="flex gap-2">
+                            <div className="flex-1 h-8 rounded-lg border flex items-center justify-center"
+                                style={{ borderColor: `${a}30`, backgroundColor: `${a}12` }}>
+                                <span className="text-[9px] font-mono font-medium" style={{ color: `${a}80` }}>94.2%</span>
+                            </div>
+                            <div className="flex-1 h-8 rounded-lg border flex items-center justify-center"
+                                style={{ borderColor: `${a}20`, backgroundColor: `${a}0A` }}>
+                                <span className="text-[9px] font-mono font-medium" style={{ color: `${a}60` }}>0.031</span>
                             </div>
                         </motion.div>
                     )}
@@ -185,71 +226,76 @@ function MLWireframe() {
     )
 }
 
-/* ─── IQ: Discovery HUB wireframe ─── */
+/* ─── IQ: Discovery HUB — HORIZONTAL layout ─── */
 function IQWireframe() {
     const ref = useRef<HTMLDivElement>(null)
     const isInView = useInView(ref, { once: false, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
+    const loopRef = useRef<NodeJS.Timeout | null>(null)
 
-    const clear = useCallback(() => { timers.current.forEach(clearTimeout); timers.current = [] }, [])
+    const clear = useCallback(() => {
+        timers.current.forEach(clearTimeout); timers.current = []
+        if (loopRef.current) clearTimeout(loopRef.current)
+    }, [])
     const play = useCallback(() => {
         clear(); setPhase(-1)
         timers.current.push(setTimeout(() => setPhase(0), 400))
-        timers.current.push(setTimeout(() => setPhase(1), 1400))
-        timers.current.push(setTimeout(() => setPhase(2), 2400))
+        timers.current.push(setTimeout(() => setPhase(1), 1200))
+        timers.current.push(setTimeout(() => setPhase(2), 2200))
+        loopRef.current = setTimeout(() => play(), 5000)
     }, [clear])
 
     useEffect(() => { if (isInView) play(); else { clear(); setPhase(-1) }; return clear }, [isInView, play, clear])
 
-    const accent = '#a855f7'
+    const a = '#a855f7'
 
     return (
-        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-5">
-            <div className="w-full max-w-[200px] space-y-2.5">
+        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="w-full max-w-[260px] space-y-2.5">
                 {/* Search bar */}
                 <AnimatePresence>
                     {phase >= 0 && (
-                        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-                            className="rounded-lg border border-purple-400/25 bg-purple-500/[0.08] p-2.5">
-                            <TitleBar label="Discovery HUB" accent={accent} />
-                            <div className="h-7 rounded-full border border-purple-400/30 bg-purple-500/[0.08] flex items-center px-2.5 gap-1.5">
-                                <div className="w-3 h-3 rounded-full border border-purple-400/40" />
-                                <SkeletonLine w="60%" h={3} color="bg-purple-400/25" />
-                            </div>
+                        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}
+                            className="rounded-full h-8 border flex items-center px-3 gap-2"
+                            style={{ borderColor: `${a}40`, backgroundColor: `${a}12` }}>
+                            <div className="w-3.5 h-3.5 rounded-full border" style={{ borderColor: `${a}50` }} />
+                            <Skel w="60%" h={3} color="bg-purple-400/30" />
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                {/* Result cards */}
+                {/* Result cards — horizontal row */}
                 <AnimatePresence>
                     {phase >= 1 && (
-                        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-                            className="space-y-2">
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
+                            className="flex gap-2">
                             {[0, 1, 2].map(i => (
-                                <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
+                                <motion.div key={i}
+                                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.1, duration: 0.3 }}
-                                    className="rounded-lg border border-purple-400/20 bg-purple-500/[0.06] p-2.5 flex items-center gap-2.5">
-                                    <div className="w-7 h-7 rounded bg-purple-400/20 shrink-0" />
-                                    <div className="flex-1 space-y-1.5">
-                                        <SkeletonLine w="70%" h={4} color="bg-purple-400/25" />
-                                        <SkeletonLine w="50%" h={3} color="bg-purple-400/15" />
-                                    </div>
+                                    className="flex-1 rounded-lg border p-2 flex flex-col items-center gap-1.5"
+                                    style={{ borderColor: `${a}25`, backgroundColor: `${a}0D` }}>
+                                    <div className="w-6 h-6 rounded" style={{ backgroundColor: `${a}25` }} />
+                                    <Skel w="80%" h={3} color="bg-purple-400/25" />
+                                    <Skel w="55%" h={2} color="bg-purple-400/12" />
                                 </motion.div>
                             ))}
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                {/* AI suggestion */}
+                {/* AI suggestion badge */}
                 <AnimatePresence>
                     {phase >= 2 && (
-                        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: 'spring', damping: 15, stiffness: 200 }}
-                            className="rounded-lg border border-purple-400/30 bg-purple-500/[0.1] p-2.5 flex items-center gap-2.5">
-                            <div className="w-5 h-5 rounded-full bg-purple-400/30 flex items-center justify-center shrink-0">
-                                <span className="text-[9px] text-purple-300">✦</span>
-                            </div>
-                            <span className="text-[10px] font-mono text-purple-300/70 uppercase tracking-wider font-medium">AI Recommended</span>
+                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                            transition={{ type: 'spring', damping: 15, stiffness: 200 }}
+                            className="rounded-full h-7 border flex items-center justify-center gap-2"
+                            style={{ borderColor: `${a}40`, backgroundColor: `${a}15` }}>
+                            <span className="text-[10px]" style={{ color: `${a}` }}>✦</span>
+                            <span className="text-[9px] font-mono uppercase tracking-wider font-medium" style={{ color: `${a}90` }}>
+                                AI Recommended
+                            </span>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -263,46 +309,32 @@ const TILES = [
     {
         id: 'ml-functions',
         title: 'Feature adoption/simplification for Machine Learning workflows',
-        video: '/videos/ml-prototype-walkthrough.mp4',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
+        accentVar: '--semantic-cyan-vivid-rgb',
     },
     {
         id: 'iq-plugin',
         title: 'AI powered HUB to meet business needs',
-        video: '/videos/iq-prototype-walkthrough.mp4',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
+        accentVar: '--semantic-purple-vivid-rgb',
     },
     {
         id: 'reportcaster',
         title: 'Customer retention success for Enterprise Scheduling',
-        video: '/videos/rc-prototype-walkthrough.mp4',
         link: '/work/reportcaster',
         flagship: true,
         Wireframe: RCWireframe,
+        accentVar: '--accent-amber-rgb',
     },
 ]
 
 /* ─── single tile ─── */
 function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
     const [isHovered, setIsHovered] = useState(false)
-    const videoRef = useRef<HTMLVideoElement>(null)
     const WireframeComponent = tile.Wireframe
-
-    const handleMouseEnter = () => {
-        setIsHovered(true)
-        if (videoRef.current) {
-            videoRef.current.currentTime = 0
-            videoRef.current.play().catch(() => { })
-        }
-    }
-    const handleMouseLeave = () => {
-        setIsHovered(false)
-        if (videoRef.current) {
-            videoRef.current.pause()
-        }
-    }
+    const rgb = `var(${tile.accentVar})`
 
     return (
         <motion.div
@@ -311,48 +343,42 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1, delay, ease }}
         >
-            <Link href={tile.link}>
+            <Link href={tile.link} className="group block">
                 <div
-                    className="group relative w-full h-full overflow-hidden rounded-2xl bg-black/60 cursor-pointer transition-all duration-500 hover:shadow-[0_0_60px_rgba(47,198,213,0.06)]"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    style={{ minHeight: tile.flagship ? '420px' : '200px' }}
+                    className="relative w-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-500"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    style={{
+                        minHeight: tile.flagship ? '420px' : '200px',
+                        border: `1px solid rgba(${rgb}, 0.09)`,
+                        backgroundColor: `rgba(${rgb}, 0.03)`,
+                        boxShadow: isHovered
+                            ? `0 0 40px rgba(${rgb}, 0.08), inset 0 0 0 1px rgba(${rgb}, 0.15)`
+                            : `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`,
+                    }}
                 >
-                    {/* Animated wireframe background */}
-                    <div className={`transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
-                        <WireframeComponent />
-                    </div>
+                    {/* Wireframe — always visible, always animating */}
+                    <WireframeComponent />
 
-                    {/* Video (revealed on hover) */}
-                    <video
-                        ref={videoRef}
-                        src={tile.video}
-                        muted
-                        playsInline
-                        loop
-                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                    />
-
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
-
-                    {/* Play button + Watch text — hover only */}
-                    <div className={`absolute inset-0 z-20 flex items-center justify-center transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                <Play className="w-6 h-6 text-white fill-white ml-1" />
+                    {/* Hover overlay: scrim + play + title */}
+                    <div
+                        className="absolute inset-0 z-20 flex items-center justify-center transition-all duration-500"
+                        style={{
+                            opacity: isHovered ? 1 : 0,
+                            backgroundColor: isHovered ? 'var(--overlay-black-50)' : 'transparent',
+                        }}
+                    >
+                        <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
+                            <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                                <Play className="w-5 h-5 text-white fill-white ml-0.5" />
                             </div>
-                            <span className="text-xs font-mono uppercase tracking-[0.15em] text-white/70">
+                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
                                 Watch Case Study
                             </span>
+                            <p className="text-white/90 text-sm md:text-base font-semibold leading-snug mt-1">
+                                {tile.title}
+                            </p>
                         </div>
-                    </div>
-
-                    {/* Title — always visible */}
-                    <div className="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-6">
-                        <p className="text-white text-base md:text-lg font-semibold leading-snug max-w-md">
-                            {tile.title}
-                        </p>
                     </div>
                 </div>
             </Link>
@@ -376,7 +402,21 @@ export default function CSGBlock() {
     const rightTile = TILES.find(t => t.flagship)!
 
     return (
-        <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto">
+        <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+            {/* Era label — decorative, above content */}
+            <motion.div
+                className="mb-6 md:mb-8 pointer-events-none select-none"
+                aria-hidden="true"
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+                <span className="font-extrabold text-[clamp(3rem,8vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                    2022 — 2025
+                </span>
+            </motion.div>
+
             {/* Section header */}
             <motion.div
                 className="mb-12 md:mb-16"
@@ -391,17 +431,17 @@ export default function CSGBlock() {
                 </h2>
             </motion.div>
 
-            {/* Bento Grid: 35% left (stacked) / 65% right (flagship) */}
-            <div className="grid grid-cols-1 lg:grid-cols-[35%_1fr] gap-4 md:gap-5">
-                {/* Left column — ML + DSML stacked */}
+            {/* Bento Grid: RC flagship left (65%) / ML + IQ stacked right (35%) */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_35%] gap-4 md:gap-5">
+                {/* Left column — RC flagship */}
+                <BentoTile tile={rightTile} delay={0.1} />
+
+                {/* Right column — ML + IQ stacked */}
                 <div className="flex flex-col gap-4 md:gap-5">
                     {leftTiles.map((tile, i) => (
-                        <BentoTile key={tile.id} tile={tile} delay={0.1 + i * 0.15} />
+                        <BentoTile key={tile.id} tile={tile} delay={0.15 + i * 0.15} />
                     ))}
                 </div>
-
-                {/* Right column — RC flagship */}
-                <BentoTile tile={rightTile} delay={0.25} />
             </div>
         </section>
     )

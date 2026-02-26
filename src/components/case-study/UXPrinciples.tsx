@@ -24,16 +24,16 @@ export default function UXPrinciples({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-2xl"
+      className="bg-white/[0.03] border border-white/[0.06] p-6 md:p-8 rounded-2xl"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="font-mono text-slate-400 text-xs tracking-widest uppercase">
+        <span className="font-mono text-[var(--text-muted)] text-xs tracking-widest uppercase">
           {'// '}{systemTag}
         </span>
       </div>
 
-      <h3 className="text-slate-900 text-lg md:text-xl font-sans font-semibold mb-4">
+      <h3 className="text-[var(--text-heading)] text-lg md:text-xl font-sans font-semibold mb-4">
         {title}
       </h3>
 
@@ -42,7 +42,7 @@ export default function UXPrinciples({
         {principles.map((principle, index) => (
           <span
             key={index}
-            className="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-full"
+            className="inline-flex items-center px-3 py-1.5 bg-white/[0.05] border border-white/[0.08] text-[var(--text-body)] text-sm font-medium rounded-full"
           >
             {principle.title}
           </span>

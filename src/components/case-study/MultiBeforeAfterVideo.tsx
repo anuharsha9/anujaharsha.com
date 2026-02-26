@@ -100,42 +100,37 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className="bg-white py-10 md:py-14 -mx-4 xs:-mx-5 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-16 px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16"
     >
       <div className="max-w-[1440px] mx-auto space-y-10">
-        {/* ============================================
-            SIDE-BY-SIDE VIDEOS
-            ============================================ */}
-        <motion.div
-          variants={itemVariants}
-        >
+        {/* Side-by-Side Videos */}
+        <motion.div variants={itemVariants}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* BEFORE - Multiple Videos */}
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 bg-red-500 flex-shrink-0"></div>
-                <h3 className="text-slate-900 text-lg font-sans font-semibold">{before.title}</h3>
+                <h3 className="text-[var(--text-heading)] text-lg font-sans font-semibold">{before.title}</h3>
               </div>
               <div className="space-y-4">
                 {before.videos.map((video, index) => (
                   <div key={index} className="space-y-2">
-                    <h4 className="text-slate-600 text-sm font-medium">{video.title}</h4>
+                    <h4 className="text-[var(--text-muted)] text-sm font-medium">{video.title}</h4>
                     <div
-                      className={`relative w-full aspect-video border border-slate-200 overflow-hidden rounded-2xl ${!video.videoUrl || (video.videoEmbedUrl && isYouTubeUrl(video.videoEmbedUrl)) ? '' : 'cursor-pointer group'}`}
+                      className={`relative w-full aspect-video border border-white/[0.08] overflow-hidden rounded-2xl bg-black/20 ${!video.videoUrl || (video.videoEmbedUrl && isYouTubeUrl(video.videoEmbedUrl)) ? '' : 'cursor-pointer group'}`}
                       onClick={video.videoEmbedUrl && isYouTubeUrl(video.videoEmbedUrl) ? undefined : handleVideoClick}
                     >
                       {/* YouTube embeds are always unlocked (public videos) */}
                       {video.videoEmbedUrl && isYouTubeUrl(video.videoEmbedUrl) ? (
                         <YouTubeEmbed url={video.videoEmbedUrl} className="" />
                       ) : !isUnlocked ? (
-                        <div className="absolute inset-0 bg-slate-50 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-white/[0.02] flex items-center justify-center">
                           <div className="text-center space-y-2">
-                            <div className="w-10 h-10 mx-auto bg-slate-100 border border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <svg aria-hidden="true" className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="w-10 h-10 mx-auto bg-white/[0.04] border border-white/[0.08] flex items-center justify-center group-hover:scale-110 transition-transform rounded-lg">
+                              <svg aria-hidden="true" className="w-5 h-5 text-[var(--text-dim)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                               </svg>
                             </div>
-                            <p className="text-slate-400 text-xs font-medium">Click to unlock</p>
+                            <p className="text-[var(--text-dim)] text-xs font-medium">Click to unlock</p>
                           </div>
                         </div>
                       ) : video.videoUrl ? (
@@ -151,22 +146,22 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 bg-[var(--accent-teal)] flex-shrink-0"></div>
-                <h3 className="text-slate-900 text-lg font-sans font-semibold">{after.title}</h3>
+                <h3 className="text-[var(--text-heading)] text-lg font-sans font-semibold">{after.title}</h3>
               </div>
               <div
-                className="relative w-full aspect-video border border-slate-200 overflow-hidden cursor-pointer group rounded-2xl"
+                className="relative w-full aspect-video border border-white/[0.08] overflow-hidden cursor-pointer group rounded-2xl bg-black/20"
                 onClick={handleVideoClick}
               >
                 {!isUnlocked ? (
-                  <div className="absolute inset-0 bg-slate-50 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-white/[0.02] flex items-center justify-center">
                     <div className="text-center space-y-3">
-                      <div className="w-14 h-14 mx-auto bg-[var(--accent-teal)]/10 border border-[var(--accent-teal)]/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <div className="w-14 h-14 mx-auto bg-[var(--accent-teal)]/10 border border-[var(--accent-teal)]/30 flex items-center justify-center group-hover:scale-110 transition-transform rounded-xl">
                         <svg aria-hidden="true" className="w-7 h-7 text-[var(--accent-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                       </div>
-                      <p className="text-slate-700 text-sm font-medium">Password Required</p>
-                      <p className="text-slate-400 text-xs">Click to unlock</p>
+                      <p className="text-[var(--text-body)] text-sm font-medium">Password Required</p>
+                      <p className="text-[var(--text-dim)] text-xs">Click to unlock</p>
                     </div>
                   </div>
                 ) : (
@@ -180,21 +175,19 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
             </div>
           </div>
 
-          {/* ============================================
-              KEY DIFFERENCES
-              ============================================ */}
+          {/* Key Differences */}
           {comparisonNotes && (
-            <div className="mt-8 pt-8 border-t border-slate-200">
+            <div className="mt-8 pt-8 border-t border-white/[0.06]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Before Column */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-red-500"></div>
-                    <span className="text-slate-400 text-xs uppercase tracking-widest font-medium">
+                    <span className="text-[var(--text-dim)] text-xs uppercase tracking-widest font-medium">
                       Before
                     </span>
                   </div>
-                  <ul className="text-slate-600 text-sm space-y-2">
+                  <ul className="text-[var(--text-muted)] text-sm space-y-2">
                     {comparisonNotes.before.map((note, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <span className="text-red-400 mt-0.5">•</span>
@@ -208,11 +201,11 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-emerald-500"></div>
-                    <span className="text-slate-400 text-xs uppercase tracking-widest font-medium">
+                    <span className="text-[var(--text-dim)] text-xs uppercase tracking-widest font-medium">
                       After
                     </span>
                   </div>
-                  <ul className="text-slate-600 text-sm space-y-2">
+                  <ul className="text-[var(--text-muted)] text-sm space-y-2">
                     {comparisonNotes.after.map((note, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <span className="text-emerald-400 mt-0.5">•</span>
@@ -227,25 +220,23 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
         </motion.div>
       </div>
 
-      {/* ============================================
-          PASSWORD MODAL
-          ============================================ */}
+      {/* Password Modal — dark glassmorphism */}
       {showPasswordModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white p-8 max-w-md w-full border border-slate-200 shadow-2xl"
+            className="bg-[var(--bg-secondary)] p-8 max-w-md w-full border border-white/[0.08] shadow-2xl shadow-black/50 rounded-xl"
           >
             <div className="space-y-6">
               <div className="text-center space-y-2">
-                <div className="w-16 h-16 mx-auto bg-[var(--accent-teal)]/10 flex items-center justify-center mb-4">
+                <div className="w-16 h-16 mx-auto bg-[var(--accent-teal)]/10 flex items-center justify-center mb-4 rounded-xl">
                   <svg aria-hidden="true" className="w-8 h-8 text-[var(--accent-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
-                <h3 className="text-slate-900 text-2xl font-sans font-semibold">Unlock Videos</h3>
-                <p className="text-slate-500 text-sm">
+                <h3 className="text-[var(--text-heading)] text-2xl font-sans font-semibold">Unlock Videos</h3>
+                <p className="text-[var(--text-muted)] text-sm">
                   Enter the password to view the video walkthroughs.
                 </p>
               </div>
@@ -258,21 +249,21 @@ export default function MultiBeforeAfterVideo({ before, after, comparisonNotes, 
                   onChange={(e) => { setPasswordInput(e.target.value); setPasswordError('') }}
                   placeholder="Enter password"
                   aria-label="Enter password to unlock videos"
-                  className="w-full px-4 py-3 border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[var(--accent-teal)]/50 focus:ring-2 focus:ring-[var(--accent-teal)]/20 transition-all"
+                  className="w-full px-4 py-3 border border-white/[0.1] bg-white/[0.04] text-[var(--text-heading)] placeholder:text-[var(--text-dim)] focus:outline-none focus:border-[var(--accent-teal)]/50 focus:ring-2 focus:ring-[var(--accent-teal)]/20 transition-all rounded-lg"
                   autoFocus
                 />
-                {passwordError && <p role="alert" className="text-red-500 text-sm">{passwordError}</p>}
+                {passwordError && <p role="alert" className="text-red-400 text-sm">{passwordError}</p>}
                 <div className="flex gap-3">
                   <button
                     type="button"
                     onClick={() => { setShowPasswordModal(false); setPasswordInput(''); setPasswordError('') }}
-                    className="flex-1 px-4 py-3 border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="flex-1 px-4 py-3 border border-white/[0.1] text-[var(--text-muted)] hover:bg-white/[0.04] transition-colors rounded-lg"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-3 bg-[var(--accent-teal)] text-white hover:opacity-90 transition-colors font-medium"
+                    className="flex-1 px-4 py-3 bg-[var(--accent-teal)] text-white hover:opacity-90 transition-colors font-medium rounded-lg"
                   >
                     Unlock
                   </button>

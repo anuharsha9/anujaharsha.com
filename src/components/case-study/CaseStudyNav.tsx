@@ -43,17 +43,17 @@ export default function CaseStudyNav() {
             key={cs.slug}
             href={`/work/${cs.slug}`}
             className={`
-              group flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 border transition-all duration-300
+              group flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 border transition-all duration-300 rounded-lg
               ${isActive
                 ? 'bg-[var(--accent-teal)] border-[var(--accent-teal)] text-white'
-                : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                : 'bg-white/[0.04] border-white/[0.06] text-white/50 hover:border-white/[0.12] hover:bg-white/[0.06] hover:text-white/70'
               }
             `}
           >
             {/* System ID Badge */}
             <span className={`
               font-mono text-[10px] tracking-wider
-              ${isActive ? 'text-white/70' : 'text-slate-400 group-hover:text-slate-500'}
+              ${isActive ? 'text-white/70' : 'text-white/30 group-hover:text-white/40'}
             `}>
               {getSystemId(cs.slug)}
             </span>
@@ -61,13 +61,13 @@ export default function CaseStudyNav() {
             {/* Divider */}
             <span className={`
               w-px h-3
-              ${isActive ? 'bg-white/30' : 'bg-slate-200'}
+              ${isActive ? 'bg-white/30' : 'bg-white/[0.08]'}
             `} />
 
             {/* Title */}
             <span className={`
               text-sm font-medium
-              ${isActive ? 'text-white' : 'text-slate-700 group-hover:text-slate-900'}
+              ${isActive ? 'text-white' : 'text-white/60 group-hover:text-white/80'}
             `}>
               {getShortTitle(cs.slug)}
             </span>
