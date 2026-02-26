@@ -31,7 +31,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
         duration: 7600,
         label: 'The Business Problem',
         signal: 'CUSTOMER LOSS',
-        narration: 'Week one: I inherited a 40-year-old mission-critical system that was actively losing customers.',
+        narration: 'Week one: I inherited a 50-year-old mission-critical system that was actively losing customers.',
         narrationDelay: 0.1,
         component: <MovieBeatAssignment />,
     },

@@ -357,8 +357,16 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                             : `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`,
                     }}
                 >
-                    {/* Wireframe — always visible, always animating */}
-                    <WireframeComponent />
+                    {/* Wireframe — always visible, blurs on hover */}
+                    <div
+                        className="absolute inset-0 transition-all duration-500"
+                        style={{
+                            filter: isHovered ? 'blur(8px)' : 'blur(0px)',
+                            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+                        }}
+                    >
+                        <WireframeComponent />
+                    </div>
 
                     {/* Hover overlay: scrim + play + title */}
                     <div

@@ -21,7 +21,7 @@ export default function ExperimentPage() {
                 narrative:
                     'Volunteered one week in. Mapped the entire system solo with zero documentation. Led a 20-person team to ship a brand-new integrated product.',
                 star: {
-                    situation: '40-year-old scheduler losing customers. 5 fragmented subsystems, zero documentation, 20M+ weekly jobs at stake.',
+                    situation: '50-year-old scheduler losing customers. 5 fragmented subsystems, zero documentation, 20M+ weekly jobs at stake.',
                     task: 'Modernize the system. Retain the customers. Document what had never been documented.',
                     action: 'Mapped all five subsystems from scratch. Explored three architectural directions before finding the breakthrough. Aligned a ~20-person cross-functional team.',
                     result: 'Shipped a brand-new integrated Hub — not a UI refresh. 4 clicks → 2. Customers retained.',

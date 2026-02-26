@@ -3,14 +3,13 @@
 /**
  * RCMovieBeats — Condensed motion-graphic beats for the RC auto-play movie.
  * 
- * These are NOT the full presentation beats. They're 8-15 second "title cards"
- * designed for the landing page movie — wireframe motion graphics style.
+ * 8-15 second "title cards" for the landing page movie.
  * Think: Apple keynote transitions meets motion design reel.
  */
 
 import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle2, ArrowRight, Clock, Search, Layers3, Users, FolderKanban, Sparkles } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Clock, Layers3, Sparkles } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -31,7 +30,7 @@ function AnimNumber({ value, suffix = '', delay = 0 }: { value: number; suffix?:
             const elapsed = Date.now() - start - delay * 1000
             if (elapsed < 0) { ref.current = setTimeout(tick, 16); return }
             const progress = Math.min(elapsed / duration, 1)
-            const eased = 1 - Math.pow(1 - progress, 3) // ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3)
             setDisplay(Math.round(eased * value))
             if (progress < 1) ref.current = setTimeout(tick, 16)
         }
@@ -42,6 +41,7 @@ function AnimNumber({ value, suffix = '', delay = 0 }: { value: number; suffix?:
     return <>{display}{suffix}</>
 }
 
+/* ── Shared cinematic backdrop ── */
 function WireMorphBackdrop() {
     return (
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -59,7 +59,7 @@ function WireMorphBackdrop() {
                     strokeDasharray="2 2"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: [0, 0.7, 0.25] }}
-                    transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 2.4, ease }}
                 />
                 <motion.path
                     d="M0,74 C20,67 34,82 52,72 C67,64 82,79 100,70"
@@ -69,7 +69,7 @@ function WireMorphBackdrop() {
                     strokeDasharray="2 3"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: [0, 0.56, 0.2] }}
-                    transition={{ duration: 2.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 2.5, delay: 0.1, ease }}
                 />
             </motion.svg>
             <motion.div
@@ -82,80 +82,7 @@ function WireMorphBackdrop() {
     )
 }
 
-function UIFrame({
-    title,
-    accent = 'sky',
-    delay = 0,
-    active = false,
-}: {
-    title: string
-    accent?: 'sky' | 'emerald' | 'teal'
-    delay?: number
-    active?: boolean
-}) {
-    const accentMap = {
-        sky: {
-            border: 'border-sky-300/35',
-            bg: 'bg-sky-300/[0.06]',
-            chip: 'bg-sky-200/20 text-sky-100 border-sky-200/35',
-            bar: 'bg-sky-200/70',
-            faint: 'bg-sky-200/25',
-        },
-        emerald: {
-            border: 'border-emerald-300/35',
-            bg: 'bg-emerald-300/[0.06]',
-            chip: 'bg-emerald-200/20 text-emerald-100 border-emerald-200/35',
-            bar: 'bg-emerald-200/75',
-            faint: 'bg-emerald-200/25',
-        },
-        teal: {
-            border: 'border-teal-300/35',
-            bg: 'bg-teal-300/[0.06]',
-            chip: 'bg-teal-200/20 text-teal-100 border-teal-200/35',
-            bar: 'bg-teal-200/75',
-            faint: 'bg-teal-200/25',
-        },
-    } as const
-
-    const tone = accentMap[accent]
-
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 14, scale: 0.94, filter: 'blur(10px)' }}
-            animate={active ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : {}}
-            transition={{ duration: 0.65, delay, ease }}
-            className={`w-56 rounded-xl border ${tone.border} ${tone.bg} p-3 backdrop-blur-sm`}
-        >
-            <div className="mb-3 flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-200">{title}</span>
-                <span className={`inline-flex h-4 w-4 items-center justify-center rounded-full border ${tone.chip}`}>
-                    <span className="h-1.5 w-1.5 rounded-full bg-current opacity-90" />
-                </span>
-            </div>
-            <div className="space-y-2">
-                <div className={`h-2 rounded-full ${tone.faint}`} />
-                <motion.div
-                    className={`h-2 rounded-full ${tone.bar} origin-left`}
-                    initial={{ scaleX: 0 }}
-                    animate={active ? { scaleX: [0.2, 1, 0.78] } : {}}
-                    transition={{ duration: 1.6, delay: delay + 0.08, ease: [0.16, 1, 0.3, 1], times: [0, 0.6, 1] }}
-                />
-                <div className="grid grid-cols-6 gap-1.5 pt-1">
-                    {Array.from({ length: 6 }).map((_, i) => (
-                        <motion.div
-                            key={`${title}-bar-${i}`}
-                            className={`rounded-sm ${tone.faint}`}
-                            style={{ height: 16 + ((i * 7) % 18) }}
-                            animate={active ? { opacity: [0.35, 0.9, 0.5], scaleY: [0.7, 1, 0.86] } : {}}
-                            transition={{ duration: 1.3, delay: delay + 0.12 + i * 0.05, repeat: Infinity, repeatType: 'mirror' }}
-                        />
-                    ))}
-                </div>
-            </div>
-        </motion.div>
-    )
-}
-
+/* ── Floating ambient dots ── */
 function AbstractFlowBubbles({ active }: { active: boolean }) {
     const nodes = [
         { id: 'n1', x: 8, y: 55, color: 'var(--neutral-zinc-300)', scale: 1.06 },
@@ -202,7 +129,7 @@ function AbstractFlowBubbles({ active }: { active: boolean }) {
 
 
 /* ═════════════════════════════════════════════════
-   BEAT 1: "THE BUSINESS PROBLEM" — Opening title card
+   BEAT 1: "THE BUSINESS PROBLEM"
    ═════════════════════════════════════════════════ */
 export function MovieBeatAssignment() {
     const [step, setStep] = useState(-1)
@@ -212,8 +139,8 @@ export function MovieBeatAssignment() {
         const t = timers.current
         t.push(setTimeout(() => setStep(0), at(200)))
         t.push(setTimeout(() => setStep(1), at(600)))
-        t.push(setTimeout(() => setStep(2), at(1400)))
-        t.push(setTimeout(() => setStep(3), at(2400)))
+        t.push(setTimeout(() => setStep(2), at(1800)))
+        t.push(setTimeout(() => setStep(3), at(3000)))
         return () => t.forEach(clearTimeout)
     }, [])
 
@@ -241,30 +168,24 @@ export function MovieBeatAssignment() {
                         initial={{ opacity: 0, y: 30, filter: 'blur(12px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                         transition={{ duration: 0.8, ease }}
-                        className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-4"
+                        className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-4 px-4"
                     >
                         Customers were leaving.<br />
-                        <span className="text-zinc-100">40 years without updates.</span>
+                        <span className="text-zinc-100">50 years without updates.</span>
                     </motion.h2>
                 )}
             </AnimatePresence>
 
             <AnimatePresence>
                 {step >= 2 && (
-                    <motion.div
+                    <motion.p
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease }}
-                        className="max-w-2xl"
+                        className="text-sm md:text-base text-zinc-200 max-w-lg mx-auto leading-relaxed px-4"
                     >
-                        <motion.p className="text-sm md:text-base text-zinc-100 max-w-2xl mx-auto leading-relaxed">
-                            The platform&apos;s enterprise scheduler — powering 20M+ weekly jobs — was losing customers.
-                            40+ years without meaningful updates. Zero documentation.
-                        </motion.p>
-                        <motion.p className="mt-3 text-sm md:text-base text-zinc-200 max-w-2xl mx-auto leading-relaxed">
-                            The goal: retain customers. The challenge: modernize a 50-year-old system.
-                        </motion.p>
-                    </motion.div>
+                        The platform&apos;s enterprise scheduler — powering 20M+ weekly jobs — hadn&apos;t been meaningfully updated in half a century.
+                    </motion.p>
                 )}
             </AnimatePresence>
 
@@ -277,13 +198,13 @@ export function MovieBeatAssignment() {
                         className="flex gap-8 mt-8"
                     >
                         {[
-                            { val: '40+', label: 'No Updates' },
+                            { val: '50+', label: 'Years Old' },
                             { val: '20M+', label: 'Weekly Jobs' },
-                            { val: '↓', label: 'Retain Customers' },
+                            { val: '0', label: 'Documentation' },
                         ].map((stat) => (
                             <div key={stat.label} className="text-center">
                                 <div className="text-xl md:text-2xl font-bold text-white font-mono">{stat.val}</div>
-                                <div className="text-[11px] font-mono text-zinc-300 uppercase tracking-wider mt-1">{stat.label}</div>
+                                <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mt-1">{stat.label}</div>
                             </div>
                         ))}
                     </motion.div>
@@ -295,7 +216,85 @@ export function MovieBeatAssignment() {
 
 
 /* ═════════════════════════════════════════════════
-   BEAT 2: "THE CHAOS" — Fragmentation visualization
+   BEAT 2: "DISCOVERY ARC" — Week 1 volunteer
+   ═════════════════════════════════════════════════ */
+export function MovieBeatDiscovery() {
+    const [step, setStep] = useState(-1)
+    const timers = useRef<NodeJS.Timeout[]>([])
+
+    useEffect(() => {
+        const t = timers.current
+        t.push(setTimeout(() => setStep(0), at(180)))
+        t.push(setTimeout(() => setStep(1), at(1100)))
+        t.push(setTimeout(() => setStep(2), at(2800)))
+        t.push(setTimeout(() => setStep(3), at(4300)))
+        return () => t.forEach(clearTimeout)
+    }, [])
+
+    return (
+        <div className="relative flex w-full flex-col items-center justify-center py-8 text-center">
+            <WireMorphBackdrop />
+
+            <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={step >= 0 ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, ease }}
+                className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-sky-300"
+            >
+                Discovery Arc
+            </motion.p>
+
+            {/* Timeline cards — horizontally centered */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full max-w-3xl px-4">
+                {[
+                    { title: 'Week 1', meta: 'Volunteered. Zero domain knowledge.', delay: 0 },
+                    { title: 'The Room', meta: '130+ years of combined SME context.', delay: 0.12 },
+                    { title: 'The Map', meta: '5 undocumented subsystems found.', delay: 0.24 },
+                ].map((card, index) => (
+                    <motion.div
+                        key={card.title}
+                        className="w-full md:w-52 rounded-xl border border-sky-300/25 bg-sky-300/[0.05] px-5 py-4 text-center backdrop-blur-sm"
+                        initial={{ opacity: 0, y: 20, scale: 0.9, filter: 'blur(8px)' }}
+                        animate={step >= 1 ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : {}}
+                        transition={{ duration: 0.55, delay: card.delay, ease }}
+                    >
+                        <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-sky-300 mb-1.5">{card.title}</div>
+                        <p className="text-sm text-zinc-200 leading-snug">{card.meta}</p>
+                    </motion.div>
+                ))}
+            </div>
+
+            {/* Connecting line */}
+            <AnimatePresence>
+                {step >= 2 && (
+                    <motion.div
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        animate={{ scaleX: 1, opacity: 0.3 }}
+                        transition={{ duration: 0.8, ease }}
+                        className="hidden md:block w-full max-w-lg h-px bg-gradient-to-r from-transparent via-sky-400 to-transparent mt-4 origin-center"
+                    />
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {step >= 3 && (
+                    <motion.p
+                        initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.6, ease }}
+                        className="mt-6 max-w-md text-center text-sm text-zinc-300 leading-relaxed px-4"
+                    >
+                        4 months of research that nobody expected — and nobody had ever done.
+                    </motion.p>
+                )}
+            </AnimatePresence>
+        </div>
+    )
+}
+
+
+/* ═════════════════════════════════════════════════
+   BEAT 3: "THE CHAOS" — Fragmentation
    ═════════════════════════════════════════════════ */
 const SYSTEMS = [
     { name: 'Schedule', color: 'var(--semantic-rose-500)' },
@@ -319,15 +318,15 @@ export function MovieBeatChaos() {
     }, [])
 
     return (
-        <div className="flex flex-col items-center justify-center w-full py-6">
-            {/* System nodes */}
-            <div className="relative w-full max-w-lg h-48 md:h-56">
+        <div className="flex flex-col items-center justify-center w-full py-6 text-center">
+            {/* System nodes — centered ring */}
+            <div className="relative w-full max-w-sm mx-auto h-48 md:h-56">
                 {SYSTEMS.map((sys, i) => {
                     const angle = (i / SYSTEMS.length) * Math.PI * 2 - Math.PI / 2
-                    const radiusX = 140
-                    const radiusY = 80
-                    const x = 50 + (Math.cos(angle) * radiusX / 3.2)
-                    const y = 50 + (Math.sin(angle) * radiusY / 1.8)
+                    const radiusX = 38
+                    const radiusY = 38
+                    const x = 50 + Math.cos(angle) * radiusX
+                    const y = 50 + Math.sin(angle) * radiusY
 
                     return (
                         <motion.div
@@ -335,8 +334,8 @@ export function MovieBeatChaos() {
                             initial={{ opacity: 0, scale: 0 }}
                             animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
                             transition={{ delay: i * 0.12, duration: 0.5, ease, type: 'spring', stiffness: 200 }}
-                            className="absolute"
-                            style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%, -50%)' }}
+                            className="absolute -translate-x-1/2 -translate-y-1/2"
+                            style={{ left: `${x}%`, top: `${y}%` }}
                         >
                             <div
                                 className="px-3 py-2 rounded-lg border text-[11px] font-mono font-medium whitespace-nowrap"
@@ -352,7 +351,7 @@ export function MovieBeatChaos() {
                     )
                 })}
 
-                {/* Chaos connection lines (SVG) */}
+                {/* Chaos connection lines */}
                 <AnimatePresence>
                     {step >= 1 && (
                         <motion.svg
@@ -370,10 +369,10 @@ export function MovieBeatChaos() {
                                     return (
                                         <motion.line
                                             key={`${i}-${j}`}
-                                            x1={50 + Math.cos(a1) * 44}
-                                            y1={50 + Math.sin(a1) * 44}
-                                            x2={50 + Math.cos(a2) * 44}
-                                            y2={50 + Math.sin(a2) * 44}
+                                            x1={50 + Math.cos(a1) * 38}
+                                            y1={50 + Math.sin(a1) * 38}
+                                            x2={50 + Math.cos(a2) * 38}
+                                            y2={50 + Math.sin(a2) * 38}
                                             stroke="var(--semantic-rose-500)"
                                             strokeWidth="0.3"
                                             strokeDasharray="2,2"
@@ -396,7 +395,7 @@ export function MovieBeatChaos() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease }}
-                        className="flex gap-6 md:gap-10 mt-4"
+                        className="flex gap-8 md:gap-12 mt-4"
                     >
                         <div className="text-center">
                             <div className="text-2xl md:text-3xl font-bold text-rose-400 font-mono">
@@ -422,7 +421,7 @@ export function MovieBeatChaos() {
                         transition={{ duration: 0.7, ease }}
                         className="text-sm text-zinc-300 mt-4 font-mono"
                     >
-                        Customers demanded modernization. Zero documentation to work with.
+                        50 years of accumulated debt. Customers demanded modernization.
                     </motion.p>
                 )}
             </AnimatePresence>
@@ -432,7 +431,7 @@ export function MovieBeatChaos() {
 
 
 /* ═════════════════════════════════════════════════
-   BEAT 3: "THE PIVOTS" — Quick rejection → resolution
+   BEAT 4: "THREE PIVOTS" — V1 → V2 → V3
    ═════════════════════════════════════════════════ */
 export function MovieBeatPivots() {
     const [step, setStep] = useState(-1)
@@ -448,13 +447,13 @@ export function MovieBeatPivots() {
     }, [])
 
     const pivots = [
-        { version: 'V1', verdict: 'REJECTED', reason: 'Independent Product (Siloed)', color: 'var(--semantic-rose-500)' },
-        { version: 'V2', verdict: 'REJECTED', reason: 'Plugin (Technical Debt)', color: 'var(--accent-amber)' },
-        { version: 'V3', verdict: 'WINNER', reason: 'Modal-Based Hub Integration', color: 'var(--semantic-emerald-500)' },
+        { version: 'V1', verdict: 'REJECTED', reason: 'Siloed Product', color: 'var(--semantic-rose-500)' },
+        { version: 'V2', verdict: 'REJECTED', reason: 'Plugin Approach', color: 'var(--accent-amber)' },
+        { version: 'V3', verdict: 'WINNER', reason: 'Unified Hub', color: 'var(--semantic-emerald-500)' },
     ]
 
     return (
-        <div className="flex flex-col items-center justify-center w-full py-8">
+        <div className="flex flex-col items-center justify-center w-full py-8 text-center">
             <motion.p
                 initial={{ opacity: 0 }}
                 animate={step >= 0 ? { opacity: 1 } : {}}
@@ -464,7 +463,7 @@ export function MovieBeatPivots() {
                 Three Pivots to Clarity
             </motion.p>
 
-            <div className="flex items-center gap-4 md:gap-6">
+            <div className="flex items-center justify-center gap-3 md:gap-6 px-4">
                 {pivots.map((pivot, i) => (
                     <motion.div
                         key={pivot.version}
@@ -484,22 +483,22 @@ export function MovieBeatPivots() {
                                 {pivot.version}
                             </span>
                             <span
-                                className="text-[11px] font-mono tracking-wider mt-2 uppercase font-bold"
+                                className="text-[10px] font-mono tracking-wider mt-2 uppercase font-bold"
                                 style={{ color: pivot.color }}
                             >
                                 {pivot.verdict}
                             </span>
-                            <span className="text-xs text-zinc-300 mt-1">{pivot.reason}</span>
+                            <span className="text-[11px] text-zinc-400 mt-1">{pivot.reason}</span>
                         </div>
 
                         {/* Connection arrow */}
                         {i < pivots.length - 1 && (
                             <motion.div
                                 initial={{ opacity: 0 }}
-                                animate={step >= i + 2 ? { opacity: 0.3 } : {}}
-                                className="absolute -right-3 md:-right-4 top-1/2 -translate-y-1/2"
+                                animate={step >= i + 2 ? { opacity: 0.4 } : {}}
+                                className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10"
                             >
-                                <ArrowRight className="w-3 h-3 text-zinc-300" />
+                                <ArrowRight className="w-3 h-3 text-zinc-400" />
                             </motion.div>
                         )}
                     </motion.div>
@@ -511,7 +510,8 @@ export function MovieBeatPivots() {
 
 
 /* ═════════════════════════════════════════════════
-   BEAT 4: "THE BREAKTHROUGH" — + Menu consolidation
+   BEAT 5: "THE BREAKTHROUGH" — Before → After + Unified Hub
+   Merged from previous Breakthrough + Execution beats
    ═════════════════════════════════════════════════ */
 export function MovieBeatBreakthrough() {
     const [step, setStep] = useState(-1)
@@ -521,110 +521,107 @@ export function MovieBeatBreakthrough() {
         const t = timers.current
         t.push(setTimeout(() => setStep(0), at(200)))
         t.push(setTimeout(() => setStep(1), at(1200)))
-        t.push(setTimeout(() => setStep(2), at(2500)))
-        t.push(setTimeout(() => setStep(3), at(3800)))
+        t.push(setTimeout(() => setStep(2), at(3000)))
+        t.push(setTimeout(() => setStep(3), at(4800)))
         return () => t.forEach(clearTimeout)
     }, [])
 
     return (
-        <div className="relative flex w-full flex-col items-center justify-center py-8">
+        <div className="relative flex w-full flex-col items-center justify-center py-8 text-center">
             <WireMorphBackdrop />
             <motion.p
                 initial={{ opacity: 0 }}
                 animate={step >= 0 ? { opacity: 1 } : {}}
                 transition={{ duration: 0.45 }}
-                className="mb-6 font-mono text-xs tracking-[0.3em] text-zinc-300 uppercase"
+                className="mb-8 font-mono text-xs tracking-[0.3em] text-zinc-300 uppercase"
             >
-                The Solution: Unified Hub Architecture
+                The Solution
             </motion.p>
 
             <AnimatePresence mode="wait">
                 {step < 2 ? (
+                    /* ── BEFORE state ── */
                     <motion.div
-                        key="before-breakthrough"
+                        key="before"
                         initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                         exit={{ opacity: 0, y: -14, scale: 0.96, filter: 'blur(8px)' }}
                         transition={{ duration: 0.62, ease }}
-                        className="w-full max-w-4xl text-center"
+                        className="w-full max-w-lg text-center"
                     >
-                        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-rose-300/90 uppercase">Before</p>
-                        <div className="flex flex-wrap items-center justify-center gap-3">
+                        <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-rose-300/90 uppercase">Before</p>
+                        <div className="flex items-center justify-center gap-3">
                             {['Scheduler', 'Distribution', 'Job Log'].map((title, idx) => (
                                 <motion.div
                                     key={title}
-                                    initial={{ opacity: 0, x: idx === 1 ? 0 : idx === 0 ? -26 : 26, y: 12 }}
-                                    animate={step >= 1 ? { opacity: 1, x: 0, y: 0 } : {}}
+                                    initial={{ opacity: 0, y: 12 }}
+                                    animate={step >= 1 ? { opacity: 1, y: 0 } : {}}
                                     transition={{ duration: 0.5, delay: idx * 0.1, ease }}
+                                    className="px-4 py-3 rounded-lg border border-sky-300/25 bg-sky-300/[0.06] text-center"
                                 >
-                                    <UIFrame title={title} accent="sky" active={step >= 1} />
+                                    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-sky-200">{title}</span>
                                 </motion.div>
                             ))}
                         </div>
-                        <p className="mt-4 font-mono text-xs text-zinc-300">3 workflows. 3 separate entry points.</p>
+                        <p className="mt-4 font-mono text-xs text-zinc-400">3 separate entry points. 4 clicks to start.</p>
                     </motion.div>
                 ) : (
+                    /* ── AFTER state ── */
                     <motion.div
-                        key="after-breakthrough"
+                        key="after"
                         initial={{ opacity: 0, y: 14, scale: 0.94, filter: 'blur(8px)' }}
                         animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                         transition={{ duration: 0.75, ease }}
-                        className="w-full max-w-4xl text-center"
+                        className="w-full max-w-lg text-center"
                     >
-                        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-emerald-400/90 uppercase">After</p>
+                        <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-emerald-400/90 uppercase">After</p>
                         <motion.div
                             initial={{ scale: 0.86, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.1, type: 'spring', stiffness: 210, damping: 22 }}
-                            className="mx-auto mb-5 w-fit rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-8 py-4"
+                            className="mx-auto mb-5 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.06] px-8 py-5"
                         >
-                            <div className="text-3xl md:text-4xl font-bold text-emerald-300 mb-1">+ Menu</div>
-                            <div className="text-xs font-mono text-zinc-100">Consolidated 3 workflows into one &quot;+&quot; menu.</div>
+                            <div className="flex items-center justify-center gap-2 mb-3">
+                                <Layers3 className="h-4 w-4 text-emerald-300" />
+                                <span className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-200">
+                                    Unified Hub Architecture
+                                </span>
+                            </div>
+                            <div className="grid grid-cols-3 gap-2 mb-3">
+                                {['Scheduler', 'Recurrence', 'Job Logs'].map((name, idx) => (
+                                    <motion.div
+                                        key={name}
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.4, delay: 0.15 + idx * 0.08, ease }}
+                                        className="rounded-md border border-emerald-200/20 bg-emerald-200/[0.05] px-2 py-2 text-center"
+                                    >
+                                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-100">{name}</span>
+                                    </motion.div>
+                                ))}
+                            </div>
+                            <div className="flex items-center justify-center gap-2">
+                                <Sparkles className="h-3 w-3 text-emerald-300" />
+                                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-emerald-200">
+                                    One &quot;+&quot; menu. 2 clicks. Zero context switching.
+                                </span>
+                            </div>
                         </motion.div>
-
-                        <div className="mx-auto flex w-fit items-center gap-3">
-                            <UIFrame title="Unified RC Hub" accent="emerald" active={step >= 2} />
-                            <motion.div
-                                initial={{ opacity: 0, x: 14 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.45, delay: 0.2, ease }}
-                                className="hidden h-40 w-56 rounded-xl border border-emerald-300/35 bg-emerald-300/[0.06] p-3 md:block"
-                            >
-                                <div className="mb-2 flex items-center justify-between">
-                                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-100">Unified View</span>
-                                    <Sparkles className="h-3.5 w-3.5 text-emerald-200" />
-                                </div>
-                                <div className="space-y-2">
-                                    {[0, 1, 2].map((row) => (
-                                        <motion.div
-                                            key={`outcome-${row}`}
-                                            className="h-2 rounded-full bg-emerald-200/25"
-                                            animate={{ scaleX: [0.4, 1, 0.7], opacity: [0.4, 0.95, 0.6] }}
-                                            transition={{ duration: 1.5, delay: 0.35 + row * 0.08, repeat: Infinity, repeatType: 'mirror' }}
-                                            style={{ transformOrigin: '0 50%' }}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-100/90">
-                                    Zero context switching
-                                </div>
-                            </motion.div>
-                        </div>
 
                         {step >= 3 && (
                             <motion.div
                                 initial={{ opacity: 0, y: 12 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.48, ease }}
-                                className="mt-6 flex justify-center gap-8"
+                                transition={{ duration: 0.5, ease }}
+                                className="flex justify-center gap-10"
                             >
                                 <div className="text-center">
                                     <div className="text-xl font-bold text-emerald-300 font-mono">75%</div>
-                                    <div className="text-[11px] font-mono text-zinc-300 uppercase tracking-wider">fewer clicks</div>
+                                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">fewer clicks</div>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-xl font-bold text-emerald-300 font-mono">0</div>
-                                    <div className="text-[11px] font-mono text-zinc-300 uppercase tracking-wider">context switches</div>
+                                    <div className="text-xl font-bold text-emerald-300 font-mono">5 → 1</div>
+                                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">unified tools</div>
                                 </div>
                             </motion.div>
                         )}
@@ -637,7 +634,98 @@ export function MovieBeatBreakthrough() {
 
 
 /* ═════════════════════════════════════════════════
-   BEAT 5: "THE SCALE" — 250 screens cascade
+   BEAT 6: "EXECUTION" — Recurrence system deep dive
+   ═════════════════════════════════════════════════ */
+export function MovieBeatExecution() {
+    const [step, setStep] = useState(-1)
+    const timers = useRef<NodeJS.Timeout[]>([])
+
+    useEffect(() => {
+        const t = timers.current
+        t.push(setTimeout(() => setStep(0), at(220)))
+        t.push(setTimeout(() => setStep(1), at(1200)))
+        t.push(setTimeout(() => setStep(2), at(2600)))
+        t.push(setTimeout(() => setStep(3), at(4000)))
+        return () => t.forEach(clearTimeout)
+    }, [])
+
+    const codes = [
+        { label: 'Weekly', before: 'RR=WEEKLY;BYDAY=MO,WE,FR', after: 'Every Mon, Wed, Fri', color: '#f59e0b' },
+        { label: 'Monthly', before: 'RR=MONTHLY;BYMONTHDAY=15', after: 'Every month on the 15th', color: '#a855f7' },
+    ]
+
+    return (
+        <div className="relative flex w-full flex-col items-center justify-center py-8 text-center">
+            <WireMorphBackdrop />
+            <motion.p
+                initial={{ opacity: 0 }}
+                animate={step >= 0 ? { opacity: 1 } : {}}
+                transition={{ duration: 0.45 }}
+                className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-cyan-300"
+            >
+                Execution: Recurrence Engine
+            </motion.p>
+
+            <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={step >= 0 ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2, ease }}
+                className="text-sm text-zinc-300 max-w-md mb-6 px-4"
+            >
+                Users memorized codes like <code className="text-amber-400 font-mono bg-amber-400/10 px-1.5 py-0.5 rounded">&apos;W1MO&apos;</code> for &quot;every Monday.&quot; I made them human-readable.
+            </motion.p>
+
+            <div className="w-full max-w-md space-y-3 px-4">
+                {codes.map((code, i) => (
+                    <AnimatePresence key={code.label}>
+                        {step >= i + 1 && (
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, ease }}
+                                className="rounded-xl border overflow-hidden"
+                                style={{ borderColor: withHexAlpha(code.color, '25'), background: withHexAlpha(code.color, '04') }}
+                            >
+                                <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ borderColor: 'rgba(255,255,255,0.04)' }}>
+                                    <div className="w-2 h-2 rounded-full" style={{ background: withHexAlpha(code.color, '50') }} />
+                                    <span className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: withHexAlpha(code.color, '80') }}>
+                                        {code.label}
+                                    </span>
+                                </div>
+                                <div className="p-4">
+                                    <motion.code
+                                        className="text-sm font-mono block"
+                                        animate={step >= 3 ? { opacity: 0.3, textDecoration: 'line-through' } : { opacity: 0.7 }}
+                                        style={{ color: step >= 3 ? 'var(--neutral-zinc-500)' : '#fb7185' }}
+                                    >
+                                        {code.before}
+                                    </motion.code>
+                                    <AnimatePresence>
+                                        {step >= 3 && (
+                                            <motion.p
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: 'auto' }}
+                                                transition={{ duration: 0.4, delay: i * 0.15, ease }}
+                                                className="text-base font-medium mt-2 pt-2 border-t"
+                                                style={{ color: code.color, borderColor: withHexAlpha(code.color, '15') }}
+                                            >
+                                                {code.after}
+                                            </motion.p>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+
+/* ═════════════════════════════════════════════════
+   BEAT 7: "250 SCREENS" — Scale cascade
    ═════════════════════════════════════════════════ */
 export function MovieBeatScale() {
     const [step, setStep] = useState(-1)
@@ -651,17 +739,16 @@ export function MovieBeatScale() {
         return () => t.forEach(clearTimeout)
     }, [])
 
-    // Generate mini screen rectangles
     const screens = Array.from({ length: 30 }, (_, i) => ({
-        x: 10 + (i % 6) * 15,
-        y: 5 + Math.floor(i / 6) * 18,
-        delay: i * 0.05,
+        x: 10 + (i % 6) * 14,
+        y: 8 + Math.floor(i / 6) * 17,
+        delay: i * 0.04,
     }))
 
     return (
-        <div className="flex flex-col items-center justify-center w-full py-8">
+        <div className="flex flex-col items-center justify-center w-full py-8 text-center">
             {/* Screen cascade */}
-            <div className="relative w-full max-w-md h-40 mb-6">
+            <div className="relative w-full max-w-sm mx-auto h-40 mb-6">
                 {screens.map((s, i) => (
                     <motion.div
                         key={i}
@@ -699,7 +786,7 @@ export function MovieBeatScale() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="text-sm text-zinc-300 mt-4 text-center max-w-md leading-relaxed"
+                        className="text-sm text-zinc-300 mt-4 text-center max-w-md leading-relaxed px-4"
                     >
                         Every edge case. Every state. Every error path.
                         <br />
@@ -713,244 +800,7 @@ export function MovieBeatScale() {
 
 
 /* ═════════════════════════════════════════════════
-   BEAT X: "DISCOVERY ARC" — Week 1 + room + investigation
-   ═════════════════════════════════════════════════ */
-export function MovieBeatDiscovery() {
-    const [step, setStep] = useState(-1)
-    const timers = useRef<NodeJS.Timeout[]>([])
-
-    useEffect(() => {
-        const t = timers.current
-        t.push(setTimeout(() => setStep(0), at(180)))
-        t.push(setTimeout(() => setStep(1), at(1100)))
-        t.push(setTimeout(() => setStep(2), at(2600)))
-        t.push(setTimeout(() => setStep(3), at(4300)))
-        return () => t.forEach(clearTimeout)
-    }, [])
-
-    const cards = [
-        { icon: <Search className="h-4 w-4" />, title: 'Week 1', meta: 'Zero domain knowledge', x: '14%', y: '28%' },
-        { icon: <Users className="h-4 w-4" />, title: 'The Room', meta: '130+ years of SME context', x: '50%', y: '16%' },
-        { icon: <FolderKanban className="h-4 w-4" />, title: 'Artifacts', meta: '3 sources. No docs.', x: '78%', y: '34%' },
-    ]
-
-    return (
-        <div className="relative flex w-full flex-col items-center justify-center py-8">
-            <WireMorphBackdrop />
-            <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={step >= 0 ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, ease }}
-                className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-sky-300"
-            >
-                Discovery Arc
-            </motion.p>
-
-            <div className="relative h-52 w-full max-w-3xl">
-                {cards.map((card, index) => (
-                    <motion.div
-                        key={card.title}
-                        className="absolute -translate-x-1/2 -translate-y-1/2 rounded-xl border border-sky-300/30 bg-sky-300/[0.05] px-4 py-3 text-left backdrop-blur-sm"
-                        style={{ left: card.x, top: card.y }}
-                        initial={{ opacity: 0, y: 26, scale: 0.9, filter: 'blur(10px)' }}
-                        animate={step >= 1 ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : {}}
-                        transition={{ duration: 0.55, delay: index * 0.12, ease }}
-                    >
-                        <div className="mb-1 flex items-center gap-2 text-sky-300">
-                            {card.icon}
-                            <span className="font-mono text-[11px] uppercase tracking-[0.2em]">{card.title}</span>
-                        </div>
-                        <p className="text-sm text-zinc-200">{card.meta}</p>
-                    </motion.div>
-                ))}
-
-                <AnimatePresence>
-                    {step >= 2 && (
-                        <motion.svg
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.42 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute inset-0 h-full w-full"
-                            viewBox="0 0 100 100"
-                            preserveAspectRatio="none"
-                        >
-                            {['14 28 50 16', '50 16 78 34', '14 28 78 34'].map((coords, idx) => {
-                                const [x1, y1, x2, y2] = coords.split(' ')
-                                return (
-                                    <motion.line
-                                        key={coords}
-                                        x1={x1}
-                                        y1={y1}
-                                        x2={x2}
-                                        y2={y2}
-                                        stroke="var(--overlay-sky-70)"
-                                        strokeWidth="0.28"
-                                        strokeDasharray="2 2"
-                                        initial={{ pathLength: 0 }}
-                                        animate={{ pathLength: 1 }}
-                                        transition={{ duration: 0.6, delay: idx * 0.12, ease }}
-                                    />
-                                )
-                            })}
-                        </motion.svg>
-                    )}
-                </AnimatePresence>
-            </div>
-
-            <AnimatePresence>
-                {step >= 3 && (
-                    <motion.p
-                        initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
-                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                        transition={{ duration: 0.6, ease }}
-                        className="mt-3 max-w-xl text-center text-sm text-zinc-100"
-                    >
-                        4 months of research that nobody expected — and nobody had ever done.
-                    </motion.p>
-                )}
-            </AnimatePresence>
-        </div>
-    )
-}
-
-
-/* ═════════════════════════════════════════════════
-   BEAT X: "EXECUTION ARC" — Scheduler + Recurrence + Job Log
-   ═════════════════════════════════════════════════ */
-export function MovieBeatExecution() {
-    const [step, setStep] = useState(-1)
-    const timers = useRef<NodeJS.Timeout[]>([])
-
-    useEffect(() => {
-        const t = timers.current
-        t.push(setTimeout(() => setStep(0), at(220)))
-        t.push(setTimeout(() => setStep(1), at(1200)))
-        t.push(setTimeout(() => setStep(2), at(2800)))
-        t.push(setTimeout(() => setStep(3), at(4400)))
-        return () => t.forEach(clearTimeout)
-    }, [])
-
-    const modules = [
-        { name: 'Scheduler', x: '-120%' },
-        { name: 'Recurrence', x: '0%' },
-        { name: 'Job Logs', x: '120%' },
-    ]
-
-    return (
-        <div className="relative flex w-full flex-col items-center justify-center py-8">
-            <WireMorphBackdrop />
-            <motion.p
-                initial={{ opacity: 0 }}
-                animate={step >= 0 ? { opacity: 1 } : {}}
-                transition={{ duration: 0.45 }}
-                className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-cyan-300"
-            >
-                Execution Arc
-            </motion.p>
-
-            <div className="relative h-64 w-full max-w-4xl">
-                <AnimatePresence mode="wait">
-                    {step < 2 && step >= 1 ? (
-                        <motion.div
-                            key="execution-before"
-                            className="absolute inset-0 flex items-center justify-center"
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10, scale: 0.94, filter: 'blur(6px)' }}
-                            transition={{ duration: 0.55, ease }}
-                        >
-                            <div className="flex flex-wrap items-center justify-center gap-3">
-                                {modules.map((module, idx) => (
-                                    <motion.div
-                                        key={module.name}
-                                        initial={{ opacity: 0, x: module.x, scale: 0.9 }}
-                                        animate={{ opacity: 1, x: '0%', scale: 1 }}
-                                        transition={{ duration: 0.55, delay: idx * 0.12, ease }}
-                                    >
-                                        <UIFrame title={module.name} accent="teal" active={step >= 1} />
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="execution-after"
-                            className="absolute left-1/2 top-1/2 h-[13.5rem] w-[min(92vw,42rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-emerald-300/35 bg-emerald-300/[0.06] p-4 backdrop-blur-sm"
-                            initial={{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }}
-                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.75, ease }}
-                        >
-                            <div className="mb-3 flex items-center justify-between">
-                                <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.24em] text-emerald-200">
-                                    <Layers3 className="h-4 w-4" />
-                                    Unified Hub Architecture
-                                </div>
-                                <div className="rounded-full border border-emerald-200/30 bg-emerald-200/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-emerald-200">
-                                    Launched April 2024
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-3 gap-2">
-                                {['Scheduler', 'Recurrence', 'Job Logs'].map((name, idx) => (
-                                    <motion.div
-                                        key={name}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.4, delay: 0.15 + idx * 0.08, ease }}
-                                        className="rounded-md border border-emerald-200/25 bg-emerald-200/[0.06] px-2 py-3 text-center"
-                                    >
-                                        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-emerald-100">{name}</span>
-                                    </motion.div>
-                                ))}
-                            </div>
-
-                            <div className="mt-3 grid grid-cols-10 gap-1">
-                                {Array.from({ length: 10 }).map((_, i) => (
-                                    <motion.div
-                                        key={`metric-${i}`}
-                                        className="rounded-sm bg-emerald-200/30"
-                                        style={{ height: 10 + ((i * 5) % 22) }}
-                                        animate={{
-                                            scaleY: [0.5, 1, 0.72],
-                                            opacity: [0.35, 0.9, 0.55],
-                                        }}
-                                        transition={{
-                                            duration: 1.4,
-                                            delay: 0.32 + i * 0.04,
-                                            repeat: Infinity,
-                                            repeatType: 'mirror',
-                                            ease: 'easeInOut',
-                                        }}
-                                    />
-                                ))}
-                            </div>
-
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={step >= 3 ? { opacity: 1 } : {}}
-                                transition={{ duration: 0.4, delay: 0.18 }}
-                                className="mt-3 flex items-center justify-between"
-                            >
-                                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/30 bg-emerald-200/10 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-100">
-                                    <Sparkles className="h-3 w-3" />
-                                    4 clicks → 2
-                                </div>
-                                <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-100">
-                                    5 tools <span className="text-emerald-300">→</span> 1 unified hub
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-        </div>
-    )
-}
-
-
-/* ═════════════════════════════════════════════════
-   BEAT 6: "THE IMPACT" — Shipped + metrics
+   BEAT 8: "SHIPPED + IMPACT"
    ═════════════════════════════════════════════════ */
 export function MovieBeatShipped() {
     const [step, setStep] = useState(-1)
@@ -972,7 +822,7 @@ export function MovieBeatShipped() {
     ]
 
     return (
-        <div className="flex flex-col items-center justify-center w-full py-8">
+        <div className="flex flex-col items-center justify-center w-full py-8 text-center">
             {/* SHIPPED */}
             <AnimatePresence>
                 {step >= 0 && (
@@ -985,7 +835,7 @@ export function MovieBeatShipped() {
                         <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
                             SHIPPED.
                         </h2>
-                        <p className="font-mono text-xs text-zinc-200 tracking-[0.2em] uppercase mt-2">
+                        <p className="font-mono text-xs text-zinc-300 tracking-[0.2em] uppercase mt-2">
                             Customers retained · Mission-critical · Zero regressions
                         </p>
                     </motion.div>
@@ -993,7 +843,7 @@ export function MovieBeatShipped() {
             </AnimatePresence>
 
             {/* Metrics */}
-            <div className="flex gap-6 md:gap-10">
+            <div className="flex gap-8 md:gap-12">
                 {metrics.map((metric, i) => {
                     const Icon = metric.icon
                     return (
@@ -1008,7 +858,7 @@ export function MovieBeatShipped() {
                                 <Icon className="w-5 h-5 text-teal-400" strokeWidth={1.5} />
                             </div>
                             <div className="text-xl md:text-2xl font-bold text-white font-mono">{metric.value}</div>
-                            <div className="text-[11px] font-mono text-zinc-200 uppercase tracking-wider mt-1">{metric.label}</div>
+                            <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mt-1">{metric.label}</div>
                         </motion.div>
                     )
                 })}
@@ -1021,12 +871,12 @@ export function MovieBeatShipped() {
                         initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                         transition={{ duration: 0.8, ease }}
-                        className="mt-8 max-w-md text-center"
+                        className="mt-8 max-w-md text-center px-4"
                     >
                         <p className="text-sm text-zinc-200 italic leading-relaxed">
                             &ldquo;She impressed everyone. She took a 50-year-old system and made it look like it was built yesterday.&rdquo;
                         </p>
-                        <p className="text-xs font-mono text-zinc-200 mt-2 uppercase tracking-wider">
+                        <p className="text-xs font-mono text-zinc-400 mt-2 uppercase tracking-wider">
                             — Principal Engineer
                         </p>
                     </motion.div>
@@ -1040,13 +890,13 @@ export function MovieBeatShipped() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, ease }}
-                        className="mt-8 flex gap-6 items-center"
+                        className="mt-8 flex gap-6 items-center justify-center"
                     >
                         <div className="text-center">
                             <div className="text-xs font-mono text-rose-300/90 uppercase tracking-wider mb-1">Asked for</div>
-                            <div className="text-sm text-zinc-300 line-through">UI refresh</div>
+                            <div className="text-sm text-zinc-400 line-through">UI refresh</div>
                         </div>
-                        <ArrowRight className="w-4 h-4 text-zinc-700" />
+                        <ArrowRight className="w-4 h-4 text-zinc-600" />
                         <div className="text-center">
                             <div className="text-xs font-mono text-emerald-400/90 uppercase tracking-wider mb-1">Delivered</div>
                             <div className="text-sm text-white font-medium">Brand new integrated RC</div>

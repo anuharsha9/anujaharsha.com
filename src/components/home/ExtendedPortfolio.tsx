@@ -79,7 +79,20 @@ const SLIDES: SlideItem[][] = [
             tags: ['Enterprise', 'Travel'],
         },
     ],
-    // Slide 3: CRBS + WordU
+    // Slide 3: WordU + Vikram (he was her boss at 9P Studioz where WordU was built)
+    [
+        {
+            type: 'project',
+            id: 'wordu',
+            title: 'WordU',
+            subtitle: 'Viral word game · 12,000+ organic downloads in week one',
+            image: '/images/wordu-cover.png',
+            link: '/archive/wordu',
+            tags: ['Game Design', 'Viral Growth'],
+        },
+        { type: 'quote', id: 'vikram', ...TESTIMONIALS.vikram },
+    ],
+    // Slide 4: CRBS + Graphic Design
     [
         {
             type: 'project',
@@ -92,18 +105,6 @@ const SLIDES: SlideItem[][] = [
         },
         {
             type: 'project',
-            id: 'wordu',
-            title: 'WordU',
-            subtitle: 'Viral word game · 12,000+ organic downloads in week one',
-            image: '/images/wordu-cover.png',
-            link: '/archive/wordu',
-            tags: ['Game Design', 'Viral Growth'],
-        },
-    ],
-    // Slide 4: Graphic Design + Vikram
-    [
-        {
-            type: 'project',
             id: 'graphic-design',
             title: 'Early Graphic Design',
             subtitle: 'Logos, print, and brand identity from the early days',
@@ -111,7 +112,6 @@ const SLIDES: SlideItem[][] = [
             link: '/archive/graphic-design',
             tags: ['Visual Design', 'Brand Identity'],
         },
-        { type: 'quote', id: 'vikram', ...TESTIMONIALS.vikram },
     ],
 ]
 
