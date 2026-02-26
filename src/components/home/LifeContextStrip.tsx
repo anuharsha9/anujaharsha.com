@@ -66,7 +66,7 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
 
             {/* Label */}
             <motion.p
-                className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/20 mb-8"
+                className="font-mono text-xs uppercase tracking-[0.3em] text-white/50 mb-8"
                 style={{ opacity: labelOpacity }}
             >
                 {label}
@@ -79,23 +79,23 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
                     return (
                         <motion.div
                             key={m.title}
-                            initial={{ opacity: 0, y: 15 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 25, x: -10 }}
+                            whileInView={{ opacity: 1, y: 0, x: 0 }}
                             viewport={{ once: true, amount: 0.5 }}
-                            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                             className="flex items-center gap-3 group"
                         >
                             {/* Icon */}
-                            <div className="w-8 h-8 rounded-full bg-white/[0.04] flex items-center justify-center shrink-0 group-hover:bg-white/[0.08] transition-colors duration-300">
-                                <Icon className="w-3.5 h-3.5 text-white/25 group-hover:text-white/50 transition-colors duration-300" />
+                            <div className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center shrink-0 group-hover:bg-white/[0.12] transition-colors duration-300">
+                                <Icon className="w-3.5 h-3.5 text-white/40 group-hover:text-white/70 transition-colors duration-300" />
                             </div>
 
                             {/* Text */}
                             <div>
-                                <p className="text-white/50 text-xs font-medium leading-tight">
+                                <p className="text-white/70 text-sm font-medium leading-tight">
                                     {m.title}
                                 </p>
-                                <p className="text-white/20 text-[10px] font-mono">
+                                <p className="text-white/40 text-xs font-mono">
                                     {m.subtitle} · {m.year}
                                 </p>
                             </div>

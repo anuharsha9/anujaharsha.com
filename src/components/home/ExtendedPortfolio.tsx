@@ -73,8 +73,9 @@ export default function ExtendedPortfolio() {
         offset: ['start end', 'end start'],
     })
 
-    const headingY = useTransform(scrollYProgress, [0, 0.3], [40, 0])
+    const headingY = useTransform(scrollYProgress, [0, 0.3], [80, 0])
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
+    const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
     const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
         const el = e.currentTarget
@@ -94,9 +95,9 @@ export default function ExtendedPortfolio() {
             {/* Header */}
             <motion.div
                 className="mb-12 md:mb-16 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto"
-                style={{ y: headingY, opacity: headingOpacity }}
+                style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
             >
-                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/30 mb-3">
+                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
                     2012 — 2022
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
@@ -106,10 +107,10 @@ export default function ExtendedPortfolio() {
 
             {/* Apple-style horizontal snap carousel */}
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
                 <div
                     ref={scrollContainerRef}
@@ -126,10 +127,10 @@ export default function ExtendedPortfolio() {
                                 {pair.map((item, i) => (
                                     <motion.div
                                         key={item.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, amount: 0.3 }}
-                                        transition={{ duration: 0.6, delay: i * 0.1 }}
+                                        initial={{ opacity: 0, y: 40, scale: 0.92 }}
+                                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                        viewport={{ once: true, amount: 0.2 }}
+                                        transition={{ duration: 0.8, delay: i * 0.15 }}
                                     >
                                         <Link href={item.link}>
                                             <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
@@ -150,7 +151,7 @@ export default function ExtendedPortfolio() {
                                                         {item.tags.map(tag => (
                                                             <span
                                                                 key={tag}
-                                                                className="text-[9px] font-mono uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border border-white/10 text-white/30"
+                                                                className="text-[10px] font-mono uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/[0.06] text-white/50"
                                                             >
                                                                 {tag}
                                                             </span>
@@ -159,7 +160,7 @@ export default function ExtendedPortfolio() {
                                                     <h3 className="text-white text-lg md:text-xl font-bold mb-1">
                                                         {item.title}
                                                     </h3>
-                                                    <p className="text-white/40 text-xs md:text-sm">
+                                                    <p className="text-white/50 text-sm">
                                                         {item.subtitle}
                                                     </p>
                                                 </div>

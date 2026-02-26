@@ -148,10 +148,10 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 80, scale: 0.92, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
         >
             <Link href={tile.link}>
                 <div
@@ -187,10 +187,10 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
 
                     {/* Title */}
                     <div className="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-6">
-                        <p className="text-white/90 text-sm md:text-base font-medium leading-snug max-w-md">
+                        <p className="text-white text-base md:text-lg font-semibold leading-snug max-w-md">
                             {tile.title}
                         </p>
-                        <span className={`inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono uppercase tracking-[0.2em] transition-all duration-500 ${isHovered ? 'text-[var(--accent-teal)] translate-x-1' : 'text-white/30'}`}>
+                        <span className={`inline-flex items-center gap-1.5 mt-3 text-xs font-mono uppercase tracking-[0.15em] transition-all duration-500 ${isHovered ? 'text-[var(--accent-teal)] translate-x-1' : 'text-white/50'}`}>
                             Watch Case Study
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -211,8 +211,9 @@ export default function CSGBlock() {
         offset: ['start end', 'end start'],
     })
 
-    const headingY = useTransform(scrollYProgress, [0, 0.3], [60, 0])
+    const headingY = useTransform(scrollYProgress, [0, 0.3], [100, 0])
     const headingOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1])
+    const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
     const leftTiles = TILES.filter(t => !t.flagship)
     const rightTile = TILES.find(t => t.flagship)!
@@ -222,9 +223,9 @@ export default function CSGBlock() {
             {/* Section header */}
             <motion.div
                 className="mb-12 md:mb-16"
-                style={{ y: headingY, opacity: headingOpacity }}
+                style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
             >
-                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/30 mb-3">
+                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
                     2022 — 2025
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">

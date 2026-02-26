@@ -59,10 +59,10 @@ const TESTIMONIALS = [
 function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: number }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 60, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.9, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
             className={`relative rounded-2xl p-6 md:p-8 transition-all duration-300
                 ${t.isPrimary
                     ? 'bg-[var(--accent-teal)]/[0.06] shadow-[0_0_30px_rgba(47,198,213,0.06)]'
@@ -70,7 +70,7 @@ function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: numbe
                 }`}
         >
             {/* Quote */}
-            <p className={`text-sm md:text-base leading-relaxed mb-6 ${t.isPrimary ? 'text-white/80' : 'text-white/60'}`}>
+            <p className={`text-sm md:text-[15px] leading-relaxed mb-6 ${t.isPrimary ? 'text-white/90' : 'text-white/70'}`}>
                 &ldquo;{t.quote}&rdquo;
             </p>
 
@@ -85,10 +85,10 @@ function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: numbe
                     {t.name.charAt(0)}
                 </div>
                 <div>
-                    <p className={`text-sm font-semibold ${t.isPrimary ? 'text-white' : 'text-white/70'}`}>
+                    <p className={`text-sm font-semibold ${t.isPrimary ? 'text-white' : 'text-white/80'}`}>
                         {t.name}
                     </p>
-                    <p className="text-[11px] text-white/30 font-mono">
+                    <p className="text-xs text-white/40 font-mono">
                         {t.role}
                     </p>
                 </div>
@@ -97,7 +97,7 @@ function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: numbe
             {/* Primary badge */}
             {t.isPrimary && (
                 <div className="absolute top-4 right-4">
-                    <span className="text-[8px] font-mono uppercase tracking-[0.3em] text-[var(--accent-teal)]/60 bg-[var(--accent-teal)]/10 px-2 py-1 rounded-full">
+                    <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 bg-[var(--accent-teal)]/10 px-2 py-1 rounded-full">
                         Featured
                     </span>
                 </div>
@@ -113,8 +113,9 @@ export default function TestimonialsBlock() {
         offset: ['start end', 'end start'],
     })
 
-    const headingY = useTransform(scrollYProgress, [0, 0.3], [40, 0])
+    const headingY = useTransform(scrollYProgress, [0, 0.3], [80, 0])
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
+    const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
     // Separate primary and secondary
     const primary = TESTIMONIALS.filter(t => t.isPrimary)
@@ -125,9 +126,9 @@ export default function TestimonialsBlock() {
             {/* Header */}
             <motion.div
                 className="mb-12 md:mb-16"
-                style={{ y: headingY, opacity: headingOpacity }}
+                style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
             >
-                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/30 mb-3">
+                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
                     Social Proof
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">

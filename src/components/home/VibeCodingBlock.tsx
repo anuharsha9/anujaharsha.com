@@ -268,8 +268,9 @@ export default function VibeCodingBlock() {
         offset: ['start end', 'end start'],
     })
 
-    const headingY = useTransform(scrollYProgress, [0, 0.3], [40, 0])
+    const headingY = useTransform(scrollYProgress, [0, 0.3], [80, 0])
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
+    const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
     const handleTileClick = (action: string) => {
         if (action === 'portfolio') setPortfolioOpen(true)
@@ -283,9 +284,9 @@ export default function VibeCodingBlock() {
                 {/* Header */}
                 <motion.div
                     className="mb-12 md:mb-16"
-                    style={{ y: headingY, opacity: headingOpacity }}
+                    style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
                 >
-                    <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/30 mb-3">
+                    <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
                         Nov 2025 — Present
                     </p>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
@@ -303,10 +304,10 @@ export default function VibeCodingBlock() {
                         return (
                             <motion.div
                                 key={tile.id}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
-                                transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                                initial={{ opacity: 0, y: 70, scale: 0.9 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 1, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
                             >
                                 <button
                                     onClick={() => handleTileClick(tile.action)}
@@ -344,7 +345,7 @@ export default function VibeCodingBlock() {
                                         <p className="text-white/90 text-base md:text-lg font-semibold mb-1">
                                             {tile.title}
                                         </p>
-                                        <p className="text-white/30 text-xs font-mono">
+                                        <p className="text-white/50 text-sm font-mono">
                                             {tile.subtitle}
                                         </p>
                                     </div>
