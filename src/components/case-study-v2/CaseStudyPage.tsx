@@ -38,6 +38,7 @@ import { rcResearchConstraints, mlResearchConstraints } from '@/data/research-co
 import ImpactOutcomes from '@/components/case-study/ImpactOutcomes'
 import { rcImpactOutcomes, mlImpactOutcomes, iqImpactOutcomes } from '@/data/impact-outcomes'
 import StoryDeck, { StorySlide } from '@/components/case-study/StoryDeck'
+import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 import BeatWeekOne from '@/components/case-study/storyboard/BeatWeekOne'
 import BeatTheRoom from '@/components/case-study/storyboard/BeatTheRoom'
 import BeatWhatIGot from '@/components/case-study/storyboard/BeatWhatIGot'
@@ -176,6 +177,7 @@ export default function CaseStudyPage({
                     type: 'title',
                     title: 'Customers Were Leaving. I Rebuilt the System.',
                     content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'],
+                    backgroundComponent: <RCWireframe />,
                 },
                 // ── Beat 1: Week 1 ──
                 {
@@ -324,6 +326,7 @@ export default function CaseStudyPage({
                     type: 'title',
                     title: 'Democratizing Machine Learning for Everyone',
                     content: ['Anuja Harsha — Lead Product Designer', 'ML Functions · Cloud Software Group — WebFOCUS'],
+                    backgroundComponent: <MLWireframe />,
                 },
                 // ── Beat 1: The Business Problem ──
                 {
@@ -408,6 +411,7 @@ export default function CaseStudyPage({
                     type: 'title',
                     title: 'We Built the Intelligence. Nobody Knew It Existed.',
                     content: ['Anuja Harsha — Lead Product Designer', 'DSML Hub · Cloud Software Group — WebFOCUS'],
+                    backgroundComponent: <IQWireframe />,
                 },
                 // ── Beat 1: The Invisible Feature Problem ──
                 {

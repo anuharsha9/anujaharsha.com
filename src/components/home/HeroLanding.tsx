@@ -266,12 +266,12 @@ export default function HeroLanding() {
                             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-300 to-slate-500 mt-8 will-change-transform"
                             style={{ opacity: chair4Opacity, scale: chair4Scale, filter: chair4Filter }}
                         >
-                            Invisible.&quot;
+                            Effortless.&quot;
                         </motion.h3>
                     </motion.div>
 
                     {/* PHASE 2 & 3: INTRODUCTION & CTAS */}
-                    <div className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center px-6">
+                    <div id="bio" className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center px-6">
                         <motion.div
                             className="flex flex-col items-center text-center max-w-4xl will-change-transform"
                             style={{ opacity: introOpacity, y: introY }}

@@ -84,9 +84,7 @@ const WordUGameCard = ({ work, onPlay }: { work: WorkItem, onPlay: () => void })
         <a
             href={work.link}
             onClick={(e) => {
-                console.log('WordU Card Clicked');
                 e.preventDefault();
-                console.log('Calling onPlay');
                 onPlay();
             }}
             className="group/game relative bg-slate-900/60 border border-white/[0.06] rounded-2xl overflow-hidden hover:border-[var(--accent-teal)]/50 hover:shadow-[0_0_30px_var(--overlay-teal-20)] transition-all duration-500 block aspect-[4/3] cursor-pointer"

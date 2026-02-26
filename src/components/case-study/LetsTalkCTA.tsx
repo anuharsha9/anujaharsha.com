@@ -34,37 +34,35 @@ export default function LetsTalkCTA({ className = '', variant = 'card' }: LetsTa
     )
   }
 
-  // Compact card variant
+  // Subtle, quiet footer CTA
   return (
     <motion.section
-      className={`${className} py-8 md:py-10`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5 }}
+      className={`${className} py-6 md:py-8`}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.6 }}
     >
       <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-6 bg-white/[0.03] border border-white/[0.06]">
-          <p className="text-[var(--text-body)] text-sm md:text-base">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-4 border-t border-white/[0.04]">
+          <p className="text-white/25 text-xs font-mono tracking-wider uppercase">
             Interested in working together?
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link
               href="/#lets-talk"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[var(--bg-primary)] text-sm font-medium hover:bg-[var(--accent-teal)] hover:text-white transition-colors"
+              className="text-xs text-white/35 hover:text-[var(--accent-teal)] transition-colors duration-300 font-mono tracking-wider uppercase"
               aria-label="Contact me"
             >
-              <span>Get in touch</span>
-              <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              Get in touch →
             </Link>
+            <span className="w-px h-3 bg-white/[0.06]" />
             <button
               onClick={() => {
                 trackResumeDownload()
                 openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
               }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/[0.12] text-[var(--text-body)] text-sm font-medium hover:border-white/[0.25] hover:text-[var(--text-heading)] transition-colors"
+              className="text-xs text-white/25 hover:text-white/50 transition-colors duration-300 font-mono tracking-wider uppercase cursor-pointer"
               aria-label="Read Resume PDF"
             >
               Resume

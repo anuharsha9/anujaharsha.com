@@ -20,6 +20,8 @@ export default function SiteHeader() {
   const isWorduPage = pathname?.startsWith('/work/wordu') ?? false
   const isAboutPage = pathname === '/me' || pathname === '/me/'
 
+  const isCaseStudyPage = pathname?.startsWith('/work/') ?? false
+
   // Always visible off the landing page, otherwise start hidden.
   const [isVisible, setIsVisible] = useState(!isLandingPage)
   const [isPresentationMode, setIsPresentationMode] = useState(false)
@@ -78,7 +80,8 @@ export default function SiteHeader() {
 
   const t = getTheme(!isLandingPage)
 
-  if (isWorduPage) {
+  // Hide header on WordU and all case study pages (they have their own CaseStudyNav)
+  if (isWorduPage || isCaseStudyPage) {
     return null
   }
 

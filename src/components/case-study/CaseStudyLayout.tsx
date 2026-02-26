@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import StoryDeck, { StorySlide } from './StoryDeck'
+import { RCWireframe } from './CaseStudyWireframes'
 import JobLogRedesignViz from './JobLogRedesignViz'
 import { useCaseStudyAccess } from '@/hooks/useCaseStudyAccess'
 import { CaseStudyData } from '@/types/caseStudy'
@@ -256,6 +257,7 @@ export default function CaseStudyLayout({ data, defaultViewMode = 'presentation'
           type: 'title',
           title: 'Customers Were Leaving. I Rebuilt the System.',
           content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'],
+          backgroundComponent: <RCWireframe />,
         },
         // ── Beat 1: Week 1 ──
         {

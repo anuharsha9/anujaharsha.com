@@ -836,10 +836,46 @@ html {
    BRAIN ENTRY EXPERIENCE - GEAR LIGHTING
    ============================================ */
 
-/* Container for brain entry - simpler animations */
+/* Container for brain entry — cinematic zoom-out reveal */
+@keyframes brain-zoom-reveal {
+  0% {
+    transform: translateZ(0) scale(15);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  65% {
+    transform: translateZ(0) scale(0.92);
+  }
+
+  80% {
+    transform: translateZ(0) scale(1.03);
+  }
+
+  90% {
+    transform: translateZ(0) scale(0.99);
+  }
+
+  100% {
+    transform: translateZ(0) scale(1);
+    opacity: 1;
+  }
+}
+
 .brain-entry-container #brain-gears,
 .brain-entry-container #brain-gears-copy {
-  transform: translateZ(0);
+  animation: brain-zoom-reveal 4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* Allow the zoomed brain to bleed beyond containers */
+.brain-entry-container,
+.brain-entry-container * {
+  overflow: visible !important;
 }
 
 /* CRITICAL: Set transform properties via CSS so gears don't shift when JS attaches animations.
@@ -857,6 +893,110 @@ html {
 
 .gears-dark-theme [id*="bg-gear-"] {
   opacity: 0.08;
+}
+
+/* === Studio lights transition — cinematic reveal === */
+@keyframes studio-lights-reveal {
+  0% {
+    opacity: 0;
+    filter: brightness(0.3);
+  }
+
+  40% {
+    opacity: 0.6;
+    filter: brightness(0.7);
+  }
+
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@keyframes studio-shadow-reveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleX(0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+.studio-lights-on {
+  animation: studio-lights-reveal 3s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+.studio-shadow-on {
+  animation: studio-shadow-reveal 2s cubic-bezier(0.22, 1, 0.36, 1) 2s both;
+}
+
+/* === Post-quiz: smooth settle from quiz size → floating size === */
+@keyframes brain-settle {
+  0% {
+    transform: scale(1) translateY(0px);
+  }
+
+  100% {
+    transform: scale(0.75) translateY(0px);
+  }
+}
+
+/* === Post-quiz: gentle ongoing float bob === */
+@keyframes brain-float-bob {
+
+  0%,
+  100% {
+    transform: scale(0.75) translateY(0px);
+  }
+
+  50% {
+    transform: scale(0.75) translateY(-10px);
+  }
+}
+
+.brain-floating {
+  /* First settle down from scale(1) to scale(0.75) over 2.5s, then float forever */
+  animation:
+    brain-settle 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    brain-float-bob 4s ease-in-out 2.5s infinite;
+}
+
+/* Post-quiz enhanced gear depth — shadows, contrast, and 3D feel */
+/* All properties transition smoothly from quiz state */
+
+/* Overall SVG contrast boost for depth */
+.brain-floating .gears-dark-theme>svg {
+  filter: contrast(1.12) brightness(1.05);
+  transition: filter 2s ease-out;
+}
+
+/* Foreground lit gears — strong individual shadows + brightness pop */
+.brain-floating .gears-dark-theme #main-gears>.gear-lit {
+  filter:
+    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)) grayscale(0%) brightness(1.1) !important;
+  transition: filter 2s ease-out;
+}
+
+/* Foreground unlit gears — subtle shadow for depth layering */
+.brain-floating .gears-dark-theme #main-gears>[id*="gear-"]:not(.gear-lit) {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  transition: filter 2s ease-out, opacity 2s ease-out;
+}
+
+/* Background gears — softer, recessed shadow */
+.brain-floating .gears-dark-theme [id*="bg-gear-"] {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+  opacity: 0.12;
+  transition: filter 2s ease-out, opacity 2s ease-out;
+}
+
+/* Connection lines — subtle teal glow in post-quiz */
+.brain-floating .gears-dark-theme #lines-background path {
+  filter: drop-shadow(0 0 2px rgba(11, 162, 181, 0.15));
+  transition: filter 2s ease-out;
 }
 
 .brain-entry-container #brain-gears #main-gears>[id*="gear-"],
@@ -1055,6 +1195,76 @@ section[data-framer-component],
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes gear-spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes float-particle {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+
+  25% {
+    transform: translate(10px, -20px) scale(1.2);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translate(-5px, -35px) scale(0.8);
+    opacity: 0.3;
+  }
+
+  75% {
+    transform: translate(15px, -15px) scale(1.1);
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+@keyframes bar-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes flash-burst {
+  0% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2);
   }
 }
 

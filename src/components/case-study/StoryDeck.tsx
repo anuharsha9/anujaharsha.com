@@ -16,6 +16,8 @@ export interface StorySlide {
     notes?: string
     /** Optional custom React component to render instead of default layout */
     component?: ReactNode
+    /** Optional background component for title slides (e.g. animated wireframe) */
+    backgroundComponent?: ReactNode
 }
 
 interface StoryDeckProps {
@@ -27,7 +29,7 @@ interface StoryDeckProps {
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /* ─── Beat duration per slide (ms) ─── */
-const SLIDE_DURATION = 8000
+const SLIDE_DURATION = 12000
 
 /* ─── accent colors per type ──────────────────────── */
 function getAccentColor(type: string): string {
@@ -101,7 +103,7 @@ function SlideContent({ slide, index, total }: { slide: StorySlide; index: numbe
     /* ── Hero/title slide ── */
     if (isHero) {
         return (
-            <div className="flex flex-col items-center justify-center w-full h-full px-6 md:px-12 text-center">
+            <div className="flex flex-col items-center justify-center w-full h-full px-6 md:px-12 text-center relative">
                 {/* Subtle grid */}
                 <div
                     className="absolute inset-0 opacity-[0.02]"
@@ -111,7 +113,8 @@ function SlideContent({ slide, index, total }: { slide: StorySlide; index: numbe
                     }}
                 />
 
-                <div className="relative z-10 max-w-4xl">
+                {/* Text content — positioned in upper portion */}
+                <div className="relative z-10 max-w-4xl mb-4">
                     <motion.p
                         initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -142,6 +145,24 @@ function SlideContent({ slide, index, total }: { slide: StorySlide; index: numbe
                         </motion.p>
                     ))}
                 </div>
+
+                {/* Wireframe showcase — below the text */}
+                {slide.backgroundComponent && (
+                    <motion.div
+                        className="relative w-full max-w-2xl h-32 md:h-44 mt-2 overflow-hidden pointer-events-none"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 0.7, y: 0 }}
+                        transition={{ duration: 1.2, delay: 0.6, ease }}
+                    >
+                        {/* Fade-out edges */}
+                        <div className="absolute inset-0 z-10 pointer-events-none" style={{
+                            background: 'linear-gradient(to bottom, var(--bg-primary) 0%, transparent 20%, transparent 80%, var(--bg-primary) 100%), linear-gradient(to right, var(--bg-primary) 0%, transparent 15%, transparent 85%, var(--bg-primary) 100%)',
+                        }} />
+                        <div className="w-full h-full scale-110">
+                            {slide.backgroundComponent}
+                        </div>
+                    </motion.div>
+                )}
             </div>
         )
     }

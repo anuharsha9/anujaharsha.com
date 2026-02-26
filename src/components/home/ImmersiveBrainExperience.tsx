@@ -39,21 +39,21 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   'start': {
     id: 'start',
     statement: "Let's align our neural networks.",
-    question: "What are you looking for right now?",
-    activeGear: 'gear-scattered-workflows', // Restored
+    question: "Are you hiring, or just browsing?",
+    activeGear: 'gear-scattered-workflows',
     options: [
       {
-        id: 'hiring', label: 'A Business Problem Solver', val: 'hiring', emoji: '🤝', nextId: 'hire_1',
+        id: 'hiring', label: 'I\'m hiring a designer', val: 'hiring', emoji: '🤝', nextId: 'hire_1',
         reveal: {
-          title: "Efficiency Expert",
-          content: "Excellent. I speak business value—reducing development cycles and ensuring scalability from Day 1."
+          title: "Let's Talk Business.",
+          content: "Great — I've spent 13 years solving enterprise problems. Let me show you how I think."
         }
       },
       {
-        id: 'browsing', label: 'Design Inspiration', val: 'browsing', emoji: '🔭', nextId: 'explore_1',
+        id: 'browsing', label: 'Just browsing for inspiration', val: 'browsing', emoji: '🔭', nextId: 'explore_1',
         reveal: {
-          title: "Welcome, Explorer",
-          content: "I built this site to push the boundaries of what a portfolio can be. Let's peek under the hood."
+          title: "Welcome, Explorer.",
+          content: "Pull up a chair. Let me show you what 13 years of obsessive craft looks like under the hood."
         }
       }
     ],
@@ -65,22 +65,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   // --- HIRING TRACK ---
   'hire_1': {
     id: 'hire_1',
-    statement: "The engineering wall.",
-    question: "Engineering says a critical feature is 'too complex' to build. What's your move?",
+    statement: "Thriving in ambiguity.",
+    question: "I just got dropped into a project — no brief, conflicting priorities, 6 weeks. What do you think I'm supposed to do first?",
     activeGear: 'gear-conflicting-teams',
     options: [
       {
-        id: 'compromise', label: 'Simplify the design?', val: 'compromise', emoji: '📉', nextId: 'hire_2',
+        id: 'listen', label: 'Talk to everyone involved', val: 'listen', emoji: '🎧', nextId: 'hire_2',
         reveal: {
-          title: "Never.",
-          content: "I don't dumb it down. I spin up an AI agent, 'vibe code' a working prototype, and hand engineering the solution, not a request."
+          title: "Listen First, Always.",
+          content: "13 years taught me that the brief is never the real problem. I spend the first week just listening — to stakeholders, to customers, to the engineers who've been living with the system. The real priorities surface when people feel heard."
         }
       },
       {
-        id: 'build', label: 'Protype in code?', val: 'build', emoji: '🧑‍💻', nextId: 'hire_2',
+        id: 'define', label: 'Define the problem myself', val: 'define', emoji: '✏️', nextId: 'hire_2',
         reveal: {
-          title: "The Unblocker",
-          content: "Exactly. I use AI to bridge the gap. I deliver a functional React component they can inspect, proving it's not just possible—it's ready."
+          title: "Create Clarity, Don't Wait For It.",
+          content: "Ambiguity is where senior designers earn their keep. I write the brief nobody wrote, circulate it, and let people react. It's easier to align a team around something tangible — even if it's wrong — than to wait for perfect clarity that never comes."
         }
       }
     ],
@@ -91,22 +91,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'hire_2': {
     id: 'hire_2',
-    statement: "The build method.",
-    question: "This portfolio feels custom. Did you write every line of code yourself?",
+    statement: "Reader of rooms.",
+    question: "A key stakeholder keeps changing direction and my team is frustrated. What do you think I should do?",
     activeGear: 'gear-motherhood',
     options: [
       {
-        id: 'yes', label: 'Yes, hand-coded?', val: 'yes', emoji: '⌨️', nextId: 'hire_3',
+        id: 'empathy', label: 'Understand what\'s driving it', val: 'empathy', emoji: '💬', nextId: 'hire_3',
         reveal: {
-          title: "Better: I Orchestrated.",
-          content: "I didn't type the syntax; I directed the system. I use AI agents to execute the code while I architect the logic. This is Vibe Coding."
+          title: "Empathy Before Confrontation.",
+          content: "They're not indecisive — they're scared. After 13 years I've learned that changing direction usually means someone's under pressure they can't articulate. I go private, ask what's really driving the shifts, and help them find their actual constraint."
         }
       },
       {
-        id: 'ai', label: 'AI wrote it?', val: 'ai', emoji: '🤖', nextId: 'hire_3',
+        id: 'shield', label: 'Protect the team from the noise', val: 'shield', emoji: '🛡️', nextId: 'hire_3',
         reveal: {
-          title: "I am the Architect.",
-          content: "AI laid the bricks, but I drew the blueprints. I understand the system deeply, but I leverage agents to ship at 10x speed."
+          title: "The Human Shield.",
+          content: "Absolutely. I absorb the chaos so the team can build. But I don't just shield — I translate. I take the shifting signals, find the pattern, and give the team a stable target. That's the job nobody writes in the job description, but it's the one that ships products."
         }
       }
     ],
@@ -117,22 +117,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'hire_3': {
     id: 'hire_3',
-    statement: "The innovative edge.",
-    question: "If AI handles the execution, where does the designer's value go?",
+    statement: "Measuring what matters.",
+    question: "My VP asks: 'How do we know design is actually working?' What do you think I'm expected to say?",
     activeGear: 'gear-life',
     options: [
       {
-        id: 'pixels', label: 'Visual Polish?', val: 'pixels', emoji: '✨', nextId: 'end',
+        id: 'outcomes', label: 'Customer outcomes, not output', val: 'outcomes', emoji: '📈', nextId: 'end',
         reveal: {
-          title: "Too small.",
-          content: "Visuals are a commodity. The real value is System Architecture—designing the data flows and logic that make the AI useful."
+          title: "Impact Over Artifacts.",
+          content: "I stopped counting screens years ago. I track: Are customers staying? Are support costs dropping? Are engineers shipping faster because the specs are clearer? Design's value is measured by the problems that stop happening."
         }
       },
       {
-        id: 'systems', label: 'System Architecture?', val: 'systems', emoji: '🏗️', nextId: 'end',
+        id: 'contrast', label: 'Show them the before and after', val: 'contrast', emoji: '🪞', nextId: 'end',
         reveal: {
-          title: "The New Standard",
-          content: "Exactly. I stop pushing pixels and start connecting systems. I design the intelligence behind the interface."
+          title: "Make the Invisible Visible.",
+          content: "Leadership can't feel the difference — you have to show them. I document the chaos we inherited and the clarity we created. Not in a pitch deck — in side-by-side comparisons that make it undeniable. The story sells itself when the contrast is real."
         }
       }
     ],
@@ -144,29 +144,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   // --- EXPLORER TRACK ---
   'explore_1': {
     id: 'explore_1',
-    statement: "Behind the curtain.",
-    question: "This site feels different. How exactly was it built?",
+    statement: "Curiosity & depth.",
+    question: "I'm handed a brief that says 'redesign the settings page.' What do you think I'm supposed to do with that?",
     activeGear: 'gear-conflicting-teams',
     options: [
       {
-        id: 'nocode', label: 'Is it No-Code?', val: 'nocode', emoji: '🎨', nextId: 'explore_2',
+        id: 'dig', label: 'Question the task itself', val: 'dig', emoji: '🔍', nextId: 'explore_2',
         reveal: {
-          title: "It's All-Code.",
-          content: "But I didn't write it manually. I used 'Vibe Coding'—orchestrating AI agents to build a custom Next.js application that scales."
+          title: "The Task is Never the Task.",
+          content: "Why are people in the settings page? What broke that sent them there? Most 'redesign X' requests are symptoms. The real problem is three levels deeper — and solving it usually means the settings page becomes unnecessary."
         }
       },
       {
-        id: 'code', label: 'You coded this?', val: 'code', emoji: '💻', nextId: 'explore_2',
+        id: 'ship', label: 'Ship it and move on', val: 'ship', emoji: '⚡', nextId: 'explore_2',
         reveal: {
-          title: "I Orchestrated It.",
-          content: "I define the architecture and UX; AI agents handle the syntax. It allows me to build complex systems without getting lost in the weeds."
-        }
-      },
-      {
-        id: 'ai', label: 'Interactive AI?', val: 'ai', emoji: '🤖', nextId: 'explore_2',
-        reveal: {
-          title: "The Secret Weapon",
-          content: "Exactly. I use a multi-agent workflow to build fast. I am the System Architect; the AI is my engineering team."
+          title: "Sometimes, Yes. But Rarely.",
+          content: "I can ship fast when speed matters. But I'll always do a 30-minute investigation first. In 13 years, that small investment has saved me from building the wrong thing more times than I can count. Curiosity isn't slow — it's efficient."
         }
       }
     ],
@@ -177,22 +170,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'explore_2': {
     id: 'explore_2',
-    statement: "Looking forward.",
-    question: "Where do you see the future of Product Design going?",
+    statement: "The obsession.",
+    question: "We shipped. It works. But I'm still thinking about it at 11pm. Why do you think that is?",
     activeGear: 'gear-motherhood',
     options: [
       {
-        id: 'tools', label: 'Better UI Tools?', val: 'tools', emoji: '🖌️', nextId: 'explore_3',
+        id: 'feel', label: 'Because something feels off', val: 'feel', emoji: '🌙', nextId: 'explore_3',
         reveal: {
-          title: "Tools Empower Us",
-          content: "Figma is great, but code is the final canvas. I use AI to prototype in the browser, making the 'hand-off' obsolete."
+          title: "I Can't Unsee It.",
+          content: "There's a gap between 'works' and 'feels inevitable.' I live in that gap. It's the animation that's 100ms too slow. The label that makes you think for half a second. Users feel it even when they can't name it — and so do I."
         }
       },
       {
-        id: 'systems', label: 'System Orchestration?', val: 'systems', emoji: '🧠', nextId: 'explore_3',
+        id: 'great', label: 'Because you want it to be great', val: 'great', emoji: '✨', nextId: 'explore_3',
         reveal: {
-          title: "The Architect",
-          content: "As AI handles the pixels, designers must become System Architects. That's the playground I'm building in."
+          title: "Good Enough Never Was.",
+          content: "My bar isn't perfection — it's 'would I be proud to show this to someone I respect?' After 13 years, I've learned that this obsession compounds. 50 tiny improvements become the reason someone says 'this product just feels different.'"
         }
       }
     ],
@@ -203,22 +196,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'explore_3': {
     id: 'explore_3',
-    statement: "The hidden craft.",
-    question: "How do you make an interface feel this 'alive'?",
+    statement: "Collaboration under tension.",
+    question: "An engineer tells me my design will take 3 sprints. I have 1. What do you think I'm supposed to do?",
     activeGear: 'gear-life',
     options: [
       {
-        id: 'motion', label: 'Is it the motion?', val: 'motion', emoji: '🌊', nextId: 'end',
+        id: 'together', label: 'Find the 80/20 together', val: 'together', emoji: '🤝', nextId: 'end',
         reveal: {
-          title: "Physics, not Keyframes",
-          content: "It's spring physics. I treat the UI as a physical object. I tell the AI the 'mass' and 'stiffness' I want, and it writes the math."
+          title: "We're on the Same Team.",
+          content: "I sit with them, not across from them. I ask 'what's expensive?' and we usually find that 80% of the experience can ship in 20% of the effort. The remaining 20% goes to v2. That conversation builds trust that lasts beyond the sprint."
         }
       },
       {
-        id: 'details', label: 'The micro-details?', val: 'details', emoji: '✨', nextId: 'end',
+        id: 'prototype', label: 'Prototype it to prove it\'s possible', val: 'prototype', emoji: '🛠️', nextId: 'end',
         reveal: {
-          title: "The Polish",
-          content: "God is in the details. I use AI to iterate on the small things—transitions, timing, haptics—that make a product feel premium."
+          title: "Bridge the Gap.",
+          content: "Sometimes the best argument is a working thing. I've built functional prototypes to show engineers that the 'complex' interaction is actually 40 lines of code. Not to prove them wrong — to remove the uncertainty."
         }
       }
     ],
@@ -1161,80 +1154,46 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
   return (
     <>
       {/* Brain content — fills the CinematicTimeline slide container */}
-      <div className="absolute inset-0 flex flex-col overflow-hidden">
+      <div className={`absolute inset-0 flex flex-col ${quizState === 'quiz' ? 'overflow-visible' : 'overflow-hidden'}`}>
 
         {/* === 3D DEPTH ENVIRONMENT (post-quiz only) === */}
         {showImmersiveCompleteState && (
           <>
-            {/* Overhead ambient light — soft teal glow from above */}
+            {/* Cyclorama studio background — lights warming up */}
             <div
               ref={ambientLightRef}
-              className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-[2000ms]"
-              style={{
-                background: 'radial-gradient(ellipse 65% 45% at 50% 25%, rgba(11, 162, 181, 0.10) 0%, rgba(11, 162, 181, 0.04) 40%, transparent 70%)',
-              }}
-            />
-
-            {/* Ground plane — visible studio floor with clear horizon */}
-            <div
-              className="absolute inset-0 pointer-events-none z-[9] transition-opacity duration-[2000ms]"
+              className="absolute inset-0 pointer-events-none z-[8] studio-lights-on"
               style={{
                 background: `
-                  linear-gradient(to bottom,
-                    transparent 0%,
-                    transparent 35%,
-                    rgba(18, 24, 33, 0.45) 48%,
-                    rgba(28, 36, 50, 0.7) 58%,
-                    rgba(38, 48, 65, 0.75) 68%,
-                    rgba(45, 55, 72, 0.65) 78%,
-                    rgba(38, 48, 65, 0.5) 90%,
-                    rgba(30, 38, 52, 0.35) 100%
+                  radial-gradient(ellipse 85% 55% at 50% 100%, rgba(55, 68, 88, 0.95) 0%, rgba(38, 48, 65, 0.55) 40%, transparent 70%),
+                  radial-gradient(ellipse 60% 35% at 50% 10%, rgba(11, 162, 181, 0.14) 0%, transparent 70%),
+                  linear-gradient(to bottom, 
+                    rgba(8, 12, 20, 1) 0%, 
+                    rgba(12, 18, 28, 1) 28%,
+                    rgba(20, 28, 42, 1) 52%,
+                    rgba(32, 42, 58, 1) 68%,
+                    rgba(42, 55, 72, 1) 80%,
+                    rgba(38, 50, 68, 1) 90%,
+                    rgba(32, 42, 58, 1) 100%
                   )
                 `,
               }}
             />
 
-            {/* Specular floor highlight — light reflection on the surface */}
+            {/* Contact shadow — fades in after the lights */}
             <div
-              className="absolute pointer-events-none z-[10]"
+              className="absolute pointer-events-none z-[11] studio-shadow-on"
               style={{
                 left: '50%',
-                bottom: '14%',
+                bottom: '10%',
                 transform: 'translateX(-50%)',
-                width: '45%',
-                height: '18%',
-                background: 'radial-gradient(ellipse 100% 60% at 50% 30%, rgba(120, 145, 175, 0.08) 0%, transparent 70%)',
-              }}
-            />
-
-            {/* Floor shadow — large soft contact shadow beneath the brain */}
-            <div
-              className="absolute pointer-events-none z-[11]"
-              style={{
-                left: '50%',
-                bottom: '14%',
-                transform: 'translateX(-50%)',
-                width: '55%',
-                height: '4%',
-                background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 40%, transparent 70%)',
-                filter: 'blur(28px)',
+                width: '42%',
+                height: '1.5%',
+                background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 15%, rgba(0, 0, 0, 0.4) 35%, rgba(0, 0, 0, 0.15) 55%, rgba(0, 0, 0, 0.04) 70%, transparent 82%)',
+                filter: 'blur(10px)',
               }}
             />
           </>
-        )}
-
-        {/* Subtle grid background */}
-        {quizState !== 'quiz' && (
-          <div
-            className="absolute inset-0 opacity-[0.02]"
-            style={{
-              backgroundImage: `linear-gradient(var(--overlay-white-08) 1px, transparent 1px),
-                linear-gradient(90deg, var(--overlay-white-08) 1px, transparent 1px)`,
-              backgroundSize: '60px 60px',
-              maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
-            }}
-          />
         )}
 
 
@@ -1256,7 +1215,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding,filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz'
                   ? 'max-w-[360px] sm:max-w-[460px] md:max-w-[620px] lg:max-w-[760px] xl:max-w-[840px] max-h-[62vh] sm:max-h-[70vh] lg:max-h-[82vh] mt-0 brain-entry-container'
                   : showImmersiveCompleteState
-                    ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0'
+                    ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0 brain-floating'
                     : 'max-w-[150px] sm:max-w-[170px] md:max-w-[250px] lg:max-w-[290px] xl:max-w-[320px] max-h-[30vh] sm:max-h-[35vh] lg:max-h-[40vh] mt-0'
                   }`}
                 style={{
@@ -1284,16 +1243,19 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
                       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <div className="text-white bg-white/10 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl max-w-xl w-[90vw] relative overflow-hidden">
+                      <div className="text-white bg-black/60 backdrop-blur-2xl border border-white/15 p-6 md:p-8 rounded-2xl shadow-[0_8px_60px_rgba(0,0,0,0.5),0_0_1px_rgba(255,255,255,0.1)] max-w-xl w-[90vw] relative overflow-hidden">
+
+                        {/* Teal accent top border */}
+                        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent opacity-60" />
 
                         <motion.div
                           key={`statement-${currentQuestionId}`}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.2 }}
-                          className="mb-3 text-center"
+                          className="mb-5 text-center"
                         >
-                          <h3 className="text-lg md:text-xl font-light text-white leading-tight">
+                          <h3 className="text-xl md:text-2xl font-light text-white/95 leading-snug tracking-tight">
                             {currentQuestion.question}
                           </h3>
                         </motion.div>
@@ -1303,7 +1265,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                             {!showReveal ? (
                               <motion.div
                                 key={`options-${currentQuestionId}`}
-                                className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${showReveal ? 'pointer-events-none' : ''}`}
+                                className={`grid grid-cols-1 md:grid-cols-2 gap-2.5 ${showReveal ? 'pointer-events-none' : ''}`}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
@@ -1313,13 +1275,13 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                   <button
                                     key={option.id}
                                     onClick={() => handleAnswer(option.id)}
-                                    className={`text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 
-                                           border border-white/5 hover:border-white/20 transition-all duration-300
-                                           flex items-center gap-3 group h-full ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
+                                    className={`text-left p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] 
+                                           border border-white/[0.08] hover:border-[var(--accent-teal)]/30 transition-all duration-300
+                                           flex items-center gap-3 group h-full hover:shadow-[0_0_20px_rgba(11,162,181,0.08)] ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
                                   >
                                     <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
-                                    <span className="text-sm text-white/90 font-light">{option.label}</span>
-                                    <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                    <span className="text-sm text-white/85 font-light">{option.label}</span>
+                                    <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-300 text-[var(--accent-teal)]" />
                                   </button>
                                 ))}
                               </motion.div>
@@ -1443,74 +1405,65 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                   key={activeGear.id}
                   className="absolute z-20 pointer-events-none"
                   style={{
-                    left: activeCoords.x,
-                    top: activeCoords.y,
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
                   }}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.92, y: 6 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.92, y: 6 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
                 >
+                  {/* The Card */}
                   <div
-                    className={`flex items-center ${activeCoords.side === 'left' ? 'flex-row-reverse -translate-x-full' : 'flex-row'}`}
+                    className={`pointer-events-auto p-5 w-[260px] xs:w-[300px] min-h-[100px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
+                    data-gear-card
+                    onMouseEnter={() => {
+                      setIsCardHovered(true)
+                      if (hideTimeoutRef.current) {
+                        clearTimeout(hideTimeoutRef.current)
+                        hideTimeoutRef.current = null
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      setIsCardHovered(false)
+                      hideTimeoutRef.current = setTimeout(() => {
+                        setActiveGear(null)
+                      }, 150)
+                    }}
                   >
-                    {/* Connecting Line (Leader) */}
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: 40 }}
-                      className="h-px bg-slate-600 shadow-[0_0_8px_var(--overlay-white-50)]"
+                    {/* Accent Top Border */}
+                    <div
+                      className="absolute top-0 left-0 right-0 h-[2px]"
+                      style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
                     />
 
-                    {/* The Card */}
-                    <div
-                      className={`pointer-events-auto mx-4 p-5 w-[260px] xs:w-[300px] min-h-[140px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
-                      onMouseEnter={() => {
-                        setIsCardHovered(true)
-                        if (hideTimeoutRef.current) {
-                          clearTimeout(hideTimeoutRef.current)
-                          hideTimeoutRef.current = null
-                        }
+                    {/* DISMISS BUTTON */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        setActiveGear(null)
                       }}
-                      onMouseLeave={() => {
-                        setIsCardHovered(false)
-                        hideTimeoutRef.current = setTimeout(() => {
-                          setActiveGear(null)
-                        }, 150)
-                      }}
+                      className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
                     >
-                      {/* Accent Top Border */}
-                      <div
-                        className="absolute top-0 left-0 right-0 h-[2px]"
-                        style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
-                      />
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                    </button>
 
-                      {/* DISMISS BUTTON */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          e.preventDefault()
-                          setActiveGear(null)
-                        }}
-                        className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
-                      >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <line x1="18" y1="6" x2="6" y2="18" />
-                          <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                      </button>
-
-                      {/* PERSONALITY INSIGHT MODE */}
-                      <div className="block text-left group">
-                        <div className="flex flex-col h-full justify-between gap-4">
-                          {/* Insight Content */}
-                          <div className="space-y-2 select-text cursor-auto">
-                            <p className="text-white/90 text-[14px] leading-relaxed font-medium">
-                              {activeGear.thought}
-                            </p>
-                          </div>
-
-
+                    {/* PERSONALITY INSIGHT MODE */}
+                    <div className="block text-left group">
+                      <div className="flex flex-col h-full justify-between gap-4">
+                        {/* Insight Content */}
+                        <div className="space-y-2 select-text cursor-auto">
+                          <p className="text-white/90 text-[14px] leading-relaxed font-medium">
+                            {activeGear.thought}
+                          </p>
                         </div>
+
+
                       </div>
                     </div>
                   </div>

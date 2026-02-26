@@ -59,10 +59,10 @@ const TESTIMONIALS = [
 function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: number }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 60, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.9, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
             className={`relative rounded-2xl p-6 md:p-8 transition-all duration-300
                 ${t.isPrimary
                     ? 'bg-[var(--accent-teal)]/[0.06] shadow-[0_0_30px_rgba(47,198,213,0.06)]'
