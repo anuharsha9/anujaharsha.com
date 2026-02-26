@@ -100,14 +100,7 @@ export default function ComponentHeading({
                 align === 'center' ? "items-center text-center mx-auto" : "items-start text-left",
                 className
             )}>
-                {tag && (
-                    <span className={cn(
-                        "uppercase transition-colors duration-300 text-[var(--text-muted)]",
-                        currentStyle.tag
-                    )}>
-                        {tag.replace(/^\/\/\s*/, '')}
-                    </span>
-                )}
+
                 <h2 className={cn(
                     "text-[var(--text-heading)] text-balance",
                     currentStyle.title
@@ -139,18 +132,7 @@ export default function ComponentHeading({
             viewport={{ once: true, amount: 0.3 }}
             variants={containerVariants}
         >
-            {/* Tag / Eyebrow */}
-            {tag && (
-                <motion.span
-                    className={cn(
-                        "uppercase transition-colors duration-300 text-[var(--text-muted)]",
-                        currentStyle.tag
-                    )}
-                    variants={childVariants}
-                >
-                    {tag.replace(/^\/\/\s*/, '')}
-                </motion.span>
-            )}
+
 
             {/* Main Title */}
             <motion.h2

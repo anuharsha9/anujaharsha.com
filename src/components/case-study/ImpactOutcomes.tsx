@@ -4,14 +4,12 @@ import { motion } from 'framer-motion'
 import { type LucideIcon } from 'lucide-react'
 import ComponentHeading from '@/components/ui/ComponentHeading'
 
-// ─── Data Types ───────────────────────────────────────────
-
 export interface ImpactOutcome {
     tag: string
     headline: string
     body: string
     icon: LucideIcon
-    accentColor: string   // e.g. 'teal', 'emerald', 'purple', 'amber'
+    accentColor: string
 }
 
 export interface ImpactOutcomesData {
@@ -21,18 +19,6 @@ export interface ImpactOutcomesData {
     outcomes: ImpactOutcome[]
 }
 
-// ─── Accent Color Map ────────────────────────────────────
-
-const accentColors: Record<string, { tagText: string; iconBg: string; iconText: string }> = {
-    teal: { tagText: 'text-teal-400', iconBg: 'bg-teal-500/[0.10]', iconText: 'text-teal-400' },
-    emerald: { tagText: 'text-emerald-400', iconBg: 'bg-emerald-500/[0.10]', iconText: 'text-emerald-400' },
-    purple: { tagText: 'text-purple-400', iconBg: 'bg-purple-500/[0.10]', iconText: 'text-purple-400' },
-    amber: { tagText: 'text-amber-400', iconBg: 'bg-amber-500/[0.10]', iconText: 'text-amber-400' },
-    blue: { tagText: 'text-blue-400', iconBg: 'bg-blue-500/[0.10]', iconText: 'text-blue-400' },
-}
-
-// ─── Component ───────────────────────────────────────────
-
 interface ImpactOutcomesProps {
     data: ImpactOutcomesData
     isLightBackground?: boolean
@@ -40,54 +26,40 @@ interface ImpactOutcomesProps {
 
 export default function ImpactOutcomes({
     data,
-    isLightBackground = false,
 }: ImpactOutcomesProps) {
     return (
         <div className="space-y-8">
             <ComponentHeading
                 variant="block"
                 align="center"
-                tag={data.sectionTag || 'IMPACT METRICS'}
                 title={data.title}
-                description={data.description}
                 color="teal"
                 className="mb-0"
             />
 
-            {/* 2x2 Outcome Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {data.outcomes.map((o, i) => {
                     const IconComponent = o.icon
-                    const colors = accentColors[o.accentColor] || accentColors.teal
-
                     return (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 16 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            className="bg-white/[0.03] border border-white/[0.06] p-6 md:p-8 h-full flex flex-col hover:shadow-lg hover:border-white/[0.08] transition-all duration-300 rounded-2xl"
+                            transition={{ duration: 0.5, delay: i * 0.08 }}
+                            className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-6 flex items-start gap-4"
                         >
-                            {/* Icon */}
-                            <div className={`w-12 h-12 ${colors.iconBg} flex items-center justify-center mb-4 rounded-xl`}>
-                                <IconComponent className={`w-6 h-6 ${colors.iconText}`} />
+                            <div className="w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0 mt-0.5">
+                                <IconComponent className="w-4.5 h-4.5 text-white/40" strokeWidth={1.5} />
                             </div>
-
-                            {/* Tag */}
-                            <span className={`font-mono text-[10px] ${colors.tagText} uppercase tracking-widest mb-3`}>
-                                {'// '}{o.tag}
-                            </span>
-
-                            {/* Headline */}
-                            <h4 className="text-[var(--text-heading)] text-lg font-sans font-semibold mb-3">
-                                {o.headline}
-                            </h4>
-
-                            {/* Body */}
-                            <p className="text-[var(--text-body)] text-sm leading-relaxed">
-                                {o.body}
-                            </p>
+                            <div>
+                                <h4 className="text-[15px] font-medium text-white/80 mb-1">
+                                    {o.headline}
+                                </h4>
+                                <p className="text-white/30 text-[13px] font-light leading-relaxed">
+                                    {o.body}
+                                </p>
+                            </div>
                         </motion.div>
                     )
                 })}

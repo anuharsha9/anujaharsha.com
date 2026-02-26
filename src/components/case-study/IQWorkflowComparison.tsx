@@ -64,9 +64,7 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
         <ComponentHeading
           variant="block"
           align="center"
-          tag="BEFORE AND AFTER"
           title="Unifying Fragmented Workflows"
-          description="Three features, three different entry points → One unified hub. Drag the slider to compare."
           color="teal"
           className="mb-16"
         />
@@ -80,21 +78,10 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="space-y-8"
+              className="space-y-4"
             >
-              {/* Comparison Title & Metric */}
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1">
-                <h4 className="text-2xl text-[var(--text-heading)] font-light tracking-tight">
-                  {comparison.title}
-                </h4>
-                <div className="flex items-center gap-3 text-sm font-medium text-[var(--accent-teal)]">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)]" />
-                  {comparison.insight}
-                </div>
-              </div>
-
               {/* The Styled Impact Slider */}
-              <div className="rounded-2xl overflow-hidden shadow-sm border border-white/[0.06]">
+              <div className="rounded-xl overflow-hidden border border-white/[0.08]">
                 <ImpactDiff
                   beforeImage={comparison.beforeImage}
                   afterImage={comparison.afterImage}
@@ -105,6 +92,11 @@ export default function IQWorkflowComparison({ isLightBackground = false }: IQWo
                   isLightBackground={true}
                 />
               </div>
+
+              {/* Title below slider */}
+              <p className="text-white/30 text-[13px] font-light text-center">
+                {comparison.title}
+              </p>
             </motion.div>
           ))}
         </div>

@@ -105,10 +105,10 @@ export default function CaseStudySection({
 
                     {/* Section header */}
                     {hasHeader && (
-                        <div className="mb-10 md:mb-12">
+                        <div className="mb-12 md:mb-14">
                             {eyebrow && (
                                 <motion.p
-                                    className="font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase text-[var(--accent-teal)] mb-4"
+                                    className="font-mono text-[10px] md:text-[11px] tracking-[0.3em] uppercase text-[var(--accent-teal)]/70 mb-3"
                                     {...(!noAnimation && { variants: childVariants })}
                                 >
                                     {eyebrow}
@@ -116,22 +116,19 @@ export default function CaseStudySection({
                             )}
                             {title && (
                                 <motion.h2
-                                    className="text-2xl md:text-3xl lg:text-[2.25rem] font-sans font-bold leading-[1.15] tracking-tight text-[var(--text-heading)] mb-0"
+                                    className="text-2xl md:text-3xl lg:text-[2.25rem] font-sans font-bold leading-[1.15] tracking-tight text-[var(--text-heading)]"
                                     {...(!noAnimation && { variants: childVariants })}
                                 >
                                     {title}
                                 </motion.h2>
                             )}
                             {subtitle && (
-                                <>
-                                    <div className="w-12 h-px bg-white/[0.1] my-5" />
-                                    <motion.p
-                                        className="text-base md:text-lg text-[var(--text-body)] leading-relaxed font-light max-w-3xl"
-                                        {...(!noAnimation && { variants: childVariants })}
-                                    >
-                                        {subtitle}
-                                    </motion.p>
-                                </>
+                                <motion.p
+                                    className="mt-3 text-[15px] md:text-base text-[var(--text-body)] leading-relaxed font-light max-w-2xl"
+                                    {...(!noAnimation && { variants: childVariants })}
+                                >
+                                    {subtitle}
+                                </motion.p>
                             )}
                         </div>
                     )}

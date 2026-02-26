@@ -187,7 +187,6 @@ export default function ArchitectureBlueprint({ data }: Props) {
                 <ComponentHeading
                     variant="block"
                     align="center"
-                    tag={heading.tag}
                     title={heading.title}
                     description={heading.description}
                     color={heading.color}
@@ -248,10 +247,7 @@ export default function ArchitectureBlueprint({ data }: Props) {
 
                                 {/* Caption */}
                                 <div className="px-4 py-3 border-t border-white/[0.04]">
-                                    <span className="font-mono text-[9px] uppercase tracking-widest text-white/20 block mb-1">
-                                        {diagram.label}
-                                    </span>
-                                    <p className="text-sm text-white/40 leading-relaxed">{diagram.caption}</p>
+                                    <p className="text-[13px] text-white/30 leading-relaxed">{diagram.caption}</p>
                                 </div>
                             </div>
                         ))}
@@ -259,28 +255,7 @@ export default function ArchitectureBlueprint({ data }: Props) {
                 </motion.div>
             )}
 
-            {/* ── FOOTER INSIGHT ── */}
-            {footer && (
-                <motion.div variants={itemVariants}>
-                    <TerminalInsight title={footer.title} insightLabel={footer.label}>
-                        <div className="flex items-start gap-3">
-                            <span className="font-mono text-emerald-400 flex-shrink-0 mt-0.5">&gt;</span>
-                            <p>
-                                {footer.highlight
-                                    ? footer.text.split(footer.highlight).map((part, i, arr) => (
-                                        <span key={i}>
-                                            {part}
-                                            {i < arr.length - 1 && (
-                                                <span className="text-white font-medium">{footer.highlight}</span>
-                                            )}
-                                        </span>
-                                    ))
-                                    : footer.text}
-                            </p>
-                        </div>
-                    </TerminalInsight>
-                </motion.div>
-            )}
+
 
             {/* Sketch Lightbox */}
             {allSketches.length > 0 && (

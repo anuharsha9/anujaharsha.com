@@ -339,12 +339,7 @@ I owned all three features — no audit needed. The decisions:
       index: 'I',
       title: 'Iterate with Inclusion: Four Iterations to the Final Hub',
       summary: 'Four iterations. One navigation fight. I won.',
-      body: `• **V1:** Tabbed dashboard. Too dense.
-• **V2:** Educational layout. Too passive.
-• **V3:** Sidebar nav. Competed with Hub.
-• **V4:** Icon tiles. Landed.
-
-The biggest fight: large tiles vs. list views. Veteran architects wanted lists. My argument — lists caused the low adoption. Tiles gave immediate context. I won.`,
+      body: `The biggest fight: large tiles vs. list views. Veteran architects wanted lists. My argument — lists caused the low adoption. Tiles gave immediate context. I won.`,
     },
     {
       id: 'section-05',

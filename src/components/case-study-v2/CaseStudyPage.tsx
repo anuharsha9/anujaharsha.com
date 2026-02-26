@@ -678,7 +678,6 @@ export default function CaseStudyPage({
                                     <ComponentHeading
                                         variant="block"
                                         align="center"
-                                        tag="VISUAL DIFF"
                                         title="Side-by-Side Comparison"
                                         color="teal"
                                     />
@@ -922,9 +921,8 @@ export default function CaseStudyPage({
                                 <ComponentHeading
                                     variant="block"
                                     align="center"
-                                    tag="SHIPPED SCREENS"
                                     title="The Guided 4-Step Workflow"
-                                    description="Every screen of the redesigned ML wizard — from problem type selection through model comparison."
+                                    description="Every screen of the redesigned ML wizard."
                                     color="teal"
                                     className="mb-8"
                                 />
@@ -962,7 +960,6 @@ export default function CaseStudyPage({
                                     <ComponentHeading
                                         variant="block"
                                         align="center"
-                                        tag="VISUAL DIFF"
                                         title="Legacy vs. Redesign"
                                         color="teal"
                                     />
@@ -982,9 +979,8 @@ export default function CaseStudyPage({
                                     <ComponentHeading
                                         variant="block"
                                         align="center"
-                                        tag="HIGHLIGHT"
                                         title="The Confusion Matrix"
-                                        description={`"This is the best screen in the entire UX revamp — I couldn't have designed it better." — Principal Data Scientist`}
+                                        description={`"The best screen in the entire UX revamp." — Principal Data Scientist`}
                                         color="teal"
                                     />
                                 </div>
@@ -1201,9 +1197,8 @@ export default function CaseStudyPage({
                                 <ComponentHeading
                                     variant="block"
                                     align="center"
-                                    tag="SHIPPED SCREENS"
                                     title="The Unified DSML Hub"
-                                    description="Every screen of the redesigned DSML Hub — Ask, Analyze, Predict — unified under one roof."
+                                    description="Ask, Analyze, Predict — unified under one roof."
                                     color="teal"
                                     className="mb-8"
                                 />
@@ -1235,27 +1230,7 @@ export default function CaseStudyPage({
                                 </div>
                             )}
 
-                            {/* Visual Diff — Before/After */}
-                            <div className="mt-10 pt-10 border-t border-white/[0.08]">
-                                <div className="mb-8">
-                                    <ComponentHeading
-                                        variant="block"
-                                        align="center"
-                                        tag="VISUAL DIFF"
-                                        title="Scattered vs. Unified"
-                                        color="teal"
-                                    />
-                                </div>
-                                <ImpactDiff
-                                    beforeImage="/images/case-study/iq-plugin/IQ - Ask a Question _ Empty State 1.png"
-                                    afterImage="/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png"
-                                    beforeLabel="Before"
-                                    afterLabel="After"
-                                    beforeTitle="scattered_entry_points"
-                                    afterTitle="unified_dsml_hub.tsx"
-                                    isLightBackground={false}
-                                />
-                            </div>
+
 
                             {/* Workflow Comparison */}
                             <div className="mt-10 pt-10 border-t border-white/[0.08]">
