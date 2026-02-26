@@ -34,27 +34,58 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Anuja Harsha Nimmagadda',
+    alternateName: ['Anuja Harsha', 'Anuja Nimmagadda'],
     url: siteUrl,
     jobTitle: 'Senior Product Designer',
     description:
-      'Senior Product Designer with 13+ years of experience untangling complex enterprise systems and transforming legacy workflows into intuitive experiences at scale.',
+      'Senior Product Designer & Complexity Architect with 13+ years transforming high-ambiguity enterprise systems into high-impact products. Pioneering AI-Native design, vibe coding, and high-fidelity code prototyping. Known for the interactive Brain Gears portfolio experience. Open to work.',
     email: 'anujanimmagadda@gmail.com',
     telephone: '+1-781-354-7394',
     sameAs: [
       'https://www.linkedin.com/in/anu159',
-      // Add other social profiles here
     ],
     knowsAbout: [
       'User Experience Design',
       'Enterprise UX',
+      'B2B Enterprise UX',
       'AI/ML UX',
+      'AI-Native Design',
+      'Vibe Coding',
+      'Code Prototyping',
+      'High Fidelity Code Prototyping',
       'Legacy System Modernization',
       'Design Systems',
       'Product Design',
+      'Product Strategy',
+      'Systems Thinking',
+      'Cross-functional Leadership',
+      'Engineering Empathy',
+      'Data Science UX',
+      'Machine Learning UX',
+      'Interactive Animation',
+      'Brain Gear Animation',
+      'Framer Motion',
+      'Next.js',
+      'TypeScript',
+      'Multi-Agent AI Workflow',
     ],
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: 'Senior Product Designer',
+      occupationLocation: {
+        '@type': 'Country',
+        name: 'United States',
+      },
+      skills: 'Enterprise UX, AI-Native Design, Vibe Coding, Code Prototyping, Systems Thinking, Design Systems, Cross-functional Leadership',
+    },
     alumniOf: {
-      '@type': 'Organization',
-      name: 'Design Education', // Update with actual education
+      '@type': 'CollegeOrUniversity',
+      name: 'University of Bridgeport',
+    },
+    seeks: {
+      '@type': 'Demand',
+      name: 'Senior or Staff Product Designer role',
+      description: 'Open to work — seeking Senior or Staff Product Designer roles at innovative companies. Specializes in complex enterprise systems, AI-Native design, and code prototyping.',
     },
   })
 

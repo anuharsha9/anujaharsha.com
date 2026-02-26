@@ -14,7 +14,7 @@ export function SecondaryCaseStudies() {
             {/* ML Functions */}
             <Link
                 href="/work/ml-functions"
-                className="group relative w-full md:w-1/2 aspect-[4/5] md:aspect-[3/4] lg:aspect-[16/10] rounded-3xl overflow-hidden bg-[#0A0A0A] border border-white/10 block transition-transform duration-700 ease-out hover:scale-[0.98]"
+                className="group relative w-full md:w-1/2 aspect-[4/5] md:aspect-[3/4] lg:aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--surface-charcoal-950)] border border-white/10 block transition-transform duration-700 ease-out hover:scale-[0.98]"
             >
                 {/* Background Video */}
                 <video
@@ -49,7 +49,7 @@ export function SecondaryCaseStudies() {
                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-3">
                         ML Functions
                     </h3>
-                    <p className="text-sm md:text-base text-zinc-400 max-w-sm leading-relaxed">
+                    <p className="text-sm md:text-base text-[var(--neutral-zinc-400)] max-w-sm leading-relaxed">
                         12-Step ML Process → 4-Step Visual Wizard
                     </p>
                 </div>
@@ -58,7 +58,7 @@ export function SecondaryCaseStudies() {
             {/* DSML Discovery */}
             <Link
                 href="/work/iq-plugin"
-                className="group relative w-full md:w-1/2 aspect-[4/5] md:aspect-[3/4] lg:aspect-[16/10] rounded-3xl overflow-hidden bg-[#0A0A0A] border border-white/10 block transition-transform duration-700 ease-out hover:scale-[0.98]"
+                className="group relative w-full md:w-1/2 aspect-[4/5] md:aspect-[3/4] lg:aspect-[16/10] rounded-3xl overflow-hidden bg-[var(--surface-charcoal-950)] border border-white/10 block transition-transform duration-700 ease-out hover:scale-[0.98]"
             >
                 {/* Background Video */}
                 <video
@@ -93,7 +93,7 @@ export function SecondaryCaseStudies() {
                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-3">
                         DSML Discovery
                     </h3>
-                    <p className="text-sm md:text-base text-zinc-400 max-w-sm leading-relaxed">
+                    <p className="text-sm md:text-base text-[var(--neutral-zinc-400)] max-w-sm leading-relaxed">
                         3 Siloed Tools → 1 Discovery Hub
                     </p>
                 </div>

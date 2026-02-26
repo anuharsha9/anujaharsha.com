@@ -38,12 +38,12 @@ import { teamCollaborationData } from '@/data/team-collaboration'
 import DesignSystemShowcase from './DesignSystemShowcase'
 import ScrollGear from '@/components/ui/ScrollGear'
 import { iqTabs, iqFooterContent } from '@/components/case-study/iq-plugin-data'
-// RetrospectiveCard and EvolutionSplit removed - personal growth content now on /me page
+
 
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 
 
-// import { PresentationFlow, Slide } from './PresentationFlow' — replaced by StoryDeck
+
 import { ScaleAndResponsibility } from './ScaleAndResponsibility'
 import { CaseStudyCard } from './CaseStudyCard'
 
@@ -121,7 +121,7 @@ import TribalKnowledgeNetwork from './TribalKnowledgeNetwork'
 import PlusMenuInsight from './PlusMenuInsight'
 import NaturalLanguageInsight from './NaturalLanguageInsight'
 
-// ExecutiveSummaryArc removed — merged into VersionIteration (section-04)
+
 import SystemConsolidationMap from './SystemConsolidationMap'
 import OwnershipScope from './OwnershipScope'
 

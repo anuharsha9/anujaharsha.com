@@ -16,6 +16,12 @@ export const metadata: Metadata = {
     'Enterprise Design',
     'UX Case Study',
     'System Redesign',
+    'Senior Product Designer',
+    'Enterprise Scheduler',
+    'Cross-functional Leadership',
+    'Systems Thinking',
+    'Code Prototyping',
+    'Anuja Harsha',
   ],
   openGraph: {
     title: 'Customers Were Leaving. 40 Years Without Updates. | Anuja Harsha',

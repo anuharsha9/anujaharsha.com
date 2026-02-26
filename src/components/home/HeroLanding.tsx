@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import {
     motion,
     useScroll,
@@ -25,10 +25,13 @@ import {
     MovieBeatShipped,
 } from '@/components/case-study/storyboard/RCMovieBeats'
 
+const MOVIE_PACE = 1.72
+const d = (ms: number) => Math.round(ms * MOVIE_PACE)
+
 const RC_MOVIE_BEATS: MovieBeat[] = [
     {
         id: 'assignment',
-        duration: 7600,
+        duration: d(7600),
         label: 'The Business Problem',
         signal: 'CUSTOMER LOSS',
         narration: 'Week one: I inherited a 50-year-old mission-critical system that was actively losing customers.',
@@ -37,7 +40,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
     },
     {
         id: 'discovery',
-        duration: 7600,
+        duration: d(7600),
         label: 'Discovery Arc',
         signal: 'SYSTEM ARCHAEOLOGY',
         narration: 'I had zero domain context, so I built the mental model from scratch with SMEs and raw artifacts.',
@@ -46,7 +49,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
     },
     {
         id: 'chaos',
-        duration: 8600,
+        duration: d(8600),
         label: 'The Chaos',
         signal: 'LEGACY DEBT',
         narration: 'What looked like one product was actually five disconnected tools, scattered across broken workflows.',
@@ -55,7 +58,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
     },
     {
         id: 'pivots',
-        duration: 8400,
+        duration: d(8400),
         label: 'Three Pivots',
         signal: 'ITERATION',
         narration: 'V1 failed. V2 failed. The third pivot aligned engineering reality with customer outcomes.',
@@ -64,7 +67,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
     },
     {
         id: 'breakthrough',
-        duration: 9000,
+        duration: d(9000),
         label: 'The Breakthrough',
         signal: 'UNIFIED HUB',
         narration: 'The + Menu became the strategic hinge: one command center replacing fragmented entry points.',
@@ -73,7 +76,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
     },
     {
         id: 'execution',
-        duration: 8400,
+        duration: d(8400),
         label: 'Execution Arc',
         signal: 'FEATURE SYSTEM',
         narration: 'Then I rebuilt Scheduler, Recurrence, and Job Logs as one coherent interaction system.',
@@ -82,7 +85,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
     },
     {
         id: 'scale',
-        duration: 7600,
+        duration: d(7600),
         label: '250 Screens',
         signal: 'SCALE + HANDOFF',
         narration: '250-plus screens, every edge state documented, and a living handoff system for a 20-person team.',
@@ -91,7 +94,7 @@ const RC_MOVIE_BEATS: MovieBeat[] = [
     },
     {
         id: 'shipped',
-        duration: 10400,
+        duration: d(10400),
         label: 'Shipped + Impact',
         signal: 'OUTCOME',
         narration: 'We shipped at enterprise scale with zero regressions and retained trust in a mission-critical product.',
@@ -115,6 +118,7 @@ export default function HeroLanding() {
     const router = useRouter()
 
     const [isWatching, setIsWatching] = useState(false)
+    const [movieKey, setMovieKey] = useState(0)
     const watchMode = useMotionValue(0)
 
     const { scrollYProgress } = useScroll({
@@ -186,13 +190,14 @@ export default function HeroLanding() {
 
     const enterWatchMode = () => {
         setIsWatching(true)
+        setMovieKey(k => k + 1) // Force AutoPlayStory remount → restart from beat 0
         fmAnimate(watchMode, 1, { duration: 0.6, ease: [0.4, 0, 0.2, 1] })
     }
 
-    const exitWatchMode = () => {
+    const exitWatchMode = useCallback(() => {
         setIsWatching(false)
         fmAnimate(watchMode, 0, { duration: 0.6, ease: [0.4, 0, 0.2, 1] })
-    }
+    }, [watchMode])
 
     const enterExploreMode = () => {
         router.push('/quiz')
@@ -206,7 +211,7 @@ export default function HeroLanding() {
         }
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [isWatching])
+    }, [isWatching, exitWatchMode])
 
     useEffect(() => {
         if (isWatching) {
@@ -224,11 +229,12 @@ export default function HeroLanding() {
             <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center">
 
                 <motion.div
-                    className="absolute inset-0 z-0 bg-[#010204] flex items-center justify-center pointer-events-auto"
+                    className="absolute inset-0 z-0 bg-[var(--bg-cinematic)] flex items-center justify-center pointer-events-auto"
                     style={{ scale: videoScale, y: videoY, originY: 0, filter: videoFilterTemplate, opacity: videoOpacity }}
                 >
                     <div className="w-full h-full transition-all duration-[1200ms]" style={{ padding: isWatching ? '4rem' : '0' }}>
                         <AutoPlayStory
+                            key={movieKey}
                             beats={RC_MOVIE_BEATS}
                             isInView={true}
                             autoStart={true}
@@ -277,10 +283,10 @@ export default function HeroLanding() {
                             style={{ opacity: introOpacity, y: introY }}
                         >
                             <span className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Senior Product Designer</span>
-                            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6">
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6">
                                 <span className="text-white drop-shadow-md">Hi, I&apos;m </span>
                                 <span className="bg-[linear-gradient(118deg,#ffffff_0%,#eafcff_28%,#9ceaf2_56%,#2fc6d5_80%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
-                            </h2>
+                            </h1>
                             <p className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-2xl">
                                 13 years of experience specializing in B2B enterprise UX, product strategy, and high-fidelity code prototyping.
                             </p>
@@ -355,6 +361,7 @@ export default function HeroLanding() {
                 <AnimatePresence>
                     {isWatching && (
                         <motion.button
+                            aria-label="Exit movie mode"
                             className="absolute top-6 right-6 z-[50] w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-colors cursor-pointer pointer-events-auto"
                             onClick={exitWatchMode}
                             initial={{ opacity: 0, scale: 0.8 }}

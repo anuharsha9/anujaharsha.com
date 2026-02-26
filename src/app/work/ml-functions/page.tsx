@@ -16,6 +16,10 @@ export const metadata: Metadata = {
     'Enterprise AI',
     'UX Case Study',
     'ML Workflow Design',
+    'AI-Native Design',
+    'Senior Product Designer',
+    'Code Prototyping',
+    'Anuja Harsha',
   ],
   openGraph: {
     title: 'ML Functions: Making Enterprise ML Training Usable | Anuja Harsha',

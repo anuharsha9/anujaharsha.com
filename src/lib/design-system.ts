@@ -1,18 +1,19 @@
 /**
- * Design System - Single source of truth for all styling
+ * Design System — Visual design tokens and theme system
  * 
- * This file centralizes all design decisions. Change values here
- * and they propagate across the entire application.
- * 
- * Colors reference CSS variables from /src/styles/tokens.css
+ * Colors, typography, spacing, and component presets.
+ * Motion/animation presets live in /src/lib/motion.ts
+ * CSS variables are defined in /src/styles/tokens.css
  * Tailwind extensions are in /tailwind.config.ts
  */
+
+import { transitions, hover } from './motion'
 
 // =============================================================================
 // CSS VARIABLE REFERENCES (for inline styles)
 // =============================================================================
 
-export const cssVars = {
+const cssVars = {
   // Brand colors
   accent: 'var(--accent-teal)',
   accent50: 'var(--accent-teal-50)',
@@ -219,19 +220,19 @@ export function getTheme(isLight: boolean = true): Theme {
       text: 'text-[var(--text-monitor)]',           // white
       textSecondary: 'text-[var(--text-monitor-muted)]', // slate-400
       textMuted: 'text-[var(--text-monitor-dim)]',  // slate-500
-      textDim: 'text-slate-600',
+      textDim: 'text-[var(--text-dim)]',
       textAccent: TEXT.accent,      // teal
 
       bg: 'bg-[var(--bg-ink-950)]', // slate-950 (Monitor BG)
       bgAlt: 'bg-[var(--bg-ink-900)]', // slate-900 (Monitor Alt)
       bgAccent: 'bg-[var(--accent-teal)]/10',
 
-      border: 'border-slate-800',
-      borderSecondary: 'border-slate-700',
-      borderSubtle: 'border-slate-800',
+      border: 'border-[var(--border-primary)]',
+      borderSecondary: 'border-[var(--border-secondary)]',
+      borderSubtle: 'border-[var(--border-subtle)]',
       borderAccent: 'border-[var(--accent-teal)]/50',
 
-      divider: 'bg-slate-800',
+      divider: 'bg-[var(--border-primary)]',
       surface: 'bg-[var(--bg-ink-900)]',
       cardBg: 'bg-[var(--bg-ink-900)]',
 
@@ -251,8 +252,6 @@ export function getTheme(isLight: boolean = true): Theme {
   }
 }
 
-// Legacy alias
-export const getThemeClasses = getTheme
 
 // =============================================================================
 // TYPOGRAPHY PRESETS
@@ -310,40 +309,7 @@ export const spacing = {
   },
 } as const
 
-// =============================================================================
-// EFFECT PRESETS
-// =============================================================================
 
-export const effects = {
-  // Border radius — Apple minimalism: sharp edges
-  rounded: {
-    sm: '',                   // sharp
-    md: '',                   // sharp
-    lg: '',                   // sharp
-    full: 'rounded-full',     // keep for dots/avatars only
-  },
-
-  // Shadows — Apple diffused
-  shadow: {
-    sm: 'shadow-sm',
-    md: 'shadow-md',
-    lg: 'shadow-lg',
-  },
-
-  // Transitions — Amazon Design-inspired smooth
-  transition: {
-    fast: 'transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
-    normal: 'transition-all duration-350 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
-    slow: 'transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
-  },
-
-  // Hover effects — refined, Amazon Design-style
-  hover: {
-    lift: 'hover:-translate-y-[2px] hover:shadow-lg',
-    scale: 'hover:scale-[1.015]',
-    glow: 'hover:shadow-[0_4px_24px_var(--overlay-teal-core-12)]',
-  },
-} as const
 
 // =============================================================================
 // COMPONENT PRESETS
@@ -353,8 +319,8 @@ export const components = {
   // Card styles — sharp-edge windows
   card: (isLight: boolean) => ({
     base: `${isLight ? BG.surface.light : BG.surface.dark} border ${isLight ? BORDER.light : BORDER.dark}`,
-    interactive: `${isLight ? BG.surface.light : BG.surface.dark} border ${isLight ? BORDER.light : BORDER.dark} ${effects.transition.normal} ${effects.hover.scale} hover:shadow-lg`,
-    accent: `${isLight ? BG.surface.light : BG.surface.dark} border-2 ${effects.transition.normal}`,
+    interactive: `${isLight ? BG.surface.light : BG.surface.dark} border ${isLight ? BORDER.light : BORDER.dark} ${transitions.normal} ${hover.scale} hover:shadow-lg`,
+    accent: `${isLight ? BG.surface.light : BG.surface.dark} border-2 ${transitions.normal}`,
   }),
 
   // Section header

@@ -199,86 +199,171 @@ export default function AutoPlayStory({
                     </motion.div>
                 </AnimatePresence>
 
-                {/* Signal badge */}
-                <AnimatePresence mode="wait">
-                    {currentBeatData?.signal && (
-                        <motion.div
-                            key={`signal-${currentBeat}`}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.4, ease }}
-                            className="absolute top-4 left-4 md:top-6 md:left-6 z-20"
+                {/* ── Full-bleed stacked layout: Signal → Narration → Beat ── */}
+                {fullBleedBackground ? (
+                    <div className="relative h-full w-full flex flex-col items-center z-[15]">
+                        {/* Top section: Signal badge */}
+                        <div className="shrink-0 pt-6 md:pt-8 pb-2">
+                            <AnimatePresence mode="wait">
+                                {currentBeatData?.signal && (
+                                    <motion.div
+                                        key={`signal-${currentBeat}`}
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.4, ease }}
+                                    >
+                                        <span className="font-mono text-[11px] tracking-[0.2em] text-teal-300/90 uppercase bg-teal-500/10 px-2.5 py-1 rounded-full border border-teal-500/20">
+                                            {currentBeatData.signal}
+                                        </span>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Narration bar: Avatar + speech bubble */}
+                        {currentBeatData?.narration && (
+                            <div className="shrink-0 w-[min(94vw,52rem)] px-4 pb-3 md:pb-4">
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.div
+                                        key={`narration-${currentBeat}`}
+                                        initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+                                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                        exit={{ opacity: 0, y: -8, filter: 'blur(6px)' }}
+                                        transition={{ duration: 0.45, ease }}
+                                    >
+                                        <PresenterBar
+                                            narration={currentBeatData.narration}
+                                            delay={currentBeatData.narrationDelay ?? 0}
+                                            showAvatar={currentBeatData.presenter !== false}
+                                        />
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                        )}
+
+                        {/* Beat content: fills remaining space, centered */}
+                        <div className="flex-1 relative w-full min-h-0">
+                            <AnimatePresence mode="wait" initial={false}>
+                                <motion.div
+                                    key={`beat-${currentBeat}`}
+                                    initial={{
+                                        opacity: 0,
+                                        y: 22,
+                                        scale: 1.035,
+                                        filter: 'blur(14px)',
+                                        clipPath: 'inset(3% 1.5% 4% 1.5% round 14px)',
+                                    }}
+                                    animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                        scale: 1,
+                                        filter: 'blur(0px)',
+                                        clipPath: 'inset(0% 0% 0% 0% round 0px)',
+                                    }}
+                                    exit={{
+                                        opacity: 0,
+                                        y: -14,
+                                        scale: 0.985,
+                                        filter: 'blur(12px)',
+                                        clipPath: 'inset(4% 2% 3% 2% round 16px)',
+                                    }}
+                                    transition={{ duration: 1.02, ease: [0.18, 1, 0.28, 1] }}
+                                    className="absolute inset-0 flex h-full w-full items-center justify-center p-4 md:p-6"
+                                >
+                                    {currentBeatData?.component}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Pause/Play button — bottom right */}
+                        <button
+                            onClick={togglePlay}
+                            className="absolute bottom-5 right-5 z-[30] w-10 h-10 rounded-full bg-white/[0.08] backdrop-blur-md
+                                       border border-white/[0.1] flex items-center justify-center
+                                       text-zinc-400 hover:text-white hover:bg-white/[0.15] transition-all cursor-pointer"
+                            aria-label={isPlaying ? 'Pause' : 'Play'}
                         >
-                            <span className="font-mono text-[11px] tracking-[0.2em] text-teal-300/90 uppercase bg-teal-500/10 px-2.5 py-1 rounded-full border border-teal-500/20">
-                                {currentBeatData.signal}
+                            {isPlaying ? (
+                                <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
+                                    <rect x="0" y="0" width="3" height="12" rx="1" />
+                                    <rect x="7" y="0" width="3" height="12" rx="1" />
+                                </svg>
+                            ) : (
+                                <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
+                                    <path d="M0 0 L10 6 L0 12Z" />
+                                </svg>
+                            )}
+                        </button>
+
+                        {/* Beat counter — bottom left */}
+                        <div className="absolute bottom-6 left-6 z-[30]">
+                            <span className="font-mono text-[10px] text-zinc-500 tracking-wider">
+                                {String(currentBeat + 1).padStart(2, '0')} / {String(beats.length).padStart(2, '0')}
                             </span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Beat content with morph-style overlap transition */}
-                <div className="relative h-full w-full">
-                    <AnimatePresence mode="wait" initial={false}>
-                        <motion.div
-                            key={`beat-${currentBeat}`}
-                            initial={{
-                                opacity: 0,
-                                y: 22,
-                                scale: 1.035,
-                                filter: 'blur(14px)',
-                                clipPath: 'inset(3% 1.5% 4% 1.5% round 14px)',
-                            }}
-                            animate={{
-                                opacity: 1,
-                                y: 0,
-                                scale: 1,
-                                filter: 'blur(0px)',
-                                clipPath: 'inset(0% 0% 0% 0% round 0px)',
-                            }}
-                            exit={{
-                                opacity: 0,
-                                y: -14,
-                                scale: 0.985,
-                                filter: 'blur(12px)',
-                                clipPath: 'inset(4% 2% 3% 2% round 16px)',
-                            }}
-                            transition={{ duration: 1.02, ease: [0.18, 1, 0.28, 1] }}
-                            className="absolute inset-0 flex h-full w-full items-center justify-center p-4 md:p-8"
-                        >
-                            {currentBeatData?.component}
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-
-                {/* Graphic-novel narrator layer for full-bleed mode */}
-                {fullBleedBackground && currentBeatData?.narration && (
-                    <div className="pointer-events-none absolute left-1/2 top-16 z-[25] w-[min(94vw,58rem)] -translate-x-1/2 sm:top-8">
-                        <AnimatePresence mode="wait" initial={false}>
-                            <motion.div
-                                key={`narration-${currentBeat}`}
-                                initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                exit={{ opacity: 0, y: -8, filter: 'blur(6px)' }}
-                                transition={{ duration: 0.45, ease }}
-                            >
-                                <PresenterBar
-                                    narration={currentBeatData.narration}
-                                    delay={currentBeatData.narrationDelay ?? 0}
-                                    showAvatar={currentBeatData.presenter}
-                                />
-                            </motion.div>
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        {/* Signal badge — non-fullbleed mode */}
+                        <AnimatePresence mode="wait">
+                            {currentBeatData?.signal && (
+                                <motion.div
+                                    key={`signal-${currentBeat}`}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.4, ease }}
+                                    className="absolute top-4 left-4 md:top-6 md:left-6 z-20"
+                                >
+                                    <span className="font-mono text-[11px] tracking-[0.2em] text-teal-300/90 uppercase bg-teal-500/10 px-2.5 py-1 rounded-full border border-teal-500/20">
+                                        {currentBeatData.signal}
+                                    </span>
+                                </motion.div>
+                            )}
                         </AnimatePresence>
-                    </div>
-                )}
 
-                {/* Beat counter (top right) - hide if background */}
-                {!fullBleedBackground && (
-                    <div className="absolute top-4 right-4 md:top-6 md:right-6 z-20">
-                        <span className="font-mono text-[10px] text-zinc-600 tracking-wider">
-                            {String(currentBeat + 1).padStart(2, '0')} / {String(beats.length).padStart(2, '0')}
-                        </span>
-                    </div>
+                        {/* Beat content — non-fullbleed mode */}
+                        <div className="relative h-full w-full">
+                            <AnimatePresence mode="wait" initial={false}>
+                                <motion.div
+                                    key={`beat-${currentBeat}`}
+                                    initial={{
+                                        opacity: 0,
+                                        y: 22,
+                                        scale: 1.035,
+                                        filter: 'blur(14px)',
+                                        clipPath: 'inset(3% 1.5% 4% 1.5% round 14px)',
+                                    }}
+                                    animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                        scale: 1,
+                                        filter: 'blur(0px)',
+                                        clipPath: 'inset(0% 0% 0% 0% round 0px)',
+                                    }}
+                                    exit={{
+                                        opacity: 0,
+                                        y: -14,
+                                        scale: 0.985,
+                                        filter: 'blur(12px)',
+                                        clipPath: 'inset(4% 2% 3% 2% round 16px)',
+                                    }}
+                                    transition={{ duration: 1.02, ease: [0.18, 1, 0.28, 1] }}
+                                    className="absolute inset-0 flex h-full w-full items-center justify-center p-4 md:p-8"
+                                >
+                                    {currentBeatData?.component}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Beat counter (top right) */}
+                        <div className="absolute top-4 right-4 md:top-6 md:right-6 z-20">
+                            <span className="font-mono text-[10px] text-zinc-600 tracking-wider">
+                                {String(currentBeat + 1).padStart(2, '0')} / {String(beats.length).padStart(2, '0')}
+                            </span>
+                        </div>
+                    </>
                 )}
             </div>
 

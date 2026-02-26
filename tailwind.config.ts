@@ -14,6 +14,67 @@ const config: Config = {
         mono: ['var(--font-mono)'],
       },
       colors: {
+        // ============================================
+        // PALETTE OVERRIDES — Centralized via CSS Variables
+        // These ensure ALL zinc/slate usage across the codebase
+        // is backed by the token system in tokens.css
+        // ============================================
+        zinc: {
+          50: 'var(--palette-zinc-50, #fafafa)',
+          100: 'var(--palette-zinc-100, #f4f4f5)',
+          200: 'var(--palette-zinc-200, #e4e4e7)',
+          300: 'var(--palette-zinc-300, #d4d4d8)',
+          400: 'var(--palette-zinc-400, #a1a1aa)',
+          500: 'var(--palette-zinc-500, #71717a)',
+          600: 'var(--palette-zinc-600, #52525b)',
+          700: 'var(--palette-zinc-700, #3f3f46)',
+          800: 'var(--palette-zinc-800, #27272a)',
+          900: 'var(--palette-zinc-900, #18181b)',
+          950: 'var(--palette-zinc-950, #09090b)',
+        },
+        slate: {
+          50: 'var(--palette-slate-50, #f8fafc)',
+          100: 'var(--palette-slate-100, #f1f5f9)',
+          200: 'var(--palette-slate-200, #e2e8f0)',
+          300: 'var(--palette-slate-300, #cbd5e1)',
+          400: 'var(--palette-slate-400, #94a3b8)',
+          500: 'var(--palette-slate-500, #64748b)',
+          600: 'var(--palette-slate-600, #475569)',
+          700: 'var(--palette-slate-700, #334155)',
+          800: 'var(--palette-slate-800, #1e293b)',
+          900: 'var(--palette-slate-900, #0f172a)',
+          950: 'var(--palette-slate-950, #020617)',
+        },
+        gray: {
+          50: 'var(--palette-gray-50, #f9fafb)',
+          100: 'var(--palette-gray-100, #f3f4f6)',
+          200: 'var(--palette-gray-200, #e5e7eb)',
+          300: 'var(--palette-gray-300, #d1d5db)',
+          400: 'var(--palette-gray-400, #9ca3af)',
+          500: 'var(--palette-gray-500, #6b7280)',
+          600: 'var(--palette-gray-600, #4b5563)',
+          700: 'var(--palette-gray-700, #374151)',
+          800: 'var(--palette-gray-800, #1f2937)',
+          900: 'var(--palette-gray-900, #111827)',
+          950: 'var(--palette-gray-950, #030712)',
+        },
+        neutral: {
+          50: 'var(--palette-neutral-50, #fafafa)',
+          100: 'var(--palette-neutral-100, #f5f5f5)',
+          200: 'var(--palette-neutral-200, #e5e5e5)',
+          300: 'var(--palette-neutral-300, #d4d4d4)',
+          400: 'var(--palette-neutral-400, #a3a3a3)',
+          500: 'var(--palette-neutral-500, #737373)',
+          600: 'var(--palette-neutral-600, #525252)',
+          700: 'var(--palette-neutral-700, #404040)',
+          800: 'var(--palette-neutral-800, #262626)',
+          900: 'var(--palette-neutral-900, #171717)',
+          950: 'var(--palette-neutral-950, #0a0a0a)',
+        },
+
+        // ============================================
+        // SEMANTIC DESIGN TOKENS
+        // ============================================
         'bg-dark': 'var(--bg-dark)',
         'bg-dark-alt': 'var(--bg-dark-alt)',
         'bg-light': 'var(--bg-light)',
@@ -47,8 +108,6 @@ const config: Config = {
         'color-error': 'var(--color-error)',
         'color-info': 'var(--color-info)',
 
-
-
         // Backgrounds
         'bg-primary': 'var(--bg-primary)',
         'bg-secondary': 'var(--bg-secondary)',
@@ -80,6 +139,7 @@ const config: Config = {
         'semantic-pink-500': 'var(--semantic-pink-500)',
         'semantic-navy-700': 'var(--semantic-navy-700)',
         'brand-linkedin': 'var(--brand-linkedin)',
+
         // Legacy support
         bg: 'var(--bg-dark)',
         surface: 'var(--bg-dark-alt)',

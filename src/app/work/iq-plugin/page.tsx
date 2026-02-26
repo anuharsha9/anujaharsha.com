@@ -18,6 +18,10 @@ export const metadata: Metadata = {
     'Multi-Persona Design',
     'Progressive Disclosure',
     'UX Case Study',
+    'AI-Native Design',
+    'Senior Product Designer',
+    'Enterprise UX',
+    'Anuja Harsha',
   ],
   openGraph: {
     title: 'Driving Data Science Adoption in Enterprise BI | Anuja Harsha',

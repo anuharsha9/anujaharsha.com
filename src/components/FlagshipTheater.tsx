@@ -28,7 +28,7 @@ import { ML_MOVIE_BEATS } from './case-study/storyboard/MLMovieBeats'
 import { DSML_MOVIE_BEATS } from './case-study/storyboard/DSMLMovieBeats'
 
 const ease = [0.22, 1, 0.36, 1] as const
-const MOVIE_PACE = 1.28
+const MOVIE_PACE = 1.72
 const d = (ms: number) => Math.round(ms * MOVIE_PACE)
 
 /* ── RC movie beats ── */

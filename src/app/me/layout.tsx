@@ -4,23 +4,29 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'About Anuja Harsha | Senior Product Designer',
+    absolute: 'About Anuja Harsha | Senior Product Designer — AI-Native, Open to Work',
   },
   description:
-    'Senior Product Designer with 13+ years of experience untangling complex enterprise systems. Discover the journey, philosophy, and approach behind transforming legacy workflows into intuitive experiences.',
+    'Senior Product Designer & Complexity Architect with 13+ years transforming enterprise systems. Discover the journey, philosophy, and AI-Native approach behind transforming legacy workflows into intuitive, high-impact products. Open to work.',
   keywords: [
     'Anuja Harsha Nimmagadda',
+    'Anuja Harsha',
     'Senior Product Designer',
+    'Staff Product Designer',
     'Enterprise UX',
     'Design Philosophy',
     'Systems Thinking',
-    'UX Designer Background',
-    'Design Career',
+    'AI-Native Design',
+    'Vibe Coding',
+    'Code Prototyping',
+    'Engineering Empathy',
+    'Open to Work',
+    'Product Designer Portfolio',
   ],
   openGraph: {
-    title: 'About Anuja Harsha Nimmagadda | Senior Product Designer',
+    title: 'About Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
     description:
-      'Senior Product Designer with 13+ years of experience transforming complex enterprise systems into intuitive experiences. Learn about the journey, philosophy, and approach.',
+      'Complexity Architect with 13+ years transforming enterprise systems into high-impact products. AI-Native design, vibe coding, code prototyping. Open to work.',
     url: `${siteUrl}/me/`,
     type: 'profile',
     images: [
@@ -28,15 +34,15 @@ export const metadata: Metadata = {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Anuja Harsha Nimmagadda - Senior Product Designer',
+        alt: 'Anuja Harsha Nimmagadda - Senior Product Designer | Open to Work',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Anuja Harsha Nimmagadda | Senior Product Designer',
+    title: 'About Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
     description:
-      'Senior Product Designer with 13+ years of experience transforming complex enterprise systems into intuitive experiences.',
+      'Complexity Architect. 13+ years transforming enterprise chaos into clarity. AI-Native design, vibe coding, code prototyping. Open to work.',
     images: ['/images/og-image.png'],
   },
   alternates: {

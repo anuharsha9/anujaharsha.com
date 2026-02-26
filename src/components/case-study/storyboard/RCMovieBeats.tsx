@@ -13,7 +13,7 @@ import { CheckCircle2, ArrowRight, Clock, Layers3, Sparkles } from 'lucide-react
 import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
-const BEAT_PACE = 1.22
+const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
 
 /* ─────────────────────────────────────────────────

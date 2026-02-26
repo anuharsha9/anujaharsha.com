@@ -1317,6 +1317,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                   </motion.div>
                                   <button
                                     onClick={handleContinue}
+                                    aria-label="Continue to next question"
                                     className="text-emerald-400/70 hover:text-emerald-400 text-xs font-medium tracking-wide uppercase flex items-center gap-1 transition-colors duration-200 bg-transparent border-none cursor-pointer shrink-0"
                                   >
                                     Continue
@@ -1440,6 +1441,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
 
                     {/* DISMISS BUTTON */}
                     <button
+                      aria-label="Close gear detail"
                       onClick={(e) => {
                         e.stopPropagation()
                         e.preventDefault()

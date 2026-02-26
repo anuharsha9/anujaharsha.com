@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
@@ -23,6 +23,13 @@ const jetbrains = JetBrains_Mono({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -30,25 +37,43 @@ export const metadata: Metadata = {
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Senior / Staff Product Designer with 13 years of experience focused on B2B Enterprise Architecture. Solves complex problems for global platforms. Superpower is Engineering Empathy.',
+    'Senior Product Designer & Complexity Architect with 13+ years transforming high-ambiguity enterprise systems into high-impact products. Specializing in AI-Native design, vibe coding, code prototyping, and engineering empathy. Open to work.',
   keywords: [
     'Senior Product Designer',
+    'Staff Product Designer',
+    'Product Designer Portfolio',
     'Enterprise UX',
+    'B2B Enterprise UX',
     'Design Systems',
     'Legacy Modernization',
     'Complex Systems Design',
     'Product Design',
-    'Design Systems',
     'User Experience Design',
     'Enterprise Software Design',
     'Data Science UX',
     'Machine Learning UX',
+    'AI-Native Design',
+    'AI Native UX',
+    'Vibe Coding',
+    'Vibe Coding Portfolio',
+    'Code Prototyping',
+    'High Fidelity Code Prototyping',
+    'Brain Gears',
+    'Brain Gear Animation',
+    'Interactive Portfolio',
+    'Open to Work',
+    'OpenToWork',
+    'Hiring Product Designer',
+    'FAANG Product Designer',
+    'Complexity Architect',
+    'Engineering Empathy',
     'WebFOCUS',
     'ReportCaster',
     'Antigravity AI',
     'Cursor IDE',
     'Multi-Agent Workflow',
     'Anuja Harsha',
+    'Anuja Harsha Nimmagadda',
     'Anuja Nimmagadda',
   ],
   authors: [{ name: 'Anuja Harsha Nimmagadda' }],
@@ -59,15 +84,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Anuja Harsha Nimmagadda',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — AI-Native, Code Prototyping, Vibe Coding',
     description:
-      'Senior / Staff Product Designer with 13 years of experience focused on B2B Enterprise Architecture. Solves complex problems for global platforms. Superpower is Engineering Empathy.',
+      'Senior Product Designer & Complexity Architect with 13+ years transforming high-ambiguity enterprise systems into high-impact products. Specializing in AI-Native design, vibe coding, code prototyping. Open to work.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
     description:
-      'Senior / Staff Product Designer with 13 years of experience focused on B2B Enterprise Architecture. Solves complex problems for global platforms. Superpower is Engineering Empathy.',
+      'Senior Product Designer & Complexity Architect. 13+ years transforming enterprise complexity into clarity. AI-Native design, vibe coding, code prototyping. Open to work.',
   },
   robots: {
     index: true,
@@ -103,8 +128,12 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        {/* Viewport meta for responsive design */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+        {/* Theme color for mobile browser chrome */}
+        <meta name="theme-color" content="#0a0a0f" />
+        {/* Preconnect hints for external domains (WPO) */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Favicon - Multiple formats for best compatibility */}
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" type="image/svg+xml" href="/anuja-sign.svg" />
@@ -112,7 +141,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        {/* Preload critical assets for faster LCP */}
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} font-sans antialiased`} suppressHydrationWarning>
         <LoadingScreen />

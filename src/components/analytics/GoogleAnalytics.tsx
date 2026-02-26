@@ -17,7 +17,7 @@ export default function GoogleAnalytics() {
 
     // Track page views
     if (typeof window !== 'undefined' && (window as any).gtag) {
-      ;(window as any).gtag('config', GA_MEASUREMENT_ID, {
+      ; (window as any).gtag('config', GA_MEASUREMENT_ID, {
         page_path: url,
       })
     }
@@ -59,7 +59,7 @@ export const trackEvent = (
   value?: number
 ) => {
   if (typeof window !== 'undefined' && (window as any).gtag && GA_MEASUREMENT_ID) {
-    ;(window as any).gtag('event', action, {
+    ; (window as any).gtag('event', action, {
       event_category: category,
       event_label: label,
       value: value,
@@ -75,15 +75,5 @@ export const trackCaseStudyView = (caseStudySlug: string) => {
 // Helper function to track resume downloads
 export const trackResumeDownload = () => {
   trackEvent('download_resume', 'Resume', 'Resume Download')
-}
-
-// Helper function to track PWA install prompts
-export const trackPWAInstallPrompt = () => {
-  trackEvent('pwa_install_prompt', 'PWA', 'Install Prompt Shown')
-}
-
-// Helper function to track PWA installs
-export const trackPWAInstall = () => {
-  trackEvent('pwa_install', 'PWA', 'App Installed')
 }
 
