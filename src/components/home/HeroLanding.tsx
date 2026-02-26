@@ -10,7 +10,7 @@ import {
     animate as fmAnimate,
     useMotionTemplate,
 } from 'framer-motion'
-import HeroSplit from '@/components/home/HeroSplit'
+import { useRouter } from 'next/navigation'
 import { SecondaryCaseStudies } from '@/components/timeline/SecondaryCaseStudies'
 import { ArrowDown, X, Play, Cog } from 'lucide-react'
 import AutoPlayStory, { type MovieBeat } from '@/components/case-study/storyboard/AutoPlayStory'
@@ -112,11 +112,10 @@ function InterlockedGearGlyph({ className = '' }: { className?: string }) {
 
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
+    const router = useRouter()
 
     const [isWatching, setIsWatching] = useState(false)
     const watchMode = useMotionValue(0)
-    const [isExploringMind, setIsExploringMind] = useState(false)
-    const exploreMode = useMotionValue(0)
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -125,7 +124,7 @@ export default function HeroLanding() {
 
     const overlayFade = useTransform(watchMode, [0, 1], [1, 0])
     const videoOpacity = useTransform(watchMode, [0, 1], [0.4, 1.0])
-    const brainOverlayFade = useTransform(exploreMode, [0, 1], [0, 0.8])
+
 
     const videoScaleOnScroll = useTransform(scrollYProgress, [0, 1], [1.05, 1.2])
     const videoYOnScroll = useTransform(scrollYProgress, [0, 1], [0, 200])
@@ -183,15 +182,7 @@ export default function HeroLanding() {
     // Light sweep on primary CTA
     const lightSweepX = useTransform(scrollYProgress, [0.62, 0.72], ['-120%', '120%'])
 
-    const heroExploreFade = useTransform(exploreMode, [0, 1], [1, 0])
-    const heroWatchFade = useTransform(watchMode, [0, 1], [1, 0])
-    const combinedHeroTextOpacity = useTransform(
-        [heroExploreFade, heroWatchFade],
-        ([exploreFade, watchFade]) => (exploreFade as number) * (watchFade as number)
-    )
-
-    const combinedBrainOpacity = useTransform(exploreMode, [0, 1], [0, 1])
-    const brainExploreScale = useTransform(exploreMode, [0, 1], [0.8, 1])
+    const combinedHeroTextOpacity = useTransform(watchMode, [0, 1], [1, 0])
 
     const enterWatchMode = () => {
         setIsWatching(true)
@@ -204,34 +195,27 @@ export default function HeroLanding() {
     }
 
     const enterExploreMode = () => {
-        setIsExploringMind(true)
-        fmAnimate(exploreMode, 1, { duration: 0.8, ease: [0.22, 1, 0.36, 1] })
-    }
-
-    const exitExploreMode = () => {
-        setIsExploringMind(false)
-        fmAnimate(exploreMode, 0, { duration: 0.6, ease: [0.22, 1, 0.36, 1] })
+        router.push('/quiz')
     }
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
                 if (isWatching) exitWatchMode()
-                if (isExploringMind) exitExploreMode()
             }
         }
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [isWatching, isExploringMind])
+    }, [isWatching])
 
     useEffect(() => {
-        if (isWatching || isExploringMind) {
+        if (isWatching) {
             document.body.style.overflow = 'hidden'
         } else {
             document.body.style.overflow = ''
         }
         return () => { document.body.style.overflow = '' }
-    }, [isWatching, isExploringMind])
+    }, [isWatching])
 
     const hideScrollPrompt = useTransform(scrollYProgress, [0, 0.05], [1, 0])
 
@@ -259,10 +243,7 @@ export default function HeroLanding() {
                     style={{ opacity: overlayFade }}
                 />
 
-                <motion.div
-                    className="absolute inset-0 z-[2] pointer-events-none bg-black"
-                    style={{ opacity: brainOverlayFade }}
-                />
+
 
                 <motion.div
                     className={`absolute inset-0 z-[15] flex flex-col items-center justify-center pointer-events-none`}
@@ -370,25 +351,12 @@ export default function HeroLanding() {
                     </motion.div>
                 </motion.div>
 
-                {/* --- THE BRAIN (Interactive) - Only visible when Explore My Mind is active --- */}
-                <motion.div
-                    className={`absolute inset-0 z-[20] ${isExploringMind ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                    style={{ opacity: combinedBrainOpacity, scale: brainExploreScale, originY: 0.5 }}
-                >
-                    <div className="absolute inset-0 w-full h-full -translate-y-[10vh]">
-                        <HeroSplit forceQuiz={isExploringMind} />
-                    </div>
-                </motion.div>
-
-                {/* --- CLOSE BUTTON FOR WATCH MODE OR EXPLORE MODE --- */}
+                {/* --- CLOSE BUTTON FOR WATCH MODE --- */}
                 <AnimatePresence>
-                    {(isWatching || isExploringMind) && (
+                    {isWatching && (
                         <motion.button
                             className="absolute top-6 right-6 z-[50] w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-colors cursor-pointer pointer-events-auto"
-                            onClick={() => {
-                                if (isWatching) exitWatchMode()
-                                if (isExploringMind) exitExploreMode()
-                            }}
+                            onClick={exitWatchMode}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}

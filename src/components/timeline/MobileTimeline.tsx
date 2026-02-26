@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { CAREER_DATA, CareerEra } from '@/data/career-data'
-import HeroSplit from '@/components/home/HeroSplit'
+import ImmersiveBrainExperience from '@/components/home/ImmersiveBrainExperience'
 import { MotionWorkCard } from '@/components/work/MotionWorkCard'
 import ArchiveWorkCard from './ArchiveWorkCard'
 import WordUGameCard from './WordUGameCard'

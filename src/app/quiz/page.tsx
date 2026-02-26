@@ -1,26 +1,24 @@
-import HeroSplit from '@/components/home/HeroSplit'
-import TransformationShowcase from '@/components/home/TransformationShowcase'
-import EnergyStack from '@/components/home/EnergyStack'
-import TalkSection from '@/components/home/TalkSection'
-import ScrollGear from '@/components/ui/ScrollGear'
+'use client'
 
-export const metadata = {
-    title: 'Quiz Experience | Anuja Harsha Nimmagadda',
-    description: 'Experience the interactive neural network quiz.',
-}
+import { useRouter } from 'next/navigation'
+import ImmersiveBrainExperience from '@/components/home/ImmersiveBrainExperience'
+import { X } from 'lucide-react'
 
 export default function QuizPage() {
-    return (
-        <div className="bg-[#020617] relative overflow-clip min-h-screen">
-            <HeroSplit forceQuiz={true} />
+    const router = useRouter()
 
-            {/* Mirroring Homepage Structure for Full Testing */}
-            <TransformationShowcase />
-            <div id="work-overview">
-                <EnergyStack />
-            </div>
-            <TalkSection />
-            <ScrollGear />
+    return (
+        <div className="bg-black relative overflow-clip min-h-screen">
+            <ImmersiveBrainExperience forceQuiz={true} />
+
+            {/* Fixed X button to return to homepage */}
+            <button
+                onClick={() => router.push('/')}
+                className="fixed top-6 right-6 z-[9999] w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-colors cursor-pointer"
+                aria-label="Back to homepage"
+            >
+                <X className="w-6 h-6" />
+            </button>
         </div>
     )
 }

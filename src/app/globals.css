@@ -488,8 +488,8 @@ html {
 
 /* Main gears: base styles. Opacity is managed by .brain-entry-container (quiz) and JS (post-quiz).
    Using opacity:1 as base prevents flicker when brain-entry-container class is removed. */
-#brain-gears #main-gears>[id^="gear-"],
-#brain-gears-copy #main-gears>[id^="gear-"] {
+#brain-gears #main-gears>[id*="gear-"],
+#brain-gears-copy #main-gears>[id*="gear-"] {
   transform-origin: center;
   transform-box: fill-box;
   opacity: 1;
@@ -503,10 +503,10 @@ html {
 /* Gears visibility is controlled by animation forwards fill - no base opacity override */
 
 /* Background gears: full opacity, very slow continuous rotation */
-#brain-gears #gears-background [id^="bg-gear-"],
-#brain-gears #gears-background g[id^="bg-gear-"],
-#brain-gears-copy #gears-background [id^="bg-gear-"],
-#brain-gears-copy #gears-background g[id^="bg-gear-"] {
+#brain-gears #gears-background [id*="bg-gear-"],
+#brain-gears #gears-background g[id*="bg-gear-"],
+#brain-gears-copy #gears-background [id*="bg-gear-"],
+#brain-gears-copy #gears-background g[id*="bg-gear-"] {
   transform-origin: center;
   transform-box: fill-box;
   opacity: 1;
@@ -623,10 +623,10 @@ html {
 /* Glow effect removed for dark theme */
 
 /* Performance optimizations for rotating gears */
-#brain-gears #main-gears>[id^="gear-"],
-#brain-gears #gears-background [id^="bg-gear-"],
-#brain-gears-copy #main-gears>[id^="gear-"],
-#brain-gears-copy #gears-background [id^="bg-gear-"] {
+#brain-gears #main-gears>[id*="gear-"],
+#brain-gears #gears-background [id*="bg-gear-"],
+#brain-gears-copy #main-gears>[id*="gear-"],
+#brain-gears-copy #gears-background [id*="bg-gear-"] {
   transform: translateZ(0);
 }
 
@@ -651,23 +651,23 @@ html {
 /* Main gears hover - CSS hover effect for desktop */
 @media (hover: hover) {
 
-  #brain-gears #main-gears>[id^="gear-"]:hover,
-  #brain-gears-copy #main-gears>[id^="gear-"]:hover {
+  #brain-gears #main-gears>[id*="gear-"]:hover,
+  #brain-gears-copy #main-gears>[id*="gear-"]:hover {
     cursor: pointer;
   }
 }
 
 /* Hover lines - hidden by default */
-#brain-gears [id^="hover-line-"],
-#brain-gears-copy [id^="hover-line-"] {
+#brain-gears [id*="hover-line-"],
+#brain-gears-copy [id*="hover-line-"] {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
 /* Hover lines - show when gear is active (opacity controlled by JS) */
-#brain-gears .gear-main--active [id^="hover-line-"],
-#brain-gears-copy .gear-main--active [id^="hover-line-"] {
+#brain-gears .gear-main--active [id*="hover-line-"],
+#brain-gears-copy .gear-main--active [id*="hover-line-"] {
   visibility: visible !important;
   pointer-events: none !important;
   /* Opacity will be controlled by JavaScript animation - no !important to allow JS override */
@@ -787,8 +787,8 @@ html {
 @media (prefers-reduced-motion: reduce) {
 
   /* Disable all gear rotations for users who prefer reduced motion */
-  #brain-gears #main-gears>[id^="gear-"],
-  #brain-gears [id^="bg-gear-"] {
+  #brain-gears #main-gears>[id*="gear-"],
+  #brain-gears [id*="bg-gear-"] {
     animation: none !important;
   }
 
@@ -799,8 +799,8 @@ html {
   }
 
   /* Keep fade-in but make it instant */
-  #brain-gears #main-gears>[id^="gear-"],
-  #brain-gears [id^="bg-gear-"] {
+  #brain-gears #main-gears>[id*="gear-"],
+  #brain-gears [id*="bg-gear-"] {
     opacity: 1 !important;
     animation: none !important;
   }
@@ -842,24 +842,34 @@ html {
   transform: translateZ(0);
 }
 
-/* Default state for gears in entry experience - dimmed */
-/* CRITICAL: Must override base gear styles during quiz with !important */
-.brain-entry-container #brain-gears #main-gears>[id^="gear-"],
-.brain-entry-container #brain-gears-copy #main-gears>[id^="gear-"] {
+/* CRITICAL: Set transform properties via CSS so gears don't shift when JS attaches animations.
+   This prevents the "shaking" caused by JS setting transformOrigin/transformBox after render. */
+.gears-dark-theme #main-gears>[id*="gear-"],
+.gears-dark-theme [id*="bg-gear-"] {
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* Default initial state: all gears dimmed. JS will override for lit gears. */
+.gears-dark-theme #main-gears>[id*="gear-"] {
+  opacity: 0.12;
+}
+
+.gears-dark-theme [id*="bg-gear-"] {
+  opacity: 0.08;
+}
+
+.brain-entry-container #brain-gears #main-gears>[id*="gear-"],
+.brain-entry-container #brain-gears-copy #main-gears>[id*="gear-"] {
   opacity: 0.3 !important;
   filter: grayscale(50%) !important;
   transition: opacity 0.8s ease-out, filter 0.8s ease-out;
-  animation: none !important;
-  /* Prevent rotation animations during quiz */
 }
 
-/* Background gears also dimmed - must use !important to override base opacity:1 */
-.brain-entry-container #brain-gears #gears-background [id^="bg-gear-"],
-.brain-entry-container #brain-gears-copy #gears-background [id^="bg-gear-"] {
+.brain-entry-container #brain-gears #gears-background [id*="bg-gear-"],
+.brain-entry-container #brain-gears-copy #gears-background [id*="bg-gear-"] {
   opacity: 0.15 !important;
   transition: opacity 0.8s ease-out, filter 0.8s ease-out;
-  animation: none !important;
-  /* Prevent rotation animations during quiz */
 }
 
 /* Lit gear state - main gears glow bright */
@@ -930,15 +940,15 @@ html {
   animation: brain-ignition-pulse 2s ease-in-out, brain-ignition-rotate 2s ease-in-out;
 }
 
-.brain-entry-container.brain-ignition #brain-gears #main-gears>[id^="gear-"],
-.brain-entry-container.brain-ignition #brain-gears-copy #main-gears>[id^="gear-"] {
+.brain-entry-container.brain-ignition #brain-gears #main-gears>[id*="gear-"],
+.brain-entry-container.brain-ignition #brain-gears-copy #main-gears>[id*="gear-"] {
   opacity: 1 !important;
   filter:
     grayscale(0%) drop-shadow(0 0 20px rgba(7, 139, 156, 0.6)) drop-shadow(0 0 40px rgba(7, 139, 156, 0.4)) !important;
 }
 
-.brain-entry-container.brain-ignition #brain-gears #gears-background [id^="bg-gear-"],
-.brain-entry-container.brain-ignition #brain-gears-copy #gears-background [id^="bg-gear-"] {
+.brain-entry-container.brain-ignition #brain-gears #gears-background [id*="bg-gear-"],
+.brain-entry-container.brain-ignition #brain-gears-copy #gears-background [id*="bg-gear-"] {
   opacity: 0.8 !important;
   filter: drop-shadow(0 0 12px rgba(7, 139, 156, 0.4)) !important;
 }

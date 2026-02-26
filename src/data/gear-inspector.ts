@@ -51,7 +51,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
     thought: "Digital Native. I mastered Pixel Logic (MS Paint) in Grade 2 and Vector Logic (CorelDRAW) in Grade 5. Design is my native language.",
     link: "/me",
     linkLabel: "See My Origin",
-    accentColor: "#F59E0B",
+    accentColor: "#22D3EE",
     caseStudy: "me",
     quiz: {
       question: "What was my first design tool?",
@@ -91,7 +91,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
     thought: "System Archaeologist. I map fragmented, undocumented legacy subsystems and unify them into coherent platforms.",
     link: "/work/reportcaster#section-04",
     linkLabel: "See the Unification",
-    accentColor: "#F59E0B",
+    accentColor: "#0BA2B5",
     caseStudy: "reportcaster",
     quiz: {
       question: "How do I handle fragmented UI?",
@@ -151,7 +151,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
     thought: "Strategic Debt. I know when to ship a 'hack' to unblock revenue and when to fight for a refactor. Speed matters.",
     link: "/work/reportcaster#section-04",
     linkLabel: "See the Strategy",
-    accentColor: "#F59E0B",
+    accentColor: "#0EA5E9",
     caseStudy: "reportcaster",
     quiz: {
       question: "When do I ship a 'hack'?",
@@ -171,7 +171,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
     thought: "Elite Focus. Managing a household and career taught me to respect time. I don't grind; I orbit efficiently.",
     link: "/me",
     linkLabel: "See My Philosophy",
-    accentColor: "#F59E0B",
+    accentColor: "#06B6D4",
     caseStudy: "me",
     quiz: {
       question: "How do I balance it all?",
@@ -211,7 +211,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
     thought: "The Human Algorithm. I design for the neural networks of the users who use my tools, not just for screens.",
     link: "/me",
     linkLabel: "See My Core",
-    accentColor: "#EF4444", // Red
+    accentColor: "#67E8F9",
     caseStudy: "me",
     quiz: {
       question: "I design for...",
