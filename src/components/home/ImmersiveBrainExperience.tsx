@@ -2,13 +2,10 @@
 
 import { motion, AnimatePresence, animate } from 'framer-motion'
 import { useEffect, useRef, useState, useMemo, memo, useCallback } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import GearBottomSheet from '@/components/home/GearBottomSheet'
 import { GEAR_INSPECTOR, GearInspectorItem } from '@/data/gear-inspector'
-import { getTheme, spacing } from '@/lib/design-system'
-import Magnetic from '@/components/ui/Magnetic'
+import { spacing } from '@/lib/design-system'
 import { BRAIN_GEARS_SVG } from '@/data/brain-gears-svg'
 import { ArrowRight, Sparkles, Brain, Check } from 'lucide-react'
 
@@ -301,7 +298,7 @@ const GearsSvgContainer = memo(function GearsSvgContainer({
  */
 export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQuiz?: boolean }) {
   const router = useRouter()
-  const t = getTheme(true)
+
   const containerRef = useRef<HTMLDivElement | null>(null)
   const brainSceneRef = useRef<HTMLDivElement | null>(null)
 
@@ -326,8 +323,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
   const [litGears, setLitGears] = useState<string[]>([])
   const [showReveal, setShowReveal] = useState(false)
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null)
-  const [brainHintAnchor, setBrainHintAnchor] = useState<{ x: number; y: number } | null>(null)
-  const [brainSvgOffset, setBrainSvgOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
+
 
   // INSPECTOR STATE
   const [isGearHovered, setIsGearHovered] = useState(false)
@@ -1109,93 +1105,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
   const showImmersiveBrain = quizState === 'quiz' || showImmersiveCompleteState
   const showStartPrompt = !showImmersiveBrain && !forceQuiz
 
-  const updateBrainHintAnchor = useCallback(() => {
-    const sceneEl = brainSceneRef.current
-    const containerEl = containerRef.current
-    if (!sceneEl || !containerEl) {
-      return
-    }
 
-    const sceneRect = sceneEl.getBoundingClientRect()
-    const sceneCenter = {
-      x: sceneRect.width / 2,
-      y: sceneRect.height / 2,
-    }
-    const applyFallback = () => {
-      setBrainHintAnchor(sceneCenter)
-      setBrainSvgOffset((prev) =>
-        Math.abs(prev.x) < 0.5 && Math.abs(prev.y) < 0.5 ? prev : { x: 0, y: 0 }
-      )
-    }
-
-    const svgRoot = containerEl.querySelector('svg')
-    if (!svgRoot) {
-      applyFallback()
-      return
-    }
-
-    const mainGears =
-      svgRoot.querySelector<SVGGElement>(`#main-gears`) ||
-      svgRoot.querySelector<SVGGElement>(`#brain-gears-copy`) ||
-      svgRoot.querySelector<SVGGElement>(`#brain-gears`)
-
-    if (!mainGears) {
-      applyFallback()
-      return
-    }
-
-    const mainRect = mainGears.getBoundingClientRect()
-    if (!Number.isFinite(mainRect.left) || mainRect.width <= 0 || mainRect.height <= 0) {
-      applyFallback()
-      return
-    }
-
-    const mainCenter = {
-      x: mainRect.left + mainRect.width * 0.5 - sceneRect.left,
-      y: mainRect.top + mainRect.height * 0.5 - sceneRect.top,
-    }
-    const nextOffset = {
-      x: Math.round((sceneCenter.x - mainCenter.x) * 10) / 10,
-      y: Math.round((sceneCenter.y - mainCenter.y) * 10) / 10,
-    }
-
-    setBrainSvgOffset((prev) =>
-      Math.abs(prev.x - nextOffset.x) < 0.5 && Math.abs(prev.y - nextOffset.y) < 0.5
-        ? prev
-        : nextOffset
-    )
-    setBrainHintAnchor(sceneCenter)
-  }, [])
-
-  useEffect(() => {
-    if (!showImmersiveBrain) {
-      setBrainSvgOffset((prev) =>
-        Math.abs(prev.x) < 0.5 && Math.abs(prev.y) < 0.5 ? prev : { x: 0, y: 0 }
-      )
-      return
-    }
-
-    let frameId = window.requestAnimationFrame(() => {
-      updateBrainHintAnchor()
-      frameId = window.requestAnimationFrame(updateBrainHintAnchor)
-    })
-
-    const handleResize = () => updateBrainHintAnchor()
-    window.addEventListener('resize', handleResize)
-
-    let resizeObserver: ResizeObserver | null = null
-    if (typeof ResizeObserver !== 'undefined') {
-      resizeObserver = new ResizeObserver(handleResize)
-      if (brainSceneRef.current) resizeObserver.observe(brainSceneRef.current)
-      if (containerRef.current) resizeObserver.observe(containerRef.current)
-    }
-
-    return () => {
-      window.cancelAnimationFrame(frameId)
-      window.removeEventListener('resize', handleResize)
-      if (resizeObserver) resizeObserver.disconnect()
-    }
-  }, [showImmersiveBrain, baseSvg, updateBrainHintAnchor])
 
   // 3D PARALLAX — mouse tracking via direct DOM manipulation (no re-renders)
   useEffect(() => {
@@ -1260,38 +1170,53 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
           ref={ambientLightRef}
           className="absolute inset-0 pointer-events-none z-10"
           style={{
-            background: 'radial-gradient(ellipse 65% 45% at 50% 25%, rgba(11, 162, 181, 0.09) 0%, rgba(11, 162, 181, 0.03) 40%, transparent 70%)',
+            background: 'radial-gradient(ellipse 65% 45% at 50% 25%, rgba(11, 162, 181, 0.10) 0%, rgba(11, 162, 181, 0.04) 40%, transparent 70%)',
           }}
         />
 
-        {/* Ground plane — visible studio-floor gradient that catches light */}
+        {/* Ground plane — visible studio floor with clear horizon */}
         <div
           className="absolute inset-0 pointer-events-none z-[9]"
           style={{
             background: `
               linear-gradient(to bottom,
                 transparent 0%,
-                transparent 45%,
-                rgba(25, 32, 42, 0.3) 60%,
-                rgba(35, 42, 55, 0.45) 75%,
-                rgba(40, 48, 62, 0.35) 90%,
-                rgba(30, 36, 48, 0.2) 100%
+                transparent 40%,
+                rgba(18, 24, 33, 0.4) 52%,
+                rgba(28, 36, 50, 0.65) 62%,
+                rgba(38, 48, 65, 0.7) 72%,
+                rgba(45, 55, 72, 0.6) 82%,
+                rgba(38, 48, 65, 0.45) 92%,
+                rgba(30, 38, 52, 0.3) 100%
               )
             `,
           }}
         />
 
-        {/* Floor shadow — soft elliptical drop shadow beneath the brain */}
+        {/* Specular floor highlight — light reflection on the surface */}
+        <div
+          className="absolute pointer-events-none z-[10]"
+          style={{
+            left: '50%',
+            bottom: '12%',
+            transform: 'translateX(-50%)',
+            width: '40%',
+            height: '15%',
+            background: 'radial-gradient(ellipse 100% 60% at 50% 30%, rgba(120, 145, 175, 0.06) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Floor shadow — large soft contact shadow beneath the brain */}
         <div
           className="absolute pointer-events-none z-[11]"
           style={{
             left: '50%',
-            bottom: '10%',
+            bottom: '12%',
             transform: 'translateX(-50%)',
-            width: '55%',
-            height: '6%',
-            background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 45%, transparent 75%)',
-            filter: 'blur(25px)',
+            width: '60%',
+            height: '5%',
+            background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 70%)',
+            filter: 'blur(30px)',
           }}
         />
 
