@@ -1,13 +1,14 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 import { Play, Sparkles, Gamepad2, GraduationCap } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 
-/* ─── Animated WordU letter tiles cover ─── */
+/* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
 function WordULogoCover() {
     const letters = ['W', 'O', 'R', 'D', 'U']
+    const accentColor = 'var(--semantic-orange-vivid)'
     return (
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
             {/* Subtle warm radial bg */}
@@ -15,34 +16,76 @@ function WordULogoCover() {
                 background: 'radial-gradient(circle at 50% 50%, hsla(30,80%,50%,0.06), transparent 70%)',
             }} />
 
-            <div className="flex gap-2">
+            <svg viewBox="0 0 280 180" className="w-[75%] h-auto" fill="none">
+                {/* Game board outline */}
+                <motion.rect
+                    x="40" y="20" width="200" height="140" rx="8"
+                    stroke={accentColor}
+                    strokeWidth="0.8"
+                    strokeDasharray="4 6"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.3 }}
+                    transition={{ duration: 2, ease: 'easeOut' }}
+                />
+
+                {/* Row 1 — active guess row with letters */}
                 {letters.map((letter, i) => (
-                    <motion.div
-                        key={letter + i}
-                        className="w-11 h-11 bg-[var(--accent-wordu,#4F7CFF)] rounded-lg flex items-center justify-center text-white text-xl font-black shadow-lg"
-                        initial={{ y: 40, opacity: 0, rotateX: -90 }}
-                        animate={{ y: 0, opacity: 1, rotateX: 0 }}
-                        transition={{
-                            delay: 0.3 + i * 0.12,
-                            type: 'spring',
-                            stiffness: 300,
-                            damping: 15,
-                        }}
-                    >
-                        <motion.span
-                            animate={{ y: [0, -4, 0] }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                delay: i * 0.2,
-                                ease: 'easeInOut',
-                            }}
+                    <g key={`active-${i}`}>
+                        <motion.rect
+                            x={55 + i * 38} y="40" width="32" height="32" rx="4"
+                            stroke={accentColor}
+                            strokeWidth="0.8"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 0.5 }}
+                            transition={{ duration: 0.8, delay: 0.8 + i * 0.15 }}
+                        />
+                        <motion.text
+                            x={71 + i * 38} y="62" textAnchor="middle"
+                            fill={accentColor}
+                            className="font-mono text-[14px] font-bold"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 0, 0.7] }}
+                            transition={{ duration: 1, delay: 1.8 + i * 0.2, times: [0, 0.3, 1] }}
                         >
                             {letter}
-                        </motion.span>
-                    </motion.div>
+                        </motion.text>
+                    </g>
                 ))}
-            </div>
+
+                {/* Row 2 — empty guess row */}
+                {[0, 1, 2, 3, 4].map((i) => (
+                    <motion.rect
+                        key={`row2-${i}`}
+                        x={55 + i * 38} y="80" width="32" height="32" rx="4"
+                        stroke={accentColor}
+                        strokeWidth="0.4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.15 }}
+                        transition={{ delay: 2.2 + i * 0.08 }}
+                    />
+                ))}
+
+                {/* Row 3 — empty guess row */}
+                {[0, 1, 2, 3, 4].map((i) => (
+                    <motion.rect
+                        key={`row3-${i}`}
+                        x={55 + i * 38} y="120" width="32" height="32" rx="4"
+                        stroke={accentColor}
+                        strokeWidth="0.3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.08 }}
+                        transition={{ delay: 2.5 + i * 0.08 }}
+                    />
+                ))}
+
+                {/* Cursor blink in first empty cell of row 2 */}
+                <motion.rect
+                    x="68" y="86" width="1.5" height="18" rx="0.5"
+                    fill={accentColor}
+                    animate={{ opacity: [0, 0.6, 0] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: 2.8 }}
+                />
+            </svg>
         </div>
     )
 }
@@ -237,6 +280,7 @@ const VIBE_TILES = [
         cover: 'browser' as const,
         accent: 'var(--accent-teal)',
         accentRgbVar: '--accent-teal-rgb',
+        dotHue: 180,
         action: 'portfolio' as const,
     },
     {
@@ -247,16 +291,18 @@ const VIBE_TILES = [
         cover: 'wordu' as const,
         accent: 'var(--semantic-orange-vivid)',
         accentRgbVar: '--semantic-orange-vivid-rgb',
+        dotHue: 30,
         action: 'wordu' as const,
     },
     {
         id: 'college-os',
         title: 'College OS',
-        subtitle: 'Coming soon',
+        subtitle: 'AI-powered college app tracker · Next.js + Gemini',
         icon: GraduationCap,
         cover: 'graduation' as const,
         accent: 'var(--semantic-purple-vivid)',
         accentRgbVar: '--semantic-purple-vivid-rgb',
+        dotHue: 270,
         action: 'college-os' as const,
     },
 ]
@@ -275,15 +321,19 @@ export default function VibeCodingBlock() {
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
     const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
+    // Blur-to-focus entrance: consistent crossfade theme
+    const sectionBlur = useTransform(scrollYProgress, [0, 0.12], [12, 0])
+    const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
+
     const handleTileClick = (action: string) => {
         if (action === 'portfolio') setPortfolioOpen(true)
         if (action === 'wordu') setWorduOpen(true)
-        // college-os is a shell for now
+        if (action === 'college-os') window.open('/college-os', '_blank', 'noopener,noreferrer')
     }
 
     return (
         <>
-            <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+            <motion.section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden" style={{ filter: sectionFilter }}>
                 {/* Era label — decorative, above content */}
                 <motion.div
                     className="mb-6 md:mb-8 pointer-events-none select-none"
@@ -293,7 +343,7 @@ export default function VibeCodingBlock() {
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <span className="font-extrabold text-[clamp(3rem,8vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                    <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                         NOV / 2025
                     </span>
                 </motion.div>
@@ -316,14 +366,14 @@ export default function VibeCodingBlock() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                     {VIBE_TILES.map((tile, i) => {
                         const Icon = tile.icon
-                        const isShell = tile.action === 'college-os'
+                        const isShell = false  // all tiles are now live
                         const rgb = `var(${tile.accentRgbVar})`
 
                         return (
                             <motion.div
                                 key={tile.id}
-                                initial={{ opacity: 0, y: 70, scale: 0.9 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                initial={{ opacity: 0, y: 70, scale: 0.9, filter: 'blur(8px)' }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                 viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 1, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
                             >
@@ -333,68 +383,79 @@ export default function VibeCodingBlock() {
                                     className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl text-left transition-all duration-500
                                         ${isShell ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
                                     style={{
-                                        border: `1px solid rgba(${rgb}, ${isShell ? 0.04 : 0.09})`,
-                                        backgroundColor: `rgba(${rgb}, 0.03)`,
-                                        boxShadow: `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`,
+                                        border: `1px solid rgba(${rgb}, 0.18)`,
+                                        backgroundColor: `rgba(${rgb}, 0.05)`,
+                                        boxShadow: `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.08)`,
                                     }}
                                     onMouseEnter={(e) => {
-                                        if (!isShell) {
-                                            e.currentTarget.style.boxShadow = `0 0 40px rgba(${rgb}, 0.08), inset 0 0 0 1px rgba(${rgb}, 0.15)`
-                                        }
+                                        e.currentTarget.style.boxShadow = `0 0 40px rgba(${rgb}, 0.12), inset 0 0 0 1px rgba(${rgb}, 0.25)`
+                                        e.currentTarget.style.borderColor = `rgba(${rgb}, 0.3)`
                                     }}
                                     onMouseLeave={(e) => {
-                                        e.currentTarget.style.boxShadow = `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`
+                                        e.currentTarget.style.boxShadow = `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.08)`
+                                        e.currentTarget.style.borderColor = `rgba(${rgb}, 0.18)`
                                     }}
                                 >
-                                    {/* Cover: animated SVG */}
-                                    {tile.cover === 'browser' && <BrowserWireframeCover />}
-                                    {tile.cover === 'graduation' && <GraduationCapCover />}
-                                    {tile.cover === 'wordu' && <WordULogoCover />}
+                                    {/* Dot pattern overlay — AI neural net feel */}
+                                    <div
+                                        className="absolute inset-0 pointer-events-none z-[1]"
+                                        style={{
+                                            backgroundImage: `radial-gradient(circle, hsl(${tile.dotHue}, 50%, 25%) 0.8px, transparent 0.8px)`,
+                                            backgroundSize: '24px 24px',
+                                            opacity: 0.10,
+                                        }}
+                                    />
 
-                                    {/* Hover overlay: scrim + icon + title (non-shell only) */}
-                                    {!isShell && (
-                                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/0 group-hover:bg-black/55 transition-all duration-500 opacity-0 group-hover:opacity-100">
-                                            <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
-                                                <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                                                    {tile.action === 'wordu' ? (
-                                                        <Play className="w-5 h-5 text-white fill-white ml-0.5" />
-                                                    ) : (
-                                                        <Icon className="w-5 h-5 text-white" />
-                                                    )}
-                                                </div>
-                                                <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
-                                                    {tile.action === 'wordu' ? 'Play Game' : 'Explore'}
-                                                </span>
-                                                <p className="text-white/90 text-base font-semibold leading-snug mt-1">
-                                                    {tile.title}
-                                                </p>
-                                                <p className="text-white/50 text-xs font-mono">
-                                                    {tile.subtitle}
-                                                </p>
+                                    {/* Cover: animated SVG — blurs on desktop hover */}
+                                    <div className="absolute inset-0 transition-all duration-500 md:group-hover:blur-[8px] md:group-hover:scale-105">
+                                        {tile.cover === 'browser' && <BrowserWireframeCover />}
+                                        {tile.cover === 'graduation' && <GraduationCapCover />}
+                                        {tile.cover === 'wordu' && <WordULogoCover />}
+                                    </div>
+
+                                    {/* Desktop hover overlay — hidden on mobile */}
+                                    <div className="absolute inset-0 z-20 hidden md:flex items-center justify-center bg-black/0 group-hover:bg-black/55 transition-all duration-500 opacity-0 group-hover:opacity-100">
+                                        <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
+                                            <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                                                {tile.action === 'wordu' ? (
+                                                    <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                                                ) : tile.action === 'college-os' ? (
+                                                    <Icon className="w-5 h-5 text-white" />
+                                                ) : (
+                                                    <Icon className="w-5 h-5 text-white" />
+                                                )}
+                                            </div>
+                                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
+                                                {tile.action === 'wordu' ? 'Play Game' : tile.action === 'college-os' ? 'Launch App' : 'Explore'}
+                                            </span>
+                                            <p className="text-white/90 text-base font-semibold leading-snug mt-1">
+                                                {tile.title}
+                                            </p>
+                                            <p className="text-white/50 text-xs font-mono">
+                                                {tile.subtitle}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Bottom label bar — mobile only (desktop uses hover overlay) */}
+                                    <div className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent md:hidden transition-opacity duration-300">
+                                        <div className="flex items-center gap-2.5">
+                                            <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                                                style={{ backgroundColor: `rgba(${rgb}, 0.2)` }}>
+                                                <Icon className="w-4 h-4 text-white/80" />
+                                            </div>
+                                            <div className="min-w-0">
+                                                <p className="text-white/90 text-sm font-semibold leading-tight truncate">{tile.title}</p>
+                                                <p className="text-white/50 text-[11px] font-mono truncate">{tile.subtitle}</p>
                                             </div>
                                         </div>
-                                    )}
-
-                                    {/* Shell state: show title + coming soon always */}
-                                    {isShell && (
-                                        <>
-                                            <div className="absolute inset-0 z-20 flex items-center justify-center">
-                                                <div className="flex flex-col items-center gap-2">
-                                                    <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
-                                                        <Icon className="w-5 h-5 text-white/40" />
-                                                    </div>
-                                                    <p className="text-white/50 text-base font-semibold">{tile.title}</p>
-                                                    <p className="text-white/30 text-xs font-mono">{tile.subtitle}</p>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
+                                    </div>
                                 </button>
                             </motion.div>
                         )
                     })}
                 </div>
-            </section>
+            </motion.section>
 
             {/* Lightboxes */}
             <PortfolioLightbox isOpen={portfolioOpen} onClose={() => setPortfolioOpen(false)} />

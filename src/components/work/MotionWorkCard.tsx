@@ -29,8 +29,8 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
     })
 
     // Deeper Transformations
-    const imageScale = useTransform(smoothProgress, [0, 1], [1.15, 1.0])
-    const imageY = useTransform(smoothProgress, [0, 1], ["-8%", "8%"])
+    const imageScale = useTransform(smoothProgress, [0, 1], [1.08, 1.0])
+    const imageY = useTransform(smoothProgress, [0, 1], ["-4%", "4%"])
     const imageOpacity = useTransform(smoothProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
 
     // Mouse tracking for Spotlight
@@ -160,18 +160,32 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                         </div>
                     )}
 
-                    {/* EDITORIAL OVERLAY (Watch Case Study) */}
+                    {/* EDITORIAL OVERLAY — Mobile: persistent bottom bar. Desktop: full hover overlay */}
                     {variant === 'editorial' && (
-                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center opacity-0 group-hover/work:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
-                            <div className="flex flex-col items-center gap-3 transform translate-y-4 group-hover/work:translate-y-0 transition-transform duration-500 ease-[0.22,1,0.36,1]">
-                                <div className="w-12 h-12 rounded-full border border-white/20 bg-black/60 flex items-center justify-center backdrop-blur-md">
-                                    <Play className="w-5 h-5 text-white ml-1" fill="white" />
+                        <>
+                            {/* Mobile: always-visible bottom CTA */}
+                            <div className="absolute inset-x-0 bottom-0 z-10 md:hidden pointer-events-none">
+                                <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-12 pb-4 px-4 flex items-center justify-center gap-2">
+                                    <div className="w-8 h-8 rounded-full border border-white/20 bg-black/40 flex items-center justify-center backdrop-blur-sm">
+                                        <Play className="w-3.5 h-3.5 text-white ml-0.5" fill="white" />
+                                    </div>
+                                    <span className="font-mono text-[10px] tracking-[0.15em] font-medium text-white/70 uppercase">
+                                        View Case Study
+                                    </span>
                                 </div>
-                                <span className="font-mono text-[10px] tracking-[0.2em] font-medium text-white uppercase drop-shadow-md">
-                                    Watch Case Study
-                                </span>
                             </div>
-                        </div>
+                            {/* Desktop: hover overlay */}
+                            <div className="absolute inset-0 z-10 hidden md:flex flex-col items-center justify-center opacity-0 group-hover/work:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
+                                <div className="flex flex-col items-center gap-3 transform translate-y-4 group-hover/work:translate-y-0 transition-transform duration-500 ease-[0.22,1,0.36,1]">
+                                    <div className="w-12 h-12 rounded-full border border-white/20 bg-black/60 flex items-center justify-center backdrop-blur-md">
+                                        <Play className="w-5 h-5 text-white ml-1" fill="white" />
+                                    </div>
+                                    <span className="font-mono text-[10px] tracking-[0.2em] font-medium text-white uppercase drop-shadow-md">
+                                        Watch Case Study
+                                    </span>
+                                </div>
+                            </div>
+                        </>
                     )}
                 </motion.div>
 

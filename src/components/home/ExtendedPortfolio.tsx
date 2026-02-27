@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 
 /* ─── Testimonial data ─── */
 const TESTIMONIALS = {
@@ -181,6 +181,10 @@ export default function ExtendedPortfolio() {
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
     const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
+    // Blur-to-focus entrance: consistent crossfade theme
+    const sectionBlur = useTransform(scrollYProgress, [0, 0.12], [12, 0])
+    const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
+
     const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
         const el = e.currentTarget
         const slideWidth = el.offsetWidth
@@ -195,7 +199,7 @@ export default function ExtendedPortfolio() {
     }, [])
 
     return (
-        <section ref={ref} className="relative py-20 md:py-32 overflow-hidden">
+        <motion.section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ filter: sectionFilter }}>
             {/* Era label — decorative, above content */}
             <motion.div
                 className="mb-6 md:mb-8 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto pointer-events-none select-none"
@@ -205,7 +209,7 @@ export default function ExtendedPortfolio() {
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
-                <span className="font-extrabold text-[clamp(3rem,8vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                     2012 — 2022
                 </span>
             </motion.div>
@@ -245,8 +249,8 @@ export default function ExtendedPortfolio() {
                                 {pair.map((item, i) => (
                                     <motion.div
                                         key={item.id}
-                                        initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                        initial={{ opacity: 0, y: 40, scale: 0.92, filter: 'blur(8px)' }}
+                                        whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                         viewport={{ once: true, amount: 0.2 }}
                                         transition={{ duration: 0.8, delay: i * 0.15 }}
                                     >
@@ -277,6 +281,6 @@ export default function ExtendedPortfolio() {
                     />
                 ))}
             </div>
-        </section>
+        </motion.section>
     )
 }

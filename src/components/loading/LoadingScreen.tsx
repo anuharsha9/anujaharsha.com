@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef, useMemo } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
 /* ─── Interlocking gear SVG ─── */
@@ -71,18 +71,25 @@ function GearSVG({ size, teeth = 8 }: { size: number; teeth?: number }) {
 
 /* ─── Floating particles ─── */
 function Particles({ count = 30, progress }: { count?: number; progress: number }) {
-  const particles = useMemo(() =>
-    Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      speed: Math.random() * 20 + 10,
-      delay: Math.random() * 5,
-      opacity: Math.random() * 0.4 + 0.1,
-    })),
-    [count]
-  )
+  // Generate random values only on the client to avoid SSR hydration mismatch
+  const [particles, setParticles] = useState<Array<{
+    id: number; x: number; y: number; size: number;
+    speed: number; delay: number; opacity: number;
+  }>>([])
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: count }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 3 + 1,
+        speed: Math.random() * 20 + 10,
+        delay: Math.random() * 5,
+        opacity: Math.random() * 0.4 + 0.1,
+      }))
+    )
+  }, [count])
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -119,7 +126,7 @@ function ScanLines() {
 
 export default function LoadingScreen() {
   const pathname = usePathname()
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
   const [isFading, setIsFading] = useState(false)
   const [progress, setProgress] = useState(0)
   const [statusText, setStatusText] = useState('BOOTING SYSTEM')

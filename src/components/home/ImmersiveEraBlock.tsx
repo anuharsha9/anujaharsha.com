@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Quote, Linkedin, Code2, Zap, Play } from 'lucide-react'
@@ -70,7 +70,7 @@ const ArchiveWorkCard = ({ work, onOpenLightbox }: { work: WorkItem; onOpenLight
                 </div>
             </div>
             {work.link.startsWith('http') && (
-                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md rounded-full p-2 border border-white/10 opacity-0 group-hover/archive:opacity-100 transition-opacity">
+                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md rounded-full p-2 border border-white/10 opacity-100 md:opacity-0 group-hover/archive:opacity-100 transition-opacity">
                     <ArrowRight className="w-3 h-3 text-white -rotate-45" />
                 </div>
             )}
@@ -87,8 +87,18 @@ const WordUGameCard = ({ work, onPlay }: { work: WorkItem, onPlay: () => void })
                 e.preventDefault();
                 onPlay();
             }}
-            className="group/game relative bg-slate-900/60 border border-white/[0.06] rounded-2xl overflow-hidden hover:border-[var(--accent-teal)]/50 hover:shadow-[0_0_30px_var(--overlay-teal-20)] transition-all duration-500 block aspect-[4/3] cursor-pointer"
+            className="group/game relative bg-[var(--accent-wordu)]/[0.04] border border-[var(--accent-wordu)]/[0.12] rounded-2xl overflow-hidden hover:border-[var(--accent-teal)]/50 hover:shadow-[0_0_30px_var(--overlay-teal-20)] transition-all duration-500 block aspect-[4/3] cursor-pointer"
         >
+            {/* Dot pattern overlay — AI neural net feel */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    backgroundImage: 'radial-gradient(circle, hsl(195, 50%, 25%) 0.8px, transparent 0.8px)',
+                    backgroundSize: '24px 24px',
+                    opacity: 0.12,
+                }}
+            />
+
             {/* Background Image with Zoom Effect */}
             <div className="absolute inset-0 overflow-hidden">
                 {work.image && (
@@ -103,24 +113,24 @@ const WordUGameCard = ({ work, onPlay }: { work: WorkItem, onPlay: () => void })
             </div>
 
             {/* Content Overlay */}
-            <div className="absolute inset-0 flex flex-col justify-end p-8">
+            <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
                 {/* Play Button - Centered initially, moves or pulses on hover */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover/game:scale-125 group-hover/game:bg-[var(--accent-teal)] group-hover/game:border-[var(--accent-teal)] transition-all duration-300 shadow-2xl">
-                        <Play className="w-6 h-6 text-white ml-1 fill-current" />
+                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover/game:scale-125 group-hover/game:bg-[var(--accent-teal)] group-hover/game:border-[var(--accent-teal)] transition-all duration-300 shadow-2xl">
+                        <Play className="w-5 h-5 md:w-6 md:h-6 text-white ml-1 fill-current" />
                     </div>
                 </div>
 
                 <div className="relative z-10 pointer-events-none">
-                    <h3 className="text-3xl font-black text-white mb-2 drop-shadow-lg transform translate-y-2 group-hover/game:translate-y-0 transition-transform duration-300">
+                    <h3 className="text-2xl md:text-3xl font-black text-white mb-2 drop-shadow-lg md:transform md:translate-y-2 md:group-hover/game:translate-y-0 transition-transform duration-300">
                         {work.title}
                     </h3>
-                    <p className="text-lg text-slate-200 font-medium opacity-0 transform translate-y-4 group-hover/game:opacity-100 group-hover/game:translate-y-0 transition-all duration-300 delay-100">
+                    <p className="text-base md:text-lg text-slate-200 font-medium md:opacity-0 md:transform md:translate-y-4 md:group-hover/game:opacity-100 md:group-hover/game:translate-y-0 transition-all duration-300 delay-100">
                         {work.description}
                     </p>
-                    <div className="mt-4 flex items-center gap-2 opacity-0 group-hover/game:opacity-100 transition-opacity duration-300 delay-200">
+                    <div className="mt-3 md:mt-4 flex items-center gap-2 md:opacity-0 md:group-hover/game:opacity-100 transition-opacity duration-300 delay-200">
                         <span className="px-3 py-1 rounded-full bg-[var(--accent-teal)]/20 border border-[var(--accent-teal)]/30 text-[var(--accent-teal)] text-xs font-mono uppercase tracking-wider">
-                            Click to Play
+                            Tap to Play
                         </span>
                     </div>
                 </div>
@@ -158,17 +168,23 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
 
     // ACT 2: ROLE / COMPANY — stages in right after (4–10%)
     const headerOpacity = useTransform(scrollYProgress, [0.04, 0.10, 0.88, 0.98], [0, 1, 1, 0]);
-    const headerY = useTransform(scrollYProgress, [0.04, 0.10], [24, 0]);
-    const headerScale = useTransform(scrollYProgress, [0.04, 0.10], [0.97, 1]);
+    const headerY = useTransform(scrollYProgress, [0.04, 0.10], [16, 0]);
+    const headerScale = useTransform(scrollYProgress, [0.04, 0.10], [0.98, 1]);
+    const headerBlur = useTransform(scrollYProgress, [0.04, 0.10, 0.88, 0.98], [10, 0, 0, 10]);
+    const headerFilter = useMotionTemplate`blur(${headerBlur}px)`;
 
     // ACT 3: DESCRIPTION / BADGES — follows header (10–18%)
     const descOpacity = useTransform(scrollYProgress, [0.10, 0.18, 0.88, 0.98], [0, 1, 1, 0]);
-    const descY = useTransform(scrollYProgress, [0.10, 0.18], [16, 0]);
+    const descY = useTransform(scrollYProgress, [0.10, 0.18], [10, 0]);
+    const descBlur = useTransform(scrollYProgress, [0.10, 0.18, 0.88, 0.98], [10, 0, 0, 10]);
+    const descFilter = useMotionTemplate`blur(${descBlur}px)`;
 
     // ACT 4: WORK TILES — last to arrive (18–28%)
     const tilesOpacity = useTransform(scrollYProgress, [0.18, 0.28, 0.88, 0.98], [0, 1, 1, 0]);
-    const tilesY = useTransform(scrollYProgress, [0.18, 0.28], [30, 0]);
-    const tilesScale = useTransform(scrollYProgress, [0.18, 0.28], [0.96, 1]);
+    const tilesY = useTransform(scrollYProgress, [0.18, 0.28], [16, 0]);
+    const tilesScale = useTransform(scrollYProgress, [0.18, 0.28], [0.98, 1]);
+    const tilesBlur = useTransform(scrollYProgress, [0.18, 0.28, 0.88, 0.98], [10, 0, 0, 10]);
+    const tilesFilter = useMotionTemplate`blur(${tilesBlur}px)`;
 
     // Lightbox State
     const [lightboxOpen, setLightboxOpen] = React.useState(false);
@@ -206,14 +222,14 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
                             style={{ opacity: yearOpacity, scale: yearScale }}
                             className="absolute inset-0 flex items-center justify-center pointer-events-none"
                         >
-                            <div className="text-[80px] md:text-[140px] lg:text-[220px] font-black text-white/[0.08] leading-none tracking-tighter font-mono">
+                            <div className="text-[56px] md:text-[140px] lg:text-[220px] font-black text-white/[0.08] leading-none tracking-tighter font-mono">
                                 {startYear}
                             </div>
                         </motion.div>
 
                         {/* ACT 2: Header - Role & Company */}
                         <motion.div
-                            style={{ opacity: headerOpacity, y: headerY, scale: headerScale }}
+                            style={{ opacity: headerOpacity, y: headerY, scale: headerScale, filter: headerFilter }}
                             className="text-center mb-12 max-w-4xl mx-auto relative z-10"
                         >
                             {/* Hero Label (e.g. THE DISCIPLINE) — only if present */}
@@ -249,7 +265,7 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
 
                         {/* ACT 3: Description + Optional Skill Badges */}
                         <motion.div
-                            style={{ opacity: descOpacity, y: descY }}
+                            style={{ opacity: descOpacity, y: descY, filter: descFilter }}
                             className="text-center mb-16 md:mb-20 max-w-2xl mx-auto relative z-10"
                         >
                             <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
@@ -303,7 +319,7 @@ export default function ImmersiveEraBlock({ era, index, isLast }: ImmersiveEraBl
 
                         {/* ACT 4: Work Items & Testimonials */}
                         <motion.div
-                            style={{ opacity: tilesOpacity, y: tilesY, scale: tilesScale }}
+                            style={{ opacity: tilesOpacity, y: tilesY, scale: tilesScale, filter: tilesFilter }}
                             className="w-full relative z-10"
                         >
                             {/* Work Items */}

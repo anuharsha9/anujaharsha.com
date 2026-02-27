@@ -152,39 +152,54 @@ export default function HeroLanding() {
     const videoFilterTemplate = useMotionTemplate`blur(${videoBlur}px) brightness(${videoBrightness}) saturate(${videoSaturation}) contrast(${videoContrast})`
 
     // --- SCROLL CHOREOGRAPHY ---
+    // Container: 340vh → scrollable range ≈ 240vh (~2800px on 1168px viewport)
+    // Each phase: fade-in → HOLD at full opacity → fade-out
 
-    // Phase 1: Chair Philosophy (0% - 40%) — first line visible on load
-    const chair1Opacity = useTransform(scrollYProgress, [0.0, 0.35, 0.40], [1, 1, 0])
-    const chair1Y = useTransform(scrollYProgress, [0.0, 0.35, 0.40], [0, 0, -20])
+    // Phase 1: Chair Philosophy (0% → 50%) — extended hold, blur-to-focus / focus-to-blur transitions
+    const chair1Opacity = useTransform(scrollYProgress, [0.0, 0.38, 0.46], [1, 1, 0])
+    const chair1Y = useTransform(scrollYProgress, [0.0, 0.38, 0.46], [0, 0, -40])
+    const chair1Blur = useTransform(scrollYProgress, [0.0, 0.38, 0.46], [0, 0, 12])
+    const chair1Filter = useMotionTemplate`blur(${chair1Blur}px)`
 
-    const chair2Opacity = useTransform(scrollYProgress, [0.08, 0.14, 0.35, 0.40], [0, 1, 1, 0])
-    const chair2Y = useTransform(scrollYProgress, [0.08, 0.14, 0.35, 0.40], [20, 0, 0, -20])
+    const chair2Opacity = useTransform(scrollYProgress, [0.05, 0.10, 0.38, 0.46], [0, 1, 1, 0])
+    const chair2Y = useTransform(scrollYProgress, [0.05, 0.10, 0.38, 0.46], [40, 0, 0, -40])
+    const chair2Blur = useTransform(scrollYProgress, [0.05, 0.10, 0.38, 0.46], [10, 0, 0, 12])
+    const chair2Filter = useMotionTemplate`blur(${chair2Blur}px)`
 
-    const chair3Opacity = useTransform(scrollYProgress, [0.18, 0.24, 0.35, 0.40], [0, 1, 1, 0])
-    const chair3Y = useTransform(scrollYProgress, [0.18, 0.24, 0.35, 0.40], [20, 0, 0, -20])
+    const chair3Opacity = useTransform(scrollYProgress, [0.12, 0.18, 0.38, 0.46], [0, 1, 1, 0])
+    const chair3Y = useTransform(scrollYProgress, [0.12, 0.18, 0.38, 0.46], [40, 0, 0, -40])
+    const chair3Blur = useTransform(scrollYProgress, [0.12, 0.18, 0.38, 0.46], [10, 0, 0, 12])
+    const chair3Filter = useMotionTemplate`blur(${chair3Blur}px)`
 
-    const chair4Opacity = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.42], [0, 1, 1, 0])
-    const chair4Scale = useTransform(scrollYProgress, [0.28, 0.33], [0.95, 1])
-    const chair4Blur = useTransform(scrollYProgress, [0.28, 0.33], [4, 0])
+    const chair4Opacity = useTransform(scrollYProgress, [0.20, 0.26, 0.42, 0.50], [0, 1, 1, 0])
+    const chair4Scale = useTransform(scrollYProgress, [0.20, 0.26, 0.42, 0.50], [0.95, 1, 1, 0.97])
+    const chair4Blur = useTransform(scrollYProgress, [0.20, 0.26, 0.42, 0.50], [10, 0, 0, 14])
     const chair4Filter = useMotionTemplate`blur(${chair4Blur}px)`
 
-    // Phase 2: Introduction (45% - 95%)
-    const introOpacity = useTransform(scrollYProgress, [0.45, 0.52, 0.90, 0.98], [0, 1, 1, 0])
-    const introY = useTransform(scrollYProgress, [0.45, 0.52, 0.90, 0.98], [30, 0, 0, -30])
+    // Phase 2: Introduction (44% → 98%) — blur-to-focus entry, focus-to-blur exit
+    const introOpacity = useTransform(scrollYProgress, [0.44, 0.52, 0.90, 0.98], [0, 1, 1, 0])
+    const introY = useTransform(scrollYProgress, [0.44, 0.52, 0.90, 0.98], [50, 0, 0, -40])
+    const introBlur = useTransform(scrollYProgress, [0.44, 0.52, 0.90, 0.98], [12, 0, 0, 14])
+    const introFilter = useMotionTemplate`blur(${introBlur}px)`
 
-    // Phase 3: CTAs (58% - 95%) — spring scale + glow
-    const buttonsOpacity = useTransform(scrollYProgress, [0.58, 0.64, 0.90, 0.98], [0, 1, 1, 0])
-    const buttonsScale = useTransform(scrollYProgress, [0.58, 0.66], [0.85, 1])
-    const buttonsY = useTransform(scrollYProgress, [0.58, 0.64, 0.90, 0.98], [30, 0, 0, -20])
+    // Phase 3: CTAs (54% → 98%) — blur-to-focus entry, focus-to-blur exit
+    const buttonsOpacity = useTransform(scrollYProgress, [0.54, 0.62, 0.90, 0.98], [0, 1, 1, 0])
+    const buttonsScale = useTransform(scrollYProgress, [0.54, 0.62, 0.90, 0.98], [0.85, 1, 1, 0.95])
+    const buttonsY = useTransform(scrollYProgress, [0.54, 0.62, 0.90, 0.98], [40, 0, 0, -30])
+    const buttonsBlur = useTransform(scrollYProgress, [0.54, 0.62, 0.90, 0.98], [8, 0, 0, 12])
+    const buttonsFilterTemplate = useMotionTemplate`blur(${buttonsBlur}px)`
 
     const buttonsPointerEvents = useTransform(buttonsOpacity, (v) => v > 0.8 ? 'auto' : 'none')
 
+    // Phase 4: Hero container fade-out — reveals CSG block scrolling underneath (same crossfade pattern as chair→bio)
+    const heroContainerOpacity = useTransform(scrollYProgress, [0.90, 1.0], [1, 0])
+
     // Glow ring on primary CTA — pulses once then fades  
-    const glowRingScale = useTransform(scrollYProgress, [0.60, 0.68], [0.8, 1.6])
-    const glowRingOpacity = useTransform(scrollYProgress, [0.60, 0.64, 0.68], [0, 0.6, 0])
+    const glowRingScale = useTransform(scrollYProgress, [0.66, 0.74], [0.8, 1.6])
+    const glowRingOpacity = useTransform(scrollYProgress, [0.66, 0.70, 0.74], [0, 0.6, 0])
 
     // Light sweep on primary CTA
-    const lightSweepX = useTransform(scrollYProgress, [0.62, 0.72], ['-120%', '120%'])
+    const lightSweepX = useTransform(scrollYProgress, [0.68, 0.78], ['-120%', '120%'])
 
     const combinedHeroTextOpacity = useTransform(watchMode, [0, 1], [1, 0])
 
@@ -225,8 +240,8 @@ export default function HeroLanding() {
     const hideScrollPrompt = useTransform(scrollYProgress, [0, 0.05], [1, 0])
 
     return (
-        <div ref={containerRef} className="relative w-full z-10" style={{ height: '300vh' }}>
-            <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center">
+        <div ref={containerRef} className="relative w-full z-10" style={{ height: '340vh' }}>
+            <motion.div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center" style={{ opacity: heroContainerOpacity }}>
 
                 <motion.div
                     className="absolute inset-0 z-0 bg-[var(--bg-cinematic)] flex items-center justify-center pointer-events-auto"
@@ -259,13 +274,13 @@ export default function HeroLanding() {
                     <motion.div
                         className="absolute top-1/2 left-1/2 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center px-6 md:px-12 space-y-8 md:space-y-12 text-center"
                     >
-                        <motion.h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white/50 will-change-transform" style={{ opacity: chair1Opacity, y: chair1Y }}>
+                        <motion.h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white/50 will-change-transform" style={{ opacity: chair1Opacity, y: chair1Y, filter: chair1Filter }}>
                             &quot;When you look at a chair...
                         </motion.h3>
-                        <motion.h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white/70 will-change-transform" style={{ opacity: chair2Opacity, y: chair2Y }}>
+                        <motion.h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white/70 will-change-transform" style={{ opacity: chair2Opacity, y: chair2Y, filter: chair2Filter }}>
                             ...the only thing that comes to mind is to sit on it.
                         </motion.h3>
-                        <motion.h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white/90 will-change-transform" style={{ opacity: chair3Opacity, y: chair3Y }}>
+                        <motion.h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white/90 will-change-transform" style={{ opacity: chair3Opacity, y: chair3Y, filter: chair3Filter }}>
                             Good UX should feel exactly like that.
                         </motion.h3>
                         <motion.h3
@@ -280,7 +295,7 @@ export default function HeroLanding() {
                     <div id="bio" className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center px-6">
                         <motion.div
                             className="flex flex-col items-center text-center max-w-4xl will-change-transform"
-                            style={{ opacity: introOpacity, y: introY }}
+                            style={{ opacity: introOpacity, y: introY, filter: introFilter }}
                         >
                             <span className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Senior Product Designer</span>
                             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6">
@@ -298,6 +313,7 @@ export default function HeroLanding() {
                                 opacity: buttonsOpacity,
                                 y: buttonsY,
                                 scale: buttonsScale,
+                                filter: buttonsFilterTemplate,
                                 pointerEvents: buttonsPointerEvents
                             }}
                         >
@@ -374,7 +390,7 @@ export default function HeroLanding() {
                     )}
                 </AnimatePresence>
 
-            </div>
+            </motion.div>
         </div >
     )
 }

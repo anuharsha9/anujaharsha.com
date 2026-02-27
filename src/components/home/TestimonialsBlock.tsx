@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 
 const TESTIMONIALS = [
     {
@@ -59,8 +59,8 @@ const TESTIMONIALS = [
 function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: number }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
             className={`relative rounded-2xl p-6 md:p-8 transition-all duration-300
@@ -69,6 +69,15 @@ function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: numbe
                     : 'bg-white/[0.03] hover:bg-white/[0.05]'
                 }`}
         >
+            {/* Primary badge — inline on mobile to avoid overlap, absolute on desktop */}
+            {t.isPrimary && (
+                <div className="md:absolute md:top-4 md:right-4 mb-3 md:mb-0">
+                    <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 bg-[var(--accent-teal)]/10 px-2 py-1 rounded-full">
+                        Featured
+                    </span>
+                </div>
+            )}
+
             {/* Quote */}
             <p className={`text-sm md:text-[15px] leading-relaxed mb-6 ${t.isPrimary ? 'text-white/90' : 'text-white/70'}`}>
                 &ldquo;{t.quote}&rdquo;
@@ -93,15 +102,6 @@ function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: numbe
                     </p>
                 </div>
             </div>
-
-            {/* Primary badge */}
-            {t.isPrimary && (
-                <div className="absolute top-4 right-4">
-                    <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 bg-[var(--accent-teal)]/10 px-2 py-1 rounded-full">
-                        Featured
-                    </span>
-                </div>
-            )}
         </motion.div>
     )
 }
@@ -113,16 +113,20 @@ export default function TestimonialsBlock() {
         offset: ['start end', 'end start'],
     })
 
-    const headingY = useTransform(scrollYProgress, [0, 0.3], [80, 0])
+    const headingY = useTransform(scrollYProgress, [0, 0.3], [30, 0])
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
-    const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
+    const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.98, 1])
+
+    // Blur-to-focus entrance: consistent crossfade theme
+    const sectionBlur = useTransform(scrollYProgress, [0, 0.12], [12, 0])
+    const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
 
     // Separate primary and secondary
     const primary = TESTIMONIALS.filter(t => t.isPrimary)
     const secondary = TESTIMONIALS.filter(t => !t.isPrimary)
 
     return (
-        <section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+        <motion.section ref={ref} className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden" style={{ filter: sectionFilter }}>
             {/* Era label — decorative, above content */}
             <motion.div
                 className="mb-6 md:mb-8 pointer-events-none select-none"
@@ -132,7 +136,7 @@ export default function TestimonialsBlock() {
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
-                <span className="font-extrabold text-[clamp(3rem,8vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                     SOCIAL PROOF
                 </span>
             </motion.div>
@@ -164,6 +168,6 @@ export default function TestimonialsBlock() {
                     <TestimonialCard key={t.id} t={t} index={i + 2} />
                 ))}
             </div>
-        </section>
+        </motion.section>
     )
 }

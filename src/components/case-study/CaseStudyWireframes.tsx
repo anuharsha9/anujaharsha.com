@@ -153,22 +153,22 @@ export function MLWireframe() {
     const steps = ['Data Prep', 'Train', 'Evaluate']
 
     return (
-        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-4">
+        <div ref={ref} className="absolute inset-0 flex items-center justify-center p-3 md:p-4">
             <div className="w-full max-w-[260px] space-y-3">
                 <AnimatePresence>
                     {phase >= 0 && (
                         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-                            className="flex gap-2 items-center justify-center">
+                            className="flex gap-3 md:gap-2 items-center justify-center flex-wrap">
                             {steps.map((step, i) => (
                                 <motion.div key={step}
                                     initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: i * 0.15, type: 'spring', stiffness: 200, damping: 15 }}
-                                    className="flex flex-col items-center gap-1.5">
-                                    <div className="w-10 h-10 rounded-lg border flex items-center justify-center"
+                                    className="flex flex-col items-center gap-1">
+                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg border flex items-center justify-center"
                                         style={{ borderColor: `${a}50`, backgroundColor: `${a}15` }}>
-                                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `${a}60` }} />
+                                        <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full" style={{ backgroundColor: `${a}60` }} />
                                     </div>
-                                    <span className="text-[8px] font-mono uppercase tracking-wider font-medium" style={{ color: `${a}90` }}>
+                                    <span className="text-[7px] md:text-[8px] font-mono uppercase tracking-wider font-medium" style={{ color: `${a}90` }}>
                                         {step}
                                     </span>
                                 </motion.div>
