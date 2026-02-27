@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { CaseStudyData } from '@/types/caseStudy'
 import HeroSection from './HeroSection'
@@ -167,6 +168,12 @@ export default function CaseStudyPage({
     quickOverviewOverrides,
 }: CaseStudyPageProps) {
     const [viewMode, setViewMode] = useState<'full' | 'presentation'>(defaultViewMode)
+    const router = useRouter()
+
+    // X / ESC in presentation → go back to landing page work overview
+    const handlePresentationClose = useCallback(() => {
+        router.push('/#work-overview')
+    }, [router])
 
     // ── Build presentation slides ──
     const presentationSlides = useMemo(() => {
@@ -512,6 +519,7 @@ export default function CaseStudyPage({
                 <StoryDeck
                     slides={presentationSlides}
                     onExit={() => setViewMode('full')}
+                    onClose={handlePresentationClose}
                 />
             )}
 

@@ -23,6 +23,8 @@ export interface StorySlide {
 interface StoryDeckProps {
     slides: StorySlide[]
     onExit: () => void
+    /** Called when user clicks X or presses ESC — navigates away from case study */
+    onClose?: () => void
 }
 
 /* ─── shared easing ───────────────────────────────── */
@@ -280,7 +282,7 @@ function SlideContent({ slide, index, total }: { slide: StorySlide; index: numbe
 
 
 /* ─── main carousel component ──────────────────────── */
-export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
+export default function StoryDeck({ slides, onExit, onClose }: StoryDeckProps) {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [isPlaying, setIsPlaying] = useState(true)
     const [progress, setProgress] = useState(0)
@@ -377,7 +379,7 @@ export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
                 e.preventDefault()
                 goPrev()
             } else if (e.key === 'Escape') {
-                onExit()
+                onClose ? onClose() : onExit()
             }
         }
         window.addEventListener('keydown', handleKey)
@@ -401,7 +403,7 @@ export default function StoryDeck({ slides, onExit }: StoryDeckProps) {
                     <span className="font-mono text-[10px] tracking-wider uppercase">Full Case Study</span>
                 </button>
                 <button
-                    onClick={onExit}
+                    onClick={onClose || onExit}
                     className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md
                                flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer
                                border border-white/10"

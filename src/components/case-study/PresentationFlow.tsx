@@ -15,9 +15,11 @@ interface PresentationFlowProps {
         slides: { title: string; image: string; description: string }[];
     };
     onExit: () => void;
+    /** Called when user clicks X or presses ESC — navigates away from case study */
+    onClose?: () => void;
 }
 
-export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonusSlides, onExit }) => {
+export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonusSlides, onExit, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0); // -1 = prev, +1 = next
     const [isMobile, setIsMobile] = useState(false);
@@ -103,12 +105,12 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'ArrowRight') nextSlide();
             if (e.key === 'ArrowLeft') prevSlide();
-            if (e.key === 'Escape') onExit();
+            if (e.key === 'Escape') onClose ? onClose() : onExit();
         };
         window.addEventListener('keydown', handleKeyDown);
 
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [nextSlide, prevSlide, onExit]);
+    }, [nextSlide, prevSlide, onExit, onClose]);
 
     // Slide transition variants — directional motion + blur
     const slideVariants = {
@@ -180,7 +182,7 @@ export const PresentationFlow: React.FC<PresentationFlowProps> = ({ slides, bonu
 
                     {/* Close Button — rotate on hover */}
                     <motion.button
-                        onClick={onExit}
+                        onClick={onClose || onExit}
                         className="p-3 md:p-2.5 text-[var(--text-muted)] hover:text-white hover:bg-slate-800/50 transition-colors duration-200 rounded-lg"
                         aria-label="Close presentation"
                         whileHover={{ rotate: 90, scale: 1.1 }}
