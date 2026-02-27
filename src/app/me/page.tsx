@@ -3,75 +3,19 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { createPortal } from 'react-dom'
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence, animate as fmAnimate } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, AnimatePresence, animate as fmAnimate } from 'framer-motion'
 import { articleLinks } from '@/data/home'
 import ScrollGear from '@/components/ui/ScrollGear'
-import { withHexAlpha } from '@/lib/color-utils'
+
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    CONSTANTS — All real content data
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 const HERO_VIDEO = '/videos/intro-video.mp4'
-const HERO_TEXT = ['DESIGN', 'ENGINEER']
+const HERO_TEXT = ['PRODUCT', 'DESIGNER']
 
-const EVOLUTION_VERSIONS = [
-  {
-    id: 'v1', label: 'Jan 2025', title: 'The Baseline',
-    desc: 'Panic-built after team layoffs. Juggling a newborn and manual HTML/CSS.',
-    tech: 'HTML • CSS • S3',
-    video: '/videos/evolution/v1_web.mp4',
-    keyLearning: '"Manual coding is too slow for modern iteration."',
-    accent: 'var(--accent-teal)',
-  },
-  {
-    id: 'v2', label: 'Nov 10', title: 'The Upgrade',
-    desc: 'Post-layoff restart. "Black Pink" design. Fighting for traction.',
-    tech: 'HTML • CSS • ChatGPT',
-    video: '/videos/evolution/v2_web.mp4',
-    keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."',
-    accent: 'var(--semantic-magenta-500)',
-  },
-  {
-    id: 'v3', label: 'Nov 15', title: 'The Speedrun',
-    desc: 'White/Pink Redesign. Built in 24 hours. First glimpse of high velocity.',
-    tech: 'HTML • CSS • AIv1',
-    video: '/videos/evolution/v3_web.mp4',
-    keyLearning: '"Frameworks are not overhead; they are the scaffold for speed."',
-    accent: 'var(--semantic-orange-vivid)',
-  },
-  {
-    id: 'v4', label: 'Dec 1', title: 'The Architecture',
-    desc: 'Next.js 14 + Git. Multi-agent orchestration for enterprise scalability.',
-    tech: 'Next.js • Agents • AWS',
-    video: '/videos/evolution/v4_web.mp4',
-    keyLearning: '"Agents handle the build. The human focuses on Soul."',
-    accent: 'var(--semantic-cyan-vivid)',
-  },
-  {
-    id: 'v5', label: 'Dec 8', title: 'The Polish',
-    desc: 'Refining the interaction layer. Achieving portfolio-market fit.',
-    tech: 'Framer Motion • Vibe • UX',
-    video: '/videos/evolution/v5_web.mp4',
-    keyLearning: '"The final 10% of polish takes 50% of the effort."',
-    accent: 'var(--semantic-purple-vivid)',
-  },
-]
 
-const ORCHESTRATION_STACK = [
-  { name: 'ChatGPT', role: 'Strategy', rotate: -3 },
-  { name: 'Claude', role: 'Architecture', rotate: 2 },
-  { name: 'Gemini', role: 'Polish', rotate: -1.5 },
-  { name: 'Cursor', role: 'Build', rotate: 4 },
-  { name: 'Antigravity', role: 'Logic', rotate: -2.5 },
-  { name: 'AWS', role: 'Scale', rotate: 1.5 },
-  { name: 'Next.js 16', role: 'Framework', rotate: -4 },
-  { name: 'Framer Motion', role: 'Animation', rotate: 3 },
-  { name: 'Tailwind', role: 'Style', rotate: -1 },
-  { name: 'Figma', role: 'Design', rotate: 2.5 },
-  { name: 'Git', role: 'Version Control', rotate: -3.5 },
-  { name: 'TypeScript', role: 'Safety', rotate: 1 },
-]
 
 const POEM_STANZAS = [
   { lines: ['Opening my eyes to this beautiful world', 'I see the creator of my life,', 'Life gave me the gift of mother;', 'To be loved, nurtured, and cared for,'], gift: 'mother', giftLine: 2 },
@@ -99,13 +43,7 @@ const LIFE_PHOTOS = [
 /* ═══════════════════════════════════════════════════════════════════════════════
    UTILITY: Touch detection
    ═══════════════════════════════════════════════════════════════════════════════ */
-function useIsTouchDevice() {
-  const [isTouch, setIsTouch] = useState(false)
-  useEffect(() => {
-    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0)
-  }, [])
-  return isTouch
-}
+
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    ACT 1: THE GLITCH PORTAL — Hero
@@ -238,13 +176,13 @@ function GlitchPortalHero() {
             className="font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
             style={{ x: row1X, opacity: combinedTextOpacity, mixBlendMode: 'difference' }}
           >
-            DESIGN
+            PRODUCT
           </motion.h1>
           <motion.h1
             className="font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
             style={{ x: row2X, opacity: combinedTextOpacity, mixBlendMode: 'difference' }}
           >
-            ENGINEER
+            DESIGNER
           </motion.h1>
         </div>
 
@@ -327,359 +265,7 @@ function GlitchPortalHero() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════════
-   ACT 2: THE TIME TUNNEL — Evolution
-   Desktop: Pinned z-axis scroll. Cards fly towards camera.
-   Mobile: Horizontal snap carousel with background color flicker.
-   ═══════════════════════════════════════════════════════════════════════════════ */
-function TimeTunnel() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end end'] })
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
-  const [mobileIndex, setMobileIndex] = useState(0)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-  // Desktop: map scroll progress to active card index AND fractional progress
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (v) => {
-      setProgress(v)
-      const count = EVOLUTION_VERSIONS.length
-      // Map progress [0, 1] to card index, clamping at the last card
-      const idx = Math.min(Math.floor(v * count), count - 1)
-      setActiveIndex(idx)
-    })
-    return unsubscribe
-  }, [scrollYProgress])
-
-  // Mobile snap scroll handler
-  const handleMobileScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
-    const el = e.currentTarget
-    const cardWidth = el.offsetWidth * 0.85
-    const idx = Math.round(el.scrollLeft / cardWidth)
-    setMobileIndex(Math.min(idx, EVOLUTION_VERSIONS.length - 1))
-  }, [])
-
-  const mobileAccent = EVOLUTION_VERSIONS[mobileIndex]?.accent || 'var(--accent-teal)'
-
-  // Compute per-card visual properties based on continuous scroll progress
-  const getCardStyle = (i: number) => {
-    const count = EVOLUTION_VERSIONS.length
-    // Each card occupies a 1/count segment of the total scroll
-    const cardStart = i / count
-    const cardEnd = (i + 1) / count
-    const cardMid = (cardStart + cardEnd) / 2
-
-    // How far through this card's segment we are (-0.5 to 0.5 centered at peak)
-    let distFromCenter = (progress - cardMid) * count
-
-    // Edge clamping: first card should be fully visible at scroll start (no fade-in),
-    // last card should hold until scroll end (no fade-out)
-    if (i === 0 && distFromCenter < 0) distFromCenter = 0
-    if (i === count - 1 && distFromCenter > 0) distFromCenter = 0
-
-    // Hold zone: card stays at full opacity for the middle portion of its segment.
-    // |-- fade-in --|---- hold (full opacity) ----|-- fade-out --|
-    const holdRadius = 0.25 // card is fully opaque when |distFromCenter| < this
-    const absDist = Math.abs(distFromCenter)
-    let opacity: number
-    if (absDist <= holdRadius) {
-      opacity = 1 // fully visible — user can read comfortably
-    } else {
-      // fade region: from holdRadius to 0.5 (edge of segment)
-      const fadeRange = 0.5 - holdRadius
-      opacity = Math.max(0, 1 - (absDist - holdRadius) / fadeRange)
-    }
-
-    // Only apply transforms once past the hold zone
-    const effectiveDist = absDist <= holdRadius ? 0 : Math.sign(distFromCenter) * (absDist - holdRadius)
-
-    // Scale: active = 1, past cards grow (flew past camera), future cards shrink (approaching)
-    const scale = 1 + effectiveDist * 1.2
-
-    // Z-depth: past = behind camera, future = in front approaching
-    const z = effectiveDist * -300
-
-    // Slight tilt for drama
-    const rotateX = effectiveDist * -15
-
-    return { opacity, scale: Math.max(0.3, Math.min(2, scale)), z, rotateX }
-  }
-
-  return (
-    <>
-      {/* ─── DESKTOP: Z-Axis Tunnel ─── */}
-      <div ref={containerRef} className="hidden md:block relative" style={{ height: `${EVOLUTION_VERSIONS.length * 200}vh` }}>
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black"
-          style={{ perspective: '1200px', perspectiveOrigin: '50% 50%' }}
-        >
-          {/* Tunnel lines */}
-          <div className="absolute inset-0 z-0" style={{
-            backgroundImage: `
-              linear-gradient(var(--overlay-white-03) 1px, transparent 1px),
-              linear-gradient(90deg, var(--overlay-white-03) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px',
-          }} />
-
-          {/* Cards stacked in z-space */}
-          <div className="absolute inset-0" style={{ transformStyle: 'preserve-3d' }}>
-            {EVOLUTION_VERSIONS.map((v, i) => {
-              const style = getCardStyle(i)
-              const isVisible = style.opacity > 0.01
-
-              return (
-                <div
-                  key={v.id}
-                  className="absolute inset-0 flex items-center justify-center p-8"
-                  style={{
-                    willChange: 'transform, opacity',
-                    transform: `translateZ(${style.z}px) scale(${style.scale}) rotateX(${style.rotateX}deg)`,
-                    opacity: style.opacity,
-                    pointerEvents: isVisible ? 'auto' : 'none',
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
-                  <div className="w-full max-w-4xl">
-                    {/* Version badge */}
-                    <div className="flex items-center gap-4 mb-6">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">{v.label}</span>
-                      <div className="flex-1 h-[1px]" style={{ background: `linear-gradient(90deg, ${withHexAlpha(v.accent, '40')}, transparent)` }} />
-                      <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: v.accent }}>{v.tech}</span>
-                    </div>
-
-                    {/* Title */}
-                    <h2 className="font-black text-5xl lg:text-7xl text-white leading-[0.9] tracking-tight mb-4">{v.title}</h2>
-                    <p className="text-white/50 text-lg max-w-lg leading-relaxed mb-8">{v.desc}</p>
-
-                    {/* Video preview */}
-                    <div className="relative aspect-video rounded-lg overflow-hidden border border-white/10">
-                      <video
-                        ref={(el) => {
-                          if (el) {
-                            if (i === activeIndex) {
-                              el.play().catch(() => { })
-                            } else {
-                              el.pause()
-                            }
-                          }
-                        }}
-                        src={v.video}
-                        muted playsInline loop
-                        className="w-full h-full object-contain bg-black"
-                      />
-                      {/* Scanline overlay */}
-                      <div className="absolute inset-0 pointer-events-none opacity-10"
-                        style={{
-                          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, var(--overlay-black-30) 2px, var(--overlay-black-30) 4px)',
-                        }}
-                      />
-                    </div>
-
-                    {/* Key learning */}
-                    <div className="mt-6 flex items-start gap-3">
-                      <div className="w-[2px] h-8 shrink-0 rounded-full" style={{ backgroundColor: v.accent }} />
-                      <p className="text-white/40 text-sm italic font-light">{v.keyLearning}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Progress dots */}
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
-            {EVOLUTION_VERSIONS.map((v, i) => (
-              <div
-                key={v.id}
-                className="w-2 h-2 rounded-full transition-all duration-500"
-                style={{
-                  backgroundColor: i === activeIndex ? v.accent : 'var(--overlay-white-15)',
-                  transform: i === activeIndex ? 'scale(1.5)' : 'scale(1)',
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ─── MOBILE: Horizontal Snap Carousel ─── */}
-      <div className="block md:hidden relative overflow-hidden transition-colors duration-500" style={{ backgroundColor: mobileIndex % 2 === 0 ? 'var(--bg-monitor)' : 'var(--surface-charcoal-950)' }}>
-        {/* Background accent pulse */}
-        <div className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
-          style={{ background: `radial-gradient(circle at 50% 50%, ${withHexAlpha(mobileAccent, '15')}, transparent 70%)` }}
-        />
-
-        <div className="py-12 px-4">
-          <div className="flex items-center gap-3 mb-6 px-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">Evolution Log</span>
-            <div className="flex-1 h-[1px] bg-white/10" />
-            <span className="font-mono text-[10px] text-white/30">{mobileIndex + 1}/{EVOLUTION_VERSIONS.length}</span>
-          </div>
-
-          <div
-            ref={scrollContainerRef}
-            onScroll={handleMobileScroll}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {EVOLUTION_VERSIONS.map((v, i) => (
-              <div
-                key={v.id}
-                className="snap-center flex-shrink-0"
-                style={{ width: '85vw' }}
-              >
-                <div className="rounded-xl border border-white/10 overflow-hidden bg-black/50 p-1">
-                  {/* Video */}
-                  <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
-                    <video
-                      src={v.video}
-                      autoPlay muted playsInline loop
-                      className="w-full h-full object-contain bg-black"
-                    />
-                    <div className="absolute inset-0 pointer-events-none opacity-10"
-                      style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, var(--overlay-black-30) 2px, var(--overlay-black-30) 4px)' }}
-                    />
-                  </div>
-
-                  <div className="px-3 pb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">{v.label}</span>
-                      <span className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-white/10 text-white/40">{v.tech}</span>
-                    </div>
-                    <h3 className="font-black text-xl text-white leading-tight mb-1">{v.title}</h3>
-                    <p className="text-white/40 text-xs leading-relaxed mb-3">{v.desc}</p>
-                    <div className="flex items-start gap-2">
-                      <div className="w-[2px] h-6 shrink-0 rounded-full" style={{ backgroundColor: v.accent }} />
-                      <p className="text-white/30 text-[11px] italic">{v.keyLearning}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Snap dots */}
-          <div className="flex justify-center gap-2 mt-4">
-            {EVOLUTION_VERSIONS.map((v, i) => (
-              <div
-                key={v.id}
-                className="h-1 rounded-full transition-all duration-500"
-                style={{
-                  width: i === mobileIndex ? 24 : 8,
-                  backgroundColor: i === mobileIndex ? v.accent : 'var(--overlay-white-15)',
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════════
-   ACT 3: THE FLOATING SHARDS — Orchestration Stack
-   Broken glass layout. Cards randomly rotated.
-   Desktop: Mouse parallax. Mobile: Gentle auto-float.
-   ═══════════════════════════════════════════════════════════════════════════════ */
-function FloatingShards() {
-  const isTouch = useIsTouchDevice()
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 })
-  const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 })
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (isTouch) return
-    const { clientX, clientY } = e
-    const { innerWidth, innerHeight } = window
-    mouseX.set((clientX - innerWidth / 2) / innerWidth * 30)
-    mouseY.set((clientY - innerHeight / 2) / innerHeight * 30)
-  }, [isTouch, mouseX, mouseY])
-
-  return (
-    <section
-      className="relative py-24 md:py-32 bg-black overflow-hidden"
-      onMouseMove={handleMouseMove}
-      id="orchestration-shards"
-    >
-      {/* Section label */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 mb-16">
-        <div className="flex items-center gap-4">
-          <h2 className="font-black text-3xl md:text-5xl text-white tracking-tight">The System</h2>
-          <div className="flex-1 h-[1px] bg-white/10" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/20">Orchestration Stack</span>
-        </div>
-        <p className="text-white/30 text-sm md:text-base mt-4 max-w-lg">
-          1 Architect. 6 AI Agents. A relentless product-design system.
-        </p>
-      </div>
-
-      {/* Shard Grid */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-          {ORCHESTRATION_STACK.map((tool, i) => (
-            <motion.div
-              key={tool.name}
-              className="group relative"
-              initial={{ opacity: 0, y: 40, rotate: tool.rotate }}
-              whileInView={{ opacity: 1, y: 0, rotate: tool.rotate }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              style={isTouch ? {} : {
-                x: smoothX,
-                y: smoothY,
-              }}
-            >
-              <motion.div
-                whileHover={isTouch ? {} : { rotate: 0, scale: 1.08, z: 20 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="relative bg-white/[0.03] border border-white/[0.08] rounded-lg p-5 md:p-6
-                           hover:bg-white/[0.06] hover:border-white/[0.15]
-                           transition-colors duration-300 cursor-default"
-              >
-                {/* Glow dot */}
-                <div className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] opacity-0 group-hover:opacity-80 transition-opacity" />
-
-                <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-white/20 mb-2">
-                  {tool.role}
-                </span>
-                <span className="block font-bold text-sm md:text-base text-white/80 group-hover:text-white transition-colors">
-                  {tool.name}
-                </span>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Capability Cards */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 mt-16 md:mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {[
-            { label: 'Velocity', title: '1 Architect. 6 Weeks.', desc: 'Deployed MVP in 7 days. 5 full architectural pivots. I don\'t get stuck; I deliver.' },
-            { label: 'Modernization', title: '13 Years Untangled.', desc: 'Enterprise-scale digital transformation. Bridging legacy systems with modern AI/ML UX.' },
-            { label: 'Bridge', title: 'Product Design.', desc: 'Custom Design Token system for pixel-perfect consistency across a multi-agent automated build.' },
-          ].map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="border border-white/[0.06] rounded-lg p-6 md:p-8 bg-white/[0.02]"
-            >
-              <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/60 block mb-3">{item.label}</span>
-              <h3 className="font-bold text-lg text-white mb-2">{item.title}</h3>
-              <p className="text-white/30 text-sm leading-relaxed">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    ACT 4: THE DUALITY — Writing (Cinematic Poetry)
@@ -728,23 +314,6 @@ function DualityWriting() {
               {/* Decorative vertical line */}
               <div className="absolute top-0 right-0 w-[1px] h-full bg-white/[0.06] hidden lg:block" />
 
-              {/* ─── WATERMARK: Giant faint "01" for visual mass ─── */}
-              <div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-                aria-hidden="true"
-              >
-                <span
-                  className="font-mono font-black"
-                  style={{
-                    fontSize: 'clamp(300px, 40vw, 500px)',
-                    lineHeight: 1,
-                    color: 'var(--overlay-white-025)',
-                    letterSpacing: '-0.05em',
-                  }}
-                >
-                  01
-                </span>
-              </div>
 
               {/* Content — vertically centered */}
               <div className="relative z-10 max-w-lg w-full">
@@ -1098,127 +667,93 @@ function DualityWriting() {
    Desktop: Draggable canvas with scattered photos.
    Mobile: Auto-floating grid. Tap = glitch/scale animation.
    ═══════════════════════════════════════════════════════════════════════════════ */
-function ChaosCloud() {
-  const isTouch = useIsTouchDevice()
-  const [tappedIndex, setTappedIndex] = useState<number | null>(null)
-
-  // Random but deterministic positions for desktop
-  const positions = [
-    { x: '10%', y: '15%', w: 340, rotate: -4, z: 3 },
-    { x: '55%', y: '8%', w: 220, rotate: 3, z: 1 },
-    { x: '35%', y: '55%', w: 260, rotate: -2, z: 4 },
-    { x: '70%', y: '45%', w: 280, rotate: 5, z: 2 },
-    { x: '15%', y: '65%', w: 200, rotate: -6, z: 5 },
-  ]
-
-  const handleTap = (i: number) => {
-    setTappedIndex(i)
-    setTimeout(() => setTappedIndex(null), 600)
-  }
-
+function LifeGallery() {
   return (
-    <section className="relative bg-black py-16 md:py-0 overflow-hidden" id="life-chaos-cloud">
+    <section className="relative bg-black py-20 md:py-28 overflow-hidden" id="life-gallery">
+      {/* Ambient background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full"
+          style={{ background: 'radial-gradient(ellipse, var(--overlay-accent-06) 0%, transparent 70%)', filter: 'blur(100px)' }}
+        />
+      </div>
+
       {/* Section Header */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 md:pt-24 mb-8 md:mb-0">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 mb-12 md:mb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
+          <div className="flex items-center gap-4 mb-4">
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/20">Beyond Work</span>
+            <div className="flex-1 h-[1px] bg-white/[0.06]" />
+          </div>
           <h2 className="font-black text-3xl md:text-5xl text-white tracking-tight">Life Outside the Terminal</h2>
-          <p className="text-white/20 text-sm mt-3 max-w-md">
+          <p className="text-white/25 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
             Parent, baker, painter, poet. The raw material that shapes my design thinking.
           </p>
         </motion.div>
       </div>
 
-      {/* ─── DESKTOP: Draggable Canvas ─── */}
-      <div className="hidden md:block relative h-[700px] w-full cursor-grab active:cursor-grabbing">
-        {LIFE_PHOTOS.map((photo, i) => {
-          const pos = positions[i]
-          return (
-            <motion.div
-              key={photo.label}
-              className="absolute group"
-              drag
-              dragMomentum={false}
-              dragElastic={0.1}
-              initial={{ opacity: 0, scale: 0.8, rotate: pos.rotate }}
-              whileInView={{ opacity: 1, scale: 1, rotate: pos.rotate }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.12 }}
-              whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
-              style={{
-                left: pos.x,
-                top: pos.y,
-                width: pos.w,
-                zIndex: pos.z,
-                willChange: 'transform',
-              }}
-            >
-              <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={0}
-                  height={0}
-                  sizes="340px"
-                  style={{ width: '100%', height: 'auto' }}
-                  className="block"
-                  draggable={false}
-                />
-                {/* Label on hover */}
-                <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-white/70">{photo.label}</span>
-                </div>
-              </div>
-            </motion.div>
-          )
-        })}
-      </div>
-
-      {/* ─── MOBILE: Auto-floating grid with tap-to-glitch ─── */}
-      <div className="block md:hidden px-4">
-        <div className="grid grid-cols-2 gap-3">
+      {/* ─── Bento Grid Gallery ─── */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[200px]">
           {LIFE_PHOTOS.map((photo, i) => {
-            const isTapped = tappedIndex === i
+            // Bento sizing: first image spans wide, others vary
+            const spanClasses = [
+              'col-span-2 md:col-span-7 row-span-2',      // Baking — hero card
+              'col-span-1 md:col-span-5 row-span-2',      // Painting — tall right
+              'col-span-2 md:col-span-4 row-span-1',      // Family — wide bottom-left
+              'col-span-1 md:col-span-4 row-span-1',      // Cooking — square center
+              'col-span-1 md:col-span-4 row-span-1',      // Flavor — square right
+            ][i]
+
             return (
               <motion.div
                 key={photo.label}
-                className={`relative rounded-lg overflow-hidden border border-white/10 ${i === 0 ? 'col-span-2 aspect-[16/10]' : 'aspect-square'}`}
-                onClick={() => handleTap(i)}
-                animate={isTapped
-                  ? { scale: [1, 1.1, 0.95, 1.02, 1], rotate: [0, 2, -2, 1, 0] }
-                  : { y: [0, -4, 0] }
-                }
-                transition={isTapped
-                  ? { duration: 0.5, ease: 'easeOut' }
-                  : { duration: 3 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.8 }
-                }
+                className={`relative group rounded-xl overflow-hidden ${spanClasses}`}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="object-cover"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-3 py-2">
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-white/60">{photo.label}</span>
+                {/* Image with cinematic treatment */}
+                <div className="absolute inset-0 transition-all duration-700 ease-out"
+                  style={{ filter: 'saturate(0.4) brightness(0.7)' }}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
                 </div>
-                {/* Glitch overlay on tap */}
-                <AnimatePresence>
-                  {isTapped && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0, 0.5, 0] }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-[var(--accent-teal)]/20 mix-blend-overlay pointer-events-none"
-                    />
-                  )}
-                </AnimatePresence>
+
+                {/* Hover: restore full color */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Gradient overlay for text */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-[1]" />
+
+                {/* Border */}
+                <div className="absolute inset-0 rounded-xl border border-white/[0.06] group-hover:border-white/[0.12] transition-colors duration-500 z-[2]" />
+
+                {/* Label */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 z-[3]">
+                  <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors duration-500">
+                    {photo.label}
+                  </span>
+                </div>
               </motion.div>
             )
           })}
@@ -1329,7 +864,7 @@ export default function AboutPage() {
     <div className="bg-black relative" style={{ overflowX: 'clip' }}>
       <GlitchPortalHero />
       <DualityWriting />
-      <ChaosCloud />
+      <LifeGallery />
       <ConnectionClose />
       <ScrollGear />
     </div>
