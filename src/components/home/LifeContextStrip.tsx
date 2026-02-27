@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion'
 import {
     Bot, Mountain, GraduationCap, Award, Baby, MapPin, Heart, Palette
 } from 'lucide-react'
@@ -52,6 +52,8 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
 
     const lineWidth = useTransform(scrollYProgress, [0.1, 0.5], ['0%', '100%'])
     const labelOpacity = useTransform(scrollYProgress, [0.05, 0.2], [0, 1])
+    const labelBlur = useTransform(scrollYProgress, [0.05, 0.2], [6, 0])
+    const labelFilter = useMotionTemplate`blur(${labelBlur}px)`
 
     return (
         <div ref={ref} className="relative max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-12 md:py-20">
@@ -67,7 +69,7 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
             {/* Label */}
             <motion.p
                 className="font-mono text-xs uppercase tracking-[0.3em] text-white/50 mb-8"
-                style={{ opacity: labelOpacity }}
+                style={{ opacity: labelOpacity, filter: labelFilter }}
             >
                 {label}
             </motion.p>
@@ -79,8 +81,8 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
                     return (
                         <motion.div
                             key={m.title}
-                            initial={{ opacity: 0, y: 25, x: -10 }}
-                            whileInView={{ opacity: 1, y: 0, x: 0 }}
+                            initial={{ opacity: 0, y: 25, x: -10, filter: 'blur(6px)' }}
+                            whileInView={{ opacity: 1, y: 0, x: 0, filter: 'blur(0px)' }}
                             viewport={{ once: true, amount: 0.5 }}
                             transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                             className="flex items-center gap-3 group"

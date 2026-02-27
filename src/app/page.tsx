@@ -13,6 +13,7 @@ import LifeContextStrip, {
   AGENCY_MILESTONES,
 } from '@/components/home/LifeContextStrip'
 import FoundationBlock from '@/components/home/FoundationBlock'
+import FloatingOrbs from '@/components/ui/FloatingOrbs'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -83,6 +84,9 @@ export default function Home() {
           }}
         />
       </div>
+
+      {/* Ambient depth particles — drift with scroll parallax */}
+      <FloatingOrbs />
 
       {/* HERO — Chair philosophy → Bio → CTAs */}
       <HeroLanding />

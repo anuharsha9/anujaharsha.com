@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion'
 import { Play } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 
@@ -77,7 +77,7 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
 
                     {/* Wireframe — always visible, blurs on hover (desktop only) */}
                     <div
-                        className="absolute inset-0 transition-all duration-500"
+                        className="absolute inset-0 transition-all duration-500 pointer-events-none"
                         style={{
                             filter: isHovered ? 'blur(8px)' : 'blur(0px)',
                             transform: isHovered ? 'scale(1.05)' : 'scale(1)',
@@ -101,7 +101,7 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
 
                     {/* DESKTOP: Hover overlay — scrim + play + title */}
                     <div
-                        className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500"
+                        className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500 pointer-events-none"
                         style={{
                             opacity: isHovered ? 1 : 0,
                             backgroundColor: isHovered ? 'var(--overlay-black-50)' : 'transparent',
@@ -138,7 +138,9 @@ export default function CSGBlock() {
     const headingScale = useTransform(scrollYProgress, [0, 0.15], [0.98, 1])
 
     // Blur-to-focus entrance: mirrors the hero's focus-to-blur exit for seamless crossfade
-    const sectionBlur = useTransform(scrollYProgress, [0, 0.10], [12, 0])
+    const rawSectionBlur = useTransform(scrollYProgress, [0, 0.10], [12, 0])
+    // Spring-smooth the blur for organic momentum feel
+    const sectionBlur = useSpring(rawSectionBlur, { stiffness: 100, damping: 20, mass: 0.5 })
     const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
 
     const leftTiles = TILES.filter(t => !t.flagship)
@@ -150,8 +152,8 @@ export default function CSGBlock() {
             <motion.div
                 className="mb-6 md:mb-8 pointer-events-none select-none"
                 aria-hidden="true"
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -40, filter: 'blur(10px)' }}
+                whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >

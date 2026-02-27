@@ -1,28 +1,62 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring, useVelocity } from 'framer-motion'
 
 /**
- * ScrollGear - A small gear that rotates as the user scrolls
- * Fixed position in bottom-right corner, serves as a branded scroll progress indicator
+ * ScrollGear — Physics-driven scroll progress indicator
+ * 
+ * The gear rotates with scroll position AND responds to velocity:
+ * - Spins faster when scrolling fast (momentum)
+ * - Wobbles slightly on direction changes (spring overshoot)
+ * - Gentle pulsing glow that intensifies with speed
  */
 export default function ScrollGear() {
   const [isVisible, setIsVisible] = useState(false)
-  const { scrollYProgress } = useScroll()
+  const { scrollYProgress, scrollY } = useScroll()
 
-  // Rotate gear based on scroll progress (0-100% scroll = 0-720deg rotation)
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 720])
+  // Base rotation from scroll position
+  const baseRotate = useTransform(scrollYProgress, [0, 1], [0, 720])
 
-  // Show gear only after scrolling a bit
+  // Velocity-driven bonus rotation (spins faster when scrolling fast)
+  const scrollVelocity = useVelocity(scrollY)
+  const velocityRotation = useTransform(scrollVelocity, [-3000, 0, 3000], [-60, 0, 60])
+
+  // Spring-smooth the velocity rotation for organic momentum feel
+  const smoothVelocityRotation = useSpring(velocityRotation, {
+    stiffness: 100,
+    damping: 15,
+    mass: 0.5,
+  })
+
+  // Combined rotation = position + velocity bonus
+  const finalRotate = useTransform(
+    [baseRotate, smoothVelocityRotation],
+    ([base, velocity]) => (base as number) + (velocity as number)
+  )
+
+  // Velocity-driven scale pulse (gear "breathes" with speed)
+  const velocityScale = useTransform(scrollVelocity, [-2000, 0, 2000], [1.15, 1, 1.15])
+  const smoothScale = useSpring(velocityScale, {
+    stiffness: 200,
+    damping: 20,
+    mass: 0.3,
+  })
+
+  // Velocity-driven glow intensity
+  const glowIntensity = useTransform(scrollVelocity, [-2000, 0, 2000], [0.5, 0.15, 0.5])
+  const smoothGlow = useSpring(glowIntensity, {
+    stiffness: 150,
+    damping: 25,
+  })
+
+  // Show gear only after scrolling
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300)
     }
-
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // Check initial state
-
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -32,12 +66,12 @@ export default function ScrollGear() {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{
         opacity: isVisible ? 1 : 0,
-        scale: isVisible ? 1 : 0.8
+        scale: isVisible ? 1 : 0.8,
       }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div
-        style={{ rotate }}
+        style={{ rotate: finalRotate, scale: smoothScale }}
         className="w-10 h-10 md:w-12 md:h-12"
       >
         {/* Gear SVG */}
@@ -53,8 +87,11 @@ export default function ScrollGear() {
         </svg>
       </motion.div>
 
-      {/* Subtle glow behind gear */}
-      <div className="absolute inset-0 bg-[var(--accent-teal)]/20 blur-xl rounded-full -z-10" />
+      {/* Dynamic glow — intensifies with scroll velocity */}
+      <motion.div
+        className="absolute inset-0 bg-[var(--accent-teal)] blur-xl rounded-full -z-10"
+        style={{ opacity: smoothGlow, scale: smoothScale }}
+      />
     </motion.div>
   )
 }

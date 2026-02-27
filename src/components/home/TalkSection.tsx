@@ -18,8 +18,8 @@ export default function TalkSection() {
       {/* Content container */}
       <div className={`relative z-10 ${spacing.container}`}>
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 50, filter: 'blur(12px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="text-center space-y-space-6"

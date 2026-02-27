@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion'
 
 /* ─── Testimonial data ─── */
 const TESTIMONIALS = {
@@ -182,7 +182,8 @@ export default function ExtendedPortfolio() {
     const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
     // Blur-to-focus entrance: consistent crossfade theme
-    const sectionBlur = useTransform(scrollYProgress, [0, 0.12], [12, 0])
+    const rawSectionBlur = useTransform(scrollYProgress, [0, 0.12], [12, 0])
+    const sectionBlur = useSpring(rawSectionBlur, { stiffness: 100, damping: 20, mass: 0.5 })
     const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
 
     const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
@@ -204,8 +205,8 @@ export default function ExtendedPortfolio() {
             <motion.div
                 className="mb-6 md:mb-8 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto pointer-events-none select-none"
                 aria-hidden="true"
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -40, filter: 'blur(10px)' }}
+                whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
