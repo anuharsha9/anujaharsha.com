@@ -768,26 +768,27 @@ function LifeGallery() {
    ═══════════════════════════════════════════════════════════════════════════════ */
 function ConnectionClose() {
   return (
-    <section className="relative bg-black py-24 md:py-32 overflow-hidden" id="connect">
-      {/* Subtle glow */}
+    <section className="relative bg-black py-20 md:py-28 overflow-hidden" id="connect">
+      {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, var(--overlay-accent-40) 0%, transparent 60%)', filter: 'blur(80px)' }}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full"
+          style={{ background: 'radial-gradient(ellipse, var(--overlay-accent-06) 0%, transparent 70%)', filter: 'blur(100px)' }}
         />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center">
-        {/* Line decoration */}
+        {/* Section label */}
         <motion.div
-          className="flex items-center justify-center gap-4 mb-10"
+          className="flex items-center gap-4 mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div className="w-12 h-[1px] bg-white/10" />
+          <div className="flex-1 h-[1px] bg-white/[0.06]" />
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/20">Say Hello</span>
           <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rotate-45 opacity-40" />
-          <div className="w-12 h-[1px] bg-white/10" />
+          <div className="flex-1 h-[1px] bg-white/[0.06]" />
         </motion.div>
 
         {/* Heading */}
@@ -804,46 +805,51 @@ function ConnectionClose() {
         </div>
 
         <motion.p
-          className="text-white/30 text-base md:text-lg max-w-md mx-auto mb-12 leading-relaxed"
+          className="text-white/30 text-base md:text-lg max-w-md mx-auto mb-14 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Always open to meaningful conversations about design, engineering, and everything in between.
+          Whether it&apos;s about design, art, baking, or just life — I&apos;d love to hear from you.
         </motion.p>
 
-        {/* Links */}
+        {/* Clean inline links */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5"
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          {[
-            { label: 'anujanimmagadda@gmail.com', href: 'mailto:anujanimmagadda@gmail.com' },
-            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/anu159', external: true },
-            { label: '+1 781-354-7394', href: 'tel:+17813547394' },
-          ].map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.external ? '_blank' : undefined}
-              rel={link.external ? 'noopener noreferrer' : undefined}
-              className="group font-mono text-xs text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300 min-h-[44px] flex items-center gap-2"
-            >
-              {link.label}
-              <svg className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-              </svg>
-            </a>
-          ))}
+          <a href="mailto:anujanimmagadda@gmail.com"
+            className="group inline-flex items-center gap-2.5 text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300">
+            <svg className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+            <span className="font-mono text-xs tracking-wide">anujanimmagadda@gmail.com</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/anu159" target="_blank" rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2.5 text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300">
+            <svg className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            <span className="font-mono text-xs tracking-wide">LinkedIn</span>
+          </a>
+
+          <a href="tel:+17813547394"
+            className="group inline-flex items-center gap-2.5 text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300">
+            <svg className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+            <span className="font-mono text-xs tracking-wide">+1 781-354-7394</span>
+          </a>
         </motion.div>
 
         {/* Signature */}
         <motion.p
-          className="text-white/10 text-[10px] font-mono uppercase tracking-widest"
+          className="text-white/10 text-[10px] font-mono uppercase tracking-widest mt-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

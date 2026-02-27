@@ -101,6 +101,26 @@
   --accent-wordu: #00ADEE;
   --accent-wordu-hover: #0095CC;
   --accent-wordu-active: #008DBD;
+  --accent-wordu-rgb: 0, 173, 238;
+
+  /* Wordu surfaces — refined light theme */
+  --surface-wordu: #f8f9fb;
+  --surface-wordu-raised: #ffffff;
+  --surface-wordu-card: #ffffff;
+  --surface-wordu-input: #f1f3f5;
+
+  /* Wordu text */
+  --text-wordu-primary: #1a1d23;
+  --text-wordu-secondary: #3d4250;
+  --text-wordu-muted: #6b7280;
+  --text-wordu-dim: #9ca3af;
+
+  /* Wordu borders */
+  --border-wordu: #e5e7eb;
+  --border-wordu-accent: rgba(0, 173, 238, 0.35);
+
+  /* Wordu glow */
+  --glow-wordu: rgba(0, 173, 238, 0.12);
 
   /* Highlight (alias to teal) */
   --highlight: #078B9C;
