@@ -147,7 +147,7 @@ export default function CSGBlock() {
     const rightTile = TILES.find(t => t.flagship)!
 
     return (
-        <motion.section ref={ref} className="relative pt-8 md:pt-16 pb-20 md:pb-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden" style={{ filter: sectionFilter }}>
+        <motion.section ref={ref} className="relative pt-8 md:pt-16 pb-12 md:pb-20 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden" style={{ filter: sectionFilter }}>
             {/* Era label — decorative, above content */}
             <motion.div
                 className="mb-6 md:mb-8 pointer-events-none select-none"

@@ -140,12 +140,15 @@ function ProjectCard({ item }: { item: ProjectItem }) {
     return (
         <Link href={item.link}>
             <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
-                <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                {/* Image with cinematic desaturation — restores on hover */}
+                <div className="absolute inset-0 transition-[filter] duration-700 grayscale-[0.3] brightness-[0.8] group-hover:grayscale-0 group-hover:brightness-100">
+                    <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 <div className="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-6">
                     <div className="flex flex-wrap gap-2 mb-3">
@@ -200,7 +203,7 @@ export default function ExtendedPortfolio() {
     }, [])
 
     return (
-        <motion.section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ filter: sectionFilter }}>
+        <motion.section ref={ref} className="relative pt-10 pb-20 md:pt-16 md:pb-32 overflow-hidden" style={{ filter: sectionFilter }}>
             {/* Era label — decorative, above content */}
             <motion.div
                 className="mb-6 md:mb-8 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto pointer-events-none select-none"

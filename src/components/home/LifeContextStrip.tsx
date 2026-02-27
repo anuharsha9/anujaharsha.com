@@ -56,48 +56,48 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
     const labelFilter = useMotionTemplate`blur(${labelBlur}px)`
 
     return (
-        <div ref={ref} className="relative max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-12 md:py-20">
-            {/* Decorative line */}
-            <div className="relative mb-8">
+        <div ref={ref} className="relative max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-14">
+            {/* Decorative line — teal gradient pulse grows with scroll */}
+            <div className="relative mb-6">
                 <div className="h-[1px] bg-white/[0.06] w-full" />
                 <motion.div
-                    className="absolute top-0 left-0 h-[1px] bg-gradient-to-r from-[var(--accent-teal)]/40 to-transparent"
+                    className="absolute top-0 left-0 h-[1px] bg-gradient-to-r from-[var(--accent-teal)]/50 via-[var(--accent-teal)]/20 to-transparent"
                     style={{ width: lineWidth }}
                 />
             </div>
 
             {/* Label */}
             <motion.p
-                className="font-mono text-xs uppercase tracking-[0.3em] text-white/50 mb-8"
+                className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-5"
                 style={{ opacity: labelOpacity, filter: labelFilter }}
             >
                 {label}
             </motion.p>
 
-            {/* Milestones — flowing horizontal strip */}
-            <div className="flex flex-wrap gap-x-6 gap-y-4 md:gap-x-10">
+            {/* Milestones — glassmorphic cards */}
+            <div className="flex flex-wrap gap-3 md:gap-4">
                 {milestones.map((m, i) => {
                     const Icon = m.icon
                     return (
                         <motion.div
                             key={m.title}
-                            initial={{ opacity: 0, y: 25, x: -10, filter: 'blur(6px)' }}
-                            whileInView={{ opacity: 1, y: 0, x: 0, filter: 'blur(0px)' }}
+                            initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+                            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                             viewport={{ once: true, amount: 0.5 }}
-                            transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                            className="flex items-center gap-3 group"
+                            transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                            className="group flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300"
                         >
-                            {/* Icon */}
-                            <div className="w-8 h-8 rounded-full bg-white/[0.06] flex items-center justify-center shrink-0 group-hover:bg-white/[0.12] transition-colors duration-300">
-                                <Icon className="w-3.5 h-3.5 text-white/40 group-hover:text-white/70 transition-colors duration-300" />
+                            {/* Icon with glow */}
+                            <div className="w-7 h-7 rounded-full bg-white/[0.06] flex items-center justify-center shrink-0 group-hover:bg-[var(--accent-teal)]/10 group-hover:shadow-[0_0_12px_rgba(108,200,203,0.15)] transition-all duration-300">
+                                <Icon className="w-3.5 h-3.5 text-white/35 group-hover:text-[var(--accent-teal)]/80 transition-colors duration-300" />
                             </div>
 
                             {/* Text */}
                             <div>
-                                <p className="text-white/70 text-sm font-medium leading-tight">
+                                <p className="text-white/60 text-[13px] font-medium leading-tight group-hover:text-white/80 transition-colors duration-300">
                                     {m.title}
                                 </p>
-                                <p className="text-white/40 text-xs font-mono">
+                                <p className="text-white/30 text-[10px] font-mono leading-tight mt-0.5">
                                     {m.subtitle} · {m.year}
                                 </p>
                             </div>
@@ -107,7 +107,7 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
             </div>
 
             {/* Bottom decorative line */}
-            <div className="mt-8">
+            <div className="mt-6">
                 <div className="h-[1px] bg-white/[0.06] w-full" />
             </div>
         </div>
