@@ -543,7 +543,7 @@ export default function WorduGame() {
 
     // --- Render ---
     return (
-        <div className="flex w-full h-full flex-col items-center justify-center bg-[var(--surface-wordu)] font-sans text-[var(--text-wordu-primary)] overflow-hidden relative selection:bg-[var(--accent-wordu)]/30">
+        <div className="flex w-full h-full flex-col items-center justify-center bg-white font-sans text-[var(--text-wordu-primary)] overflow-hidden relative selection:bg-[var(--accent-wordu)]/30">
             <AnimatePresence initial={false}>
 
                 {/* === MENU STATE === */}
@@ -553,16 +553,16 @@ export default function WorduGame() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className="flex flex-col items-center justify-center w-full px-4 text-center h-full pt-8 pb-4"
+                        className="flex flex-col items-center justify-center w-full px-5 text-center h-full pt-8 pb-4"
                     >
-                        <div className="flex items-center mb-6 scale-110 shrink-0">
+                        <div className="flex items-center mb-2 shrink-0">
                             {['W', 'O', 'R', 'D'].map((letter, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="w-12 h-12 bg-[var(--surface-wordu-raised)] text-[var(--text-wordu-primary)] rounded-lg flex items-center justify-center text-2xl font-bold mx-1 border border-[var(--border-wordu)]"
+                                    className="w-11 h-11 bg-[var(--surface-wordu-input)] text-[var(--text-wordu-primary)] rounded-lg flex items-center justify-center text-xl font-black mx-0.5"
                                 >
                                     {letter}
                                 </motion.div>
@@ -571,17 +571,17 @@ export default function WorduGame() {
                                 initial={{ y: 20, opacity: 0, rotate: -180 }}
                                 animate={{ y: 0, opacity: 1, rotate: 0 }}
                                 transition={{ delay: 0.5, type: "spring" }}
-                                className="w-12 h-12 bg-[var(--accent-wordu)] text-white rounded-lg flex items-center justify-center text-2xl font-bold mx-1 relative z-10"
+                                className="w-11 h-11 bg-[var(--accent-wordu)] text-white rounded-lg flex items-center justify-center text-xl font-black mx-0.5 relative z-10"
                             >
                                 U
                             </motion.div>
                         </div>
 
-                        <h2 className="text-[var(--text-wordu-dim)] mb-6 font-bold tracking-[0.2em] text-[10px] uppercase bg-[var(--surface-wordu-raised)] px-3 py-1.5 rounded-lg border border-[var(--border-wordu)] shrink-0">
-                            Select a mode to start
-                        </h2>
+                        <p className="text-[var(--text-wordu-dim)] mb-5 text-xs font-medium shrink-0">
+                            Choose a mode
+                        </p>
 
-                        <div className="grid gap-3 w-full max-w-sm flex-1 overflow-y-auto px-2 pb-2 scrollbar-hide content-center">
+                        <div className="grid gap-1 w-full max-w-sm flex-1 overflow-y-auto pb-2 scrollbar-hide content-center">
                             {isLoading ? (
                                 <div className="flex flex-col items-center justify-center h-40 space-y-4">
                                     <div className="w-10 h-10 border-4 border-[var(--accent-wordu)] border-t-transparent rounded-full animate-spin" />
@@ -595,24 +595,18 @@ export default function WorduGame() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: i * 0.08 }}
                                         onClick={() => startGame(mode.id)}
-                                        className={clsx(
-                                            "group relative overflow-hidden rounded-xl p-4 text-left transition-all border",
-                                            "bg-[var(--surface-wordu-card)] border border-[var(--border-wordu)] hover:border-[var(--border-wordu-accent)]"
-                                        )}
+                                        className="group relative rounded-xl p-3.5 text-left transition-all hover:bg-[var(--surface-wordu-input)]"
                                     >
-                                        <div className="flex items-center gap-4 relative z-10">
-                                            <div className={clsx("w-12 h-12 rounded-xl flex items-center justify-center text-white shrink-0", mode.color)}>
-                                                <mode.icon size={22} strokeWidth={2.5} />
+                                        <div className="flex items-center gap-3 relative z-10">
+                                            <div className={clsx("w-10 h-10 rounded-full flex items-center justify-center text-white shrink-0", mode.color)}>
+                                                <mode.icon size={18} strokeWidth={2.5} />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="flex items-center justify-between mb-0.5">
-                                                    <h3 className="text-base font-black text-[var(--text-wordu-primary)] group-hover:text-white truncate">{mode.title}</h3>
-                                                    {mode.id === 'rapid_fire' && <span className="text-[10px] font-bold bg-orange-500/15 text-orange-400 px-2 py-0.5 rounded-full uppercase tracking-wide">Popular</span>}
+                                                <div className="flex items-center gap-2 mb-0.5">
+                                                    <h3 className="text-sm font-bold text-[var(--text-wordu-primary)] truncate">{mode.title}</h3>
+                                                    {mode.id === 'rapid_fire' && <span className="text-[9px] font-bold bg-orange-500/10 text-orange-500 px-1.5 py-0.5 rounded-md uppercase tracking-wide">Popular</span>}
                                                 </div>
-                                                <p className="text-xs text-[var(--text-wordu-dim)] font-bold leading-tight truncate">{mode.desc}</p>
-                                            </div>
-                                            <div className="w-8 h-8 rounded-full bg-[var(--surface-wordu-input)] flex items-center justify-center text-[var(--text-wordu-dim)] group-hover:bg-[var(--accent-wordu)] group-hover:text-white transition-colors">
-                                                <ArrowRight size={18} />
+                                                <p className="text-xs text-[var(--text-wordu-dim)] leading-tight truncate">{mode.desc}</p>
                                             </div>
                                         </div>
                                     </motion.button>
