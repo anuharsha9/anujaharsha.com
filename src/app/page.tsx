@@ -93,7 +93,7 @@ export default function Home() {
 
       {/* SECTION 1 — Cloud Software Group */}
       {/* Negative margin pulls the CSG block up so it overlaps the hero bio fadeout — eliminates dead scroll zone */}
-      <div id="work-overview" className="-mt-[60vh]">
+      <div id="work-overview" className="-mt-[60vh] relative z-20">
         <CSGBlock />
       </div>
 
