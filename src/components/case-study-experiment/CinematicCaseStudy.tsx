@@ -161,6 +161,10 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         <p>My director said — we have this project in the pipeline, I&apos;m yet to assign it to a designer. I said — I&apos;d like to do it. Give me a chance.</p>
                     }
                 >
+                    <div className="flex items-end justify-between border-b border-white/10 pb-4 mb-8 mt-12">
+                        <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase">Legacy Screenshots</h3>
+                    </div>
+
                     <BentoGrid>
                         {/* Row 1 — Full width legacy screenshot */}
                         <BentoRow layout="full">
@@ -272,22 +276,25 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
 
                     <BentoGrid className="mt-12">
                         {/* Sketches */}
-                        <div className="flex items-end justify-between border-b border-white/10 pb-4 mb-4 mt-16">
-                            <h3 className="text-xl md:text-2xl font-bold text-white">Mapping the chaos</h3>
+                        <div className="flex items-end justify-between border-b border-white/10 pb-4 mb-8 mt-16">
+                            <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase">Mapping the chaos</h3>
                             <a href="/assets/rc-sketchbook.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono text-[var(--accent-teal)] border border-[var(--accent-teal)]/30 px-4 py-2 rounded-full hover:bg-[var(--accent-teal)]/10 transition-colors flex items-center gap-2">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                 VIEW PDF
                             </a>
                         </div>
-                        <BentoRow layout="33/33/33">
-                            <ImageTile src="/images/case-study/ReportCaster/process/rc-sketchbook_Page_01_Image_0001.jpg" alt="Sketch 1" delay={0.06} />
-                            <ImageTile src="/images/case-study/ReportCaster/process/rc-sketchbook_Page_04_Image_0001.jpg" alt="Sketch 2" delay={0.12} />
-                            <ImageTile src="/images/case-study/ReportCaster/process/rc-sketchbook_Page_06_Image_0001.jpg" alt="Sketch 3" delay={0.18} />
-                        </BentoRow>
-                        <BentoRow layout="33/33/33">
-                            <ImageTile src="/images/case-study/ReportCaster/process/rc-sketchbook_Page_09_Image_0001.jpg" alt="Sketch 4" delay={0.06} />
-                            <ImageTile src="/images/case-study/ReportCaster/process/rc-sketchbook_Page_12_Image_0001.jpg" alt="Sketch 5" delay={0.12} />
-                            <ImageTile src="/images/case-study/ReportCaster/process/rc-sketchbook_Page_14_Image_0001.jpg" alt="Sketch 6" delay={0.18} />
+                        <BentoRow layout="full">
+                            <CarouselTile
+                                delay={0.1}
+                                images={[
+                                    { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_01_Image_0001.jpg", alt: "Sketch 1" },
+                                    { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_04_Image_0001.jpg", alt: "Sketch 2" },
+                                    { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_06_Image_0001.jpg", alt: "Sketch 3" },
+                                    { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_09_Image_0001.jpg", alt: "Sketch 4" },
+                                    { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_12_Image_0001.jpg", alt: "Sketch 5" },
+                                    { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_14_Image_0001.jpg", alt: "Sketch 6" }
+                                ]}
+                            />
                         </BentoRow>
 
                         {/* Consolidation Map */}
