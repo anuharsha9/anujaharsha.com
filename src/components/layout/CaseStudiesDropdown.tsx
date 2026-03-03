@@ -130,6 +130,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
     { id: '001', label: 'ReportCaster', href: '/work/reportcaster', tag: 'LEGACY_MODERNIZATION' },
     { id: '002', label: 'Democratizing ML', href: '/work/ml-functions', tag: 'AI_UX' },
     { id: '003', label: 'Data Science Adoption', href: '/work/iq-plugin', tag: 'PLATFORM_UNIFICATION' },
+    { id: 'APP', label: 'College OS (App)', href: process.env.NEXT_PUBLIC_COLLEGE_OS_URL || 'http://localhost:3005', tag: 'AI_APP', isExternal: true },
   ]
 
   return (
@@ -200,9 +201,10 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={handleClick}
+                  onClick={item.isExternal ? undefined : handleClick}
                   className="group block px-4 py-3 hover:bg-slate-50 transition-colors"
                   role="menuitem"
+                  {...(item.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 >
                   <div className="flex items-center gap-3">
                     {/* System ID */}

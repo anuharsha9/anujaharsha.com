@@ -326,10 +326,12 @@ export default function VibeCodingBlock() {
     const sectionBlur = useSpring(rawSectionBlur, { stiffness: 100, damping: 20, mass: 0.5 })
     const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
 
+    const collegeOsUrl = process.env.NEXT_PUBLIC_COLLEGE_OS_URL || 'http://localhost:3005'
+
     const handleTileClick = (action: string) => {
         if (action === 'portfolio') setPortfolioOpen(true)
         if (action === 'wordu') setWorduOpen(true)
-        if (action === 'college-os') window.open('/college-os', '_blank', 'noopener,noreferrer')
+        if (action === 'college-os') window.open(collegeOsUrl, '_blank', 'noopener,noreferrer')
     }
 
     return (
