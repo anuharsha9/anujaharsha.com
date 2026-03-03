@@ -369,96 +369,177 @@ export function PlusIconTree({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   TEAM DIAGRAM
-   Me → branching to team members
+   NETWORK PROPAGATION
+   Visually pleasing node network to show onboarding spread
    ───────────────────────────────────────────────────────────── */
-export function TeamDiagram({
-    center,
-    members,
-    className = '',
-}: {
-    center: string
-    members: string[]
-    className?: string
-}) {
+export function NetworkPropagation({ center, members, highlighted = false }: { center: string, members: string[], highlighted?: boolean }) {
     return (
-        <div className={`flex flex-col items-center mb-10 ${className}`}>
-            {/* Center avatar */}
-            <div className="w-16 h-16 rounded-full border border-[var(--accent-teal)]/40 bg-[var(--accent-teal)]/10 flex items-center justify-center shadow-[0_0_20px_rgba(45,212,191,0.1)] relative">
-                <span className="text-sm font-mono tracking-widest text-[var(--accent-teal)]">{center}</span>
+        <div className="flex flex-col items-center justify-center my-8 h-40 relative">
+            {/* The Center Node */}
+            <motion.div
+                className={`w-14 h-14 rounded-full flex items-center justify-center border z-10 
+                    ${highlighted ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)]/20 shadow-[0_0_30px_rgba(45,212,191,0.2)]' : 'border-white/20 bg-white/5'}`}
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, type: 'spring' }}
+            >
+                <span className={`font-mono text-xs ${highlighted ? 'text-[var(--accent-teal)]' : 'text-zinc-300'}`}>{center}</span>
+            </motion.div>
+
+            {/* Orbiting / Satellite Nodes */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                {members.map((member, i) => {
+                    // Distribute evenly in a semi-circle or full circle
+                    // We'll use a simple fan-out pattern below center
+                    const angle = Math.PI * (0.8 + (i / max(1, members.length - 1)) * 1.4); // Angle from bottom left to bottom right
+                    const radius = 60 + (members.length > 2 ? Math.random() * 20 : 0);
+                    const x = Math.cos(angle) * radius;
+                    const y = Math.sin(angle) * radius + 20;
+
+                    return (
+                        <motion.div
+                            key={i}
+                            className="absolute"
+                            initial={{ x: 0, y: 0, opacity: 0 }}
+                            whileInView={{ x, y, opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 + (i * 0.1), ease: "easeOut" }}
+                        >
+                            {/* Target Node */}
+                            <div className="w-10 h-10 rounded-full border border-white/10 bg-[#111] flex items-center justify-center shadow-lg relative">
+                                <span className="font-mono text-[9px] text-zinc-500 uppercase">{member}</span>
+                                {/* Connection Line (animated SVG line would be complex here, so we use a simple gradient tail) */}
+                                <motion.div
+                                    className="absolute top-1/2 left-1/2 w-[2px] bg-gradient-to-t from-[var(--accent-teal)]/40 to-transparent origin-top"
+                                    style={{ height: `${radius}px`, rotate: `${(angle * 180 / Math.PI) - 90}deg`, y: "-50%", x: "-50%" }}
+                                    initial={{ scaleY: 0 }}
+                                    whileInView={{ scaleY: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.8, delay: 0.2 + (i * 0.1) }}
+                                />
+                            </div>
+                        </motion.div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
+
+// Helper to avoid math errors in division
+function max(a: number, b: number) { return a > b ? a : b; }
+
+/* ─────────────────────────────────────────────────────────────
+   KNOWLEDGE TRANSFER
+   Sleek horizontal knowledge handoff
+   ───────────────────────────────────────────────────────────── */
+export function KnowledgeTransfer() {
+    return (
+        <div className="flex items-center justify-center gap-4 my-8 h-20 w-full relative">
+            <motion.div
+                className="w-14 h-14 rounded-full border border-[var(--accent-teal)] bg-[var(--accent-teal)]/20 flex items-center justify-center shadow-[0_0_20px_rgba(45,212,191,0.2)] z-10"
+                initial={{ x: -20, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: true }}
+            >
+                <span className="font-mono text-xs text-[var(--accent-teal)]">Me</span>
+            </motion.div>
+
+            {/* Moving Pulses */}
+            <div className="flex-1 max-w-[100px] h-[2px] bg-white/10 relative overflow-hidden">
+                <motion.div
+                    className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent"
+                    animate={{ x: ["-100%", "300%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                />
             </div>
 
-            {/* Branching line */}
-            <div className="w-[2px] h-8 bg-gradient-to-b from-[var(--accent-teal)]/40 to-white/20" />
-            <div className="w-[60%] lg:w-[80%] h-[2px] bg-white/20 flex justify-between relative mt-[-1px]">
-                {/* Connection ticks pointing down */}
-                <div className="absolute left-0 top-0 w-[2px] h-4 bg-white/20" />
-                <div className="absolute left-1/2 top-0 w-[2px] h-4 bg-white/20 -translate-x-1/2" />
-                <div className="absolute right-0 top-0 w-[2px] h-4 bg-white/20" />
+            <motion.div
+                className="w-14 h-14 rounded-full border border-white/20 bg-white/5 flex items-center justify-center z-10"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+            >
+                <span className="font-mono text-xs text-zinc-300">Jr</span>
+            </motion.div>
+
+            <div className="flex-1 max-w-[100px] h-[2px] bg-white/10 relative overflow-hidden">
+                <motion.div
+                    className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                    animate={{ x: ["-100%", "300%"] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear", delay: 0.75 }}
+                />
             </div>
 
-            {/* Members */}
-            <div className="flex flex-wrap justify-center gap-4 mt-6 max-w-[280px]">
-                {members.map((m, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
-                        className="w-12 h-12 rounded-full border border-white/20 bg-white/5 flex items-center justify-center"
-                    >
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-white/50">{m}</span>
-                    </motion.div>
-                ))}
+            <div className="flex flex-col gap-2 relative z-10">
+                <motion.div
+                    className="w-10 h-10 rounded-full border border-white/10 bg-[#111] flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 }}
+                >
+                    <span className="font-mono text-[9px] text-zinc-500">D1</span>
+                </motion.div>
+                <motion.div
+                    className="w-10 h-10 rounded-full border border-white/10 bg-[#111] flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.8 }}
+                >
+                    <span className="font-mono text-[9px] text-zinc-500">D2</span>
+                </motion.div>
             </div>
         </div>
     )
 }
 
 /* ─────────────────────────────────────────────────────────────
-   HANDOFF DIAGRAM
-   Me → Junior → Team (arrows showing knowledge transfer)
+   IMPACT CLIMAX
+   Visually impressive, large metrics component.
    ───────────────────────────────────────────────────────────── */
-export function HandoffDiagram({ className = '' }: { className?: string }) {
+export function ImpactClimax() {
+    const metrics = [
+        { label: "Schedule Creation", before: "4 Clicks", after: "1 Click" },
+        { label: "Explorer Access", before: "3 Clicks", after: "1 Click" },
+        { label: "Admin Workflow", before: "3 Clicks", after: "2 Clicks" },
+        { label: "Browser Tabs", before: "Multiple", after: "0 Tabs" },
+    ];
+
     return (
-        <div className={`flex items-center gap-4 mb-10 overflow-x-auto pb-4 ${className}`}>
-            {[
-                { label: 'Me', color: 'border-[var(--accent-teal)]/40 bg-[var(--accent-teal)]/10 text-[var(--accent-teal)] shadow-[0_0_15px_rgba(45,212,191,0.15)]' },
-                null, // arrow
-                { label: 'Jr', color: 'border-white/20 bg-white/5 text-white/60' },
-                null, // arrow
-                { label: '→', color: 'border-white/10 text-white/30', double: true },
-            ].map((item, i) => {
-                if (item === null) {
-                    return (
-                        <div key={i} className="flex flex-col items-center">
-                            <span className="text-[10px] text-zinc-600 font-mono mb-1 uppercase tracking-widest">Trains</span>
-                            <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.15 }}
-                                className="w-16 md:w-24 h-[2px] bg-gradient-to-r from-white/10 to-white/30 origin-left" />
+        <div className="w-full flex justify-center py-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full max-w-5xl">
+                {metrics.map((m, i) => (
+                    <motion.div
+                        key={i}
+                        className="flex flex-col items-center justify-center p-6 rounded-2xl bg-black/40 border border-[var(--accent-teal)]/10 relative overflow-hidden group"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+                    >
+                        {/* Dramatic Hover Background */}
+                        <div className="absolute inset-0 bg-[var(--accent-teal)]/0 group-hover:bg-[var(--accent-teal)]/5 transition-colors duration-500" />
+
+                        {/* Shimmer line */}
+                        <motion.div
+                            className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-teal)]/50 to-transparent opacity-0 group-hover:opacity-100"
+                            animate={{ x: ["-100%", "100%"] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        />
+
+                        <span className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-4 block text-center h-8 flex items-center justify-center">{m.label}</span>
+
+                        <div className="flex flex-col items-center">
+                            <span className="text-zinc-500 text-sm font-medium line-through decoration-zinc-600/50 mb-1">{m.before}</span>
+                            <span className="text-[var(--accent-teal)] text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-[0_0_15px_rgba(45,212,191,0.3)]">{m.after}</span>
                         </div>
-                    )
-                }
-                if (item.double) {
-                    return (
-                        <div key={i} className="flex gap-2">
-                            <div className="w-14 h-14 rounded-full border border-white/20 bg-white/5 flex items-center justify-center">
-                                <span className="text-[10px] font-mono text-white/40">D1</span>
-                            </div>
-                            <div className="w-14 h-14 rounded-full border border-white/20 bg-white/5 flex items-center justify-center">
-                                <span className="text-[10px] font-mono text-white/40">D2</span>
-                            </div>
-                        </div>
-                    )
-                }
-                return (
-                    <div key={i} className="flex flex-col items-center gap-2">
-                        <div className={`w-14 h-14 rounded-full border flex items-center justify-center ${item.color}`}>
-                            <span className="text-sm font-mono tracking-widest">{item.label}</span>
-                        </div>
-                    </div>
-                )
-            })}
+                    </motion.div>
+                ))}
+            </div>
         </div>
     )
 }
@@ -490,68 +571,6 @@ export function VideoGrid({ highlightIndex = 5 }: { highlightIndex?: number }) {
                     <div className={`w-8 h-8 rounded-full ${i === highlightIndex ? 'bg-[var(--accent-teal)]/60' : 'bg-white/20'}`} />
                 </motion.div>
             ))}
-        </div>
-    )
-}
-
-/* ─────────────────────────────────────────────────────────────
-   CLICK REDUCTION ICON
-   Nested rectangles showing click depth reduction
-   ───────────────────────────────────────────────────────────── */
-export function ClickReductionIcon({ from, to }: { from: number; to: number }) {
-    return (
-        <div className="flex flex-col items-center mb-8 relative left-[-16px]">
-            <div className="flex items-center gap-8">
-                {/* Before */}
-                <div className="relative" style={{ width: `${from * 16 + 32}px`, height: `${from * 12 + 24}px` }}>
-                    {Array.from({ length: from }).map((_, i) => (
-                        <div
-                            key={`from-${i}`}
-                            className="absolute border-2 border-white/20 rounded-md bg-[#1a1a1a]"
-                            style={{
-                                left: `${i * 8}px`,
-                                top: `${i * 6}px`,
-                                width: `${(from - i) * 16 + 16}px`,
-                                height: `${(from - i) * 12 + 12}px`,
-                                zIndex: i
-                            }}
-                        />
-                    ))}
-                </div>
-
-                {/* Arrow */}
-                <motion.div
-                    initial={{ x: -10, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="text-white/40 font-light text-2xl"
-                >→</motion.div>
-
-                {/* After */}
-                <div className="relative" style={{ width: `${from * 16 + 32}px`, height: `${from * 12 + 24}px` }}>
-                    {Array.from({ length: to }).map((_, i) => (
-                        <div
-                            key={`to-${i}`}
-                            className="absolute border-2 border-[var(--accent-teal)] bg-[var(--accent-teal)]/10 rounded-md shadow-[0_0_20px_rgba(45,212,191,0.2)] flex items-center justify-center text-[var(--accent-teal)] font-bold"
-                            style={{
-                                left: `0px`,
-                                top: `${(from * 6) - (to * 3)}px`,
-                                width: `${from * 16 + 16}px`,
-                                height: `${from * 12 + 12}px`,
-                            }}
-                        >
-                            {/* Inner icon content for the shipped feature */}
-                            {to === 1 && (<span className="text-xl">✓</span>)}
-                            {to === 2 && (
-                                <div className="flex flex-col gap-1 items-center">
-                                    <div className="w-8 h-1 bg-[var(--accent-teal)]/40 rounded-full" />
-                                    <div className="w-8 h-1 bg-[var(--accent-teal)]/40 rounded-full" />
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
         </div>
     )
 }

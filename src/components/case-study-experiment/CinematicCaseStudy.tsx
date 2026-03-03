@@ -13,7 +13,7 @@ import {
 import {
     PeopleDotGrid, AvatarPair, ScreenshotStack, FlowDiagram,
     ScatterConverge, RejectionMark, PlusIconTree,
-    TeamDiagram, HandoffDiagram, VideoGrid, ClickReductionIcon,
+    NetworkPropagation, KnowledgeTransfer, VideoGrid, ImpactClimax,
 } from './illustrations'
 
 /* ─── Act Navigation ─── */
@@ -482,13 +482,13 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         {/* Row 1 — First contacts */}
                         <BentoRow layout="50/50">
                             <TextTile>
-                                <TeamDiagram center="Me" members={['LA', 'LE']} />
+                                <NetworkPropagation center="Me" members={['LA', 'LE']} highlighted={true} />
                                 <p className="text-zinc-300 font-light leading-relaxed">
                                     The first people I onboarded were the lead architect and the lead engineer. Design discussions were finalized with them.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
-                                <TeamDiagram center="Me" members={['En', 'En', 'PM', 'QA', 'DC']} />
+                                <NetworkPropagation center="Me" members={['En', 'En', 'PM', 'QA', 'DC']} />
                                 <p className="text-zinc-300 font-light leading-relaxed">
                                     Then came the entire group of engineers, new PM, the QA team, the documentation team. Dozens of demos of the old and new ReportCaster to everyone.
                                 </p>
@@ -533,7 +533,7 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         {/* Row 3 — Handoff */}
                         <BentoRow layout="full">
                             <TextTile delay={0.25}>
-                                <HandoffDiagram />
+                                <KnowledgeTransfer />
                                 <p className="text-zinc-300 font-light leading-relaxed">
                                     I borrowed one junior designer. I onboarded her and made sure she knew everything I did. Eventually I left the team. Let that designer and another one take over. My job was mainly done — I had done all the heavy lifting.
                                 </p>
@@ -560,11 +560,8 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                 >
                     <BentoGrid>
                         {/* Stats row */}
-                        <BentoRow layout="25/25/25/25">
-                            <StatTile value="4 → 1" label="Schedule & list creation" icon={<ClickReductionIcon from={4} to={1} />} />
-                            <StatTile value="3 → 1" label="Explorer access" icon={<ClickReductionIcon from={3} to={1} />} delay={0.06} />
-                            <StatTile value="3 → 2" label="Admin access" icon={<ClickReductionIcon from={3} to={2} />} delay={0.12} />
-                            <StatTile value="0" label="Browser tabs needed" delay={0.18} />
+                        <BentoRow layout="full">
+                            <ImpactClimax />
                         </BentoRow>
 
                         {/* Before/After Videos */}
@@ -657,12 +654,14 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         {data.reflection?.retrospective && (
                             <BentoRow layout="50/50">
                                 <TextTile>
-                                    <h4 className="text-white font-bold mb-3">{data.reflection.retrospective.pushHarder.title}</h4>
+                                    <span className="text-[10px] text-[var(--accent-teal)] font-mono uppercase tracking-widest mb-2 block">What I&apos;d Push Harder For</span>
+                                    <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h4>
                                     <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.pushHarder.content }} />
                                 </TextTile>
-                                <TextTile delay={0.1} accent="teal">
-                                    <h4 className="text-[var(--accent-teal)] font-bold mb-3">{data.reflection.retrospective.doNext.title}</h4>
-                                    <p className="text-zinc-300 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
+                                <TextTile delay={0.1}>
+                                    <span className="text-[10px] text-[var(--accent-teal)] font-mono uppercase tracking-widest mb-2 block">Future Plans</span>
+                                    <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h4>
+                                    <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
                                 </TextTile>
                             </BentoRow>
                         )}
