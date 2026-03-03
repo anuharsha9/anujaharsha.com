@@ -1,126 +1,174 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion'
+import Image from 'next/image'
 import { Play } from 'lucide-react'
-import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
-
-/* ─── tile data ─── */
+// You might need to import your actual paths here depending on setup.
+// Using standard ones from your previous implementation.
 const TILES = [
     {
-        id: 'ml-functions',
-        title: 'Feature adoption/simplification for Machine Learning workflows',
-        link: '/work/ml-functions',
-        Wireframe: MLWireframe,
-        accentVar: '--semantic-cyan-vivid-rgb',
-        wireframeHue: 180,
+        id: 'iq-plugin',
+        title: 'IQ Web Plugin & Conversational BI',
+        category: 'DATA SCIENCE',
+        type: 'WEB COMPONENT',
+        year: '2024',
+        href: '/experiment/case-study/iq-plugin',
+        description: 'Led the UI/UX for a conversational BI interface to simplify data workflows.',
+        color: 'from-[var(--accent-teal)] to-blue-600',
+        flagship: false,
+        videoSrc: '/videos/iq-overview.mp4',
+        fallbackImg: '/images/case-study/IQ/V1 Chat.png',
+        darkOverlay: true
     },
     {
-        id: 'iq-plugin',
-        title: 'AI powered HUB to meet business needs',
-        link: '/work/iq-plugin',
-        Wireframe: IQWireframe,
-        accentVar: '--semantic-purple-vivid-rgb',
-        wireframeHue: 260,
+        id: 'ml-functions',
+        title: 'Machine Learning Workflows',
+        category: 'MACHINE LEARNING',
+        type: 'SAAS UI',
+        year: '2023',
+        href: '/experiment/case-study/ml-functions',
+        description: 'Designed an elegant interface for no-code machine learning model creation.',
+        color: 'from-purple-500 to-indigo-600',
+        flagship: false,
+        videoSrc: '/videos/ml-overview.mp4',
+        fallbackImg: '/images/case-study/ML Functions/ML V1 Mapping.png',
+        darkOverlay: true
     },
     {
         id: 'reportcaster',
-        title: 'Customer retention success for Enterprise Scheduling',
-        link: '/work/reportcaster',
+        title: 'ReportCaster Modernization',
+        category: 'PLATFORM DESIGN',
+        type: 'ENTERPRISE SAAS',
+        year: '2024-25',
+        href: '/experiment/case-study/reportcaster',
+        description: 'Redesigned a legacy 15-year old scheduling engine into a modern unified hub.',
+        color: 'from-orange-500 to-red-600',
         flagship: true,
-        Wireframe: RCWireframe,
-        accentVar: '--accent-amber-rgb',
-        wireframeHue: 40,
-    },
+        videoSrc: '/videos/rc-overview.mp4',
+        fallbackImg: '/images/case-study/ReportCaster/ReportCaster Cover.png',
+        darkOverlay: false
+    }
 ]
 
-/* ─── single tile ─── */
+/* ─── Bento Tile Component ─── */
 function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
+    const videoRef = useRef<HTMLVideoElement>(null)
     const [isHovered, setIsHovered] = useState(false)
-    const WireframeComponent = tile.Wireframe
-    const rgb = `var(${tile.accentVar})`
-    const gridColor = `hsl(${tile.wireframeHue}, 50%, 25%)`
 
+    // Simplified fallback using standard React properties rather than trying to handle video directly here
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.96, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1, delay, ease }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+            className={`group relative rounded-2xl overflow-hidden border border-white/10 bg-[#111] ${
+                tile.flagship ? 'min-h-[400px] md:min-h-[600px] h-full' : 'min-h-[280px] md:min-h-[320px]'
+            }`}
+            onMouseEnter={() => {
+                setIsHovered(true)
+                if (videoRef.current) {
+                    videoRef.current.play().catch(e => console.log('Video play prevented:', e))
+                }
+            }}
+            onMouseLeave={() => {
+                setIsHovered(false)
+                if (videoRef.current) {
+                    videoRef.current.pause()
+                }
+            }}
         >
-            <Link href={tile.link} className="group block">
-                <div
-                    className="relative w-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-500"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    style={{
-                        minHeight: tile.flagship ? '420px' : '200px',
-                        border: `1px solid rgba(${rgb}, 0.12)`,
-                        backgroundColor: `rgba(${rgb}, 0.04)`,
-                        boxShadow: isHovered
-                            ? `0 0 40px rgba(${rgb}, 0.10), inset 0 0 0 1px rgba(${rgb}, 0.20)`
-                            : `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`,
-                    }}
-                >
-                    {/* Dot pattern overlay — AI neural net feel */}
-                    <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                            backgroundImage: `radial-gradient(circle, ${gridColor} 0.8px, transparent 0.8px)`,
-                            backgroundSize: '24px 24px',
-                            opacity: 0.12,
-                        }}
+            <Link href={tile.href} className="absolute inset-0 z-30">
+                <span className="sr-only">View {tile.title} case study</span>
+            </Link>
+
+            <div className={`absolute inset-0 bg-gradient-to-br ${tile.color} opacity-0 group-hover:opacity-10 transition-opacity duration-1000 z-10`} />
+
+            {/* Content Layering based on Flagship vs Standard */}
+            {tile.flagship ? (
+                /* FLAGSHIP LAYOUT (ReportCaster) */
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 z-20">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-0" />
+                    
+                    {/* Media Layer */}
+                    <Image
+                        src={tile.fallbackImg}
+                        alt={tile.title}
+                        fill
+                        className={`object-cover object-top transition-transform duration-1000 ${isHovered ? 'scale-105' : 'scale-100'}`}
+                        priority
                     />
-
-                    {/* Wireframe — always visible, blurs on hover (desktop only) */}
-                    <div
-                        className="absolute inset-0 transition-all duration-500 pointer-events-none"
-                        style={{
-                            filter: isHovered ? 'blur(8px)' : 'blur(0px)',
-                            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-                        }}
-                    >
-                        <WireframeComponent />
-                    </div>
-
-                    {/* MOBILE: Always-visible bottom overlay with title + CTA */}
-                    <div className="absolute inset-x-0 bottom-0 z-20 md:hidden pointer-events-none">
-                        <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-4 px-4">
-                            <p className="text-white/90 text-sm font-semibold leading-snug mb-1.5">
-                                {tile.title}
-                            </p>
-                            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/50 flex items-center gap-1.5">
-                                <Play className="w-3 h-3 fill-white/50" />
-                                View Case Study
+                    
+                    <div className="relative z-10 max-w-xl">
+                        <div className="flex gap-2 mb-4">
+                            <span className="text-[10px] md:text-xs font-mono tracking-widest bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-white/90 border border-white/10 uppercase">
+                                {tile.year}
+                            </span>
+                            <span className="text-[10px] md:text-xs font-mono tracking-widest bg-black/40 backdrop-blur-md px-3 py-1 rounded-full text-white/70 border border-white/5 uppercase">
+                                {tile.type}
+                            </span>
+                        </div>
+                        <h3 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-4 drop-shadow-lg">
+                            {tile.title}
+                        </h3>
+                        <p className="text-zinc-300 text-sm md:text-base lg:text-lg max-w-lg leading-relaxed font-light">
+                            {tile.description}
+                        </p>
+                        
+                        {/* CTA */}
+                        <div className="mt-8 flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-xl">
+                                <Play className="w-5 h-5 ml-1 fill-black" />
+                            </div>
+                            <span className="text-white font-medium uppercase tracking-widest text-xs">
+                                Watch Cinematic Mode <span className="opacity-50 ml-2">2 min</span>
                             </span>
                         </div>
                     </div>
+                </div>
+            ) : (
+                /* STACKED LAYOUT (ML / IQ) */
+                <div className="absolute inset-0 p-5 md:p-6 z-20 flex flex-col justify-between">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-0" />
+                    
+                    {/* Media Layer */}
+                    <Image
+                        src={tile.fallbackImg}
+                        alt={tile.title}
+                        fill
+                        className={`object-cover transition-transform duration-1000 ${isHovered ? 'scale-105' : 'scale-100'}`}
+                    />
 
-                    {/* DESKTOP: Hover overlay — scrim + play + title */}
-                    <div
-                        className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500 pointer-events-none"
-                        style={{
-                            opacity: isHovered ? 1 : 0,
-                            backgroundColor: isHovered ? 'rgba(0,0,0,0.50)' : 'transparent',
-                        }}
-                    >
-                        <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
-                            <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                                <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                    {tile.darkOverlay && (
+                        <div className="absolute inset-0 bg-black/40 z-0" />
+                    )}
+
+                    {/* Top Meta */}
+                    <div className="relative z-10 flex justify-end">
+                         <span className="text-[10px] md:text-xs font-mono tracking-widest bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-white/80 border border-white/10 uppercase">
+                            {tile.year}
+                        </span>
+                    </div>
+
+                    {/* Bottom Content */}
+                    <div className="relative z-10 mt-auto">
+                        <span className="block text-[10px] text-white/60 font-mono tracking-[0.2em] mb-2 font-bold group-hover:text-white transition-colors duration-300 uppercase">
+                            {tile.category}
+                        </span>
+                        <div className="flex items-center gap-4">
+                            <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-md overflow-hidden transition-all duration-300 ${isHovered ? 'bg-[var(--accent-teal)] border-[var(--accent-teal)]' : 'bg-black/40'}`}>
+                                <Play className={`w-4 h-4 ml-0.5 transition-colors duration-300 ${isHovered ? 'text-black fill-black' : 'text-white fill-white'}`} />
                             </div>
-                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
-                                Watch Case Study
-                            </span>
-                            <p className="text-white/90 text-sm md:text-base font-semibold leading-snug mt-1">
+                            <p className="text-white font-semibold leading-tight text-lg max-w-[200px] drop-shadow-md">
                                 {tile.title}
                             </p>
                         </div>
                     </div>
                 </div>
-            </Link>
+            )}
         </motion.div>
     )
 }
@@ -139,7 +187,6 @@ export default function CSGBlock() {
 
     // Blur-to-focus entrance: mirrors the hero's focus-to-blur exit for seamless crossfade
     const rawSectionBlur = useTransform(scrollYProgress, [0, 0.10], [12, 0])
-    // Spring-smooth the blur for organic momentum feel
     const sectionBlur = useSpring(rawSectionBlur, { stiffness: 100, damping: 20, mass: 0.5 })
     const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
 
