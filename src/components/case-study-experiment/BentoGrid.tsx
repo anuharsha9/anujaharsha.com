@@ -234,11 +234,21 @@ export function EyebrowLabel({ children }: { children: React.ReactNode }) {
 export function CarouselTile({
     images,
     delay = 0,
+    autoPlay = false,
+    interval = 3000,
 }: {
     images: { src: string; alt: string; caption?: string }[]
     delay?: number
+    autoPlay?: boolean
+    interval?: number
 }) {
     const [current, setCurrent] = React.useState(0)
+
+    React.useEffect(() => {
+        if (!autoPlay || images.length <= 1) return;
+        const timer = setInterval(() => setCurrent((prev) => (prev + 1) % images.length), interval);
+        return () => clearInterval(timer);
+    }, [autoPlay, images.length, interval]);
 
     return (
         <motion.div

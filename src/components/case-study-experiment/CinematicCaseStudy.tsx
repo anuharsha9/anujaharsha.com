@@ -286,6 +286,8 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="full">
                             <CarouselTile
                                 delay={0.1}
+                                autoPlay={true}
+                                interval={2000}
                                 images={[
                                     { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_01_Image_0001.jpg", alt: "Sketch 1" },
                                     { src: "/images/case-study/ReportCaster/process/rc-sketchbook_Page_04_Image_0001.jpg", alt: "Sketch 2" },
