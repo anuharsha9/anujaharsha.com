@@ -161,30 +161,9 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         <p>My director said — we have this project in the pipeline, I&apos;m yet to assign it to a designer. I said — I&apos;d like to do it. Give me a chance.</p>
                     }
                 >
-                    <div className="flex items-end justify-between border-b border-white/10 pb-4 mb-8 mt-12">
-                        <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase">Legacy Screenshots</h3>
-                    </div>
-
-                    <BentoGrid>
-                        {/* Row 1 — Full width legacy screenshot */}
+                    <BentoGrid className="mt-12">
+                        {/* The Scenario Setting */}
                         <BentoRow layout="full">
-                            <ImageTile
-                                src="/images/case-study/ReportCaster/RC legacy schedule dialog properties.png"
-                                alt="Legacy Schedule Dialog"
-                                caption="5 distinct interfaces for 1 workflow"
-                            />
-                        </BentoRow>
-
-                        {/* Row 2 — Three legacy screenshots */}
-                        <BentoRow layout="33/33/33">
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy distribution list UI.png" alt="Legacy Distribution Lists" caption="Separate screen for a sub-task" delay={0.06} />
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy access list UI.png" alt="Legacy Access Lists" caption="Security buried in a separate app" delay={0.12} />
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy explorer.png" alt="Legacy RC Explorer" caption="Disconnected asset browser" delay={0.18} />
-                        </BentoRow>
-
-                        {/* Row 3 — Admin image + People dot grid with context */}
-                        <BentoRow layout="30/70">
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy admin status.png" alt="Legacy RC Admin" caption="Admin siloed in separate tool" />
                             <TextTile delay={0.1}>
                                 <PeopleDotGrid />
                                 <p className="text-zinc-300 font-light leading-relaxed mt-4">
@@ -275,6 +254,20 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                     <ScatterConverge />
 
                     <BentoGrid className="mt-12">
+                        {/* Legacy Screenshots */}
+                        <div className="flex items-end justify-between border-b border-white/10 pb-4 mb-8 mt-8">
+                            <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase">Legacy Context</h3>
+                        </div>
+                        <BentoRow layout="33/33/33">
+                            <ImageTile src="/images/case-study/ReportCaster/RC legacy schedule dialog properties.png" alt="Schedule Workflow" caption="Buried under 4 clicks" />
+                            <ImageTile src="/images/case-study/ReportCaster/RC legacy distribution list UI.png" alt="Distribution Lists" caption="Buried under 4 clicks" delay={0.06} />
+                            <ImageTile src="/images/case-study/ReportCaster/RC legacy access list UI.png" alt="Access Lists" caption="Buried under 4 clicks" delay={0.12} />
+                        </BentoRow>
+                        <BentoRow layout="50/50">
+                            <ImageTile src="/images/case-study/ReportCaster/RC legacy explorer.png" alt="RC Explorer" caption="Hidden in hamburger menu" delay={0.18} />
+                            <ImageTile src="/images/case-study/ReportCaster/RC legacy admin status.png" alt="RC Status / Admin" caption="Buried inside Management Center → Admin Console" delay={0.24} />
+                        </BentoRow>
+
                         {/* Sketches */}
                         <div className="flex items-end justify-between border-b border-white/10 pb-4 mb-8 mt-16">
                             <h3 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase">Mapping the chaos</h3>

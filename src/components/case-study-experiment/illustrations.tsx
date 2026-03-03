@@ -176,24 +176,39 @@ export function ScatterConverge() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto h-[400px] border border-white/5 rounded-3xl bg-black/20 overflow-hidden flex items-center justify-center shadow-[inset_0_0_100px_rgba(255,255,255,0.02)]">
+        <div className="relative w-full max-w-4xl mx-auto h-[400px] border border-[var(--accent-teal)]/10 rounded-3xl bg-[#0a0f0f] overflow-hidden flex items-center justify-center shadow-[inset_0_0_100px_rgba(45,212,191,0.03)]">
 
             {/* Background grid texture just for this box */}
-            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0z\' fill=\'none\'/%3E%3Cpath d=\'M40 0h-1v40h1V0zm0 40v-1h-40v1h40z\' fill=\'rgba(255,255,255,0.1)\'/%3E%3C/svg%3E")', WebkitMaskImage: 'radial-gradient(ellipse at center, white, transparent 70%)' }} />
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0z\' fill=\'none\'/%3E%3Cpath d=\'M40 0h-1v40h1V0zm0 40v-1h-40v1h40z\' fill=\'rgba(255,255,255,0.5)\'/%3E%3C/svg%3E")', WebkitMaskImage: 'radial-gradient(ellipse at center, white 20%, transparent 80%)' }} />
 
-            {/* Connecting Data Lines */}
+            {/* Connecting Data Lines - Marching Ants */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
                 {nodes.map((node, i) => (
                     <motion.line
-                        key={`line-${i}`}
+                        key={`line-bg-${i}`}
                         x1={node.x} y1={node.y} x2="50%" y2="50%"
                         stroke="currentColor"
-                        className="text-[var(--accent-teal)]/30"
+                        className="text-[var(--accent-teal)]/[0.15]"
                         strokeWidth="1.5"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        whileInView={{ pathLength: 1, opacity: 1 }}
+                    />
+                ))}
+
+                {nodes.map((node, i) => (
+                    <motion.line
+                        key={`data-${i}`}
+                        x1={node.x} y1={node.y} x2="50%" y2="50%"
+                        stroke="currentColor"
+                        className="text-[var(--accent-teal)]"
+                        strokeWidth="2"
+                        strokeDasharray="4 12"
+                        initial={{ opacity: 0, strokeDashoffset: 100 }}
+                        whileInView={{ opacity: 1 }}
+                        animate={{ strokeDashoffset: 0 }}
                         viewport={{ once: true, margin: "-10%" }}
-                        transition={{ duration: 1, delay: node.delay }}
+                        transition={{
+                            opacity: { duration: 1, delay: node.delay },
+                            strokeDashoffset: { repeat: Infinity, duration: 1.5, ease: "linear" }
+                        }}
                     />
                 ))}
             </svg>
@@ -202,25 +217,23 @@ export function ScatterConverge() {
             {nodes.map((node, i) => (
                 <motion.div
                     key={`node-${i}`}
-                    className="absolute w-12 h-12 rounded-full border border-[var(--accent-teal)]/30 bg-[#111] flex items-center justify-center shadow-[0_0_15px_rgba(45,212,191,0.15)] z-10"
+                    className="absolute w-12 h-12 rounded-full border border-[var(--accent-teal)]/30 bg-[#0a0a0a] flex items-center justify-center shadow-[0_0_15px_rgba(45,212,191,0.2)] z-10"
                     initial={{ left: node.x, top: node.y, scale: 0, opacity: 0 }}
-                    whileInView={{
-                        left: ["50%", node.x, node.x, "50%"],
-                        top: ["50%", node.y, node.y, "50%"],
-                        scale: [0, 1, 1, 0],
-                        opacity: [0, 1, 1, 0]
-                    }}
+                    whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true, margin: "-10%" }}
                     transition={{
-                        duration: 4,
-                        times: [0, 0.15, 0.75, 1], // pop out, hold, suck in
+                        duration: 1,
                         delay: node.delay,
                         ease: "easeOut"
                     }}
                     style={{ translateX: "-50%", translateY: "-50%" }}
                 >
-                    <div className="w-6 h-6 rounded-full border border-[var(--accent-teal)]/20 bg-[var(--accent-teal)]/10" />
-                    <span className="absolute -top-6 text-[9px] font-mono text-[var(--accent-teal)]/50 tracking-widest">{node.label}</span>
+                    <motion.div
+                        className="w-4 h-4 rounded-full bg-[var(--accent-teal)]/60 blur-[2px]"
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
+                        transition={{ duration: 2, delay: node.delay, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    <span className="absolute -top-6 text-[10px] font-mono text-white/80 tracking-widest bg-black/80 px-2 py-0.5 rounded border border-white/10">{node.label}</span>
                 </motion.div>
             ))}
 
@@ -228,37 +241,43 @@ export function ScatterConverge() {
             <motion.div
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center z-20"
                 initial={{ scale: 0.5, opacity: 0 }}
-                whileInView={{ scale: [0.5, 0.8, 0.8, 1.2, 1], opacity: [0, 0.5, 0.5, 1, 1] }}
+                whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{
-                    duration: 4,
-                    times: [0, 0.15, 0.75, 0.9, 1],
+                    duration: 1,
+                    delay: 0.8,
                     ease: "easeOut"
                 }}
             >
-                {/* Glowing Aura that blooms when they hit the center */}
+                {/* Breathing Aura */}
                 <motion.div
-                    className="absolute inset-0 bg-[var(--accent-teal)] rounded-full blur-[40px]"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: [0, 0, 0, 0.8, 0.3], scale: [0, 0, 0, 1.5, 1] }}
-                    viewport={{ once: true, margin: "-10%" }}
-                    transition={{ duration: 4, times: [0, 0.15, 0.75, 0.9, 1] }}
+                    className="absolute inset-0 bg-[var(--accent-teal)] rounded-full blur-[40px] mix-blend-screen"
+                    animate={{ opacity: [0.3, 0.6, 0.3], scale: [0.9, 1.2, 0.9] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 />
 
-                <div className="w-24 h-24 rounded-full border border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/20 backdrop-blur-md flex items-center justify-center relative shadow-[0_0_30px_rgba(45,212,191,0.2)]">
-                    <div className="w-16 h-16 rounded-full border border-[var(--accent-teal)]/30 bg-[var(--accent-teal)]/30 flex flex-col items-center justify-center">
-                        <span className="text-white text-xl font-bold">1</span>
+                {/* Core Hub */}
+                <div className="w-32 h-32 rounded-full border-2 border-[var(--accent-teal)]/80 bg-black/90 backdrop-blur-xl flex items-center justify-center relative shadow-[0_0_50px_rgba(45,212,191,0.5)] z-10">
+                    {/* Inner Rotating Ring */}
+                    <motion.div
+                        className="absolute inset-1 rounded-full border-t-2 border-r-2 border-[var(--accent-teal)] opacity-60"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    />
+
+                    {/* Outer Dashed Orbit */}
+                    <motion.div
+                        className="absolute inset-[-12px] rounded-full border border-[var(--accent-teal)]/40 border-dashed"
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    />
+
+                    {/* Text Label */}
+                    <div className="flex flex-col items-center justify-center pt-1">
+                        <span className="text-[var(--accent-teal)] text-4xl font-light leading-none drop-shadow-[0_0_15px_rgba(45,212,191,1)]">1</span>
+                        <span className="text-[10px] font-mono tracking-[0.3em] text-white/90 mt-1 pl-1">HUB</span>
                     </div>
                 </div>
-                <motion.span
-                    className="absolute -bottom-10 text-[10px] font-mono tracking-[0.4em] text-[var(--accent-teal)] font-bold drop-shadow-[0_0_10px_rgba(45,212,191,0.8)] whitespace-nowrap"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: [0, 0, 0, 1] }}
-                    viewport={{ once: true, margin: "-10%" }}
-                    transition={{ duration: 4, times: [0, 0.15, 0.75, 1] }}
-                >
-                    UNIFIED HUB
-                </motion.span>
             </motion.div>
         </div>
     )
