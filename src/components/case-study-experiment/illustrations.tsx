@@ -91,7 +91,7 @@ export function AvatarPair({
    ───────────────────────────────────────────────────────────── */
 export function ScreenshotStack() {
     return (
-        <div className="relative w-48 h-32 mb-8 mx-auto origin-top-left xl:-ml-4">
+        <div className="relative w-56 h-40 shrink-0 min-w-[14rem]">
             {[0, 1, 2, 3, 4].map((i) => (
                 <motion.div
                     key={i}
@@ -369,66 +369,50 @@ export function PlusIconTree({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   NETWORK PROPAGATION
-   Visually pleasing node network to show onboarding spread
+   ONBOARDING PATH
+   Sequential representation of onboarded roles
    ───────────────────────────────────────────────────────────── */
-export function NetworkPropagation({ center, members, highlighted = false }: { center: string, members: string[], highlighted?: boolean }) {
+export function OnboardingPath({ roles }: { roles: { name: string, abbr: string, active?: boolean }[] }) {
     return (
-        <div className="flex flex-col items-center justify-center my-8 h-40 relative">
-            {/* The Center Node */}
-            <motion.div
-                className={`w-14 h-14 rounded-full flex items-center justify-center border z-10 
-                    ${highlighted ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)]/20 shadow-[0_0_30px_rgba(45,212,191,0.2)]' : 'border-white/20 bg-white/5'}`}
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, type: 'spring' }}
-            >
-                <span className={`font-mono text-xs ${highlighted ? 'text-[var(--accent-teal)]' : 'text-zinc-300'}`}>{center}</span>
-            </motion.div>
-
-            {/* Orbiting / Satellite Nodes */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                {members.map((member, i) => {
-                    // Distribute evenly in a semi-circle or full circle
-                    // We'll use a simple fan-out pattern below center
-                    const angle = Math.PI * (0.8 + (i / max(1, members.length - 1)) * 1.4); // Angle from bottom left to bottom right
-                    const radius = 60 + (members.length > 2 ? Math.random() * 20 : 0);
-                    const x = Math.cos(angle) * radius;
-                    const y = Math.sin(angle) * radius + 20;
-
-                    return (
+        <div className="flex flex-col items-center w-full my-8 min-h-[100px]">
+            <div className="flex flex-row items-start justify-center flex-wrap gap-2 w-full max-w-sm">
+                {roles.map((role, i) => (
+                    <React.Fragment key={i}>
                         <motion.div
-                            key={i}
-                            className="absolute"
-                            initial={{ x: 0, y: 0, opacity: 0 }}
-                            whileInView={{ x, y, opacity: 1 }}
+                            className="flex flex-col items-center gap-2"
+                            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 + (i * 0.1), ease: "easeOut" }}
+                            transition={{ duration: 0.4, delay: i * 0.15 }}
                         >
-                            {/* Target Node */}
-                            <div className="w-10 h-10 rounded-full border border-white/10 bg-[#111] flex items-center justify-center shadow-lg relative">
-                                <span className="font-mono text-[9px] text-zinc-500 uppercase">{member}</span>
-                                {/* Connection Line (animated SVG line would be complex here, so we use a simple gradient tail) */}
-                                <motion.div
-                                    className="absolute top-1/2 left-1/2 w-[2px] bg-gradient-to-t from-[var(--accent-teal)]/40 to-transparent origin-top"
-                                    style={{ height: `${radius}px`, rotate: `${(angle * 180 / Math.PI) - 90}deg`, y: "-50%", x: "-50%" }}
-                                    initial={{ scaleY: 0 }}
-                                    whileInView={{ scaleY: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.8, delay: 0.2 + (i * 0.1) }}
-                                />
+                            <div className={`w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300
+                                ${role.active
+                                    ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)]/15 text-[var(--accent-teal)] shadow-[inset_0_0_15px_rgba(45,212,191,0.1),_0_0_20px_rgba(45,212,191,0.1)]'
+                                    : 'border-white/10 bg-[#111] text-zinc-400'}`}
+                            >
+                                <span className="font-mono text-[10px] tracking-wide">{role.abbr}</span>
                             </div>
+                            <span className={`text-[9px] font-mono uppercase tracking-widest text-center leading-tight max-w-[60px] ${role.active ? 'text-[var(--accent-teal)]' : 'text-zinc-500'}`}>
+                                {role.name}
+                            </span>
                         </motion.div>
-                    );
-                })}
+                        {i < roles.length - 1 && (
+                            <motion.div
+                                className="h-12 flex items-center px-1"
+                                initial={{ opacity: 0, scale: 0 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.3, delay: i * 0.15 + 0.1 }}
+                            >
+                                <span className="text-white/20 font-light text-sm">→</span>
+                            </motion.div>
+                        )}
+                    </React.Fragment>
+                ))}
             </div>
         </div>
-    );
+    )
 }
-
-// Helper to avoid math errors in division
-function max(a: number, b: number) { return a > b ? a : b; }
 
 /* ─────────────────────────────────────────────────────────────
    KNOWLEDGE TRANSFER
@@ -503,39 +487,44 @@ export function KnowledgeTransfer() {
    ───────────────────────────────────────────────────────────── */
 export function ImpactClimax() {
     const metrics = [
-        { label: "Schedule Creation", before: "4 Clicks", after: "1 Click" },
-        { label: "Explorer Access", before: "3 Clicks", after: "1 Click" },
-        { label: "Admin Workflow", before: "3 Clicks", after: "2 Clicks" },
-        { label: "Browser Tabs", before: "Multiple", after: "0 Tabs" },
+        { label: "Schedule Creation", before: "4 Clicks", after: "2", unit: "Clicks" },
+        { label: "Explorer Access", before: "3 Clicks", after: "1", unit: "Click" },
+        { label: "Admin Workflow", before: "3 Clicks", after: "2", unit: "Clicks" },
+        { label: "Browser Tabs", before: "Multiple", after: "0", unit: "Tabs" },
     ];
 
     return (
-        <div className="w-full flex justify-center py-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full max-w-5xl">
+        <div className="w-full flex justify-center py-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
                 {metrics.map((m, i) => (
                     <motion.div
                         key={i}
-                        className="flex flex-col items-center justify-center p-6 rounded-2xl bg-black/40 border border-[var(--accent-teal)]/10 relative overflow-hidden group"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        className="flex flex-col p-6 border border-white/5 bg-[#0a0f0f]/40 backdrop-blur-sm rounded-xl relative group hover:bg-[#0a0f0f]/80 transition-colors"
+                        initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+                        transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
                     >
-                        {/* Dramatic Hover Background */}
-                        <div className="absolute inset-0 bg-[var(--accent-teal)]/0 group-hover:bg-[var(--accent-teal)]/5 transition-colors duration-500" />
-
                         {/* Shimmer line */}
-                        <motion.div
-                            className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-teal)]/50 to-transparent opacity-0 group-hover:opacity-100"
-                            animate={{ x: ["-100%", "100%"] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        />
+                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-teal)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                        <span className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-4 block text-center h-8 flex items-center justify-center">{m.label}</span>
+                        {/* Label */}
+                        <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest mb-6 block leading-tight">
+                            {m.label}
+                        </span>
 
-                        <div className="flex flex-col items-center">
-                            <span className="text-zinc-500 text-sm font-medium line-through decoration-zinc-600/50 mb-1">{m.before}</span>
-                            <span className="text-[var(--accent-teal)] text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-[0_0_15px_rgba(45,212,191,0.3)]">{m.after}</span>
+                        {/* The Numbers */}
+                        <div className="flex flex-col mt-auto pt-4 border-t border-white/5">
+                            <div className="flex items-center gap-2 mb-2 opacity-70">
+                                <span className="text-zinc-600 text-xs font-mono line-through decoration-zinc-700/80">{m.before}</span>
+                                <span className="text-zinc-700 text-[10px]">→</span>
+                            </div>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-white text-4xl md:text-5xl font-light tracking-tight transition-colors duration-500 group-hover:text-[var(--accent-teal)]">
+                                    {m.after}
+                                </span>
+                                <span className="text-[var(--accent-teal)]/70 font-mono text-[10px] uppercase tracking-widest">{m.unit}</span>
+                            </div>
                         </div>
                     </motion.div>
                 ))}

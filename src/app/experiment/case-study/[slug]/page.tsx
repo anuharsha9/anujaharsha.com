@@ -11,7 +11,9 @@ export function generateStaticParams() {
     ]
 }
 
-export default function ExperimentCaseStudyPage({ params }: { params: { slug: string } }) {
+export default async function ExperimentCaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
+    const resolvedParams = await params;
+
     const getCaseStudy = (slug: string) => {
         switch (slug) {
             case 'reportcaster':
@@ -25,7 +27,7 @@ export default function ExperimentCaseStudyPage({ params }: { params: { slug: st
         }
     }
 
-    const data = getCaseStudy(params.slug)
+    const data = getCaseStudy(resolvedParams.slug)
 
     return <CinematicCaseStudy data={data} />
 }

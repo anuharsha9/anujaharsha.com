@@ -13,7 +13,7 @@ import {
 import {
     PeopleDotGrid, AvatarPair, ScreenshotStack, FlowDiagram,
     ScatterConverge, RejectionMark, PlusIconTree,
-    NetworkPropagation, KnowledgeTransfer, VideoGrid, ImpactClimax,
+    OnboardingPath, KnowledgeTransfer, VideoGrid, ImpactClimax,
 } from './illustrations'
 
 /* ─── Act Navigation ─── */
@@ -210,9 +210,9 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         {/* Row 2 — Validation statement */}
                         <BentoRow layout="full">
                             <TextTile accent="teal" delay={0.15}>
-                                <div className="flex items-start gap-6">
+                                <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 pl-2">
                                     <ScreenshotStack />
-                                    <p className="text-zinc-200 font-light leading-relaxed text-lg">
+                                    <p className="text-zinc-200 font-light leading-relaxed text-lg flex-1">
                                         I validated everything I had with customer support and customer reps over and over. I was the one person who knew more about ReportCaster workflows than anyone else.
                                     </p>
                                 </div>
@@ -469,11 +469,11 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
 
 
             {/* ═══════════════════════════════════════════════
-                ACT V — I ONBOARDED 20 PEOPLE. THEN I LET GO.
+                ACT V — I ONBOARDED 20 PEOPLE.
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-v">
+            <div className="relative z-20 bg-[#0a0f0f]" id="act-v">
                 <CinematicScene
-                    title="I Onboarded 20 People. Then I Let Go."
+                    title="I Onboarded 20 People."
                     body={
                         <p>Hundreds of screens done. But the people who were going to work with me — lead architect, lead engineer, core engineers, QA, new PM — they were unaware of ReportCaster.</p>
                     }
@@ -482,13 +482,22 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                         {/* Row 1 — First contacts */}
                         <BentoRow layout="50/50">
                             <TextTile>
-                                <NetworkPropagation center="Me" members={['LA', 'LE']} highlighted={true} />
+                                <OnboardingPath roles={[
+                                    { name: 'Me', abbr: 'ME', active: true },
+                                    { name: 'Lead Arch', abbr: 'LA' },
+                                    { name: 'Lead Eng', abbr: 'LE' }
+                                ]} />
                                 <p className="text-zinc-300 font-light leading-relaxed">
                                     The first people I onboarded were the lead architect and the lead engineer. Design discussions were finalized with them.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
-                                <NetworkPropagation center="Me" members={['En', 'En', 'PM', 'QA', 'DC']} />
+                                <OnboardingPath roles={[
+                                    { name: 'Eng Team', abbr: 'EN' },
+                                    { name: 'Product', abbr: 'PM' },
+                                    { name: 'QA Team', abbr: 'QA' },
+                                    { name: 'Sys Docs', abbr: 'DC' }
+                                ]} />
                                 <p className="text-zinc-300 font-light leading-relaxed">
                                     Then came the entire group of engineers, new PM, the QA team, the documentation team. Dozens of demos of the old and new ReportCaster to everyone.
                                 </p>

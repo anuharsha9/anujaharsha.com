@@ -250,6 +250,8 @@ export function CarouselTile({
         return () => clearInterval(timer);
     }, [autoPlay, images.length, interval]);
 
+    if (!images || images.length === 0) return null;
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 24 }}
