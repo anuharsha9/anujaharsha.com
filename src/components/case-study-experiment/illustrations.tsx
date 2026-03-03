@@ -166,73 +166,101 @@ export function FlowDiagram({
    5 dots scattered → animate to 1 center = 5→1 consolidation
    ───────────────────────────────────────────────────────────── */
 export function ScatterConverge() {
-    const dots = [
-        { x: 20, y: 20 },
-        { x: 80, y: 15 },
-        { x: 85, y: 80 },
-        { x: 15, y: 75 },
-        { x: 60, y: 45 },
+    // 5 nodes structured in a semi-circle/orbit pattern
+    const nodes = [
+        { label: "SYS_1", x: "15%", y: "25%", delay: 0 },
+        { label: "SYS_2", x: "85%", y: "25%", delay: 0.1 },
+        { label: "SYS_3", x: "10%", y: "75%", delay: 0.2 },
+        { label: "SYS_4", x: "90%", y: "75%", delay: 0.3 },
+        { label: "SYS_5", x: "50%", y: "15%", delay: 0.4 },
     ]
 
     return (
-        <motion.div
-            className="relative w-full max-w-lg mx-auto h-64 border border-white/5 rounded-2xl bg-white/[0.01] overflow-hidden"
-            initial="scattered"
-            whileInView="converged"
-            viewport={{ once: true, margin: '-20%' }}
-        >
-            {/* Connecting lines that fade in */}
-            <motion.svg className="absolute inset-0 w-full h-full pointer-events-none"
-                variants={{ scattered: { opacity: 0 }, converged: { opacity: 1 } }}
-                transition={{ duration: 1, delay: 1 }}
-            >
-                {dots.map((dot, i) => (
-                    <line key={`line-${i}`} x1={`${dot.x}%`} y1={`${dot.y}%`} x2="50%" y2="50%" stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="4 4" />
-                ))}
-            </motion.svg>
+        <div className="relative w-full max-w-4xl mx-auto h-[400px] border border-white/5 rounded-3xl bg-black/20 overflow-hidden flex items-center justify-center shadow-[inset_0_0_100px_rgba(255,255,255,0.02)]">
 
-            {dots.map((dot, i) => (
+            {/* Background grid texture just for this box */}
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0z\' fill=\'none\'/%3E%3Cpath d=\'M40 0h-1v40h1V0zm0 40v-1h-40v1h40z\' fill=\'rgba(255,255,255,0.1)\'/%3E%3C/svg%3E")', WebkitMaskImage: 'radial-gradient(ellipse at center, white, transparent 70%)' }} />
+
+            {/* Connecting Data Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                {nodes.map((node, i) => (
+                    <motion.line
+                        key={`line-${i}`}
+                        x1={node.x} y1={node.y} x2="50%" y2="50%"
+                        stroke="currentColor"
+                        className="text-[var(--accent-teal)]/30"
+                        strokeWidth="1.5"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        whileInView={{ pathLength: 1, opacity: 1 }}
+                        viewport={{ once: true, margin: "-10%" }}
+                        transition={{ duration: 1, delay: node.delay }}
+                    />
+                ))}
+            </svg>
+
+            {/* The 5 scattered nodes */}
+            {nodes.map((node, i) => (
                 <motion.div
-                    key={`dot-${i}`}
-                    className="absolute w-6 h-6 rounded-full flex items-center justify-center font-mono text-[9px] text-black"
-                    variants={{
-                        scattered: {
-                            left: `${dot.x}%`,
-                            top: `${dot.y}%`,
-                            backgroundColor: 'rgba(255,255,255,0.3)',
-                            scale: 1,
-                            opacity: 1,
-                        },
-                        converged: {
-                            left: '50%',
-                            top: '50%',
-                            backgroundColor: 'var(--accent-teal)',
-                            scale: i === 0 ? 4 : 0, // Only one dot scales up, the rest disappear into it
-                            opacity: i === 0 ? 1 : 0,
-                            translateY: '-50%',
-                            translateX: '-50%'
-                        },
+                    key={`node-${i}`}
+                    className="absolute w-12 h-12 rounded-full border border-[var(--accent-teal)]/30 bg-[#111] flex items-center justify-center shadow-[0_0_15px_rgba(45,212,191,0.15)] z-10"
+                    initial={{ left: node.x, top: node.y, scale: 0, opacity: 0 }}
+                    whileInView={{
+                        left: ["50%", node.x, node.x, "50%"],
+                        top: ["50%", node.y, node.y, "50%"],
+                        scale: [0, 1, 1, 0],
+                        opacity: [0, 1, 1, 0]
                     }}
+                    viewport={{ once: true, margin: "-10%" }}
                     transition={{
-                        duration: 1.5,
-                        delay: i * 0.1,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 4,
+                        times: [0, 0.15, 0.75, 1], // pop out, hold, suck in
+                        delay: node.delay,
+                        ease: "easeOut"
                     }}
-                />
+                    style={{ translateX: "-50%", translateY: "-50%" }}
+                >
+                    <div className="w-6 h-6 rounded-full border border-[var(--accent-teal)]/20 bg-[var(--accent-teal)]/10" />
+                    <span className="absolute -top-6 text-[9px] font-mono text-[var(--accent-teal)]/50 tracking-widest">{node.label}</span>
+                </motion.div>
             ))}
 
-            {/* Center label */}
-            <motion.span
-                className="absolute left-[50%] top-[65%] -translate-x-1/2 text-[12px] font-mono tracking-[0.2em] text-[var(--accent-teal)] font-bold whitespace-nowrap"
-                variants={{
-                    scattered: { opacity: 0, y: 10 },
-                    converged: { opacity: 1, y: 0 },
+            {/* The Center Hub */}
+            <motion.div
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center z-20"
+                initial={{ scale: 0.5, opacity: 0 }}
+                whileInView={{ scale: [0.5, 0.8, 0.8, 1.2, 1], opacity: [0, 0.5, 0.5, 1, 1] }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{
+                    duration: 4,
+                    times: [0, 0.15, 0.75, 0.9, 1],
+                    ease: "easeOut"
                 }}
-                transition={{ duration: 0.8, delay: 1.8 }}
             >
-                1 HUB
-            </motion.span>
-        </motion.div>
+                {/* Glowing Aura that blooms when they hit the center */}
+                <motion.div
+                    className="absolute inset-0 bg-[var(--accent-teal)] rounded-full blur-[40px]"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: [0, 0, 0, 0.8, 0.3], scale: [0, 0, 0, 1.5, 1] }}
+                    viewport={{ once: true, margin: "-10%" }}
+                    transition={{ duration: 4, times: [0, 0.15, 0.75, 0.9, 1] }}
+                />
+
+                <div className="w-24 h-24 rounded-full border border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/20 backdrop-blur-md flex items-center justify-center relative shadow-[0_0_30px_rgba(45,212,191,0.2)]">
+                    <div className="w-16 h-16 rounded-full border border-[var(--accent-teal)]/30 bg-[var(--accent-teal)]/30 flex flex-col items-center justify-center">
+                        <span className="text-white text-xl font-bold">1</span>
+                    </div>
+                </div>
+                <motion.span
+                    className="absolute -bottom-10 text-[10px] font-mono tracking-[0.4em] text-[var(--accent-teal)] font-bold drop-shadow-[0_0_10px_rgba(45,212,191,0.8)] whitespace-nowrap"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: [0, 0, 0, 1] }}
+                    viewport={{ once: true, margin: "-10%" }}
+                    transition={{ duration: 4, times: [0, 0.15, 0.75, 1] }}
+                >
+                    UNIFIED HUB
+                </motion.span>
+            </motion.div>
+        </div>
     )
 }
 

@@ -271,20 +271,13 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                     <ScatterConverge />
 
                     <BentoGrid className="mt-12">
-                        {/* The 5 Subsystems */}
-                        <BentoRow layout="33/33/33">
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy schedule dialog properties.png" alt="Schedule Workflow" caption="Buried under 4 clicks" />
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy distribution list UI.png" alt="Distribution Lists" caption="Buried under 4 clicks" delay={0.06} />
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy access list UI.png" alt="Access Lists" caption="Buried under 4 clicks" delay={0.12} />
-                        </BentoRow>
-                        <BentoRow layout="50/50">
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy explorer.png" alt="RC Explorer" caption="Hidden in hamburger menu" delay={0.18} />
-                            <ImageTile src="/images/case-study/ReportCaster/RC legacy admin status.png" alt="RC Status / Admin" caption="Buried inside Management Center → Admin Console" delay={0.24} />
-                        </BentoRow>
-
                         {/* Sketches */}
-                        <div className="mt-8">
-                            <EyebrowLabel>Mapping the chaos</EyebrowLabel>
+                        <div className="flex items-end justify-between border-b border-white/10 pb-4 mb-4 mt-16">
+                            <h3 className="text-xl md:text-2xl font-bold text-white">Mapping the chaos</h3>
+                            <a href="/assets/rc-sketchbook.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono text-[var(--accent-teal)] border border-[var(--accent-teal)]/30 px-4 py-2 rounded-full hover:bg-[var(--accent-teal)]/10 transition-colors flex items-center gap-2">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                VIEW PDF
+                            </a>
                         </div>
                         <BentoRow layout="33/33/33">
                             <ImageTile src="/images/case-study/ReportCaster/process/rc-sketchbook_Page_01_Image_0001.jpg" alt="Sketch 1" delay={0.06} />
@@ -394,51 +387,78 @@ export default function CinematicCaseStudy({ data }: { data: CaseStudyData }) {
                             <p className="text-white font-bold text-lg">There it was — the final workflow of ReportCaster.</p>
                         </motion.div>
 
-                        {/* Shipped screens — organized by subsystem */}
-                        <BentoGrid>
-                            <EyebrowLabel>The Shipped Product</EyebrowLabel>
-
-                            {/* Schedule & Recurrence */}
-                            <BentoRow layout="50/50">
-                                <div className="space-y-4">
-                                    <h4 className="text-[var(--accent-teal)] font-mono text-xs tracking-widest uppercase mb-4">Schedule Dialog</h4>
-                                    <ImageTile src="/images/case-study/ReportCaster/Initiating ReportCaster from the HUB.png" alt="Hub + menu" caption="Every major workflow starts here" />
-                                    <ImageTile src="/images/case-study/ReportCaster/Schedule Dialog - Properties.png" alt="Schedule Properties" caption="Unified creation flow" delay={0.06} />
+                        {/* Shipped screens — organized as Story Deck */}
+                        <BentoGrid className="space-y-16 md:space-y-24 mt-12">
+                            {/* Schedule Story */}
+                            <BentoRow layout="30/70">
+                                <TextTile accent="teal">
+                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">Unifying the Setup</h4>
+                                    <p className="text-zinc-400 font-light leading-relaxed">
+                                        Instead of separating basic scheduling and advanced settings across disjointed forms, I built a single intelligent dialog. It feels lightweight out of the gate but progressively scales up in capability, adapting directly to user requirements natively from the Hub.
+                                    </p>
+                                </TextTile>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <ImageTile src="/images/case-study/ReportCaster/Initiating ReportCaster from the HUB.png" alt="Hub + menu" caption="Initiated right from the + Menu" delay={0.1} />
+                                    <ImageTile src="/images/case-study/ReportCaster/Schedule Dialog - Properties.png" alt="Schedule Properties" caption="Unified, progressive creation flow" delay={0.2} />
                                 </div>
-                                <div className="space-y-4">
-                                    <h4 className="text-[var(--accent-teal)] font-mono text-xs tracking-widest uppercase mb-4">Recurrence Engine</h4>
-                                    <ImageTile src="/images/case-study/ReportCaster/New SD - Recurrence - Weekly.png" alt="Recurrence Weekly" caption="Natural language scheduling" delay={0.12} />
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <ImageTile src="/images/case-study/ReportCaster/New SD - Recurrence - Monthly - Days of the week.png" alt="Monthly recurrence" caption="Complex patterns" delay={0.06} />
-                                        <ImageTile src="/images/case-study/ReportCaster/New SD - Recurrence - Validation Error.png" alt="Validation" caption="Inline error prevention" delay={0.18} />
+                            </BentoRow>
+
+                            {/* Recurrence Story */}
+                            <BentoRow layout="30/70">
+                                <TextTile accent="teal" delay={0.1}>
+                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">A Natural Language System</h4>
+                                    <p className="text-zinc-400 font-light leading-relaxed">
+                                        Cryptic legacy codes were replaced with human-readable, auto-generating sentence summaries. The recurrence engine protects users from configuration errors using smart inline validation, hiding complexity like blackout days until absolutely needed.
+                                    </p>
+                                </TextTile>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
+                                    <div className="col-span-1 md:col-span-2">
+                                        <ImageTile src="/images/case-study/ReportCaster/New SD - Recurrence - Weekly.png" alt="Recurrence Weekly" caption="Natural language summary auto-generates" delay={0.2} />
                                     </div>
+                                    <ImageTile src="/images/case-study/ReportCaster/New SD - Recurrence - Monthly - Days of the week.png" alt="Monthly recurrence" caption="Monthly pattern granularity" delay={0.3} />
+                                    <ImageTile src="/images/case-study/ReportCaster/New SD - Recurrence - Validation Error.png" alt="Validation Error" caption="Instant inline semantic verification" delay={0.4} />
                                 </div>
                             </BentoRow>
 
-                            <div className="mt-16" />
-
-                            {/* Lists: Distribution and Access */}
-                            <BentoRow layout="50/50">
-                                <div className="space-y-4">
-                                    <h4 className="text-[var(--accent-teal)] font-mono text-xs tracking-widest uppercase mb-4">Distribution Lists</h4>
-                                    <ImageTile src="/images/case-study/ReportCaster/Distribution List starting point.png" alt="DL Start" caption="Elevated to first-class asset" delay={0.06} />
-                                    <ImageTile src="/images/case-study/ReportCaster/Distribution List - Populated List view.png" alt="DL Populated" caption="Full visibility of members" delay={0.18} />
-                                </div>
-                                <div className="space-y-4">
-                                    <h4 className="text-[var(--accent-teal)] font-mono text-xs tracking-widest uppercase mb-4">Access Lists</h4>
-                                    <ImageTile src="/images/case-study/ReportCaster/Access List starting point.png" alt="AL Start" caption="Same mental model, different asset type" delay={0.06} />
-                                    <ImageTile src="/images/case-study/ReportCaster/Access List - Current List+context menu options.png" alt="AL Current" caption="Context menu for management" delay={0.18} />
+                            {/* Distribution & Access Story */}
+                            <BentoRow layout="30/70">
+                                <TextTile accent="teal" delay={0.1}>
+                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">Elevating Access & Control</h4>
+                                    <p className="text-zinc-400 font-light leading-relaxed">
+                                        Managing distribution channels and security was previously an afterthought requiring complex navigation. We elevated them into first-class searchable assets. Whether you&apos;re configuring a network directory or an internal access list, the interaction paradigm remains identical.
+                                    </p>
+                                </TextTile>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <ImageTile src="/images/case-study/ReportCaster/Distribution List starting point.png" alt="DL Start" caption="Distribution Lists as first-class objects" delay={0.2} />
+                                    <ImageTile src="/images/case-study/ReportCaster/Access List - Current List+context menu options.png" alt="AL Current" caption="Consistent context menu management" delay={0.3} />
                                 </div>
                             </BentoRow>
 
-                            <div className="mt-16" />
+                            {/* Job Log Story */}
+                            <BentoRow layout="30/70">
+                                <TextTile accent="teal" delay={0.1}>
+                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">Contextual Job Diagnostics</h4>
+                                    <p className="text-zinc-400 font-light leading-relaxed">
+                                        Historically, running job logs popped out as completely detached web pages spanning thousands of rows of code. By designing a native embedded viewer with filtering and deep search directly within the UI, diagnosing scheduling failures became an instant, seamless action.
+                                    </p>
+                                </TextTile>
+                                <div className="h-full">
+                                    <ImageTile src="/images/case-study/ReportCaster/Job log dialog.png" alt="Job Log Dialog" caption="Fully embedded contextual log analysis" delay={0.2} />
+                                </div>
+                            </BentoRow>
 
-                            {/* Explorer, Admin, Job Logs */}
-                            <h4 className="text-[var(--accent-teal)] font-mono text-xs tracking-widest uppercase mb-4 mt-8">System Management</h4>
-                            <BentoRow layout="33/33/33">
-                                <ImageTile src="/images/case-study/ReportCaster/ReportCaster Explorer.png" alt="RC Explorer" caption="Explorer: Filtered view in Hub home" delay={0.06} />
-                                <ImageTile src="/images/case-study/ReportCaster/ReportCaster Status (Admin).png" alt="RC Admin" caption="Admin: Own tab in management center" delay={0.12} />
-                                <ImageTile src="/images/case-study/ReportCaster/Job log dialog.png" alt="Embedded Job Logs" caption="Logs: Inline diagnostics" delay={0.18} />
+                            {/* Hub Explorer Story */}
+                            <BentoRow layout="30/70">
+                                <TextTile accent="teal" delay={0.1}>
+                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">The Unified Dashboard</h4>
+                                    <p className="text-zinc-400 font-light leading-relaxed">
+                                        Finally, the overarching environment. The ReportCaster Explorer aggregates schedules, access lists, and distribution rules in a single native Hub view. Administrators get dedicated, high-level status monitoring without jumping into an entirely separate enterprise module.
+                                    </p>
+                                </TextTile>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <ImageTile src="/images/case-study/ReportCaster/ReportCaster Explorer.png" alt="RC Explorer" caption="A unified asset overview" delay={0.2} />
+                                    <ImageTile src="/images/case-study/ReportCaster/ReportCaster Status (Admin).png" alt="RC Admin" caption="Dedicated administrative monitoring" delay={0.3} />
+                                </div>
                             </BentoRow>
                         </BentoGrid>
                     </div>
