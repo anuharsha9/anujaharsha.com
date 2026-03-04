@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play } from 'lucide-react'
+import { Play, RotateCcw } from 'lucide-react'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -85,10 +85,11 @@ const LINES = [
 
 interface RCTrailerProps {
     onWatchPresentation?: () => void
+    onReplay?: () => void
     showCTA?: boolean
 }
 
-export default function RCTrailer({ onWatchPresentation, showCTA = false }: RCTrailerProps) {
+export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = false }: RCTrailerProps) {
     const [step, setStep] = useState(-1)
     const [cycle, setCycle] = useState(0)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -281,7 +282,7 @@ export default function RCTrailer({ onWatchPresentation, showCTA = false }: RCTr
                                             strokeWidth="0.3"
                                             strokeDasharray="2 2"
                                             initial={{ opacity: 0 }}
-                                            animate={{ opacity: scattered ? 0.12 : 0 }}
+                                            animate={{ opacity: scattered ? 0.35 : 0 }}
                                             transition={{ duration: 0.8 }}
                                         />
                                     )
@@ -298,11 +299,11 @@ export default function RCTrailer({ onWatchPresentation, showCTA = false }: RCTr
                                         style={{
                                             width: merged ? 20 : 56,
                                             height: merged ? 14 : 36,
-                                            borderColor: `${node.color}44`,
-                                            background: `${node.color}18`,
+                                            borderColor: `${node.color}cc`,
+                                            background: `${node.color}4d`,
                                             boxShadow: merged
-                                                ? `0 0 30px ${node.color}40`
-                                                : `0 0 12px ${node.color}20`,
+                                                ? `0 0 40px ${node.color}80`
+                                                : `0 0 20px ${node.color}50`,
                                         }}
                                         initial={{
                                             left: '50%',
@@ -364,7 +365,7 @@ export default function RCTrailer({ onWatchPresentation, showCTA = false }: RCTr
 
                         {/* Bottom label */}
                         <motion.p
-                            className="text-xs sm:text-sm font-mono text-zinc-600 uppercase tracking-[0.25em] mt-6 md:mt-8"
+                            className="text-xs sm:text-sm font-mono text-zinc-400 uppercase tracking-[0.25em] mt-6 md:mt-8"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2 }}
@@ -388,7 +389,7 @@ export default function RCTrailer({ onWatchPresentation, showCTA = false }: RCTr
                             {Array.from({ length: 35 }).map((_, i) => (
                                 <motion.div
                                     key={i}
-                                    className="absolute rounded-[3px] border border-cyan-400/30 bg-cyan-400/[0.1]"
+                                    className="absolute rounded-[3px] border border-cyan-400/50 bg-cyan-400/[0.18]"
                                     style={{
                                         width: '12.5%',
                                         height: '17%',
@@ -477,19 +478,67 @@ export default function RCTrailer({ onWatchPresentation, showCTA = false }: RCTr
                 {step === 12 && showCTA && (
                     <motion.div
                         key="cta"
-                        className="absolute inset-0 flex flex-col items-center justify-center gap-6"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease }}
+                        className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6"
+                        initial={{ opacity: 0, y: 20, filter: 'blur(12px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.8, ease }}
                     >
-                        <motion.button
+                        {/* RC Case Study Tile */}
+                        <button
                             onClick={onWatchPresentation}
-                            className="group flex items-center gap-3 px-8 py-4 rounded-full border border-white/25 bg-white/[0.04] backdrop-blur-sm text-white font-mono text-xs sm:text-sm uppercase tracking-[0.2em] hover:bg-white/10 hover:border-white/50 transition-all cursor-pointer"
-                            whileHover={{ scale: 1.04 }}
+                            className="group relative w-full max-w-2xl overflow-hidden rounded-2xl cursor-pointer transition-all duration-500 hover:scale-[1.02]"
+                            style={{
+                                minHeight: '280px',
+                                border: '1px solid rgba(var(--accent-amber-rgb, 245,158,11), 0.2)',
+                                backgroundColor: 'rgba(var(--accent-amber-rgb, 245,158,11), 0.06)',
+                                boxShadow: '0 0 60px rgba(var(--accent-amber-rgb, 245,158,11), 0.08)',
+                            }}
+                        >
+                            {/* Dot pattern */}
+                            <div
+                                className="absolute inset-0 pointer-events-none"
+                                style={{
+                                    backgroundImage: 'radial-gradient(circle, hsl(40, 50%, 25%) 0.8px, transparent 0.8px)',
+                                    backgroundSize: '24px 24px',
+                                    opacity: 0.15,
+                                }}
+                            />
+
+                            {/* Center CTA overlay */}
+                            <div className="absolute inset-0 z-20 flex items-center justify-center">
+                                <div className="flex flex-col items-center gap-4 max-w-md text-center px-6">
+                                    <motion.div
+                                        className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center"
+                                        animate={{ scale: [1, 1.08, 1] }}
+                                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                    >
+                                        <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+                                    </motion.div>
+                                    <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/60">
+                                        Watch the full animated case study deck
+                                    </span>
+                                    <p className="text-white/90 text-base md:text-lg font-semibold leading-snug">
+                                        Customer retention success for Enterprise Scheduling
+                                    </p>
+                                    <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-amber-400/60">
+                                        ReportCaster · Cloud Software Group
+                                    </span>
+                                </div>
+                            </div>
+                        </button>
+
+                        {/* Replay button */}
+                        <motion.button
+                            onClick={onReplay}
+                            className="flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/[0.03] text-white/50 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:bg-white/10 hover:text-white/80 hover:border-white/30 transition-all cursor-pointer"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5, duration: 0.5 }}
+                            whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                         >
-                            <Play className="w-4 h-4 fill-current" />
-                            Watch the full animated case study deck
+                            <RotateCcw className="w-3 h-3" />
+                            Replay trailer
                         </motion.button>
                     </motion.div>
                 )}
