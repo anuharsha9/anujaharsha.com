@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion'
-import { Play, Sparkles, Gamepad2, GraduationCap } from 'lucide-react'
+import { Play, Sparkles, Gamepad2 } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 
 /* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
@@ -294,17 +294,18 @@ const VIBE_TILES = [
         dotHue: 30,
         action: 'wordu' as const,
     },
-    {
-        id: 'college-os',
-        title: 'College OS',
-        subtitle: 'AI-powered college app tracker · Next.js + Gemini',
-        icon: GraduationCap,
-        cover: 'graduation' as const,
-        accent: 'var(--semantic-purple-vivid)',
-        accentRgbVar: '--semantic-purple-vivid-rgb',
-        dotHue: 270,
-        action: 'college-os' as const,
-    },
+    // College OS tile — hidden until deployed
+    // {
+    //     id: 'college-os',
+    //     title: 'College OS',
+    //     subtitle: 'AI-powered college app tracker · Next.js + Gemini',
+    //     icon: GraduationCap,
+    //     cover: 'graduation' as const,
+    //     accent: 'var(--semantic-purple-vivid)',
+    //     accentRgbVar: '--semantic-purple-vivid-rgb',
+    //     dotHue: 270,
+    //     action: 'college-os' as const,
+    // },
 ]
 
 export default function VibeCodingBlock() {
@@ -412,7 +413,6 @@ export default function VibeCodingBlock() {
                                     {/* Cover: animated SVG — blurs on desktop hover */}
                                     <div className="absolute inset-0 transition-all duration-500 md:group-hover:blur-[8px] md:group-hover:scale-105">
                                         {tile.cover === 'browser' && <BrowserWireframeCover />}
-                                        {tile.cover === 'graduation' && <GraduationCapCover />}
                                         {tile.cover === 'wordu' && <WordULogoCover />}
                                     </div>
 
@@ -422,14 +422,12 @@ export default function VibeCodingBlock() {
                                             <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
                                                 {tile.action === 'wordu' ? (
                                                     <Play className="w-5 h-5 text-white fill-white ml-0.5" />
-                                                ) : tile.action === 'college-os' ? (
-                                                    <Icon className="w-5 h-5 text-white" />
                                                 ) : (
                                                     <Icon className="w-5 h-5 text-white" />
                                                 )}
                                             </div>
                                             <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
-                                                {tile.action === 'wordu' ? 'Play Game' : tile.action === 'college-os' ? 'Launch App' : 'Explore'}
+                                                {tile.action === 'wordu' ? 'Play Game' : 'Explore'}
                                             </span>
                                             <p className="text-white/90 text-base font-semibold leading-snug mt-1">
                                                 {tile.title}

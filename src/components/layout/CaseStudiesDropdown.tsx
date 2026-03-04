@@ -130,7 +130,8 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
     { id: '001', label: 'ReportCaster', href: '/work/reportcaster', tag: 'LEGACY_MODERNIZATION' },
     { id: '002', label: 'Democratizing ML', href: '/work/ml-functions', tag: 'AI_UX' },
     { id: '003', label: 'Data Science Adoption', href: '/work/iq-plugin', tag: 'PLATFORM_UNIFICATION' },
-    { id: 'APP', label: 'College OS (App)', href: process.env.NEXT_PUBLIC_COLLEGE_OS_URL || 'http://localhost:3005', tag: 'AI_APP', isExternal: true },
+    // College OS — hidden until deployed
+    // { id: 'APP', label: 'College OS (App)', href: process.env.NEXT_PUBLIC_COLLEGE_OS_URL || 'http://localhost:3005', tag: 'AI_APP', isExternal: true },
   ]
 
   return (
@@ -209,10 +210,9 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                   <Link
                     key={item.href}
                     href={item.href}
-                    onClick={item.isExternal ? undefined : handleClick}
+                    onClick={handleClick}
                     className="group/item flex items-center gap-3 px-4 py-3 hover:bg-white/[0.04] transition-all duration-200"
                     role="menuitem"
-                    {...(item.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   >
                     {/* Accent dot */}
                     <div
