@@ -84,15 +84,19 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                 <button
                     onClick={handleHomeClick}
                     className="flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors text-xs font-mono tracking-wider uppercase cursor-pointer shrink-0"
+                    aria-label="Back to home"
                 >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span className="hidden sm:inline">Home</span>
                 </button>
 
                 {/* Center: View mode toggle */}
-                <div className="flex items-center bg-white/[0.04] rounded-full p-0.5 border border-white/[0.06] shrink-0">
+                <div className="flex items-center bg-white/[0.04] rounded-full p-0.5 border border-white/[0.06] shrink-0" role="tablist" aria-label="View mode">
                     <button
                         onClick={() => setViewMode('presentation')}
+                        role="tab"
+                        aria-selected={viewMode === 'presentation'}
+                        aria-label="Presentation view"
                         className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'presentation'
                             ? 'text-white'
                             : 'text-white/40 hover:text-white/60'
@@ -109,6 +113,9 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                     </button>
                     <button
                         onClick={() => setViewMode('full')}
+                        role="tab"
+                        aria-selected={viewMode === 'full'}
+                        aria-label="Full case study view"
                         className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'full'
                             ? 'text-white'
                             : 'text-white/40 hover:text-white/60'

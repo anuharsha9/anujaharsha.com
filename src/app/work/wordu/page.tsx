@@ -13,6 +13,7 @@ export default function WorduPage() {
       className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
       style={{ background: 'var(--bg-ink-950, #0a0a1a)' }}
     >
+      <h1 className="sr-only">WordU — A Word Game by Anuja Harsha</h1>
       {/* ── Navigation ── */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}

@@ -130,14 +130,14 @@ function SlideContent({ slide, index, total, embedded = false }: { slide: StoryS
                         Case Study Presentation
                     </motion.p>
 
-                    <motion.h1
+                    <motion.h2
                         initial={{ opacity: 0, y: 40, scale: 0.95, filter: 'blur(12px)' }}
                         animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                         transition={{ duration: 1, delay: 0.15, ease }}
                         className="text-3xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.1] mb-6 md:mb-8"
                     >
                         {slide.title}
-                    </motion.h1>
+                    </motion.h2>
 
                     {slide.content.map((line, i) => (
                         <motion.p

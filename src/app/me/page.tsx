@@ -149,11 +149,11 @@ function GlitchPortalHero() {
           className="absolute inset-0 z-[2] hidden md:flex items-center justify-center will-change-transform"
           style={{ scale: textScale, opacity: combinedTextOpacity }}
         >
-          <div className="relative">
-            {HERO_TEXT.map((word, i) => (
-              <h1
+          <h1 className="relative">
+            {HERO_TEXT.map((word) => (
+              <span
                 key={word}
-                className="font-black leading-[0.85] tracking-tighter select-none"
+                className="block font-black leading-[0.85] tracking-tighter select-none"
                 style={{
                   fontSize: 'clamp(5rem, 18vw, 16rem)',
                   color: 'transparent',
@@ -165,25 +165,25 @@ function GlitchPortalHero() {
                 }}
               >
                 {word}
-              </h1>
+              </span>
             ))}
-          </div>
+          </h1>
         </motion.div>
 
         {/* MOBILE: Shearing text rows */}
-        <div className="absolute inset-0 z-[2] flex md:hidden flex-col items-center justify-center will-change-transform">
-          <motion.h1
-            className="font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
+        <div className="absolute inset-0 z-[2] flex md:hidden flex-col items-center justify-center will-change-transform" aria-hidden="true">
+          <motion.span
+            className="block font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
             style={{ x: row1X, opacity: combinedTextOpacity, mixBlendMode: 'difference' }}
           >
             PRODUCT
-          </motion.h1>
-          <motion.h1
-            className="font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
+          </motion.span>
+          <motion.span
+            className="block font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
             style={{ x: row2X, opacity: combinedTextOpacity, mixBlendMode: 'difference' }}
           >
             DESIGNER
-          </motion.h1>
+          </motion.span>
         </div>
 
         {/* Bottom info bar */}

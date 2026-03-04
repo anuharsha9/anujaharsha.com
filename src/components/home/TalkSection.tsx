@@ -11,9 +11,10 @@ export default function TalkSection() {
   const { openPdf } = usePdf()
 
   return (
-    <section
+    <footer
       id="lets-talk"
       className="py-section-mobile md:py-section-tablet lg:py-section-desktop relative overflow-hidden bg-transparent"
+      role="contentinfo"
     >
       {/* Content container */}
       <div className={`relative z-10 ${spacing.container}`}>
@@ -139,6 +140,6 @@ export default function TalkSection() {
           <div className="h-safe-area-inset-bottom" />
         </motion.div>
       </div>
-    </section>
+    </footer>
   )
 }
