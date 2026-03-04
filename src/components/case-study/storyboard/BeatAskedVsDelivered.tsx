@@ -23,7 +23,7 @@ const DELIVERED = [
 
 export default function BeatAskedVsDelivered() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -32,33 +32,25 @@ export default function BeatAskedVsDelivered() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setPhase(-1)
-        timers.current.push(setTimeout(() => setPhase(0), 400))
-        // Phase 1: Scale appears
-        timers.current.push(setTimeout(() => setPhase(1), 1400))
-        // Phase 2-4: Asked items drop in (left side)
+    const startVisuals = useCallback(() => {
+        timers.current.push(setTimeout(() => setPhase(1), 300))
         ASKED.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(2 + i), 2200 + i * 600))
+            timers.current.push(setTimeout(() => setPhase(2 + i), 1100 + i * 600))
         })
-        // Phase 5: Pause — "is that all?"
-        timers.current.push(setTimeout(() => setPhase(5), 4400))
-        // Phase 6: "But actually..." — delivered header
-        timers.current.push(setTimeout(() => setPhase(6), 5200))
-        // Phase 7-12: Delivered items stack (right side) — scale tips
+        timers.current.push(setTimeout(() => setPhase(5), 3300))
+        timers.current.push(setTimeout(() => setPhase(6), 4100))
         DELIVERED.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(7 + i), 5800 + i * 500))
+            timers.current.push(setTimeout(() => setPhase(7 + i), 4700 + i * 500))
         })
-        // Phase 13: Scale fully tipped — closing
-        timers.current.push(setTimeout(() => setPhase(13), 9200))
-    }, [clear])
+        timers.current.push(setTimeout(() => setPhase(13), 8100))
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else { clear(); setPhase(-1) }
+        if (isInView) {
+            timers.current.push(setTimeout(() => setPhase(0), 400))
+        } else { clear(); setPhase(-1) }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     // The scale tilts as delivered items accumulate
     const deliveredCount = Math.max(0, Math.min(phase - 6, DELIVERED.length))
@@ -72,7 +64,7 @@ export default function BeatAskedVsDelivered() {
                     <AnimatePresence>
                         {phase >= 0 && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <PresenterBar>
+                                <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         Customers were leaving. The brief said{' '}
                                         <span className="text-zinc-300 font-medium">&quot;visual refresh.&quot;</span>{' '}

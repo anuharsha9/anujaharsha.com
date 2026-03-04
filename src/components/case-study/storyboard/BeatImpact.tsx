@@ -79,7 +79,7 @@ function MetricCounter({ item, active }: { item: MetricItem; active: boolean }) 
 
 export default function BeatImpact() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -88,30 +88,27 @@ export default function BeatImpact() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setPhase(-1)
-        // 0: Speech
-        timers.current.push(setTimeout(() => setPhase(0), 400))
+    const startVisuals = useCallback(() => {
         // 1: "SHIPPED" impact
-        timers.current.push(setTimeout(() => setPhase(1), 1200))
+        timers.current.push(setTimeout(() => setPhase(1), 300))
         // 2-5: Metrics staggered
         METRICS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(2 + i), 2400 + i * 700))
+            timers.current.push(setTimeout(() => setPhase(2 + i), 1500 + i * 700))
         })
         // 6: Quote
-        timers.current.push(setTimeout(() => setPhase(6), 5400))
+        timers.current.push(setTimeout(() => setPhase(6), 4500))
         // 7: Attribution
-        timers.current.push(setTimeout(() => setPhase(7), 6800))
+        timers.current.push(setTimeout(() => setPhase(7), 5900))
         // 8: Customer validation
-        timers.current.push(setTimeout(() => setPhase(8), 9000))
-    }, [clear])
+        timers.current.push(setTimeout(() => setPhase(8), 8100))
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else { clear(); setPhase(-1) }
+        if (isInView) {
+            timers.current.push(setTimeout(() => setPhase(0), 400))
+        } else { clear(); setPhase(-1) }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     return (
         <div ref={ref} className="relative w-full max-w-4xl mx-auto">
@@ -122,7 +119,7 @@ export default function BeatImpact() {
                     <AnimatePresence>
                         {phase >= 0 && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <PresenterBar>
+                                <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         The business needed to retain customers. That was the mission.
                                     </p>

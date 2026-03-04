@@ -203,7 +203,7 @@ export default function AutoPlayStory({
                 {fullBleedBackground ? (
                     <div className="relative h-full w-full flex flex-col items-center z-[15]">
                         {/* Top section: Signal badge */}
-                        <div className="shrink-0 pt-6 md:pt-8 pb-2">
+                        <div className="shrink-0 pt-4 md:pt-5 pb-2">
                             <AnimatePresence mode="wait">
                                 {currentBeatData?.signal && (
                                     <motion.div
@@ -269,7 +269,7 @@ export default function AutoPlayStory({
                                         clipPath: 'inset(4% 2% 3% 2% round 16px)',
                                     }}
                                     transition={{ duration: 1.02, ease: [0.18, 1, 0.28, 1] }}
-                                    className="absolute inset-0 flex h-full w-full items-center justify-center p-4 md:p-6"
+                                    className="absolute inset-0 flex h-full w-full items-center justify-center p-2 md:p-3 scale-[1.35] origin-center"
                                 >
                                     {currentBeatData?.component}
                                 </motion.div>

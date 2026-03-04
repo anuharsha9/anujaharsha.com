@@ -78,7 +78,7 @@ const OUTCOME = 'I knew this product\u2019s experience better than anyone. Not t
 
 export default function BeatInvestigation() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -87,27 +87,24 @@ export default function BeatInvestigation() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setStep(-1)
-        // Each event appears staggered
+    const startVisuals = useCallback(() => {
         EVENTS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setStep(i), 800 + i * 1000))
+            timers.current.push(setTimeout(() => setStep(i), 300 + i * 1000))
         })
-        // Outcome statement
         timers.current.push(
-            setTimeout(() => setStep(EVENTS.length), 800 + EVENTS.length * 1000 + 800)
+            setTimeout(() => setStep(EVENTS.length), 300 + EVENTS.length * 1000 + 800)
         )
-    }, [clear])
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else {
+        if (isInView) {
+            // PresenterBar shows via isInView directly (no phase gating)
+        } else {
             clear()
             setStep(-1)
         }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     const completedCount = Math.max(0, Math.min(step + 1, EVENTS.length))
     const progressPct = (completedCount / EVENTS.length) * 100
@@ -123,7 +120,7 @@ export default function BeatInvestigation() {
                         animate={isInView ? { opacity: 1 } : {}}
                         transition={{ duration: 0.6 }}
                     >
-                        <PresenterBar>
+                        <PresenterBar onTypingComplete={startVisuals}>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                 I interviewed customer reps, support leads, the <span className="text-zinc-200 font-medium">one engineer who wrote the original code in the &apos;80s</span> — anyone who&apos;d talk to me, <span className="text-zinc-200 font-medium">like crazy.</span>
                             </p>
@@ -133,184 +130,120 @@ export default function BeatInvestigation() {
                         </PresenterBar>
                     </motion.div>
 
-                    {/* ── Evidence Board ── */}
-                    <div className="relative max-w-2xl mx-auto">
-                        {/* Board header */}
+                    {/* ── Evidence Grid (compact) ── */}
+                    <div className="max-w-2xl mx-auto">
+                        {/* Board header with horizontal progress */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={step >= 0 ? { opacity: 1 } : { opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="flex items-center justify-between mb-5"
+                            className="flex items-center justify-between mb-4"
                         >
                             <div className="flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-                                <span className="text-[10px] font-mono tracking-widest uppercase text-teal-400/70">
+                                <span className="text-[11px] font-mono tracking-widest uppercase text-teal-400">
                                     Investigation Timeline
                                 </span>
                             </div>
-                            <span className="text-[10px] font-mono text-zinc-600">
-                                {completedCount}/{EVENTS.length} phases complete
-                            </span>
+                            <div className="flex items-center gap-3">
+                                <span className="text-[11px] font-mono text-zinc-400">
+                                    {completedCount}/{EVENTS.length}
+                                </span>
+                                <div className="w-16 h-1 bg-white/[0.04] rounded-full overflow-hidden">
+                                    <motion.div
+                                        className="h-full rounded-full"
+                                        style={{ background: 'linear-gradient(to right, var(--accent-teal-bright), var(--semantic-green-500))' }}
+                                        initial={{ width: '0%' }}
+                                        animate={{ width: `${progressPct}%` }}
+                                        transition={{ duration: 0.4, ease }}
+                                    />
+                                </div>
+                            </div>
                         </motion.div>
 
-                        {/* Progress rail */}
-                        <div className="absolute left-[19px] md:left-[23px] top-14 bottom-4 w-[3px] bg-white/[0.04] rounded-full overflow-hidden">
-                            <ProgressFill progress={progressPct} />
-                        </div>
-
-                        {/* Evidence cards */}
-                        <div className="space-y-4">
+                        {/* Compact evidence cards — icon + title only */}
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
                             {EVENTS.map((event, i) => {
                                 const Icon = event.icon
                                 const isActive = step >= i
-                                const isComplete = step > i
                                 return (
                                     <motion.div
                                         key={event.label}
-                                        initial={{ opacity: 0, x: -30, filter: 'blur(6px)' }}
+                                        initial={{ opacity: 0, y: 12 }}
                                         animate={
                                             isActive
-                                                ? { opacity: 1, x: 0, filter: 'blur(0px)' }
-                                                : { opacity: 0, x: -30, filter: 'blur(6px)' }
+                                                ? { opacity: 1, y: 0 }
+                                                : { opacity: 0, y: 12 }
                                         }
-                                        transition={{ duration: 0.7, ease }}
-                                        className="flex items-start gap-4 relative"
+                                        transition={{ duration: 0.4, ease }}
+                                        className="rounded-lg border bg-white/[0.02] p-3 relative overflow-hidden"
+                                        style={{
+                                            borderColor: isActive ? withHexAlpha(event.color, '15') : 'var(--overlay-white-04)',
+                                        }}
                                     >
-                                        {/* Timeline node */}
+                                        {/* Top accent */}
                                         <motion.div
-                                            initial={{ scale: 0 }}
-                                            animate={isActive ? { scale: 1 } : { scale: 0 }}
-                                            transition={{
-                                                duration: 0.4,
-                                                delay: 0.1,
-                                                ease: [0.34, 1.56, 0.64, 1],
-                                            }}
-                                            className="w-10 md:w-12 h-10 md:h-12 rounded-full flex items-center justify-center flex-shrink-0 relative z-10"
-                                            style={{
-                                                background: isComplete
-                                                    ? withHexAlpha(event.color, '20')
-                                                    : 'var(--overlay-zinc-900)',
-                                                border: `2px solid ${isComplete ? event.color : 'var(--overlay-white-08)'}`,
-                                            }}
-                                        >
-                                            <Icon
-                                                className="w-4 h-4 md:w-5 md:h-5"
-                                                style={{ color: isActive ? event.color : 'var(--overlay-zinc-100)' }}
-                                                strokeWidth={1.5}
-                                            />
-                                            {/* Pulse ring on active */}
-                                            {isActive && !isComplete && (
-                                                <motion.div
-                                                    initial={{ opacity: 0.6, scale: 1 }}
-                                                    animate={{ opacity: 0, scale: 2 }}
-                                                    transition={{ duration: 1.2, repeat: Infinity, ease: 'easeOut' }}
-                                                    className="absolute inset-0 rounded-full"
-                                                    style={{ border: `2px solid ${event.color}` }}
+                                            initial={{ scaleX: 0 }}
+                                            animate={isActive ? { scaleX: 1 } : { scaleX: 0 }}
+                                            transition={{ duration: 0.4, delay: 0.1, ease }}
+                                            className="absolute top-0 left-0 right-0 h-[1px] origin-left"
+                                            style={{ background: withHexAlpha(event.color, '40') }}
+                                        />
+                                        <div className="flex items-center gap-2.5">
+                                            <div
+                                                className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0"
+                                                style={{
+                                                    background: withHexAlpha(event.color, '10'),
+                                                    border: `1px solid ${withHexAlpha(event.color, '15')}`,
+                                                }}
+                                            >
+                                                <Icon
+                                                    className="w-3.5 h-3.5"
+                                                    style={{ color: event.color }}
+                                                    strokeWidth={1.5}
                                                 />
-                                            )}
-                                        </motion.div>
-
-                                        {/* Card content */}
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                                            transition={{ duration: 0.5, delay: 0.15, ease }}
-                                            className="flex-1 rounded-xl border bg-white/[0.02] p-4 relative overflow-hidden"
-                                            style={{
-                                                borderColor: isActive ? withHexAlpha(event.color, '20') : 'var(--overlay-white-04)',
-                                            }}
-                                        >
-                                            {/* Top color accent */}
-                                            <motion.div
-                                                initial={{ scaleX: 0 }}
-                                                animate={isActive ? { scaleX: 1 } : { scaleX: 0 }}
-                                                transition={{ duration: 0.6, delay: 0.2, ease }}
-                                                className="absolute top-0 left-0 right-0 h-[2px] origin-left"
-                                                style={{ background: event.color }}
-                                            />
-
-                                            <div className="flex items-center gap-2 mb-1.5">
-                                                <span
-                                                    className="font-mono text-[9px] tracking-wider uppercase px-1.5 py-0.5 rounded"
-                                                    style={{
-                                                        color: event.color,
-                                                        background: withHexAlpha(event.color, '15'),
-                                                    }}
-                                                >
-                                                    {event.month}
-                                                </span>
-                                                {isComplete && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, scale: 0 }}
-                                                        animate={{ opacity: 1, scale: 1 }}
-                                                        transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-                                                    >
-                                                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" strokeWidth={2} />
-                                                    </motion.div>
-                                                )}
                                             </div>
-                                            <div className="text-sm font-medium text-white mb-1">
+                                            <span className="text-xs font-medium text-zinc-300">
                                                 {event.label}
-                                            </div>
-                                            <div className="text-xs text-zinc-500 leading-relaxed">
-                                                {event.detail}
-                                            </div>
-                                        </motion.div>
+                                            </span>
+                                        </div>
                                     </motion.div>
                                 )
                             })}
                         </div>
                     </div>
 
-                    {/* Outcome — Case Closed seal */}
+                    {/* Outcome — compact */}
                     <AnimatePresence>
                         {step >= EVENTS.length && (
                             <motion.div
-                                initial={{ opacity: 0, y: 30, filter: 'blur(12px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 1.2, ease }}
-                                className="mt-10 text-center"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease }}
+                                className="mt-6 flex items-center gap-4 max-w-2xl mx-auto"
                             >
-                                <div className="inline-flex flex-col items-center gap-4">
-                                    {/* Seal */}
-                                    <motion.div
-                                        initial={{ scale: 0, rotate: -20 }}
-                                        animate={{ scale: 1, rotate: 0 }}
-                                        transition={{
-                                            duration: 0.6,
-                                            delay: 0.3,
-                                            ease: [0.34, 1.56, 0.64, 1],
-                                        }}
-                                        className="w-16 h-16 rounded-full border-2 border-teal-500/40 flex items-center justify-center"
-                                        style={{
-                                            background: 'radial-gradient(circle, var(--overlay-teal-bright-15) 0%, transparent 70%)',
-                                        }}
-                                    >
-                                        <CheckCircle2 className="w-8 h-8 text-teal-400" strokeWidth={1.5} />
-                                    </motion.div>
-
-                                    {/* Statement */}
-                                    <div className="max-w-lg">
-                                        <div className="rounded-xl border border-teal-500/20 bg-teal-500/5 px-6 py-4">
-                                            <p className="text-sm md:text-base text-teal-300/90 leading-relaxed font-medium">
-                                                {OUTCOME}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Progress summary */}
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ delay: 0.5 }}
-                                        className="flex items-center gap-4 text-[10px] font-mono text-zinc-600"
-                                    >
+                                <motion.div
+                                    initial={{ scale: 0, rotate: -20 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+                                    className="w-10 h-10 rounded-full border border-teal-500/30 flex items-center justify-center flex-shrink-0"
+                                    style={{
+                                        background: 'radial-gradient(circle, var(--overlay-teal-bright-15) 0%, transparent 70%)',
+                                    }}
+                                >
+                                    <CheckCircle2 className="w-5 h-5 text-teal-400" strokeWidth={1.5} />
+                                </motion.div>
+                                <div className="flex-1">
+                                    <p className="text-sm text-teal-300/90 leading-relaxed font-medium">
+                                        {OUTCOME}
+                                    </p>
+                                    <div className="flex items-center gap-3 mt-1.5 text-xs font-mono text-zinc-400">
                                         <span>4 months</span>
                                         <span className="text-zinc-800">·</span>
                                         <span>100s of screenshots</span>
                                         <span className="text-zinc-800">·</span>
                                         <span>Every workflow mapped</span>
-                                    </motion.div>
+                                    </div>
                                 </div>
                             </motion.div>
                         )}

@@ -50,7 +50,7 @@ function SparseCounter({ active }: { active: boolean }) {
 
 export default function BeatWhatIGot() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -59,32 +59,29 @@ export default function BeatWhatIGot() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setPhase(-1)
-        // 0: Speech
-        timers.current.push(setTimeout(() => setPhase(0), 400))
+    const startVisuals = useCallback(() => {
         // 1: Shelf appears + counter starts
-        timers.current.push(setTimeout(() => setPhase(1), 1200))
+        timers.current.push(setTimeout(() => setPhase(1), 300))
         // 2-4: Each item drops onto shelf
         GOT.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(2 + i), 2000 + i * 1000))
+            timers.current.push(setTimeout(() => setPhase(2 + i), 1100 + i * 1000))
         })
         // 5: Missing items strike
-        timers.current.push(setTimeout(() => setPhase(5), 5400))
+        timers.current.push(setTimeout(() => setPhase(5), 4500))
         // 6-9: Each missing item appears
         MISSING.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(6 + i), 5800 + i * 500))
+            timers.current.push(setTimeout(() => setPhase(6 + i), 4900 + i * 500))
         })
         // 10: Closer
-        timers.current.push(setTimeout(() => setPhase(10), 8200))
-    }, [clear])
+        timers.current.push(setTimeout(() => setPhase(10), 7300))
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else { clear(); setPhase(-1) }
+        if (isInView) {
+            timers.current.push(setTimeout(() => setPhase(0), 400))
+        } else { clear(); setPhase(-1) }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     return (
         <div ref={ref} className="relative w-full max-w-4xl mx-auto">
@@ -95,7 +92,7 @@ export default function BeatWhatIGot() {
                     <AnimatePresence>
                         {phase >= 0 && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <PresenterBar>
+                                <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         These three things you see below?
                                     </p>

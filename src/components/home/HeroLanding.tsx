@@ -13,95 +13,7 @@ import {
 import { useRouter } from 'next/navigation'
 import { SecondaryCaseStudies } from '@/components/timeline/SecondaryCaseStudies'
 import { ArrowDown, X, Play, Cog } from 'lucide-react'
-import AutoPlayStory, { type MovieBeat } from '@/components/case-study/storyboard/AutoPlayStory'
-import {
-    MovieBeatAssignment,
-    MovieBeatDiscovery,
-    MovieBeatChaos,
-    MovieBeatPivots,
-    MovieBeatBreakthrough,
-    MovieBeatExecution,
-    MovieBeatScale,
-    MovieBeatShipped,
-} from '@/components/case-study/storyboard/RCMovieBeats'
-
-const MOVIE_PACE = 1.72
-const d = (ms: number) => Math.round(ms * MOVIE_PACE)
-
-const RC_MOVIE_BEATS: MovieBeat[] = [
-    {
-        id: 'assignment',
-        duration: d(7600),
-        label: 'The Business Problem',
-        signal: 'CUSTOMER LOSS',
-        narration: 'Week one: I inherited a 50-year-old mission-critical system that was actively losing customers.',
-        narrationDelay: 0.1,
-        component: <MovieBeatAssignment />,
-    },
-    {
-        id: 'discovery',
-        duration: d(7600),
-        label: 'Discovery Arc',
-        signal: 'SYSTEM ARCHAEOLOGY',
-        narration: 'I had zero domain context, so I built the mental model from scratch with SMEs and raw artifacts.',
-        narrationDelay: 0.1,
-        component: <MovieBeatDiscovery />,
-    },
-    {
-        id: 'chaos',
-        duration: d(8600),
-        label: 'The Chaos',
-        signal: 'LEGACY DEBT',
-        narration: 'What looked like one product was actually five disconnected tools, scattered across broken workflows.',
-        narrationDelay: 0.05,
-        component: <MovieBeatChaos />,
-    },
-    {
-        id: 'pivots',
-        duration: d(8400),
-        label: 'Three Pivots',
-        signal: 'ITERATION',
-        narration: 'V1 failed. V2 failed. The third pivot aligned engineering reality with customer outcomes.',
-        narrationDelay: 0.08,
-        component: <MovieBeatPivots />,
-    },
-    {
-        id: 'breakthrough',
-        duration: d(9000),
-        label: 'The Breakthrough',
-        signal: 'UNIFIED HUB',
-        narration: 'The + Menu became the strategic hinge: one command center replacing fragmented entry points.',
-        narrationDelay: 0.06,
-        component: <MovieBeatBreakthrough />,
-    },
-    {
-        id: 'execution',
-        duration: d(8400),
-        label: 'Execution Arc',
-        signal: 'FEATURE SYSTEM',
-        narration: 'Then I rebuilt Scheduler, Recurrence, and Job Logs as one coherent interaction system.',
-        narrationDelay: 0.06,
-        component: <MovieBeatExecution />,
-    },
-    {
-        id: 'scale',
-        duration: d(7600),
-        label: '250 Screens',
-        signal: 'SCALE + HANDOFF',
-        narration: '250-plus screens, every edge state documented, and a living handoff system for a 20-person team.',
-        narrationDelay: 0.1,
-        component: <MovieBeatScale />,
-    },
-    {
-        id: 'shipped',
-        duration: d(10400),
-        label: 'Shipped + Impact',
-        signal: 'OUTCOME',
-        narration: 'We shipped at enterprise scale with zero regressions and retained trust in a mission-critical product.',
-        narrationDelay: 0.08,
-        component: <MovieBeatShipped />,
-    },
-]
+import RCTrailer from '@/components/home/RCTrailer'
 
 function InterlockedGearGlyph({ className = '' }: { className?: string }) {
     return (
@@ -205,8 +117,13 @@ export default function HeroLanding() {
 
     const enterWatchMode = () => {
         setIsWatching(true)
-        setMovieKey(k => k + 1) // Force AutoPlayStory remount → restart from beat 0
+        setMovieKey(k => k + 1) // Force trailer remount → restart
         fmAnimate(watchMode, 1, { duration: 0.6, ease: [0.4, 0, 0.2, 1] })
+    }
+
+    const handleWatchPresentation = () => {
+        exitWatchMode()
+        router.push('/work/reportcaster')
     }
 
     const exitWatchMode = useCallback(() => {
@@ -247,14 +164,11 @@ export default function HeroLanding() {
                     className="absolute inset-0 z-0 bg-[var(--bg-cinematic)] flex items-center justify-center pointer-events-auto"
                     style={{ scale: videoScale, y: videoY, originY: 0, filter: videoFilterTemplate, opacity: videoOpacity }}
                 >
-                    <div className="w-full h-full transition-all duration-[1200ms]" style={{ padding: isWatching ? '4rem' : '0' }}>
-                        <AutoPlayStory
+                    <div className="w-full h-full">
+                        <RCTrailer
                             key={movieKey}
-                            beats={RC_MOVIE_BEATS}
-                            isInView={true}
-                            autoStart={true}
-                            loop={true}
-                            fullBleedBackground={true}
+                            showCTA={isWatching}
+                            onWatchPresentation={handleWatchPresentation}
                         />
                     </div>
                 </motion.div>

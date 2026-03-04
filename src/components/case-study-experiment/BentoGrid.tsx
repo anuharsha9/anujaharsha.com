@@ -2,6 +2,48 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
+import ImageLightbox from '@/components/case-study/ImageLightbox'
+
+/* ─── Lightbox Context ─── */
+interface LightboxState {
+    open: (images: { src: string; alt: string; caption?: string }[], index: number) => void
+}
+
+const LightboxContext = React.createContext<LightboxState | null>(null)
+
+function useLightbox() {
+    return React.useContext(LightboxContext)
+}
+
+export function LightboxProvider({ children }: { children: React.ReactNode }) {
+    const [isOpen, setIsOpen] = React.useState(false)
+    const [images, setImages] = React.useState<{ src: string; alt: string; caption?: string }[]>([])
+    const [currentIndex, setCurrentIndex] = React.useState(0)
+
+    const open = React.useCallback((imgs: { src: string; alt: string; caption?: string }[], index: number) => {
+        setImages(imgs)
+        setCurrentIndex(index)
+        setIsOpen(true)
+    }, [])
+
+    return (
+        <LightboxContext.Provider value={{ open }}>
+            {children}
+            <ImageLightbox
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                images={images}
+                currentIndex={currentIndex}
+                imageSrc={images[currentIndex]?.src || ''}
+                imageAlt={images[currentIndex]?.alt || ''}
+                imageCaption={images[currentIndex]?.caption}
+                onNavigate={setCurrentIndex}
+                autoPlayInterval={0}
+            />
+        </LightboxContext.Provider>
+    )
+}
 
 /* ─── Row Layout Types ─── */
 type RowLayout = 'full' | '50/50' | '30/70' | '70/30' | '33/33/33' | '25/25/25/25'
@@ -57,22 +99,33 @@ export function ImageTile({
     className?: string
     aspectRatio?: string
 }) {
+    const lightbox = useLightbox()
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-            className={`group relative overflow-hidden rounded-xl ${className}`}
+            className={`group relative overflow-hidden rounded-xl cursor-pointer ${className}`}
             style={aspectRatio ? { aspectRatio } : undefined}
+            onClick={() => lightbox?.open([{ src, alt, caption }], 0)}
         >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
                 src={src}
                 alt={alt}
+                width={1920}
+                height={1080}
                 loading="lazy"
-                className="w-full h-full object-contain"
+                sizes="(max-width: 768px) 100vw, (max-width: 1440px) 50vw, 720px"
+                className="w-full h-auto object-contain"
             />
+            {/* View Focus hover overlay */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <span className="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full border border-white/10">
+                    View Focus
+                </span>
+            </div>
             {caption && (
                 <div className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-full p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
@@ -243,6 +296,7 @@ export function CarouselTile({
     interval?: number
 }) {
     const [current, setCurrent] = React.useState(0)
+    const lightbox = useLightbox()
 
     React.useEffect(() => {
         if (!autoPlay || images.length <= 1) return;
@@ -261,14 +315,25 @@ export function CarouselTile({
             className="relative overflow-hidden rounded-xl group"
         >
             {/* Image */}
-            <div className="relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+            <div
+                className="relative cursor-pointer"
+                onClick={() => lightbox?.open(images, current)}
+            >
+                <Image
                     src={images[current].src}
                     alt={images[current].alt}
+                    width={1920}
+                    height={1080}
                     loading="lazy"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1440px) 50vw, 720px"
                     className="w-full h-auto object-contain transition-opacity duration-500"
                 />
+                {/* View Focus hover overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <span className="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full border border-white/10">
+                        View Focus
+                    </span>
+                </div>
                 {images[current].caption && (
                     <div className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="w-full p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
@@ -283,14 +348,14 @@ export function CarouselTile({
                 <>
                     {/* Arrows */}
                     <button
-                        onClick={() => setCurrent((current - 1 + images.length) % images.length)}
+                        onClick={(e) => { e.stopPropagation(); setCurrent((current - 1 + images.length) % images.length); }}
                         className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
                         aria-label="Previous"
                     >
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </button>
                     <button
-                        onClick={() => setCurrent((current + 1) % images.length)}
+                        onClick={(e) => { e.stopPropagation(); setCurrent((current + 1) % images.length); }}
                         className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
                         aria-label="Next"
                     >
@@ -302,7 +367,7 @@ export function CarouselTile({
                         {images.map((_, i) => (
                             <button
                                 key={i}
-                                onClick={() => setCurrent(i)}
+                                onClick={(e) => { e.stopPropagation(); setCurrent(i); }}
                                 className={`w-1.5 h-1.5 rounded-full transition-all ${i === current ? 'bg-white w-3' : 'bg-white/30'}`}
                                 aria-label={`Slide ${i + 1}`}
                             />

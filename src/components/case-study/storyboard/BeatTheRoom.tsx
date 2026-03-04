@@ -38,7 +38,7 @@ const REVELATIONS = [
 
 export default function BeatTheRoom() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -47,34 +47,32 @@ export default function BeatTheRoom() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setPhase(-1)
-        // Phase 0: Show the zoom window frame
-        timers.current.push(setTimeout(() => setPhase(0), 400))
-        // Phase 1-7: Each participant tile joins (7 people)
+    const startVisuals = useCallback(() => {
+        // Phase 1-7: Each participant tile joins
+        timers.current.push(setTimeout(() => setPhase(1), 300))
         PARTICIPANTS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(i + 1), 1000 + i * 500))
+            timers.current.push(setTimeout(() => setPhase(i + 1), 600 + i * 500))
         })
         // Phase 8: Highlight the experience gap
-        timers.current.push(setTimeout(() => setPhase(8), 5200))
+        timers.current.push(setTimeout(() => setPhase(8), 4800))
         // Phase 9: My internal monologue
-        timers.current.push(setTimeout(() => setPhase(9), 6700))
+        timers.current.push(setTimeout(() => setPhase(9), 6300))
         // Phase 10: Revelations start
-        timers.current.push(setTimeout(() => setPhase(10), 8200))
+        timers.current.push(setTimeout(() => setPhase(10), 7800))
         // Phase 11-15: Each revelation
         REVELATIONS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(11 + i), 8800 + i * 800))
+            timers.current.push(setTimeout(() => setPhase(11 + i), 8400 + i * 800))
         })
-        // Phase 16: "I volunteered anyway."
-        timers.current.push(setTimeout(() => setPhase(16), 13200))
-    }, [clear])
+        // Phase 16
+        timers.current.push(setTimeout(() => setPhase(16), 12800))
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else { clear(); setPhase(-1) }
+        if (isInView) {
+            timers.current.push(setTimeout(() => setPhase(0), 400))
+        } else { clear(); setPhase(-1) }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     return (
         <div ref={ref} className="relative w-full max-w-4xl mx-auto">
@@ -85,7 +83,7 @@ export default function BeatTheRoom() {
                     <AnimatePresence>
                         {phase >= 0 && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <PresenterBar>
+                                <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         Week 3. Monday. <span className="text-zinc-200 font-medium">First kickoff meeting.</span>{' '}
                                         A handful of people — the <span className="text-zinc-200">only ones who knew RC existed.</span>

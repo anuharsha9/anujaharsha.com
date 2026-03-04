@@ -109,7 +109,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
 
 export default function BeatBreakthrough() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -118,30 +118,21 @@ export default function BeatBreakthrough() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setPhase(-1)
-        // Phase 0: Narrator
-        timers.current.push(setTimeout(() => setPhase(0), 400))
-        // Phase 1: Orbit nodes appear
-        timers.current.push(setTimeout(() => setPhase(1), 1600))
-        // Phase 2: Convergence begins (paths draw + nodes start moving)
-        timers.current.push(setTimeout(() => setPhase(2), 3000))
-        // Phase 3: Impact — shockwave, + button bloom
-        timers.current.push(setTimeout(() => setPhase(3), 4500))
-        // Phase 4: Metrics reveal
-        timers.current.push(setTimeout(() => setPhase(4), 5800))
-        // Phase 5: Counters animate
-        timers.current.push(setTimeout(() => setPhase(5), 6600))
-        // Phase 6: Closing line
-        timers.current.push(setTimeout(() => setPhase(6), 8200))
-    }, [clear])
+    const startVisuals = useCallback(() => {
+        timers.current.push(setTimeout(() => setPhase(1), 300))
+        timers.current.push(setTimeout(() => setPhase(2), 1700))
+        timers.current.push(setTimeout(() => setPhase(3), 3200))
+        timers.current.push(setTimeout(() => setPhase(4), 4500))
+        timers.current.push(setTimeout(() => setPhase(5), 5300))
+        timers.current.push(setTimeout(() => setPhase(6), 6900))
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else { clear(); setPhase(-1) }
+        if (isInView) {
+            timers.current.push(setTimeout(() => setPhase(0), 400))
+        } else { clear(); setPhase(-1) }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     const radius = 130
     const cx = 180, cy = 180
@@ -155,7 +146,7 @@ export default function BeatBreakthrough() {
                     <AnimatePresence>
                         {phase >= 0 && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <PresenterBar>
+                                <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         The Hub already had a <span className="text-zinc-200 font-medium">+ menu</span>. What if RC workflows just… lived there? No new tabs. No new plugins.
                                     </p>

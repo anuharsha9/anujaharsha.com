@@ -76,7 +76,7 @@ function TotalCounter({ active }: { active: boolean }) {
 
 export default function BeatHandoff() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -85,28 +85,25 @@ export default function BeatHandoff() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setPhase(-1)
-        // 0: Speech
-        timers.current.push(setTimeout(() => setPhase(0), 400))
+    const startVisuals = useCallback(() => {
         // 1: Folder opens
-        timers.current.push(setTimeout(() => setPhase(1), 1200))
-        // 2-7: Each file category drops in with counter
+        timers.current.push(setTimeout(() => setPhase(1), 300))
+        // 2-7: Each file category drops in
         FOLDER_CONTENTS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setPhase(2 + i), 1800 + i * 600))
+            timers.current.push(setTimeout(() => setPhase(2 + i), 900 + i * 600))
         })
         // 8: Total reveal
-        timers.current.push(setTimeout(() => setPhase(8), 5700))
+        timers.current.push(setTimeout(() => setPhase(8), 4800))
         // 9: Closer
-        timers.current.push(setTimeout(() => setPhase(9), 7200))
-    }, [clear])
+        timers.current.push(setTimeout(() => setPhase(9), 6300))
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else { clear(); setPhase(-1) }
+        if (isInView) {
+            timers.current.push(setTimeout(() => setPhase(0), 400))
+        } else { clear(); setPhase(-1) }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     // Progressive total
     const activeItems = FOLDER_CONTENTS.slice(0, Math.max(0, phase - 1))
@@ -121,7 +118,7 @@ export default function BeatHandoff() {
                     <AnimatePresence>
                         {phase >= 0 && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <PresenterBar>
+                                <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         I didn&apos;t just hand off files.
                                     </p>
@@ -263,42 +260,7 @@ export default function BeatHandoff() {
                             })}
                         </div>
 
-                        {/* ── Grand total reveal ── */}
-                        <AnimatePresence>
-                            {phase >= 8 && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    transition={{ duration: 0.8, ease }}
-                                    className="mt-8 text-center"
-                                >
-                                    <div className="inline-flex flex-col items-center gap-3 rounded-2xl border border-emerald-500/15 bg-emerald-500/[0.03] px-10 py-6 relative overflow-hidden">
-                                        {/* Glow */}
-                                        <div
-                                            className="absolute inset-0 pointer-events-none"
-                                            style={{
-                                                background: 'radial-gradient(ellipse at center, var(--overlay-green-08) 0%, transparent 70%)',
-                                            }}
-                                        />
 
-                                        <TotalCounter active={phase >= 8} />
-                                        <div className="text-[10px] font-mono text-emerald-400/60 uppercase tracking-widest">
-                                            files organized and handed off
-                                        </div>
-
-                                        {/* Checkmark seal */}
-                                        <motion.div
-                                            initial={{ scale: 0, rotate: -30 }}
-                                            animate={{ scale: 1, rotate: 0 }}
-                                            transition={{ duration: 0.5, delay: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
-                                            className="w-10 h-10 rounded-full border-2 border-emerald-400/30 flex items-center justify-center mt-1"
-                                        >
-                                            <Check className="w-5 h-5 text-emerald-400" strokeWidth={2.5} />
-                                        </motion.div>
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
                     </div>
 
                     {/* Closer */}

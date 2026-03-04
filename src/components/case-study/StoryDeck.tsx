@@ -14,6 +14,8 @@ export interface StorySlide {
     image?: string
     signal?: string
     notes?: string
+    /** Optional duration override for this slide (ms). Defaults to 25000. */
+    duration?: number
     /** Optional custom React component to render instead of default layout */
     component?: ReactNode
     /** Optional background component for title slides (e.g. animated wireframe) */
@@ -25,13 +27,15 @@ interface StoryDeckProps {
     onExit: () => void
     /** Called when user clicks X or presses ESC — navigates away from case study */
     onClose?: () => void
+    /** When true, renders inline within the page instead of as a fixed overlay */
+    embedded?: boolean
 }
 
 /* ─── shared easing ───────────────────────────────── */
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
-/* ─── Beat duration per slide (ms) ─── */
-const SLIDE_DURATION = 12000
+/* ─── Beat duration per slide (ms) — default; slides can override with .duration ─── */
+const DEFAULT_SLIDE_DURATION = 25000
 
 /* ─── accent colors per type ──────────────────────── */
 function getAccentColor(type: string): string {
@@ -60,7 +64,7 @@ function getAccentLabel(type: string): string {
 }
 
 /* ─── Slide Content Renderer ──────────────────────── */
-function SlideContent({ slide, index, total }: { slide: StorySlide; index: number; total: number }) {
+function SlideContent({ slide, index, total, embedded = false }: { slide: StorySlide; index: number; total: number; embedded?: boolean }) {
     const accent = getAccentColor(slide.type)
     const label = getAccentLabel(slide.type)
     const isHero = slide.type === 'title' && index === 0
@@ -68,13 +72,13 @@ function SlideContent({ slide, index, total }: { slide: StorySlide; index: numbe
     /* ── Custom component slide ── */
     if (slide.component) {
         return (
-            <div className="flex flex-col items-center justify-center w-full h-full px-6 md:px-12 py-8 md:py-12">
-                {/* Section header */}
+            <div className="flex flex-col items-center w-full h-full px-6 md:px-12 overflow-hidden">
+                {/* Section header — fixed at top */}
                 <motion.div
                     initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     transition={{ duration: 0.8, ease }}
-                    className="text-center mb-6 md:mb-10"
+                    className="text-center py-6 md:py-8 shrink-0"
                 >
                     {label && (
                         <div className="flex items-center justify-center gap-2 mb-3">
@@ -89,12 +93,12 @@ function SlideContent({ slide, index, total }: { slide: StorySlide; index: numbe
                     </h2>
                 </motion.div>
 
-                {/* Component */}
+                {/* Component — scrollable if taller than available space */}
                 <motion.div
                     initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     transition={{ delay: 0.3, duration: 0.9, ease }}
-                    className="w-full max-w-5xl"
+                    className="w-full max-w-5xl flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20"
                 >
                     {slide.component}
                 </motion.div>
@@ -282,7 +286,7 @@ function SlideContent({ slide, index, total }: { slide: StorySlide; index: numbe
 
 
 /* ─── main carousel component ──────────────────────── */
-export default function StoryDeck({ slides, onExit, onClose }: StoryDeckProps) {
+export default function StoryDeck({ slides, onExit, onClose, embedded = false }: StoryDeckProps) {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [isPlaying, setIsPlaying] = useState(true)
     const [progress, setProgress] = useState(0)
@@ -291,7 +295,10 @@ export default function StoryDeck({ slides, onExit, onClose }: StoryDeckProps) {
     const startTimeRef = useRef<number>(0)
 
     // Hide site header and ScrollGear on mount; restore on exit
+    // Skip when embedded — the parent handles layout
     useEffect(() => {
+        if (embedded) return
+
         window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
         document.body.style.overflow = 'hidden'
 
@@ -309,7 +316,7 @@ export default function StoryDeck({ slides, onExit, onClose }: StoryDeckProps) {
             if (gear) gear.style.display = ''
             if (backToTop) backToTop.style.display = ''
         }
-    }, [])
+    }, [embedded])
 
     /* ── advance to next slide ── */
     const advanceSlide = useCallback(() => {
@@ -327,13 +334,15 @@ export default function StoryDeck({ slides, onExit, onClose }: StoryDeckProps) {
     useEffect(() => {
         if (!isPlaying) return
 
+        const slideDuration = slides[currentSlide]?.duration ?? DEFAULT_SLIDE_DURATION
+
         startTimeRef.current = Date.now()
 
-        timerRef.current = setTimeout(advanceSlide, SLIDE_DURATION)
+        timerRef.current = setTimeout(advanceSlide, slideDuration)
 
         const tick = () => {
             const elapsed = Date.now() - startTimeRef.current
-            const beatProgress = Math.min(elapsed / SLIDE_DURATION, 1)
+            const beatProgress = Math.min(elapsed / slideDuration, 1)
             setProgress(beatProgress)
 
             if (beatProgress < 1) {
@@ -384,41 +393,48 @@ export default function StoryDeck({ slides, onExit, onClose }: StoryDeckProps) {
         }
         window.addEventListener('keydown', handleKey)
         return () => window.removeEventListener('keydown', handleKey)
-    }, [goNext, goPrev, onExit])
+    }, [goNext, goPrev, onExit, onClose])
 
     const currentSlideData = slides[currentSlide]
     const accent = getAccentColor(currentSlideData.type)
 
     return (
-        <div className="fixed inset-0 z-50 bg-[var(--bg-primary)] flex flex-col">
-            {/* ── Top right: Full case study link + X close ── */}
-            <div className="absolute top-5 right-5 z-50 flex items-center gap-2">
-                <button
-                    onClick={onExit}
-                    className="h-10 px-4 rounded-full bg-white/[0.06] backdrop-blur-md
+        <div className={embedded
+            ? 'relative w-full bg-[var(--bg-primary)] flex flex-col'
+            : 'fixed inset-0 z-50 bg-[var(--bg-primary)] flex flex-col'
+        } style={embedded ? { height: 'calc(100vh - 56px)' } : undefined}>
+            {/* ── Top right: Full case study link + X close (hidden when embedded) ── */}
+            {!embedded && (
+                <div className="absolute top-5 right-5 z-50 flex items-center gap-2">
+                    <button
+                        onClick={onExit}
+                        className="h-10 px-4 rounded-full bg-white/[0.06] backdrop-blur-md
                                flex items-center gap-2 hover:bg-white/[0.12] transition-colors cursor-pointer
                                border border-white/[0.08] text-zinc-400 hover:text-white"
-                    aria-label="Read full case study"
-                >
-                    <span className="font-mono text-[10px] tracking-wider uppercase">Full Case Study</span>
-                </button>
-                <button
-                    onClick={onClose || onExit}
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md
+                        aria-label="Read full case study"
+                    >
+                        <span className="font-mono text-[10px] tracking-wider uppercase">Full Case Study</span>
+                    </button>
+                    <button
+                        onClick={onClose || onExit}
+                        className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md
                                flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer
                                border border-white/10"
-                    aria-label="Exit presentation"
-                >
-                    <X className="w-4 h-4 text-white" />
-                </button>
-            </div>
+                        aria-label="Exit presentation"
+                    >
+                        <X className="w-4 h-4 text-white" />
+                    </button>
+                </div>
+            )}
 
-            {/* ── Slide counter — top left ── */}
-            <div className="absolute top-5 left-5 z-50">
-                <span className="font-mono text-[11px] text-zinc-500 tracking-wider tabular-nums">
-                    {String(currentSlide + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
-                </span>
-            </div>
+            {/* ── Slide counter — top left (hidden when embedded, nav already shows context) ── */}
+            {!embedded && (
+                <div className="absolute top-5 left-5 z-50">
+                    <span className="font-mono text-[11px] text-zinc-500 tracking-wider tabular-nums">
+                        {String(currentSlide + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+                    </span>
+                </div>
+            )}
 
             {/* ── Main carousel area ── */}
             <div className="relative flex-1 flex items-center justify-center overflow-hidden">
@@ -457,12 +473,13 @@ export default function StoryDeck({ slides, onExit, onClose }: StoryDeckProps) {
                             filter: 'blur(10px)',
                         }}
                         transition={{ duration: 0.65, ease }}
-                        className="absolute inset-0 flex items-center justify-center"
+                        className="absolute inset-0 flex items-center justify-center overflow-hidden"
                     >
                         <SlideContent
                             slide={currentSlideData}
                             index={currentSlide}
                             total={slides.length}
+                            embedded={embedded}
                         />
                     </motion.div>
                 </AnimatePresence>

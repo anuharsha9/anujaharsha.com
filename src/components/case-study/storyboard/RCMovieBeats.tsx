@@ -9,7 +9,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CheckCircle2, ArrowRight, Clock, Layers3, Sparkles } from 'lucide-react'
+import { ArrowRight, Layers3, Sparkles } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -176,18 +176,7 @@ export function MovieBeatAssignment() {
                 )}
             </AnimatePresence>
 
-            <AnimatePresence>
-                {step >= 2 && (
-                    <motion.p
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease }}
-                        className="text-sm md:text-base text-zinc-200 max-w-lg mx-auto leading-relaxed px-4"
-                    >
-                        The platform&apos;s enterprise scheduler — powering 20M+ weekly jobs — hadn&apos;t been meaningfully updated in half a century.
-                    </motion.p>
-                )}
-            </AnimatePresence>
+
 
             <AnimatePresence>
                 {step >= 3 && (
@@ -413,18 +402,7 @@ export function MovieBeatChaos() {
                 )}
             </AnimatePresence>
 
-            <AnimatePresence>
-                {step >= 3 && (
-                    <motion.p
-                        initial={{ opacity: 0, filter: 'blur(6px)' }}
-                        animate={{ opacity: 1, filter: 'blur(0px)' }}
-                        transition={{ duration: 0.7, ease }}
-                        className="text-sm text-zinc-300 mt-4 font-mono"
-                    >
-                        50 years of accumulated debt. Customers demanded modernization.
-                    </motion.p>
-                )}
-            </AnimatePresence>
+
         </div>
     )
 }
@@ -483,7 +461,7 @@ export function MovieBeatPivots() {
                                 {pivot.version}
                             </span>
                             <span
-                                className="text-[10px] font-mono tracking-wider mt-2 uppercase font-bold"
+                                className="text-[11px] font-mono tracking-wider mt-2 uppercase font-bold"
                                 style={{ color: pivot.color }}
                             >
                                 {pivot.verdict}
@@ -608,23 +586,7 @@ export function MovieBeatBreakthrough() {
                             </div>
                         </motion.div>
 
-                        {step >= 3 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 12 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, ease }}
-                                className="flex justify-center gap-10"
-                            >
-                                <div className="text-center">
-                                    <div className="text-xl font-bold text-emerald-300 font-mono">75%</div>
-                                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">fewer clicks</div>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-xl font-bold text-emerald-300 font-mono">5 → 1</div>
-                                    <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">unified tools</div>
-                                </div>
-                            </motion.div>
-                        )}
+
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -634,7 +596,7 @@ export function MovieBeatBreakthrough() {
 
 
 /* ═════════════════════════════════════════════════
-   BEAT 6: "EXECUTION" — Recurrence system deep dive
+   BEAT 6: "EXECUTION" — Recurrence: Confusing UI → Natural Language
    ═════════════════════════════════════════════════ */
 export function MovieBeatExecution() {
     const [step, setStep] = useState(-1)
@@ -644,15 +606,10 @@ export function MovieBeatExecution() {
         const t = timers.current
         t.push(setTimeout(() => setStep(0), at(220)))
         t.push(setTimeout(() => setStep(1), at(1200)))
-        t.push(setTimeout(() => setStep(2), at(2600)))
-        t.push(setTimeout(() => setStep(3), at(4000)))
+        t.push(setTimeout(() => setStep(2), at(3200)))
+        t.push(setTimeout(() => setStep(3), at(4800)))
         return () => t.forEach(clearTimeout)
     }, [])
-
-    const codes = [
-        { label: 'Weekly', before: 'RR=WEEKLY;BYDAY=MO,WE,FR', after: 'Every Mon, Wed, Fri', color: '#f59e0b' },
-        { label: 'Monthly', before: 'RR=MONTHLY;BYMONTHDAY=15', after: 'Every month on the 15th', color: '#a855f7' },
-    ]
 
     return (
         <div className="relative flex w-full flex-col items-center justify-center py-8 text-center">
@@ -661,64 +618,101 @@ export function MovieBeatExecution() {
                 initial={{ opacity: 0 }}
                 animate={step >= 0 ? { opacity: 1 } : {}}
                 transition={{ duration: 0.45 }}
-                className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-cyan-300"
+                className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-cyan-300"
             >
                 Execution: Recurrence Engine
             </motion.p>
 
-            <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={step >= 0 ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2, ease }}
-                className="text-sm text-zinc-300 max-w-md mb-6 px-4"
-            >
-                Users memorized codes like <code className="text-amber-400 font-mono bg-amber-400/10 px-1.5 py-0.5 rounded">&apos;W1MO&apos;</code> for &quot;every Monday.&quot; I made them human-readable.
-            </motion.p>
+            <AnimatePresence mode="wait">
+                {step < 2 ? (
+                    /* ── BEFORE: Confusing old UI ── */
+                    <motion.div
+                        key="before"
+                        initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.94, filter: 'blur(10px)' }}
+                        transition={{ duration: 0.6, ease }}
+                        className="w-full max-w-sm mx-auto"
+                    >
+                        <p className="font-mono text-[11px] tracking-[0.2em] text-rose-300/80 uppercase mb-4">Before</p>
 
-            <div className="w-full max-w-md space-y-3 px-4">
-                {codes.map((code, i) => (
-                    <AnimatePresence key={code.label}>
-                        {step >= i + 1 && (
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, ease }}
-                                className="rounded-xl border overflow-hidden"
-                                style={{ borderColor: withHexAlpha(code.color, '25'), background: withHexAlpha(code.color, '04') }}
+                        {/* Mock old UI — cluttered controls */}
+                        <div className="rounded-xl border border-rose-500/15 bg-rose-500/[0.03] p-5 text-left space-y-3">
+                            {/* Fake dropdowns */}
+                            {[
+                                { label: 'Frequency', value: 'WEEKLY' },
+                                { label: 'Day(s)', value: 'MO, WE, FR' },
+                                { label: 'Interval', value: '1' },
+                                { label: 'End Date', value: 'NONE' },
+                            ].map((field, i) => (
+                                <motion.div
+                                    key={field.label}
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={step >= 1 ? { opacity: 1, x: 0 } : {}}
+                                    transition={{ delay: i * 0.1, duration: 0.3 }}
+                                    className="flex items-center justify-between"
+                                >
+                                    <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">{field.label}</span>
+                                    <div className="flex items-center gap-1 px-2.5 py-1 rounded border border-white/[0.06] bg-white/[0.03]">
+                                        <span className="text-[11px] font-mono text-zinc-400">{field.value}</span>
+                                        <span className="text-zinc-600 text-[10px]">▼</span>
+                                    </div>
+                                </motion.div>
+                            ))}
+                            {/* Confusion indicator */}
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={step >= 1 ? { opacity: 1 } : {}}
+                                transition={{ delay: 0.5, duration: 0.4 }}
+                                className="text-[11px] text-rose-400/70 font-mono text-center pt-2 border-t border-white/[0.04]"
                             >
-                                <div className="flex items-center gap-2 px-4 py-2 border-b" style={{ borderColor: 'rgba(255,255,255,0.04)' }}>
-                                    <div className="w-2 h-2 rounded-full" style={{ background: withHexAlpha(code.color, '50') }} />
-                                    <span className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: withHexAlpha(code.color, '80') }}>
-                                        {code.label}
-                                    </span>
-                                </div>
-                                <div className="p-4">
-                                    <motion.code
-                                        className="text-sm font-mono block"
-                                        animate={step >= 3 ? { opacity: 0.3, textDecoration: 'line-through' } : { opacity: 0.7 }}
-                                        style={{ color: step >= 3 ? 'var(--neutral-zinc-500)' : '#fb7185' }}
-                                    >
-                                        {code.before}
-                                    </motion.code>
-                                    <AnimatePresence>
-                                        {step >= 3 && (
-                                            <motion.p
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: 'auto' }}
-                                                transition={{ duration: 0.4, delay: i * 0.15, ease }}
-                                                className="text-base font-medium mt-2 pt-2 border-t"
-                                                style={{ color: code.color, borderColor: withHexAlpha(code.color, '15') }}
-                                            >
-                                                {code.after}
-                                            </motion.p>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            </motion.div>
+                                Outdated. Confusing. Too many steps.
+                            </motion.p>
+                        </div>
+                    </motion.div>
+                ) : (
+                    /* ── AFTER: Clean natural language ── */
+                    <motion.div
+                        key="after"
+                        initial={{ opacity: 0, y: 14, scale: 0.94, filter: 'blur(8px)' }}
+                        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.7, ease }}
+                        className="w-full max-w-sm mx-auto"
+                    >
+                        <p className="font-mono text-[11px] tracking-[0.2em] text-emerald-400/80 uppercase mb-4">After</p>
+
+                        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] p-6 text-center">
+                            <motion.p
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2, duration: 0.5, ease }}
+                                className="text-lg md:text-xl text-white font-medium leading-relaxed"
+                            >
+                                Every <span className="text-amber-400">Mon, Wed, Fri</span>
+                            </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.4, duration: 0.4 }}
+                                className="text-[11px] text-emerald-400/70 font-mono mt-3 uppercase tracking-wider"
+                            >
+                                Natural language. One sentence. Pure UX.
+                            </motion.p>
+                        </div>
+
+                        {step >= 3 && (
+                            <motion.p
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="text-sm text-zinc-400 mt-4 font-mono"
+                            >
+                                Select settings → see a clear sentence.
+                            </motion.p>
                         )}
-                    </AnimatePresence>
-                ))}
-            </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }
@@ -753,9 +747,9 @@ export function MovieBeatScale() {
                     <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0 }}
-                        animate={step >= 0 ? { opacity: 0.6, scale: 1 } : {}}
+                        animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: s.delay, duration: 0.3, ease }}
-                        className="absolute w-[13%] h-[16%] rounded-sm border border-white/[0.08] bg-white/[0.03]"
+                        className="absolute w-[13%] h-[16%] rounded-sm border border-cyan-400/25 bg-cyan-400/[0.08]"
                         style={{ left: `${s.x}%`, top: `${s.y}%` }}
                     />
                 ))}
@@ -780,20 +774,7 @@ export function MovieBeatScale() {
                 )}
             </AnimatePresence>
 
-            <AnimatePresence>
-                {step >= 2 && (
-                    <motion.p
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="text-sm text-zinc-300 mt-4 text-center max-w-md leading-relaxed px-4"
-                    >
-                        Every edge case. Every state. Every error path.
-                        <br />
-                        <span className="text-zinc-400">Packaged into a living handoff system for a 20-person team.</span>
-                    </motion.p>
-                )}
-            </AnimatePresence>
+
         </div>
     )
 }
@@ -809,17 +790,9 @@ export function MovieBeatShipped() {
     useEffect(() => {
         const t = timers.current
         t.push(setTimeout(() => setStep(0), at(200)))
-        t.push(setTimeout(() => setStep(1), at(1500)))
-        t.push(setTimeout(() => setStep(2), at(3000)))
-        t.push(setTimeout(() => setStep(3), at(4500)))
+        t.push(setTimeout(() => setStep(1), at(2000)))
         return () => t.forEach(clearTimeout)
     }, [])
-
-    const metrics = [
-        { value: '20M+', label: 'Weekly Schedules', icon: Clock },
-        { value: '100%', label: 'Legacy Parity', icon: CheckCircle2 },
-        { value: '0', label: 'Regressions', icon: CheckCircle2 },
-    ]
 
     return (
         <div className="flex flex-col items-center justify-center w-full py-8 text-center">
@@ -830,48 +803,26 @@ export function MovieBeatShipped() {
                         initial={{ opacity: 0, scale: 0.5, filter: 'blur(20px)' }}
                         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                         transition={{ duration: 1, ease }}
-                        className="text-center mb-8"
+                        className="text-center mb-10"
                     >
                         <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
                             SHIPPED.
                         </h2>
-                        <p className="font-mono text-xs text-zinc-300 tracking-[0.2em] uppercase mt-2">
+                        <p className="font-mono text-xs text-zinc-300 tracking-[0.2em] uppercase mt-3">
                             Customers retained · Mission-critical · Zero regressions
                         </p>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Metrics */}
-            <div className="flex gap-8 md:gap-12">
-                {metrics.map((metric, i) => {
-                    const Icon = metric.icon
-                    return (
-                        <motion.div
-                            key={metric.label}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={step >= 1 ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: i * 0.2, duration: 0.6, ease }}
-                            className="text-center"
-                        >
-                            <div className="w-10 h-10 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center mx-auto mb-2">
-                                <Icon className="w-5 h-5 text-teal-400" strokeWidth={1.5} />
-                            </div>
-                            <div className="text-xl md:text-2xl font-bold text-white font-mono">{metric.value}</div>
-                            <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mt-1">{metric.label}</div>
-                        </motion.div>
-                    )
-                })}
-            </div>
-
             {/* Quote */}
             <AnimatePresence>
-                {step >= 2 && (
+                {step >= 1 && (
                     <motion.div
                         initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                         transition={{ duration: 0.8, ease }}
-                        className="mt-8 max-w-md text-center px-4"
+                        className="max-w-md text-center px-4"
                     >
                         <p className="text-sm text-zinc-200 italic leading-relaxed">
                             &ldquo;She impressed everyone. She took a 50-year-old system and made it look like it was built yesterday.&rdquo;
@@ -879,28 +830,6 @@ export function MovieBeatShipped() {
                         <p className="text-xs font-mono text-zinc-400 mt-2 uppercase tracking-wider">
                             — Principal Engineer
                         </p>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            {/* Asked vs Delivered */}
-            <AnimatePresence>
-                {step >= 3 && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, ease }}
-                        className="mt-8 flex gap-6 items-center justify-center"
-                    >
-                        <div className="text-center">
-                            <div className="text-xs font-mono text-rose-300/90 uppercase tracking-wider mb-1">Asked for</div>
-                            <div className="text-sm text-zinc-400 line-through">UI refresh</div>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-zinc-600" />
-                        <div className="text-center">
-                            <div className="text-xs font-mono text-emerald-400/90 uppercase tracking-wider mb-1">Delivered</div>
-                            <div className="text-sm text-white font-medium">Brand new integrated RC</div>
-                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

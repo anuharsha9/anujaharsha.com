@@ -61,7 +61,7 @@ function WireframePanel({
 
 export default function BeatScheduler() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [phase, setPhase] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -70,35 +70,25 @@ export default function BeatScheduler() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setPhase(-1)
-        // Phase 0: Speech bubble
-        timers.current.push(setTimeout(() => setPhase(0), 400))
-        // Phase 1: Before wireframes appear
-        timers.current.push(setTimeout(() => setPhase(1), 1400))
-        // Phase 2: Before wireframes get dimmed/struck
-        timers.current.push(setTimeout(() => setPhase(2), 3000))
-        // Phase 3: Arrow + transformation
-        timers.current.push(setTimeout(() => setPhase(3), 3800))
-        // Phase 4: After unified modal wireframe
-        timers.current.push(setTimeout(() => setPhase(4), 4600))
-        // Phase 5: Progressive layers inside modal
-        timers.current.push(setTimeout(() => setPhase(5), 5400))
-        // Phase 6: Contextual launch indicator
-        timers.current.push(setTimeout(() => setPhase(6), 6200))
-        // Phase 7: Closer
-        timers.current.push(setTimeout(() => setPhase(7), 7200))
-    }, [clear])
+    const startVisuals = useCallback(() => {
+        timers.current.push(setTimeout(() => setPhase(1), 300))
+        timers.current.push(setTimeout(() => setPhase(2), 1900))
+        timers.current.push(setTimeout(() => setPhase(3), 2700))
+        timers.current.push(setTimeout(() => setPhase(4), 3500))
+        timers.current.push(setTimeout(() => setPhase(5), 4300))
+        timers.current.push(setTimeout(() => setPhase(6), 5100))
+        timers.current.push(setTimeout(() => setPhase(7), 6100))
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else {
+        if (isInView) {
+            timers.current.push(setTimeout(() => setPhase(0), 400))
+        } else {
             clear()
             setPhase(-1)
         }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     return (
         <div ref={ref} className="relative w-full max-w-4xl mx-auto">
@@ -109,17 +99,17 @@ export default function BeatScheduler() {
                     <AnimatePresence>
                         {phase >= 0 && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <PresenterBar>
-                                    <p className="text-sm md:text-[15px] text-zinc-400 leading-relaxed">
+                                <PresenterBar onTypingComplete={startVisuals}>
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         The scheduler hadn&apos;t been redesigned in{' '}
                                         <span className="text-amber-400 font-bold">40+ years.</span>
                                     </p>
-                                    <p className="text-sm md:text-[15px] text-zinc-400 leading-relaxed mt-2">
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
                                         Two entry points. Two completely different UIs.{' '}
                                         <span className="text-zinc-200 font-medium">Basic</span> and{' '}
                                         <span className="text-zinc-200 font-medium">Advanced</span> — doing the same thing, differently.
                                     </p>
-                                    <p className="text-sm md:text-base text-red-400/80 font-semibold mt-3 tracking-tight">
+                                    <p className="text-base md:text-lg text-red-400 font-semibold mt-3 tracking-tight">
                                         BIG NO NO. 🚫
                                     </p>
                                 </PresenterBar>

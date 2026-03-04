@@ -9,25 +9,26 @@ import { motion } from 'framer-motion'
    ───────────────────────────────────────────────────────────── */
 export function PeopleDotGrid({ total = 200, highlighted = 2 }: { total?: number; highlighted?: number }) {
     const dots = Array.from({ length: total })
-    // Place highlighted dots at random-ish but consistent positions
     const highlightedIndices = [Math.floor(total * 0.62), Math.floor(total * 0.89)]
 
     return (
-        <div className="flex flex-wrap gap-[6px] max-w-[400px] mb-8">
+        <motion.div
+            className="flex flex-wrap gap-[6px] max-w-[400px] mb-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+        >
             {dots.map((_, i) => (
-                <motion.span
+                <span
                     key={i}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.002 }}
                     className={`w-[8px] h-[8px] rounded-full ${highlightedIndices.includes(i)
                         ? 'bg-[var(--accent-teal)] shadow-[0_0_12px_var(--accent-teal)]'
                         : 'bg-white/10'
                         }`}
                 />
             ))}
-        </div>
+        </motion.div>
     )
 }
 
@@ -228,10 +229,9 @@ export function ScatterConverge() {
                     }}
                     style={{ translateX: "-50%", translateY: "-50%" }}
                 >
-                    <motion.div
-                        className="w-4 h-4 rounded-full bg-[var(--accent-teal)]/60 blur-[2px]"
-                        animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
-                        transition={{ duration: 2, delay: node.delay, repeat: Infinity, ease: "easeInOut" }}
+                    <div
+                        className="w-4 h-4 rounded-full bg-[var(--accent-teal)]/60 blur-[2px] scatter-breathe"
+                        style={{ animationDelay: `${node.delay}s` }}
                     />
                     <span className="absolute -top-6 text-[10px] font-mono text-white/80 tracking-widest bg-black/80 px-2 py-0.5 rounded border border-white/10">{node.label}</span>
                 </motion.div>
@@ -250,26 +250,20 @@ export function ScatterConverge() {
                 }}
             >
                 {/* Breathing Aura */}
-                <motion.div
-                    className="absolute inset-0 bg-[var(--accent-teal)] rounded-full blur-[40px] mix-blend-screen"
-                    animate={{ opacity: [0.3, 0.6, 0.3], scale: [0.9, 1.2, 0.9] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                <div
+                    className="absolute inset-0 bg-[var(--accent-teal)] rounded-full blur-[40px] mix-blend-screen scatter-breathe"
                 />
 
                 {/* Core Hub */}
                 <div className="w-32 h-32 rounded-full border-2 border-[var(--accent-teal)]/80 bg-black/90 backdrop-blur-xl flex items-center justify-center relative shadow-[0_0_50px_rgba(45,212,191,0.5)] z-10">
-                    {/* Inner Rotating Ring */}
-                    <motion.div
-                        className="absolute inset-1 rounded-full border-t-2 border-r-2 border-[var(--accent-teal)] opacity-60"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    {/* Inner Rotating Ring — CSS animation */}
+                    <div
+                        className="absolute inset-1 rounded-full border-t-2 border-r-2 border-[var(--accent-teal)] opacity-60 scatter-rotate"
                     />
 
-                    {/* Outer Dashed Orbit */}
-                    <motion.div
-                        className="absolute inset-[-12px] rounded-full border border-[var(--accent-teal)]/40 border-dashed"
-                        animate={{ rotate: -360 }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    {/* Outer Dashed Orbit — CSS animation */}
+                    <div
+                        className="absolute inset-[-12px] rounded-full border border-[var(--accent-teal)]/40 border-dashed scatter-rotate-reverse"
                     />
 
                     {/* Text Label */}
@@ -279,6 +273,17 @@ export function ScatterConverge() {
                     </div>
                 </div>
             </motion.div>
+
+            <style jsx>{`
+                .scatter-rotate { animation: scatter-spin 8s linear infinite; }
+                .scatter-rotate-reverse { animation: scatter-spin 20s linear infinite reverse; }
+                .scatter-breathe { animation: scatter-pulse 4s ease-in-out infinite; }
+                @keyframes scatter-spin { to { transform: rotate(360deg); } }
+                @keyframes scatter-pulse {
+                    0%, 100% { opacity: 0.3; transform: scale(0.9); }
+                    50% { opacity: 0.6; transform: scale(1.2); }
+                }
+            `}</style>
         </div>
     )
 }
@@ -322,12 +327,8 @@ export function PlusIconTree({
                 className="w-24 h-24 rounded-2xl border border-[var(--accent-teal)]/40 bg-[var(--accent-teal)]/10 flex items-center justify-center mb-6 relative shadow-[0_0_30px_rgba(45,212,191,0.15)]"
             >
                 <span className="text-[var(--accent-teal)] text-5xl font-light mb-1 relative z-10">+</span>
-                {/* Pulse ring */}
-                <motion.div
-                    className="absolute inset-[-1px] rounded-2xl border border-[var(--accent-teal)]/30"
-                    animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0, 0.5] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                />
+                {/* Pulse ring — CSS */}
+                <div className="absolute inset-[-1px] rounded-2xl border border-[var(--accent-teal)]/30 plus-pulse" />
             </motion.div>
 
             {/* Vertical line */}
@@ -364,6 +365,16 @@ export function PlusIconTree({
                     </motion.div>
                 ))}
             </div>
+
+            <style jsx>{`
+                @keyframes plus-ring-pulse {
+                    0%, 100% { transform: scale(1); opacity: 0.5; }
+                    50% { transform: scale(1.25); opacity: 0; }
+                }
+                .plus-pulse {
+                    animation: plus-ring-pulse 3s ease-in-out infinite;
+                }
+            `}</style>
         </div>
     )
 }
@@ -432,11 +443,7 @@ export function KnowledgeTransfer() {
 
             {/* Moving Pulses */}
             <div className="flex-1 max-w-[100px] h-[2px] bg-white/10 relative overflow-hidden">
-                <motion.div
-                    className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent"
-                    animate={{ x: ["-100%", "300%"] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                />
+                <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent kt-pulse" />
             </div>
 
             <motion.div
@@ -450,11 +457,7 @@ export function KnowledgeTransfer() {
             </motion.div>
 
             <div className="flex-1 max-w-[100px] h-[2px] bg-white/10 relative overflow-hidden">
-                <motion.div
-                    className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                    animate={{ x: ["-100%", "300%"] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear", delay: 0.75 }}
-                />
+                <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent kt-pulse" style={{ animationDelay: '0.75s' }} />
             </div>
 
             <div className="flex flex-col gap-2 relative z-10">
@@ -477,6 +480,16 @@ export function KnowledgeTransfer() {
                     <span className="font-mono text-[9px] text-zinc-500">D2</span>
                 </motion.div>
             </div>
+
+            <style jsx>{`
+                @keyframes kt-slide {
+                    0% { transform: translateX(-100%); }
+                    100% { transform: translateX(300%); }
+                }
+                .kt-pulse {
+                    animation: kt-slide 1.5s linear infinite;
+                }
+            `}</style>
         </div>
     )
 }
@@ -487,10 +500,10 @@ export function KnowledgeTransfer() {
    ───────────────────────────────────────────────────────────── */
 export function ImpactClimax() {
     const metrics = [
+        { label: "Platform Scale", before: "Legacy", after: "15M+", unit: "Users" },
         { label: "Schedule Creation", before: "4 Clicks", after: "2", unit: "Clicks" },
-        { label: "Explorer Access", before: "3 Clicks", after: "1", unit: "Click" },
-        { label: "Admin Workflow", before: "3 Clicks", after: "2", unit: "Clicks" },
-        { label: "Browser Tabs", before: "Multiple", after: "0", unit: "Tabs" },
+        { label: "Feature Parity", before: "Fragmented", after: "100", unit: "%" },
+        { label: "Long-Term Support", before: "None", after: "5", unit: "Year LTS" },
     ];
 
     return (

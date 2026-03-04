@@ -27,7 +27,7 @@ const RING_C = 2 * Math.PI * RING_R // ~238.76
 
 export default function BeatWeekOne() {
     const ref = useRef<HTMLDivElement>(null)
-    const isInView = useInView(ref, { once: false, amount: 0.3 })
+    const isInView = useInView(ref, { once: true, amount: 0.3 })
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
 
@@ -36,25 +36,22 @@ export default function BeatWeekOne() {
         timers.current = []
     }, [])
 
-    const play = useCallback(() => {
-        clear()
-        setStep(-1)
-        // Speech bubble first
-        timers.current.push(setTimeout(() => setStep(0), 400))
-        // Facts staggered
+    // Start visual facts after typewriter finishes
+    const startVisuals = useCallback(() => {
         FACTS.forEach((_, i) => {
-            timers.current.push(setTimeout(() => setStep(i + 1), 2800 + i * 700))
+            timers.current.push(setTimeout(() => setStep(i + 1), 300 + i * 700))
         })
-    }, [clear])
+    }, [])
 
     useEffect(() => {
-        if (isInView) play()
-        else {
+        if (isInView) {
+            timers.current.push(setTimeout(() => setStep(0), 400))
+        } else {
             clear()
             setStep(-1)
         }
         return clear
-    }, [isInView, play, clear])
+    }, [isInView, clear])
 
     return (
         <div ref={ref} className="relative w-full max-w-4xl mx-auto">
@@ -67,7 +64,7 @@ export default function BeatWeekOne() {
                         animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.8, ease }}
                     >
-                        <PresenterBar>
+                        <PresenterBar onTypingComplete={startVisuals}>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                 One week in, my director mentioned{' '}
                                 <span className="text-zinc-200 font-medium">a project in the pipeline</span> — waiting to be assigned to the design team.
