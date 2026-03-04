@@ -324,7 +324,7 @@ function DualityWriting() {
                   transition={{ duration: 0.8 }}
                   className="mb-10 md:mb-14"
                 >
-                  <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/20 block mb-4">Poetry</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30 block mb-4">Poetry</span>
                   <h2
                     className="tracking-tight mb-3"
                     style={{
@@ -337,7 +337,7 @@ function DualityWriting() {
                   >
                     Gifts from Life
                   </h2>
-                  <p className="text-white/20 text-xs font-mono uppercase tracking-[0.25em]">— Anuja Harsha</p>
+                  <p className="text-white/30 text-xs font-mono uppercase tracking-[0.25em]">— Anuja Harsha</p>
                 </motion.div>
 
                 {/* First stanza preview — Pull Quote scale with fade mask */}
@@ -477,7 +477,7 @@ function DualityWriting() {
                     transition={{ duration: 0.5, delay: i * 0.08 }}
                     className="group flex items-start gap-4 py-5 border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.02] -mx-4 px-4 rounded-lg transition-colors"
                   >
-                    <span className="flex-shrink-0 font-mono text-[11px] text-white/15 mt-1.5 group-hover:text-[var(--accent-teal)] transition-colors">
+                    <span className="flex-shrink-0 font-mono text-[11px] text-white/25 mt-1.5 group-hover:text-[var(--accent-teal)] transition-colors">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -490,7 +490,7 @@ function DualityWriting() {
                       >
                         {article.title}
                       </h3>
-                      <span className="mt-2.5 text-[9px] text-white/15 font-mono uppercase tracking-wider block">
+                      <span className="mt-2.5 text-[9px] text-white/25 font-mono uppercase tracking-wider block">
                         {article.readTime || '5 min'} read
                       </span>
                     </div>
@@ -583,7 +583,7 @@ function DualityWriting() {
                   >
                     Gifts from Life
                   </h2>
-                  <p className="text-white/15 text-xs font-mono uppercase tracking-[0.3em]">— Anuja Harsha</p>
+                  <p className="text-white/25 text-xs font-mono uppercase tracking-[0.3em]">— Anuja Harsha</p>
                 </motion.div>
 
                 {/* All Stanzas — Two Column Grid */}
@@ -686,11 +686,11 @@ function LifeGallery() {
           transition={{ duration: 0.8 }}
         >
           <div className="flex items-center gap-4 mb-4">
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/20">Beyond Work</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">Beyond Work</span>
             <div className="flex-1 h-[1px] bg-white/[0.06]" />
           </div>
           <h2 className="font-black text-3xl md:text-5xl text-white tracking-tight">Life Outside the Terminal</h2>
-          <p className="text-white/25 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
+          <p className="text-white/40 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
             Parent, baker, painter, poet. The raw material that shapes my design thinking.
           </p>
         </motion.div>
@@ -786,7 +786,7 @@ function ConnectionClose() {
           transition={{ duration: 0.8 }}
         >
           <div className="flex-1 h-[1px] bg-white/[0.06]" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/20">Say Hello</span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">Say Hello</span>
           <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rotate-45 opacity-40" />
           <div className="flex-1 h-[1px] bg-white/[0.06]" />
         </motion.div>
@@ -805,7 +805,7 @@ function ConnectionClose() {
         </div>
 
         <motion.p
-          className="text-white/30 text-base md:text-lg max-w-md mx-auto mb-14 leading-relaxed"
+          className="text-white/50 text-base md:text-lg max-w-md mx-auto mb-14 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
