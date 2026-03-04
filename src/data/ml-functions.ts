@@ -13,9 +13,9 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   },
   role: 'Lead Product Designer (End-to-End Ownership)',
   company: 'Cloud Software Group — WebFOCUS',
-  timeframe: 'Jan 2023 – Jan 2025 | Shipping 2026',
+  timeframe: 'Jan 2023 – Jan 2025',
   status: {
-    label: 'Shipping 2026',
+    label: 'Implemented — Final QA Pending',
     variant: 'shipping' as const,
   },
   scope: [
@@ -40,7 +40,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
       'Visualizing the confusion matrix for non-statisticians',
     ],
     impactDirectional: 'Democratized ML, turning a hidden feature into an accessible flagship capability.',
-    status: 'Shipping 2026',
+    status: 'Implemented — Final QA pending at departure',
   },
   challengeDeconstruction: {
     assumptions: [
@@ -241,7 +241,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     whatTheSystemWas:
       'Zero feature adoption. We had a wildly powerful, multi-million dollar ML engine that absolutely no one was using. It lived inside a data flow canvas — users had to drag data pills, drag model pills, hit a hidden play button, right-click for cascading context menus to set hyperparameters, and navigate confusing "results not generated" error states. 12+ interactions just to train a single model. To our core customers (business analysts), it was a complete black box.',
     myRole:
-      'I took this from a fragmented engineering tool to a design-ready, zero-code 4-step workflow. End-to-end ownership—from getting MIT certified to learn the domain, to shipping the final design.',
+      'I took this from a fragmented engineering tool to a design-ready, zero-code 4-step workflow. End-to-end ownership—from getting MIT certified to learn the domain, to delivering the final design.',
     scopeOfPractice: [],
     credentials: 'Professional Certificate in Product Design for AI & ML — MIT, Boston',
     impactMetrics: [

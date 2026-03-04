@@ -1,19 +1,28 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 
-import TalkSection from '@/components/home/TalkSection'
-import ScrollGear from '@/components/ui/ScrollGear'
 import HeroLanding from '@/components/home/HeroLanding'
-import CSGBlock from '@/components/home/CSGBlock'
-import TestimonialsBlock from '@/components/home/TestimonialsBlock'
-import VibeCodingBlock from '@/components/home/VibeCodingBlock'
-import ExtendedPortfolio from '@/components/home/ExtendedPortfolio'
-import LifeContextStrip, {
+import FloatingOrbs from '@/components/ui/FloatingOrbs'
+
+/* ── Lazy-load everything below the fold ── */
+const CSGBlock = dynamic(() => import('@/components/home/CSGBlock'), { ssr: true })
+const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true })
+const VibeCodingBlock = dynamic(() => import('@/components/home/VibeCodingBlock'), { ssr: true })
+const ExtendedPortfolio = dynamic(() => import('@/components/home/ExtendedPortfolio'), { ssr: true })
+const FoundationBlock = dynamic(() => import('@/components/home/FoundationBlock'), { ssr: true })
+const TalkSection = dynamic(() => import('@/components/home/TalkSection'), { ssr: true })
+const ScrollGear = dynamic(() => import('@/components/ui/ScrollGear'), { ssr: true })
+const LifeContextStrip = dynamic(
+  () => import('@/components/home/LifeContextStrip').then((m) => ({ default: m.default })),
+  { ssr: true }
+)
+
+/* Re-export the milestones for LifeContextStrip props */
+import {
   CSG_MILESTONES,
   CONSULTANT_MILESTONES,
   AGENCY_MILESTONES,
 } from '@/components/home/LifeContextStrip'
-import FoundationBlock from '@/components/home/FoundationBlock'
-import FloatingOrbs from '@/components/ui/FloatingOrbs'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 

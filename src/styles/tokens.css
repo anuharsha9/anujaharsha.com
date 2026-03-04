@@ -1,304 +1,361 @@
 :root {
-  /* ============================================
+   /* ============================================
      DESIGN TOKENS — Single Source of Truth
      All values consumed via Tailwind config,
      design-system.ts, motion.ts, and globals.css.
      ============================================ */
 
 
-  /* ── TAILWIND PALETTE OVERRIDES ────────────────
+   /* ── TAILWIND PALETTE OVERRIDES ────────────────
      Back the zinc/slate/gray/neutral palette
      overrides in tailwind.config.ts. Change here
      to update every text-zinc-*, bg-slate-*, etc.
      ─────────────────────────────────────────── */
 
-  /* Zinc — Primary neutral palette */
-  --palette-zinc-50: #fafafa;
-  --palette-zinc-100: #f4f4f5;
-  --palette-zinc-200: #e4e4e7;
-  --palette-zinc-300: #d4d4d8;
-  --palette-zinc-400: #a1a1aa;
-  --palette-zinc-500: #8b8b95;
-  /* 5.9:1 — AA normal ✅ */
-  --palette-zinc-600: #7a7a84;
-  /* 4.7:1 — AA normal ✅ */
-  --palette-zinc-700: #62626c;
-  /* 3.3:1 — AA large ✅ (decorative use only) */
-  --palette-zinc-800: #27272a;
-  --palette-zinc-900: #18181b;
-  --palette-zinc-950: #09090b;
+   /* Zinc — Primary neutral palette */
+   --palette-zinc-50: #fafafa;
+   --palette-zinc-100: #f4f4f5;
+   --palette-zinc-200: #e4e4e7;
+   --palette-zinc-300: #d4d4d8;
+   --palette-zinc-400: #a1a1aa;
+   --palette-zinc-500: #8b8b95;
+   /* 5.9:1 — AA normal ✅ */
+   --palette-zinc-600: #7a7a84;
+   /* 4.7:1 — AA normal ✅ */
+   --palette-zinc-700: #62626c;
+   /* 3.3:1 — AA large ✅ (decorative use only) */
+   --palette-zinc-800: #27272a;
+   --palette-zinc-900: #18181b;
+   --palette-zinc-950: #09090b;
 
-  /* Slate — Blue-tinted neutral */
-  --palette-slate-50: #f8fafc;
-  --palette-slate-100: #f1f5f9;
-  --palette-slate-200: #e2e8f0;
-  --palette-slate-300: #cbd5e1;
-  --palette-slate-400: #94a3b8;
-  --palette-slate-500: #64748b;
-  --palette-slate-600: #475569;
-  --palette-slate-700: #334155;
-  --palette-slate-800: #1e293b;
-  --palette-slate-900: #0f172a;
-  --palette-slate-950: #020617;
-
-
-  /* ── BACKGROUNDS ───────────────────────────── */
-
-  --bg-primary: #09090b;
-  --bg-secondary: #0f1115;
-  --bg-tertiary: #131518;
-  --bg-dark: #09090b;
-  --bg-dark-alt: #0f1115;
-  --bg-light: #0f1115;
-  --bg-light-alt: #131518;
-  --bg-cinematic: #010204;
-  --bg-ink-950: #020617;
-  --bg-ink-900: #0f172a;
-  --bg-monitor: #000000;
-  --bg-monitor-alt: #1c1c1e;
-  --bg-monitor-surface: rgba(28, 28, 30, 0.8);
-  --surface-panel-dark: #1D1D20;
+   /* Slate — Blue-tinted neutral */
+   --palette-slate-50: #f8fafc;
+   --palette-slate-100: #f1f5f9;
+   --palette-slate-200: #e2e8f0;
+   --palette-slate-300: #cbd5e1;
+   --palette-slate-400: #94a3b8;
+   --palette-slate-500: #64748b;
+   --palette-slate-600: #475569;
+   --palette-slate-700: #334155;
+   --palette-slate-800: #1e293b;
+   --palette-slate-900: #0f172a;
+   --palette-slate-950: #020617;
 
 
-  /* ── TEXT COLORS ───────────────────────────── */
+   /* ── BACKGROUNDS ───────────────────────────── */
 
-  --text-heading: #f4f4f5;
-  --text-primary: #e4e4e7;
-  --text-body: #a1a1aa;
-  --text-muted: #8b8b95;
-  --text-dim: #62626c;
-  --text-primary-dark: #f4f4f5;
-  --text-muted-dark: #a1a1aa;
-  --text-primary-light: #f4f4f5;
-  --text-muted-light: #a1a1aa;
-  --text-monitor: #ffffff;
-  --text-monitor-muted: #86868b;
-  --text-monitor-dim: #7a7a84;
-
-
-  /* ── ACCENT — Teal ─────────────────────────── */
-
-  --accent-teal: #078B9C;
-  --accent-teal-soft: rgba(7, 139, 156, 0.08);
-  --accent-teal-bright: #14b8a6;
-  --accent-teal-50: #E6F7F9;
-  --accent-teal-100: #CCEFF3;
-  --accent-teal-200: #99DFE7;
-  --accent-teal-300: #66CFDB;
-  --accent-teal-400: #33BFCF;
-  --accent-teal-500: #0DB5CA;
-  --accent-teal-600: #0BA2B5;
-  --accent-teal-700: #0990A2;
-  --accent-teal-800: #077D8E;
-  --accent-teal-900: #056A7A;
-  --accent-teal-rgb: 7, 139, 156;
-  --accent-amber: #f59e0b;
-  --accent-amber-rgb: 245, 158, 11;
-  --accent-light: #0990A2;
-  --accent-teal-dark: #077D8E;
-
-  /* Wordu brand accent */
-  --accent-wordu: #00ADEE;
-  --accent-wordu-hover: #0095CC;
-  --accent-wordu-active: #008DBD;
-  --accent-wordu-rgb: 0, 173, 238;
-
-  /* Wordu surfaces — refined light theme */
-  --surface-wordu: #f8f9fb;
-  --surface-wordu-raised: #ffffff;
-  --surface-wordu-card: #ffffff;
-  --surface-wordu-input: #f1f3f5;
-
-  /* Wordu text */
-  --text-wordu-primary: #1a1d23;
-  --text-wordu-secondary: #3d4250;
-  --text-wordu-muted: #6b7280;
-  --text-wordu-dim: #9ca3af;
-
-  /* Wordu borders */
-  --border-wordu: #e5e7eb;
-  --border-wordu-accent: rgba(0, 173, 238, 0.35);
-
-  /* Wordu glow */
-  --glow-wordu: rgba(0, 173, 238, 0.12);
-
-  /* Highlight (alias to teal) */
-  --highlight: #078B9C;
-  --highlight-soft: rgba(7, 139, 156, 0.08);
-  --highlight-hover: rgba(7, 139, 156, 0.12);
-  --highlight-active: rgba(7, 139, 156, 0.16);
-
-  /* LinkedIn brand */
-  --brand-linkedin: #0077b5;
+   --bg-primary: #09090b;
+   --bg-secondary: #0f1115;
+   --bg-tertiary: #131518;
+   --bg-dark: #09090b;
+   --bg-dark-alt: #0f1115;
+   --bg-light: #0f1115;
+   --bg-light-alt: #131518;
+   --bg-cinematic: #010204;
+   --bg-ink-950: #020617;
+   --bg-ink-900: #0f172a;
+   --bg-monitor: #000000;
+   --bg-monitor-alt: #1c1c1e;
+   --bg-monitor-surface: rgba(28, 28, 30, 0.8);
+   --surface-panel-dark: #1D1D20;
 
 
-  /* ── SEMANTIC STATUS COLORS ────────────────── */
+   /* ── TEXT COLORS ───────────────────────────── */
 
-  --color-success: #34c759;
-  --color-warning: #ff9f0a;
-  --color-error: #ff3b30;
-  --color-info: #078B9C;
-
-  /* Semantic accent palette (data viz / case study visuals) */
-  --semantic-emerald-500: #10b981;
-  --semantic-emerald-400: #34d399;
-  --semantic-green-500: #22c55e;
-  --semantic-blue-500: #3b82f6;
-  --semantic-blue-400: #60a5fa;
-  --semantic-rose-500: #f43f5e;
-  --semantic-red-500: #ef4444;
-  --semantic-orange-500: #f97316;
-  --semantic-orange-vivid: #f97316;
-  --semantic-orange-vivid-rgb: 249, 115, 22;
-  --semantic-violet-400: #a78bfa;
-  --semantic-purple-500: #a855f7;
-  --semantic-purple-vivid: #a855f7;
-  --semantic-purple-vivid-rgb: 168, 85, 247;
-  --semantic-cyan-500: #06b6d4;
-  --semantic-cyan-vivid: #06b6d4;
-  --semantic-cyan-vivid-rgb: 6, 182, 212;
-  --semantic-pink-500: #ec4899;
-  --semantic-navy-700: #1a3344;
+   --text-heading: #f4f4f5;
+   --text-primary: #e4e4e7;
+   --text-body: #a1a1aa;
+   --text-muted: #8b8b95;
+   --text-dim: #62626c;
+   --text-primary-dark: #f4f4f5;
+   --text-muted-dark: #a1a1aa;
+   --text-primary-light: #f4f4f5;
+   --text-muted-light: #a1a1aa;
+   --text-monitor: #ffffff;
+   --text-monitor-muted: #86868b;
+   --text-monitor-dim: #7a7a84;
 
 
-  /* ── BORDERS ───────────────────────────────── */
+   /* ── ACCENT — Teal ─────────────────────────── */
 
-  --border-primary: rgba(255, 255, 255, 0.08);
-  --border-secondary: rgba(255, 255, 255, 0.06);
-  --border-subtle: rgba(255, 255, 255, 0.04);
-  --border-light: rgba(255, 255, 255, 0.06);
-  --border-dark: rgba(255, 255, 255, 0.08);
-  --border-monitor: #333333;
-
-
-  /* ── FOCUS & STATE ─────────────────────────── */
-
-  --focus-ring: rgba(7, 139, 156, 0.5);
-  --focus-ring-width: 3px;
-  --focus-ring-offset: 1px;
-
-
-  /* ── ELEVATION (SHADOWS) ───────────────────── */
-
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.6);
+   --accent-teal: #078B9C;
+   --accent-teal-soft: rgba(7, 139, 156, 0.08);
+   --accent-teal-bright: #14b8a6;
+   --accent-teal-50: #E6F7F9;
+   --accent-teal-100: #CCEFF3;
+   --accent-teal-200: #99DFE7;
+   --accent-teal-300: #66CFDB;
+   --accent-teal-400: #33BFCF;
+   --accent-teal-500: #0DB5CA;
+   --accent-teal-600: #0BA2B5;
+   --accent-teal-700: #0990A2;
+   --accent-teal-800: #077D8E;
+   --accent-teal-900: #056A7A;
+   --accent-teal-rgb: 7, 139, 156;
+   --accent-amber: #f59e0b;
+   --accent-amber-rgb: 245, 158, 11;
+   --accent-light: #0990A2;
+   --accent-teal-dark: #077D8E;
 
 
-  /* ── BORDER RADIUS ─────────────────────────── */
+   /* ── CASE STUDY SCOPED TOKENS ─────────────────
+     These are the tokens consumed by CinematicCaseStudy.
+     Each case study page sets these via a data attribute
+     on the wrapper: data-cs-theme="rc|ml|dsml"
+     Defaults to RC (teal) for backwards compatibility.
+     ───────────────────────────────────────────── */
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+   --cs-accent: var(--accent-teal);
+   --cs-accent-bright: var(--accent-teal-bright);
+   --cs-accent-soft: var(--accent-teal-soft);
+   --cs-accent-rgb: var(--accent-teal-rgb);
+   --cs-accent-glow: rgba(var(--cs-accent-rgb), 0.6);
+   --cs-accent-border: rgba(var(--cs-accent-rgb), 0.12);
+   --cs-accent-surface: rgba(var(--cs-accent-rgb), 0.04);
+   --cs-bg-radial: rgba(var(--cs-accent-rgb), 0.08);
+   --cs-accent-text: var(--cs-accent);
 
+   /* Wordu brand accent */
+   --accent-wordu: #00ADEE;
+   --accent-wordu-hover: #0095CC;
+   --accent-wordu-active: #008DBD;
+   --accent-wordu-rgb: 0, 173, 238;
 
-  /* ── TYPOGRAPHY SCALE ──────────────────────── */
+   /* Wordu surfaces — refined light theme */
+   --surface-wordu: #f8f9fb;
+   --surface-wordu-raised: #ffffff;
+   --surface-wordu-card: #ffffff;
+   --surface-wordu-input: #f1f3f5;
 
-  --text-xs: 0.75rem;
-  /* 12px */
-  --text-sm: 0.875rem;
-  /* 14px */
-  --text-base: 1.0625rem;
-  /* 17px */
-  --text-lg: 1.1875rem;
-  /* 19px */
-  --text-xl: 1.3125rem;
-  /* 21px */
-  --text-2xl: 1.75rem;
-  /* 28px */
-  --text-3xl: 2.1875rem;
-  /* 35px */
-  --text-4xl: 2.5rem;
-  /* 40px */
-  --text-5xl: 3rem;
-  /* 48px */
-  --text-6xl: 4rem;
-  /* 64px */
+   /* Wordu text */
+   --text-wordu-primary: #1a1d23;
+   --text-wordu-secondary: #3d4250;
+   --text-wordu-muted: #6b7280;
+   --text-wordu-dim: #9ca3af;
 
+   /* Wordu borders */
+   --border-wordu: #e5e7eb;
+   --border-wordu-accent: rgba(0, 173, 238, 0.35);
 
-  /* ── FONT WEIGHTS ──────────────────────────── */
+   /* Wordu glow */
+   --glow-wordu: rgba(0, 173, 238, 0.12);
 
-  --weight-heading: 900;
-  --weight-subheading: 700;
-  --weight-body: 400;
-  --weight-label: 600;
-  --weight-mono-label: 700;
+   /* Highlight (alias to teal) */
+   --highlight: #078B9C;
+   --highlight-soft: rgba(7, 139, 156, 0.08);
+   --highlight-hover: rgba(7, 139, 156, 0.12);
+   --highlight-active: rgba(7, 139, 156, 0.16);
 
-
-  /* ── LINE HEIGHTS ──────────────────────────── */
-
-  --leading-tight: 1.1;
-  --leading-snug: 1.25;
-  --leading-normal: 1.47059;
-  --leading-relaxed: 1.6;
-  --leading-loose: 1.8;
-
-
-  /* ── LETTER SPACING ────────────────────────── */
-
-  --tracking-tighter: -0.05em;
-  --tracking-tight: -0.022em;
-  --tracking-normal: -0.011em;
-  --tracking-wide: 0.025em;
-  --tracking-wider: 0.05em;
+   /* LinkedIn brand */
+   --brand-linkedin: #0077b5;
 
 
-  /* ── SPACING (4px base) ────────────────────── */
+   /* ── SEMANTIC STATUS COLORS ────────────────── */
 
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
-  --space-32: 8rem;
-  --section-padding-mobile: var(--space-20);
-  --section-padding-tablet: var(--space-24);
-  --section-padding-desktop: var(--space-32);
+   --color-success: #34c759;
+   --color-warning: #ff9f0a;
+   --color-error: #ff3b30;
+   --color-info: #078B9C;
 
-
-  /* ── CONTENT WIDTHS ────────────────────────── */
-
-  --content-width-narrow: 65ch;
-  --content-width-medium: 75ch;
-  --content-width-wide: 90ch;
-  --content-width-container: 1024px;
-
-
-  /* ── FONTS ─────────────────────────────────── */
-
-  --font-serif: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+   /* Semantic accent palette (data viz / case study visuals) */
+   --semantic-emerald-500: #10b981;
+   --semantic-emerald-400: #34d399;
+   --semantic-green-500: #22c55e;
+   --semantic-blue-500: #3b82f6;
+   --semantic-blue-400: #60a5fa;
+   --semantic-rose-500: #f43f5e;
+   --semantic-red-500: #ef4444;
+   --semantic-orange-500: #f97316;
+   --semantic-orange-vivid: #f97316;
+   --semantic-orange-vivid-rgb: 249, 115, 22;
+   --semantic-violet-400: #a78bfa;
+   --semantic-purple-500: #a855f7;
+   --semantic-purple-vivid: #a855f7;
+   --semantic-purple-vivid-rgb: 168, 85, 247;
+   --semantic-cyan-500: #06b6d4;
+   --semantic-cyan-vivid: #06b6d4;
+   --semantic-cyan-vivid-rgb: 6, 182, 212;
+   --semantic-pink-500: #ec4899;
+   --semantic-navy-700: #1a3344;
 
 
-  /* ── ANIMATION ─────────────────────────────── */
+   /* ── BORDERS ───────────────────────────────── */
 
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --duration-fast: 200ms;
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
+   --border-primary: rgba(255, 255, 255, 0.08);
+   --border-secondary: rgba(255, 255, 255, 0.06);
+   --border-subtle: rgba(255, 255, 255, 0.04);
+   --border-light: rgba(255, 255, 255, 0.06);
+   --border-dark: rgba(255, 255, 255, 0.08);
+   --border-monitor: #333333;
 
 
-  /* ── OVERLAYS (only actively used) ─────────── */
+   /* ── FOCUS & STATE ─────────────────────────── */
 
-  --overlay-white-02: rgba(255, 255, 255, 0.02);
-  --overlay-white-03: rgba(255, 255, 255, 0.03);
-  --overlay-white-05: rgba(255, 255, 255, 0.05);
-  --overlay-white-08: rgba(255, 255, 255, 0.08);
-  --overlay-white-10: rgba(255, 255, 255, 0.1);
-  --overlay-white-15: rgba(255, 255, 255, 0.15);
-  --overlay-white-20: rgba(255, 255, 255, 0.2);
-  --overlay-teal-core-12: rgba(0, 162, 183, 0.12);
+   --focus-ring: rgba(7, 139, 156, 0.5);
+   --focus-ring-width: 3px;
+   --focus-ring-offset: 1px;
+
+
+   /* ── ELEVATION (SHADOWS) ───────────────────── */
+
+   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+   --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.4);
+   --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.5);
+   --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.6);
+
+
+   /* ── BORDER RADIUS ─────────────────────────── */
+
+   --radius-sm: 8px;
+   --radius-md: 12px;
+   --radius-lg: 18px;
+   --radius-xl: 24px;
+   --radius-2xl: 32px;
+
+
+   /* ── TYPOGRAPHY SCALE ──────────────────────── */
+
+   --text-xs: 0.75rem;
+   /* 12px */
+   --text-sm: 0.875rem;
+   /* 14px */
+   --text-base: 1.0625rem;
+   /* 17px */
+   --text-lg: 1.1875rem;
+   /* 19px */
+   --text-xl: 1.3125rem;
+   /* 21px */
+   --text-2xl: 1.75rem;
+   /* 28px */
+   --text-3xl: 2.1875rem;
+   /* 35px */
+   --text-4xl: 2.5rem;
+   /* 40px */
+   --text-5xl: 3rem;
+   /* 48px */
+   --text-6xl: 4rem;
+   /* 64px */
+
+
+   /* ── FONT WEIGHTS ──────────────────────────── */
+
+   --weight-heading: 900;
+   --weight-subheading: 700;
+   --weight-body: 400;
+   --weight-label: 600;
+   --weight-mono-label: 700;
+
+
+   /* ── LINE HEIGHTS ──────────────────────────── */
+
+   --leading-tight: 1.1;
+   --leading-snug: 1.25;
+   --leading-normal: 1.47059;
+   --leading-relaxed: 1.6;
+   --leading-loose: 1.8;
+
+
+   /* ── LETTER SPACING ────────────────────────── */
+
+   --tracking-tighter: -0.05em;
+   --tracking-tight: -0.022em;
+   --tracking-normal: -0.011em;
+   --tracking-wide: 0.025em;
+   --tracking-wider: 0.05em;
+
+
+   /* ── SPACING (4px base) ────────────────────── */
+
+   --space-1: 0.25rem;
+   --space-2: 0.5rem;
+   --space-3: 0.75rem;
+   --space-4: 1rem;
+   --space-5: 1.25rem;
+   --space-6: 1.5rem;
+   --space-8: 2rem;
+   --space-10: 2.5rem;
+   --space-12: 3rem;
+   --space-16: 4rem;
+   --space-20: 5rem;
+   --space-24: 6rem;
+   --space-32: 8rem;
+   --section-padding-mobile: var(--space-20);
+   --section-padding-tablet: var(--space-24);
+   --section-padding-desktop: var(--space-32);
+
+
+   /* ── CONTENT WIDTHS ────────────────────────── */
+
+   --content-width-narrow: 65ch;
+   --content-width-medium: 75ch;
+   --content-width-wide: 90ch;
+   --content-width-container: 1024px;
+
+
+   /* ── FONTS ─────────────────────────────────── */
+
+   --font-serif: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+   --font-sans: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+   --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+
+
+   /* ── ANIMATION ─────────────────────────────── */
+
+   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+   --duration-fast: 200ms;
+   --duration-normal: 300ms;
+   --duration-slow: 500ms;
+
+
+   /* ── OVERLAYS (only actively used) ─────────── */
+
+   --overlay-white-02: rgba(255, 255, 255, 0.02);
+   --overlay-white-03: rgba(255, 255, 255, 0.03);
+   --overlay-white-05: rgba(255, 255, 255, 0.05);
+   --overlay-white-08: rgba(255, 255, 255, 0.08);
+   --overlay-white-10: rgba(255, 255, 255, 0.1);
+   --overlay-white-15: rgba(255, 255, 255, 0.15);
+   --overlay-white-20: rgba(255, 255, 255, 0.2);
+   --overlay-teal-core-12: rgba(0, 162, 183, 0.12);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CASE STUDY THEME OVERRIDES
+   Set via data-cs-theme attribute on the wrapper div.
+   CinematicCaseStudy uses --cs-* tokens everywhere.
+   ═══════════════════════════════════════════════════ */
+
+/* ReportCaster — Teal (flagship) */
+[data-cs-theme="rc"] {
+   --cs-accent: #078B9C;
+   --cs-accent-bright: #14b8a6;
+   --cs-accent-soft: rgba(7, 139, 156, 0.08);
+   --cs-accent-rgb: 7, 139, 156;
+}
+
+/* ML Functions — Cyan (AI/ML) */
+[data-cs-theme="ml"] {
+   --cs-accent: #06b6d4;
+   --cs-accent-bright: #22d3ee;
+   --cs-accent-soft: rgba(6, 182, 212, 0.08);
+   --cs-accent-rgb: 6, 182, 212;
+}
+
+/* DSML / IQ Hub — Purple/Violet (data science) */
+[data-cs-theme="dsml"] {
+   --cs-accent: #a855f7;
+   --cs-accent-bright: #c084fc;
+   --cs-accent-soft: rgba(168, 85, 247, 0.08);
+   --cs-accent-rgb: 168, 85, 247;
+}
+
+/* WordU — Blue/Aqua */
+[data-cs-theme="wordu"] {
+   --cs-accent: #00ADEE;
+   --cs-accent-bright: #33c4f5;
+   --cs-accent-soft: rgba(0, 173, 238, 0.08);
+   --cs-accent-rgb: 0, 173, 238;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import CaseStudyPage from '@/components/case-study-v2/CaseStudyPage'
+import MLCaseStudyView from '@/components/case-study-experiment/MLCaseStudyView'
 import { mlFunctionsCaseStudy } from '@/data/ml-functions'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
@@ -49,6 +49,6 @@ export const metadata: Metadata = {
 }
 
 export default function MLFunctionsPage() {
-  return <CaseStudyPage data={mlFunctionsCaseStudy} defaultViewMode="presentation" />
+  return <MLCaseStudyView data={mlFunctionsCaseStudy} />
 }
 

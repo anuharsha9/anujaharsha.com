@@ -12,9 +12,9 @@ export const iqPluginCaseStudy: CaseStudyData = {
   },
   role: 'Lead Product Designer (End-to-End Ownership)',
   company: 'Cloud Software Group — WebFOCUS',
-  timeframe: 'Spring 2024 – Spring 2025 | Shipping 2027',
+  timeframe: 'Spring 2024 – Spring 2025',
   status: {
-    label: 'NLQ +25% Adoption | Hub Shipping 2027',
+    label: 'NLQ +25% Adoption | Hub Implemented',
     variant: 'shipping' as const,
   },
   scope: [
@@ -34,8 +34,8 @@ export const iqPluginCaseStudy: CaseStudyData = {
       'Fighting for large icon tiles over list views (won)',
       'Architecting before tickets existed — PM wrote tickets after seeing mockups',
     ],
-    impactDirectional: 'NLQ adoption +25% from discoverability alone. DSML Hub shipping 2027.',
-    status: 'NLQ/Insights Live · Hub Shipping 2027',
+    impactDirectional: 'NLQ adoption +25% from discoverability alone. DSML Hub implemented in code — final QA pending at departure.',
+    status: 'NLQ/Insights Live · Hub Implemented',
   },
   challengeDeconstruction: {
     assumptions: [
@@ -58,7 +58,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
   successCriteria: {
     baseline: '3 separate tools, low discoversability, <5% adoption.',
     target: '1 unified hub, high visibility, >10% adoption.',
-    result: 'Unified architecture approved, NLQ adoption +25% (standalone), Hub shipping 2027.',
+    result: 'Unified architecture approved, NLQ adoption +25% (standalone). Hub implemented in code.',
     disclaimer: 'Adoption metrics based on component-level tracking prior to full Hub release.',
   },
   keyDecisions: [
@@ -136,7 +136,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
         content: [
           'Situation: 3 powerful AI tools existed but had <5% adoption due to poor visibility.',
           'Action: I unified NLQ, Insights, and ML into a single "DSML Hub".',
-          'Result: +25% adoption of NLQ immediately. Shipping full Hub in 2027.',
+          'Result: +25% adoption of NLQ immediately. Hub fully implemented in code.',
         ],
         signal: 'EXECUTIVE SUMMARY',
       },
@@ -201,7 +201,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
         title: 'Future Impact',
         content: [
           '+25% NLQ Adoption (verified in piloting).',
-          'Shipping 2027.',
+          'Hub fully implemented.',
           'Foundation for AI roadmap.',
         ],
         image: '/images/case-study/iq-plugin/Final Look.png',
@@ -249,7 +249,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
       situation: 'NLQ, Insights, ML — <5% adoption. Millions invested, invisible to users.',
       task: 'Unify three scattered tools into one discoverable experience.',
       action: 'Co-created Hub concept with PM. Pitched the vision — VP approved. Defined architecture before tickets existed. Drove alignment across 4+ teams. Defended decisions against veteran architects.',
-      result: 'NLQ +25% adoption from discoverability alone. No feature changes. DSML Hub shipping 2027.',
+      result: 'NLQ +25% adoption from discoverability alone. No feature changes. DSML Hub implemented in code.',
     },
     technologies: [],
     keyAchievements: [
@@ -260,7 +260,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
       '3 workflows owned simultaneously across timezones',
       'Drove cross-functional alignment across 4+ teams',
       'Defended design decisions against 20-35 year veteran architects',
-      'NLQ + Insights live in 9.3.6. DSML Hub shipping 2027',
+      'NLQ + Insights live in 9.3.6. DSML Hub implemented — final QA pending at departure',
     ],
     dataSheetUrl: 'https://www.ibi.com/products/ibi-webfocus',
     dataSheetLabel: 'View WebFOCUS Product Page',
@@ -360,7 +360,7 @@ Two years in. Everyone else — decades. I was driving the conversation.`,
       body: `We didn't add capabilities. Didn't rewrite the engine. We made it visible.
 
 **Live now:** NLQ +25% adoption. Insights with auto-generated visualizations. Both modernized.
-**Shipping:** DSML Hub → 2027. ML Functions → 2026.
+**Implemented:** DSML Hub and ML Functions — code-complete at departure, final QA pending.
 
 The features didn't change. The visibility did. Highest-leverage design work: making existing features findable.`,
     },
@@ -461,14 +461,14 @@ The features didn't change. The visibility did. Highest-leverage design work: ma
   // ----------------------------
 
   impactSummary: {
-    heading: 'Shipping impact at a glance',
+    heading: 'Impact at a glance',
     bullets: [
       '3 entry points → 1 unified DSML Hub',
       'NLQ adoption +25% from discoverability alone — no feature changes',
       'First fully responsive Hub app in the platform',
       'Architecture defined before tickets existed',
       'Enabled 2 designers to continue execution on my foundation',
-      'NLQ + Insights live in 9.3.6 · DSML Hub shipping 2027',
+      'NLQ + Insights live in 9.3.6 · DSML Hub implemented, final QA pending at departure',
     ],
   },
   reflection: {

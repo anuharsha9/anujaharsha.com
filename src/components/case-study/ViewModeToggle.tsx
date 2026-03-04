@@ -89,8 +89,44 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                     <span className="hidden sm:inline">Home</span>
                 </button>
 
-                {/* Center: Case study title with dropdown */}
-                <div className="relative" ref={dropdownRef}>
+                {/* Center: View mode toggle */}
+                <div className="flex items-center bg-white/[0.04] rounded-full p-0.5 border border-white/[0.06] shrink-0">
+                    <button
+                        onClick={() => setViewMode('presentation')}
+                        className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'presentation'
+                            ? 'text-white'
+                            : 'text-white/40 hover:text-white/60'
+                            }`}
+                    >
+                        {viewMode === 'presentation' && (
+                            <motion.div
+                                layoutId="toggle-pill"
+                                className="absolute inset-0 bg-white/[0.08] rounded-full border border-white/[0.08]"
+                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                            />
+                        )}
+                        <span className="relative z-10">Presentation</span>
+                    </button>
+                    <button
+                        onClick={() => setViewMode('full')}
+                        className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'full'
+                            ? 'text-white'
+                            : 'text-white/40 hover:text-white/60'
+                            }`}
+                    >
+                        {viewMode === 'full' && (
+                            <motion.div
+                                layoutId="toggle-pill"
+                                className="absolute inset-0 bg-white/[0.08] rounded-full border border-white/[0.08]"
+                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                            />
+                        )}
+                        <span className="relative z-10">Full Case Study</span>
+                    </button>
+                </div>
+
+                {/* Right: Case study title with dropdown */}
+                <div className="relative shrink-0" ref={dropdownRef}>
                     <button
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                         className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-white/[0.04] transition-all duration-200 cursor-pointer group"
@@ -126,7 +162,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                                 exit={{ opacity: 0, y: -8, scale: 0.95 }}
                                 transition={{ duration: 0.2, ease }}
                                 style={{ backgroundColor: 'rgb(12, 12, 20)' }}
-                                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-xl border border-white/[0.08] backdrop-blur-3xl shadow-2xl shadow-black/60 overflow-hidden"
+                                className="absolute top-full right-0 mt-2 w-72 rounded-xl border border-white/[0.08] backdrop-blur-3xl shadow-2xl shadow-black/60 overflow-hidden"
                             >
                                 {/* Current study indicator */}
                                 <div className="px-4 py-2.5 border-b border-white/[0.06]">
@@ -179,42 +215,6 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                             </motion.div>
                         )}
                     </AnimatePresence>
-                </div>
-
-                {/* Right: View mode toggle */}
-                <div className="flex items-center bg-white/[0.04] rounded-full p-0.5 border border-white/[0.06] shrink-0">
-                    <button
-                        onClick={() => setViewMode('presentation')}
-                        className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'presentation'
-                            ? 'text-white'
-                            : 'text-white/40 hover:text-white/60'
-                            }`}
-                    >
-                        {viewMode === 'presentation' && (
-                            <motion.div
-                                layoutId="toggle-pill"
-                                className="absolute inset-0 bg-white/[0.08] rounded-full border border-white/[0.08]"
-                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                            />
-                        )}
-                        <span className="relative z-10">Presentation</span>
-                    </button>
-                    <button
-                        onClick={() => setViewMode('full')}
-                        className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'full'
-                            ? 'text-white'
-                            : 'text-white/40 hover:text-white/60'
-                            }`}
-                    >
-                        {viewMode === 'full' && (
-                            <motion.div
-                                layoutId="toggle-pill"
-                                className="absolute inset-0 bg-white/[0.08] rounded-full border border-white/[0.08]"
-                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                            />
-                        )}
-                        <span className="relative z-10">Full Case Study</span>
-                    </button>
                 </div>
             </div>
         </motion.nav>

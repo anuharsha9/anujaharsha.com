@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { reportcasterCaseStudy } from '@/data/reportcaster'
-import CinematicCaseStudy from '@/components/case-study-experiment/CinematicCaseStudy'
+import RCCaseStudyView from '@/components/case-study-experiment/RCCaseStudyView'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -51,5 +51,5 @@ export const metadata: Metadata = {
 }
 
 export default function ReportCasterPage() {
-  return <CinematicCaseStudy data={reportcasterCaseStudy} />
+  return <RCCaseStudyView data={reportcasterCaseStudy} />
 }

@@ -165,12 +165,12 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
           <motion.div
             id={menuId}
             ref={menuRef}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-3 bg-white border border-slate-200 rounded-xl shadow-xl min-w-[280px] overflow-hidden"
-            style={{ zIndex: 10001 }}
+            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            style={{ backgroundColor: 'rgb(12, 12, 20)' }}
+            className="absolute top-full left-0 mt-3 w-72 rounded-xl border border-white/[0.08] backdrop-blur-3xl shadow-2xl shadow-black/60 overflow-hidden"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onKeyDown={handleMenuKeyDown}
@@ -178,62 +178,81 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
             aria-label="Case studies"
           >
             {/* Header */}
-            <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
-              <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest">
-                {'// CASE_STUDIES'}
+            <div className="px-4 py-2.5 border-b border-white/[0.06]">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30">
+                Case Studies
               </span>
             </div>
 
             {/* Case Study Links */}
-            <nav className="py-2" aria-label="Case studies navigation">
+            <nav className="py-1" aria-label="Case studies navigation">
               {/* View All Link */}
               <Link
                 href="/#work-overview"
                 onClick={handleClick}
-                className="block px-4 py-2.5 text-slate-600 text-sm hover:bg-slate-50 hover:text-slate-900 transition-colors border-b border-slate-100"
+                className="block px-4 py-2.5 text-white/50 text-sm hover:bg-white/[0.04] hover:text-white/80 transition-colors border-b border-white/[0.06]"
                 role="menuitem"
               >
                 <span className="font-medium">View All Work</span>
               </Link>
 
               {/* Individual Case Studies */}
-              {caseStudies.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={item.isExternal ? undefined : handleClick}
-                  className="group block px-4 py-3 hover:bg-slate-50 transition-colors"
-                  role="menuitem"
-                  {...(item.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
-                  <div className="flex items-center gap-3">
-                    {/* System ID */}
-                    <span className="font-mono text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                      {item.id}
-                    </span>
+              {caseStudies.map((item) => {
+                const accentColors: Record<string, string> = {
+                  '001': '#f59e0b',
+                  '002': '#2fc6d5',
+                  '003': '#a855f7',
+                  'APP': '#10b981',
+                }
+                const accent = accentColors[item.id] || '#666'
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={item.isExternal ? undefined : handleClick}
+                    className="group/item flex items-center gap-3 px-4 py-3 hover:bg-white/[0.04] transition-all duration-200"
+                    role="menuitem"
+                    {...(item.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
+                    {/* Accent dot */}
+                    <div
+                      className="w-2 h-2 rounded-full shrink-0 transition-transform duration-200 group-hover/item:scale-125"
+                      style={{ backgroundColor: accent }}
+                    />
 
-                    {/* Title */}
-                    <span className="text-slate-900 text-sm font-medium group-hover:text-[var(--accent-teal)] transition-colors">
-                      {item.label}
-                    </span>
-                  </div>
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-white/70 group-hover/item:text-white transition-colors">
+                          {item.label}
+                        </span>
+                        <span
+                          className="font-mono text-[9px] tracking-wider opacity-40"
+                          style={{ color: accent }}
+                        >
+                          {item.id}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-white/30 leading-snug mt-0.5">
+                        {item.tag.replace(/_/g, ' ')}
+                      </p>
+                    </div>
 
-                  {/* Tag */}
-                  <div className="mt-1 ml-10">
-                    <span className="font-mono text-[9px] text-slate-400 uppercase tracking-wider">
-                      {item.tag}
-                    </span>
-                  </div>
-                </Link>
-              ))}
+                    {/* Arrow */}
+                    <svg className="w-3.5 h-3.5 text-white/20 group-hover/item:text-white/50 transition-all duration-200 group-hover/item:translate-x-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </Link>
+                )
+              })}
             </nav>
 
             {/* Footer */}
-            <div className="px-4 py-2 border-t border-slate-100 bg-slate-50">
+            <div className="px-4 py-2.5 border-t border-white/[0.06]">
               <Link
                 href="/#lets-talk"
                 onClick={handleClick}
-                className="font-mono text-[10px] text-slate-500 hover:text-[var(--accent-teal)] uppercase tracking-wider transition-colors"
+                className="font-mono text-[10px] text-white/30 hover:text-white/60 uppercase tracking-wider transition-colors"
                 role="menuitem"
               >
                 → LET&apos;S TALK
