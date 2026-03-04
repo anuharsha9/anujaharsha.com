@@ -100,7 +100,7 @@ export function ScreenshotStack() {
                     whileInView={{ opacity: 1, x: 0, rotate: (i - 2) * 4 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
-                    className="absolute border border-white/20 rounded-md bg-[#111111] shadow-2xl flex items-center justify-center backdrop-blur-sm"
+                    className="absolute border border-white/20 rounded-md bg-[var(--bg-secondary)] shadow-2xl flex items-center justify-center backdrop-blur-sm"
                     style={{
                         width: `${160 - i * 8}px`,
                         height: `${110 - i * 6}px`,
@@ -177,7 +177,7 @@ export function ScatterConverge() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto h-[400px] border border-[var(--accent-teal)]/10 rounded-3xl bg-[#0a0f0f] overflow-hidden flex items-center justify-center shadow-[inset_0_0_100px_rgba(45,212,191,0.03)]">
+        <div className="relative w-full max-w-4xl mx-auto h-[400px] border border-[var(--accent-teal)]/10 rounded-3xl bg-[var(--bg-primary)] overflow-hidden flex items-center justify-center shadow-[inset_0_0_100px_rgba(45,212,191,0.03)]">
 
             {/* Background grid texture just for this box */}
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h40v40H0z\' fill=\'none\'/%3E%3Cpath d=\'M40 0h-1v40h1V0zm0 40v-1h-40v1h40z\' fill=\'rgba(255,255,255,0.5)\'/%3E%3C/svg%3E")', WebkitMaskImage: 'radial-gradient(ellipse at center, white 20%, transparent 80%)' }} />
@@ -218,7 +218,7 @@ export function ScatterConverge() {
             {nodes.map((node, i) => (
                 <motion.div
                     key={`node-${i}`}
-                    className="absolute w-12 h-12 rounded-full border border-[var(--accent-teal)]/30 bg-[#0a0a0a] flex items-center justify-center shadow-[0_0_15px_rgba(45,212,191,0.2)] z-10"
+                    className="absolute w-12 h-12 rounded-full border border-[var(--accent-teal)]/30 bg-[var(--bg-primary)] flex items-center justify-center shadow-[0_0_15px_rgba(45,212,191,0.2)] z-10"
                     initial={{ left: node.x, top: node.y, scale: 0, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true, margin: "-10%" }}
@@ -399,7 +399,7 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
                             <div className={`w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300
                                 ${role.active
                                     ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)]/15 text-[var(--accent-teal)] shadow-[inset_0_0_15px_rgba(45,212,191,0.1),_0_0_20px_rgba(45,212,191,0.1)]'
-                                    : 'border-white/10 bg-[#111] text-zinc-400'}`}
+                                    : 'border-white/10 bg-[var(--bg-secondary)] text-zinc-400'}`}
                             >
                                 <span className="font-mono text-[10px] tracking-wide">{role.abbr}</span>
                             </div>
@@ -462,7 +462,7 @@ export function KnowledgeTransfer() {
 
             <div className="flex flex-col gap-2 relative z-10">
                 <motion.div
-                    className="w-10 h-10 rounded-full border border-white/10 bg-[#111] flex items-center justify-center"
+                    className="w-10 h-10 rounded-full border border-white/10 bg-[var(--bg-secondary)] flex items-center justify-center"
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
@@ -471,7 +471,7 @@ export function KnowledgeTransfer() {
                     <span className="font-mono text-[9px] text-zinc-500">D1</span>
                 </motion.div>
                 <motion.div
-                    className="w-10 h-10 rounded-full border border-white/10 bg-[#111] flex items-center justify-center"
+                    className="w-10 h-10 rounded-full border border-white/10 bg-[var(--bg-secondary)] flex items-center justify-center"
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
@@ -512,7 +512,7 @@ export function ImpactClimax() {
                 {metrics.map((m, i) => (
                     <motion.div
                         key={i}
-                        className="flex flex-col p-6 border border-white/5 bg-[#0a0f0f]/40 backdrop-blur-sm rounded-xl relative group hover:bg-[#0a0f0f]/80 transition-colors"
+                        className="flex flex-col p-6 border border-white/5 bg-[var(--bg-primary)]/40 backdrop-blur-sm rounded-xl relative group hover:bg-[var(--bg-primary)]/80 transition-colors"
                         initial={{ opacity: 0, scale: 0.98, y: 10 }}
                         whileInView={{ opacity: 1, scale: 1, y: 0 }}
                         viewport={{ once: true }}

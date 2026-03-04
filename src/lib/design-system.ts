@@ -1,51 +1,15 @@
 /**
- * Design System — Visual design tokens and theme system
+ * Design System — Theme & layout utilities
  * 
- * Colors, typography, spacing, and component presets.
- * Motion/animation presets live in /src/lib/motion.ts
- * CSS variables are defined in /src/styles/tokens.css
- * Tailwind extensions are in /tailwind.config.ts
+ * Provides theme-aware Tailwind class strings and layout helpers.
+ * All color values reference CSS custom properties from tokens.css.
+ * Motion presets live in /src/lib/motion.ts
  */
 
-import { transitions, hover } from './motion'
-
 // =============================================================================
-// CSS VARIABLE REFERENCES (for inline styles)
+// STATIC PALETTE (for contexts that can't resolve CSS vars, e.g. OG images)
 // =============================================================================
 
-const cssVars = {
-  // Brand colors
-  accent: 'var(--accent-teal)',
-  accent50: 'var(--accent-teal-50)',
-  accent100: 'var(--accent-teal-100)',
-  accent700: 'var(--accent-teal-700)',
-  accentBright: 'var(--accent-teal-bright)',
-  accentWordu: 'var(--accent-wordu)',
-
-  // Backgrounds
-  bgLight: 'var(--bg-light)',
-  bgLightAlt: 'var(--bg-light-alt)',
-  bgDark: 'var(--bg-dark)',
-  bgDarkAlt: 'var(--bg-dark-alt)',
-  bgInk950: 'var(--bg-ink-950)',
-  bgInk900: 'var(--bg-ink-900)',
-  bgCinematic: 'var(--bg-cinematic)',
-
-  // Text colors
-  textLight: 'var(--text-primary-light)',
-  textDark: 'var(--text-primary-dark)',
-  textMutedLight: 'var(--text-muted-light)',
-  textMutedDark: 'var(--text-muted-dark)',
-
-  // Monitor technical theme
-  monitorBg: 'var(--bg-monitor)',
-  monitorBgAlt: 'var(--bg-monitor-alt)',
-  monitorBorder: 'var(--border-monitor)',
-  monitorText: 'var(--text-monitor)',
-  monitorTextMuted: 'var(--text-monitor-muted)',
-} as const
-
-// Static palette for renderers that cannot resolve CSS variables (e.g. next/og ImageResponse)
 export const staticPalette = {
   white: '#ffffff',
   surfaceCharcoal950: '#0a0a0a',
@@ -58,68 +22,6 @@ export const staticPalette = {
   overlayWhite10: 'rgba(255,255,255,0.1)',
   overlayWhite12: 'rgba(255,255,255,0.12)',
   overlayEmerald05: 'rgba(16,185,129,0.05)',
-} as const
-
-// =============================================================================
-// TAILWIND CLASS CONSTANTS
-// =============================================================================
-
-// Text colors (using CSS variables from tokens.css)
-const TEXT = {
-  // Light theme text (for light backgrounds)
-  heading: 'text-[var(--text-heading)]',    // slate-900
-  body: 'text-[var(--text-body)]',          // slate-600
-  muted: 'text-[var(--text-muted)]',        // slate-500
-  dim: 'text-[var(--text-dim)]',            // slate-400
-  accent: 'text-[var(--accent-teal)]',
-  // Legacy aliases
-  light: 'text-[var(--text-primary)]',      // slate-900
-  dark: 'text-white',
-  mutedLight: 'text-[var(--text-body)]',    // slate-600
-  mutedDark: 'text-white/70',
-} as const
-
-// Background colors (using CSS variables)
-const BG = {
-  primary: 'bg-[var(--bg-primary)]',        // slate-50
-  secondary: 'bg-[var(--bg-secondary)]',    // white
-  tertiary: 'bg-[var(--bg-tertiary)]',      // slate-100
-  // Legacy aliases
-  light: 'bg-[var(--bg-light)]',
-  lightAlt: 'bg-[var(--bg-light-alt)]',
-  dark: 'bg-[var(--bg-dark)]',
-  darkAlt: 'bg-[var(--bg-dark-alt)]',
-  surface: {
-    light: 'bg-[var(--bg-secondary)]',      // white
-    lightSubtle: 'bg-[var(--bg-tertiary)]', // slate-100
-    dark: 'bg-[var(--bg-tertiary)]',        // slate-100 (light theme)
-    darkSubtle: 'bg-[var(--bg-primary)]',   // slate-50
-  },
-  accent: {
-    light: 'bg-[var(--accent-teal-soft)]',
-    dark: 'bg-[var(--accent-teal-soft)]',
-  },
-} as const
-
-// Border colors (using CSS variables)
-const BORDER = {
-  primary: 'border-[var(--border-primary)]',  // slate-200
-  secondary: 'border-[var(--border-secondary)]', // slate-300
-  subtle: 'border-[var(--border-subtle)]',    // slate-100
-  // Legacy aliases
-  light: 'border-[var(--border-primary)]',
-  dark: 'border-[var(--border-primary)]',
-  accent: {
-    light: 'border-[var(--accent-teal)]/30',
-    dark: 'border-[var(--accent-teal)]/30',
-  },
-} as const
-
-// Divider colors
-const DIVIDER = {
-  primary: 'bg-[var(--border-primary)]',
-  light: 'bg-[var(--border-primary)]',
-  dark: 'bg-[var(--border-primary)]',
 } as const
 
 // =============================================================================
@@ -150,13 +52,13 @@ export interface Theme {
   surface: string
   cardBg: string
 
-  // CSS Variable (for inline styles)
+  // CSS Variable reference (for inline styles)
   accentVar: string
 
-  // Context
+  // Context flag
   isLight: boolean
 
-  // Technical Monitor Theme (Dark)
+  // Monitor sub-theme (technical aesthetic)
   monitor: {
     bg: string
     bgAlt: string
@@ -168,115 +70,81 @@ export interface Theme {
   }
 }
 
+// Shared monitor sub-theme — identical in both themes
+const MONITOR_THEME = {
+  bg: 'bg-[var(--bg-monitor)]',
+  bgAlt: 'bg-[var(--bg-monitor-alt)]',
+  bgSurface: 'bg-[var(--bg-monitor-surface)]',
+  border: 'border-[var(--border-monitor)]',
+  text: 'text-[var(--text-monitor)]',
+  textMuted: 'text-[var(--text-monitor-muted)]',
+  textDim: 'text-[var(--text-monitor-dim)]',
+} as const
+
+// Pre-built theme objects — no re-creation on every call
+const LIGHT_THEME: Theme = {
+  text: 'text-[var(--text-heading)]',
+  textSecondary: 'text-[var(--text-body)]',
+  textMuted: 'text-[var(--text-muted)]',
+  textDim: 'text-[var(--text-dim)]',
+  textAccent: 'text-[var(--accent-teal)]',
+
+  bg: 'bg-[var(--bg-primary)]',
+  bgAlt: 'bg-[var(--bg-secondary)]',
+  bgAccent: 'bg-[var(--accent-teal-soft)]',
+
+  border: 'border-[var(--border-primary)]',
+  borderSecondary: 'border-[var(--border-secondary)]',
+  borderSubtle: 'border-[var(--border-subtle)]',
+  borderAccent: 'border-[var(--accent-teal)]/30',
+
+  divider: 'bg-[var(--border-primary)]',
+  surface: 'bg-[var(--bg-secondary)]',
+  cardBg: 'bg-[var(--bg-secondary)]',
+
+  accentVar: 'var(--accent-teal)',
+  isLight: true,
+  monitor: MONITOR_THEME,
+}
+
+const DARK_THEME: Theme = {
+  text: 'text-[var(--text-monitor)]',
+  textSecondary: 'text-[var(--text-monitor-muted)]',
+  textMuted: 'text-[var(--text-monitor-dim)]',
+  textDim: 'text-[var(--text-dim)]',
+  textAccent: 'text-[var(--accent-teal)]',
+
+  bg: 'bg-[var(--bg-ink-950)]',
+  bgAlt: 'bg-[var(--bg-ink-900)]',
+  bgAccent: 'bg-[var(--accent-teal)]/10',
+
+  border: 'border-[var(--border-primary)]',
+  borderSecondary: 'border-[var(--border-secondary)]',
+  borderSubtle: 'border-[var(--border-subtle)]',
+  borderAccent: 'border-[var(--accent-teal)]/50',
+
+  divider: 'bg-[var(--border-primary)]',
+  surface: 'bg-[var(--bg-ink-900)]',
+  cardBg: 'bg-[var(--bg-ink-900)]',
+
+  accentVar: 'var(--accent-teal)',
+  isLight: false,
+  monitor: MONITOR_THEME,
+}
+
 /**
- * Get all theme-aware classes for a component
- * Now always returns light theme values (Architect aesthetic)
- * @param isLight - Deprecated, always uses light theme
- * @returns Theme object with all class strings
+ * Get theme-aware Tailwind class strings.
+ * 
+ * @param isLight - true for architect aesthetic, false for dark/system aesthetic
+ * @returns Pre-built Theme object (no allocation per call)
  * 
  * @example
- * const t = getTheme(true)
+ * const t = getTheme(false)
  * return <div className={`${t.bg} ${t.text}`}>...</div>
  */
 export function getTheme(isLight: boolean = true): Theme {
-  if (isLight) {
-    // Light Theme (Architect aesthetic)
-    return {
-      text: TEXT.heading,           // slate-900
-      textSecondary: TEXT.body,     // slate-600
-      textMuted: TEXT.muted,        // slate-500
-      textDim: TEXT.dim,            // slate-400
-      textAccent: TEXT.accent,      // teal
-
-      bg: BG.primary,               // slate-50
-      bgAlt: BG.secondary,          // white
-      bgAccent: BG.accent.light,    // teal soft
-
-      border: BORDER.primary,       // slate-200
-      borderSecondary: BORDER.secondary, // slate-300
-      borderSubtle: BORDER.subtle,  // slate-100
-      borderAccent: BORDER.accent.light,
-
-      divider: DIVIDER.primary,     // slate-200
-      surface: 'bg-[var(--bg-secondary)]',
-      cardBg: BG.secondary,         // white
-
-      accentVar: cssVars.accent,
-      isLight: true,
-
-      monitor: {
-        bg: 'bg-[var(--bg-monitor)]',
-        bgAlt: 'bg-[var(--bg-monitor-alt)]',
-        bgSurface: 'bg-[var(--bg-monitor-surface)]',
-        border: 'border-[var(--border-monitor)]',
-        text: 'text-[var(--text-monitor)]',
-        textMuted: 'text-[var(--text-monitor-muted)]',
-        textDim: 'text-[var(--text-monitor-dim)]',
-      }
-    }
-  } else {
-    // Dark Theme (monitor/System aesthetic)
-    return {
-      text: 'text-[var(--text-monitor)]',           // white
-      textSecondary: 'text-[var(--text-monitor-muted)]', // slate-400
-      textMuted: 'text-[var(--text-monitor-dim)]',  // slate-500
-      textDim: 'text-[var(--text-dim)]',
-      textAccent: TEXT.accent,      // teal
-
-      bg: 'bg-[var(--bg-ink-950)]', // slate-950 (Monitor BG)
-      bgAlt: 'bg-[var(--bg-ink-900)]', // slate-900 (Monitor Alt)
-      bgAccent: 'bg-[var(--accent-teal)]/10',
-
-      border: 'border-[var(--border-primary)]',
-      borderSecondary: 'border-[var(--border-secondary)]',
-      borderSubtle: 'border-[var(--border-subtle)]',
-      borderAccent: 'border-[var(--accent-teal)]/50',
-
-      divider: 'bg-[var(--border-primary)]',
-      surface: 'bg-[var(--bg-ink-900)]',
-      cardBg: 'bg-[var(--bg-ink-900)]',
-
-      accentVar: cssVars.accent,
-      isLight: false,
-
-      monitor: {
-        bg: 'bg-[var(--bg-monitor)]',
-        bgAlt: 'bg-[var(--bg-monitor-alt)]',
-        bgSurface: 'bg-[var(--bg-monitor-surface)]',
-        border: 'border-[var(--border-monitor)]',
-        text: 'text-[var(--text-monitor)]',
-        textMuted: 'text-[var(--text-monitor-muted)]',
-        textDim: 'text-[var(--text-monitor-dim)]',
-      }
-    }
-  }
+  return isLight ? LIGHT_THEME : DARK_THEME
 }
-
-
-// =============================================================================
-// TYPOGRAPHY PRESETS
-// =============================================================================
-
-export const typography = {
-  // Headings
-  h1: 'text-4xl md:text-5xl font-serif leading-tight tracking-tight',
-  h2: 'text-3xl md:text-4xl font-serif leading-snug tracking-tight',
-  h3: 'text-2xl md:text-3xl font-serif',
-  h4: 'text-xl md:text-2xl font-serif',
-  h5: 'text-lg md:text-xl font-semibold',
-
-  // Body text
-  body: 'text-base md:text-lg leading-relaxed',
-  bodySmall: 'text-sm md:text-base leading-relaxed',
-
-  // Labels & captions
-  label: 'text-xs font-mono uppercase tracking-widest',
-  caption: 'text-xs leading-relaxed',
-
-  // Emphasis
-  bold: 'font-semibold',
-  italic: 'italic',
-} as const
 
 // =============================================================================
 // SPACING PRESETS
@@ -308,51 +176,3 @@ export const spacing = {
     lg: 'gap-space-8',
   },
 } as const
-
-
-
-// =============================================================================
-// COMPONENT PRESETS
-// =============================================================================
-
-export const components = {
-  // Card styles — sharp-edge windows
-  card: (isLight: boolean) => ({
-    base: `${isLight ? BG.surface.light : BG.surface.dark} border ${isLight ? BORDER.light : BORDER.dark}`,
-    interactive: `${isLight ? BG.surface.light : BG.surface.dark} border ${isLight ? BORDER.light : BORDER.dark} ${transitions.normal} ${hover.scale} hover:shadow-lg`,
-    accent: `${isLight ? BG.surface.light : BG.surface.dark} border-2 ${transitions.normal}`,
-  }),
-
-  // Section header
-  sectionHeader: (isLight: boolean) => ({
-    wrapper: 'text-center space-y-3',
-    title: `${isLight ? TEXT.light : TEXT.dark} ${typography.h3}`,
-    subtitle: `${isLight ? TEXT.mutedLight : TEXT.mutedDark} ${typography.body} max-w-2xl mx-auto`,
-  }),
-
-  // Button styles — sharp edges
-  button: {
-    primary: 'bg-accent-teal text-white px-6 py-3 font-medium transition-all duration-300 hover:bg-accent-teal-700 hover:shadow-md',
-    secondary: 'bg-black/5 text-slate-900 px-6 py-3 font-medium transition-all duration-300 hover:bg-black/10',
-    ghost: 'text-accent-teal hover:text-accent-teal-700 transition-colors duration-300',
-  },
-} as const
-
-// =============================================================================
-// UTILITY FUNCTIONS
-// =============================================================================
-
-/**
- * Combine class strings, filtering out falsy values
- */
-export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ')
-}
-
-/**
- * Create a responsive class string
- * @example responsive('p-4', 'p-6', 'p-8') => 'p-4 md:p-6 lg:p-8'
- */
-export function responsive(mobile: string, tablet?: string, desktop?: string): string {
-  return cn(mobile, tablet && `md:${tablet}`, desktop && `lg:${desktop}`)
-}

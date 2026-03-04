@@ -47,10 +47,6 @@
    --bg-primary: #09090b;
    --bg-secondary: #0f1115;
    --bg-tertiary: #131518;
-   --bg-dark: #09090b;
-   --bg-dark-alt: #0f1115;
-   --bg-light: #0f1115;
-   --bg-light-alt: #131518;
    --bg-cinematic: #010204;
    --bg-ink-950: #020617;
    --bg-ink-900: #0f172a;
@@ -67,10 +63,6 @@
    --text-body: #a1a1aa;
    --text-muted: #8b8b95;
    --text-dim: #62626c;
-   --text-primary-dark: #f4f4f5;
-   --text-muted-dark: #a1a1aa;
-   --text-primary-light: #f4f4f5;
-   --text-muted-light: #a1a1aa;
    --text-monitor: #ffffff;
    --text-monitor-muted: #86868b;
    --text-monitor-dim: #7a7a84;
@@ -294,7 +286,6 @@
 
    /* ── FONTS ─────────────────────────────────── */
 
-   --font-serif: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
    --font-sans: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
    --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
 
