@@ -15,7 +15,7 @@ const TILES = [
         title: 'Feature adoption/simplification for Machine Learning workflows',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
-        accentVar: '--semantic-cyan-vivid-rgb',
+        accentVar: '--semantic-cyan-rgb',
         wireframeHue: 180,
     },
     {
@@ -23,7 +23,7 @@ const TILES = [
         title: 'AI powered HUB to meet business needs',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
-        accentVar: '--semantic-purple-vivid-rgb',
+        accentVar: '--semantic-purple-rgb',
         wireframeHue: 260,
     },
     {
@@ -89,10 +89,10 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                     {/* MOBILE: Always-visible bottom overlay with title + CTA */}
                     <div className="absolute inset-x-0 bottom-0 z-20 md:hidden pointer-events-none">
                         <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-4 px-4">
-                            <p className="text-white/90 text-sm font-semibold leading-snug mb-1.5">
+                            <p className="text-zinc-100 text-sm font-semibold leading-snug mb-1.5">
                                 {tile.title}
                             </p>
-                            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/50 flex items-center gap-1.5">
+                            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500 flex items-center gap-1.5">
                                 <Play className="w-3 h-3 fill-white/50" />
                                 View Case Study
                             </span>
@@ -111,10 +111,10 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                             <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
                                 <Play className="w-5 h-5 text-white fill-white ml-0.5" />
                             </div>
-                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
+                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
                                 Watch Case Study
                             </span>
-                            <p className="text-white/90 text-sm md:text-base font-semibold leading-snug mt-1">
+                            <p className="text-zinc-100 text-sm md:text-base font-semibold leading-snug mt-1">
                                 {tile.title}
                             </p>
                         </div>
@@ -167,12 +167,12 @@ export default function CSGBlock() {
                 className="mb-12 md:mb-16"
                 style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
             >
-                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
+                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     2022 — 2025
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
                     Senior Product Designer
-                    <span className="text-white/40 font-normal"> at Cloud Software Group</span>
+                    <span className="text-zinc-600 font-normal"> at Cloud Software Group</span>
                 </h2>
             </motion.div>
 

@@ -157,7 +157,7 @@ export default function CinematicCaseStudy({
                                             ? 'w-2.5 h-2.5 bg-[var(--cs-accent)] shadow-[0_0_8px_var(--cs-accent-glow)]'
                                             : 'w-1.5 h-1.5 bg-white/20 group-hover:bg-white/40'
                                             }`} />
-                                        <span className={`text-[9px] font-mono tracking-widest uppercase transition-all duration-300 ${activeAct === act.id ? 'text-[var(--cs-accent)] opacity-100' : 'text-white/0 group-hover:text-white/50'}`}>
+                                        <span className={`text-[9px] font-mono tracking-widest uppercase transition-all duration-300 ${activeAct === act.id ? 'text-[var(--cs-accent)] opacity-100' : 'text-zinc-800 group-hover:text-zinc-500'}`}>
                                             {act.label}
                                         </span>
                                     </a>

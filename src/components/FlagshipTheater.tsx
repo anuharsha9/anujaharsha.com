@@ -221,7 +221,7 @@ function UpNextCard({
             >
                 <Link
                     href={study.link}
-                    className="text-xs font-mono text-zinc-500 hover:text-zinc-300 transition-colors underline underline-offset-4"
+                    className="text-xs font-mono text-zinc-500 hover:text-zinc-200 transition-colors underline underline-offset-4"
                 >
                     or skip to full case study →
                 </Link>
@@ -370,7 +370,7 @@ export default function FlagshipTheater() {
                                 ReportCaster
                             </h2>
 
-                            <p className="text-base md:text-xl text-zinc-300 max-w-xl mx-auto font-light leading-relaxed">
+                            <p className="text-base md:text-xl text-zinc-200 max-w-xl mx-auto font-light leading-relaxed">
                                 Modernizing a 50-year-old mission-critical system to retain enterprise customers.
                             </p>
                         </div>
@@ -419,7 +419,7 @@ export default function FlagshipTheater() {
                         <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-4">
                             {CASE_STUDIES.ml.title}
                         </h2>
-                        <p className="text-base md:text-xl text-zinc-300 max-w-xl mx-auto font-light leading-relaxed">
+                        <p className="text-base md:text-xl text-zinc-200 max-w-xl mx-auto font-light leading-relaxed">
                             {CASE_STUDIES.ml.subtitle}
                         </p>
                     </motion.div>
@@ -451,7 +451,7 @@ export default function FlagshipTheater() {
                         <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-4">
                             {CASE_STUDIES.iq.title}
                         </h2>
-                        <p className="text-base md:text-xl text-zinc-300 max-w-xl mx-auto font-light leading-relaxed">
+                        <p className="text-base md:text-xl text-zinc-200 max-w-xl mx-auto font-light leading-relaxed">
                             {CASE_STUDIES.iq.subtitle}
                         </p>
                     </motion.div>

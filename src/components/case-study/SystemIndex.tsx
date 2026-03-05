@@ -97,7 +97,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
         >
-          <span className="inline-block font-mono text-[10px] tracking-[0.25em] uppercase text-white/30 mb-3">
+          <span className="inline-block font-mono text-[10px] tracking-[0.25em] uppercase text-zinc-600 mb-3">
             {isEndOfJourney ? 'Explore More' : 'Up Next'}
           </span>
           <h2
@@ -158,7 +158,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                   {/* "Up Next" pill for single card */}
                   {nextProjects.length === 1 && (
                     <div className="absolute top-4 right-4">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono tracking-wider text-white/50 backdrop-blur-sm">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono tracking-wider text-zinc-500 backdrop-blur-sm">
                         Up Next →
                       </span>
                     </div>
@@ -178,7 +178,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                       >
                         {project.subtitle}
                       </p>
-                      <p className="text-sm text-white/40 leading-relaxed group-hover:text-white/55 transition-colors">
+                      <p className="text-sm text-zinc-600 leading-relaxed group-hover:text-zinc-500 transition-colors">
                         {project.hook}
                       </p>
                     </div>
@@ -224,8 +224,8 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
               onClick={handleHomeClick}
               className="group flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300 cursor-pointer"
             >
-              <Home className="w-4 h-4 text-white/30 group-hover:text-white/60 transition-colors" />
-              <span className="text-sm text-white/40 group-hover:text-white/70 transition-colors">
+              <Home className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 transition-colors" />
+              <span className="text-sm text-zinc-600 group-hover:text-zinc-400 transition-colors">
                 Back to Home
               </span>
             </button>

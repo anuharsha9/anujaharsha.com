@@ -40,10 +40,10 @@ const DEFAULT_SLIDE_DURATION = 25000
 /* ─── accent colors per type ──────────────────────── */
 function getAccentColor(type: string): string {
     switch (type) {
-        case 'problem': return 'var(--semantic-rose-500)'
+        case 'problem': return 'var(--semantic-rose)'
         case 'research': return 'var(--accent-violet)'
-        case 'decision': return 'var(--semantic-blue-500)'
-        case 'execution': return 'var(--semantic-emerald-500)'
+        case 'decision': return 'var(--semantic-blue)'
+        case 'execution': return 'var(--semantic-emerald)'
         case 'impact': return 'var(--accent-amber)'
         case 'lesson': return 'var(--tone-indigo-500)'
         case 'title': return 'var(--neutral-zinc-500)'

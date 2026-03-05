@@ -128,7 +128,7 @@ export default function ImageComparisonSlider({
                     <span className={`${t.monitor.textDim}`}>{beforeTitle}</span>
                 </div>
                 <div className="flex items-center gap-space-3">
-                    <span className="text-slate-600">{afterTitle}</span>
+                    <span className="text-zinc-600">{afterTitle}</span>
                     <div className="flex gap-1.5">
                         <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-teal)]"></span>
                     </div>

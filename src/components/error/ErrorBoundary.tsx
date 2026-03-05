@@ -42,7 +42,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="min-h-screen flex items-center justify-center bg-[var(--bg-dark)] p-4">
           <div className="max-w-md w-full text-center space-y-4">
             <h1 className="text-white text-2xl font-sans">Something went wrong</h1>
-            <p className="text-white/70 text-base">
+            <p className="text-zinc-400 text-base">
               We&apos;re sorry, but something unexpected happened. Please try refreshing the page.
             </p>
             <button

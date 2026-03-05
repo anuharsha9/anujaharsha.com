@@ -28,7 +28,7 @@ const EVOLUTION_VERSIONS = [
         tech: 'HTML • CSS • AIv1',
         video: '/videos/evolution/v3_web.mp4',
         keyLearning: '"Frameworks are not overhead; they are the scaffold for speed."',
-        accent: 'var(--semantic-orange-vivid)',
+        accent: 'var(--semantic-orange)',
     },
     {
         id: 'v4', label: 'Dec 1', title: 'The Architecture',
@@ -36,7 +36,7 @@ const EVOLUTION_VERSIONS = [
         tech: 'Next.js • Agents • AWS',
         video: '/videos/evolution/v4_web.mp4',
         keyLearning: '"Agents handle the build. The human focuses on Soul."',
-        accent: 'var(--semantic-cyan-vivid)',
+        accent: 'var(--semantic-cyan)',
     },
     {
         id: 'v5', label: 'Dec 8', title: 'The Polish',
@@ -44,7 +44,7 @@ const EVOLUTION_VERSIONS = [
         tech: 'Framer Motion • Vibe • UX',
         video: '/videos/evolution/v5_web.mp4',
         keyLearning: '"The final 10% of polish takes 50% of the effort."',
-        accent: 'var(--semantic-purple-vivid)',
+        accent: 'var(--semantic-purple)',
     },
 ]
 
@@ -109,7 +109,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                 <div className="flex flex-col min-h-0">
                     {/* Version badge row */}
                     <div className="flex items-center gap-4 mb-4 shrink-0">
-                        <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/40">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-zinc-600">
                             {current.label}
                         </span>
                         <div className="flex-1 h-[1px] bg-white/10" />
@@ -121,7 +121,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                     <h3 className="font-extrabold text-3xl md:text-4xl text-white mb-2 tracking-tight shrink-0">
                         {current.title}
                     </h3>
-                    <p className="text-white/50 text-sm mb-4 shrink-0">{current.desc}</p>
+                    <p className="text-zinc-500 text-sm mb-4 shrink-0">{current.desc}</p>
 
                     {/* Video — fills remaining space */}
                     <div className="relative flex-1 rounded-xl overflow-hidden border border-white/10 min-h-0">
@@ -146,7 +146,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                     {/* Key learning */}
                     <div className="flex items-start gap-3 mt-4 shrink-0">
                         <div className="w-[2px] h-6 shrink-0 rounded-full" style={{ backgroundColor: current.accent }} />
-                        <p className="text-white/40 text-xs italic">{current.keyLearning}</p>
+                        <p className="text-zinc-600 text-xs italic">{current.keyLearning}</p>
                     </div>
 
                     {/* Dot navigation */}
@@ -167,10 +167,10 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
 
                 {/* Right sidebar: Orchestration Stack */}
                 <div className="hidden lg:flex flex-col border-l border-white/8 pl-6 overflow-y-auto">
-                    <h4 className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/30 mb-6 shrink-0">
+                    <h4 className="font-mono text-[11px] uppercase tracking-[0.3em] text-zinc-600 mb-6 shrink-0">
                         Orchestration Stack
                     </h4>
-                    <p className="text-white/40 text-sm mb-6 leading-relaxed shrink-0">
+                    <p className="text-zinc-600 text-sm mb-6 leading-relaxed shrink-0">
                         1 Architect. 6 AI Agents. A relentless design-engineering bridge.
                     </p>
                     <div className="flex flex-col gap-2">
@@ -182,8 +182,8 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                                 transition={{ delay: 0.1 + i * 0.04, duration: 0.4 }}
                                 className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:border-white/15 transition-colors"
                             >
-                                <span className="text-white/70 text-sm font-medium">{tool.name}</span>
-                                <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/25">{tool.role}</span>
+                                <span className="text-zinc-400 text-sm font-medium">{tool.name}</span>
+                                <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-800">{tool.role}</span>
                             </motion.div>
                         ))}
                     </div>

@@ -62,7 +62,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="full">
                             <TextTile delay={0.1}>
                                 <PeopleDotGrid />
-                                <p className="text-zinc-300 font-light leading-relaxed mt-4">
+                                <p className="text-zinc-200 font-light leading-relaxed mt-4">
                                     ~200 people in my business unit. They knew RC existed. They knew it was a scheduling tool. That&apos;s it. The only people who knew how to use it were the support team, and ONE engineer who did RC code in the 80s and 90s — still with the company.
                                 </p>
                             </TextTile>
@@ -76,7 +76,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-red-400/60 uppercase tracking-widest">Zero Documentation</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     No specification. No roadmap. No one had planned any features for RC. 40 years of undocumented decisions buried across 5 subsystems.
                                 </p>
                             </TextTile>
@@ -87,7 +87,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Starting Point</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     I had a sandbox environment, one slide deck from a support lead, and access to customer support calls. That was my entire research foundation.
                                 </p>
                             </TextTile>
@@ -115,13 +115,13 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="50/50">
                             <TextTile>
                                 <AvatarPair leftLabel="Support" leftIcon={<HeadsetIcon />} />
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     1:1 with customer reps of RC. Regular calls. They knew every workaround, every hack users had invented.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
                                 <AvatarPair leftLabel="Engineer" leftIcon={<CodeIcon />} />
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     1:1 with that ONE engineer who knew about it. He did RC code in the 80s and 90s — still with the company. My window into decades of undocumented decisions.
                                 </p>
                             </TextTile>
@@ -143,7 +143,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 {data.researchDecisionMap.map((d, i) => (
                                     <TextTile key={i} delay={i * 0.1}>
                                         <FlowDiagram steps={['Insight', 'Decision', 'Shipped']} />
-                                        <p className="text-zinc-300 font-light text-sm">{d.insight}</p>
+                                        <p className="text-zinc-200 font-light text-sm">{d.insight}</p>
                                         <p className="text-[var(--cs-accent)] text-xs font-mono mt-2">→ {d.feature}</p>
                                     </TextTile>
                                 ))}
@@ -390,7 +390,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                     { name: 'Lead Arch', abbr: 'LA' },
                                     { name: 'Lead Eng', abbr: 'LE' }
                                 ]} />
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     The first people I onboarded were the lead architect and the lead engineer. Design discussions were finalized with them.
                                 </p>
                             </TextTile>
@@ -401,7 +401,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                     { name: 'QA Team', abbr: 'QA' },
                                     { name: 'Sys Docs', abbr: 'DC' }
                                 ]} />
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Then came the entire group of engineers, new PM, the QA team, the documentation team. Dozens of demos of the old and new ReportCaster to everyone.
                                 </p>
                             </TextTile>
@@ -411,15 +411,15 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             <TextTile delay={0.15}>
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="flex gap-1">
-                                        <div className="px-2 py-1 rounded text-[9px] font-mono text-white/30 border border-white/10">RC</div>
-                                        <div className="px-2 py-1 rounded text-[9px] font-mono text-white/30 border border-white/10">ML</div>
+                                        <div className="px-2 py-1 rounded text-[9px] font-mono text-zinc-600 border border-white/10">RC</div>
+                                        <div className="px-2 py-1 rounded text-[9px] font-mono text-zinc-600 border border-white/10">ML</div>
                                     </div>
                                     <span className="text-[10px] text-zinc-600">×</span>
                                     <div className="w-6 h-6 rounded-full border border-[var(--cs-accent)]/30 flex items-center justify-center">
                                         <span className="text-[8px] font-mono text-[var(--cs-accent)]/60">Me</span>
                                     </div>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Two projects, a 1-year-old at home, all day. I was running RC and ML simultaneously while most of the team focused on a single feature.
                                 </p>
                             </TextTile>
@@ -435,7 +435,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                     <div className="w-5 h-5 rounded-full border border-[var(--cs-accent)]/30" />
                                     <span className="text-[10px] text-[var(--cs-accent)] font-mono">→ 2 features</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     3 designers on one feature. I was trusted with two. That said something about how leadership felt about my ownership and output.
                                 </p>
                             </TextTile>
@@ -444,7 +444,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="full">
                             <TextTile delay={0.25}>
                                 <KnowledgeTransfer />
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     I borrowed one junior designer. I onboarded her and made sure she knew everything I did. Eventually I left the team. Let that designer and another one take over. My job was mainly done — I had done all the heavy lifting.
                                 </p>
                             </TextTile>
@@ -516,7 +516,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="50/50">
                             <TextTile delay={0.1}>
                                 <VideoGrid />
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     At the Virtual User Group, a customer praised the redesign directly and said he was looking forward to what&apos;s next. A 5-year contract worth millions was signed after RC shipped.
                                 </p>
                             </TextTile>
@@ -526,7 +526,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                         <div key={i} className={`px-2 py-0.5 rounded text-[8px] font-mono border ${i === 0 ? 'text-[var(--cs-accent)] border-[var(--cs-accent)]/30' : 'text-zinc-600 border-white/5'}`}>{v}</div>
                                     ))}
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     WebFOCUS 9.3 became the platform&apos;s first Long-Term Support release — 5 years of guaranteed stability. The RC redesign expanded into 3 follow-up releases with features I designed for but the PM added post-launch.
                                 </p>
                             </TextTile>
@@ -645,6 +645,45 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             RC made me the design leader I am today.
                         </motion.p>
                     </div>
+                </motion.div>
+
+                {/* ═══ Figma Config Pitch — In My Own Words ═══ */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative w-full max-w-4xl mx-auto px-6 md:px-16 py-16 md:py-24"
+                >
+                    <div className="text-center mb-10">
+                        <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em] block mb-3">Figma Config Pitch</span>
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">In My Own Words</h3>
+                        <p className="text-sm text-zinc-500 font-light italic max-w-lg mx-auto">
+                            Recorded 3 days after leaving CSG. 5 AM. 100 takes. This was the one.
+                        </p>
+                    </div>
+
+                    <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm">
+                        <div className="aspect-video">
+                            <video
+                                src="/videos/figma-config-pitch.mp4"
+                                controls
+                                playsInline
+                                preload="none"
+                                className="w-full h-full object-contain bg-black"
+                            />
+                        </div>
+                    </div>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        className="text-center mt-6 text-sm text-zinc-600 font-light italic"
+                    >
+                        &ldquo;Collaboration doesn&apos;t just transform products, it transforms people.&rdquo;
+                    </motion.p>
                 </motion.div>
 
                 {/* ═══ Next Case Study ═══ */}

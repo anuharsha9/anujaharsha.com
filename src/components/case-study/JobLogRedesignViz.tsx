@@ -317,7 +317,7 @@ export default function JobLogRedesignViz() {
                                         >
                                             {/* Dialog header */}
                                             <div className="px-4 py-2 border-b border-white/[0.04] flex items-center justify-between">
-                                                <span className="text-[11px] font-mono text-zinc-300">ReportCaster — Create Schedule</span>
+                                                <span className="text-[11px] font-mono text-zinc-200">ReportCaster — Create Schedule</span>
                                                 <span className="text-[11px] text-zinc-400">✕</span>
                                             </div>
 
@@ -356,7 +356,7 @@ export default function JobLogRedesignViz() {
                                                         className="flex items-center justify-between mb-3 flex-wrap gap-2"
                                                     >
                                                         <div className="flex items-center gap-3 text-[11px] font-mono text-zinc-400">
-                                                            <span className="text-zinc-300 font-medium">Log reports</span>
+                                                            <span className="text-zinc-200 font-medium">Log reports</span>
                                                             <span className="text-blue-400">◉ All</span>
                                                             <span>○ Last executed</span>
                                                             <span>○ Custom 📅</span>
@@ -457,7 +457,7 @@ export default function JobLogRedesignViz() {
                                                                     ['End:', '9/15/2023 12:58 EST'],
                                                                 ].map(([k, v], i) => (
                                                                     <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 + i * 0.04 }}
-                                                                        className="text-[11px] font-mono"><span className="text-zinc-400 font-medium">{k}</span> <span className="text-zinc-300">{v}</span></motion.div>
+                                                                        className="text-[11px] font-mono"><span className="text-zinc-400 font-medium">{k}</span> <span className="text-zinc-200">{v}</span></motion.div>
                                                                 ))}
                                                             </div>
 

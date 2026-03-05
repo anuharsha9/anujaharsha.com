@@ -106,21 +106,21 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
                 You found me! 🎉
               </h3>
 
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-zinc-400 text-sm mb-4">
                 These gears? Designed in Figma.<br />
                 Animated with Cursor + AI.<br />
                 Orchestrated by me.
               </p>
 
               <div className="flex flex-wrap justify-center gap-2 text-xs">
-                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-300">Figma</span>
-                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-300">Cursor</span>
-                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-300">Claude</span>
-                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-300">Next.js</span>
-                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-300">Framer Motion</span>
+                <span className="px-2 py-1 rounded-full bg-slate-800 text-zinc-200">Figma</span>
+                <span className="px-2 py-1 rounded-full bg-slate-800 text-zinc-200">Cursor</span>
+                <span className="px-2 py-1 rounded-full bg-slate-800 text-zinc-200">Claude</span>
+                <span className="px-2 py-1 rounded-full bg-slate-800 text-zinc-200">Next.js</span>
+                <span className="px-2 py-1 rounded-full bg-slate-800 text-zinc-200">Framer Motion</span>
               </div>
 
-              <p className="text-slate-500 text-xs mt-4">
+              <p className="text-zinc-500 text-xs mt-4">
                 Click anywhere to close
               </p>
             </motion.div>

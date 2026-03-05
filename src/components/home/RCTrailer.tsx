@@ -12,7 +12,7 @@ function KineticLine({
     className = '',
     delay = 0,
     emphasisWords = [] as string[],
-    emphasisClass = 'text-rose-400',
+    emphasisClass = 'text-[var(--semantic-rose)]',
 }: {
     children: string
     className?: string
@@ -72,11 +72,11 @@ function SlamText({ children, className = '' }: { children: string; className?: 
 
 /* ─── Fragment nodes config ─── */
 const NODES = [
-    { sx: 10, sy: 18, color: '#f43f5e' },   // rose
-    { sx: 78, sy: 12, color: '#f59e0b' },   // amber
-    { sx: 85, sy: 72, color: '#38bdf8' },   // sky
-    { sx: 15, sy: 75, color: '#34d399' },   // emerald
-    { sx: 50, sy: 90, color: '#a78bfa' },   // violet
+    { sx: 10, sy: 18, rgb: '244, 63, 94' },    // --semantic-rose
+    { sx: 78, sy: 12, rgb: '249, 115, 22' },    // --semantic-orange
+    { sx: 85, sy: 72, rgb: '6, 182, 212' },     // --semantic-cyan
+    { sx: 15, sy: 75, rgb: '16, 185, 129' },    // --semantic-emerald
+    { sx: 50, sy: 90, rgb: '168, 85, 247' },    // --semantic-purple
 ]
 
 const LINES = [
@@ -151,7 +151,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         <KineticLine
                             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight"
                             emphasisWords={['leaving.']}
-                            emphasisClass="text-rose-400 font-extrabold"
+                            emphasisClass="text-[var(--semantic-rose)] font-extrabold"
                         >
                             Customers were leaving.
                         </KineticLine>
@@ -168,7 +168,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         exit={textExit}
                         transition={textExitT}
                     >
-                        <KineticLine className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-zinc-300 tracking-tight">
+                        <KineticLine className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-zinc-200 tracking-tight">
                             They wanted the product modernized.
                         </KineticLine>
                     </motion.div>
@@ -187,7 +187,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         <KineticLine
                             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-zinc-400 tracking-tight"
                             emphasisWords={['closing', 'in.']}
-                            emphasisClass="text-amber-400 font-medium"
+                            emphasisClass="text-[var(--semantic-orange)] font-medium"
                         >
                             Competitors were closing in.
                         </KineticLine>
@@ -207,7 +207,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         <KineticLine
                             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white tracking-tight"
                             emphasisWords={["it's", 'time.']}
-                            emphasisClass="bg-gradient-to-r from-cyan-300 to-teal-300 bg-clip-text text-transparent"
+                            emphasisClass="bg-gradient-to-r from-[var(--semantic-cyan)] to-[var(--accent-teal-bright)] bg-clip-text text-transparent"
                         >
                             Leadership said: it&apos;s time.
                         </KineticLine>
@@ -299,11 +299,11 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                         style={{
                                             width: merged ? 20 : 56,
                                             height: merged ? 14 : 36,
-                                            borderColor: `${node.color}cc`,
-                                            background: `${node.color}4d`,
+                                            borderColor: `rgba(${node.rgb}, 0.8)`,
+                                            background: `rgba(${node.rgb}, 0.3)`,
                                             boxShadow: merged
-                                                ? `0 0 40px ${node.color}80`
-                                                : `0 0 20px ${node.color}50`,
+                                                ? `0 0 40px rgba(${node.rgb}, 0.5)`
+                                                : `0 0 20px rgba(${node.rgb}, 0.3)`,
                                         }}
                                         initial={{
                                             left: '50%',
@@ -341,7 +341,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                         exit={{ opacity: 0, scale: 1.3 }}
                                         transition={{ duration: 0.35, type: 'spring', damping: 12 }}
                                     >
-                                        <span className="text-5xl md:text-7xl font-black text-rose-500 drop-shadow-[0_0_30px_rgba(244,63,94,0.5)]">✗</span>
+                                        <span className="text-5xl md:text-7xl font-black text-[var(--semantic-rose)] drop-shadow-[0_0_30px_var(--semantic-rose)]">✗</span>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -357,7 +357,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                         exit={{ opacity: 0 }}
                                         transition={{ duration: 0.5, type: 'spring', damping: 10 }}
                                     >
-                                        <span className="text-5xl md:text-7xl font-black text-emerald-400 drop-shadow-[0_0_40px_rgba(52,211,153,0.6)]">✓</span>
+                                        <span className="text-5xl md:text-7xl font-black text-[var(--semantic-emerald)] drop-shadow-[0_0_40px_var(--semantic-emerald)]">✓</span>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -389,7 +389,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             {Array.from({ length: 35 }).map((_, i) => (
                                 <motion.div
                                     key={i}
-                                    className="absolute rounded-[3px] border border-cyan-400/50 bg-cyan-400/[0.18]"
+                                    className="absolute rounded-[3px] border border-[var(--semantic-cyan)]/50 bg-[var(--semantic-cyan)]/[0.18]"
                                     style={{
                                         width: '12.5%',
                                         height: '17%',
@@ -414,7 +414,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             transition={{ delay: 0.7, duration: 0.5 }}
                         >
                             <div className="text-5xl md:text-7xl font-bold text-white font-mono tracking-tighter">
-                                250<span className="text-cyan-400">+</span>
+                                250<span className="text-[var(--semantic-cyan)]">+</span>
                             </div>
                             <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.3em] mt-2">
                                 screens designed
@@ -464,7 +464,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2, duration: 0.6, ease }}
                         >
-                            <p className="text-sm sm:text-base md:text-lg text-zinc-300 italic leading-relaxed">
+                            <p className="text-sm sm:text-base md:text-lg text-zinc-200 italic leading-relaxed">
                                 &ldquo;She impressed everyone with how quickly she grasped all aspects of a highly intricate system and translated that understanding into a clear, modern, and user-centered design.&rdquo;
                             </p>
                             <footer className="mt-4 font-mono text-[10px] sm:text-xs text-zinc-600 uppercase tracking-[0.2em]">
@@ -514,13 +514,13 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                     >
                                         <Play className="w-6 h-6 text-white fill-white ml-0.5" />
                                     </motion.div>
-                                    <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/60">
+                                    <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400">
                                         Watch the full animated case study deck
                                     </span>
-                                    <p className="text-white/90 text-base md:text-lg font-semibold leading-snug">
+                                    <p className="text-zinc-100 text-base md:text-lg font-semibold leading-snug">
                                         Customer retention success for Enterprise Scheduling
                                     </p>
-                                    <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-amber-400/60">
+                                    <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-[var(--semantic-orange)]/60">
                                         ReportCaster · Cloud Software Group
                                     </span>
                                 </div>
@@ -530,7 +530,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         {/* Replay button */}
                         <motion.button
                             onClick={onReplay}
-                            className="flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/[0.03] text-white/50 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:bg-white/10 hover:text-white/80 hover:border-white/30 transition-all cursor-pointer"
+                            className="flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/[0.03] text-zinc-500 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:bg-white/10 hover:text-zinc-200 hover:border-white/30 transition-all cursor-pointer"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5, duration: 0.5 }}

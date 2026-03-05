@@ -40,7 +40,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-cyan-400/60 uppercase tracking-widest">Domain Mastery</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Zero ML background → MIT certified in AI/ML Product Design. Months embedded weekly with our Principal Data Scientist before touching a single design.
                                 </p>
                             </TextTile>
@@ -51,7 +51,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-red-400/60 uppercase tracking-widest">Zero Adoption</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     A powerful ML engine buried in a data flow canvas. 12+ clicks, cascading context menus, confusing error states. Nobody used it.
                                 </p>
                             </TextTile>
@@ -94,7 +94,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Research Approach</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Weekly sessions with our Principal Data Scientist. Documented every workflow and decision point. Mapped the entire legacy interaction model.
                                 </p>
                             </TextTile>
@@ -105,7 +105,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Key Insight</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Users didn&apos;t know which algorithm to pick. Error messages like &ldquo;Error 500&rdquo; were useless. They abandoned tasks upon first error.
                                 </p>
                             </TextTile>
@@ -119,7 +119,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                         {['Data Scientist → Depth & Control', 'Business Analyst → Simplicity', 'Tech Analyst → Both'].map((p, i) => (
                                             <div key={i} className="flex items-center gap-3">
                                                 <div className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-cyan-400' : i === 1 ? 'bg-amber-400' : 'bg-emerald-400'}`} />
-                                                <span className="text-zinc-300 text-sm font-light">{p}</span>
+                                                <span className="text-zinc-200 text-sm font-light">{p}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -327,11 +327,11 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="flex gap-1">
                                         {['RC', 'ML', 'IQ', 'WD'].map((tag) => (
-                                            <div key={tag} className="px-2 py-1 rounded text-[9px] font-mono text-white/30 border border-white/10">{tag}</div>
+                                            <div key={tag} className="px-2 py-1 rounded text-[9px] font-mono text-zinc-600 border border-white/10">{tag}</div>
                                         ))}
                                     </div>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     After layoffs, I owned four enterprise systems simultaneously. Daily trackers, weekly trackers, ticket trackers — all shared via Slack so leadership always knew my progress.
                                 </p>
                             </TextTile>
@@ -342,7 +342,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Cross-Project</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Patterns from ML directly informed IQ Plugin. Modal architecture from RC became platform-wide reference. Solutions in one project accelerated the others.
                                 </p>
                             </TextTile>
@@ -376,13 +376,13 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="50/50">
                             <TextTile>
                                 <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">5/5</div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     SMEs completed the guided flow without assistance. The right-click entry pattern I designed became how other AI apps surfaced in the same menu.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
                                 <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">12+ → ~6</div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Steps reduced. Zero dead-end errors. The patterns — structured flows, upstream validation, dual-experience — became foundation for IQ Plugin and platform AI strategy.
                                 </p>
                             </TextTile>

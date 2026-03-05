@@ -51,7 +51,7 @@ export default function NotFound() {
           <h2 className="font-sans text-3xl md:text-4xl text-white">
             System coordinates invalid.
           </h2>
-          <p className="text-slate-400 max-w-md mx-auto text-sm md:text-base leading-relaxed">
+          <p className="text-zinc-400 max-w-md mx-auto text-sm md:text-base leading-relaxed">
             The page you requested has been moved, deleted, or never existed in this dimension.
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function NotFound() {
 
         {/* Technical Footer */}
         <div className="absolute bottom-12 left-0 w-full text-center">
-          <p className="font-mono text-[10px] text-slate-600 uppercase tracking-widest">
+          <p className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">
             ERROR_CODE: 404_NOT_FOUND // PATH: {typeof window !== 'undefined' ? window.location.pathname : 'UNKNOWN'}
           </p>
         </div>

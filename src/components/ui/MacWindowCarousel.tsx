@@ -99,7 +99,7 @@ export default function MacWindowCarousel({
     // Determine header colors - Mac windows usually have gray headers
     const headerBg = 'bg-[var(--surface-neutral-900)]' // Dark header like VS Code or Terminal
     const headerBorder = 'border-[var(--border-monitor)]'
-    const headerText = 'text-slate-400'
+    const headerText = 'text-zinc-400'
 
     return (
         <>
@@ -119,7 +119,7 @@ export default function MacWindowCarousel({
                         <span className="opacity-60 hidden sm:inline-block">/view/gallery</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <span className="text-slate-300 font-medium">{title}</span>
+                        <span className="text-zinc-200 font-medium">{title}</span>
                     </div>
                     <div className="flex items-center gap-2 opacity-0 group-hover/carousel:opacity-100 transition-opacity">
                         <button

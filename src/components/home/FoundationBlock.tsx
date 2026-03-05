@@ -24,7 +24,7 @@ export default function FoundationBlock() {
                         <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-yellow)]/60" />
                         <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-green-alt)]/60" />
                     </div>
-                    <span className="ml-2 text-[10px] font-mono text-white/20 tracking-wider uppercase">
+                    <span className="ml-2 text-[10px] font-mono text-zinc-800 tracking-wider uppercase">
                         the foundation · birth — 2012
                     </span>
                 </div>
@@ -32,8 +32,8 @@ export default function FoundationBlock() {
                 {/* Compact terminal content */}
                 <div className="px-4 py-3.5 md:px-5 font-mono text-xs md:text-sm flex flex-wrap items-center gap-2">
                     <span className="text-[var(--accent-teal)]/50 shrink-0">~</span>
-                    <span className="text-white/15 shrink-0">$</span>
-                    <span className="text-white/30 shrink-0 mr-1">ls ./creative-foundations/</span>
+                    <span className="text-zinc-800 shrink-0">$</span>
+                    <span className="text-zinc-600 shrink-0 mr-1">ls ./creative-foundations/</span>
                     {FOUNDATIONS.map((skill, i) => (
                         <motion.span
                             key={skill}
@@ -41,7 +41,7 @@ export default function FoundationBlock() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 + i * 0.08, duration: 0.3 }}
-                            className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-slate-400 text-[11px] tracking-wide hover:bg-[var(--accent-teal)]/10 hover:border-[var(--accent-teal)]/15 hover:text-[var(--accent-teal)] transition-all duration-300 cursor-default"
+                            className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-zinc-400 text-[11px] tracking-wide hover:bg-[var(--accent-teal)]/10 hover:border-[var(--accent-teal)]/15 hover:text-[var(--accent-teal)] transition-all duration-300 cursor-default"
                         >
                             {skill}
                         </motion.span>

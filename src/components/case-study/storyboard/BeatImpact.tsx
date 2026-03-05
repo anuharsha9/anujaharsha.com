@@ -18,10 +18,10 @@ interface MetricItem {
 }
 
 const METRICS: MetricItem[] = [
-    { value: '20M+', numericTarget: 20, suffix: 'M+', label: 'Weekly schedules', icon: Calendar, color: 'var(--semantic-blue-500)' },
-    { value: '100%', numericTarget: 100, suffix: '%', label: 'Legacy parity', icon: CheckCircle2, color: 'var(--semantic-green-500)' },
+    { value: '20M+', numericTarget: 20, suffix: 'M+', label: 'Weekly schedules', icon: Calendar, color: 'var(--semantic-blue)' },
+    { value: '100%', numericTarget: 100, suffix: '%', label: 'Legacy parity', icon: CheckCircle2, color: 'var(--semantic-emerald)' },
     { value: '0', numericTarget: 0, label: 'Regressions', icon: Shield, color: 'var(--accent-amber)' },
-    { value: 'Apr 2024', label: 'Ship date', icon: Rocket, color: 'var(--semantic-pink-500)' },
+    { value: 'Apr 2024', label: 'Ship date', icon: Rocket, color: 'var(--semantic-pink)' },
 ]
 
 /* ── Animated metric counter ── */
@@ -173,7 +173,7 @@ export default function BeatImpact() {
                                 <motion.div
                                     className="text-5xl md:text-7xl font-black tracking-tighter mb-2 relative"
                                     style={{
-                                        background: 'linear-gradient(135deg, var(--white) 0%, var(--semantic-green-500) 50%, var(--accent-teal-bright) 100%)',
+                                        background: 'linear-gradient(135deg, var(--white) 0%, var(--semantic-emerald) 50%, var(--accent-teal-bright) 100%)',
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
                                     }}
@@ -296,7 +296,7 @@ export default function BeatImpact() {
                                     <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400" />
 
                                     <div className="text-4xl text-zinc-800 absolute -top-1 left-4">&ldquo;</div>
-                                    <p className="text-base md:text-lg text-zinc-300 leading-relaxed italic pl-2">
+                                    <p className="text-base md:text-lg text-zinc-200 leading-relaxed italic pl-2">
                                         From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She&apos;s the kind of UX leader any team would be lucky to have.
                                     </p>
                                     <AnimatePresence>
@@ -308,7 +308,7 @@ export default function BeatImpact() {
                                                 className="flex items-center gap-3 mt-5 pl-2"
                                             >
                                                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center">
-                                                    <span className="text-xs font-bold text-white/80">YC</span>
+                                                    <span className="text-xs font-bold text-zinc-200">YC</span>
                                                 </div>
                                                 <div>
                                                     <p className="text-xs text-zinc-400 font-medium">

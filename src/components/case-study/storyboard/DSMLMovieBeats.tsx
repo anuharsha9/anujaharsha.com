@@ -109,7 +109,7 @@ export function DSMLBeatProblem() {
                                             <EyeOff className="h-3.5 w-3.5 text-rose-400/70" />
                                             <span className="font-mono text-sm font-bold" style={{ color: feat.color }}>{feat.name}</span>
                                         </div>
-                                        <p className="text-[11px] text-zinc-300 leading-snug mb-2">{feat.label}</p>
+                                        <p className="text-[11px] text-zinc-200 leading-snug mb-2">{feat.label}</p>
                                         <div className="text-[10px] font-mono text-rose-400/60 truncate">{feat.menu}</div>
                                     </motion.div>
                                 ))}
@@ -169,7 +169,7 @@ export function DSMLBeatSpark() {
         { label: 'Strategic consolidation talks', icon: <Users className="h-4 w-4" />, color: 'var(--accent-teal)' },
         { label: 'PM & I see the opportunity', icon: <Sparkles className="h-4 w-4" />, color: 'var(--accent-violet)' },
         { label: 'Dozens of concept mockups', icon: <Layers3 className="h-4 w-4" />, color: 'var(--accent-amber)' },
-        { label: 'VP approves the vision', icon: <Target className="h-4 w-4" />, color: 'var(--semantic-emerald-500)' },
+        { label: 'VP approves the vision', icon: <Target className="h-4 w-4" />, color: 'var(--semantic-emerald)' },
     ]
 
     return (
@@ -304,7 +304,7 @@ export function DSMLBeatModernize() {
                                 <div className="mx-auto max-w-sm rounded-xl border border-emerald-400/20 bg-emerald-400/[0.04] p-4">
                                     <div className="flex items-center gap-2 border-b border-white/[0.06] pb-2 mb-3">
                                         <Search className="h-3.5 w-3.5 text-emerald-300/60" />
-                                        <span className="font-mono text-[10px] text-zinc-300">Ask anything about your data...</span>
+                                        <span className="font-mono text-[10px] text-zinc-200">Ask anything about your data...</span>
                                     </div>
                                     <div className="space-y-2">
                                         {['What were last month\'s top products?', 'Show revenue by region', 'Compare Q1 vs Q2 sales'].map((q, i) => (
@@ -418,7 +418,7 @@ export function DSMLBeatArchitecture() {
                                                 <motion.line
                                                     key={idx}
                                                     x1={x1} y1={y1} x2={x2} y2={y2}
-                                                    stroke="var(--semantic-rose-500)"
+                                                    stroke="var(--semantic-rose)"
                                                     strokeWidth="0.3"
                                                     strokeDasharray="2,2"
                                                     initial={{ pathLength: 0 }}
@@ -522,10 +522,10 @@ export function DSMLBeatIterations() {
     }, [])
 
     const iterations = [
-        { version: 'V1', verdict: 'TOO DENSE', desc: 'Tabbed dashboard', color: 'var(--semantic-rose-500)' },
+        { version: 'V1', verdict: 'TOO DENSE', desc: 'Tabbed dashboard', color: 'var(--semantic-rose)' },
         { version: 'V2', verdict: 'TOO PASSIVE', desc: 'Educational layout', color: 'var(--accent-amber)' },
         { version: 'V3', verdict: 'COMPETING', desc: 'Sidebar navigation', color: 'var(--accent-amber)' },
-        { version: 'V4', verdict: 'LANDED', desc: 'Icon tiles', color: 'var(--semantic-emerald-500)' },
+        { version: 'V4', verdict: 'LANDED', desc: 'Icon tiles', color: 'var(--semantic-emerald)' },
     ]
 
     return (
@@ -580,7 +580,7 @@ export function DSMLBeatIterations() {
                                         animate={step >= i + 2 ? { opacity: 0.3 } : {}}
                                         className="absolute -right-1.5 md:-right-2.5 top-1/2 -translate-y-1/2"
                                     >
-                                        <ArrowRight className="w-2.5 h-2.5 text-zinc-300" />
+                                        <ArrowRight className="w-2.5 h-2.5 text-zinc-200" />
                                     </motion.div>
                                 )}
                             </motion.div>
@@ -650,7 +650,7 @@ export function DSMLBeatNavFight() {
                                             className="flex items-center gap-2 rounded bg-rose-300/[0.06] px-3 py-2 text-left"
                                         >
                                             <div className="h-1.5 w-1.5 rounded-full bg-rose-300/40" />
-                                            <span className="text-xs text-zinc-300 font-mono">{item}</span>
+                                            <span className="text-xs text-zinc-200 font-mono">{item}</span>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -770,7 +770,7 @@ export function DSMLBeatVeterans() {
                                         transition={{ delay: i * 0.1, duration: 0.4, ease }}
                                         className={`rounded-lg border px-3 py-2 text-center ${p.veteran ? 'border-amber-300/20 bg-amber-300/[0.06]' : 'border-teal-300/20 bg-teal-300/[0.06]'}`}
                                     >
-                                        <div className="text-[10px] text-zinc-300 font-mono">{p.role}</div>
+                                        <div className="text-[10px] text-zinc-200 font-mono">{p.role}</div>
                                         <div className={`text-xs font-bold font-mono ${p.veteran ? 'text-amber-300' : 'text-teal-300'}`}>
                                             {p.veteran ? '20-30+ yrs' : p.note}
                                         </div>
@@ -804,7 +804,7 @@ export function DSMLBeatVeterans() {
                                 initial={{ opacity: 0, filter: 'blur(6px)' }}
                                 animate={{ opacity: 1, filter: 'blur(0px)' }}
                                 transition={{ duration: 0.7, ease }}
-                                className="text-sm text-zinc-300 mt-6 font-mono max-w-sm mx-auto text-center"
+                                className="text-sm text-zinc-200 mt-6 font-mono max-w-sm mx-auto text-center"
                             >
                                 I wasn&apos;t just the designer in the room.<br />
                                 <span className="text-teal-200/90">I was driving the conversation.</span>
@@ -865,7 +865,7 @@ export function DSMLBeatImpact() {
                                 <div className="text-5xl md:text-7xl font-bold text-emerald-300 font-mono">
                                     +<AnimNumber value={25} />%
                                 </div>
-                                <div className="text-sm font-mono text-zinc-300 uppercase tracking-wider mt-2">
+                                <div className="text-sm font-mono text-zinc-200 uppercase tracking-wider mt-2">
                                     NLQ Adoption
                                 </div>
                                 <div className="text-xs text-zinc-400 mt-1">
@@ -911,7 +911,7 @@ export function DSMLBeatImpact() {
                                 initial={{ opacity: 0, filter: 'blur(6px)' }}
                                 animate={{ opacity: 1, filter: 'blur(0px)' }}
                                 transition={{ duration: 0.7, ease }}
-                                className="text-sm text-zinc-300 mt-6 max-w-md leading-relaxed text-center mx-auto"
+                                className="text-sm text-zinc-200 mt-6 max-w-md leading-relaxed text-center mx-auto"
                             >
                                 The features didn&apos;t change. The visibility did. That was enough.
                             </motion.p>

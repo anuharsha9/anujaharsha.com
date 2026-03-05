@@ -64,7 +64,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                     <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-teal)]/[0.06] via-transparent to-transparent pointer-events-none" />
 
                     <div className="relative z-10 mb-6">
-                        <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-white/25 mb-2">Life Context</p>
+                        <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-zinc-800 mb-2">Life Context</p>
                         <div className="w-8 h-px bg-[var(--accent-teal)]/30" />
                     </div>
 
@@ -73,13 +73,13 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                             const IconComp = milestone.icon;
                             return (
                                 <div key={i} className="flex items-start gap-4">
-                                    <div className="shrink-0 w-10 h-10 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-white/50">
+                                    <div className="shrink-0 w-10 h-10 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-zinc-500">
                                         {IconComp && (typeof IconComp === 'string' ? IconComp : <IconComp className="w-5 h-5" />)}
                                     </div>
                                     <div>
                                         <p className="font-mono text-[var(--accent-teal)] text-[10px] tracking-[0.2em] uppercase mb-1">{milestone.year}</p>
                                         <p className="text-white text-sm font-medium leading-tight mb-1">{milestone.title}</p>
-                                        <p className="text-slate-500 text-xs">{milestone.subtitle}</p>
+                                        <p className="text-zinc-500 text-xs">{milestone.subtitle}</p>
                                     </div>
                                 </div>
                             )
@@ -126,7 +126,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 <h2 className="text-3xl xs:text-4xl font-black text-white leading-none tracking-tight">
                     {era.role}
                 </h2>
-                <div className="text-sm font-mono text-white/40 uppercase tracking-wider">
+                <div className="text-sm font-mono text-zinc-600 uppercase tracking-wider">
                     {era.company}
                 </div>
 
@@ -141,11 +141,11 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 )}
 
                 <div className="pt-2 space-y-3">
-                    <p className="text-slate-300 text-base leading-relaxed">
+                    <p className="text-zinc-200 text-base leading-relaxed">
                         {era.description}
                     </p>
                     {era.secondaryDescription && (
-                        <p className="text-slate-400 text-sm leading-relaxed">
+                        <p className="text-zinc-400 text-sm leading-relaxed">
                             {era.secondaryDescription}
                         </p>
                     )}
@@ -155,12 +155,12 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 {(era.platformUrl || (era.articles && era.articles.length > 0)) && (
                     <div className="flex flex-wrap gap-4 pt-2">
                         {era.platformUrl && (
-                            <a href={era.platformUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors">
+                            <a href={era.platformUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 hover:text-[var(--accent-teal)] transition-colors">
                                 See Platform ↗
                             </a>
                         )}
                         {era.articles?.map(article => (
-                            <a key={article.id} href={article.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors">
+                            <a key={article.id} href={article.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 hover:text-[var(--accent-teal)] transition-colors">
                                 {article.title} ↗
                             </a>
                         ))}
@@ -190,14 +190,14 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
             {/* Inline Testimonials */}
             {hasTestimonials && (
                 <div className="space-y-6 pt-4 border-t border-white/5">
-                    <span className="text-xs font-mono text-white/30 uppercase tracking-widest block mb-4">SOCIAL PROOF :</span>
+                    <span className="text-xs font-mono text-zinc-600 uppercase tracking-widest block mb-4">SOCIAL PROOF :</span>
                     {era.testimonials.map(testimonial => (
                         <div key={testimonial.id} className="bg-white/[0.03] p-5 rounded-xl border border-white/5 relative">
-                            {/*<Quote className="absolute top-4 right-4 w-6 h-6 text-white/5" />*/}
-                            <p className="text-slate-300 text-sm leading-relaxed mb-4">&quot;{testimonial.quote}&quot;</p>
+                            {/*<Quote className="absolute top-4 right-4 w-6 h-6 text-zinc-800" />*/}
+                            <p className="text-zinc-200 text-sm leading-relaxed mb-4">&quot;{testimonial.quote}&quot;</p>
                             <div>
                                 <div className="text-white text-sm font-bold">{testimonial.name}</div>
-                                <div className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">{testimonial.role}</div>
+                                <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">{testimonial.role}</div>
                             </div>
                         </div>
                     ))}

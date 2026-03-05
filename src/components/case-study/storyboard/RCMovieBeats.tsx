@@ -271,7 +271,7 @@ export function MovieBeatDiscovery() {
                         initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                         transition={{ duration: 0.6, ease }}
-                        className="mt-6 max-w-md text-center text-sm text-zinc-300 leading-relaxed px-4"
+                        className="mt-6 max-w-md text-center text-sm text-zinc-200 leading-relaxed px-4"
                     >
                         4 months of research that nobody expected — and nobody had ever done.
                     </motion.p>
@@ -286,10 +286,10 @@ export function MovieBeatDiscovery() {
    BEAT 3: "THE CHAOS" — Fragmentation
    ═════════════════════════════════════════════════ */
 const SYSTEMS = [
-    { name: 'Schedule', color: 'var(--semantic-rose-500)' },
+    { name: 'Schedule', color: 'var(--semantic-rose)' },
     { name: 'Distribution', color: 'var(--accent-violet)' },
-    { name: 'Log Viewer', color: 'var(--semantic-blue-500)' },
-    { name: 'My Reports', color: 'var(--semantic-emerald-500)' },
+    { name: 'Log Viewer', color: 'var(--semantic-blue)' },
+    { name: 'My Reports', color: 'var(--semantic-emerald)' },
     { name: 'Library', color: 'var(--accent-amber)' },
 ]
 
@@ -362,7 +362,7 @@ export function MovieBeatChaos() {
                                             y1={50 + Math.sin(a1) * 38}
                                             x2={50 + Math.cos(a2) * 38}
                                             y2={50 + Math.sin(a2) * 38}
-                                            stroke="var(--semantic-rose-500)"
+                                            stroke="var(--semantic-rose)"
                                             strokeWidth="0.3"
                                             strokeDasharray="2,2"
                                             initial={{ pathLength: 0 }}
@@ -425,9 +425,9 @@ export function MovieBeatPivots() {
     }, [])
 
     const pivots = [
-        { version: 'V1', verdict: 'REJECTED', reason: 'Siloed Product', color: 'var(--semantic-rose-500)' },
+        { version: 'V1', verdict: 'REJECTED', reason: 'Siloed Product', color: 'var(--semantic-rose)' },
         { version: 'V2', verdict: 'REJECTED', reason: 'Plugin Approach', color: 'var(--accent-amber)' },
-        { version: 'V3', verdict: 'WINNER', reason: 'Unified Hub', color: 'var(--semantic-emerald-500)' },
+        { version: 'V3', verdict: 'WINNER', reason: 'Unified Hub', color: 'var(--semantic-emerald)' },
     ]
 
     return (
@@ -436,7 +436,7 @@ export function MovieBeatPivots() {
                 initial={{ opacity: 0 }}
                 animate={step >= 0 ? { opacity: 1 } : {}}
                 transition={{ duration: 0.5 }}
-                className="font-mono text-xs tracking-[0.3em] text-zinc-300 uppercase mb-8"
+                className="font-mono text-xs tracking-[0.3em] text-zinc-200 uppercase mb-8"
             >
                 Three Pivots to Clarity
             </motion.p>
@@ -511,7 +511,7 @@ export function MovieBeatBreakthrough() {
                 initial={{ opacity: 0 }}
                 animate={step >= 0 ? { opacity: 1 } : {}}
                 transition={{ duration: 0.45 }}
-                className="mb-8 font-mono text-xs tracking-[0.3em] text-zinc-300 uppercase"
+                className="mb-8 font-mono text-xs tracking-[0.3em] text-zinc-200 uppercase"
             >
                 The Solution
             </motion.p>
@@ -808,7 +808,7 @@ export function MovieBeatShipped() {
                         <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
                             SHIPPED.
                         </h2>
-                        <p className="font-mono text-xs text-zinc-300 tracking-[0.2em] uppercase mt-3">
+                        <p className="font-mono text-xs text-zinc-200 tracking-[0.2em] uppercase mt-3">
                             Customers retained · Mission-critical · Zero regressions
                         </p>
                     </motion.div>

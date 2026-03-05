@@ -1255,7 +1255,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                           transition={{ delay: 0.2 }}
                           className="mb-5 text-center"
                         >
-                          <h3 className="text-xl md:text-2xl font-light text-white/95 leading-snug tracking-tight">
+                          <h3 className="text-xl md:text-2xl font-light text-zinc-100 leading-snug tracking-tight">
                             {currentQuestion.question}
                           </h3>
                         </motion.div>
@@ -1280,7 +1280,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                            flex items-center gap-3 group h-full hover:shadow-[0_0_20px_rgba(11,162,181,0.08)] ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
                                   >
                                     <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
-                                    <span className="text-sm text-white/85 font-light">{option.label}</span>
+                                    <span className="text-sm text-zinc-100 font-light">{option.label}</span>
                                     <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-300 text-[var(--accent-teal)]" />
                                   </button>
                                 ))}
@@ -1299,7 +1299,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                   </div>
                                   <div>
                                     <h4 className="text-emerald-400 font-medium mb-0.5 text-sm">{selectedOption?.reveal.title}</h4>
-                                    <p className="text-white/80 text-xs leading-relaxed">
+                                    <p className="text-zinc-200 text-xs leading-relaxed">
                                       {selectedOption?.reveal.content}
                                     </p>
                                   </div>
@@ -1354,14 +1354,14 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                             transition-all duration-500
                             ${brainHovered
                               ? 'bg-white/[0.12] backdrop-blur-md border border-white/[0.25] text-white shadow-[0_0_50px_var(--overlay-teal-core-30)] scale-100 translate-y-0'
-                              : 'bg-transparent border border-white/0 text-white/50 scale-95 hover:text-white/80'}`}
+                              : 'bg-transparent border border-white/0 text-zinc-500 scale-95 hover:text-zinc-200'}`}
                         >
                           <Brain className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-500 ${brainHovered ? 'opacity-100 scale-110' : 'opacity-50'}`} />
                           <span>Explore My Mind</span>
                           <Sparkles className={`w-3.5 h-3.5 transition-all duration-500 -ml-1 ${brainHovered ? 'opacity-60' : 'opacity-0 -translate-x-2'}`} />
                         </button>
                         {quizState === 'complete' && (
-                          <p className={`mt-5 text-slate-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] transition-all duration-500 ${brainHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
+                          <p className={`mt-5 text-zinc-500 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] transition-all duration-500 ${brainHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
                             <span className="hidden lg:inline">Hover on the gears to discover more</span>
                             <span className="lg:hidden">Tap on the gears to discover more</span>
                           </p>
@@ -1387,10 +1387,10 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       <p className="font-mono text-[10px] uppercase tracking-[0.36em] text-cyan-300/80 sm:text-xs">
                         Hover To Reveal
                       </p>
-                      <p className="mt-2 text-sm text-white/80 sm:text-base">
+                      <p className="mt-2 text-sm text-zinc-200 sm:text-base">
                         What&apos;s going on in my brain.
                       </p>
-                      <p className="mt-1 text-[11px] text-white/45 sm:hidden">
+                      <p className="mt-1 text-[11px] text-zinc-500 sm:hidden">
                         Tap the gears on mobile
                       </p>
                     </div>
@@ -1447,7 +1447,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                         e.preventDefault()
                         setActiveGear(null)
                       }}
-                      className="absolute top-2 right-2 p-1 text-slate-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
+                      className="absolute top-2 right-2 p-1 text-zinc-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
                     >
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18" />
@@ -1460,7 +1460,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       <div className="flex flex-col h-full justify-between gap-4">
                         {/* Insight Content */}
                         <div className="space-y-2 select-text cursor-auto">
-                          <p className="text-white/90 text-[14px] leading-relaxed font-medium">
+                          <p className="text-zinc-100 text-[14px] leading-relaxed font-medium">
                             {activeGear.thought}
                           </p>
                         </div>
@@ -1481,12 +1481,12 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
       {/* Scroll indicator */}
       {!forceQuiz && !showImmersiveBrain && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2">
-          <span className="text-white/30 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
+          <span className="text-zinc-600 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           >
-            <svg className="w-5 h-5 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-zinc-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
             </svg>
           </motion.div>

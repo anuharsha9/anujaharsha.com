@@ -16,9 +16,9 @@ interface Fact {
 }
 
 const FACTS: Fact[] = [
-    { label: 'Days at the company', value: '7', ring: 0.019, color: 'var(--semantic-blue-400)' },
+    { label: 'Days at the company', value: '7', ring: 0.019, color: 'var(--semantic-blue)' },
     { label: 'BI tools used before', value: '0', ring: 0, color: 'var(--tone-pink-400)' },
-    { label: 'Data analytics experience', value: 'Zero', ring: 0, color: 'var(--semantic-violet-400)' },
+    { label: 'Data analytics experience', value: 'Zero', ring: 0, color: 'var(--semantic-purple)' },
     { label: 'Knowledge of ReportCaster', value: 'Zero', ring: 0, color: 'var(--tone-amber-400)' },
 ]
 

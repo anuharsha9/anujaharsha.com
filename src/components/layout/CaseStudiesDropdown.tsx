@@ -180,7 +180,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
           >
             {/* Header */}
             <div className="px-4 py-2.5 border-b border-white/[0.06]">
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600">
                 Case Studies
               </span>
             </div>
@@ -191,7 +191,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
               <Link
                 href="/#work-overview"
                 onClick={handleClick}
-                className="block px-4 py-2.5 text-white/50 text-sm hover:bg-white/[0.04] hover:text-white/80 transition-colors border-b border-white/[0.06]"
+                className="block px-4 py-2.5 text-zinc-500 text-sm hover:bg-white/[0.04] hover:text-zinc-200 transition-colors border-b border-white/[0.06]"
                 role="menuitem"
               >
                 <span className="font-medium">View All Work</span>
@@ -223,7 +223,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-white/70 group-hover/item:text-white transition-colors">
+                        <span className="text-sm font-medium text-zinc-400 group-hover/item:text-white transition-colors">
                           {item.label}
                         </span>
                         <span
@@ -233,13 +233,13 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                           {item.id}
                         </span>
                       </div>
-                      <p className="text-[11px] text-white/30 leading-snug mt-0.5">
+                      <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
                         {item.tag.replace(/_/g, ' ')}
                       </p>
                     </div>
 
                     {/* Arrow */}
-                    <svg className="w-3.5 h-3.5 text-white/20 group-hover/item:text-white/50 transition-all duration-200 group-hover/item:translate-x-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="w-3.5 h-3.5 text-zinc-800 group-hover/item:text-zinc-500 transition-all duration-200 group-hover/item:translate-x-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 18 15 12 9 6" />
                     </svg>
                   </Link>
@@ -252,7 +252,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
               <Link
                 href="/#lets-talk"
                 onClick={handleClick}
-                className="font-mono text-[10px] text-white/30 hover:text-white/60 uppercase tracking-wider transition-colors"
+                className="font-mono text-[10px] text-zinc-600 hover:text-zinc-400 uppercase tracking-wider transition-colors"
                 role="menuitem"
               >
                 → LET&apos;S TALK

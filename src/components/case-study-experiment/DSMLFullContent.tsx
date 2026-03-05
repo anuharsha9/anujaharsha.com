@@ -38,7 +38,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-purple-400/60 uppercase tracking-widest">Invisible Features</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     The problem wasn&apos;t quality — it was visibility. Three separate entry points, three different mental models, zero cross-pollination between features.
                                 </p>
                             </TextTile>
@@ -49,7 +49,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Not Assigned — Invented</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     My PM and I seized the opportunity during product consolidation. Dozens of concept mockups. Weekly FigJam sessions across timezones. VP approved.
                                 </p>
                             </TextTile>
@@ -286,13 +286,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="flex gap-1">
                                         {['20yr', '25yr', '30yr', '35yr'].map((yr) => (
-                                            <div key={yr} className="px-2 py-1 rounded text-[9px] font-mono text-white/30 border border-white/10">{yr}</div>
+                                            <div key={yr} className="px-2 py-1 rounded text-[9px] font-mono text-zinc-600 border border-white/10">{yr}</div>
                                         ))}
                                     </div>
                                     <span className="text-[10px] text-zinc-600">vs</span>
                                     <div className="px-2 py-1 rounded text-[9px] font-mono text-[var(--cs-accent)] border border-[var(--cs-accent)]/30">2yr</div>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Every team meeting was a room full of veterans. The only other new person was my PM. We onboarded together and pushed the vision together.
                                 </p>
                             </TextTile>
@@ -303,7 +303,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Earned Trust</span>
                                 </div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Industry examples. Interaction logic. Visual prototypes. My Director of Design trusted me to make my own case. I drove the conversation.
                                 </p>
                             </TextTile>
@@ -341,13 +341,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="50/50">
                             <TextTile>
                                 <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">+25%</div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     NLQ adoption from discoverability alone. No feature changes. The highest-leverage design work: making existing features findable.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
                                 <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">3 → 1</div>
-                                <p className="text-zinc-300 font-light leading-relaxed">
+                                <p className="text-zinc-200 font-light leading-relaxed">
                                     Scattered tools unified into one Hub. The patterns became the platform&apos;s AI strategy foundation. NLQ + Insights live. Hub implemented — final QA pending at departure.
                                 </p>
                             </TextTile>

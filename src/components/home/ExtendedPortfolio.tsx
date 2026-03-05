@@ -119,7 +119,7 @@ const SLIDES: SlideItem[][] = [
 function QuoteCard({ item }: { item: QuoteItem }) {
     return (
         <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[var(--accent-teal)]/[0.08] bg-[var(--accent-teal)]/[0.03] flex flex-col justify-center p-6 md:p-8">
-            <p className="text-white/75 text-sm md:text-[15px] leading-relaxed mb-5 italic">
+            <p className="text-zinc-200 text-sm md:text-[15px] leading-relaxed mb-5 italic">
                 &ldquo;{item.quote}&rdquo;
             </p>
             <div className="flex items-center gap-3">
@@ -127,8 +127,8 @@ function QuoteCard({ item }: { item: QuoteItem }) {
                     {item.initial}
                 </div>
                 <div>
-                    <p className="text-white/85 text-sm font-semibold">{item.name}</p>
-                    <p className="text-white/40 text-[11px] font-mono">{item.role}</p>
+                    <p className="text-zinc-100 text-sm font-semibold">{item.name}</p>
+                    <p className="text-zinc-600 text-[11px] font-mono">{item.role}</p>
                 </div>
             </div>
         </div>
@@ -155,14 +155,14 @@ function ProjectCard({ item }: { item: ProjectItem }) {
                         {item.tags.map(tag => (
                             <span
                                 key={tag}
-                                className="text-[10px] font-mono uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/[0.06] text-white/50"
+                                className="text-[10px] font-mono uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/[0.06] text-zinc-500"
                             >
                                 {tag}
                             </span>
                         ))}
                     </div>
                     <h3 className="text-white text-lg md:text-xl font-bold mb-1">{item.title}</h3>
-                    <p className="text-white/50 text-sm">{item.subtitle}</p>
+                    <p className="text-zinc-500 text-sm">{item.subtitle}</p>
                 </div>
             </div>
         </Link>
@@ -223,7 +223,7 @@ export default function ExtendedPortfolio() {
                 className="mb-12 md:mb-16 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto"
                 style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
             >
-                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
+                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     2012 — 2022
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">

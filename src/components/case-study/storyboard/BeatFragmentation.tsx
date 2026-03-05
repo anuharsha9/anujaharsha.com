@@ -252,7 +252,7 @@ export default function BeatFragmentation() {
                                                         color: isChaos ? 'var(--overlay-rose-70)' : 'var(--overlay-zinc-400)',
                                                         transition: 'color 0.6s',
                                                     }} />
-                                                    <span className="text-xs text-zinc-300 font-medium">{sys.label}</span>
+                                                    <span className="text-xs text-zinc-200 font-medium">{sys.label}</span>
                                                 </motion.div>
                                             )
                                         })}

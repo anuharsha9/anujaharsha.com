@@ -152,12 +152,12 @@ export default function SystemLightbox({
                     >
                         {/* Left: Title + Index */}
                         <div className="flex items-center gap-4 font-mono text-sm md:text-base tracking-widest uppercase">
-                            <span className="text-slate-500">{"//"} {title}</span>
-                            <span className="text-slate-600">{indexString}</span>
+                            <span className="text-zinc-500">{"//"} {title}</span>
+                            <span className="text-zinc-600">{indexString}</span>
                         </div>
 
                         {/* Right: Controls */}
-                        <div className="flex items-center gap-5 md:gap-8 text-slate-500 pointer-events-auto">
+                        <div className="flex items-center gap-5 md:gap-8 text-zinc-500 pointer-events-auto">
                             {headerActions}
                             {onPlay && (
                                 <button onClick={onPlay} className="hover:text-white transition-colors p-2" aria-label={isPlaying ? "Pause" : "Play"}>
@@ -195,13 +195,13 @@ export default function SystemLightbox({
                             <>
                                 <button
                                     onClick={onPrev}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
                                 >
                                     <ArrowLeft size={32} />
                                 </button>
                                 <button
                                     onClick={onNext}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
                                 >
                                     <ArrowRight size={32} />
                                 </button>
@@ -219,10 +219,10 @@ export default function SystemLightbox({
                     >
                         {shortcuts.map((shortcut, i) => (
                             <div key={i} className="flex items-center gap-3">
-                                <kbd className="hidden md:inline-flex h-8 px-2.5 items-center justify-center bg-[var(--surface-slate-800)] border border-slate-700/50 rounded-md text-sm font-mono text-slate-400 min-w-[32px]">
+                                <kbd className="hidden md:inline-flex h-8 px-2.5 items-center justify-center bg-[var(--surface-slate-800)] border border-slate-700/50 rounded-md text-sm font-mono text-zinc-400 min-w-[32px]">
                                     {shortcut.key}
                                 </kbd>
-                                <span className="font-mono text-xs tracking-[0.2em] text-slate-500 uppercase">
+                                <span className="font-mono text-xs tracking-[0.2em] text-zinc-500 uppercase">
                                     {shortcut.label}
                                 </span>
                             </div>

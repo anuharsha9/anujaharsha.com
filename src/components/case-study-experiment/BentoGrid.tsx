@@ -129,7 +129,7 @@ export function ImageTile({
             {caption && (
                 <div className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-full p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                        <p className="text-[12px] text-white/90 font-light leading-snug">{caption}</p>
+                        <p className="text-[12px] text-zinc-100 font-light leading-snug">{caption}</p>
                     </div>
                 </div>
             )}
@@ -337,7 +337,7 @@ export function CarouselTile({
                 {images[current].caption && (
                     <div className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="w-full p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                            <p className="text-[12px] text-white/90 font-light">{images[current].caption}</p>
+                            <p className="text-[12px] text-zinc-100 font-light">{images[current].caption}</p>
                         </div>
                     </div>
                 )}
@@ -349,14 +349,14 @@ export function CarouselTile({
                     {/* Arrows */}
                     <button
                         onClick={(e) => { e.stopPropagation(); setCurrent((current - 1 + images.length) % images.length); }}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-zinc-400 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
                         aria-label="Previous"
                     >
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); setCurrent((current + 1) % images.length); }}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-zinc-400 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
                         aria-label="Next"
                     >
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>

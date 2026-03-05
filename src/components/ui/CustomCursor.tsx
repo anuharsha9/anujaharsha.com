@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export default function CustomCursor() {
@@ -8,6 +8,7 @@ export default function CustomCursor() {
   const [isHidden, setIsHidden] = useState(true)
   const [isClicking, setIsClicking] = useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Use motion values for better performance
   const mouseX = useMotionValue(0)
@@ -17,6 +18,32 @@ export default function CustomCursor() {
   const springConfig = { damping: 25, stiffness: 200, mass: 0.5 }
   const ringX = useSpring(mouseX, springConfig)
   const ringY = useSpring(mouseY, springConfig)
+
+  // Detect if element or any ancestor is interactive
+  const isClickable = useCallback((el: Element | null): boolean => {
+    if (!el) return false
+    const tag = el.tagName
+    if (tag === 'A' || tag === 'BUTTON' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return true
+    const role = el.getAttribute('role')
+    if (role === 'button' || role === 'link' || role === 'tab' || role === 'menuitem') return true
+    if ((el as HTMLElement).dataset?.cursor === 'pointer') return true
+    try {
+      if (window.getComputedStyle(el).cursor === 'pointer') return true
+    } catch { /* ignore */ }
+    let parent = el.parentElement
+    let depth = 0
+    while (parent && depth < 5) {
+      const parentTag = parent.tagName
+      if (parentTag === 'A' || parentTag === 'BUTTON') return true
+      if (parent.getAttribute('role') === 'button' || parent.getAttribute('role') === 'link') return true
+      try {
+        if (window.getComputedStyle(parent).cursor === 'pointer') return true
+      } catch { /* ignore */ }
+      parent = parent.parentElement
+      depth++
+    }
+    return false
+  }, [])
 
   useEffect(() => {
     // Only enable on desktop with fine pointer (mouse)
@@ -30,6 +57,10 @@ export default function CustomCursor() {
 
     setIsEnabled(true)
 
+    // Hide native cursor
+    document.documentElement.classList.add('has-custom-cursor')
+    document.documentElement.style.cursor = 'none'
+
     // Update cursor position
     const updatePosition = (e: MouseEvent) => {
       mouseX.set(e.clientX)
@@ -38,15 +69,7 @@ export default function CustomCursor() {
 
       // Check what element is under cursor
       const hoveredElement = document.elementFromPoint(e.clientX, e.clientY)
-      if (hoveredElement) {
-        const isClickable =
-          hoveredElement.tagName === 'A' ||
-          hoveredElement.tagName === 'BUTTON' ||
-          hoveredElement.closest('a') ||
-          hoveredElement.closest('button') ||
-          (hoveredElement as HTMLElement).style.cursor === 'pointer'
-        setIsPointer(!!isClickable)
-      }
+      setIsPointer(isClickable(hoveredElement))
     }
 
     const handleMouseDown = () => setIsClicking(true)
@@ -66,21 +89,18 @@ export default function CustomCursor() {
       window.removeEventListener('mouseup', handleMouseUp)
       document.body.removeEventListener('mouseleave', handleMouseLeave)
       document.body.removeEventListener('mouseenter', handleMouseEnter)
+      document.documentElement.classList.remove('has-custom-cursor')
+      document.documentElement.style.cursor = ''
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
     }
-  }, [mouseX, mouseY])
+  }, [mouseX, mouseY, isClickable])
 
   // Don't render anything until we know if cursor should be enabled
-  if (!isEnabled) {
-    return null
-  }
-
-  // Gear Path Data (simplified 8-tooth gear)
-  // M 12,0 L 14,4 L 18,4 L 19,8 L 23,9 L 21,13 L 23,17 L 19,18 L 18,22 L 14,22 L 12,26 L 10,22 L 6,22 L 5,18 L 1,17 L 3,13 L 1,9 L 5,8 L 6,4 L 10,4 Z
-  // Center hole: M 12,10 A 3,3 0 1,0 12,16 A 3,3 0 1,0 12,10 Z
+  if (!isEnabled) return null
 
   return (
     <>
-      {/* Main Cursor (Exact Position) - Small Dot */}
+      {/* Main Cursor (Exact Position) - Small Teal Dot */}
       <motion.div
         className="fixed top-0 left-0 z-[99999] pointer-events-none"
         style={{
@@ -90,6 +110,7 @@ export default function CustomCursor() {
           translateY: '-50%',
           opacity: isHidden ? 0 : 1,
         }}
+        aria-hidden="true"
       >
         <div
           className={`w-2 h-2 bg-[var(--accent-teal)] rounded-full transition-transform duration-300 ${isClicking ? 'scale-75' : isPointer ? 'scale-150' : 'scale-100'
@@ -107,16 +128,20 @@ export default function CustomCursor() {
           translateY: '-50%',
           opacity: isHidden ? 0 : 0.6,
         }}
+        aria-hidden="true"
       >
         <motion.div
           className="relative flex items-center justify-center"
           animate={{
-            rotate: isPointer ? 90 : 0,
             scale: isClicking ? 0.8 : isPointer ? 1.2 : 1,
           }}
           transition={{
-            rotate: { duration: 0.8, ease: "backOut" },
             scale: { duration: 0.2 }
+          }}
+          style={{
+            animation: isPointer
+              ? 'cursor-gear-spin 2s linear infinite'
+              : 'cursor-gear-spin 8s linear infinite',
           }}
         >
           {/* Gear SVG */}
@@ -127,7 +152,7 @@ export default function CustomCursor() {
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
-            className={`transition-colors duration-300 ${isPointer ? 'text-[var(--accent-teal)]' : 'text-slate-400'
+            className={`transition-colors duration-300 ${isPointer ? 'text-[var(--accent-teal)]' : 'text-zinc-400'
               }`}
           >
             <path

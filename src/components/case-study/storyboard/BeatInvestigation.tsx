@@ -22,28 +22,28 @@ const EVENTS: TimelineEvent[] = [
         icon: Camera,
         label: 'Sandbox Deep Dive',
         detail: 'I took hundreds of screenshots. Grouped them. Mapped them.',
-        color: 'var(--semantic-orange-500)',
+        color: 'var(--semantic-orange)',
     },
     {
         month: 'Month 1–2',
         icon: Headphones,
         label: 'Embedded in Support',
         detail: "I joined Chris's CS team meetings every week for a month.",
-        color: 'var(--semantic-blue-500)',
+        color: 'var(--semantic-blue)',
     },
     {
         month: 'Month 2',
         icon: Network,
         label: 'Mind Maps',
         detail: 'I documented what nobody had. Built the understanding from scratch.',
-        color: 'var(--semantic-purple-500)',
+        color: 'var(--semantic-purple)',
     },
     {
         month: 'Month 2–3',
         icon: User,
         label: '1:1 Interviews',
         detail: "Customer reps. Support leads. The ONE engineer from the '80s.",
-        color: 'var(--semantic-pink-500)',
+        color: 'var(--semantic-pink)',
     },
     {
         month: 'Month 3',
@@ -57,7 +57,7 @@ const EVENTS: TimelineEvent[] = [
         icon: CheckCircle2,
         label: 'Validation',
         detail: 'I validated with support and customer reps. Over and over.',
-        color: 'var(--semantic-green-500)',
+        color: 'var(--semantic-emerald)',
     },
 ]
 
@@ -66,7 +66,7 @@ function ProgressFill({ progress }: { progress: number }) {
     return (
         <motion.div
             className="absolute left-0 top-0 w-full origin-top rounded-full"
-            style={{ background: 'linear-gradient(to bottom, var(--accent-teal-bright), var(--semantic-green-500))' }}
+            style={{ background: 'linear-gradient(to bottom, var(--accent-teal-bright), var(--semantic-emerald))' }}
             initial={{ height: '0%' }}
             animate={{ height: `${progress}%` }}
             transition={{ duration: 0.6, ease }}
@@ -152,7 +152,7 @@ export default function BeatInvestigation() {
                                 <div className="w-16 h-1 bg-white/[0.04] rounded-full overflow-hidden">
                                     <motion.div
                                         className="h-full rounded-full"
-                                        style={{ background: 'linear-gradient(to right, var(--accent-teal-bright), var(--semantic-green-500))' }}
+                                        style={{ background: 'linear-gradient(to right, var(--accent-teal-bright), var(--semantic-emerald))' }}
                                         initial={{ width: '0%' }}
                                         animate={{ width: `${progressPct}%` }}
                                         transition={{ duration: 0.4, ease }}
@@ -203,7 +203,7 @@ export default function BeatInvestigation() {
                                                     strokeWidth={1.5}
                                                 />
                                             </div>
-                                            <span className="text-xs font-medium text-zinc-300">
+                                            <span className="text-xs font-medium text-zinc-200">
                                                 {event.label}
                                             </span>
                                         </div>

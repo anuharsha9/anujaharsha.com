@@ -44,6 +44,28 @@
   color: white;
 }
 
+/* ============================================
+   CUSTOM CURSOR — Hide native cursor
+   Activated by CustomCursor.tsx adding
+   .has-custom-cursor to <html>
+   ============================================ */
+html.has-custom-cursor,
+html.has-custom-cursor *,
+html.has-custom-cursor *::before,
+html.has-custom-cursor *::after {
+  cursor: none !important;
+}
+
+@keyframes cursor-gear-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Webkit Scrollbar Customization */
 ::-webkit-scrollbar {
   width: 12px;

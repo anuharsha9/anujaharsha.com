@@ -94,7 +94,7 @@ const LIGHT_THEME: Theme = {
   bgAccent: 'bg-[var(--accent-teal-soft)]',
 
   border: 'border-[var(--border-primary)]',
-  borderSecondary: 'border-[var(--border-secondary)]',
+  borderSecondary: 'border-[var(--border-subtle)]',
   borderSubtle: 'border-[var(--border-subtle)]',
   borderAccent: 'border-[var(--accent-teal)]/30',
 
@@ -119,7 +119,7 @@ const DARK_THEME: Theme = {
   bgAccent: 'bg-[var(--accent-teal)]/10',
 
   border: 'border-[var(--border-primary)]',
-  borderSecondary: 'border-[var(--border-secondary)]',
+  borderSecondary: 'border-[var(--border-subtle)]',
   borderSubtle: 'border-[var(--border-subtle)]',
   borderAccent: 'border-[var(--accent-teal)]/50',
 

@@ -96,7 +96,7 @@ export default function LightboxImage({
         <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors duration-300 flex items-center justify-center">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg">
-              <span className="font-mono text-[10px] text-slate-600 uppercase tracking-widest">
+              <span className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">
                 Click to expand
               </span>
             </div>

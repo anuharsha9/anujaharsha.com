@@ -8,7 +8,7 @@ import PortfolioLightbox from './PortfolioLightbox'
 /* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
 function WordULogoCover() {
     const letters = ['W', 'O', 'R', 'D', 'U']
-    const accentColor = 'var(--semantic-orange-vivid)'
+    const accentColor = 'var(--semantic-orange)'
     return (
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
             {/* Subtle warm radial bg */}
@@ -201,7 +201,7 @@ function GraduationCapCover() {
                 {/* Cap top (diamond) */}
                 <motion.polygon
                     points="60,15 110,40 60,55 10,40"
-                    stroke="var(--semantic-purple-vivid)"
+                    stroke="var(--semantic-purple)"
                     strokeWidth="1.2"
                     strokeLinejoin="round"
                     initial={{ pathLength: 0, opacity: 0 }}
@@ -211,7 +211,7 @@ function GraduationCapCover() {
                 {/* Cap brim fill glow */}
                 <motion.polygon
                     points="60,15 110,40 60,55 10,40"
-                    fill="var(--semantic-purple-vivid)"
+                    fill="var(--semantic-purple)"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 0.08, 0.04] }}
                     transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
@@ -220,7 +220,7 @@ function GraduationCapCover() {
                 {/* Body of cap (left side) */}
                 <motion.path
                     d="M 25,42 L 25,65 Q 25,78 60,80 Q 95,78 95,65 L 95,42"
-                    stroke="var(--semantic-purple-vivid)"
+                    stroke="var(--semantic-purple)"
                     strokeWidth="0.8"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.35 }}
@@ -230,7 +230,7 @@ function GraduationCapCover() {
                 {/* Tassel string */}
                 <motion.path
                     d="M 60,40 L 60,50 Q 65,58 80,60"
-                    stroke="var(--semantic-purple-vivid)"
+                    stroke="var(--semantic-purple)"
                     strokeWidth="0.8"
                     strokeLinecap="round"
                     initial={{ pathLength: 0 }}
@@ -241,7 +241,7 @@ function GraduationCapCover() {
                 {/* Tassel bob */}
                 <motion.circle
                     cx="80" cy="60" r="3"
-                    fill="var(--semantic-purple-vivid)"
+                    fill="var(--semantic-purple)"
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 0.5, scale: 1 }}
                     transition={{ delay: 2, type: 'spring', stiffness: 200 }}
@@ -249,7 +249,7 @@ function GraduationCapCover() {
                 {/* Gentle sway of tassel */}
                 <motion.circle
                     cx="80" cy="60" r="3"
-                    fill="var(--semantic-purple-vivid)"
+                    fill="var(--semantic-purple)"
                     animate={{ cx: [80, 85, 78, 80] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
                     opacity={0.4}
@@ -260,7 +260,7 @@ function GraduationCapCover() {
                     <motion.circle
                         key={i}
                         cx={cx} cy={cy} r="1"
-                        fill="var(--semantic-purple-vivid)"
+                        fill="var(--semantic-purple)"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1.5, 0.5] }}
                         transition={{ duration: 3, repeat: Infinity, delay: i * 0.7 }}
@@ -289,8 +289,8 @@ const VIBE_TILES = [
         subtitle: 'A word game created with agentic AI',
         icon: Gamepad2,
         cover: 'wordu' as const,
-        accent: 'var(--semantic-orange-vivid)',
-        accentRgbVar: '--semantic-orange-vivid-rgb',
+        accent: 'var(--semantic-orange)',
+        accentRgbVar: '--semantic-orange-rgb',
         dotHue: 30,
         action: 'wordu' as const,
     },
@@ -301,8 +301,8 @@ const VIBE_TILES = [
     //     subtitle: 'AI-powered college app tracker · Next.js + Gemini',
     //     icon: GraduationCap,
     //     cover: 'graduation' as const,
-    //     accent: 'var(--semantic-purple-vivid)',
-    //     accentRgbVar: '--semantic-purple-vivid-rgb',
+    //     accent: 'var(--semantic-purple)',
+    //     accentRgbVar: '--semantic-purple-rgb',
     //     dotHue: 270,
     //     action: 'college-os' as const,
     // },
@@ -357,12 +357,12 @@ export default function VibeCodingBlock() {
                     className="mb-12 md:mb-16"
                     style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
                 >
-                    <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
+                    <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                         Nov 2025 — Present
                     </p>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
                         Vibe Coding
-                        <span className="text-white/40 font-normal"> & Code Prototyping</span>
+                        <span className="text-zinc-600 font-normal"> & Code Prototyping</span>
                     </h2>
                 </motion.div>
 
@@ -426,13 +426,13 @@ export default function VibeCodingBlock() {
                                                     <Icon className="w-5 h-5 text-white" />
                                                 )}
                                             </div>
-                                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-white/70">
+                                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
                                                 {tile.action === 'wordu' ? 'Play Game' : 'Explore'}
                                             </span>
-                                            <p className="text-white/90 text-base font-semibold leading-snug mt-1">
+                                            <p className="text-zinc-100 text-base font-semibold leading-snug mt-1">
                                                 {tile.title}
                                             </p>
-                                            <p className="text-white/50 text-xs font-mono">
+                                            <p className="text-zinc-500 text-xs font-mono">
                                                 {tile.subtitle}
                                             </p>
                                         </div>
@@ -443,11 +443,11 @@ export default function VibeCodingBlock() {
                                         <div className="flex items-center gap-2.5">
                                             <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
                                                 style={{ backgroundColor: `rgba(${rgb}, 0.2)` }}>
-                                                <Icon className="w-4 h-4 text-white/80" />
+                                                <Icon className="w-4 h-4 text-zinc-200" />
                                             </div>
                                             <div className="min-w-0">
-                                                <p className="text-white/90 text-sm font-semibold leading-tight truncate">{tile.title}</p>
-                                                <p className="text-white/50 text-[11px] font-mono truncate">{tile.subtitle}</p>
+                                                <p className="text-zinc-100 text-sm font-semibold leading-tight truncate">{tile.title}</p>
+                                                <p className="text-zinc-500 text-[11px] font-mono truncate">{tile.subtitle}</p>
                                             </div>
                                         </div>
                                     </div>

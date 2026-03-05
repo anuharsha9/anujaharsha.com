@@ -23,12 +23,15 @@
     "ship": "npm run build && git add -A && git commit -m 'deploy' && git push origin main && aws s3 sync out s3://anujaharsha.com --delete --region us-east-1 && aws cloudfront create-invalidation --distribution-id E1RKSKYEABLX6E --paths '/*' --region us-east-1"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.5.0",
+    "@types/three": "^0.183.1",
     "framer-motion": "^11.15.0",
     "lenis": "^1.3.17",
     "lucide-react": "^0.556.0",
     "next": "^16.1.6",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@babel/plugin-bugfix-firefox-class-in-computed-class-key": "^7.25.9",

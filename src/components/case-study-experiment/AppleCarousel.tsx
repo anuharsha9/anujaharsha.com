@@ -112,7 +112,7 @@ export default function AppleCarousel({ steps, title, description }: AppleCarous
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white text-sm font-bold font-mono">
                                     {i + 1}
                                 </span>
-                                <p className="text-white/80 text-base md:text-lg leading-relaxed pt-1">
+                                <p className="text-zinc-200 text-base md:text-lg leading-relaxed pt-1">
                                     {step.caption}
                                 </p>
                             </div>

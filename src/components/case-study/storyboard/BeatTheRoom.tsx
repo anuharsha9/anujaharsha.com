@@ -19,13 +19,13 @@ interface ZoomParticipant {
 }
 
 const PARTICIPANTS: ZoomParticipant[] = [
-    { name: 'Dave', role: 'Head PM', years: '15 yrs', initials: 'DV', bg: 'var(--surface-navy-780)', accent: 'var(--semantic-blue-500)' },
+    { name: 'Dave', role: 'Head PM', years: '15 yrs', initials: 'DV', bg: 'var(--surface-navy-780)', accent: 'var(--semantic-blue)' },
     { name: 'Angie', role: 'Gold Support Lead', years: '20+ yrs', initials: 'AG', bg: 'var(--surface-purple-900)', accent: 'var(--accent-violet)' },
     { name: 'Yingchun', role: 'OG RC Engineer', years: '30+ yrs', initials: 'YC', bg: 'var(--surface-amber-900)', accent: 'var(--accent-amber)' },
     { name: 'Julian', role: 'Lead WF Architect', years: '40 yrs', initials: 'JL', bg: 'var(--surface-amber-950)', accent: 'var(--accent-amber-600)' },
-    { name: 'Chris', role: 'Support TAM Lead', years: '20 yrs', initials: 'CH', bg: 'var(--surface-emerald-900)', accent: 'var(--semantic-emerald-500)' },
-    { name: 'Alan', role: 'Backend Lead', years: '30+ yrs', initials: 'AL', bg: 'var(--semantic-navy-700)', accent: 'var(--semantic-cyan-500)' },
-    { name: 'Anuja', role: 'Me', years: '3 weeks', initials: 'AH', bg: 'var(--surface-rose-900)', accent: 'var(--semantic-rose-500)', me: true },
+    { name: 'Chris', role: 'Support TAM Lead', years: '20 yrs', initials: 'CH', bg: 'var(--surface-emerald-900)', accent: 'var(--semantic-emerald)' },
+    { name: 'Alan', role: 'Backend Lead', years: '30+ yrs', initials: 'AL', bg: 'var(--semantic-navy)', accent: 'var(--semantic-cyan)' },
+    { name: 'Anuja', role: 'Me', years: '3 weeks', initials: 'AH', bg: 'var(--surface-rose-900)', accent: 'var(--semantic-rose)', me: true },
 ]
 
 const REVELATIONS = [
@@ -186,14 +186,14 @@ export default function BeatTheRoom() {
                                                     {/* Name badge */}
                                                     <div className="absolute bottom-0 left-0 right-0 px-2 py-1.5 bg-gradient-to-t from-black/60 to-transparent">
                                                         <div className="flex items-center justify-between">
-                                                            <span className="text-[9px] md:text-[10px] text-white/70 font-medium truncate">
+                                                            <span className="text-[9px] md:text-[10px] text-zinc-400 font-medium truncate">
                                                                 {p.name}
                                                             </span>
                                                             <motion.span
                                                                 animate={
                                                                     isHighlight
                                                                         ? {
-                                                                            color: isMe ? 'var(--semantic-rose-500)' : 'var(--overlay-white-20)',
+                                                                            color: isMe ? 'var(--semantic-rose)' : 'var(--overlay-white-20)',
                                                                             scale: isMe ? 1.1 : 1,
                                                                         }
                                                                         : {}
@@ -273,7 +273,7 @@ export default function BeatTheRoom() {
                                         animate={{ y: [0, -3, 0] }}
                                         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                                     >
-                                        <p className="text-lg md:text-xl text-zinc-300/80 italic font-light tracking-tight text-center">
+                                        <p className="text-lg md:text-xl text-zinc-200/80 italic font-light tracking-tight text-center">
                                             &ldquo;What am I doing here?&rdquo;
                                         </p>
                                         <motion.div

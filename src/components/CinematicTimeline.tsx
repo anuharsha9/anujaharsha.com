@@ -102,11 +102,11 @@ export default function CinematicTimeline() {
 
                             {/* ── Slide counter (bottom-right) ── */}
                             <div className="absolute bottom-8 right-8 z-30 font-mono text-sm tracking-wider select-none">
-                                <span className="text-white/50">
+                                <span className="text-zinc-500">
                                     {String(currentIndex + 1).padStart(2, '0')}
                                 </span>
-                                <span className="text-white/15 mx-1">/</span>
-                                <span className="text-white/15">
+                                <span className="text-zinc-800 mx-1">/</span>
+                                <span className="text-zinc-800">
                                     {String(TOTAL).padStart(2, '0')}
                                 </span>
                             </div>

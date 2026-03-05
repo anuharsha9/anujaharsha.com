@@ -49,7 +49,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
             {/* Header */}
             <motion.div variants={itemVariants} className="mb-12">
                 <div className="flex items-center gap-3 mb-3">
-                    <span className="font-mono text-white/40 text-xs tracking-[0.3em] uppercase">Era</span>
+                    <span className="font-mono text-zinc-600 text-xs tracking-[0.3em] uppercase">Era</span>
                     <div className="w-6 h-px bg-[var(--accent-teal)]" />
                     <span className="font-mono text-[var(--accent-teal)] text-xs sm:text-sm tracking-[0.2em]">
                         {era.period.split('—')[0].trim()}
@@ -59,7 +59,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                     {era.role}
                 </h2>
                 <div className="flex items-center gap-4">
-                    <p className="font-mono text-white/30 text-[11px] sm:text-xs tracking-[0.25em] uppercase">
+                    <p className="font-mono text-zinc-600 text-[11px] sm:text-xs tracking-[0.25em] uppercase">
                         {era.company}
                     </p>
                     <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
@@ -79,7 +79,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                 </motion.div>
 
                 <blockquote className="relative z-10 pl-2 sm:pl-6 border-l-2 border-[var(--accent-teal)]/30 py-2">
-                    <p className="font-sans text-2xl sm:text-3xl md:text-4xl text-white/95 leading-[1.4] sm:leading-[1.35] font-light tracking-[-0.01em] max-w-3xl drop-shadow-lg">
+                    <p className="font-sans text-2xl sm:text-3xl md:text-4xl text-zinc-100 leading-[1.4] sm:leading-[1.35] font-light tracking-[-0.01em] max-w-3xl drop-shadow-lg">
                         {primary.quote}
                     </p>
                     <cite className="not-italic mt-10 block">
@@ -92,7 +92,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                                 <Link
                                     href={primary.linkedInProfile}
                                     target="_blank"
-                                    className="text-slate-500 hover:text-[var(--brand-linkedin)] hover:scale-110 transition-all duration-300 bg-white/5 p-1.5 rounded-full"
+                                    className="text-zinc-500 hover:text-[var(--brand-linkedin)] hover:scale-110 transition-all duration-300 bg-white/5 p-1.5 rounded-full"
                                 >
                                     <Linkedin className="w-4 h-4" />
                                 </Link>
@@ -102,7 +102,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                             <span className="text-[var(--accent-teal)] font-mono text-xs uppercase tracking-[0.15em] block mt-2 font-medium">
                                 {primary.role}, {primary.company}
                             </span>
-                            <span className="text-slate-500 font-mono text-[10px] uppercase tracking-[0.1em] block mt-1">
+                            <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.1em] block mt-1">
                                 {primary.relationship}
                             </span>
                         </div>
@@ -127,21 +127,21 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                                 <div className="absolute top-6 left-0 opacity-0 group-hover/q:opacity-100 transition-opacity duration-500 text-[var(--accent-teal)]">
                                     <Quote size={16} fill="currentColor" stroke="none" className="rotate-180" />
                                 </div>
-                                <p className={`font-sans text-slate-300 group-hover/q:text-slate-200 leading-[1.6] mb-6 transition-colors duration-300 ${i === 0 ? 'text-lg' : 'text-base'}`}>
+                                <p className={`font-sans text-zinc-200 group-hover/q:text-zinc-200 leading-[1.6] mb-6 transition-colors duration-300 ${i === 0 ? 'text-lg' : 'text-base'}`}>
                                     {testimonial.quote}
                                 </p>
                                 <div className="flex items-center gap-3">
                                     <div className="w-6 h-px bg-white/10 group-hover/q:bg-[var(--accent-teal)] transition-colors duration-300" />
-                                    <span className="text-white/80 group-hover/q:text-white font-semibold text-sm transition-colors duration-300">
+                                    <span className="text-zinc-200 group-hover/q:text-white font-semibold text-sm transition-colors duration-300">
                                         {testimonial.name}
                                     </span>
                                     {testimonial.linkedInProfile && (
-                                        <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-600 hover:text-[var(--brand-linkedin)] transition-colors hover:scale-110">
+                                        <Link href={testimonial.linkedInProfile} target="_blank" className="text-zinc-600 hover:text-[var(--brand-linkedin)] transition-colors hover:scale-110">
                                             <Linkedin className="w-3.5 h-3.5" />
                                         </Link>
                                     )}
                                 </div>
-                                <span className="text-slate-600 font-mono text-[10px] uppercase tracking-[0.1em] ml-[36px] block mt-1 group-hover/q:text-[var(--accent-teal)]/70 transition-colors duration-300">
+                                <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.1em] ml-[36px] block mt-1 group-hover/q:text-[var(--accent-teal)]/70 transition-colors duration-300">
                                     {testimonial.role}
                                 </span>
                             </motion.div>

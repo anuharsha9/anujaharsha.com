@@ -21,7 +21,7 @@ export default function InterstitialContent({
         <div className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto">
             {/* Header */}
             <div className="text-center mb-14">
-                <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-white/20 mb-3">
+                <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-zinc-800 mb-3">
                     Life Context
                 </p>
                 <div className="w-10 h-px bg-[var(--accent-teal)]/40 mx-auto mb-4" />
@@ -82,7 +82,7 @@ export default function InterstitialContent({
                                                 {typeof IconComp === 'string' ? (
                                                     <span className="text-sm">{IconComp}</span>
                                                 ) : (
-                                                    <IconComp className="w-3.5 h-3.5 text-white/40" />
+                                                    <IconComp className="w-3.5 h-3.5 text-zinc-600" />
                                                 )}
                                             </div>
                                         )}
@@ -91,7 +91,7 @@ export default function InterstitialContent({
                                         </span>
                                     </div>
                                     {milestone.subtitle && (
-                                        <p className="text-slate-500 text-sm mt-0.5 ml-[38px] sm:ml-[38px]">
+                                        <p className="text-zinc-500 text-sm mt-0.5 ml-[38px] sm:ml-[38px]">
                                             {milestone.subtitle}
                                         </p>
                                     )}

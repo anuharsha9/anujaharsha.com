@@ -24,21 +24,21 @@ export default function Error({
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <div className="w-16 h-16">
-            <SignatureLogo className="w-full h-full text-slate-900" />
+            <SignatureLogo className="w-full h-full text-zinc-800" />
           </div>
         </div>
 
         {/* Error Text */}
         <div className="space-y-4">
-          <h1 className="text-6xl md:text-8xl font-sans text-slate-900 font-bold">500</h1>
-          <h2 className="text-2xl md:text-3xl font-sans text-slate-700">
+          <h1 className="text-6xl md:text-8xl font-sans text-zinc-800 font-bold">500</h1>
+          <h2 className="text-2xl md:text-3xl font-sans text-zinc-600">
             Something went wrong
           </h2>
-          <p className="text-slate-500 text-base md:text-lg max-w-md mx-auto leading-relaxed">
+          <p className="text-zinc-500 text-base md:text-lg max-w-md mx-auto leading-relaxed">
             We encountered an unexpected error. Please try again or return to the homepage.
           </p>
           {error.digest && (
-            <p className="text-slate-400 text-xs font-mono mt-2">
+            <p className="text-zinc-400 text-xs font-mono mt-2">
               Error ID: {error.digest}
             </p>
           )}
@@ -69,7 +69,7 @@ export default function Error({
           </button>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-300 text-slate-700 text-sm font-medium transition-all duration-300 hover:border-slate-400 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-300 text-zinc-600 text-sm font-medium transition-all duration-300 hover:border-slate-400 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
           >
             <svg
               aria-hidden="true"

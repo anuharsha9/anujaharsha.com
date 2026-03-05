@@ -110,7 +110,7 @@ export default function PresenterBar({
     const hasFiredComplete = useRef(false)
 
     const content = children || (
-        <p className="text-sm md:text-[15px] text-zinc-300 leading-relaxed">{narration}</p>
+        <p className="text-sm md:text-[15px] text-zinc-200 leading-relaxed">{narration}</p>
     )
     contentRef.current = content
 

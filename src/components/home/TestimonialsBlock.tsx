@@ -105,12 +105,12 @@ export default function TestimonialsBlock() {
                 className="mb-10 md:mb-14"
                 style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
             >
-                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-3">
+                <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     Social Proof
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
                     What they say
-                    <span className="text-white/40 font-normal"> — CSG colleagues</span>
+                    <span className="text-zinc-600 font-normal"> — CSG colleagues</span>
                 </h2>
             </motion.div>
 
@@ -130,7 +130,7 @@ export default function TestimonialsBlock() {
                         className="max-w-4xl"
                     >
                         {/* Quote — hero typography */}
-                        <blockquote className="text-xl md:text-2xl lg:text-[28px] font-light leading-relaxed text-white/85 tracking-tight mb-8">
+                        <blockquote className="text-xl md:text-2xl lg:text-[28px] font-light leading-relaxed text-zinc-100 tracking-tight mb-8">
                             <span className="text-[var(--accent-teal)]/60">&ldquo;</span>
                             {t.quote}
                             <span className="text-[var(--accent-teal)]/60">&rdquo;</span>
@@ -141,13 +141,13 @@ export default function TestimonialsBlock() {
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0
                                 ${t.isPrimary
                                     ? 'bg-[var(--accent-teal)]/15 text-[var(--accent-teal)]'
-                                    : 'bg-white/[0.06] text-white/50'
+                                    : 'bg-white/[0.06] text-zinc-500'
                                 }`}>
                                 {t.name.charAt(0)}
                             </div>
                             <div>
-                                <p className="text-white/90 text-sm font-semibold">{t.name}</p>
-                                <p className="text-white/40 text-xs font-mono">{t.role}</p>
+                                <p className="text-zinc-100 text-sm font-semibold">{t.name}</p>
+                                <p className="text-zinc-600 text-xs font-mono">{t.role}</p>
                             </div>
                             {t.isPrimary && (
                                 <span className="ml-2 text-[9px] font-mono uppercase tracking-[0.2em] text-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/[0.06] px-2 py-0.5 rounded-full">
@@ -188,7 +188,7 @@ export default function TestimonialsBlock() {
                         )}
                     </button>
                 ))}
-                <span className="ml-3 text-[10px] font-mono text-white/25">
+                <span className="ml-3 text-[10px] font-mono text-zinc-800">
                     {active + 1} / {TESTIMONIALS.length}
                 </span>
             </div>

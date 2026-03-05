@@ -1,8 +1,24 @@
 # Anu's Design Preferences
 
-> This file captures Anu's explicit preferences for transitions, animations, typography, and design patterns across the portfolio. Always check this file before implementing visual changes.
+> This file captures Anu's explicit preferences for AI orchestration, vibe coding workflow, transitions, animations, typography, and design patterns across the portfolio. Always check this file before implementing changes.
+
+## AI Orchestration & Workflow
+
+- **Plan before execute.** For any creative, structural, or visual change — present a plan and get Anu's approval BEFORE writing code.
+- **Always reference this file.** Check design-preferences.md before implementing visual or architectural decisions.
+- **No surprises.** Don't install dependencies, restructure components, or make design decisions without confirmation.
+- **Use artifacts for reference docs.** Plans, audits, and reference documents should be created as Antigravity artifacts (rich formatted, easier to read). Also save them in the project's `docs/artifacts/` folder so they persist across conversations and don't get lost.
+- **Document everything.** Every significant piece of work (audits, plans, decisions, refactors) should be documented as an artifact. This builds a history of what was done and why.
 
 ---
+
+## Design System
+
+- **NO hardcoded colors.** Every color must use a CSS variable from `tokens.css`. No hex values, no Tailwind default palette colors (e.g. `text-red-500`) — only the semantic tokens (`--semantic-rose`, `--accent-teal`, `text-zinc-*`, etc.).
+- **ONE color per hue.** The semantic palette is: emerald, blue, rose, orange, purple, cyan, pink, navy. No duplicates.
+- **Main site palette:** Black, white, shades of zinc grey, and teal accent. Semantic colors are for **animations and data visualization only**.
+
+
 
 ## Transitions
 

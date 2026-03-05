@@ -16,8 +16,8 @@ interface Item {
 }
 
 const GOT: Item[] = [
-    { icon: Monitor, label: 'A sandbox', detail: 'One login. No guide.', color: 'var(--semantic-blue-500)' },
-    { icon: FileText, label: 'A presentation', detail: 'From the support lead. My bible.', color: 'var(--semantic-purple-500)' },
+    { icon: Monitor, label: 'A sandbox', detail: 'One login. No guide.', color: 'var(--semantic-blue)' },
+    { icon: FileText, label: 'A presentation', detail: 'From the support lead. My bible.', color: 'var(--semantic-purple)' },
     { icon: Play, label: 'A 30-min demo', detail: 'Tribal knowledge. Unrecorded.', color: 'var(--tone-amber-500)' },
 ]
 
@@ -42,7 +42,7 @@ function SparseCounter({ active }: { active: boolean }) {
         return () => clearInterval(id)
     }, [active])
     return (
-        <span className="text-5xl md:text-7xl font-black tabular-nums font-mono" style={{ color: 'var(--semantic-orange-500)' }}>
+        <span className="text-5xl md:text-7xl font-black tabular-nums font-mono" style={{ color: 'var(--semantic-orange)' }}>
             {val}
         </span>
     )

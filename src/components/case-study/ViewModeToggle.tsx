@@ -83,7 +83,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                 {/* Left: Home */}
                 <button
                     onClick={handleHomeClick}
-                    className="flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors text-xs font-mono tracking-wider uppercase cursor-pointer shrink-0"
+                    className="flex items-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors text-xs font-mono tracking-wider uppercase cursor-pointer shrink-0"
                     aria-label="Back to home"
                 >
                     <ArrowLeft className="w-3.5 h-3.5" />
@@ -99,7 +99,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                         aria-label="Presentation view"
                         className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'presentation'
                             ? 'text-white'
-                            : 'text-white/40 hover:text-white/60'
+                            : 'text-zinc-600 hover:text-zinc-400'
                             }`}
                     >
                         {viewMode === 'presentation' && (
@@ -118,7 +118,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                         aria-label="Full case study view"
                         className={`relative px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-xs font-medium transition-all duration-300 cursor-pointer ${viewMode === 'full'
                             ? 'text-white'
-                            : 'text-white/40 hover:text-white/60'
+                            : 'text-zinc-600 hover:text-zinc-400'
                             }`}
                     >
                         {viewMode === 'full' && (
@@ -148,7 +148,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                             </span>
                         )}
                         {/* Title */}
-                        <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
+                        <span className="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">
                             {currentMeta?.title || currentSlug}
                         </span>
                         {/* Chevron */}
@@ -156,7 +156,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                             animate={{ rotate: dropdownOpen ? 180 : 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <ChevronDown className="w-3.5 h-3.5 text-white/30 group-hover:text-white/50 transition-colors" />
+                            <ChevronDown className="w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-500 transition-colors" />
                         </motion.div>
                     </button>
 
@@ -173,7 +173,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                             >
                                 {/* Current study indicator */}
                                 <div className="px-4 py-2.5 border-b border-white/[0.06]">
-                                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30">
+                                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600">
                                         Currently viewing
                                     </span>
                                 </div>
@@ -198,7 +198,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                                                 {/* Info */}
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="text-sm font-medium text-white/70 group-hover/item:text-white transition-colors">
+                                                        <span className="text-sm font-medium text-zinc-400 group-hover/item:text-white transition-colors">
                                                             {meta?.title || cs.slug}
                                                         </span>
                                                         <span
@@ -208,13 +208,13 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                                                             {meta?.tag}
                                                         </span>
                                                     </div>
-                                                    <p className="text-[11px] text-white/30 leading-snug mt-0.5 truncate">
+                                                    <p className="text-[11px] text-zinc-600 leading-snug mt-0.5 truncate">
                                                         {cs.summary.split('—')[0]?.trim() || cs.summary.slice(0, 60)}
                                                     </p>
                                                 </div>
 
                                                 {/* Arrow */}
-                                                <ArrowLeft className="w-3.5 h-3.5 text-white/20 group-hover/item:text-white/50 rotate-180 transition-all duration-200 group-hover/item:translate-x-0.5 shrink-0" />
+                                                <ArrowLeft className="w-3.5 h-3.5 text-zinc-800 group-hover/item:text-zinc-500 rotate-180 transition-all duration-200 group-hover/item:translate-x-0.5 shrink-0" />
                                             </Link>
                                         )
                                     })}

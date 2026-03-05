@@ -9,6 +9,7 @@ import LoadingScreen from '@/components/loading/LoadingScreen'
 import { LightboxProvider } from '@/contexts/LightboxContext'
 import { PdfProvider } from '@/contexts/PdfContext'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
+import ReducedMotionProvider from '@/components/providers/ReducedMotionProvider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -152,9 +153,11 @@ export default function RootLayout({
         <StructuredData type="person" />
         <LightboxProvider>
           <PdfProvider>
-            <SmoothScrollProvider>
-              <PageShell>{children}</PageShell>
-            </SmoothScrollProvider>
+            <ReducedMotionProvider>
+              <SmoothScrollProvider>
+                <PageShell>{children}</PageShell>
+              </SmoothScrollProvider>
+            </ReducedMotionProvider>
           </PdfProvider>
         </LightboxProvider>
       </body>

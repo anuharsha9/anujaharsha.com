@@ -125,7 +125,7 @@ export default function SiteHeader() {
             {/* Work - with dropdown */}
             <CaseStudiesDropdown
               className={`font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors ${isLandingPage
-                ? 'text-white/60 hover:text-[var(--accent-teal)]'
+                ? 'text-zinc-400 hover:text-[var(--accent-teal)]'
                 : `${t.textMuted} hover:${t.text}`
                 }`}
             />
@@ -136,7 +136,7 @@ export default function SiteHeader() {
                 href="/me"
                 className={`block font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors relative px-2 py-1 ${isAboutPage
                   ? 'text-[var(--accent-teal)]'
-                  : isLandingPage ? 'text-white/60 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`
+                  : isLandingPage ? 'text-zinc-400 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`
                   }`}
               >
                 Me
@@ -168,7 +168,7 @@ export default function SiteHeader() {
                 trackResumeDownload()
                 openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
               }}
-              className={`inline-flex items-center gap-space-1.5 px-space-4 py-space-2 rounded-full ${isLandingPage ? 'text-white/50 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`} font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]`}
+              className={`inline-flex items-center gap-space-1.5 px-space-4 py-space-2 rounded-full ${isLandingPage ? 'text-zinc-500 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`} font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]`}
               aria-label="View Resume PDF"
             >
               <span>Resume</span>

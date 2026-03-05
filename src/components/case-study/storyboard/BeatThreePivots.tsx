@@ -141,8 +141,8 @@ export default function BeatThreePivots() {
                                         style={{
                                             background: isJudged
                                                 ? isAccepted
-                                                    ? 'var(--semantic-emerald-400)'
-                                                    : 'var(--semantic-red-500)'
+                                                    ? 'var(--semantic-emerald)'
+                                                    : 'var(--semantic-rose)'
                                                 : 'var(--overlay-white-10)',
                                             transition: 'background 0.5s',
                                         }}
@@ -170,7 +170,7 @@ export default function BeatThreePivots() {
                                             >
                                                 <span className="font-mono text-[11px] font-bold" style={{
                                                     color: isJudged && isRejected
-                                                        ? isAccepted ? 'var(--semantic-emerald-400)' : 'var(--semantic-red-500)'
+                                                        ? isAccepted ? 'var(--semantic-emerald)' : 'var(--semantic-rose)'
                                                         : 'var(--white)',
                                                     transition: 'color 0.4s',
                                                 }}>

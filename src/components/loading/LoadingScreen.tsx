@@ -412,8 +412,8 @@ export default function LoadingScreen() {
 
             {/* Edge markers */}
             <div className="flex justify-between mt-2">
-              <span className="text-[9px] font-mono text-white/15 tracking-wider">0x00</span>
-              <span className="text-[9px] font-mono text-white/15 tracking-wider">0xFF</span>
+              <span className="text-[9px] font-mono text-zinc-800 tracking-wider">0x00</span>
+              <span className="text-[9px] font-mono text-zinc-800 tracking-wider">0xFF</span>
             </div>
           </div>
 
@@ -443,16 +443,16 @@ export default function LoadingScreen() {
       </div>
 
       {/* Corner decorations */}
-      <div className="absolute top-6 left-6 font-mono text-[9px] tracking-[0.3em] text-white/10 uppercase">
+      <div className="absolute top-6 left-6 font-mono text-[9px] tracking-[0.3em] text-zinc-800 uppercase">
         SYS.BOOT
       </div>
-      <div className="absolute top-6 right-6 font-mono text-[9px] tracking-[0.3em] text-white/10 uppercase">
+      <div className="absolute top-6 right-6 font-mono text-[9px] tracking-[0.3em] text-zinc-800 uppercase">
         v2.0.{progress}
       </div>
-      <div className="absolute bottom-6 left-6 font-mono text-[9px] tracking-[0.3em] text-white/10 uppercase">
+      <div className="absolute bottom-6 left-6 font-mono text-[9px] tracking-[0.3em] text-zinc-800 uppercase">
         GEAR_ARCH
       </div>
-      <div className="absolute bottom-6 right-6 font-mono text-[9px] tracking-[0.3em] text-white/10 uppercase">
+      <div className="absolute bottom-6 right-6 font-mono text-[9px] tracking-[0.3em] text-zinc-800 uppercase">
         {statusText.replace('▸ ', '')}
       </div>
     </div>

@@ -226,13 +226,13 @@ export default function TimelineSlide({
                             <div className="space-y-3">
                                 {/* ERA — YEAR · Company */}
                                 <div className="flex items-center gap-3">
-                                    <span className="font-mono text-white/40 text-xs tracking-[0.3em] uppercase">ERA</span>
+                                    <span className="font-mono text-zinc-600 text-xs tracking-[0.3em] uppercase">ERA</span>
                                     <div className="w-6 h-px bg-[var(--accent-teal)]" />
                                     <span className="font-mono text-[var(--accent-teal)] text-xs sm:text-sm tracking-[0.2em]">
                                         {era.period}
                                     </span>
-                                    <span className="font-mono text-white/20 text-xs">·</span>
-                                    <span className="font-mono text-white/30 text-[11px] sm:text-xs tracking-[0.2em] uppercase">
+                                    <span className="font-mono text-zinc-800 text-xs">·</span>
+                                    <span className="font-mono text-zinc-600 text-[11px] sm:text-xs tracking-[0.2em] uppercase">
                                         {era.company}
                                     </span>
                                 </div>
@@ -265,7 +265,7 @@ export default function TimelineSlide({
                                                 href={era.platformUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors duration-300 whitespace-nowrap shrink-0"
+                                                className="inline-flex items-center gap-1 text-xs font-mono text-zinc-500 hover:text-[var(--accent-teal)] transition-colors duration-300 whitespace-nowrap shrink-0"
                                             >
                                                 See the platform
                                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -275,12 +275,12 @@ export default function TimelineSlide({
                                         )}
                                         {era.articles && era.articles.map((article, i) => (
                                             <span key={article.id} className="inline-flex items-center gap-x-3 shrink-0">
-                                                <span className="text-white/15 text-xs">·</span>
+                                                <span className="text-zinc-800 text-xs">·</span>
                                                 <a
                                                     href={article.link}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-1 text-xs font-mono text-slate-500 hover:text-[var(--accent-teal)] transition-colors duration-300 whitespace-nowrap"
+                                                    className="inline-flex items-center gap-1 text-xs font-mono text-zinc-500 hover:text-[var(--accent-teal)] transition-colors duration-300 whitespace-nowrap"
                                                 >
                                                     {article.title}
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -332,19 +332,19 @@ export default function TimelineSlide({
                                             {/* Subtle left accent */}
                                             <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--accent-teal)]/40 via-[var(--accent-teal)]/20 to-transparent" />
                                             <div className="pl-6">
-                                                <p className="font-sans text-lg md:text-xl text-slate-200/90 leading-relaxed mb-5 font-light">
+                                                <p className="font-sans text-lg md:text-xl text-zinc-200/90 leading-relaxed mb-5 font-light">
                                                     &ldquo;{era.testimonials[0].quote}&rdquo;
                                                 </p>
                                                 <cite className="not-italic flex items-center gap-3">
                                                     <div className="w-5 h-px bg-white/10" />
                                                     <span className="text-white font-semibold text-sm">{era.testimonials[0].name}</span>
                                                     {era.testimonials[0].linkedInProfile && (
-                                                        <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-slate-500 hover:text-[var(--brand-linkedin)] transition-colors">
+                                                        <Link href={era.testimonials[0].linkedInProfile} target="_blank" className="text-zinc-500 hover:text-[var(--brand-linkedin)] transition-colors">
                                                             <Linkedin className="w-3.5 h-3.5" />
                                                         </Link>
                                                     )}
                                                 </cite>
-                                                <span className="text-slate-500 font-mono text-[10px] uppercase tracking-wider ml-[30px] block mt-1">
+                                                <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-wider ml-[30px] block mt-1">
                                                     {era.testimonials[0].role}, {era.testimonials[0].company}
                                                 </span>
                                             </div>
@@ -353,21 +353,21 @@ export default function TimelineSlide({
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             {era.testimonials.map((testimonial) => (
                                                 <div key={testimonial.id} className="bg-white/[0.02] border border-white/5 p-5 rounded-xl relative overflow-hidden group/quote">
-                                                    <Quote className="absolute top-4 right-4 w-8 h-8 text-white/5 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
+                                                    <Quote className="absolute top-4 right-4 w-8 h-8 text-zinc-800 group-hover/quote:text-[var(--accent-teal)]/10 transition-colors" />
                                                     <blockquote className="relative z-10">
-                                                        <p className="font-sans text-sm text-slate-200 leading-relaxed mb-4">
+                                                        <p className="font-sans text-sm text-zinc-200 leading-relaxed mb-4">
                                                             &ldquo;{testimonial.quote}&rdquo;
                                                         </p>
                                                         <cite className="not-italic flex flex-col gap-1">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="text-white font-bold text-sm">{testimonial.name}</span>
                                                                 {testimonial.linkedInProfile && (
-                                                                    <Link href={testimonial.linkedInProfile} target="_blank" className="text-slate-500 hover:text-[var(--brand-linkedin)] transition-colors">
+                                                                    <Link href={testimonial.linkedInProfile} target="_blank" className="text-zinc-500 hover:text-[var(--brand-linkedin)] transition-colors">
                                                                         <Linkedin className="w-3 h-3" />
                                                                     </Link>
                                                                 )}
                                                             </div>
-                                                            <span className="text-slate-400 font-mono text-[10px] uppercase tracking-wider">
+                                                            <span className="text-zinc-400 font-mono text-[10px] uppercase tracking-wider">
                                                                 {testimonial.role}, {testimonial.company}
                                                             </span>
                                                         </cite>
@@ -396,7 +396,7 @@ export default function TimelineSlide({
 
                                     {/* Card header */}
                                     <div className="relative z-10 mb-6">
-                                        <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-white/25 mb-2">
+                                        <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-zinc-800 mb-2">
                                             Life Context
                                         </p>
                                         <div className="w-8 h-px bg-[var(--accent-teal)]/30" />
@@ -471,7 +471,7 @@ export default function TimelineSlide({
                                                                 {typeof IconComp === 'string' ? (
                                                                     <span className="text-sm">{IconComp}</span>
                                                                 ) : (
-                                                                    <IconComp className="w-4 h-4 text-white/50" />
+                                                                    <IconComp className="w-4 h-4 text-zinc-500" />
                                                                 )}
                                                             </div>
                                                         )}
@@ -479,11 +479,11 @@ export default function TimelineSlide({
                                                             <p className="font-mono text-[var(--accent-teal)] text-[10px] tracking-[0.25em] uppercase">
                                                                 {milestone.year}
                                                             </p>
-                                                            <p className="text-white/80 text-sm font-medium leading-snug">
+                                                            <p className="text-zinc-200 text-sm font-medium leading-snug">
                                                                 {milestone.title}
                                                             </p>
                                                             {milestone.subtitle && (
-                                                                <p className="text-slate-500 text-xs leading-relaxed">
+                                                                <p className="text-zinc-500 text-xs leading-relaxed">
                                                                     {milestone.subtitle}
                                                                 </p>
                                                             )}

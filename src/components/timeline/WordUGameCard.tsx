@@ -41,7 +41,7 @@ export default function WordUGameCard({ work, onPlay }: WordUGameCardProps) {
                         {work.title}
                     </h3>
                     <div className="overflow-hidden h-0 group-hover/game:h-auto transition-all duration-500">
-                        <p className="text-lg text-slate-200 font-medium opacity-0 transform translate-y-4 group-hover/game:opacity-100 group-hover/game:translate-y-0 transition-all duration-500 delay-100">
+                        <p className="text-lg text-zinc-200 font-medium opacity-0 transform translate-y-4 group-hover/game:opacity-100 group-hover/game:translate-y-0 transition-all duration-500 delay-100">
                             {work.description}
                         </p>
                         <div className="mt-4 flex items-center justify-center opacity-0 group-hover/game:opacity-100 transition-opacity duration-500 delay-200">

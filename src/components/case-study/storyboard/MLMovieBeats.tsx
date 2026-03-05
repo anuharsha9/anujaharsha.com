@@ -164,7 +164,7 @@ export function MLBeatProblem() {
                                         <div className="w-5 h-5 rounded-sm bg-white/[0.04] border border-white/[0.08] flex items-center justify-center cursor-pointer">
                                             <div className="w-0 h-0 border-l-[5px] border-l-zinc-500 border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent ml-0.5" />
                                         </div>
-                                        <span className="text-[7px] font-mono text-zinc-700">Run</span>
+                                        <span className="text-[7px] font-mono text-zinc-600">Run</span>
                                     </motion.div>
                                 </div>
 
@@ -383,9 +383,9 @@ export function MLBeatGoal() {
                                             ))}
                                             {/* Messy connection lines */}
                                             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                                <line x1="20" y1="30" x2="55" y2="65" stroke="var(--semantic-rose-500)" strokeWidth="0.3" strokeDasharray="2 2" opacity="0.2" />
-                                                <line x1="35" y1="50" x2="78" y2="35" stroke="var(--semantic-rose-500)" strokeWidth="0.3" strokeDasharray="2 2" opacity="0.15" />
-                                                <line x1="55" y1="65" x2="80" y2="80" stroke="var(--semantic-rose-500)" strokeWidth="0.3" strokeDasharray="2 2" opacity="0.2" />
+                                                <line x1="20" y1="30" x2="55" y2="65" stroke="var(--semantic-rose)" strokeWidth="0.3" strokeDasharray="2 2" opacity="0.2" />
+                                                <line x1="35" y1="50" x2="78" y2="35" stroke="var(--semantic-rose)" strokeWidth="0.3" strokeDasharray="2 2" opacity="0.15" />
+                                                <line x1="55" y1="65" x2="80" y2="80" stroke="var(--semantic-rose)" strokeWidth="0.3" strokeDasharray="2 2" opacity="0.2" />
                                             </svg>
                                             {/* Error badge */}
                                             <div className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-rose-500/15 border border-rose-500/20">
@@ -720,7 +720,7 @@ export function MLBeatEntryPoint() {
                                             </div>
                                             <span className="w-16 text-right text-[9px] font-mono text-zinc-600">{ds.rows}</span>
                                             <span className="w-16 text-right text-[8px] font-mono text-zinc-600">{ds.type}</span>
-                                            <div className="w-8 text-right text-zinc-700">⋯</div>
+                                            <div className="w-8 text-right text-zinc-600">⋯</div>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -1023,7 +1023,7 @@ export function MLBeatBreakthrough() {
                                                                 <span className="text-[8px] font-mono text-blue-400/60">{['Select Target', 'Select Positive Class', 'AUC'][i]}</span>
                                                                 <div className="w-2 h-2 border-b border-r border-zinc-600 rotate-45 -mt-0.5" />
                                                             </div>
-                                                            <div className="mt-1 text-[7px] font-mono text-zinc-700 px-2">{['The variable to predict', 'Default: minority class', 'Objective metric'][i]}</div>
+                                                            <div className="mt-1 text-[7px] font-mono text-zinc-600 px-2">{['The variable to predict', 'Default: minority class', 'Objective metric'][i]}</div>
                                                         </motion.div>
                                                     ))}
                                                 </div>
@@ -1049,7 +1049,7 @@ export function MLBeatBreakthrough() {
                                                             <div className="flex-1"><div className={`w-2.5 h-2.5 rounded-sm border ${[0, 2, 4].includes(i) ? 'border-blue-500/40 bg-blue-500/20' : 'border-white/[0.1]'}`} /></div>
                                                             <span className="flex-1 text-[7px] font-mono text-zinc-400">{field}</span>
                                                             <span className="flex-1 text-[7px] font-mono text-zinc-600">538</span>
-                                                            <span className="flex-1 text-[7px] font-mono text-zinc-700">0.00%</span>
+                                                            <span className="flex-1 text-[7px] font-mono text-zinc-600">0.00%</span>
                                                         </motion.div>
                                                     ))}
                                                 </div>
@@ -1334,7 +1334,7 @@ export function MLBeatConfusionMatrix() {
                                             </div>
                                             {/* No slider, no affordance */}
                                             <div className="h-5 rounded bg-white/[0.02] border border-white/[0.03] flex items-center px-2">
-                                                <span className="text-[5px] font-mono text-zinc-700">threshold: 0.50</span>
+                                                <span className="text-[5px] font-mono text-zinc-600">threshold: 0.50</span>
                                             </div>
                                             <div className="flex items-center gap-1 mt-1.5">
                                                 <div className="w-3 h-3 rounded-sm border border-rose-500/15 bg-rose-500/5" />

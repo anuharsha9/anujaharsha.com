@@ -67,7 +67,7 @@ export default function BeatAskedVsDelivered() {
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         Customers were leaving. The brief said{' '}
-                                        <span className="text-zinc-300 font-medium">&quot;visual refresh.&quot;</span>{' '}
+                                        <span className="text-zinc-200 font-medium">&quot;visual refresh.&quot;</span>{' '}
                                         But a fresh coat of paint wouldn&apos;t bring them back.
                                     </p>
                                     <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
@@ -217,7 +217,7 @@ export default function BeatAskedVsDelivered() {
                                                                 className="flex items-center gap-3"
                                                             >
                                                                 <span className="w-1.5 h-1.5 rounded-full bg-red-500/30 flex-shrink-0" />
-                                                                <span className={`text-sm transition-all duration-500 ${phase >= 5 ? 'text-zinc-700 line-through decoration-red-500/30 decoration-2' : 'text-zinc-300'}`}>
+                                                                <span className={`text-sm transition-all duration-500 ${phase >= 5 ? 'text-zinc-600 line-through decoration-red-500/30 decoration-2' : 'text-zinc-200'}`}>
                                                                     {item}
                                                                 </span>
                                                             </motion.div>
@@ -268,7 +268,7 @@ export default function BeatAskedVsDelivered() {
                                                                         <motion.path
                                                                             d="M3.5 6l2 2 3-3.5"
                                                                             fill="none"
-                                                                            stroke="var(--semantic-emerald-400)"
+                                                                            stroke="var(--semantic-emerald)"
                                                                             strokeWidth="1.2"
                                                                             strokeLinecap="round"
                                                                             strokeLinejoin="round"
@@ -301,7 +301,7 @@ export default function BeatAskedVsDelivered() {
                                                 <div className="text-3xl font-bold font-mono text-red-400/40">3</div>
                                                 <div className="text-[9px] font-mono text-red-400/30 uppercase tracking-wider">asked</div>
                                             </div>
-                                            <div className="text-zinc-700 text-lg font-light">vs</div>
+                                            <div className="text-zinc-600 text-lg font-light">vs</div>
                                             <div className="text-center">
                                                 <motion.div
                                                     className="text-4xl font-bold font-mono text-emerald-400"

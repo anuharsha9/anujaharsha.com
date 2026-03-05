@@ -40,7 +40,7 @@ export default function ArchiveWorkCard({ work, onOpenLightbox }: ArchiveWorkCar
                 </div>
             ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-950 flex items-center justify-center">
-                    <span className="font-mono text-xs text-white/20 uppercase tracking-widest">{work.tags[0]}</span>
+                    <span className="font-mono text-xs text-zinc-800 uppercase tracking-widest">{work.tags[0]}</span>
                 </div>
             )}
 
@@ -54,7 +54,7 @@ export default function ArchiveWorkCard({ work, onOpenLightbox }: ArchiveWorkCar
                 </h3>
                 <div className="flex flex-wrap gap-2 opacity-80 group-hover/archive:opacity-100 transition-opacity duration-300">
                     {work.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="text-[10px] text-white/90 font-mono font-medium bg-white/10 px-2.5 py-1 rounded-full backdrop-blur-md border border-white/10">
+                        <span key={tag} className="text-[10px] text-zinc-100 font-mono font-medium bg-white/10 px-2.5 py-1 rounded-full backdrop-blur-md border border-white/10">
                             {tag}
                         </span>
                     ))}

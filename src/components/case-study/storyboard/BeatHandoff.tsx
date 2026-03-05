@@ -18,11 +18,11 @@ interface FolderItem {
 
 const FOLDER_CONTENTS: FolderItem[] = [
     { icon: StickyNote, label: 'Research & findings', count: 40, displayCount: '40+', color: 'var(--accent-amber)' },
-    { icon: Map, label: 'Pain point maps & flows', count: 25, displayCount: '25+', color: 'var(--semantic-blue-500)' },
-    { icon: PenTool, label: 'Sketch files & prototypes', count: 80, displayCount: '80+', color: 'var(--semantic-purple-500)' },
-    { icon: Video, label: 'Zoom demo recordings', count: 15, displayCount: '15+', color: 'var(--semantic-rose-500)' },
-    { icon: FileText, label: 'Current-state docs & scratchpads', count: 30, displayCount: '30+', color: 'var(--semantic-green-500)' },
-    { icon: Ticket, label: 'JIRA epics & ticket tracking', count: 60, displayCount: '60+', color: 'var(--semantic-cyan-500)' },
+    { icon: Map, label: 'Pain point maps & flows', count: 25, displayCount: '25+', color: 'var(--semantic-blue)' },
+    { icon: PenTool, label: 'Sketch files & prototypes', count: 80, displayCount: '80+', color: 'var(--semantic-purple)' },
+    { icon: Video, label: 'Zoom demo recordings', count: 15, displayCount: '15+', color: 'var(--semantic-rose)' },
+    { icon: FileText, label: 'Current-state docs & scratchpads', count: 30, displayCount: '30+', color: 'var(--semantic-emerald)' },
+    { icon: Ticket, label: 'JIRA epics & ticket tracking', count: 60, displayCount: '60+', color: 'var(--semantic-cyan)' },
 ]
 
 /* ── Animated file counter ── */
@@ -176,7 +176,7 @@ export default function BeatHandoff() {
                                             transition={{ duration: 0.4, ease }}
                                             className="h-full rounded-full"
                                             style={{
-                                                background: 'linear-gradient(90deg, var(--semantic-blue-500), var(--semantic-green-500))',
+                                                background: 'linear-gradient(90deg, var(--semantic-blue), var(--semantic-emerald))',
                                             }}
                                         />
                                     </div>

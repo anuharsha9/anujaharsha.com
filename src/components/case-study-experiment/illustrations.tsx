@@ -51,7 +51,7 @@ export function AvatarPair({
         <div className={`flex items-center gap-6 mb-8 ${className}`}>
             {/* Left avatar */}
             <div className="flex flex-col items-center gap-3">
-                <div className="w-20 h-20 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/50 relative overflow-hidden">
+                <div className="w-20 h-20 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-zinc-500 relative overflow-hidden">
                     {leftIcon ? (
                         <div className="scale-150 relative z-10">{leftIcon}</div>
                     ) : (
@@ -141,7 +141,7 @@ export function FlowDiagram({
                     >
                         <div className={`w-12 h-12 rounded-full border flex items-center justify-center text-lg font-mono relative ${i === steps.length - 1
                             ? 'border-[var(--accent-teal)] bg-[var(--accent-teal)]/10 text-[var(--accent-teal)] shadow-[0_0_20px_rgba(45,212,191,0.2)]'
-                            : 'border-white/20 bg-white/5 text-white/50'
+                            : 'border-white/20 bg-white/5 text-zinc-500'
                             }`}>
                             {i === steps.length - 1 ? '✓' : '○'}
                         </div>
@@ -233,7 +233,7 @@ export function ScatterConverge() {
                         className="w-4 h-4 rounded-full bg-[var(--accent-teal)]/60 blur-[2px] scatter-breathe"
                         style={{ animationDelay: `${node.delay}s` }}
                     />
-                    <span className="absolute -top-6 text-[10px] font-mono text-white/80 tracking-widest bg-black/80 px-2 py-0.5 rounded border border-white/10">{node.label}</span>
+                    <span className="absolute -top-6 text-[10px] font-mono text-zinc-200 tracking-widest bg-black/80 px-2 py-0.5 rounded border border-white/10">{node.label}</span>
                 </motion.div>
             ))}
 
@@ -269,7 +269,7 @@ export function ScatterConverge() {
                     {/* Text Label */}
                     <div className="flex flex-col items-center justify-center pt-1">
                         <span className="text-[var(--accent-teal)] text-4xl font-light leading-none drop-shadow-[0_0_15px_rgba(45,212,191,1)]">1</span>
-                        <span className="text-[10px] font-mono tracking-[0.3em] text-white/90 mt-1 pl-1">HUB</span>
+                        <span className="text-[10px] font-mono tracking-[0.3em] text-zinc-100 mt-1 pl-1">HUB</span>
                     </div>
                 </div>
             </motion.div>
@@ -361,7 +361,7 @@ export function PlusIconTree({
                         className="flex flex-col items-center gap-3"
                     >
                         <div className="w-[2px] h-6 bg-white/20" />
-                        <span className="text-[11px] font-mono text-white/70 text-center uppercase tracking-widest leading-relaxed max-w-[100px]">{label}</span>
+                        <span className="text-[11px] font-mono text-zinc-400 text-center uppercase tracking-widest leading-relaxed max-w-[100px]">{label}</span>
                     </motion.div>
                 ))}
             </div>
@@ -415,7 +415,7 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.3, delay: i * 0.15 + 0.1 }}
                             >
-                                <span className="text-white/20 font-light text-sm">→</span>
+                                <span className="text-zinc-800 font-light text-sm">→</span>
                             </motion.div>
                         )}
                     </React.Fragment>
@@ -453,7 +453,7 @@ export function KnowledgeTransfer() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
             >
-                <span className="font-mono text-xs text-zinc-300">Jr</span>
+                <span className="font-mono text-xs text-zinc-200">Jr</span>
             </motion.div>
 
             <div className="flex-1 max-w-[100px] h-[2px] bg-white/10 relative overflow-hidden">
@@ -530,7 +530,7 @@ export function ImpactClimax() {
                         <div className="flex flex-col mt-auto pt-4 border-t border-white/5">
                             <div className="flex items-center gap-2 mb-2 opacity-70">
                                 <span className="text-zinc-600 text-xs font-mono line-through decoration-zinc-700/80">{m.before}</span>
-                                <span className="text-zinc-700 text-[10px]">→</span>
+                                <span className="text-zinc-600 text-[10px]">→</span>
                             </div>
                             <div className="flex items-baseline gap-2">
                                 <span className="text-white text-4xl md:text-5xl font-light tracking-tight transition-colors duration-500 group-hover:text-[var(--accent-teal)]">
@@ -567,7 +567,7 @@ export function VideoGrid({ highlightIndex = 5 }: { highlightIndex?: number }) {
                 >
                     {/* Fake webcam UI */}
                     <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-red-500/50 shadow-[0_0_5px_rgba(239,68,68,0.5)]" />
-                    <div className="absolute bottom-3 left-3 text-[9px] font-mono uppercase tracking-widest text-white/40">User_{i + 1}</div>
+                    <div className="absolute bottom-3 left-3 text-[9px] font-mono uppercase tracking-widest text-zinc-600">User_{i + 1}</div>
 
                     {/* Avatar inner */}
                     <div className={`w-8 h-8 rounded-full ${i === highlightIndex ? 'bg-[var(--accent-teal)]/60' : 'bg-white/20'}`} />

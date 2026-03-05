@@ -68,7 +68,7 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
 
             {/* Label */}
             <motion.p
-                className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/40 mb-5"
+                className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-zinc-600 mb-5"
                 style={{ opacity: labelOpacity, filter: labelFilter }}
             >
                 {label}
@@ -89,15 +89,15 @@ export default function LifeContextStrip({ milestones, label = 'Meanwhile, in li
                         >
                             {/* Icon with glow */}
                             <div className="w-7 h-7 rounded-full bg-white/[0.06] flex items-center justify-center shrink-0 group-hover:bg-[var(--accent-teal)]/10 group-hover:shadow-[0_0_12px_rgba(108,200,203,0.15)] transition-all duration-300">
-                                <Icon className="w-3.5 h-3.5 text-white/35 group-hover:text-[var(--accent-teal)]/80 transition-colors duration-300" />
+                                <Icon className="w-3.5 h-3.5 text-zinc-600 group-hover:text-[var(--accent-teal)]/80 transition-colors duration-300" />
                             </div>
 
                             {/* Text */}
                             <div>
-                                <p className="text-white/60 text-[13px] font-medium leading-tight group-hover:text-white/80 transition-colors duration-300">
+                                <p className="text-zinc-400 text-[13px] font-medium leading-tight group-hover:text-zinc-200 transition-colors duration-300">
                                     {m.title}
                                 </p>
-                                <p className="text-white/30 text-[10px] font-mono leading-tight mt-0.5">
+                                <p className="text-zinc-600 text-[10px] font-mono leading-tight mt-0.5">
                                     {m.subtitle} · {m.year}
                                 </p>
                             </div>

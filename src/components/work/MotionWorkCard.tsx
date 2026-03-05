@@ -118,7 +118,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
 
                             <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 md:p-12 z-10">
                                 {work?.statusLabel && (
-                                    <div className="mb-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] text-[9px] uppercase tracking-[0.15em] font-mono text-white/50">
+                                    <div className="mb-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] text-[9px] uppercase tracking-[0.15em] font-mono text-zinc-500">
                                         <span className="w-1 h-1 rounded-full bg-white/40" />
                                         {work.statusLabel}
                                     </div>
@@ -134,7 +134,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                                                 <span className="font-sans text-2xl sm:text-3xl font-extrabold text-white drop-shadow-[0_2px_8px_var(--overlay-black-60)]">
                                                     <AnimatedCounter value={work.metric} duration={1.2} />
                                                 </span>
-                                                <span className="font-normal text-sm text-white/50 tracking-wide">
+                                                <span className="font-normal text-sm text-zinc-500 tracking-wide">
                                                     {work.metricLabel}
                                                 </span>
                                             </div>
@@ -143,7 +143,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
 
                                     {!isExternal && (
                                         <div className="mb-1 p-2.5 rounded-full bg-white/[0.08] backdrop-blur-sm border border-white/[0.1] group-hover/work:bg-white/[0.15] group-hover/work:border-white/20 transition-all duration-300 shrink-0">
-                                            <ArrowRight className="w-4 h-4 text-white/70 group-hover/work:text-white transition-colors duration-300" />
+                                            <ArrowRight className="w-4 h-4 text-zinc-400 group-hover/work:text-white transition-colors duration-300" />
                                         </div>
                                     )}
                                 </div>
@@ -155,7 +155,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                     {work.locked && (
                         <div className="absolute top-4 right-4 z-10">
                             <div className="bg-black/60 backdrop-blur-md rounded-full p-2 border border-white/10">
-                                <Lock className="w-4 h-4 text-white/70" />
+                                <Lock className="w-4 h-4 text-zinc-400" />
                             </div>
                         </div>
                     )}
@@ -169,7 +169,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                                     <div className="w-8 h-8 rounded-full border border-white/20 bg-black/40 flex items-center justify-center backdrop-blur-sm">
                                         <Play className="w-3.5 h-3.5 text-white ml-0.5" fill="white" />
                                     </div>
-                                    <span className="font-mono text-[10px] tracking-[0.15em] font-medium text-white/70 uppercase">
+                                    <span className="font-mono text-[10px] tracking-[0.15em] font-medium text-zinc-400 uppercase">
                                         View Case Study
                                     </span>
                                 </div>
@@ -193,7 +193,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                 {variant === 'editorial' && (
                     <div className="mt-8 flex flex-col gap-4 px-1">
                         {/* 1. Problem Statement */}
-                        <p className="font-sans text-sm sm:text-base text-slate-300 leading-snug">
+                        <p className="font-sans text-sm sm:text-base text-zinc-200 leading-snug">
                             {work.problemStatement || work.description}
                         </p>
 

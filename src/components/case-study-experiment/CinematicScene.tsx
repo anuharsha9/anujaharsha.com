@@ -56,7 +56,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
 
                 {/* Paragraphs - Expanded width significantly */}
                 {body && (
-                    <div className="text-xl md:text-2xl lg:text-3xl text-zinc-300 font-light max-w-[1200px] leading-[1.5] md:leading-[1.4] space-y-6">
+                    <div className="text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light max-w-[1200px] leading-[1.5] md:leading-[1.4] space-y-6">
                         {body}
                     </div>
                 )}
@@ -74,7 +74,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
                                 className="flex items-start gap-4"
                             >
                                 <span className="text-[var(--accent-teal)] font-mono text-xl leading-none mt-1">0{i + 1}</span>
-                                <p className="text-lg md:text-xl text-zinc-300 font-light leading-relaxed">{b}</p>
+                                <p className="text-lg md:text-xl text-zinc-200 font-light leading-relaxed">{b}</p>
                             </motion.li>
                         ))}
                     </ul>

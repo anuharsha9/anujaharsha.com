@@ -82,7 +82,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
 
               {/* Thought Quote - Clean Sans */}
               <div className="relative pl-4 border-l-2 border-white/10">
-                <p className="text-white/80 text-[15px] leading-relaxed font-medium">
+                <p className="text-zinc-200 text-[15px] leading-relaxed font-medium">
                   {gear.thought}
                 </p>
               </div>
@@ -102,7 +102,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
               )}
 
               {/* Insight Text */}
-              <p className="text-white/60 text-sm leading-relaxed">
+              <p className="text-zinc-400 text-sm leading-relaxed">
                 {gear.insight}
               </p>
 
@@ -115,13 +115,13 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
                 <span className="text-sm font-bold tracking-wide uppercase text-white">
                   {gear.linkLabel}
                 </span>
-                <ArrowRight className="w-4 h-4 text-white/70 group-hover:text-white transition-colors group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors group-hover:translate-x-1" />
               </Link>
 
               {/* Case Study Badge */}
               {gear.caseStudy && gear.caseStudy !== 'me' && (
                 <div className="flex justify-center">
-                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30">
+                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600">
                     {'//'} {gear.caseStudy.replace('-', ' ').toUpperCase()}
                   </p>
                 </div>

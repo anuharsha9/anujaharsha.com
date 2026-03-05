@@ -232,7 +232,7 @@ export default function ImageLightbox({
             onClick={(e) => e.stopPropagation()}
           >
             {imageCaption && (
-              <p className="font-mono text-sm text-slate-400 leading-relaxed bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10 inline-block">
+              <p className="font-mono text-sm text-zinc-400 leading-relaxed bg-black/50 px-4 py-2 rounded-lg backdrop-blur-md border border-white/10 inline-block">
                 {imageCaption}
               </p>
             )}

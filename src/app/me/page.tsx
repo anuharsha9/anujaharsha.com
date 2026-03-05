@@ -193,10 +193,10 @@ function GlitchPortalHero() {
         >
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] mb-1">
+              <p className="font-mono text-[10px] md:text-xs text-zinc-600 uppercase tracking-[0.2em] mb-1">
                 Senior Product Designer · 13 Years
               </p>
-              <p className="text-white/70 text-sm md:text-base max-w-md leading-relaxed">
+              <p className="text-zinc-400 text-sm md:text-base max-w-md leading-relaxed">
                 I specialize in untangling the most complex enterprise systems through code-first architecture.
               </p>
             </div>
@@ -219,7 +219,7 @@ function GlitchPortalHero() {
 
               <a
                 href="mailto:anujanimmagadda@gmail.com"
-                className="group inline-flex items-center gap-2 px-5 py-2.5 border border-white/20 text-white/80 text-xs font-mono uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300"
+                className="group inline-flex items-center gap-2 px-5 py-2.5 border border-white/20 text-zinc-200 text-xs font-mono uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300"
               >
                 <span>Let&apos;s Talk</span>
                 <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -324,7 +324,7 @@ function DualityWriting() {
                   transition={{ duration: 0.8 }}
                   className="mb-10 md:mb-14"
                 >
-                  <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30 block mb-4">Poetry</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600 block mb-4">Poetry</span>
                   <h2
                     className="tracking-tight mb-3"
                     style={{
@@ -337,7 +337,7 @@ function DualityWriting() {
                   >
                     Gifts from Life
                   </h2>
-                  <p className="text-white/30 text-xs font-mono uppercase tracking-[0.25em]">— Anuja Harsha</p>
+                  <p className="text-zinc-600 text-xs font-mono uppercase tracking-[0.25em]">— Anuja Harsha</p>
                 </motion.div>
 
                 {/* First stanza preview — Pull Quote scale with fade mask */}
@@ -375,7 +375,7 @@ function DualityWriting() {
                     ))}
                     {/* Ghost lines to extend the fade */}
                     <p
-                      className="leading-[2] text-white/12"
+                      className="leading-[2] text-zinc-800"
                       style={{
                         fontFamily: "'Playfair Display', Georgia, serif",
                         fontSize: 'clamp(1.2rem, 2.4vw, 1.6rem)',
@@ -386,7 +386,7 @@ function DualityWriting() {
                       {POEM_STANZAS[1].lines[0]}
                     </p>
                     <p
-                      className="leading-[2] text-white/6"
+                      className="leading-[2] text-zinc-800"
                       style={{
                         fontFamily: "'Playfair Display', Georgia, serif",
                         fontSize: 'clamp(1.2rem, 2.4vw, 1.6rem)',
@@ -429,10 +429,10 @@ function DualityWriting() {
                         }}
                         transition={{ duration: 0.3 }}
                       >
-                        <svg className="w-3.5 h-3.5 text-white/30 group-hover:text-[var(--accent-teal)] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <svg className="w-3.5 h-3.5 text-zinc-600 group-hover:text-[var(--accent-teal)] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                         </svg>
-                        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 group-hover:text-[var(--accent-teal)] transition-colors duration-300">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-600 group-hover:text-[var(--accent-teal)] transition-colors duration-300">
                           Open Artifact
                         </span>
                       </motion.div>
@@ -477,7 +477,7 @@ function DualityWriting() {
                     transition={{ duration: 0.5, delay: i * 0.08 }}
                     className="group flex items-start gap-4 py-5 border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.02] -mx-4 px-4 rounded-lg transition-colors"
                   >
-                    <span className="flex-shrink-0 font-mono text-[11px] text-white/25 mt-1.5 group-hover:text-[var(--accent-teal)] transition-colors">
+                    <span className="flex-shrink-0 font-mono text-[11px] text-zinc-800 mt-1.5 group-hover:text-[var(--accent-teal)] transition-colors">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div className="flex-1 min-w-0">
@@ -485,12 +485,12 @@ function DualityWriting() {
                         {article.topic}
                       </span>
                       <h3
-                        className="text-white/70 text-base font-medium leading-relaxed group-hover:text-[var(--accent-teal)] transition-colors line-clamp-2"
+                        className="text-zinc-400 text-base font-medium leading-relaxed group-hover:text-[var(--accent-teal)] transition-colors line-clamp-2"
                         style={{ fontFamily: "'JetBrains Mono', monospace" }}
                       >
                         {article.title}
                       </h3>
-                      <span className="mt-2.5 text-[9px] text-white/25 font-mono uppercase tracking-wider block">
+                      <span className="mt-2.5 text-[9px] text-zinc-800 font-mono uppercase tracking-wider block">
                         {article.readTime || '5 min'} read
                       </span>
                     </div>
@@ -509,7 +509,7 @@ function DualityWriting() {
                   href="https://medium.com/@anu.anuja"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-10 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-white/20 hover:text-[var(--accent-teal)] transition-colors duration-300"
+                  className="mt-10 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-800 hover:text-[var(--accent-teal)] transition-colors duration-300"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
@@ -549,7 +549,7 @@ function DualityWriting() {
 
               {/* Close button */}
               <motion.button
-                className="fixed top-6 right-6 z-[10000] w-10 h-10 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/40 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer"
+                className="fixed top-6 right-6 z-[10000] w-10 h-10 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-zinc-600 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer"
                 onClick={() => setIsPoemExpanded(false)}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -583,7 +583,7 @@ function DualityWriting() {
                   >
                     Gifts from Life
                   </h2>
-                  <p className="text-white/25 text-xs font-mono uppercase tracking-[0.3em]">— Anuja Harsha</p>
+                  <p className="text-zinc-800 text-xs font-mono uppercase tracking-[0.3em]">— Anuja Harsha</p>
                 </motion.div>
 
                 {/* All Stanzas — Two Column Grid */}
@@ -641,7 +641,7 @@ function DualityWriting() {
 
                 {/* Bottom return link */}
                 <motion.button
-                  className="mt-20 md:mt-28 font-mono text-[10px] uppercase tracking-[0.3em] text-white/15 hover:text-[var(--accent-teal)] transition-colors duration-300 cursor-pointer flex items-center gap-2"
+                  className="mt-20 md:mt-28 font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-800 hover:text-[var(--accent-teal)] transition-colors duration-300 cursor-pointer flex items-center gap-2"
                   onClick={() => setIsPoemExpanded(false)}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -686,11 +686,11 @@ function LifeGallery() {
           transition={{ duration: 0.8 }}
         >
           <div className="flex items-center gap-4 mb-4">
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">Beyond Work</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600">Beyond Work</span>
             <div className="flex-1 h-[1px] bg-white/[0.06]" />
           </div>
           <h2 className="font-black text-3xl md:text-5xl text-white tracking-tight">Life Outside the Terminal</h2>
-          <p className="text-white/40 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
+          <p className="text-zinc-600 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
             Parent, baker, painter, poet. The raw material that shapes my design thinking.
           </p>
         </motion.div>
@@ -750,7 +750,7 @@ function LifeGallery() {
 
                 {/* Label */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 z-[3]">
-                  <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/70 transition-colors duration-500">
+                  <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-zinc-600 group-hover:text-zinc-400 transition-colors duration-500">
                     {photo.label}
                   </span>
                 </div>
@@ -786,7 +786,7 @@ function ConnectionClose() {
           transition={{ duration: 0.8 }}
         >
           <div className="flex-1 h-[1px] bg-white/[0.06]" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">Say Hello</span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600">Say Hello</span>
           <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rotate-45 opacity-40" />
           <div className="flex-1 h-[1px] bg-white/[0.06]" />
         </motion.div>
@@ -805,7 +805,7 @@ function ConnectionClose() {
         </div>
 
         <motion.p
-          className="text-white/50 text-base md:text-lg max-w-md mx-auto mb-14 leading-relaxed"
+          className="text-zinc-500 text-base md:text-lg max-w-md mx-auto mb-14 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -823,7 +823,7 @@ function ConnectionClose() {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <a href="mailto:anujanimmagadda@gmail.com"
-            className="group inline-flex items-center gap-2.5 text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300">
+            className="group inline-flex items-center gap-2.5 text-zinc-600 hover:text-[var(--accent-teal)] transition-colors duration-300">
             <svg className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
             </svg>
@@ -831,7 +831,7 @@ function ConnectionClose() {
           </a>
 
           <a href="https://www.linkedin.com/in/anu159" target="_blank" rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300">
+            className="group inline-flex items-center gap-2.5 text-zinc-600 hover:text-[var(--accent-teal)] transition-colors duration-300">
             <svg className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
             </svg>
@@ -839,7 +839,7 @@ function ConnectionClose() {
           </a>
 
           <a href="tel:+17813547394"
-            className="group inline-flex items-center gap-2.5 text-white/40 hover:text-[var(--accent-teal)] transition-colors duration-300">
+            className="group inline-flex items-center gap-2.5 text-zinc-600 hover:text-[var(--accent-teal)] transition-colors duration-300">
             <svg className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
             </svg>
@@ -849,7 +849,7 @@ function ConnectionClose() {
 
         {/* Signature */}
         <motion.p
-          className="text-white/10 text-[10px] font-mono uppercase tracking-widest mt-16"
+          className="text-zinc-800 text-[10px] font-mono uppercase tracking-widest mt-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

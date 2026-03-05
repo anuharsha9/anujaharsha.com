@@ -53,7 +53,6 @@
    --bg-monitor: #000000;
    --bg-monitor-alt: #1c1c1e;
    --bg-monitor-surface: rgba(28, 28, 30, 0.8);
-   --surface-panel-dark: #1D1D20;
 
 
    /* ── TEXT COLORS ───────────────────────────── */
@@ -73,21 +72,10 @@
    --accent-teal: #078B9C;
    --accent-teal-soft: rgba(7, 139, 156, 0.08);
    --accent-teal-bright: #14b8a6;
-   --accent-teal-50: #E6F7F9;
-   --accent-teal-100: #CCEFF3;
-   --accent-teal-200: #99DFE7;
-   --accent-teal-300: #66CFDB;
-   --accent-teal-400: #33BFCF;
-   --accent-teal-500: #0DB5CA;
-   --accent-teal-600: #0BA2B5;
-   --accent-teal-700: #0990A2;
-   --accent-teal-800: #077D8E;
-   --accent-teal-900: #056A7A;
+   --accent-teal-dark: #077D8E;
    --accent-teal-rgb: 7, 139, 156;
    --accent-amber: #f59e0b;
    --accent-amber-rgb: 245, 158, 11;
-   --accent-light: #0990A2;
-   --accent-teal-dark: #077D8E;
 
 
    /* ── CASE STUDY SCOPED TOKENS ─────────────────
@@ -134,50 +122,29 @@
 
    /* Highlight (alias to teal) */
    --highlight: #078B9C;
-   --highlight-soft: rgba(7, 139, 156, 0.08);
-   --highlight-hover: rgba(7, 139, 156, 0.12);
-   --highlight-active: rgba(7, 139, 156, 0.16);
 
    /* LinkedIn brand */
    --brand-linkedin: #0077b5;
 
 
-   /* ── SEMANTIC STATUS COLORS ────────────────── */
-
-   --color-success: #34c759;
-   --color-warning: #ff9f0a;
-   --color-error: #ff3b30;
-   --color-info: #078B9C;
-
-   /* Semantic accent palette (data viz / case study visuals) */
-   --semantic-emerald-500: #10b981;
-   --semantic-emerald-400: #34d399;
-   --semantic-green-500: #22c55e;
-   --semantic-blue-500: #3b82f6;
-   --semantic-blue-400: #60a5fa;
-   --semantic-rose-500: #f43f5e;
-   --semantic-red-500: #ef4444;
-   --semantic-orange-500: #f97316;
-   --semantic-orange-vivid: #f97316;
-   --semantic-orange-vivid-rgb: 249, 115, 22;
-   --semantic-violet-400: #a78bfa;
-   --semantic-purple-500: #a855f7;
-   --semantic-purple-vivid: #a855f7;
-   --semantic-purple-vivid-rgb: 168, 85, 247;
-   --semantic-cyan-500: #06b6d4;
-   --semantic-cyan-vivid: #06b6d4;
-   --semantic-cyan-vivid-rgb: 6, 182, 212;
-   --semantic-pink-500: #ec4899;
-   --semantic-navy-700: #1a3344;
+   /* Semantic accent palette — ONE per hue (data viz / case study visuals) */
+   --semantic-emerald: #10b981;
+   --semantic-blue: #3b82f6;
+   --semantic-rose: #f43f5e;
+   --semantic-orange: #f97316;
+   --semantic-orange-rgb: 249, 115, 22;
+   --semantic-purple: #a855f7;
+   --semantic-purple-rgb: 168, 85, 247;
+   --semantic-cyan: #06b6d4;
+   --semantic-cyan-rgb: 6, 182, 212;
+   --semantic-pink: #ec4899;
+   --semantic-navy: #1a3344;
 
 
    /* ── BORDERS ───────────────────────────────── */
 
    --border-primary: rgba(255, 255, 255, 0.08);
-   --border-secondary: rgba(255, 255, 255, 0.06);
    --border-subtle: rgba(255, 255, 255, 0.04);
-   --border-light: rgba(255, 255, 255, 0.06);
-   --border-dark: rgba(255, 255, 255, 0.08);
    --border-monitor: #333333;
 
 
@@ -195,14 +162,6 @@
    --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.5);
    --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.6);
 
-
-   /* ── BORDER RADIUS ─────────────────────────── */
-
-   --radius-sm: 8px;
-   --radius-md: 12px;
-   --radius-lg: 18px;
-   --radius-xl: 24px;
-   --radius-2xl: 32px;
 
 
    /* ── TYPOGRAPHY SCALE ──────────────────────── */
@@ -275,13 +234,6 @@
    --section-padding-tablet: var(--space-24);
    --section-padding-desktop: var(--space-32);
 
-
-   /* ── CONTENT WIDTHS ────────────────────────── */
-
-   --content-width-narrow: 65ch;
-   --content-width-medium: 75ch;
-   --content-width-wide: 90ch;
-   --content-width-container: 1024px;
 
 
    /* ── FONTS ─────────────────────────────────── */

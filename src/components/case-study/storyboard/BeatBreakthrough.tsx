@@ -17,9 +17,9 @@ interface ConsolidationItem {
 }
 
 const CONSOLIDATIONS: ConsolidationItem[] = [
-    { from: 'Scheduler', to: '+ Menu', icon: Calendar, color: 'var(--semantic-emerald-400)', angle: 150 },
-    { from: 'Distribution Lists', to: '+ Menu', icon: Mail, color: 'var(--semantic-blue-400)', angle: 30 },
-    { from: 'Access Lists', to: '+ Menu', icon: Lock, color: 'var(--semantic-violet-400)', angle: 270 },
+    { from: 'Scheduler', to: '+ Menu', icon: Calendar, color: 'var(--semantic-emerald)', angle: 150 },
+    { from: 'Distribution Lists', to: '+ Menu', icon: Mail, color: 'var(--semantic-blue)', angle: 30 },
+    { from: 'Access Lists', to: '+ Menu', icon: Lock, color: 'var(--semantic-purple)', angle: 270 },
 ]
 
 const METRICS = [
@@ -333,7 +333,7 @@ export default function BeatBreakthrough() {
                                     className="font-light"
                                     style={{
                                         fontSize: phase >= 3 ? 40 : 28,
-                                        color: phase >= 3 ? 'var(--semantic-emerald-400)' : 'var(--overlay-white-15)',
+                                        color: phase >= 3 ? 'var(--semantic-emerald)' : 'var(--overlay-white-15)',
                                     }}
                                     animate={phase >= 3 ? {
                                         textShadow: [
@@ -415,7 +415,7 @@ export default function BeatBreakthrough() {
                                                 <span className="text-base font-mono text-zinc-600 line-through decoration-red-500/50 decoration-2">
                                                     {m.before}
                                                 </span>
-                                                <svg width="16" height="8" viewBox="0 0 16 8" className="text-zinc-700">
+                                                <svg width="16" height="8" viewBox="0 0 16 8" className="text-zinc-600">
                                                     <path d="M0 4h12M10 1l4 3-4 3" stroke="currentColor" strokeWidth="1.2" fill="none" />
                                                 </svg>
                                             </div>
@@ -425,7 +425,7 @@ export default function BeatBreakthrough() {
                                                 from={m.before}
                                                 to={m.after}
                                                 active={phase >= 5}
-                                                color="var(--semantic-emerald-400)"
+                                                color="var(--semantic-emerald)"
                                             />
 
                                             {/* Label */}
@@ -437,7 +437,7 @@ export default function BeatBreakthrough() {
                                             <div className="mt-3 mx-auto max-w-[60px] h-1 rounded-full bg-white/[0.04] overflow-hidden">
                                                 <motion.div
                                                     className="h-full rounded-full"
-                                                    style={{ background: 'var(--semantic-emerald-400)' }}
+                                                    style={{ background: 'var(--semantic-emerald)' }}
                                                     initial={{ width: '100%' }}
                                                     animate={phase >= 5
                                                         ? { width: `${(m.after / m.before) * 100}%` }

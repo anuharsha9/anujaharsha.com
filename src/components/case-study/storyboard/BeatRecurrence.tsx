@@ -19,19 +19,19 @@ const EXAMPLES: RecurrenceExample[] = [
         label: 'Weekly',
         beforeUI: ['☐ Mon ☑ Tue ☐ Wed ☑ Thu ☐ Fri', 'End: ☐ Never ☑ Date [12/31/24]', 'Repeat: [1] week(s)'],
         after: 'Every Tuesday and Thursday until Dec 31',
-        color: 'var(--semantic-orange-500)',
+        color: 'var(--semantic-orange)',
     },
     {
         label: 'Monthly',
         beforeUI: ['Day: [15] ▾', 'Interval: [2] month(s)', 'On: ☐ First ☐ Last ☑ Exact'],
         after: 'Every 2 months on the 15th',
-        color: 'var(--semantic-violet-400)',
+        color: 'var(--semantic-purple)',
     },
     {
         label: 'Yearly',
         beforeUI: ['Month: [March] ▾', 'Week: [2nd] ▾  Day: [Monday] ▾', 'End: ☐ After [—] occ.'],
         after: 'Every March on the 2nd Monday',
-        color: 'var(--semantic-blue-400)',
+        color: 'var(--semantic-blue)',
     },
 ]
 
