@@ -42,3 +42,7 @@ legacy-preview-tree/
 
 # Generated sitemap
 public/sitemap.xml
+
+# Large video source files
+public/videos/figma-config-pitch.mp4
+public/videos/figme-config-pitch.mov
