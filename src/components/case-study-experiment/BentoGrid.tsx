@@ -279,7 +279,7 @@ export function PullQuote({
 /* ─── Eyebrow Label ─── */
 export function EyebrowLabel({ children }: { children: React.ReactNode }) {
     return (
-        <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.2em] mb-4">{children}</p>
+        <p className="text-sm md:text-base font-mono text-zinc-300 uppercase tracking-[0.2em] mb-5 mt-10 font-medium">{children}</p>
     )
 }
 

@@ -11,6 +11,7 @@ import { StorySlide } from '@/components/case-study/StoryDeck'
 const RCFullContent = dynamic(() => import('@/components/case-study-experiment/RCFullContent'), { ssr: true })
 
 /* ─── Beat Imports ─── */
+import RCTrailer from '@/components/home/RCTrailer'
 import { RCWireframe } from '@/components/case-study/CaseStudyWireframes'
 import BeatWeekOne from '@/components/case-study/storyboard/BeatWeekOne'
 import BeatTheRoom from '@/components/case-study/storyboard/BeatTheRoom'
@@ -80,7 +81,7 @@ export default function RCCaseStudyView({ data }: { data: CaseStudyData }) {
             slides={RC_SLIDES}
             theme="rc"
             heroStats={stats}
-            heroBackground={<RCWireframe />}
+            heroBackground={<RCTrailer />}
             actSections={RC_ACT_SECTIONS}
         >
             <RCFullContent data={data} />

@@ -196,7 +196,7 @@ export default function CinematicCaseStudy({
                                     {/* Right — Wireframe or Cover */}
                                     <div className="relative">
                                         {heroBackground ? (
-                                            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 aspect-video relative" style={{ filter: 'brightness(1.8)' }}>
+                                            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 aspect-video relative">
                                                 {heroBackground}
                                             </div>
                                         ) : data.coverImage && (

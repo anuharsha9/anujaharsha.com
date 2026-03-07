@@ -3,10 +3,10 @@ import { CaseStudyData } from '@/types/caseStudy'
 export const mlFunctionsCaseStudy: CaseStudyData = {
   slug: 'ml-functions',
   // Blueprint Hero - Architect Design System
-  heroTitle: 'Democratizing Machine Learning for Everyone',
-  heroSubheading: 'Turning a black-box data science process into a guided, 4-step workflow',
+  heroTitle: 'A Side Project Earned Me the Whole Thing.',
+  heroSubheading: 'I turned a broken, zero-adoption ML engine into a guided workflow that four SMEs blazed through without help.',
   heroSubtitle:
-    'I came in with zero ML background and got MIT certified to do this work. Over two years, I navigated engineering delays, layoffs, and resource constraints — leading design through it all.',
+    'Our data scientist showed me a screenshot and said, "I want this in WebFOCUS." I didn\'t design it blindly. I dug in, learned the domain, got MIT certified, and earned the trust to own the full ML revamp. Two years. Engineering delays, layoffs, resource constraints — I fought for every damn thing in ML.',
   coverImage: {
     src: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
     alt: 'ML Functions Confusion Matrix - Model Performance Visualization',
@@ -32,93 +32,93 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   // PROJECT SNAPSHOT & DEEP DIVE DATA
   // ----------------------------
   projectSnapshot: {
-    problem: '0% feature adoption. We built a powerful ML engine, but it lived inside a data flow canvas — 12+ clicks, cascading context menus, and confusing error states meant no business analyst could use it.',
-    role: 'Lead Designer & Researcher',
+    problem: 'It was really shitty. A powerful ML engine buried in a data flow canvas — click the plus menu, open a data flow, drag a dataset, drag a model pill, hit a hidden play button, right-click for cascading context menus. 12 to 15 clicks minimum. Nobody used it.',
+    role: 'Lead Designer & Researcher (End-to-End Ownership)',
     keyDecisions: [
-      'Moving from complex code to a linear 4-step visual wizard',
-      'Implementing "Dual Experience" (Guided vs Advanced tracks)',
-      'Visualizing the confusion matrix for non-statisticians',
+      'Created a Predict Data landing page from scratch — none existed',
+      'Designed one unified path serving both novices and data scientists — not two separate modes',
+      'Rebuilt the confusion matrix into an interactive, visual experience',
     ],
-    impactDirectional: 'Democratized ML, turning a hidden feature into an accessible flagship capability.',
+    impactDirectional: 'Turned a zero-adoption ML engine into a guided workflow that four SMEs blazed through without help.',
     status: 'Implemented — Final QA pending at departure',
   },
   challengeDeconstruction: {
     assumptions: [
       'Business analysts understand data flow canvases and cascading menus.',
-      'Users know what "hyperparameters" are.',
-      'Cryptic technical stack traces are acceptable errors.',
+      'Users know what hyperparameters, binary classification, and regression mean.',
+      'A red exclamation mark saying "No results generated" is acceptable feedback.',
     ],
     unknowns: [
-      'How do we abstract complex algorithms without losing power?',
-      'Can we design one flow that satisfies both novices and Data Scientists?',
+      'How do we abstract complex algorithms without losing power for data scientists?',
+      'Can one path serve both a novice who\'s never touched ML and a Principal Data Scientist?',
     ],
     constraints: [
       'Cannot rewrite the underlying ML engine (Python based).',
-      'Must support legacy "Advanced Mode" for technical data scientists.',
+      'Must work within WebFOCUS\'s modal/popup architecture.',
       'Extremely limited frontend engineering resources.',
     ],
-    businessGoal: 'Drive adoption and defend our market position by democratizing ML for non-technical users.',
+    businessGoal: 'Drive adoption and defend our market position by making ML accessible to business users who\'d never touched a model before.',
   },
   successCriteria: {
-    baseline: '12+ clicks through data flow canvas, cascading context menus, high error rate.',
-    target: '<10 clicks, no coding required, guided error handling.',
-    result: '7-9 clicks, zero code, 5/5 success rate in usability testing.',
-    disclaimer: 'Results based on internal usability testing with 5 SMEs.',
+    baseline: '~15 clicks through data flow canvas, cascading context menus, "No results generated" dead-ends.',
+    target: 'Right-click entry, guided flow, zero dead-ends.',
+    result: '2 clicks to start, 4-step wizard, 4/4 SMEs completed without help.',
+    disclaimer: 'Results based on internal usability testing with 4 SMEs.',
   },
   keyDecisions: [
     {
-      decision: 'Implement "Dual Experience" Mode',
-      rationale: 'Experts needed control; novices needed guidance. One UI couldn\'t serve both.',
-      tradeoff: 'Double the maintenance for two distinct flows.',
-      rejectedOption: 'Force everyone into the "Simple" Wizard',
+      decision: 'One Unified Path (Not Two Separate Modes)',
+      rationale: 'The principal data scientist asked if I was "trying to make this dumb." I wasn\'t. One path that serves a dual purpose — not dumbed down, not over-engineered. Every step had context, definitions, and tooltips. The sophistication was there; it just waited for you to ask for it.',
+      tradeoff: 'Had to design each step to be legible for novices AND useful for data scientists simultaneously.',
+      rejectedOption: 'Two completely separate experiences (guided vs. advanced)',
     },
     {
-      decision: 'Linear 4-Step Wizard',
-      rationale: 'Broke complex ML training into digestable chunks: Type -> Target -> Predictors -> Params.',
-      tradeoff: 'Less flexibility to jump around steps.',
-      rejectedOption: 'Single-page "Dashboard" Configuration',
+      decision: 'Popup Wizard (Not Full-Screen)',
+      rationale: 'I tried full-screen views, side-step layouts, two-column layouts. The popup won because WebFOCUS loved modals — all engineers lived in popups. It gave breathing room for helper text and definitions.',
+      tradeoff: 'Less screen real estate for complex forms.',
+      rejectedOption: 'Full-screen wizard with dedicated navigation',
     },
     {
-      decision: 'Visual Confusion Matrix',
-      rationale: 'Standard tables were unreadable to non-data scientists.',
-      tradeoff: 'High engineering effort to build custom visualization.',
-      rejectedOption: 'Standard Numerical Table',
+      decision: 'Interactive Confusion Matrix',
+      rationale: 'I aligned the threshold slider directly under the chart point — exactly 90 degrees parallel. As you drag it, the dot on the line chart moves with it. No way to miss the relationship.',
+      tradeoff: 'Dozens of sessions with the data scientist to understand every interaction on every chart before I could design it.',
+      rejectedOption: 'Standard numerical table',
     },
   ],
   researchDecisionMap: [
     {
-      insight: 'Users didn\'t know which algorithm to pick.',
-      evidence: 'Usability tests showed hesitation at "Select Algorithm".',
-      decision: 'Added "Auto-Select" based on data type analysis.',
-      feature: 'Smart Defaults',
+      insight: 'Users didn\'t know which algorithm to pick or what "hyperparameters" meant.',
+      evidence: 'I couldn\'t figure it out after weeks of study. If I find this frustrating, a first-time user has no chance.',
+      decision: 'Added contextual definitions at every step. Problem type, target, predictors — each explained in plain language.',
+      feature: 'Contextual Education',
     },
     {
-      insight: 'Error messages like "Error 500" were useless.',
-      evidence: 'Users abandoned tasks upon first error.',
-      decision: 'Translated backend errors into "Try changing [X]" suggestions.',
-      feature: 'Human-Readable Error Layer',
+      insight: 'Chart colors didn\'t mean anything — four different colors with no purpose.',
+      evidence: 'Working sessions with the data scientist. I said: "Your goal is to show F1 scores. Adding colors makes it more confusing."',
+      decision: 'Simplified to meaningful colors only. Won that conversation because I\'d finally understood what the chart was showing.',
+      feature: 'Visual Clarity',
     },
   ],
   competitiveResponse: {
     marketGap: 'DataRobot and H2O.ai are powerful but too complex for ad-hoc business users.',
-    response: 'Built a "Lightweight ML" experience embedded directly in their BI tool.',
+    response: 'Built a guided ML experience embedded directly in their BI tool — right-click a dataset and you\'re in.',
     evidenceSource: 'Competitor teardowns of DataRobot/H2O.',
   },
   businessImpactDirectional: {
     bullets: [
-      'Reduced training time from ~20 mins to ~5 mins (directional).',
-      'Enabled non-technical users to build valid models.',
-      'Zero dead-end errors in final usability testing.',
+      '4/4 SMEs completed the workflow without assistance.',
+      'Right-click entry pattern extended to Generate Insights and Ask a Question.',
+      'Design director learned ML from this workflow — he could do it.',
     ],
-    disclaimer: 'Impact metrics are based on pre-release usability testing and time-on-task measurements.',
+    disclaimer: 'Impact metrics are based on pre-release usability testing with 4 SMEs.',
   },
   ownership: {
     ownedFeatures: [
       '4-Step Training Wizard',
-      'Confusion Matrix Visualization',
-      'Smart Defaults Logic',
-      'Error Handling Layer',
-      'Dual-Mode Toggle',
+      'Predict Data Landing Page (designed from scratch)',
+      'Confusion Matrix Interactive Visualization',
+      'Right-click Entry Point Pattern',
+      'Model Card Display System',
     ],
     excludedFeatures: [
       'Python Backend Execution',
@@ -129,8 +129,8 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     slides: [
       {
         type: 'title',
-        title: 'Democratizing Machine Learning',
-        content: ['Anuja Harsha — Senior Product Designer', 'Secondary Case Study'],
+        title: 'A Side Project Earned Me the Whole Thing.',
+        content: ['Anuja Harsha — Senior Product Designer', 'ML Functions Case Study'],
         image: '/images/case-study/ml-functions/ml-functions-cover.png',
       },
       {
@@ -138,86 +138,86 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
         layout: 'center',
         title: 'Executive Summary',
         content: [
-          'Situation: ML tools were blocked by code-heavy barriers.',
-          'Action: I designed a 4-step wizard with "Dual Persona" support.',
-          'Result: Reduced complexity (12+ steps → 4). 5/5 validation success.',
+          'Situation: A powerful ML engine with zero adoption — buried in a data flow canvas, 12-15 clicks, confusing error states.',
+          'Action: I earned the trust to own this through a small explainability project. Got MIT certified. Designed a 4-step guided workflow with one path serving both novices and data scientists.',
+          'Result: 4/4 SMEs blazed through it without help. Right-click entry pattern adopted for other AI features.',
         ],
         signal: 'EXECUTIVE SUMMARY',
       },
       {
         type: 'problem',
         layout: 'split',
-        title: 'Critical Workflows Were Inaccessible',
+        title: 'It Was Really Shitty.',
         content: [
-          'Goal: Train a churn prediction model.',
-          'Reality: Hidden behind code editors and cryptic errors.',
-          'Result: <5% adoption by business users.',
+          'Click the plus menu, open a data flow, drag a dataset, drag a model pill.',
+          'Hit a hidden play button. Right-click for cascading context menus.',
+          '"No results generated." 12-15 clicks minimum. Nobody used it.',
         ],
         image: '/images/case-study/ml-functions/Legacy Train Model UI.png',
         signal: 'CONSTRAINT: LEGACY DEBT',
       },
       {
         type: 'research',
-        title: 'Users Were Blocked by Code Barriers',
+        title: 'I Didn\'t Design It Blindly.',
         content: [
-          'Earned MIT Certification to understand the domain.',
-          'Embedded with Principal Data Scientist.',
-          'Identified the "Dual Persona" need.',
+          'Got MIT certified because the work outgrew surface-level understanding.',
+          'Weekly sessions with the principal data scientist. I validated my understanding constantly.',
+          'If I found this frustrating after weeks of study, a first-time user had no chance.',
         ],
-        signal: 'EVIDENCE: USER RESEARCH',
+        signal: 'EVIDENCE: DOMAIN MASTERY',
       },
       {
         type: 'execution',
-        title: 'A Unified Workflow for All Skill Levels',
+        title: 'One Path. Not Two Experiences.',
         content: [
-          'Step 1: Define Problem.',
-          'Step 2: Select Target.',
+          'Step 1: Select Problem Type.',
+          'Step 2: Specify Target Variable.',
           'Step 3: Choose Predictors.',
-          'Step 4: Tune Parameters.',
+          'Step 4: Configure Hyperparameters.',
         ],
         image: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
-        signal: 'STRATEGY: DUAL PERSONA',
+        signal: 'STRATEGY: UNIFIED PATH',
       },
       {
         type: 'decision',
-        title: 'Simplifying Complexity via Architecture',
+        title: 'Why Don\'t We Have a Landing Page Here?',
         content: [
-          'Dual Experience: Wizard vs Advanced.',
-          'Linear 4-Step Flow.',
-          'Redesigned Confusion Matrix UX.',
+          'No Predict Data landing page existed. I designed it from scratch.',
+          'Tried combining Train and Run. Engineering pushed back. Tab split became the answer.',
+          'Right-click entry: capitalizing on the most common user behavior in the product.',
         ],
-        notes: 'Significantly improved the visual and user experience of the existing visualization.',
+        notes: 'The popup wizard won because WebFOCUS loved modals. It gave breathing room for helper text. Sometimes the best design move is the one that doesn\'t ask the legacy product to become something it isn\'t.',
         signal: 'DECISION: ARCHITECTURE',
       },
       {
         type: 'execution',
-        title: 'Preventing Errors Before They Happen',
+        title: 'The Most Complex Screen I\'ve Ever Designed.',
         content: [
-          'Error Handling: Translated technical errors to human guidance.',
-          'Smart Defaults: Prevented invalid configurations upstream.',
-          'Empty States: Guided entry for zero-data scenarios.',
+          'Confusion matrix: two charts, a threshold slider, a four-by-three table.',
+          'Threshold slider and chart point: exactly 90 degrees parallel.',
+          'A dozen sessions with the data scientist — paper, pen, sketching live inside my design software.',
         ],
-        signal: 'QUALITY: ERROR STATES',
+        signal: 'CRAFT: CONFUSION MATRIX',
       },
       {
         type: 'impact',
         layout: 'full',
-        title: '5/5 Validation Success',
+        title: 'They Just Blazed Through It.',
         content: [
-          'Validation: 5/5 SMEs completed the flow without help.',
-          'Support: "The best screen in the entire UX revamp." — Principal Scientist.',
-          'Adoption: Patterns now used across the entire platform.',
+          '4/4 SMEs completed the workflow without help.',
+          '"The best screen in the entire UX revamp." — the principal data scientist said it out loud, in front of everyone.',
+          'Right-click entry pattern adopted for Generate Insights and Ask a Question.',
         ],
         image: '/images/case-study/ml-functions/ml-functions-reflections.jpg',
-        signal: 'OUTCOME: 5/5 SUCCESS',
+        signal: 'OUTCOME: 4/4 VALIDATED',
       },
       {
         type: 'lesson',
-        title: 'End-to-End Ownership & Future Vision',
+        title: 'What a Mind-Bending Project.',
         content: [
-          'Role: End-to-End Ownership (Research to Delivery).',
-          'Collaboration: Partnership with Principal Data Scientist.',
-          'Next: Real-time model training visualization.',
+          'ML taught me product partnership. My PM and I co-owned the direction.',
+          'I fought for every decision with logic, research, and documentation.',
+          'I only fully realized I was shaping the entire product experience after getting laid off.',
         ],
         signal: 'RETROSPECTIVE',
       },
@@ -235,50 +235,50 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   },
 
   quickOverview: {
-    title: 'Democratizing ML — Quick Impact Overview',
-    subtitle: 'Predictive analytics for non-technical users',
-    leadershipSummary: 'Led ML Functions alongside ReportCaster and IQ Plugin. Weekly sessions with our Principal Data Scientist for months — learned the domain before touching design. Guided engineering through implementation due to limited front-end resources.',
+    title: 'ML Functions — A Side Project Earned Me the Whole Thing',
+    subtitle: 'From zero ML knowledge to owning the entire ML UX revamp',
+    leadershipSummary: 'Our data scientist gave me a small explainability project. I didn\'t design it blindly — I dug in, asked questions, understood the entire upstream workflow. That earned the trust to own the full ML revamp. I led this alongside ReportCaster and IQ Plugin, managing multiple teams simultaneously.',
     whatTheSystemWas:
-      'Zero feature adoption. We had a wildly powerful, multi-million dollar ML engine that absolutely no one was using. It lived inside a data flow canvas — users had to drag data pills, drag model pills, hit a hidden play button, right-click for cascading context menus to set hyperparameters, and navigate confusing "results not generated" error states. 12+ interactions just to train a single model. To our core customers (business analysts), it was a complete black box.',
+      'It was really shitty. A powerful, multi-million dollar ML engine that nobody used. Click the plus menu, open a data flow, drag a dataset, drag a model pill, hit a hidden play button, right-click for cascading context menus — 12 to 15 clicks minimum. A red exclamation mark saying "No results generated." To business analysts, it was a complete black box.',
     myRole:
-      'I took this from a fragmented engineering tool to a design-ready, zero-code 4-step workflow. End-to-end ownership—from getting MIT certified to learn the domain, to delivering the final design.',
+      'End-to-end ownership. I earned the project through a side challenge, got MIT certified because the work outgrew surface-level understanding, designed the 4-step guided workflow, and fought for every decision with logic, research, and documentation.',
     scopeOfPractice: [],
     credentials: 'Professional Certificate in Product Design for AI & ML — MIT, Boston',
     impactMetrics: [
       {
-        label: 'Adoption potential',
-        value: 'Feature unlocked for non-technical users',
+        label: 'SME Validation',
+        value: '4/4 completed without help',
       },
       {
-        label: 'SME Usability',
-        value: '5/5 completed without help',
+        label: 'Entry Point',
+        value: '~6 clicks to start → 2-click right-click entry',
       },
       {
-        label: 'Friction',
-        value: '12+ manual steps → 4-step wizard',
+        label: 'Workflow',
+        value: 'Data flow canvas → 4-step wizard',
       },
       {
-        label: 'Entry point',
-        value: '5 clicks → 2-click access',
+        label: 'Pattern Adoption',
+        value: 'Right-click entry extended to 3 AI features',
       },
     ],
     star: {
-      situation: 'Zero adoption. We had a wildly powerful ML engine running under the hood, but it was entirely inaccessible. Buried in a data flow canvas with 12+ clicks, cascading context menus, and confusing error states, our business users couldn\'t touch it. It was a massive sunk cost unless we could democratize it.',
-      task: 'Transform the engineer-driven black box into an intuitive, zero-code experience so business analysts could train predictive models, while ensuring our expert Data Scientists could still access the advanced parameters they needed.',
-      action: 'Got MIT certified in AI/ML product design to deeply understand the domain. Embedded weekly with the Principal Data Scientist for months. Redesigned the 12-step technical task into a sleek 4-step wizard with a "Dual Persona" architecture, and translated complex stats into a visual confusion matrix.',
-      result: '5 for 5 in usability testing. Non-technical users successfully trained models without assistance. Our Principal Data Scientist called the confusion matrix "the best screen in the entire UX revamp," validating that we successfully bridged the gap between power and accessibility.',
+      situation: 'Zero adoption. A powerful ML engine buried in a data flow canvas — 12-15 clicks, cascading context menus, confusing error states. Our business users couldn\'t touch it. Massive sunk cost.',
+      task: 'Turn the black box into something a business analyst could use, while keeping it useful for our Principal Data Scientist. One path, not two separate experiences.',
+      action: 'Earned the project through a small explainability challenge. Got MIT certified because the work outgrew surface-level understanding. Designed a 4-step popup wizard with contextual education at every step. Sat with the data scientist for dozens of sessions to understand every interaction on the confusion matrix before designing it. Fought to keep Data Flow out of the view when it was brought back. Won.',
+      result: '4/4 SMEs blazed through the workflow without help. The principal data scientist called the confusion matrix "the best screen in the entire UX revamp" — out loud, in front of everyone. The right-click entry pattern I designed was adopted for Generate Insights and Ask a Question.',
     },
     technologies: [],
     keyAchievements: [
-      '12+ clicks → 7-9 clicks for ML workflow',
-      '5/5 SMEs found entry point without help',
-      'Zero ML background → MIT certified',
-      '"The best screen in the entire UX revamp" — Principal Data Scientist on confusion matrix',
-      'Designed the Predict Data landing page — no entry point existed before',
+      '~6 clicks to start training → reduced to 2-click entry (right-click → Predict Data)',
+      '4/4 SMEs completed the workflow without assistance',
+      'Zero ML background → MIT certified (paid for it myself)',
+      '"The best screen in the entire UX revamp" — the principal data scientist, in front of the whole team',
+      'Created the Predict Data landing page from scratch — no entry point existed',
       'Replaced dense model tables with scannable model cards',
-      'Negotiated Train/Run tab split — balancing UX clarity with engineering constraints',
-      'Dual-experience approach (guided + advanced)',
-      'Patterns became foundation for IQ Plugin',
+      'Tab split negotiation — balancing UX clarity with engineering constraints',
+      'One unified path serving both personas — not two separate modes',
+      'Right-click entry pattern adopted for other AI features',
     ],
     dataSheetUrl: 'https://www.ibi.com/content/dam/ibi/documents/data-sheet/ibi-webFOCUS-integrated-data-science-data-sheet.pdf',
     dataSheetLabel: 'View ML Functions Data Sheet',
@@ -310,98 +310,104 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   uxPrinciples: {
     title: 'Design Principles Applied',
     principles: [
-      { title: 'Explainability First', description: 'Every ML output tells users WHY, not just WHAT. The confusion matrix shows which predictions the model gets right and wrong — in plain language, not just numbers. Our Principal Data Scientist called it "the best screen in the entire UX revamp."' },
-      { title: 'Linear Flow (No Branching)', description: 'Problem Type → Target → Predictors → Hyperparameters. Four steps, always in order. No branching, no hidden paths. This spine came directly from asking the Principal Data Scientist: "What do you absolutely need to train a model responsibly?"' },
-      { title: 'Upstream Validation', description: 'If a dataset doesn\'t support the selected model type, we tell users before they waste time configuring it. I pushed back against the assumption that users would "just know" which models work with which data. Prevent frustration, don\'t apologize for it.' },
-      { title: 'System State Visibility', description: 'Users always know where they are in the workflow, what\'s complete, and what\'s next. Training progress, model status, and error states are surfaced clearly — no more "results not generated" dead-ends.' },
-      { title: 'Progressive Disclosure', description: 'Business users see the guided flow: select, configure, train, evaluate. Data scientists can expand hyperparameter panels, access advanced metrics, and fine-tune settings. The complexity is there — it just waits for you to ask for it.' },
-      { title: 'Dual Experience (Guided + Advanced)', description: 'Born from an engineering constraint: we couldn\'t rebuild advanced mode. So the guided flow coexists with the legacy interface. What felt like a limitation became a feature — experts keep their power tools, newcomers get guardrails. Both personas served.' },
+      { title: 'Explainability First', description: 'I couldn\'t make sense of the confusion matrix when I first saw it. So I sat with the data scientist for a dozen sessions until I understood every interaction. If I can explain it visually, anyone can understand it. He called it "the best screen in the entire UX revamp."' },
+      { title: 'Linear Flow (No Branching)', description: 'Problem Type → Target → Predictors → Hyperparameters. The foundation was staring at me in my face. Four things you need to train a model. That became the spine. No branching, no hidden paths.' },
+      { title: 'Evidence-Backed Decisions', description: 'I could never just say "I designed this because I felt like it." Design instincts don\'t mean anything if you don\'t have the evidence to back them up. Every pushback forced me to find industry research, existing WebFOCUS behavior, or documentation.' },
+      { title: 'Contextual Education', description: 'Every step had definitions, tooltips, explanations. Not a dumbed-down UI — an educated one. The sophistication was there; it just waited for you to ask for it.' },
+      { title: 'Right-click Entry', description: 'In WebFOCUS, right-click is like religion. Everything is right-clickable. So putting "Predict Data" in the right-click menu was capitalizing on the most common user behavior in the product. That wasn\'t a UX tweak. That was adoption thinking.' },
+      { title: 'One Path, Dual Purpose', description: 'We did not have two experiences. We had one path that serves both new users and data scientists. Not easy enough that they\'d say "this is spoon feeding," but clear enough that someone with zero ML background could use it.' },
     ],
   },
   // ----------------------------
-  // SECTIONS (6 sections mapped to D.E.S.I.G.N. Framework)
+  // SECTIONS (6 Acts — Cinematic Case Study)
   // ----------------------------
   sections: [
     {
       id: 'section-01',
-      index: 'D',
-      title: 'Discover Deeply: How I Earned the Project',
-      summary: 'Turned a knowledge gap into an advantage. MIT certified. Months learning before designing.',
-      body: `Zero ML background could have been a liability — instead, it became an advantage. I enrolled in MIT's AI/ML product design certification and embedded weekly with our Principal Data Scientist.
+      index: 'I',
+      title: 'A Side Project Earned Me the Whole Thing',
+      summary: 'Our data scientist gave me a small explainability project. I didn\'t design it blindly. That earned the trust to own the full ML revamp.',
+      body: `Our data scientist showed me a screenshot from another tool and said, "I want this in WebFOCUS." That was the explainability popup — a small project. But I didn't design it blindly. I did a lot of digging, curiosity, asked a lot of questions, understood why the popup was needed, how it works, what's the context of it.
 
-By the time I started designing, I understood the domain deeply enough to challenge assumptions and ask the right questions.`,
+He was glad that I didn't just take it at face value. He told me he was impressed that I took the effort to understand the entire upstream workflow before touching a single design. That's what got me the ML Functions redesign project. It was also something I had proposed — because after I found out about the explainability popup, I realized the entire machine learning workflow was not great.`,
     },
     {
       id: 'section-02',
-      index: 'E',
-      title: 'Empathize with the Ecosystem: Understanding Users and Workflows',
-      summary: 'Three personas with conflicting needs. The existing experience served none of them well.',
-      body: `Three personas. Three different needs: data scientists wanted depth and control over hyperparameters, business users wanted simplicity and guidance, analysts wanted both. The existing experience served none of them well.
+      index: 'II',
+      title: 'One Path. Not Two Experiences.',
+      summary: 'Data scientists wanted depth. I wanted simplicity. We landed on one workflow that serves a dual purpose — not dumbed down, not over-engineered.',
+      body: `The principal data scientist at one point was like, "Are you trying to make this dumb?" No. I wasn't removing sophistication. I was making the sophistication legible.
 
-After documenting every workflow and decision point, I realized: if I find this frustrating after weeks of study, a first-time user has no chance. That insight drove the redesign.`,
+We did not have two experiences. We had one path that serves a dual purpose — new users and experienced users. Not easy enough that data scientists would say "this is spoon feeding," but clear enough that someone like me could use it. Every step had context — definitions, explanations, tooltips. The sophistication was there; it just waited for you to ask for it.
+
+Every session with the data scientist was enlightening. I don't think without those sessions I would have been able to do it at all. He loved machine learning. I loved user experience. That mutual passion is why it worked.`,
     },
     {
       id: 'section-03',
-      index: 'S',
-      title: 'Simplify the Chaos: From Black Box to Guided Flow',
-      summary: 'Designed a structured 4-step guided flow: Problem Type → Target → Predictors → Hyperparameters.',
-      body: `The mapping revealed the problems, but solving them required inventing infrastructure that didn't exist.
+      index: 'III',
+      title: 'Why Don\'t We Have a Landing Page Here?',
+      summary: 'No entry point existed. I designed the Predict Data landing page from scratch. Dozens of iterations. Tab split. Model cards. Right-click entry.',
+      body: `The moment I saw the workflow, my first instinct was — why don't we have a landing page here? Why can't users select data themselves? I designed it from scratch.
 
-The biggest gap: there was NO Predict Data landing page. The original workflow was so broken you could barely begin training a model. To increase adoption and discoverability, a landing page was a must. I designed it to serve multiple purposes: select or change a dataset, show both Run and Train model options, and display existing models — both previously trained models and models available to run on the current dataset.
+I tried combining Train and Run on the same display. Engineering pushed back: "It's too confusing — code-wise it's also difficult to manage." So we split them into two tabs. It took real brainstorming to get there.
 
-Initially, I put everything on a single display. Engineering pushed back: "It's too confusing — code-wise it's also difficult to manage." So we split Train and Run into two tabs. It took real brainstorming to get there — our need for clean UX and easy decision-making vs. engineering's requirement of separating the two workflows.
+The model display was another breakthrough. Dense tables made comparison impossible for non-experts. I introduced model cards instead — each model gets its own card with the key details needed for an informed decision.
 
-The model display was another breakthrough. The original approach used dense tables — rows of metrics that made comparison nearly impossible for non-experts. I introduced a **model card** pattern instead: each model gets its own card with the key details needed for an informed decision. I iterated on the card design with our Principal Data Scientist (who ensured the right metrics appeared) and my Director of Design (who ensured I was following the design system — I was still less than a year at the org).
+In WebFOCUS, right-click is like religion. Everything is right-clickable. So putting "Predict Data" in the right-click menu of a dataset was capitalizing on the most common user behavior in the product. Once we saw how well it worked, we extended the pattern to Generate Insights and Ask a Question too.
 
-The 4-step UX spine came from asking the right question: "What do you absolutely need to train a model responsibly?" Problem type, target variable, predictors, and hyperparameters. That became the guided flow that made ML accessible without dumbing it down.`,
+The 4-step spine? Problem type, target variable, predictors, and hyperparameters. The foundation was just staring at me in my face.`,
     },
     {
       id: 'section-04',
-      index: 'I',
-      title: 'Iterate with Inclusion: Balancing Control with Simplicity',
-      summary: '10+ iterations on the confusion matrix. Productive tension with Data Science → best screen in the project.',
-      body: `Led cross-functional alignment across Product, Engineering, and Data Science. Weekly syncs. Shared Figma. Screen-by-screen design reviews.
+      index: 'IV',
+      title: 'The Most Complex Screen I\'ve Ever Designed',
+      summary: 'The confusion matrix had two charts, a threshold slider, and a four-by-three table. Dozens of sessions with the data scientist before I understood every interaction.',
+      body: `When I first saw the confusion matrix, I couldn't make sense of it. As I moved the threshold slider, everything changed and nothing was obvious. So I sat with the data scientist — a dozen sessions, paper and pen, sketching on video calls, moving things around live inside my design software.
 
-The confusion matrix screen alone went through 10+ iterations. We moved from standard tables to a real-time, three-panel visualization that gives users immediate control.
+I aligned the threshold slider directly under the chart point that moved — exactly 90 degrees parallel. As you drag it, the dot on the line chart moves with it. There's no way you can miss the relationship. It was like magic.
 
-Our Principal Data Scientist pushed for advanced metrics; I pushed for clarity. That productive tension produced a multi-panel view that serves both data scientists (threshold control, AUC scores) and business users (visual charts, side-by-side comparisons). He called it "the best screen in the entire UX revamp."
+We had this conversation about chart colors — four different colors that didn't mean anything. I said, "Your goal is to show F1 scores. Adding colors makes it more confusing." I won that conversation because I'd finally understood what the chart was actually showing.
 
-**What I'd do differently:** Earlier, cleaner alignment with our Data Scientist. He surfaced insights late in the process that were harder to incorporate — some we did, but it cost us time.`,
+He called it "the best screen in the entire UX revamp." He said it during a team walkthrough. Out loud. In front of everyone.`,
       beforeAfter: {
         before: {
           src: '/images/case-study/ml-functions/Legacy Train Model UI.png',
-          alt: 'Legacy ML Workflow - Fragmented and technical',
-          caption: 'Original Interface: Fragmented 4+ step workflow hidden behind context menus',
+          alt: 'Legacy ML Workflow - Data flow canvas',
+          caption: 'The old split-screen data flow canvas',
         },
         after: {
           src: '/images/case-study/ml-functions/ml-prototype-poster.jpg',
-          alt: 'New Guided ML Workflow - Linear and accessible',
-          caption: 'Redesign: Guided 4-step wizard with clear error handling',
+          alt: 'New Guided ML Workflow - 4-step wizard',
+          caption: 'The redesigned 4-step guided workflow',
         },
         beforeLabel: 'Legacy Workflow',
         afterLabel: 'Guided Workflow',
-        comparisonNotes: 'Transformed a fragmented, error-prone technical process into a guided, linear wizard accessible to business users.',
+        comparisonNotes: 'From a data flow canvas nobody could use to a guided workflow that four SMEs blazed through without help.',
       },
     },
     {
       id: 'section-05',
-      index: 'G',
-      title: 'Grow Through Constraints: Earning Trust & Leading the Team',
-      summary: 'Dual-experience approach emerged from constraints. Led this while simultaneously owning ReportCaster and IQ Plugin.',
-      body: `The dual-experience approach emerged from engineering constraints. We couldn't rebuild the advanced mode — it had to coexist with the new guided flow. What felt like a limitation became a feature: experts got their power, newcomers got guidance.
+      index: 'V',
+      title: 'I Fought for Every Damn Thing in ML',
+      summary: 'Managing two teams simultaneously. Four systems after layoffs. Daily trackers. I held my ground when Data Flow was brought back.',
+      body: `I was managing two teams at the same time — different PMs, different engineering groups, different QA, meetings from 6 AM to 9 AM every day. After the layoffs, it became four systems. I created daily trackers, weekly trackers, ticket trackers — all in Slack — so leadership always knew where I was.
 
-I led this while simultaneously owning ReportCaster and IQ Plugin. After the January 2025 layoffs, I took on WebFOCUS Designer as well — juggling four major enterprise systems at once. Workload prioritization wasn't optional; it was survival. I created daily trackers, weekly trackers, and ticket trackers — all in Slack — and shared them with my manager and Director of Design so they never had to wonder where I was at. They always knew my progress.
+I was the only designer to work on Reporting Server, on ML, on IQ. Nobody else touched these. I built a mental model of WebFOCUS as an end-to-end ecosystem — get data, prepare data, train and run ML, visualize in Designer, distribute through ReportCaster. Nobody explained that to me. I built it by working across enough of the system.
 
-The layoffs didn't force me to cut ML features — but they made me more protective of the work and more aware of my unique position. I was one of the few people left who understood the full ecosystem end-to-end. Cross-project pattern sharing meant solutions in one project accelerated the others: the structured flows and upstream validation patterns from ML directly informed IQ Plugin, and the modal architecture from RC became a platform-wide reference.`,
+When the data scientist tried to bring Data Flow back into the view, I pushed back. I had recordings, notes, documentation from our earlier sessions. I reminded him of our prior decisions, explained why the change would hurt the workflow, and held my ground. The room was me, two directors of engineering, the head PM, the principal data scientist, and my design director. I won.`,
     },
     {
       id: 'section-06',
-      index: 'N',
-      title: 'Navigate Forward: Impact, Validation, and Reflection',
-      summary: '5/5 SMEs found entry without help. Patterns became foundation for IQ Plugin and platform-wide AI strategy.',
-      body: `5/5 SMEs found the entry point without help. Dead-ends → clear guidance. Design demos to 150-200 person business unit earned leadership support.
+      index: 'VI',
+      title: 'They Just Blazed Through It',
+      summary: '4/4 SMEs completed the workflow without help. Right-click entry pattern adopted for other AI features. What a mind-bending project.',
+      body: `Four SMEs. Separate sessions. I told them one thing: "It starts from the dataset." They right-clicked, saw "Predict Data," clicked it — and just blazed through the whole workflow. Because it was that obvious.
 
-The patterns I developed here — structured flows, upstream validation, right-click entry, dual-experience — became the foundation for IQ Plugin and platform-wide AI strategy.`,
+The four-step flow was untouched by feedback. They had design suggestions on the results screens, but the core spine? Nobody questioned it. My design director, who knew nothing about ML, was able to do it too. I taught him machine learning with this workflow.
+
+ML Functions taught me product partnership more than anything else. My PM and I co-owned the direction. I only fully realized I was shaping the entire product experience after getting laid off and building these case studies.
+
+What a mind-bending project.`,
     },
   ],
   // ----------------------------
@@ -448,39 +454,39 @@ The patterns I developed here — structured flows, upstream validation, right-c
     videoPoster: '/images/case-study/ml-functions/ml-prototype-poster.jpg',
   },
   // ----------------------------
-  // D.E.S.I.G.N. FRAMEWORK CONNECTION
+  // CINEMATIC ACTS CONNECTION
   // ----------------------------
   frameworkConnection: {
     principles: [
       {
-        letter: 'D',
-        title: 'Discover Deeply',
-        description: 'Zero ML background → MIT certified. Months embedded with our Principal Data Scientist before designing.',
-      },
-      {
-        letter: 'E',
-        title: 'Empathize with the Ecosystem',
-        description: 'Three personas with conflicting needs: data scientists wanted depth, business users wanted simplicity, analysts wanted both.',
-      },
-      {
-        letter: 'S',
-        title: 'Simplify the Chaos',
-        description: '12+ clicks → 7-9. Fragmented workflow → structured 4-step flow. Dead-ends → clear error guidance.',
-      },
-      {
         letter: 'I',
-        title: 'Iterate with Inclusion',
-        description: '10+ iterations on the confusion matrix. Our Principal Data Scientist called it "the best screen in the entire UX revamp."',
+        title: 'A Side Project Earned Me the Whole Thing',
+        description: 'Our data scientist gave me a small explainability project. I didn\'t design it blindly. That curiosity earned the trust to own the full ML revamp.',
       },
       {
-        letter: 'G',
-        title: 'Grow Through Constraints',
-        description: 'Engineering constraint: couldn\'t rebuild advanced mode. Solution: dual-experience (guided + advanced) that served both personas.',
+        letter: 'II',
+        title: 'One Path. Not Two Experiences.',
+        description: 'The principal data scientist asked if I was making it dumb. No. One path serving a dual purpose. Every step had context, definitions, tooltips. The sophistication waited for you to ask for it.',
       },
       {
-        letter: 'N',
-        title: 'Navigate Forward',
-        description: 'All five SMEs found the entry point without help. The patterns I developed here scaled to the IQ Plugin and platform-wide AI strategy.',
+        letter: 'III',
+        title: 'Why Don\'t We Have a Landing Page Here?',
+        description: 'No entry point existed. Right-click entry, tab split, model cards, popup wizard — all invented from scratch.',
+      },
+      {
+        letter: 'IV',
+        title: 'The Most Complex Screen I\'ve Ever Designed',
+        description: 'Dozens of sessions with the data scientist on the confusion matrix. Threshold slider and chart point: exactly 90 degrees parallel. "The best screen in the entire UX revamp."',
+      },
+      {
+        letter: 'V',
+        title: 'I Fought for Every Damn Thing in ML',
+        description: 'Four systems after layoffs. Held my ground against Data Flow resurfacing. Won the room with recordings, notes, and documentation.',
+      },
+      {
+        letter: 'VI',
+        title: 'They Just Blazed Through It',
+        description: 'Four SMEs. Separate sessions. Right-clicked, saw Predict Data, blazed through the whole thing. Because it was that obvious.',
       },
     ],
   },
@@ -489,13 +495,13 @@ The patterns I developed here — structured flows, upstream validation, right-c
   // ----------------------------
 
   impactSummary: {
-    heading: 'Pre-launch impact at a glance',
+    heading: 'What a mind-bending project.',
     bullets: [
-      '12+ clicks → 7-9 clicks for ML workflow',
-      '5/5 SMEs found entry point without help',
-      'Dead-ends → clear error guidance',
-      'Confusion matrix: "the best screen in the entire UX revamp"',
-      'Patterns became foundation for IQ Plugin',
+      '~6 clicks to start training → reduced to 2-click entry (right-click → Predict Data)',
+      '4/4 SMEs blazed through the workflow without help',
+      'Right-click entry pattern adopted for 3 AI features',
+      '"The best screen in the entire UX revamp" — said out loud, in front of everyone',
+      'Design director learned ML from this workflow — that was the real test',
     ],
   },
   reflection: {
@@ -517,14 +523,14 @@ The patterns I developed here — structured flows, upstream validation, right-c
     ],
     retrospective: {
       pushHarder: {
-        title: 'Early Data Science Alignment',
+        title: 'Earlier Working Sessions with the Data Scientist',
         subtitle: 'Git_Diff: What I\'d Push Harder For',
-        content: '<span class="text-amber-500/80">Early Data Science Alignment:</span> I would have established the "productive tension" earlier. By the time I challenged the Principal DS on the confusion matrix, we had already lost sprint cycles on less effective visualizations. Bringing design into the definition phase—not just the execution phase—would have saved ~3 weeks.'
+        content: '<span class="text-amber-500/80">Live Brainstorming from Week One:</span> If I had started the live working sessions — paper, pen, sketching inside my design software on video calls — from week one instead of halfway through, we would have saved sprint cycles. Brainstorming together inside my tool, not as separate handoffs, was the breakthrough workflow.'
       },
       doNext: {
-        title: 'Real-Time Visualization',
+        title: 'Simplify Even Further',
         subtitle: 'Roadmap_v2: What I\'d Do Next',
-        content: '<span class="text-[var(--accent-teal)]/80">Real-Time Visualization:</span> Currently, users must finish training to see results. I\'d implement streaming websocket updates to show the confusion matrix <em>evolving</em> during training. This would turn a passive wait time into an active monitoring experience, allowing users to abort bad runs early (saving compute costs).'
+        content: '<span class="text-[var(--accent-teal)]/80">There\'s always room for improvement:</span> Graying out incompatible models before users ever try them. Simplifying the results screen even more. Automatically letting users enter run model mode from training — no context tab switching. I pushed hard for what mattered. When technical constraints blocked something, that was technical reality, not lack of conviction.'
       }
     }
   },

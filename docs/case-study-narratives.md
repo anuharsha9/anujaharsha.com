@@ -174,14 +174,15 @@
 ## IQ Plugin
 
 ### Origin Story — Co-Created Vision
-- This wasn't assigned — it was **invented**.
+- The concept of a unified DSML Hub was a **team effort** — co-conceived by Anu, her PM **Karishma**, the **Director of Design**, and the **Head PM**.
 - Strategic discussions about consolidating product lines raised a question: what if we created a central IQ Hub that unified all of WebFOCUS's data science capabilities?
 - **Karishma** (PM) and Anu started brainstorming together.
   - Met 3-4 times a week across timezones — Karishma in India, Anu in the US.
   - Mapped user journeys and personas in FigJam.
-  - Anu built dozens of concept mockups exploring what a unified Hub could look like.
-- When they pitched the concept to their Director of Design, he started sketching his own ideas — that's how compelling the vision was.
-- Eventually, the VP approved it, and Karishma and Anu were given ownership to execute.
+  - Anu's contribution was the **concept design and architecture** — how IQ would actually fit into the existing Hub, the information architecture, the interaction patterns, and the visual design.
+- The Director of Design shaped the vision alongside them — he started sketching his own ideas mid-discussion.
+- Karishma pitched the concept. VP approved. Anu and Karishma were given ownership to execute.
+- For Anu, IQ was the **culmination** of all her work on NLQ, ML, and Insights — bringing everything she'd built to the front and center of WebFOCUS. She pushed for things that had never been done in the org.
 
 ### The Problem — Feature Invisibility
 - WebFOCUS had three powerful data science features:
@@ -189,7 +190,7 @@
   - **Insights** (auto-generated visualizations)
   - **ML** (predictive model training)
 - All shipping. None legacy. But they were **invisible** — buried in different menus with different entry points.
-- Less than 5% adoption despite high capability.
+- Low adoption despite high capability.
 - Customer feedback from support reps, PMs, and leadership all confirmed: users didn't know these features existed.
 - **The problem wasn't quality — it was discoverability.**
 
@@ -296,7 +297,7 @@
 - **Rest state:** Transparent background, icon + title + description with blue underline accent.
 - **Hover/Selected state:** `primary-color-lite` background fill, same icon/title/description layout.
 - **Architects' alternative:** Traditional sidebar with a list view as navigation — like the WebFOCUS home page. No visual differentiation between workflows.
-- **Anu's argument:** The large tiles provided scannability, visual hierarchy, and made each workflow feel like a distinct capability rather than a menu item. It also aligned with the "discoverability" problem — buried list items are exactly what caused <5% adoption.
+- **Anu's argument:** The large tiles provided scannability, visual hierarchy, and made each workflow feel like a distinct capability rather than a menu item. It also aligned with the "discoverability" problem — buried list items are exactly what caused poor adoption.
 
 ### IQ Plugin — Concept Evolution (4 Stages Visible)
 - From the screenshot labeled "IQ Plugin Concept Evolution," four distinct concept stages are visible:
@@ -728,3 +729,314 @@ The final design allowed users to create predictive models effortlessly:
 **Reflection & Learnings**
 
 Reflecting on the Predict Data project, I am proud of the way we democratized machine learning for all WebFOCUS users. Designing an experience that catered to both advanced technical users and non-technical business users was a complex challenge that required empathy, iteration, and a deep understanding of user needs. This project taught me the importance of balancing depth with simplicity—ensuring that the most powerful features remain approachable to those who may be less technically inclined.
+
+---
+
+# APPENDIX A — IQ Plugin / DSML Hub Raw Story Transcript
+
+> **Date:** March 6, 2026 | **Source:** Anu's direct Q&A responses
+> **Previously:** `docs/iq_plugin_story_raw_transcript.md` (now merged here)
+
+## Context
+The IQ Plugin / DSML Hub is the third case study — important work but less of a dramatic story arc than ML Functions. It was a natural extension of Anu's existing ownership of ML and NLQ. The same engineering/QA/PM team covered ML, NLQ, and Insights — so Insights "literally fell into my lap." The IQ Plugin story is about initiative, cross-functional leadership, and unification.
+
+## Origin & Initiative
+
+### Q1. How did the initial conversation with Karishma start? Was it casual or structured?
+We all worked remotely. Karishma was in India, and me here in the US.
+
+It started when we heard another IBI product called **Data Intelligence** will merge with WebFOCUS, and they have a lot of ML features and their own version of Insights. So we talked about having a **central IQ Hub** of sorts for the combined DI side and WebFOCUS.
+
+The talks of Data Intelligence merging with WebFOCUS Hub were real — but it didn't happen. What it allowed was to **plan for a shared IQ Plugin** — because the DI side has their own ML/AI stuff and so did WebFOCUS.
+
+Eventually that merger plan got dropped, but the IQ Hub concept stayed with us. So IQ Plugin was born between **me, the PM (Karishma), the Director of Design, and the Head PM** — and eventually it reached VP for approval. **We proposed IQ Plugin on a roadmap session in Spring 2024.**
+
+I made **dozens of concept mockups** and we brainstormed together in FigJam — user journey, user personas, etc.
+
+### Q2. Your director doing concepts alongside you — how did that work?
+He was doing it when me and my PM pitched it to him, and he was talking about it with the head PM. It was a big project — he had ideas too. It needed approval from VP, so it was natural for the Director to have his vision. Eventually it was handed to me and my PM to own and execute, and so we did.
+
+### Q3. The roadmap presentation — what did you bring to the table?
+It was a full-fledged **visual concept design workflow** for IQ Plugin — how it would fit in the WebFOCUS main Hub and what its workflow would be like. The PM made the presentation deck based off of it. I contributed with **user personas, user journeys**, and of course the **entire IQ architecture was conceptualized and birthed by me**.
+
+## Collaboration & Team Dynamics
+
+### Q4. Your relationship with Karishma — how did you two work together day-to-day?
+We met at least **3-4 times a week. 30 mins to 1 hour meetings.** We were working on NLQ, Insights, ML workflow AND IQ Plugin together.
+
+She mostly wrote requirements **after design direction was finalized** and only final mockups were pending. We absolutely influenced each other's thinking. She knew more technical aspects of the product and helped me understand, and I knew more about user behavior and experience and ease of use and I made her understand that.
+
+**It was a true partnership.**
+
+### Q5. The two designers you eventually handed off to — what was the handoff like?
+I handed it off because **I had given birth and it was time for my maternity leave.** Most of IQ Plugin was already done. Responsive UI design mockups were the main thing pending.
+
+I had **documentation, 1:1 meetings, design files explained, videos** to do the knowledge transfer. I had already laid the foundation for the responsive design.
+
+## Strategy & Instinct
+
+### Q6. Why IQ inside the Hub? What was the "why now"?
+*(Answered in Q1 — triggered by the Data Intelligence merger talks)*
+
+### Q7. What did you fight for that got rejected? The nav bar fight and the "Get Started" panel.
+It was with the **lead architect of the IQ Plugin** — has been here for **20+ years** — and the **lead architect of the entire WebFOCUS itself** — **35+ years**.
+
+They didn't like introducing new design elements — let alone an entire IQ Plugin embedded in the main Hub 😄
+
+It was a **tug of war for everything.** Constant justification as to why we needed the panel or the fancy navigation bar with huge tiles.
+
+Defenses:
+- Industry examples
+- Logic
+- Visual appeal
+
+**My Director of Design was fully in my corner — he was basically watching me** 😄
+
+## Personality & Passion
+
+### Q8. What was the hardest emotional moment on this project?
+After I came back from my maternity leave, the **engineers came and literally complained to me about how hard it was for them to work with the other designers** because I wasn't available.
+
+My rapport with them, my understanding of the product, my design thinking, and all the logic behind every design decision — they were so used to working with me — **they missed me.**
+
+And it was also frustrating because the other designers — despite so much explanation and documentation — **failed to make good design decisions.**
+
+### Q9. What are you most proud of that a recruiter wouldn't notice from the screens?
+The fact that it was a **massive undertaking that required cross-functional team collaboration** from the Hub team and other PMs and other engineering teams. **I drove most of the cross-functional alignment.**
+
+As much as I liked my PM — she wasn't a very initiative-taking type. Creating meetings and nudging to collaborate with other PMs was something **I pushed for a lot** and set up many meetings.
+
+### Q10. The meeting with all the seniors — the "room full of veterans" moment.
+For the IQ Plugin and ML, there was a meeting where it was:
+- Me
+- Director of Engineering
+- Principal Data Scientist
+- Head PM
+- Lead Architect
+- Director of QA
+
+Being in a meeting with all of them and **defending a UX decision** — something about the data flow not being a part of the ML workflow.
+
+It hit me later — that I was sitting and arguing or discussing with **SENIORS who've been here for decades** — and I, a newbie, **2 years into the company**, know enough about the product — or am in charge of such important stuff — that I am **in a meeting with THEM** talking about data flows and ML.
+
+## Key Facts for Case Study Content
+
+| Fact | Detail |
+|------|--------|
+| Trigger | Data Intelligence merger with WebFOCUS |
+| Origin | Anu + Karishma co-created the concept remotely |
+| Brainstorming | Dozens of concept mockups, FigJam sessions |
+| Meeting cadence with PM | 3-4x/week, 30min-1hr |
+| Director involvement | Had his own vision, pitched to head PM, VP approval needed |
+| Handoff reason | Maternity leave |
+| Handoff deliverables | Documentation, 1:1s, design files, videos |
+| Architects fought | 20yr + 35yr veteran architects |
+| Defenses | Industry examples, logic, visual appeal |
+| Director of Design | Fully in Anu's corner, "watching me" |
+| Engineers missed her | Complained about other designers after maternity leave |
+| Cross-functional | Drove alignment across Hub team, multiple PMs, engineering teams |
+| PM dynamic | True partnership but Anu drove more initiative |
+
+## ⚠️ Fact-Check Corrections
+
+### `<5% adoption` — FAKE NUMBER
+All we knew was there was low adoption. The `<5%` stat is fabricated. **Must be reworded** to something like "low adoption" or "underused" without a specific percentage.
+
+### `+25% NLQ adoption` — REAL, from PM Aniket
+This number came from Aniket Awchare (PM who took over after Karishma). This is a real metric. **Can keep, but should attribute properly** — it's from the standalone NLQ redesign going live, not from the Hub itself.
+
+### `Terminal UI → Apple UI` — COMPLETELY MADE UP
+There was no "terminal UI." This framing is fabricated. The old interfaces were not great, but calling them "terminal-style" is inaccurate. **Must be removed/reworded** throughout the case study.
+
+## The Full Maternity Leave / Engineering Story
+
+After giving birth, Anu went on maternity leave for ~2 months. She handed off IQ Plugin and ML work to other designers with:
+- Full documentation
+- 1:1 knowledge transfer meetings
+- Design files with explanations
+- Video walkthroughs
+
+Her instructions were clear: **just finish the responsive design mockups**. The foundation was already laid.
+
+**What happened in her absence:**
+The other designers made workflow decisions they shouldn't have — without proper knowledge of the massive ML and IQ system Anu had built. They made design decisions based on surface-level UX instinct without understanding the underlying problem, context, or technical constraints. No reasoning, no curiosity, no digging in — they just did what they felt.
+
+**When Anu came back (~2 months later):**
+Engineers came to her and essentially said:
+- They couldn't work well with the other designers
+- They missed the way Anu handled things — understanding, context, curiosity, smart and informed decision-making
+- The other designers lacked interest and curiosity
+- They made decisions without understanding the problem and context
+
+> **Portfolio framing (polite version):** When I returned from maternity leave, the engineering team shared that they valued the way I approached design — understanding the system, asking questions, making informed decisions. The foundation I'd built held, but the experience reinforced something I already believed: **context isn't transferable through documentation alone. It comes from genuine curiosity and investment in the problem.**
+
+## Additional Clarifications (March 6, 2026)
+
+### NLQ — What Actually Happened
+Anu didn't "transform" NLQ from terminal UI. What happened was they **updated the underlying model from simple SQL queries to Phi-3 (SLM by Microsoft)** — allowing for more feature-rich and smarter NLQ:
+- Question suggestions
+- Chart switching
+- Ambiguity correction
+- Richer, more natural interactions
+
+### Get Started Panel — The Real Story
+The Get Started panel was real — it was meant to onboard users. But they eventually improved the **tutorials, Discover page, and the Explore Data part** at the top of the IQ Plugin header to allow the user to select data. So it was more like a **result of iteration and improved UX**, rather than a fight. The real fight was for the **tile view navigation bar** of IQ.
+
+### Ecosystem Integration — REAL
+The ecosystem vision (ReportCaster + IQ to auto-schedule insights, NLQ as chat interface for the platform) was a **real thing** Anu and the PM planned. They even designed concept mockups for it. ✅ Keep in retrospective.
+
+### Case Study Direction
+**Keep it simple. Less text. Focus more on visuals and images.** This is the third case study — not the flagship. The work speaks through the designs.
+
+---
+
+# APPENDIX B — ML Functions Raw Q&A Transcript
+
+> **Source:** Verbatim Q&A with Anu (80 questions)
+> **Previously:** `docs/ml_functions_story_raw_transcript_and_structured_story.md` (now merged here)
+> **NOTE:** This is the raw, unedited voice. The structured version (Option B) follows the Q&A.
+
+*(The full 80-question Q&A transcript is preserved in git history at `docs/ml_functions_story_raw_transcript_and_structured_story.md`. Key excerpts are referenced throughout the structured notes in the ML Functions section above.)*
+
+---
+
+# APPENDIX C — Peer Testimonials
+
+> **Previously:** `docs/peer-testimonials.md` (now merged here)
+
+## Introduction
+These are full, unedited testimonials from colleagues I partnered with at Cloud Software Group — across product, engineering, data science, design, and customer-facing teams. I'm including them exactly as written. No rewrites, no polish, no fluff. They reflect how I work and the impact of the projects I led.
+
+## Highlighted Excerpts
+
+- "Anuja consistently brought clarity to highly technical workflows and unified engineering, PM, QA, and data science around a shared direction." — Principal Data Scientist
+- "She has a strong sense of ownership and always steps in wherever UX doesn't exist yet." — Engineering Partner
+- "Her ability to drive alignment across multiple disciplines is rare." — Product Manager
+- "She simplifies complexity in ways that improve engineering predictability." — Engineering Lead
+- "Anuja is proactive, vocal, and pushes the product to a higher standard." — Director of UX
+- "She is the kind of UX leader any team would be lucky to have." — Principal Systems Engineer
+
+## Full Testimonials (Unedited)
+
+### 1. Vijay Raman
+**Product & Technology Executive | VP of Product Management** (Managed Anuja Harsha directly)
+
+I had the pleasure of working with Anuja during her time at Cloud Software Group, where she made a significant impact modernizing UX across our legacy enterprise products. She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams.
+
+Anuja is bold in her ideas and consistently proactive in turning complex problems into practical, user-centered solutions. One example was her leadership in reshaping a decade-old workflow: she facilitated discovery sessions, aligned engineering and product teams around a phased approach, and delivered a design strategy that both improved usability and reduced operational risk for customers.
+
+What sets her apart is her empathy and cross-functional fluency. She listens deeply, challenges with purpose, and ensures design decisions are grounded in user value and business outcomes. She quickly earned the trust of stakeholders at all levels and elevated the quality of decisions and execution around her.
+
+In short, Anuja is a standout design leader who brings clarity, collaboration, and strategic impact to every project. Any team would be lucky to have her.
+
+> *Vijay was the main leadership figure at my workplace, overseeing product strategy across the organization.*
+
+### 2. Dave Pfeiffer
+**Experience Design Leader - Director of Design** (Managed Anuja Harsha directly)
+
+I had the opportunity to work with Anuja, a senior UX designer who brings energy and determination to tackling complex design challenges. She approaches her work with a fearless attitude and is never afraid to explore new ideas or directions. Anuja is willing to take on difficult problems and push for creative solutions, even under tight timelines. Her enthusiasm for design and willingness to engage with stakeholders made her a valuable part of the team.
+
+> *Dave was my manager for over 3 years and I collaborated with him closely every single day I was at the company.*
+
+### 3. Anita George
+**Principal Account Technology Strategist** (Worked with Anuja on different teams)
+
+I have interacted with Anuja on several occasions. They have all been a positive experience.
+
+Our first interaction involved a User Acceptance Test (UAT) of a prototype designed to support the workflow for model building and testing within our enterprise Business Intelligence (BI) platform. During the session, Anuja observed me navigating the screen, asking targeted questions about my workflow choices and tracking my visual focus.
+
+I was highly impressed with Anuja's approach. A strong UI/UX is critical for user acceptance of product features, and her design was clean, intuitive, and clearly addressed the needs of users across different skill levels. Our sessions were very productive.
+
+Anuja has a remarkable ability to utilize practical design principles to effectively bridge the gap between core product features and an enhanced user experience. Anticipating the next move of the user, that is next level UI!
+
+> *Anita was my favorite reliable SME and customer representative for ML Functions and IQ Plugin, providing invaluable user insights.*
+
+### 4. Aniket Awchare
+**Sr. Product Manager** (Worked on the same team)
+
+I had the privilege of collaborating with Anuja on a major initiative to modernize the UI of a new offering for a business intelligence platform. From the outset, Anuja demonstrated exceptional ability to understand intricate workflows and translate them into elegant, user-centric designs that elevated the product's usability and visual appeal. Her strong command of design principles, attention to detail, and clear communication made collaboration seamless and productive. Anuja's professionalism, creativity, and dedication to delivering intuitive user experiences make her an invaluable contributor to any design-led team or organization.
+
+> *Aniket partnered with me on ML Functions and IQ Plugin after Karishma left the org. We had the same close partnership dynamic.*
+
+### 5. Karishma Khadge
+**Sr. Product Manager** (Worked on the same team)
+
+I had the pleasure of working with Anuja Nimmagadda at Cloud Software Group, where she led UX design initiatives with remarkable creativity, empathy, and precision. As a Senior UX Designer, Anuja consistently demonstrated a deep understanding of user-centered design and the ability to translate complex product requirements into intuitive and visually engaging experiences.
+
+What truly stands out about Anuja is her collaborative spirit and problem-solving mindset. She approaches every challenge with curiosity and openness—balancing user needs with business goals seamlessly. Her design thinking workshops and prototype walkthroughs often became the foundation for key product decisions, driving clarity and alignment across cross-functional teams.
+
+Anuja's work has had a lasting impact on the usability and aesthetic quality of our products. Beyond her design skills, she brings an infectious positivity and professionalism that elevates every team she's part of.
+
+I would highly recommend Anuja to any organization looking for a strategic, detail-oriented, and passionate UX leader who can shape exceptional digital experiences.
+
+> *Karishma was the PM I collaborated with on ML Functions and IQ Plugin. We had extremely close collaboration—a true partnership.*
+
+### 6. Yingchun Chen
+**Principal System Software Engineer** (Worked on the same team)
+
+I had the pleasure of working closely with Anuja Harsha Nimmagadda on a project to modernize the UI of a complex business intelligence product using the latest HTML standards. From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system and translated that understanding into a clear, modern, and user-centered design. Beyond her technical and design talent, she's a collaborative, thoughtful teammate who makes every project better. I truly enjoyed working with her. She's the kind of UX leader any team would be lucky to have.
+
+> *I worked closely with Yingchun on ReportCaster, where he was my engineering partner helping me understand the complex legacy system architecture.*
+
+### 7. Shay Bagwell
+**Lead Customer Marketing Manager** (Worked with Anuja on different teams)
+
+I had the pleasure of working closely with Anuja Harsha Nimmagadda on a project to modernize the UI of a complex business intelligence product using the latest HTML standards. From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system and translated that understanding into a clear, modern, and user-centered design. Beyond her technical and design talent, she's a collaborative, thoughtful teammate who makes every project better. I truly enjoyed working with her. She's the kind of UX leader any team would be lucky to have.
+
+> *Shay worked with me on several projects where my design made an impact.*
+
+### 8. Radhika Tekumalla
+**Founder of Kedazzle - EdTech Startup** (Client)
+
+Anuja was my EdTech Startup - KeDazzle's Lead UX Designer and I was super impressed by her design thinking and user empathy that led her to develop high quality mobile app and website designs. Smart and very attuned to user needs, she 'just gets it' and developed intuitive designs that were very received by our end users. Dedicated, thoughtful and highly creative - she'd be an asset to any team.
+
+> *I worked with Radhika for 3 years during my freelance period. She taught me a great deal about work ethics, delivering on time and working on a wide range of design work for a single project.*
+
+### 9. Vikram Patel
+**CEO and Co-founder of 9P Studio** (Boss)
+
+Anuja joined us as an 18-year-old intern who had just learned Photoshop. She didn't know what 'UX' was yet — but she had intensity, discipline, and raw talent you can't teach.
+
+We ran a scrappy, fast-paced startup. No layers, no managers. Within months, she became the designer we relied on for everything — UI, wireframes, branding, game design, motion graphics, client presentations. If it needed design, Anuja owned it.
+
+She attended college in the mornings, came straight to the studio, and worked late nights with our engineers to ship. That wasn't asked of her — that was just who she was.
+
+Over four and a half years, she built dozens of apps, games, and MVPs with us. She learned to collaborate with senior engineers, work directly with co-founders, handle clients, and deliver at startup speed.
+
+By the time she left, she wasn't junior anymore. She was thinking in systems, trusted with high-stakes decisions, operating far beyond her years. 9P Studioz was her training ground — but she'd already outgrown it. She was ready for a much bigger stage.
+
+> *Vikram was my first ever boss and my first design job, where I learned the fundamentals of design and client work.*
+
+## Principal Data Scientist Recommendation Letter (Full)
+
+**Marcus Horbach, Ph.D.** — Principal Data Scientist, Cloud Software Group
+4th February, 2025
+
+To: Hiring Manager, Apple Inc.
+Subject: Recommendation Letter for Anuja Harsha Nimmagadda
+
+Dear Hiring Manager,
+
+It is my pleasure to write to you in support of Anuja Harsha Nimmagadda's application for the role of Senior Product Designer at Apple.
+
+As a Principal Data Scientist at Cloud Software Group, I have worked closely with Anuja on a number of AI/ML-driven initiatives. The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive and has greatly contributed to the success of our products.
+
+The key characteristic of her work is that her design solutions are rooted in a deep understanding of the purpose of the product. From that basis, she skillfully navigates the technical UI-design complexities, always leading to clean designs and to products that are a genuine joy to use.
+
+Some of her most important contributions include:
+- **Redesigning ML Workflows** – She led the redesign of our machine learning model training and deployment UX, significantly improving usability for both technical and non-technical users.
+- **Creating the IQ Feature** – She played a key role in designing a centralized hub for machine learning, insight generation, and natural language querying (NLQ), ensuring AI-powered insights are intuitive and actionable.
+- **Improving Collaboration Between Design and Data Science** – Anuja actively engaged with data scientists, engineers, and product managers, asking the right questions, identifying pain points, and ensuring AI/ML-powered features were user-friendly and seamlessly integrated into our platform.
+
+Beyond her technical excellence, Anuja is a collaborative, thoughtful, and inspiring team member. She is fun to work with: always willing to mentor others, share her knowledge, and push the boundaries of what's possible in AI-powered UX.
+
+Although I will be unhappy to see her go, it is the right time for her to follow her ambition, and there is no doubt in my mind that she would be an invaluable addition to your Human Interface Design team.
+
+Please feel free to reach out if you require any additional insights.
+
+Best regards,
+Marcus Horbach, Ph.D.
+Principal Data Scientist
+Cloud Software Group
+
+> *I won Marcus's trust with ML Functions when I was trying to understand and learn ML. He was the data scientist I collaborated with closely on ML initiatives.*

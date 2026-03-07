@@ -61,9 +61,9 @@ export function DSMLBeatProblem() {
     }, [])
 
     const features = [
-        { name: 'NLQ', label: 'Ask questions in plain English', menu: 'Explore Data → Tools → NLQ', color: 'var(--accent-violet)' },
-        { name: 'Insights', label: 'Auto-generated visualizations', menu: 'Tools → Submenu → Insights', color: 'var(--accent-teal)' },
-        { name: 'ML', label: 'Predictive model training', menu: 'Server Console → Data Flow', color: 'var(--accent-amber)' },
+        { name: 'NLQ', label: 'Ask questions in plain English', menu: 'Hub → + Menu → Explore Data', color: 'var(--accent-violet)' },
+        { name: 'Insights', label: 'Auto-generated visualizations', menu: 'Hub → + Menu → Explore Data', color: 'var(--accent-teal)' },
+        { name: 'ML', label: 'Predictive model training', menu: 'Hub → App Dirs → Right-click', color: 'var(--accent-amber)' },
     ]
 
     return (
@@ -79,7 +79,7 @@ export function DSMLBeatProblem() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                Three powerful AI features — <span className="text-zinc-200 font-medium">NLQ, Insights, ML</span> — sat buried in different menus. Significant engineering investment, <span className="text-rose-400 font-bold">&lt;5% adoption</span>. Nobody knew they existed.
+                                Three powerful AI features — <span className="text-zinc-200 font-medium">NLQ, Insights, ML</span> — sat buried in different menus. Significant engineering investment, <span className="text-rose-400 font-bold">near-zero adoption</span>. Nobody knew they existed.
                             </p>
                         </PresenterBar>
                     </motion.div>
@@ -127,7 +127,7 @@ export function DSMLBeatProblem() {
                                 className="flex justify-center gap-8 mt-8"
                             >
                                 {[
-                                    { val: <><AnimNumber value={5} />%</>, label: 'Adoption' },
+                                    { val: 'Low', label: 'Adoption' },
                                     { val: '3', label: 'Scattered Menus' },
                                     { val: '0', label: 'Discoverability' },
                                 ].map((stat, idx) => (
@@ -166,10 +166,10 @@ export function DSMLBeatSpark() {
     }, [])
 
     const timeline = [
-        { label: 'Strategic consolidation talks', icon: <Users className="h-4 w-4" />, color: 'var(--accent-teal)' },
-        { label: 'PM & I see the opportunity', icon: <Sparkles className="h-4 w-4" />, color: 'var(--accent-violet)' },
+        { label: 'Team vision takes shape', icon: <Users className="h-4 w-4" />, color: 'var(--accent-teal)' },
+        { label: 'I designed how it fits the Hub', icon: <Sparkles className="h-4 w-4" />, color: 'var(--accent-violet)' },
         { label: 'Dozens of concept mockups', icon: <Layers3 className="h-4 w-4" />, color: 'var(--accent-amber)' },
-        { label: 'VP approves the vision', icon: <Target className="h-4 w-4" />, color: 'var(--semantic-emerald)' },
+        { label: 'PM pitches. VP approves.', icon: <Target className="h-4 w-4" />, color: 'var(--semantic-emerald)' },
     ]
 
     return (
@@ -184,7 +184,7 @@ export function DSMLBeatSpark() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                This wasn&apos;t assigned — <span className="text-zinc-200 font-medium">it was invented</span>. My PM and I saw the opportunity during strategic consolidation talks, built dozens of concept mockups, and <span className="text-teal-400 font-bold">pitched the vision. VP approved.</span>
+                                The Hub concept was a <span className="text-zinc-200 font-medium">team effort</span> — my PM, Director of Design, and Head PM. I designed <span className="text-teal-400 font-bold">how it would fit into the existing Hub</span> — the architecture, the interactions, the visual design. PM pitched. VP approved.
                             </p>
                         </PresenterBar>
                     </motion.div>
@@ -231,7 +231,7 @@ export function DSMLBeatSpark() {
 
 /* ═════════════════════════════════════════════════
    BEAT 3: "MODERNIZING THE BUILDING BLOCKS"
-   Terminal UI → Apple UI
+   Upgrading the Building Blocks
    ═════════════════════════════════════════════════ */
 export function DSMLBeatModernize() {
     const [step, setStep] = useState(-1)
@@ -257,7 +257,7 @@ export function DSMLBeatModernize() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                Before building the Hub, I modernized the building blocks. NLQ and Insights went from <span className="text-rose-400 font-medium">terminal-style interfaces</span> to <span className="text-emerald-400 font-bold">clean, approachable Apple-level UI</span>.
+                                Before building the Hub, I modernized each feature. NLQ upgraded from simple SQL queries to <span className="text-emerald-400 font-bold">Microsoft&apos;s Phi-3 SLM</span> — question suggestions, chart switching, ambiguity correction.
                             </p>
                         </PresenterBar>
                     </motion.div>
@@ -273,24 +273,22 @@ export function DSMLBeatModernize() {
                                 transition={{ duration: 0.62, ease }}
                                 className="w-full max-w-lg mx-auto text-center mt-6"
                             >
-                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-rose-300/90 uppercase">Before</p>
+                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-rose-300/90 uppercase">Before — Simple SQL Queries</p>
                                 <div className="mx-auto max-w-sm rounded-xl border border-rose-400/20 bg-rose-400/[0.04] p-4">
                                     <div className="flex items-center gap-2 border-b border-white/[0.06] pb-2 mb-3">
-                                        <div className="h-2 w-2 rounded-full bg-rose-400/40" />
-                                        <div className="h-2 w-2 rounded-full bg-amber-400/40" />
-                                        <div className="h-2 w-2 rounded-full bg-emerald-400/40" />
-                                        <span className="ml-2 font-mono text-[10px] text-zinc-400">legacy_nlq.exe</span>
+                                        <Search className="h-3.5 w-3.5 text-rose-300/40" />
+                                        <span className="font-mono text-[10px] text-zinc-500">Enter a question...</span>
                                     </div>
                                     <motion.div
                                         animate={{ opacity: [0.4, 1, 0.4] }}
                                         transition={{ duration: 1.5, repeat: Infinity }}
-                                        className="font-mono text-xs text-zinc-400 text-left space-y-1"
+                                        className="text-xs text-zinc-400 text-left space-y-2"
                                     >
-                                        <div>&gt; ENTER QUERY: <span className="text-rose-300">_</span></div>
-                                        <div className="text-rose-400/60 text-[10px]">ERROR: Invalid syntax. Expected FOCCALC expression.</div>
+                                        <div className="rounded bg-white/[0.03] px-3 py-2 font-mono text-[11px] text-zinc-500">show me sales data</div>
+                                        <div className="text-rose-400/60 text-[10px] px-1">No suggestions. No chart options. No ambiguity handling.</div>
                                     </motion.div>
                                 </div>
-                                <p className="mt-4 font-mono text-xs text-zinc-400">Bare text fields. Cryptic errors. Zero guidance.</p>
+                                <p className="mt-4 font-mono text-xs text-zinc-400">Basic SQL queries. No intelligence. Limited results.</p>
                             </motion.div>
                         ) : (
                             <motion.div
@@ -300,7 +298,7 @@ export function DSMLBeatModernize() {
                                 transition={{ duration: 0.75, ease }}
                                 className="w-full max-w-lg mx-auto text-center mt-6"
                             >
-                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-emerald-400/90 uppercase">After</p>
+                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-emerald-400/90 uppercase">After — Phi-3 SLM Powered</p>
                                 <div className="mx-auto max-w-sm rounded-xl border border-emerald-400/20 bg-emerald-400/[0.04] p-4">
                                     <div className="flex items-center gap-2 border-b border-white/[0.06] pb-2 mb-3">
                                         <Search className="h-3.5 w-3.5 text-emerald-300/60" />
@@ -848,7 +846,7 @@ export function DSMLBeatImpact() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                NLQ adoption <span className="text-emerald-400 font-bold">+25%</span> from discoverability alone — no feature changes. The features didn&apos;t change. <span className="text-zinc-200 font-medium">The visibility did. That was enough.</span>
+                                NLQ redesign + Phi-3 model upgrade drove <span className="text-emerald-400 font-bold">+25% adoption</span>. Customers looked forward to NLQ the most. <span className="text-zinc-200 font-medium">The Hub brings all of it front and center.</span>
                             </p>
                         </PresenterBar>
                     </motion.div>
@@ -946,9 +944,9 @@ export const DSML_MOVIE_BEATS: MovieBeat[] = [
         id: 'dsml-problem',
         duration: d(9000),
         label: 'The Invisible Feature Problem',
-        signal: '<5% ADOPTION',
+        signal: 'LOW ADOPTION',
         presenter: true,
-        narration: 'Three powerful AI features — NLQ, Insights, ML — sat buried in different menus. Significant engineering investment, <5% adoption. Nobody knew they existed.',
+        narration: 'Three powerful AI features — NLQ, Insights, ML — sat buried in different menus. Significant engineering investment, near-zero adoption. Nobody knew they existed.',
         narrationDelay: 0.1,
         component: <DSMLBeatProblem />,
     },
@@ -958,7 +956,7 @@ export const DSML_MOVIE_BEATS: MovieBeat[] = [
         label: 'The Strategic Spark',
         signal: 'VP APPROVED',
         presenter: true,
-        narration: 'This wasn\'t assigned — it was invented. My PM and I saw the opportunity during strategic consolidation talks, built dozens of concept mockups, and pitched the vision. VP approved.',
+        narration: 'The Hub concept was a team effort — my PM, Director of Design, and Head PM shaped the vision together. I designed how it would fit into the existing Hub. PM pitched. VP approved.',
         narrationDelay: 0.1,
         component: <DSMLBeatSpark />,
     },
@@ -968,7 +966,7 @@ export const DSML_MOVIE_BEATS: MovieBeat[] = [
         label: 'Terminal → Apple UI',
         signal: 'MODERNIZED',
         presenter: true,
-        narration: 'Before building the Hub, I modernized the building blocks. NLQ and Insights went from terminal-style interfaces to clean, approachable Apple-level UI.',
+        narration: 'Before building the Hub, I modernized the building blocks I already owned. NLQ, Insights, ML — same PM, same engineers. IQ would be the culmination of all this work.',
         narrationDelay: 0.1,
         component: <DSMLBeatModernize />,
     },
@@ -978,7 +976,7 @@ export const DSML_MOVIE_BEATS: MovieBeat[] = [
         label: 'Architecture Before Tickets',
         signal: '3 → 1 HUB',
         presenter: true,
-        narration: 'I defined the architecture before any tickets existed. PM wrote tickets after seeing my mockups. Three scattered tools became one unified DSML Hub — no new infrastructure, built inside the existing ecosystem.',
+        narration: 'I pushed for things never done in the org. Defined the architecture before any tickets existed. PM wrote tickets after seeing my mockups. Three scattered tools became one unified DSML Hub.',
         narrationDelay: 0.1,
         component: <DSMLBeatArchitecture />,
     },
@@ -1018,7 +1016,7 @@ export const DSML_MOVIE_BEATS: MovieBeat[] = [
         label: 'Visibility Was the Solution',
         signal: '+25% ADOPTION',
         presenter: true,
-        narration: 'NLQ adoption +25% from discoverability alone — no feature changes. The features didn\'t change. The visibility did.',
+        narration: 'NLQ redesign plus Phi-3 model upgrade drove +25% adoption. Customers looked forward to NLQ the most. The Hub brings all of it front and center.',
         narrationDelay: 0.1,
         component: <DSMLBeatImpact />,
     },

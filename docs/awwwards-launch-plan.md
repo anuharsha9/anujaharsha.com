@@ -19,24 +19,30 @@
 
 _The jury reads your case studies. Voice is everything._
 
-### 1.1 ML Functions — Story in Voice
-- [ ] Rewrite ML story narrative using your authentic voice
-- [ ] Use the ML Story Discovery questions from the career brand KI
-- [ ] Apply the Dad Test — would your dad understand the stakes?
-- [ ] Key sections: the "aha" moment, the constraint that shaped the design, the human impact
+### 1.1 ML Functions — Story in Voice ✅
+- [x] Rewrite ML story narrative using your authentic voice
+- [x] Use the ML Story Discovery questions from the career brand KI
+- [x] Apply the Dad Test — would your dad understand the stakes?
+- [x] Key sections: the "aha" moment, the constraint that shaped the design, the human impact
 
-### 1.2 ML Functions — Beats in Voice
-- [ ] Rewrite StoryDeck presentation beats (slides 1–N)
-- [ ] Each beat = one clear decision + one visual proof
-- [ ] Trim to essentials — Awwwards judges skim
+### 1.2 ML Functions — Beats in Voice ✅
+- [x] Rewrite StoryDeck presentation beats (slides 1–N)
+- [x] Each beat = one clear decision + one visual proof
+- [x] Trim to essentials — Awwwards judges skim
 
 ### 1.3 DSML / IQ Hub — Story in Voice
-- [ ] Same process as ML: authentic narrative, not corporate
+- [x] Updated to co-creation narrative (team concept, my architecture)
+- [x] Removed "invented" language — honest attribution
+- [x] Fixed +25% NLQ attribution (redesign + Phi-3 upgrade, not IQ Plugin)
+- [x] Added culmination framing (bringing NLQ/ML/Insights work front and center)
 - [ ] Focus on the "nobody knew it existed" angle — it's your strongest hook
 - [ ] Decision-level storytelling: what you chose, why, what happened
 
 ### 1.4 DSML / IQ Hub — Beats in Voice
-- [ ] Rewrite StoryDeck beats
+- [x] Updated Beat 2 (Spark) — team co-creation, not sole invention
+- [x] Updated Beat 3 (Modernize) narration — culmination framing
+- [x] Updated Beat 4 (Architecture) narration — "pushed for things never done"
+- [x] Updated Beat 8 (Impact) — correct +25% attribution
 - [ ] Emphasize the adoption problem → solution arc
 
 ---
@@ -239,3 +245,11 @@ _Won't block submission — current video works fine_
 - [x] Figma Config pitch video integrated into RC case study
 - [x] Brain Quiz verified working
 - [x] No-hardcoded-colors rule in design-preferences.md
+- [x] DSML case study — co-creation narrative, correct +25% attribution
+- [x] DSML case study — Act restructuring (YouTube tiles in Act 1, walkthrough in Act 4)
+- [x] DSML case study — design iteration flow fixed (V1→V2→V3→V4)
+- [x] DSML case study — EyebrowLabel visibility increased
+- [x] DSML case study — "Continue Exploring" = Extended Portfolio + About Me (no RC/ML)
+- [x] DSML case study — removed Insights Color Palette image
+- [x] DSML movie beats narration updated (co-creation + attribution)
+- [x] docs/case-study-narratives.md — updated IQ origin story

@@ -11,6 +11,7 @@ import CinematicCaseStudy, { type HeroStat, type ActSection } from '@/components
 import { StorySlide } from '@/components/case-study/StoryDeck'
 const DSMLFullContent = dynamic(() => import('@/components/case-study-experiment/DSMLFullContent'), { ssr: true })
 import { IQWireframe } from '@/components/case-study/CaseStudyWireframes'
+import DSMLTrailer from '@/components/home/DSMLTrailer'
 
 /* ─── Beat Imports ─── */
 import {
@@ -28,9 +29,9 @@ import {
 /* ─── DSML Presentation Slides ─── */
 const DSML_SLIDES: StorySlide[] = [
     { type: 'title', title: 'We Built the Intelligence. Nobody Knew It Existed.', content: ['Anuja Harsha — Lead Product Designer', 'DSML Hub · Cloud Software Group — WebFOCUS'], backgroundComponent: <IQWireframe /> },
-    { type: 'problem', title: 'The Invisible Feature Problem', content: ['3 powerful AI features — NLQ, Insights, ML — buried in different menus. <5% adoption. Millions in engineering investment, effectively invisible.'], component: <DSMLBeatProblem />, signal: '<5% ADOPTION' },
-    { type: 'research', title: 'The Strategic Spark', content: ['This wasn\'t assigned — it was invented. My PM and I saw the opportunity, built dozens of concept mockups, and pitched the vision. VP approved.'], component: <DSMLBeatSpark />, signal: 'VP APPROVED' },
-    { type: 'execution', title: 'Terminal → Apple UI', content: ['Before building the Hub, I modernized the building blocks. NLQ and Insights went from terminal-style interfaces to clean, approachable UI.'], component: <DSMLBeatModernize />, signal: 'MODERNIZED' },
+    { type: 'problem', title: 'The Invisible Feature Problem', content: ['3 powerful AI features — NLQ, Insights, ML — buried in different menus. Near-zero adoption. Millions in engineering investment, effectively invisible.'], component: <DSMLBeatProblem />, signal: 'LOW ADOPTION' },
+    { type: 'research', title: 'The Strategic Spark', content: ['Data Intelligence merger talks opened the door. My PM and I saw the opportunity for a shared AI hub. The merger dropped — the Hub idea stayed. Dozens of concept mockups. VP approved.'], component: <DSMLBeatSpark />, signal: 'VP APPROVED' },
+    { type: 'execution', title: 'Upgrading the Building Blocks', content: ['Before building the Hub, I modernized each feature. NLQ upgraded to Phi-3 SLM — question suggestions, chart switching, ambiguity correction.'], component: <DSMLBeatModernize />, signal: 'MODERNIZED' },
     { type: 'decision', title: 'Architecture Before Tickets', content: ['I defined the architecture before any tickets existed. 3 scattered tools became 1 unified DSML Hub.'], component: <DSMLBeatArchitecture />, signal: '3 → 1 HUB' },
     { type: 'execution', title: 'Four Iterations', content: ['V1 too dense. V2 too passive. V3 competed with navigation. V4 — clean icon tiles — landed.'], component: <DSMLBeatIterations />, signal: 'V4 LANDED' },
     { type: 'decision', title: 'The Navigation Fight', content: ['Icon tiles vs. list views. Veteran architects wanted lists. I argued large tiles gave immediate context. I won.'], component: <DSMLBeatNavFight />, signal: 'I WON' },
@@ -40,7 +41,7 @@ const DSML_SLIDES: StorySlide[] = [
 
 /* ─── DSML Hero Stats ─── */
 const DSML_HERO_STATS: HeroStat[] = [
-    { label: 'Problem', value: '<5% Adoption', description: 'Three AI features, invisible' },
+    { label: 'Problem', value: 'Low Adoption', description: 'Three AI features, invisible' },
     { label: 'Solution', value: '3 → 1 Hub', description: 'Unified discovery surface' },
     { label: 'Timeline', value: '', description: 'Architecture to production' },
 ]
@@ -67,7 +68,7 @@ export default function DSMLCaseStudyView({ data }: { data: CaseStudyData }) {
             slides={DSML_SLIDES}
             theme="dsml"
             heroStats={stats}
-            heroBackground={<IQWireframe />}
+            heroBackground={<DSMLTrailer />}
             actSections={DSML_ACT_SECTIONS}
         >
             <DSMLFullContent data={data} />

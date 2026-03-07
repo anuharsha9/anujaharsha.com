@@ -762,8 +762,8 @@ export function MLBeatEntryPoint() {
                                                     animate={{ opacity: 1, x: 0 }}
                                                     transition={{ delay: i * 0.05 }}
                                                     className={`flex items-center gap-2.5 px-3 py-2 text-left text-xs border-b border-zinc-800/50 cursor-pointer transition-all ${item.highlight && step >= 3
-                                                            ? 'bg-emerald-500/15 text-emerald-300 font-bold shadow-[inset_0_0_20px_rgba(16,185,129,0.1)]'
-                                                            : item.danger ? 'text-rose-400/60' : 'text-zinc-400 hover:bg-zinc-800/50'
+                                                        ? 'bg-emerald-500/15 text-emerald-300 font-bold shadow-[inset_0_0_20px_rgba(16,185,129,0.1)]'
+                                                        : item.danger ? 'text-rose-400/60' : 'text-zinc-400 hover:bg-zinc-800/50'
                                                         }`}
                                                 >
                                                     <span className="text-sm">{item.icon}</span>
@@ -1296,7 +1296,7 @@ export function MLBeatConfusionMatrix() {
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
                         <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                            The confusion matrix was <span className="text-zinc-200 font-medium">already visual</span> — but interactive features were <span className="text-rose-400 font-medium">invisible</span>. 10+ iterations later: a <span className="text-emerald-400 font-bold">threshold slider</span> that updates every graph in real time.
+                            When I first saw the confusion matrix, I couldn&apos;t make sense of it. So I sat with the data scientist — a dozen sessions, paper and pen, sketching live inside my design software. I aligned the <span className="text-emerald-400 font-bold">threshold slider</span> exactly 90 degrees parallel to the chart point. As you drag it, the dot moves with it.
                         </p>
                     </PresenterBar>
 
@@ -1477,7 +1477,7 @@ export function MLBeatExplainability() {
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
                         <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                            Our DS handed me a screenshot from an external tool and said: <span className="text-cyan-400 font-medium italic">&ldquo;Can you figure this out?&rdquo;</span> — I built a <span className="text-emerald-400 font-bold">native explainability popup</span> that shows why the model made each prediction.
+                            The principal data scientist showed me a screenshot from a different software and said, <span className="text-cyan-400 font-medium italic">&ldquo;I want this for WebFOCUS.&rdquo;</span> I didn&apos;t just recreate it. I dug into why the popup was needed, how model predictions work, what <span className="text-emerald-400 font-bold">feature importances</span> actually mean.
                         </p>
                     </PresenterBar>
 
@@ -1636,7 +1636,7 @@ export function MLBeatValidation() {
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
                         <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                            Concept walkthroughs, surveys, interviews, then <span className="text-cyan-400 font-bold">Zoom user testing</span>. <span className="text-emerald-400 font-bold">5/5 SMEs</span> completed the flow without help.
+                            Four SMEs. Separate sessions. I told them one thing: &ldquo;It starts from the dataset.&rdquo; They right-clicked, saw Predict Data, clicked it — and <span className="text-emerald-400 font-bold">just blazed through it</span>. Because it was that obvious.
                         </p>
                     </PresenterBar>
 
@@ -1725,9 +1725,9 @@ export function MLBeatValidation() {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.5 }}
-                                    className="grid grid-cols-5 gap-2.5 mb-5"
+                                    className="grid grid-cols-4 gap-2.5 mb-5"
                                 >
-                                    {[1, 2, 3, 4, 5].map((n, i) => (
+                                    {[1, 2, 3, 4].map((n, i) => (
                                         <motion.div
                                             key={n}
                                             initial={{ opacity: 0, y: 10 }}
@@ -1770,8 +1770,8 @@ export function MLBeatValidation() {
                                     transition={{ type: 'spring', damping: 15 }}
                                     className="py-5 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20 flex items-center justify-center gap-4"
                                 >
-                                    <span className="text-4xl font-mono font-bold text-emerald-400">5/5</span>
-                                    <span className="text-sm font-mono text-emerald-400/60">completed without assistance</span>
+                                    <span className="text-4xl font-mono font-bold text-emerald-400">4/4</span>
+                                    <span className="text-sm font-mono text-emerald-400/60">blazed through without help</span>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -1805,87 +1805,97 @@ export const ML_MOVIE_BEATS: MovieBeat[] = [
         label: 'The Business Problem',
         signal: 'ZERO ADOPTION',
         presenter: true,
-        narration: 'Our ML engine lived inside a data flow canvas. 12+ clicks — drag data, drag model pills, hit a hidden play button, right-click cascading context menus for hyperparameters. Zero adoption by business users.',
+        narration: 'It was really shitty. Click the plus menu, open a data flow, drag a dataset, drag a model pill. Hit a hidden play button. Right-click for cascading context menus. ~15 clicks minimum. Nobody used it.',
         narrationDelay: 0.1,
         component: <MLBeatProblem />,
     },
     {
         id: 'ml-origin',
         duration: d(9000),
-        label: 'Earning Trust',
-        signal: 'SIDE PROJECT',
+        label: 'The Side Project',
+        signal: 'TRUST EARNED',
         presenter: true,
-        narration: 'While deep in ReportCaster, our DS handed me a side challenge: recreate an external explainability tool in WebFOCUS. I nailed it. That earned the trust to own the entire ML UX revamp.',
+        narration: 'The principal data scientist showed me a screenshot from a different software and said, "I want this for WebFOCUS." I didn\'t just recreate it. I dug into why the popup was needed, how model predictions work, what feature importances mean. That\'s what got me the entire ML Functions redesign.',
         narrationDelay: 0.1,
         component: <MLBeatOrigin />,
     },
     {
         id: 'ml-goal',
         duration: d(8000),
-        label: 'The Opportunity',
-        signal: 'FULL REVAMP',
+        label: 'The Full Revamp',
+        signal: 'FULL OWNERSHIP',
         presenter: true,
-        narration: 'Trust earned. Now the mission: democratize ML for non-technical users. No code, no confusion, no dead-ends.',
+        narration: 'It was also something I had proposed — because after I found out about the explainability popup, I realized the entire machine learning workflow was not great. I earned the trust to own the whole thing.',
         narrationDelay: 0.1,
         component: <MLBeatGoal />,
     },
     {
         id: 'ml-discovery',
         duration: d(8000),
-        label: 'Deepening the Domain',
-        signal: 'MIT CERTIFIED',
+        label: 'MIT Certified',
+        signal: 'DOMAIN MASTERY',
         presenter: true,
-        narration: 'Already deep into ML workflows, I got MIT certified in AI/ML Product Design to sharpen my approach. Embedded weekly with our Principal Data Scientist for months.',
+        narration: 'I paid for the MIT course myself because the work had outgrown surface-level understanding. I thought it would help me converse with the data scientist better. I was terrified of making something look nice while technically meaning the wrong thing.',
         narrationDelay: 0.1,
         component: <MLBeatDiscovery />,
     },
     {
         id: 'ml-entry-point',
         duration: d(9000),
-        label: 'Designing the Entry Point',
+        label: 'Why No Landing Page?',
         signal: 'RIGHT-CLICK ENTRY',
         presenter: true,
-        narration: 'There was no entry point. I designed the Predict Data landing page from scratch — right-click any dataset, select Predict Data, and you\'re ready to train.',
+        narration: 'No Predict Data landing page existed. My first instinct was — why can\'t users select data themselves? In WebFOCUS, right-click is like religion. So putting "Predict Data" in the right-click menu was capitalizing on the most common user behavior in the product.',
         narrationDelay: 0.1,
         component: <MLBeatEntryPoint />,
     },
     {
         id: 'ml-breakthrough',
         duration: d(8000),
-        label: 'Guided Wizard',
-        signal: '12+ \u2192 ~6 STEPS',
+        label: 'One Path, Dual Purpose',
+        signal: 'DUAL PURPOSE',
         presenter: true,
-        narration: '12+ clicks through data flows and menus \u2192 right-click, Predict Data, Train Model, and you\'re in. ~6 steps — one guided flow for all users. Complexity is there, it just waits for you to ask for it.',
+        narration: 'We did not have two experiences. We had one path that serves a dual purpose. Not easy enough that data scientists would say "this is spoon feeding," but clear enough that someone like me could use it. The sophistication was there; it just waited for you to ask for it.',
+        narrationDelay: 0.1,
+        component: <MLBeatPivot />,
+    },
+    {
+        id: 'ml-popup',
+        duration: d(8000),
+        label: 'The Popup Won',
+        signal: 'WIZARD FLOW',
+        presenter: true,
+        narration: 'I tried full-screen views, side-step layouts, two-column layouts. The popup wizard won because WebFOCUS loved modals — all engineers lived in popups. It gave me breathing room for helper text and definitions. Each step existed cleanly without the whole screen jumping.',
         narrationDelay: 0.1,
         component: <MLBeatBreakthrough />,
     },
     {
         id: 'ml-confusion-matrix',
         duration: d(9000),
-        label: 'Confusion Matrix UX',
-        signal: 'INTERACTIVE',
+        label: 'The Most Complex Screen',
+        signal: 'BEST SCREEN',
         presenter: true,
-        narration: 'The confusion matrix was already visual but interactive features were invisible. 10+ iterations: a threshold slider that updates every graph in real time.',
+        narration: 'When I first saw the confusion matrix, I couldn\'t make sense of it. So I sat with the data scientist — a dozen sessions, paper and pen. I aligned the threshold slider exactly 90 degrees parallel to the chart point. As you drag it, the dot moves with it. He called it "the best screen in the entire UX revamp."',
         narrationDelay: 0.1,
         component: <MLBeatConfusionMatrix />,
     },
     {
         id: 'ml-explainability',
         duration: d(9000),
-        label: 'Model Explainability',
-        signal: 'WHY THIS PREDICTION?',
+        label: 'Understanding Feature Importances',
+        signal: 'DEEP LEARNING',
         presenter: true,
-        narration: 'Our DS handed me a screenshot from an external tool. I built a native explainability popup — feature importances, prediction breakdowns — so users could see why the model made each call.',
+        narration: 'I dug into how model predictions work, what feature importances actually mean, how SHAP values break down a prediction. I could explain it to somebody else — that\'s when I knew I understood it. That depth is what made the explainability popup real, not decorative.',
         narrationDelay: 0.1,
         component: <MLBeatExplainability />,
     },
     {
         id: 'ml-validation',
         duration: d(8600),
-        label: 'SME Validation',
-        signal: '5/5 SUCCESS',
+        label: 'They Just Blazed Through It',
+        signal: '4/4 VALIDATED',
         presenter: true,
-        narration: '5/5 SMEs completed the flow without help. The right-click entry pattern I designed became the way other AI apps surfaced in the same menu.',
+        narration: 'Four SMEs. Separate sessions. I told them one thing: "It starts from the dataset." They right-clicked, saw "Predict Data," clicked it — and just blazed through the whole workflow. Because it was that obvious.',
         narrationDelay: 0.1,
         component: <MLBeatValidation />,
     },

@@ -180,9 +180,9 @@ export interface UXPrinciple {
 }
 
 export interface FrameworkConnection {
-  // Which D.E.S.I.G.N. principles were most relevant to this case study
+  // Framework / Act connection for this case study
   principles: {
-    letter: 'D' | 'E' | 'S' | 'I' | 'G' | 'N'
+    letter: string // D.E.S.I.G.N. letters or cinematic Act numbers (I, II, III, etc.)
     title: string
     description: string // How this principle was applied in this specific case study
   }[]

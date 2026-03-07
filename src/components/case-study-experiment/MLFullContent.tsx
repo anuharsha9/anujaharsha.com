@@ -2,7 +2,7 @@
 
 /**
  * MLFullContent — ML Functions full-view content in the cinematic bento pattern.
- * All images, data, and proof preserved. Copy tightened to 30-35 words per block.
+ * Voice: Anu's authentic transcript (March 2026). Every line traceable to raw Q&A.
  */
 
 import React from 'react'
@@ -16,19 +16,20 @@ import {
     BentoGrid, BentoRow, ImageTile, TextTile,
     PullQuote, EyebrowLabel, CarouselTile,
 } from './BentoGrid'
+import ImageComparisonSlider from '@/components/ui/ImageComparisonSlider'
 
 
 export default function MLFullContent({ data }: { data: CaseStudyData }) {
     return (
         <>
             {/* ═══════════════════════════════════════════════
-                ACT I — HOW I EARNED THE PROJECT
+                ACT I — A SIDE PROJECT EARNED ME THE WHOLE THING
                ═══════════════════════════════════════════════ */}
             <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-1-hook">
                 <CinematicScene
-                    title="Zero ML Knowledge. So I Got MIT Certified."
+                    title="A Side Project Earned Me the Whole Thing."
                     body={
-                        <p>Our DS handed me a side challenge: recreate an external explainability tool in WebFOCUS. I nailed it. That earned the trust to own the entire ML UX revamp.</p>
+                        <p>While deep in ReportCaster, the principal data scientist handed me a side challenge — an explainability popup. I nailed it, and that earned the trust to own the entire ML workflow redesign. Here&apos;s what I walked into, and how it all started.</p>
                     }
                 >
                     <BentoGrid className="mt-12">
@@ -41,7 +42,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     <span className="text-[10px] font-mono text-cyan-400/60 uppercase tracking-widest">Domain Mastery</span>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    Zero ML background → MIT certified in AI/ML Product Design. Months embedded weekly with our Principal Data Scientist before touching a single design.
+                                    Zero ML background. I asked my data scientist questions. I asked AI questions. I researched binary classification, regression, random forest, neural networks — whatever I needed. Eventually that pushed me into taking an MIT course. I paid for it myself because the work had outgrown surface-level understanding.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.15}>
@@ -52,37 +53,100 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     <span className="text-[10px] font-mono text-red-400/60 uppercase tracking-widest">Zero Adoption</span>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    A powerful ML engine buried in a data flow canvas. 12+ clicks, cascading context menus, confusing error states. Nobody used it.
+                                    ~15 clicks minimum just to see a trained model. Plus menu → data flow → drag dataset → drag model pill → hidden play button → cascading context menus for hyperparameters. Powerful tool. Nobody used it.
                                 </p>
                             </TextTile>
                         </BentoRow>
 
-                        <EyebrowLabel>Legacy Pain Points</EyebrowLabel>
-                        <BentoRow layout="50/50">
-                            <ImageTile src="/images/case-study/ml-functions/Legacy Train Model UI.png" alt="Legacy ML Workflow" caption="12+ click data flow canvas" />
-                            <ImageTile src="/images/case-study/ml-functions/Legacy Train Model Results UI.png" alt="Legacy Results" caption="Unreadable results tables" delay={0.1} />
+                        <EyebrowLabel>The Side Project That Started It All</EyebrowLabel>
+                        <BentoRow layout="full">
+                            <ImageComparisonSlider
+                                beforeImage="/images/case-study/ml-functions/Legacy Explainability UI.png"
+                                afterImage="/images/case-study/ml-functions/6. Run Model - Explainability Popup.png"
+                                beforeAlt="External explainability tool screenshot Marcus showed me"
+                                afterAlt="Native explainability popup I built in WebFOCUS"
+                                beforeLabel="WHAT THE DATA SCIENTIST SHOWED ME"
+                                afterLabel="WHAT I BUILT"
+                                beforeTitle="external-tool.png"
+                                afterTitle="WebFOCUS — Explainability Popup"
+                                aspectRatio="aspect-video"
+                            />
                         </BentoRow>
-                        <BentoRow layout="50/50">
-                            <ImageTile src="/images/case-study/ml-functions/Legacy Explainability UI.png" alt="Legacy Explainability" caption="External tool screenshot — my starting point" delay={0.15} />
-                            <ImageTile src="/images/case-study/ml-functions/Legacy Run Model Landing Page.png" alt="Legacy Run Model" caption="Confusing run model landing page" delay={0.2} />
+                        <BentoRow layout="30/70">
+                            <TextTile accent="teal" delay={0.2}>
+                                <p className="text-zinc-200 font-light leading-relaxed">
+                                    I dug into why the popup was needed, how model predictions work, what feature importances actually mean. He was glad I took the effort in understanding.
+                                </p>
+                                <a
+                                    href="https://www.youtube.com/watch?v=oPFKkcgNCbo"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center gap-2 mt-4 px-4 py-2 border border-white/10 bg-white/[0.03] text-zinc-300 text-xs font-mono tracking-wide hover:border-cyan-500/40 hover:text-cyan-400 transition-colors rounded-full"
+                                >
+                                    <span className="w-4 h-4 flex items-center justify-center">▶</span>
+                                    <span>Watch public explainability demo</span>
+                                </a>
+                            </TextTile>
+                            <TextTile delay={0.25}>
+                                <div className="flex items-start gap-4">
+                                    <span className="text-cyan-400/50 text-3xl font-serif leading-none">&ldquo;</span>
+                                    <div>
+                                        <p className="text-zinc-200 italic font-light leading-relaxed text-lg">
+                                            The other designers I worked with before didn&apos;t really understand what they were doing — they just gave designs. But you sat with us, talked to us, and actually understood. <span className="text-cyan-400 font-medium not-italic">That&apos;s why I trust you.</span>
+                                        </p>
+                                        <p className="text-xs text-zinc-500 font-mono uppercase tracking-wider mt-4">— Marcus Horbach, Principal Data Scientist</p>
+                                    </div>
+                                </div>
+                            </TextTile>
+                        </BentoRow>
+
+                        <EyebrowLabel>Legacy Pain Points</EyebrowLabel>
+                        <BentoRow layout="30/70">
+                            <TextTile accent="red">
+                                <h4 className="text-white font-bold text-lg mb-3">&ldquo;No Result Generated.&rdquo;</h4>
+                                <p className="text-zinc-400 font-light leading-relaxed">
+                                    There was a big exclamation mark in a red circle, and the expression was red itself. It said &lsquo;No model generated, please click on the play button to start training the model.&rsquo; So frustrating. That was the first thing I noticed, and it was the first thing I said — let&apos;s remove that messaging, please.
+                                </p>
+                            </TextTile>
+                            <ImageTile src="/images/case-study/ml-functions/Legacy Train Model UI.png" alt="No result generated — confusing dead-end" caption="The dead-end: red exclamation mark, 'No result generated.'" delay={0.1} />
+                        </BentoRow>
+
+                        <BentoRow layout="30/70">
+                            <TextTile>
+                                <h4 className="text-white font-bold text-lg mb-3">Three Levels of Navigation.</h4>
+                                <p className="text-zinc-400 font-light leading-relaxed">
+                                    You had the step navigation, you had the algorithm navigation, and inside algorithms, another level of tabs. Just for binary classification — 8 into 5 screens. That same structure applied to every model type.
+                                </p>
+                            </TextTile>
+                            <ImageTile src="/images/case-study/ml-functions/Legacy Train Model Results UI.png" alt="Train model results — three levels of navigation" caption="Train model results — step nav, algorithm nav, and tabs within tabs." delay={0.1} />
+                        </BentoRow>
+
+                        <BentoRow layout="30/70">
+                            <TextTile>
+                                <h4 className="text-white font-bold text-lg mb-3">The Data Flow Canvas.</h4>
+                                <p className="text-zinc-400 font-light leading-relaxed">
+                                    The old ML workflow had the data flow canvas visible at all times. Split view — data flow on top, table view at the bottom. You didn&apos;t really need the data flow in the view. I had to ask the data scientist for repeated walkthroughs because I couldn&apos;t get the sandbox to work.
+                                </p>
+                            </TextTile>
+                            <ImageTile src="/images/case-study/ml-functions/Legacy Run Model Landing Page.png" alt="Run Models — split screen data flow" caption="Run Models: data flow canvas on top, side data panel. Everything interconnected." delay={0.1} />
                         </BentoRow>
                     </BentoGrid>
                 </CinematicScene>
 
                 <PullQuote>
-                    If I find this frustrating after weeks of study, a first-time user has no chance. That insight drove the redesign.
+                    It was also something I had proposed — because after I found out about the explainability popup, I realized the entire machine learning workflow was not great. Understanding earned me ownership.
                 </PullQuote>
             </div>
 
 
             {/* ═══════════════════════════════════════════════
-                ACT II — UNDERSTANDING USERS AND WORKFLOWS
+                ACT II — ONE PATH. NOT TWO EXPERIENCES.
                ═══════════════════════════════════════════════ */}
             <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-2-investigation">
                 <CinematicScene
-                    title="Three Personas. Three Conflicting Needs."
+                    title="One Path. Not Two Experiences."
                     body={
-                        <p>Data scientists wanted depth. Business users wanted simplicity. Analysts wanted both. The existing experience served none of them well.</p>
+                        <p>Data scientists wanted a technical workflow. I wanted something business users could actually use. The principal data scientist at one point was like, &ldquo;Are you trying to make this dumb?&rdquo; No. I wasn&apos;t removing sophistication. I was making the sophistication legible. We landed on one workflow that serves a dual purpose — not dumbed down, not over-engineered.</p>
                     }
                 >
                     <BentoGrid>
@@ -92,10 +156,10 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center">
                                         <span className="text-zinc-400 text-sm">🔬</span>
                                     </div>
-                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Research Approach</span>
+                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Sessions with the Data Scientist</span>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    Weekly sessions with our Principal Data Scientist. Documented every workflow and decision point. Mapped the entire legacy interaction model.
+                                    We used to talk about physics and books. I used to show him sketches — &ldquo;Am I understanding this right?&rdquo; I validated my understanding constantly because I was terrified of making something look nice while technically meaning the wrong thing. That would have been a fake win.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
@@ -103,10 +167,10 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center">
                                         <span className="text-zinc-400 text-sm">⚡</span>
                                     </div>
-                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Key Insight</span>
+                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Pushing Back</span>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    Users didn&apos;t know which algorithm to pick. Error messages like &ldquo;Error 500&rdquo; were useless. They abandoned tasks upon first error.
+                                    We had this conversation about chart colors — four different colors that didn&apos;t mean anything. I said, &ldquo;Your goal is to show F1 scores. Adding colors makes it more confusing. You just want users to compare and pick the best one.&rdquo; I won that conversation because I&apos;d finally understood what the chart was actually showing.
                                 </p>
                             </TextTile>
                         </BentoRow>
@@ -124,7 +188,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                         ))}
                                     </div>
                                     <p className="text-zinc-200 font-light leading-relaxed text-lg flex-1">
-                                        One UI couldn&apos;t serve all three. That&apos;s how the &ldquo;Dual Experience&rdquo; architecture emerged — guided flow for novices, advanced panels for experts.
+                                        We did not have two experiences. We had one path that serves a dual purpose. Not easy enough that data scientists would say &ldquo;this is spoon feeding,&rdquo; but clear enough that someone like me could use it. Every step had context — definitions, explanations, tooltips. The sophistication was there; it just waited for you to ask for it.
                                     </p>
                                 </div>
                             </TextTile>
@@ -142,19 +206,19 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                 </CinematicScene>
 
                 <PullQuote>
-                    I came in with zero ML background and got MIT certified to do this work. Over two years, I navigated engineering delays, layoffs, and resource constraints — leading design through it all.
+                    Every session with the data scientist was enlightening. I don&apos;t think without those sessions I would have been able to do it at all. He loved machine learning. I loved user experience. That mutual passion is why it worked.
                 </PullQuote>
             </div>
 
 
             {/* ═══════════════════════════════════════════════
-                ACT III — FROM BLACK BOX TO GUIDED FLOW
+                ACT III — WHY DON'T WE HAVE A LANDING PAGE HERE?
                ═══════════════════════════════════════════════ */}
             <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-3-architecture">
                 <CinematicScene
-                    title="From Black Box to 4-Step Guided Flow."
+                    title="Why Don't We Have a Landing Page Here?"
                     body={
-                        <p>No Predict Data landing page existed. The original workflow was so broken you could barely begin training a model. I designed a discoverable entry point from scratch.</p>
+                        <p>No Predict Data landing page existed. My first instinct was — why can&apos;t users select data themselves? I designed it from scratch, dozens of iterations, until the tab split became the answer.</p>
                     }
                 >
                     <BentoGrid>
@@ -167,12 +231,22 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
                         <BentoRow layout="30/70">
                             <TextTile accent="teal">
-                                <h4 className="text-white font-bold text-lg mb-3">The 4-Step Spine</h4>
+                                <h4 className="text-white font-bold text-lg mb-3">Six Clicks to Two.</h4>
                                 <p className="text-zinc-400 font-light leading-relaxed">
-                                    &ldquo;What do you absolutely need to train a model responsibly?&rdquo; Problem type, target variable, predictors, and hyperparameters. That became the guided flow.
+                                    In WebFOCUS, right-click is like religion. Everything is right-clickable. So putting &ldquo;Predict Data&rdquo; in the right-click menu of a dataset was the most natural thing. I was capitalizing on the most common user behavior in the product. Once we saw how well it worked, we extended the pattern to Generate Insights and Ask a Question too.
                                 </p>
                             </TextTile>
                             <ImageTile src="/images/case-study/ml-functions/ML functions inital workflow.png" alt="ML Initial Workflow" caption="Initial workflow mapping" delay={0.1} />
+                        </BentoRow>
+
+                        <BentoRow layout="30/70">
+                            <TextTile accent="teal">
+                                <h4 className="text-white font-bold text-lg mb-3">The Popup Won.</h4>
+                                <p className="text-zinc-400 font-light leading-relaxed">
+                                    I tried full-screen views, side-step layouts, two-column layouts. The popup wizard won because WebFOCUS loved modals — all engineers lived in popups. It gave me breathing room for helper text and definitions. It let each step exist cleanly without the whole screen jumping. And it was faster to engineer. Sometimes the best design move is the one that solves the problem without asking the legacy product to become something it isn&apos;t.
+                                </p>
+                            </TextTile>
+                            <ImageTile src="/images/case-study/ml-functions/4. Train Model Workflow - Step 1 - Select Problem Type.png" alt="Step 1 wizard" caption="The popup wizard — Step 1" delay={0.1} />
                         </BentoRow>
 
                         <div className="mt-8 mb-4">
@@ -204,13 +278,13 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
 
             {/* ═══════════════════════════════════════════════
-                ACT IV — 10+ ITERATIONS. ONE BREAKTHROUGH SCREEN.
+                ACT IV — THE MOST COMPLEX SCREEN I'VE EVER DESIGNED
                ═══════════════════════════════════════════════ */}
             <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-4-craft">
                 <CinematicScene
-                    title="10+ Iterations. One Breakthrough Screen."
+                    title="The Most Complex Screen I've Ever Designed."
                     body={
-                        <p>The confusion matrix alone went through 10+ iterations. We moved from standard tables to a real-time, three-panel visualization with interactive threshold control.</p>
+                        <p>The confusion matrix screen had two charts, a threshold slider, and a four-by-three table. When I first saw it, I couldn&apos;t make sense of it. So I sat with the data scientist — a dozen sessions, paper and pen — until I understood every single interaction.</p>
                     }
                 >
                     <BentoGrid>
@@ -232,19 +306,19 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                             <TextTile accent="teal" delay={0.1}>
                                 <h4 className="text-white font-bold text-xl md:text-2xl mb-4">The Confusion Matrix</h4>
                                 <p className="text-zinc-400 font-light leading-relaxed">
-                                    Our Principal Data Scientist pushed for advanced metrics; I pushed for clarity. That productive tension produced the screen he called &ldquo;the best in the entire UX revamp.&rdquo;
+                                    I aligned the threshold slider directly under the chart point that moved — exactly 90 degrees parallel. As you drag it, the dot on the line chart moves with it. There&apos;s no way you can miss the relationship. It was like magic. After understanding every interaction on every chart, I could finally explain it to somebody else visually.
                                 </p>
                             </TextTile>
-                            <ImageTile src="/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png" alt="Confusion Matrix" caption="Interactive threshold slider updating every graph in real time" delay={0.15} />
+                            <ImageTile src="/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png" alt="Confusion Matrix" caption="Threshold slider and chart point: exactly 90° parallel" delay={0.15} />
                         </BentoRow>
 
                         <BentoRow layout="50/50">
                             <ImageTile src="/images/case-study/ml-functions/10. Binary Classfication - ROC Precision.png" alt="ROC Precision" caption="ROC / Precision curves" delay={0.2} />
-                            <ImageTile src="/images/case-study/ml-functions/6. Run Model - Explainability Popup.png" alt="Explainability Popup" caption="Native explainability — feature importances" delay={0.25} />
+                            <ImageTile src="/images/case-study/ml-functions/6. Run Model - Explainability Popup.png" alt="Explainability Popup" caption="Native explainability — where it all started" delay={0.25} />
                         </BentoRow>
 
                         <BentoRow layout="50/50">
-                            <ImageTile src="/images/case-study/ml-functions/17. Optimize Model Popup.png" alt="Optimize Model" caption="Optimize Model popup" delay={0.3} />
+                            <ImageTile src="/images/case-study/ml-functions/17. Optimize Model Popup.png" alt="Optimize Model" caption="Optimize Model — with inline warnings" delay={0.3} />
                             <ImageTile src="/images/case-study/ml-functions/1. ML UI Structure.png" alt="ML UI Structure" caption="Full ML UI structure" delay={0.35} />
                         </BentoRow>
 
@@ -306,19 +380,19 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                 </CinematicScene>
 
                 <PullQuote>
-                    The confusion matrix screen alone went through 10+ iterations. &ldquo;The best screen in the entire UX revamp.&rdquo; — Principal Data Scientist
+                    &ldquo;The best screen in the entire UX revamp.&rdquo; He said that during a team walkthrough. Out loud. In front of everyone. — Marcus Horbach, Principal Data Scientist
                 </PullQuote>
             </div>
 
 
             {/* ═══════════════════════════════════════════════
-                ACT V — I LED THIS WHILE OWNING THREE OTHER PRODUCTS.
+                ACT V — I FOUGHT FOR EVERY DAMN THING IN ML.
                ═══════════════════════════════════════════════ */}
             <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-5-team">
                 <CinematicScene
-                    title="I Led This While Owning Three Other Products."
+                    title="I Fought for Every Damn Thing in ML."
                     body={
-                        <p>Dual-experience approach emerged from engineering constraints. We couldn&apos;t rebuild advanced mode — it had to coexist with the guided flow. Limitation became a feature.</p>
+                        <p>I was the only designer on ML, on IQ, on Reporting Server. After the layoffs, it became four systems. I fought for every design decision with logic, not instinct.</p>
                     }
                 >
                     <BentoGrid>
@@ -332,7 +406,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    After layoffs, I owned four enterprise systems simultaneously. Daily trackers, weekly trackers, ticket trackers — all shared via Slack so leadership always knew my progress.
+                                    I was the only designer to work on Reporting Server, on ML, on IQ. Nobody else touched these. I built a mental model of WebFOCUS as an end-to-end ecosystem: get data, prepare data, train and run ML, visualize in Designer, distribute through ReportCaster. Nobody explained that to me. I built it by working across enough of the system.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
@@ -340,10 +414,10 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     <div className="w-10 h-10 rounded-lg border border-cyan-500/20 bg-cyan-500/5 flex items-center justify-center">
                                         <span className="text-cyan-400 text-sm">↔</span>
                                     </div>
-                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Cross-Project</span>
+                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">The Data Flow Fight</span>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    Patterns from ML directly informed IQ Plugin. Modal architecture from RC became platform-wide reference. Solutions in one project accelerated the others.
+                                    When the data scientist tried to bring Data Flow back into the view, I pushed back. I had recordings, notes, documentation from our earlier sessions. I reminded him of our prior decisions, explained why the change would hurt the workflow, and held my ground. The room was me, two directors of engineering, the head PM, the principal data scientist, and my design director. I won.
                                 </p>
                             </TextTile>
                         </BentoRow>
@@ -352,7 +426,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                             <TextTile accent="teal" delay={0.15}>
                                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 pl-2">
                                     <p className="text-zinc-200 font-light leading-relaxed text-lg">
-                                        Experts keep their power tools, newcomers get guardrails. Both personas served. What felt like a constraint became the defining feature of the product.
+                                        Defending my thinking forced me to depend on logic, not instinct. I always needed industry research, existing WebFOCUS behavior, documentation, or common sense to back up my decisions. I could never just say &ldquo;I designed this because I felt like it.&rdquo; Design instincts don&apos;t mean anything if you don&apos;t have the evidence to back them up. That made me sharper. That made me better.
                                     </p>
                                 </div>
                             </TextTile>
@@ -363,27 +437,27 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
 
             {/* ═══════════════════════════════════════════════
-                ACT VI — 5/5 VALIDATED.
+                ACT VI — THEY JUST BLAZED THROUGH IT.
                ═══════════════════════════════════════════════ */}
             <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-6-outcome">
                 <CinematicScene
-                    title="5/5 Validated. Patterns Became the Platform Standard."
+                    title="They Just Blazed Through It."
                     body={
-                        <p>5/5 SMEs found the entry point without help. Dead-ends became clear guidance. Design demos to 150-200 person business unit earned leadership support.</p>
+                        <p>Four SMEs. Separate sessions. I told them one thing: &ldquo;It starts from the dataset.&rdquo; They right-clicked, saw &ldquo;Predict Data,&rdquo; clicked it — and just blazed through the whole workflow. Because it was that obvious. The four-step flow was untouched by feedback. They had design suggestions on the results screens, but the core spine? Nobody questioned it.</p>
                     }
                 >
                     <BentoGrid>
                         <BentoRow layout="50/50">
                             <TextTile>
-                                <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">5/5</div>
+                                <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">4/4</div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    SMEs completed the guided flow without assistance. The right-click entry pattern I designed became how other AI apps surfaced in the same menu.
+                                    Every SME completed the guided flow without assistance. My design director, who knew nothing about ML, was able to do it too. I taught him machine learning with this workflow. That was the real test.
                                 </p>
                             </TextTile>
                             <TextTile delay={0.1}>
-                                <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">12+ → ~6</div>
+                                <div className="text-4xl font-bold text-[var(--cs-accent)] mb-3">~6 → 2</div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    Steps reduced. Zero dead-end errors. The patterns — structured flows, upstream validation, dual-experience — became foundation for IQ Plugin and platform AI strategy.
+                                    Clicks to start. Right-click, Predict Data, done. The entry point I designed became how other AI features surfaced in the same menu — Generate Insights, Ask a Question. That wasn&apos;t just a UX tweak. That was adoption thinking.
                                 </p>
                             </TextTile>
                         </BentoRow>
@@ -395,9 +469,9 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                 <div className="relative">
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[60vw] h-[600px] bg-[var(--cs-accent)]/3 blur-[200px] rounded-full pointer-events-none" />
                     <CinematicScene
-                        title="What This Project Taught Me"
+                        title="What a Mind-Bending Project."
                         body={
-                            <p>I earned the domain. I earned the trust. The productive tension with Data Science produced the best screen in the project.</p>
+                            <p>ML Functions taught me product partnership more than anything else. With RC, I had to dig through chaos. With ML, my PM and I co-owned it. My input shaped the roadmap, the concepts, the direction. I only fully realized I was shaping the entire product experience after getting laid off and building these case studies.</p>
                         }
                     >
                         {data.reflection?.people && data.reflection.people.length > 0 && (

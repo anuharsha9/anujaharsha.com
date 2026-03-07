@@ -203,7 +203,7 @@ export default function ExtendedPortfolio() {
     }, [])
 
     return (
-        <motion.section ref={ref} className="relative pt-10 pb-20 md:pt-16 md:pb-32 overflow-hidden" style={{ filter: sectionFilter }}>
+        <motion.section ref={ref} id="extended-portfolio" className="relative pt-10 pb-20 md:pt-16 md:pb-32 overflow-hidden" style={{ filter: sectionFilter }}>
             {/* Era label — decorative, above content */}
             <motion.div
                 className="mb-6 md:mb-8 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto pointer-events-none select-none"

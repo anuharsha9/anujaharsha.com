@@ -3,9 +3,9 @@ import { CaseStudyData } from '@/types/caseStudy'
 export const iqPluginCaseStudy: CaseStudyData = {
   slug: 'iq-plugin',
   heroTitle: 'We Built the Intelligence. Nobody Knew It Existed.',
-  heroSubheading: 'Three AI features. <5% adoption. Millions invested. I unified them into one Hub.',
+  heroSubheading: 'Three AI features. Low adoption. Millions invested. I unified them into one Hub.',
   heroSubtitle:
-    'Not assigned — invented. Pitched the vision. VP approved. Owned all three workflows end-to-end.',
+    'Team vision. My architecture. I designed how three features I\u2019d already built would come together in one Hub \u2014 pushing for things never done in the org.',
   coverImage: {
     src: '/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png',
     alt: 'DSML Hub - Unified Data Science & Machine Learning',
@@ -14,7 +14,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Spring 2024 – Spring 2025',
   status: {
-    label: 'NLQ +25% Adoption | Hub Implemented',
+    label: 'NLQ +25% Adoption | Hub In Development',
     variant: 'shipping' as const,
   },
   scope: [
@@ -27,15 +27,15 @@ export const iqPluginCaseStudy: CaseStudyData = {
   // PROJECT SNAPSHOT & DEEP DIVE DATA
   // ----------------------------
   projectSnapshot: {
-    problem: 'NLQ, Insights, ML — <5% adoption. Millions invested, buried in menus, invisible to users.',
+    problem: 'NLQ, Insights, ML — low adoption. Millions invested, buried in menus, invisible to users.',
     role: 'Lead Designer (Vision to Architecture)',
     keyDecisions: [
       'Unifying 3 distinct tools (NLQ, Insights, ML) into 1 Hub',
       'Fighting for large icon tiles over list views (won)',
       'Architecting before tickets existed — PM wrote tickets after seeing mockups',
     ],
-    impactDirectional: 'NLQ adoption +25% from discoverability alone. DSML Hub implemented in code — final QA pending at departure.',
-    status: 'NLQ/Insights Live · Hub Implemented',
+    impactDirectional: 'NLQ adoption +25% from redesign (Phi-3 SLM upgrade). DSML Hub implemented in code — pending launch.',
+    status: 'NLQ/Insights Live · Hub Implemented (Pre-Launch)',
   },
   challengeDeconstruction: {
     assumptions: [
@@ -56,9 +56,9 @@ export const iqPluginCaseStudy: CaseStudyData = {
     businessGoal: 'Rescue millions in engineering investment. Make invisible AI capabilities discoverable.',
   },
   successCriteria: {
-    baseline: '3 separate tools, low discoversability, <5% adoption.',
-    target: '1 unified hub, high visibility, >10% adoption.',
-    result: 'Unified architecture approved, NLQ adoption +25% (standalone). Hub implemented in code.',
+    baseline: '3 separate tools, low discoverability, near-zero adoption.',
+    target: '1 unified hub, high visibility, meaningful adoption increase.',
+    result: 'Unified architecture approved. NLQ adoption +25% from redesign. Hub implemented in code, pending launch.',
     disclaimer: 'Adoption metrics based on component-level tracking prior to full Hub release.',
   },
   keyDecisions: [
@@ -103,7 +103,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
   businessImpactDirectional: {
     bullets: [
       'DSML tools now discoverable from the Hub homepage — zero hunting required.',
-      '+25% adoption of NLQ feature post-redesign.',
+      '+25% adoption of NLQ feature post-redesign (Phi-3 SLM upgrade).',
       'Reduced "Time to Insight" for business users.',
     ],
     disclaimer: 'Impact metrics are directional. Full Hub impact pending 2027 release.',
@@ -134,9 +134,9 @@ export const iqPluginCaseStudy: CaseStudyData = {
         layout: 'center',
         title: 'Executive Summary',
         content: [
-          'Situation: 3 powerful AI tools existed but had <5% adoption due to poor visibility.',
+          'Situation: 3 powerful AI tools existed but had near-zero adoption due to poor visibility.',
           'Action: I unified NLQ, Insights, and ML into a single "DSML Hub".',
-          'Result: +25% adoption of NLQ immediately. Hub fully implemented in code.',
+          'Result: +25% adoption of NLQ from redesign. Hub fully implemented in code, pending launch.',
         ],
         signal: 'EXECUTIVE SUMMARY',
       },
@@ -146,7 +146,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
         content: [
           '3 powerful tools (NLQ, Insights, ML) were siloed.',
           'Buried in deep menus; zero cross-pollination.',
-          '<5% adoption rate despite high capability.',
+          'Near-zero adoption rate despite high capability.',
         ],
         image: '/images/case-study/iq-plugin/IQ Structure flowchart.png',
         notes: 'Visualizing the fragmented architecture before the redesign.',
@@ -200,7 +200,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
         type: 'impact',
         title: 'Future Impact',
         content: [
-          '+25% NLQ Adoption (verified in piloting).',
+          '+25% NLQ Adoption from redesign (Phi-3 upgrade).',
           'Hub fully implemented.',
           'Foundation for AI roadmap.',
         ],
@@ -233,23 +233,23 @@ export const iqPluginCaseStudy: CaseStudyData = {
   quickOverview: {
     title: 'Data Science Adoption — Quick Impact Overview',
     subtitle: 'From scattered features to unified DSML Hub',
-    leadershipSummary: 'Not assigned — invented. Pitched the Hub vision to leadership. VP approved. Owned all three AI workflows. Defended every decision against architects with 20-35 years of tenure.',
+    leadershipSummary: 'Team vision, my architecture. Designed how three AI features would come together in one Hub. Defended every decision against architects with 20-35 years of tenure.',
     whatTheSystemWas:
-      'Three AI features — NLQ, Insights, ML. Millions invested. <5% adoption. Buried in different menus. Invisible.',
+      'Three AI features — NLQ, Insights, ML. Millions invested. Low adoption. Buried in different menus. Invisible.',
     myRole:
       'Vision to architecture. Modernized all three workflows. Made everything responsive. Unified into one Hub.',
     scopeOfPractice: [],
     impactMetrics: [
-      { label: 'Adoption impact', value: 'NLQ +25% from discoverability alone' },
+      { label: 'Adoption impact', value: 'NLQ +25% from redesign (Phi-3 SLM)' },
       { label: 'Fragmentation eliminated', value: '3 tools → 1 Hub' },
       { label: 'Scope', value: '3 workflows owned simultaneously' },
       { label: 'Team enablement', value: '2 designers onboarded & handed off' },
     ],
     star: {
-      situation: 'NLQ, Insights, ML — <5% adoption. Millions invested, invisible to users.',
+      situation: 'NLQ, Insights, ML — low adoption. Millions invested, invisible to users.',
       task: 'Unify three scattered tools into one discoverable experience.',
       action: 'Co-created Hub concept with PM. Pitched the vision — VP approved. Defined architecture before tickets existed. Drove alignment across 4+ teams. Defended decisions against veteran architects.',
-      result: 'NLQ +25% adoption from discoverability alone. No feature changes. DSML Hub implemented in code.',
+      result: 'NLQ +25% adoption from redesign. DSML Hub implemented in code, pending launch.',
     },
     technologies: [],
     keyAchievements: [
@@ -305,8 +305,8 @@ export const iqPluginCaseStudy: CaseStudyData = {
       id: 'section-01',
       index: 'D',
       title: 'Discover Deeply: The Invisible Feature Problem',
-      summary: 'Millions invested. <5% adoption. Three AI features nobody could find.',
-      body: `NLQ buried inside "Explore Data." Insights in a submenu. ML in a separate context. <5% adoption on millions in engineering investment. The problem wasn't quality — it was visibility.
+      summary: 'Millions invested. Low adoption. Three AI features nobody could find.',
+      body: `NLQ buried inside "Explore Data." Insights in a submenu. ML in a separate context. Low adoption despite millions in engineering investment. The problem wasn't quality — it was visibility.
 
 This wasn't on a roadmap. My PM and I seized it during product consolidation talks. Dozens of concept mockups. Weekly FigJam sessions across timezones. Our Director of Design started sketching his own ideas mid-pitch. VP approved. We owned it.`,
     },
@@ -314,10 +314,10 @@ This wasn't on a roadmap. My PM and I seized it during product consolidation tal
       id: 'section-02',
       index: 'E',
       title: 'Empathize with the Ecosystem: Modernizing the Building Blocks',
-      summary: 'Before unifying, I modernized. Terminal UI → Apple UI.',
+      summary: 'Before unifying, I modernized each feature individually.',
       body: `NLQ: bare text field, cryptic errors, zero guidance. Insights: dense data grids, no context. Both felt like command-line tools dressed in web UI.
 
-**From Terminal UI to Apple UI.** Suggested queries. Conversational errors. Scannable cards. Layered disclosure — approachable on the surface, powerful underneath.
+**Smarter NLQ via Phi-3 SLM.** Question suggestions. Chart switching. Ambiguity correction. Scannable insight cards. Each feature modernized before unifying them.
 
 I already owned ML from my other case study. When the Hub opportunity came, I had all three building blocks ready.`,
     },
@@ -356,10 +356,10 @@ Two years in. Everyone else — decades. I was driving the conversation.`,
       id: 'section-06',
       index: 'N',
       title: 'Navigate Forward: Visibility Was the Solution',
-      summary: '+25% NLQ adoption — from discoverability alone. Not feature changes.',
+      summary: '+25% NLQ adoption — from the NLQ redesign (Phi-3 model upgrade). Hub implemented, pending launch.',
       body: `We didn't add capabilities. Didn't rewrite the engine. We made it visible.
 
-**Live now:** NLQ +25% adoption. Insights with auto-generated visualizations. Both modernized.
+**Live now:** NLQ +25% adoption from redesign. Insights with auto-generated visualizations. Both modernized. Hub implemented, pending launch.
 **Implemented:** DSML Hub and ML Functions — code-complete at departure, final QA pending.
 
 The features didn't change. The visibility did. Highest-leverage design work: making existing features findable.`,
@@ -464,7 +464,7 @@ The features didn't change. The visibility did. Highest-leverage design work: ma
     heading: 'Impact at a glance',
     bullets: [
       '3 entry points → 1 unified DSML Hub',
-      'NLQ adoption +25% from discoverability alone — no feature changes',
+      'NLQ adoption +25% from redesign (Phi-3 SLM upgrade)',
       'First fully responsive Hub app in the platform',
       'Architecture defined before tickets existed',
       'Enabled 2 designers to continue execution on my foundation',
@@ -492,7 +492,7 @@ The features didn't change. The visibility did. Highest-leverage design work: ma
       pushHarder: {
         title: 'Proper Tutorials and Onboarding',
         subtitle: 'Git_Diff: What I\'d Push Harder For',
-        content: '<span class="text-amber-500/80">Tutorials & Onboarding:</span> Fought for a "Get Started" panel — scrapped, integrated elsewhere. Wanted guided tours, not just tooltips.'
+        content: '<span class="text-amber-500/80">Tutorials & Onboarding:</span> Initially proposed a dedicated "Get Started" panel. Through iteration, we improved the tutorials, Discover page, and Explore Data header instead — better UX, same goal.'
       },
       doNext: {
         title: 'Ecosystem Integration',
