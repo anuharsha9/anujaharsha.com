@@ -22,9 +22,18 @@
 
 ## Transitions
 
-- **NO crossfades.** Use **blur-to-focus** (element entering) and **focus-to-blur** (element leaving) instead.
+- **NO crossfades or opacity fades.** Never use `opacity: 0 → 1` or `opacity: 1 → 0` as a transition effect. Not on the hero, not on scroll reveals, not anywhere.
+- Use **blur-to-focus** (element entering) and **focus-to-blur** (element leaving) instead.
 - Every transition between content sections should follow the blur ↔ focus pattern.
 - This applies to: scroll-based reveals, timed animations, beat transitions, page transitions.
+- **Blur values should be high** (40-60px) so blurred elements are truly invisible on dark backgrounds — no ghostly shapes leaking through.
+
+## Particles / WebGL Effects
+
+- **Flat dots only.** No glow, no soft falloff, no additive blending. Hard-edged circles.
+- Colors: **accent teal + white** mix from the design system. No other colors.
+- Particles that form shapes should use **spring physics** (velocity + damping), not linear interpolation.
+- Once formed, particles should **freeze** — no ambient drift, no oscillation, no re-scatter.
 
 ## Trailer / Movie
 
@@ -55,3 +64,10 @@
 - Chair philosophy should be a **timed animation on load** (4-5 seconds), not a scroll-based reveal.
 - Recruiter should see "Hi, I'm Anuja" within **5 seconds of landing**.
 - Hero height should be minimal — no excessive scroll distance before real content.
+
+## Code Quality
+
+- **No patchwork.** If incremental edits make code messy, do a clean rewrite of the whole file.
+- **Rewrite over patch** when more than 3 edits are needed on the same file.
+- Code should be readable and well-structured at all times — not a stack of fixes on top of fixes.
+

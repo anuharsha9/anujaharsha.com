@@ -1,18 +1,18 @@
 'use client'
 
-import React, { useRef, useState, useEffect, useCallback } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import {
     motion,
     useScroll,
     useTransform,
-    useMotionValue,
     AnimatePresence,
-    animate as fmAnimate,
     useMotionTemplate,
 } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { X, Play, Cog } from 'lucide-react'
-import RCTrailer from '@/components/home/RCTrailer'
+import { Play, Cog } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+const HeroParticleField = dynamic(() => import('@/components/home/HeroParticleField'), { ssr: false })
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -106,10 +106,7 @@ function InterlockedGearGlyph({ className = '' }: { className?: string }) {
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
-
-    const [isWatching, setIsWatching] = useState(false)
-    const [movieKey, setMovieKey] = useState(0)
-    const watchMode = useMotionValue(0)
+    const [particlesFormed, setParticlesFormed] = useState(false)
 
     /* ─── Scroll choreography (200vh) ─── */
     const { scrollYProgress } = useScroll({
@@ -117,138 +114,69 @@ export default function HeroLanding() {
         offset: ['start start', 'end end']
     })
 
-    const overlayFade = useTransform(watchMode, [0, 1], [1, 0])
-    const videoOpacity = useTransform(watchMode, [0, 1], [0.4, 1.0])
-
-    const videoScaleOnScroll = useTransform(scrollYProgress, [0, 1], [1.05, 1.15])
-    const videoYOnScroll = useTransform(scrollYProgress, [0, 1], [0, 120])
-    const videoScale = useTransform(
-        [videoScaleOnScroll, watchMode],
-        ([scrollScale, watchProgress]) => {
-            const base = scrollScale as number
-            const watch = watchProgress as number
-            return base + (1.02 - base) * watch
-        }
-    )
-    const videoY = useTransform(
-        [videoYOnScroll, watchMode],
-        ([scrollYpx, watchProgress]) => (scrollYpx as number) * (1 - (watchProgress as number))
-    )
-
-    const videoBlur = useTransform(watchMode, [0, 1], [28, 0])
-    const videoBrightness = useTransform(watchMode, [0, 1], [0.42, 1])
-    const videoSaturation = useTransform(watchMode, [0, 1], [0.72, 1])
-    const videoContrast = useTransform(watchMode, [0, 1], [0.9, 1.04])
-    const videoFilterTemplate = useMotionTemplate`blur(${videoBlur}px) brightness(${videoBrightness}) saturate(${videoSaturation}) contrast(${videoContrast})`
-
-    // Bio: visible from start, blur-out on exit
-    const bioOpacity = useTransform(scrollYProgress, [0, 0.80, 0.95], [1, 1, 0])
+    // Bio: blur-out on scroll exit (no opacity)
     const bioY = useTransform(scrollYProgress, [0, 0.80, 0.95], [0, 0, -40])
-    const bioBlur = useTransform(scrollYProgress, [0, 0.80, 0.95], [0, 0, 16])
-    const bioFilter = useMotionTemplate`blur(${bioBlur}px)`
+    const bioBlurScroll = useTransform(scrollYProgress, [0, 0.80, 0.95], [0, 0, 24])
+    const bioFilter = useMotionTemplate`blur(${bioBlurScroll}px)`
 
-    // Hero container fade-out
-    const heroContainerOpacity = useTransform(scrollYProgress, [0.88, 1.0], [1, 0])
+    // Hero container blur-out on scroll
+    const heroBlur = useTransform(scrollYProgress, [0.85, 1.0], [0, 20])
+    const heroScale = useTransform(scrollYProgress, [0.85, 1.0], [1, 0.97])
+    const heroContainerFilter = useMotionTemplate`blur(${heroBlur}px)`
 
     // CTA glow ring + sweep
     const glowRingScale = useTransform(scrollYProgress, [0.15, 0.25], [0.8, 1.6])
     const glowRingOpacity = useTransform(scrollYProgress, [0.15, 0.20, 0.25], [0, 0.6, 0])
     const lightSweepX = useTransform(scrollYProgress, [0.20, 0.35], ['-120%', '120%'])
 
-    const combinedHeroTextOpacity = useTransform(watchMode, [0, 1], [1, 0])
-
-    /* ─── Watch mode controls ─── */
-    const enterWatchMode = () => {
-        setIsWatching(true)
-        setMovieKey(k => k + 1)
-        fmAnimate(watchMode, 1, { duration: 0.6, ease: [0.4, 0, 0.2, 1] })
-    }
-
-    const handleWatchPresentation = () => {
-        exitWatchMode()
-        router.push('/work/reportcaster')
-    }
-
-    const exitWatchMode = useCallback(() => {
-        setIsWatching(false)
-        fmAnimate(watchMode, 0, { duration: 0.6, ease: [0.4, 0, 0.2, 1] })
-    }, [watchMode])
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape' && isWatching) exitWatchMode()
-        }
-        window.addEventListener('keydown', handleKeyDown)
-        return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [isWatching, exitWatchMode])
-
-    useEffect(() => {
-        if (isWatching) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = ''
-        }
-        return () => { document.body.style.overflow = '' }
-    }, [isWatching])
+    // Blur-to-focus: text starts heavily blurred, sharpens when particles form
+    const textRevealState = particlesFormed ? 'focused' : 'blurred'
 
     return (
         <div ref={containerRef} className="relative w-full z-10" style={{ height: '200vh' }}>
-            <motion.div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center" style={{ opacity: heroContainerOpacity }}>
+            <motion.div
+                className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
+                style={{ filter: heroContainerFilter, scale: heroScale }}
+            >
 
-                {/* ── TRAILER BACKGROUND ── */}
-                <motion.div
-                    className="absolute inset-0 z-0 bg-[var(--bg-cinematic)] flex items-center justify-center pointer-events-auto"
-                    style={{ scale: videoScale, y: videoY, originY: 0, filter: videoFilterTemplate, opacity: videoOpacity }}
-                >
-                    <div className="w-full h-full">
-                        <RCTrailer
-                            key={movieKey}
-                            showCTA={isWatching}
-                            onWatchPresentation={handleWatchPresentation}
-                            onReplay={() => setMovieKey(k => k + 1)}
-                        />
-                    </div>
-                </motion.div>
+                {/* ── DARK BACKGROUND ── */}
+                <div className="absolute inset-0 z-0 bg-[var(--bg-cinematic)]" />
 
-                {/* ── DARK VIGNETTE OVERLAY ── */}
-                <motion.div
-                    className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0.8)_80%,rgba(0,0,0,0.95)_100%)]"
-                    style={{ opacity: overlayFade }}
-                />
+                {/* ── PARTICLE FIELD — blurs out when formed ── */}
+                <HeroParticleField onFormed={() => setTimeout(() => setParticlesFormed(true), 1000)} formed={particlesFormed} />
 
-                {/* ── HERO TEXT CONTENT ── */}
+                {/* ── HERO TEXT — hidden while particles animate, then blur-sharpens ── */}
                 <motion.div
                     className="absolute inset-0 z-[15] flex flex-col items-center justify-center pointer-events-none"
-                    style={{ opacity: combinedHeroTextOpacity }}
+                    style={{ visibility: particlesFormed ? 'visible' : 'hidden' }}
                 >
-                    {/* BIO + CTAs — load instantly */}
                     <motion.div
                         className="flex flex-col items-center justify-center px-6"
-                        style={{ opacity: bioOpacity, y: bioY, filter: bioFilter }}
+                        style={{ y: bioY, filter: bioFilter }}
                     >
                         <div className="flex flex-col items-center text-center max-w-4xl">
                             <motion.span
                                 className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-                                initial={{ opacity: 0, filter: 'blur(16px)' }}
-                                animate={{ opacity: 1, filter: 'blur(0px)' }}
-                                transition={{ duration: 2.5, delay: 0.2, ease }}
+                                initial={{ filter: 'blur(50px)' }}
+                                animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(50px)' }}
+                                transition={{ duration: 2.2, delay: 0, ease }}
                             >
                                 Senior Product Designer
                             </motion.span>
                             <motion.h1
                                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6"
-                                initial={{ opacity: 0, y: 20, filter: 'blur(18px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 3, delay: 0.1, ease }}
+                                initial={{ filter: 'blur(60px)' }}
+                                animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(60px)' }}
+                                transition={{ duration: 2.5, delay: 0.05, ease }}
                             >
                                 <span className="text-white drop-shadow-md">Hi, I&apos;m </span>
                                 <span className="bg-[linear-gradient(118deg,#ffffff_0%,#eafcff_28%,#9ceaf2_56%,#2fc6d5_80%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
                             </motion.h1>
                             <motion.p
                                 className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl"
-                                initial={{ opacity: 0, y: 15, filter: 'blur(14px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 2.8, delay: 0.4, ease }}
+                                initial={{ filter: 'blur(50px)' }}
+                                animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(50px)' }}
+                                transition={{ duration: 2.0, delay: 0.15, ease }}
                             >
                                 13 years of experience specializing in B2B enterprise UX, product strategy, and high-fidelity code prototyping.
                             </motion.p>
@@ -257,9 +185,9 @@ export default function HeroLanding() {
                         {/* CTAs */}
                         <motion.div
                             className="mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-4 sm:grid-cols-2"
-                            initial={{ opacity: 0, y: 15, filter: 'blur(12px)' }}
-                            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                            transition={{ duration: 2.5, delay: 0.8, ease }}
+                            initial={{ filter: 'blur(40px)' }}
+                            animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(40px)' }}
+                            transition={{ duration: 1.8, delay: 0.3, ease }}
                         >
                             {/* PRIMARY CTA — Flagship Case Study */}
                             <div className="relative order-2 sm:order-1 w-full h-14 pointer-events-auto">
@@ -274,7 +202,7 @@ export default function HeroLanding() {
                                     />
                                 </div>
                                 <button
-                                    onClick={enterWatchMode}
+                                    onClick={() => router.push('/work/reportcaster')}
                                     className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-3 rounded-full border border-white bg-white px-8 py-3.5 font-sans text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
                                 >
                                     <Play className="w-4 h-4 fill-current transition-transform duration-500 group-hover:scale-110" />
@@ -299,26 +227,9 @@ export default function HeroLanding() {
                         </motion.div>
 
                         {/* CHAIR PHILOSOPHY — typewriter under bio */}
-                        <PhilosophyTypewriter delay={1800} />
+                        <PhilosophyTypewriter delay={3500} />
                     </motion.div>
                 </motion.div>
-
-                {/* ── CLOSE BUTTON FOR WATCH MODE ── */}
-                <AnimatePresence>
-                    {isWatching && (
-                        <motion.button
-                            aria-label="Exit movie mode"
-                            className="absolute top-6 right-6 z-[50] w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-colors cursor-pointer pointer-events-auto"
-                            onClick={exitWatchMode}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            <X className="w-6 h-6" />
-                        </motion.button>
-                    )}
-                </AnimatePresence>
 
             </motion.div>
         </div>
