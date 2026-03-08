@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { motion, useScroll, useTransform, useMotionTemplate, useSpring, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate, AnimatePresence } from 'framer-motion'
 
 const TESTIMONIALS = [
     {
@@ -60,10 +60,7 @@ export default function TestimonialsBlock() {
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
     const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.98, 1])
 
-    // Blur-to-focus entrance
-    const rawSectionBlur = useTransform(scrollYProgress, [0, 0.12], [12, 0])
-    const sectionBlur = useSpring(rawSectionBlur, { stiffness: 100, damping: 20, mass: 0.5 })
-    const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
+
 
     // Auto-cycle
     useEffect(() => {
@@ -85,15 +82,15 @@ export default function TestimonialsBlock() {
     const t = TESTIMONIALS[active]
 
     return (
-        <motion.section ref={ref} className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden" style={{ filter: sectionFilter }}>
+        <motion.section ref={ref} className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
             {/* Era label — decorative */}
             <motion.div
                 className="mb-6 md:mb-8 pointer-events-none select-none"
                 aria-hidden="true"
-                initial={{ opacity: 0, x: -40, filter: 'blur(10px)' }}
+                initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
                 whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
             >
                 <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                     SOCIAL PROOF

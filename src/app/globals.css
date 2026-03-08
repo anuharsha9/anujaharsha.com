@@ -1726,3 +1726,15 @@ motion.div[data-visible="true"] {
     transform: translateX(-20px) skewX(-8deg);
   }
 }
+
+/* ── Ambient aurora drift — keeps the dark canvas alive ── */
+@keyframes aurora-ambient {
+  0%, 100% {
+    transform: translateY(0) scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-30px) scaleX(1.05);
+    opacity: 0.7;
+  }
+}

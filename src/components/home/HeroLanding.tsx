@@ -10,9 +10,7 @@ import {
 } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { Play, Cog } from 'lucide-react'
-import dynamic from 'next/dynamic'
-
-const HeroParticleField = dynamic(() => import('@/components/home/HeroParticleField'), { ssr: false })
+import HeroAurora from './HeroAurora'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -106,7 +104,13 @@ function InterlockedGearGlyph({ className = '' }: { className?: string }) {
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
-    const [particlesFormed, setParticlesFormed] = useState(false)
+    const [isReady, setIsReady] = useState(false)
+
+    // Trigger cinematic entrance on mount
+    useEffect(() => {
+        const timer = setTimeout(() => setIsReady(true), 150)
+        return () => clearTimeout(timer)
+    }, [])
 
     /* ─── Scroll choreography (200vh) ─── */
     const { scrollYProgress } = useScroll({
@@ -114,14 +118,16 @@ export default function HeroLanding() {
         offset: ['start start', 'end end']
     })
 
-    // Bio: blur-out on scroll exit (no opacity)
-    const bioY = useTransform(scrollYProgress, [0, 0.80, 0.95], [0, 0, -40])
-    const bioBlurScroll = useTransform(scrollYProgress, [0, 0.80, 0.95], [0, 0, 24])
+    // Bio: blur-out + fade on scroll exit
+    const bioY = useTransform(scrollYProgress, [0, 0.50, 0.70], [0, 0, -40])
+    const bioBlurScroll = useTransform(scrollYProgress, [0, 0.50, 0.70], [0, 0, 30])
     const bioFilter = useMotionTemplate`blur(${bioBlurScroll}px)`
+    const bioOpacity = useTransform(scrollYProgress, [0, 0.50, 0.70], [1, 1, 0])
 
-    // Hero container blur-out on scroll
-    const heroBlur = useTransform(scrollYProgress, [0.85, 1.0], [0, 20])
-    const heroScale = useTransform(scrollYProgress, [0.85, 1.0], [1, 0.97])
+    // Hero container: blur + fade + scale on scroll exit
+    const heroBlur = useTransform(scrollYProgress, [0.55, 0.75], [0, 20])
+    const heroScale = useTransform(scrollYProgress, [0.55, 0.75], [1, 0.97])
+    const heroOpacity = useTransform(scrollYProgress, [0.55, 0.75], [1, 0])
     const heroContainerFilter = useMotionTemplate`blur(${heroBlur}px)`
 
     // CTA glow ring + sweep
@@ -129,65 +135,78 @@ export default function HeroLanding() {
     const glowRingOpacity = useTransform(scrollYProgress, [0.15, 0.20, 0.25], [0, 0.6, 0])
     const lightSweepX = useTransform(scrollYProgress, [0.20, 0.35], ['-120%', '120%'])
 
-    // Blur-to-focus: text starts heavily blurred, sharpens when particles form
-    const textRevealState = particlesFormed ? 'focused' : 'blurred'
-
     return (
-        <div ref={containerRef} className="relative w-full z-10" style={{ height: '200vh' }}>
+        <div ref={containerRef} className="relative w-full z-10" style={{ height: '135vh' }}>
             <motion.div
                 className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
-                style={{ filter: heroContainerFilter, scale: heroScale }}
+                style={{ filter: heroContainerFilter, scale: heroScale, opacity: heroOpacity }}
             >
 
                 {/* ── DARK BACKGROUND ── */}
                 <div className="absolute inset-0 z-0 bg-[var(--bg-cinematic)]" />
 
-                {/* ── PARTICLE FIELD — blurs out when formed ── */}
-                <HeroParticleField onFormed={() => setTimeout(() => setParticlesFormed(true), 1000)} formed={particlesFormed} />
+                {/* ── AURORA — Canvas 2D northern lights ── */}
+                <HeroAurora />
 
-                {/* ── HERO TEXT — hidden while particles animate, then blur-sharpens ── */}
+                {/* ── HERO TEXT — cinematic blur-to-focus entrance ── */}
                 <motion.div
                     className="absolute inset-0 z-[15] flex flex-col items-center justify-center pointer-events-none"
-                    style={{ visibility: particlesFormed ? 'visible' : 'hidden' }}
                 >
                     <motion.div
                         className="flex flex-col items-center justify-center px-6"
-                        style={{ y: bioY, filter: bioFilter }}
+                        style={{ y: bioY, filter: bioFilter, opacity: bioOpacity }}
                     >
                         <div className="flex flex-col items-center text-center max-w-4xl">
+                            {/* SENIOR PRODUCT DESIGNER — label */}
                             <motion.span
                                 className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-                                initial={{ filter: 'blur(50px)' }}
-                                animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(50px)' }}
-                                transition={{ duration: 2.2, delay: 0, ease }}
+                                initial={{ filter: 'blur(80px)', opacity: 0, scale: 0.92 }}
+                                animate={isReady
+                                    ? { filter: 'blur(0px)', opacity: 1, scale: 1 }
+                                    : { filter: 'blur(80px)', opacity: 0, scale: 0.92 }
+                                }
+                                transition={{ duration: 2.8, delay: 0, ease }}
                             >
                                 Senior Product Designer
                             </motion.span>
+
+                            {/* MAIN HEADLINE — heaviest blur, longest resolve */}
                             <motion.h1
                                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6"
-                                initial={{ filter: 'blur(60px)' }}
-                                animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(60px)' }}
-                                transition={{ duration: 2.5, delay: 0.05, ease }}
+                                initial={{ filter: 'blur(100px)', opacity: 0, scale: 0.96, y: 20 }}
+                                animate={isReady
+                                    ? { filter: 'blur(0px)', opacity: 1, scale: 1, y: 0 }
+                                    : { filter: 'blur(100px)', opacity: 0, scale: 0.96, y: 20 }
+                                }
+                                transition={{ duration: 3.2, delay: 0.2, ease }}
                             >
-                                <span className="text-white drop-shadow-md">Hi, I&apos;m </span>
-                                <span className="bg-[linear-gradient(118deg,#ffffff_0%,#eafcff_28%,#9ceaf2_56%,#2fc6d5_80%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
+                                <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
+                                <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
                             </motion.h1>
+
+                            {/* SUBTITLE — medium blur */}
                             <motion.p
                                 className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl"
-                                initial={{ filter: 'blur(50px)' }}
-                                animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(50px)' }}
-                                transition={{ duration: 2.0, delay: 0.15, ease }}
+                                initial={{ filter: 'blur(60px)', opacity: 0, y: 12 }}
+                                animate={isReady
+                                    ? { filter: 'blur(0px)', opacity: 1, y: 0 }
+                                    : { filter: 'blur(60px)', opacity: 0, y: 12 }
+                                }
+                                transition={{ duration: 2.4, delay: 0.4, ease }}
                             >
                                 13 years of experience specializing in B2B enterprise UX, product strategy, and high-fidelity code prototyping.
                             </motion.p>
                         </div>
 
-                        {/* CTAs */}
+                        {/* CTAs — last to resolve */}
                         <motion.div
                             className="mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-4 sm:grid-cols-2"
-                            initial={{ filter: 'blur(40px)' }}
-                            animate={textRevealState === 'focused' ? { filter: 'blur(0px)' } : { filter: 'blur(40px)' }}
-                            transition={{ duration: 1.8, delay: 0.3, ease }}
+                            initial={{ filter: 'blur(50px)', opacity: 0, y: 16 }}
+                            animate={isReady
+                                ? { filter: 'blur(0px)', opacity: 1, y: 0 }
+                                : { filter: 'blur(50px)', opacity: 0, y: 16 }
+                            }
+                            transition={{ duration: 2.0, delay: 0.6, ease }}
                         >
                             {/* PRIMARY CTA — Flagship Case Study */}
                             <div className="relative order-2 sm:order-1 w-full h-14 pointer-events-auto">
@@ -235,3 +254,4 @@ export default function HeroLanding() {
         </div>
     )
 }
+

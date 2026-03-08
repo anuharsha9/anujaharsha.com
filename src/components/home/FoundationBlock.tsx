@@ -11,10 +11,10 @@ export default function FoundationBlock() {
     return (
         <div className="px-4 md:px-8 lg:px-12 max-w-3xl mx-auto pb-12 md:pb-16">
             <motion.div
-                initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+                initial={{ opacity: 0, y: 20, filter: 'blur(16px)' }}
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 className="rounded-xl bg-[var(--surface-obsidian-900)] border border-white/[0.06] overflow-hidden"
             >
                 {/* Compact title bar */}

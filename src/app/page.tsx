@@ -85,6 +85,13 @@ export default function Home() {
       {/* Global Cinematic Background — Fixed to viewport for continuity */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--overlay-accent-08),transparent)]" />
+        {/* Ambient aurora glow — single faint wave that keeps the dark canvas alive */}
+        <div
+          className="absolute inset-0 mix-blend-screen animate-[aurora-ambient_20s_ease-in-out_infinite]"
+          style={{
+            background: `radial-gradient(ellipse 100% 30% at 50% 25%, rgba(var(--accent-teal-rgb), 0.04) 0%, transparent 70%)`,
+          }}
+        />
         <div
           className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
           style={{
@@ -101,8 +108,7 @@ export default function Home() {
       <HeroLanding />
 
       {/* SECTION 1 — Cloud Software Group */}
-      {/* Negative margin pulls the CSG block up so it overlaps the hero bio fadeout — eliminates dead scroll zone */}
-      <div id="work-overview" className="-mt-[60vh] relative z-20">
+      <div id="work-overview" className="-mt-[50vh] relative z-20">
         <CSGBlock />
       </div>
 

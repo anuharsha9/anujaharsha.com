@@ -177,4 +177,25 @@ The hero becomes:
 
 ---
 
+## Innate Aesthetic Sensibilities — Ocean, Aurora, Dim Light
+
+> "I've loved the northern lights for as long as I can imagine. I always try to incorporate waves somehow in my design — my love for ocean and dark dim lighting is innate and much preferred."
+
+This is a deep personal taste, not a trend:
+
+- **Northern lights (aurora borealis)** — curtains of light that ripple. Not a glow, not a blob. Horizontal bands that drift and breathe. Subtle, alive, ethereal.
+- **Ocean waves** — the movement pattern that shows up everywhere in her work. Slow, organic, continuous. Never abrupt.
+- **Dark dim lighting** — not dark-mode-for-aesthetic. Genuinely preferred atmosphere. Like ocean at night, lit from below. Barely there.
+- **Teal as the accent** — this isn't arbitrary. It's the color of deep ocean + aurora. It is the design system, not decoration.
+
+### What this means for the portfolio:
+| Element | Translation |
+|---|---|
+| **Hero background** | CSS aurora — teal curtains drifting across near-black, 12-20s cycles. Not a glow. Not orbs. Waves. |
+| **Motion language** | Everything moves like water — blur-to-focus, slow dissolves, no snaps |
+| **Intensity** | "Whispering Intensity" — the screen is alive but barely. You're not sure if it's moving |
+| **Color temperature** | The base color of the screen itself should breathe between pure black and faint navy |
+
+---
+
 *This document is a living brainstorm. Add to it anytime.*

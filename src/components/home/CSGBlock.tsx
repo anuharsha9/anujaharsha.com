@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 import { Play } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 
@@ -46,10 +46,10 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.96, filter: 'blur(8px)' }}
+            initial={{ opacity: 0, y: 40, scale: 0.96, filter: 'blur(16px)' }}
             whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1, delay, ease }}
+            transition={{ duration: 1.4, delay, ease }}
         >
             <Link href={tile.link} className="group block">
                 <div
@@ -136,26 +136,23 @@ export default function CSGBlock() {
     const headingY = useTransform(scrollYProgress, [0, 0.15], [20, 0])
     const headingOpacity = useTransform(scrollYProgress, [0, 0.08], [0, 1])
     const headingScale = useTransform(scrollYProgress, [0, 0.15], [0.98, 1])
+    const headingBlurVal = useTransform(scrollYProgress, [0, 0.12], [16, 0])
+    const headingFilter = useMotionTemplate`blur(${headingBlurVal}px)`
 
-    // Blur-to-focus entrance: mirrors the hero's focus-to-blur exit for seamless crossfade
-    const rawSectionBlur = useTransform(scrollYProgress, [0, 0.10], [12, 0])
-    // Spring-smooth the blur for organic momentum feel
-    const sectionBlur = useSpring(rawSectionBlur, { stiffness: 100, damping: 20, mass: 0.5 })
-    const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
 
     const leftTiles = TILES.filter(t => !t.flagship)
     const rightTile = TILES.find(t => t.flagship)!
 
     return (
-        <motion.section ref={ref} className="relative pt-8 md:pt-16 pb-12 md:pb-20 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden" style={{ filter: sectionFilter }}>
+        <motion.section ref={ref} className="relative pt-8 md:pt-16 pb-12 md:pb-20 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
             {/* Era label — decorative, above content */}
             <motion.div
                 className="mb-6 md:mb-8 pointer-events-none select-none"
                 aria-hidden="true"
-                initial={{ opacity: 0, x: -40, filter: 'blur(10px)' }}
+                initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
                 whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
             >
                 <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                     2022 — 2025
@@ -165,7 +162,7 @@ export default function CSGBlock() {
             {/* Section header */}
             <motion.div
                 className="mb-12 md:mb-16"
-                style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
+                style={{ y: headingY, opacity: headingOpacity, scale: headingScale, filter: headingFilter }}
             >
                 <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     2022 — 2025
@@ -184,7 +181,7 @@ export default function CSGBlock() {
                 {/* Right column — ML + IQ stacked */}
                 <div className="flex flex-col gap-4 md:gap-5">
                     {leftTiles.map((tile, i) => (
-                        <BentoTile key={tile.id} tile={tile} delay={0.15 + i * 0.15} />
+                        <BentoTile key={tile.id} tile={tile} delay={0.25 + i * 0.2} />
                     ))}
                 </div>
             </div>

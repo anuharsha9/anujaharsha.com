@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 
 /* ─── Testimonial data ─── */
 const TESTIMONIALS = {
@@ -184,10 +184,7 @@ export default function ExtendedPortfolio() {
     const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
     const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
-    // Blur-to-focus entrance: consistent crossfade theme
-    const rawSectionBlur = useTransform(scrollYProgress, [0, 0.12], [12, 0])
-    const sectionBlur = useSpring(rawSectionBlur, { stiffness: 100, damping: 20, mass: 0.5 })
-    const sectionFilter = useMotionTemplate`blur(${sectionBlur}px)`
+
 
     const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
         const el = e.currentTarget
@@ -203,15 +200,15 @@ export default function ExtendedPortfolio() {
     }, [])
 
     return (
-        <motion.section ref={ref} id="extended-portfolio" className="relative pt-10 pb-20 md:pt-16 md:pb-32 overflow-hidden" style={{ filter: sectionFilter }}>
+        <motion.section ref={ref} id="extended-portfolio" className="relative pt-10 pb-20 md:pt-16 md:pb-32 overflow-hidden">
             {/* Era label — decorative, above content */}
             <motion.div
                 className="mb-6 md:mb-8 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto pointer-events-none select-none"
                 aria-hidden="true"
-                initial={{ opacity: 0, x: -40, filter: 'blur(10px)' }}
+                initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
                 whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
             >
                 <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                     2012 — 2022
@@ -253,10 +250,10 @@ export default function ExtendedPortfolio() {
                                 {pair.map((item, i) => (
                                     <motion.div
                                         key={item.id}
-                                        initial={{ opacity: 0, y: 40, scale: 0.92, filter: 'blur(8px)' }}
+                                        initial={{ opacity: 0, y: 40, scale: 0.92, filter: 'blur(16px)' }}
                                         whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                         viewport={{ once: true, amount: 0.2 }}
-                                        transition={{ duration: 0.8, delay: i * 0.15 }}
+                                        transition={{ duration: 1.2, delay: i * 0.2 }}
                                     >
                                         {item.type === 'project' ? (
                                             <ProjectCard item={item} />

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 import {
     Bot, Mountain, GraduationCap, Award, Baby, MapPin, Heart, Palette
 } from 'lucide-react'
