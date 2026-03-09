@@ -141,12 +141,12 @@ export default function HeroLanding() {
                 className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
                 style={{ filter: heroContainerFilter, scale: heroScale, opacity: heroOpacity }}
             >
-
                 {/* ── DARK BACKGROUND ── */}
                 <div className="absolute inset-0 z-0 bg-[var(--bg-cinematic)]" />
 
                 {/* ── AURORA — Canvas 2D northern lights ── */}
                 <HeroAurora />
+
 
                 {/* ── HERO TEXT — cinematic blur-to-focus entrance ── */}
                 <motion.div

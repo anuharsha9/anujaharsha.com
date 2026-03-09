@@ -12,6 +12,7 @@ const ExtendedPortfolio = dynamic(() => import('@/components/home/ExtendedPortfo
 const FoundationBlock = dynamic(() => import('@/components/home/FoundationBlock'), { ssr: true })
 const TalkSection = dynamic(() => import('@/components/home/TalkSection'), { ssr: true })
 const ScrollGear = dynamic(() => import('@/components/ui/ScrollGear'), { ssr: true })
+const FixedAurora = dynamic(() => import('@/components/ui/WaveDivider'), { ssr: true })
 const LifeContextStrip = dynamic(
   () => import('@/components/home/LifeContextStrip').then((m) => ({ default: m.default })),
   { ssr: true }
@@ -78,12 +79,13 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-[var(--bg-cinematic)] relative">
+    <div className="relative">
       {/* Neural Mainframe — faint scanline overlay */}
       <div className="scanline-overlay" aria-hidden="true" />
 
       {/* Global Cinematic Background — Fixed to viewport for continuity */}
       <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[var(--bg-cinematic)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--overlay-accent-08),transparent)]" />
         {/* Ambient aurora glow — single faint wave that keeps the dark canvas alive */}
         <div
@@ -92,6 +94,8 @@ export default function Home() {
             background: `radial-gradient(ellipse 100% 30% at 50% 25%, rgba(var(--accent-teal-rgb), 0.04) 0%, transparent 70%)`,
           }}
         />
+        {/* Full-viewport aurora — Canvas 2D waves behind all content */}
+        <FixedAurora />
         <div
           className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
           style={{

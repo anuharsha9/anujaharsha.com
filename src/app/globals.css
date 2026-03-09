@@ -149,7 +149,7 @@ html {
 
 @layer base {
   body {
-    background-color: var(--bg-primary);
+    background-color: transparent;
     color: var(--text-body);
     font-family: var(--font-sans);
     overflow-x: hidden;
@@ -1758,4 +1758,17 @@ motion.div[data-visible="true"] {
 @keyframes shimmer-sweep {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* ── Background wave drift — oceanic undercurrent ── */
+@keyframes wave-drift-right {
+  0%   { transform: translateX(-25%); }
+  50%  { transform: translateX(0%); }
+  100% { transform: translateX(-25%); }
+}
+
+@keyframes wave-drift-left {
+  0%   { transform: translateX(0%); }
+  50%  { transform: translateX(-25%); }
+  100% { transform: translateX(0%); }
 }
