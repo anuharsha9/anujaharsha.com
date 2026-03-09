@@ -65,8 +65,14 @@ export default function CinematicCaseStudy({
     const [viewMode, setViewMode] = useState<'full' | 'presentation'>('presentation')
 
     // Scroll to top when switching view modes so content is visible
+    // Then dispatch a scroll event to force framer-motion to recalculate
+    // (useScroll doesn't detect layout changes — needs a scroll event)
     React.useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'instant' })
+        // Wait for DOM reflow, then nudge framer-motion
+        requestAnimationFrame(() => {
+            window.dispatchEvent(new Event('scroll'))
+        })
     }, [viewMode])
 
     const { scrollYProgress: heroProgress } = useScroll({
@@ -172,11 +178,7 @@ export default function CinematicCaseStudy({
                                             {data.heroTitle}
                                         </h1>
 
-                                        <p className="text-lg md:text-2xl font-light text-zinc-400 max-w-2xl leading-relaxed">
-                                            {data.heroSubheading}
-                                        </p>
-
-                                        <p className="text-xs font-mono text-zinc-600 mt-6 uppercase tracking-widest">
+                                        <p className="text-xs font-mono text-[var(--accent-teal)] mt-6 uppercase tracking-widest">
                                             {data.company} • {data.timeframe}
                                         </p>
                                     </div>
