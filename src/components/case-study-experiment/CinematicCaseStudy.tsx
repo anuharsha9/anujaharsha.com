@@ -166,15 +166,15 @@ export default function CinematicCaseStudy({
                             style={{ opacity, scale }}
                         >
                             <div className="max-w-[1440px] mx-auto w-full">
-                                {/* Split layout: Title left, Wireframe right */}
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                                    {/* Left — Text */}
-                                    <div>
+                                {/* Split layout: Title left (narrower), Trailer right (wider) */}
+                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                                    {/* Left — Text (5 cols) */}
+                                    <div className="lg:col-span-5">
                                         <span className="text-[var(--cs-accent)] font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.3em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] block">
                                             {data.role}
                                         </span>
 
-                                        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-500 mb-6 pb-2">
+                                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-500 mb-6 pb-2">
                                             {data.heroTitle}
                                         </h1>
 
@@ -183,8 +183,8 @@ export default function CinematicCaseStudy({
                                         </p>
                                     </div>
 
-                                    {/* Right — Wireframe or Cover */}
-                                    <div className="relative">
+                                    {/* Right — Wireframe or Cover (7 cols) */}
+                                    <div className="lg:col-span-7 relative">
                                         {heroBackground ? (
                                             <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 aspect-video relative">
                                                 {heroBackground}
