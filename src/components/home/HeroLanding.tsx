@@ -148,6 +148,7 @@ export default function HeroLanding() {
                 <HeroAurora />
 
 
+
                 {/* ── HERO TEXT — cinematic blur-to-focus entrance ── */}
                 <motion.div
                     className="absolute inset-0 z-[15] flex flex-col items-center justify-center pointer-events-none"

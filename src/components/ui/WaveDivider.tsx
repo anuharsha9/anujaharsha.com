@@ -160,7 +160,7 @@ export default function FixedAurora() {
     return (
         <canvas
             ref={canvasRef}
-            className="absolute inset-0 w-full h-full pointer-events-none"
+            className="absolute top-0 left-0 w-screen h-screen pointer-events-none"
             aria-hidden="true"
         />
     )
