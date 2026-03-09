@@ -10,7 +10,6 @@ import {
 } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { Play, Cog } from 'lucide-react'
-import HeroAurora from './HeroAurora'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -141,14 +140,6 @@ export default function HeroLanding() {
                 className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
                 style={{ filter: heroContainerFilter, scale: heroScale, opacity: heroOpacity }}
             >
-                {/* ── DARK BACKGROUND ── */}
-                <div className="absolute inset-0 z-0 bg-[var(--bg-cinematic)]" />
-
-                {/* ── AURORA — Canvas 2D northern lights ── */}
-                <HeroAurora />
-
-
-
                 {/* ── HERO TEXT — cinematic blur-to-focus entrance ── */}
                 <motion.div
                     className="absolute inset-0 z-[15] flex flex-col items-center justify-center pointer-events-none"
@@ -250,7 +241,6 @@ export default function HeroLanding() {
                         <PhilosophyTypewriter delay={3500} />
                     </motion.div>
                 </motion.div>
-
             </motion.div>
         </div>
     )

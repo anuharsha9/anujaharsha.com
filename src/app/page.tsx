@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
 import HeroLanding from '@/components/home/HeroLanding'
-import FloatingOrbs from '@/components/ui/FloatingOrbs'
 
 /* ── Lazy-load everything below the fold ── */
 const CSGBlock = dynamic(() => import('@/components/home/CSGBlock'), { ssr: true })
@@ -12,7 +11,7 @@ const ExtendedPortfolio = dynamic(() => import('@/components/home/ExtendedPortfo
 const FoundationBlock = dynamic(() => import('@/components/home/FoundationBlock'), { ssr: true })
 const TalkSection = dynamic(() => import('@/components/home/TalkSection'), { ssr: true })
 const ScrollGear = dynamic(() => import('@/components/ui/ScrollGear'), { ssr: true })
-const FixedAurora = dynamic(() => import('@/components/ui/WaveDivider'), { ssr: true })
+const BlurZone = dynamic(() => import('@/components/ui/BlurZone'), { ssr: true })
 const LifeContextStrip = dynamic(
   () => import('@/components/home/LifeContextStrip').then((m) => ({ default: m.default })),
   { ssr: true }
@@ -83,62 +82,40 @@ export default function Home() {
       {/* Neural Mainframe — faint scanline overlay */}
       <div className="scanline-overlay" aria-hidden="true" />
 
-      {/* Global Cinematic Background — Fixed to viewport for continuity */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[var(--bg-cinematic)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--overlay-accent-08),transparent)]" />
-        {/* Ambient aurora glow — single faint wave that keeps the dark canvas alive */}
-        <div
-          className="absolute inset-0 mix-blend-screen animate-[aurora-ambient_20s_ease-in-out_infinite]"
-          style={{
-            background: `radial-gradient(ellipse 100% 30% at 50% 25%, rgba(var(--accent-teal-rgb), 0.04) 0%, transparent 70%)`,
-          }}
-        />
-        {/* Full-viewport aurora — Canvas 2D waves behind all content */}
-        <FixedAurora />
-        <div
-          className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            backgroundSize: '128px 128px',
-          }}
-        />
-      </div>
-
-      {/* Ambient depth particles — drift with scroll parallax */}
-      <FloatingOrbs />
-
-      {/* HERO — Chair philosophy → Bio → CTAs */}
+      {/* ═══ ZONE 1: HERO ═══
+          Manages its own 135vh + sticky + scroll choreography.
+          No BlurZone — hero has its own blur/scale/opacity transforms. */}
       <HeroLanding />
 
-      {/* SECTION 1 — Cloud Software Group */}
-      <div id="work-overview" className="-mt-[50vh] relative z-20">
+      {/* ═══ ZONE 2: CSG BLOCK ═══ */}
+      <BlurZone id="work-overview" containerHeight="200vh">
         <CSGBlock />
-      </div>
+      </BlurZone>
 
-      {/* SOCIAL PROOF — Testimonials */}
-      <TestimonialsBlock />
+      {/* ═══ ZONE 3: SOCIAL PROOF + LIFE CONTEXT ═══ */}
+      <BlurZone id="social-proof-zone" containerHeight="200vh">
+        <TestimonialsBlock />
+        <LifeContextStrip milestones={CSG_MILESTONES} />
+      </BlurZone>
 
-      {/* LIFE CONTEXT — CSG Era */}
-      <LifeContextStrip milestones={CSG_MILESTONES} />
+      {/* ═══ ZONE 4: VIBE CODING ═══ */}
+      <BlurZone id="vibe-coding-zone" containerHeight="200vh">
+        <VibeCodingBlock />
+        <LifeContextStrip milestones={CONSULTANT_MILESTONES} />
+      </BlurZone>
 
-      {/* SECTION 2 — Vibe Coding & Code Prototyping */}
-      <VibeCodingBlock />
+      {/* ═══ ZONE 5: EXTENDED PORTFOLIO ═══ */}
+      <BlurZone id="extended-portfolio-zone" containerHeight="200vh">
+        <ExtendedPortfolio />
+        <LifeContextStrip milestones={AGENCY_MILESTONES} />
+      </BlurZone>
 
-      {/* LIFE CONTEXT — Consultant Era */}
-      <LifeContextStrip milestones={CONSULTANT_MILESTONES} />
+      {/* ═══ ZONE 6: FOUNDATION + FOOTER ═══ */}
+      <BlurZone id="footer-zone" containerHeight="180vh">
+        <FoundationBlock />
+        <TalkSection />
+      </BlurZone>
 
-      {/* SECTION 3 — Extended Portfolio 2012–2022 */}
-      <ExtendedPortfolio />
-
-      {/* LIFE CONTEXT — Agency Era */}
-      <LifeContextStrip milestones={AGENCY_MILESTONES} />
-
-      {/* FOUNDATION — Birth to 2012 */}
-      <FoundationBlock />
-
-      {/* FOOTER — Mission statement + contact */}
-      <TalkSection />
       <ScrollGear />
     </div>
   )
