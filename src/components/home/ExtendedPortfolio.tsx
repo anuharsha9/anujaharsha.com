@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { usePdf } from '@/contexts/PdfContext'
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 
 /* ─── Testimonial data ─── */
@@ -28,7 +28,8 @@ type ProjectItem = {
     title: string
     subtitle: string
     image: string
-    link: string
+    pdf: string
+    pdfTitle: string
     tags: string[]
 }
 
@@ -53,7 +54,8 @@ const SLIDES: SlideItem[][] = [
             title: 'Kedazzle',
             subtitle: 'EdTech MVP · Concept to shipped product',
             image: '/images/Kedazzle-cover.png',
-            link: '/archive/kedazzle',
+            pdf: '/assets/Case Study Kedazzle.pdf',
+            pdfTitle: 'Kedazzle — EdTech Case Study',
             tags: ['0-to-1', 'EdTech'],
         },
         { type: 'quote', id: 'radhika', ...TESTIMONIALS.radhika },
@@ -66,7 +68,8 @@ const SLIDES: SlideItem[][] = [
             title: 'Infinite',
             subtitle: 'All-in-one productivity app · Tasks, notes, goals',
             image: '/images/Infinite-Cover.png',
-            link: '/archive/infinite-analytics',
+            pdf: '/assets/Infinite case study.pdf',
+            pdfTitle: 'Infinite — Productivity App Case Study',
             tags: ['Productivity', 'Mobile App'],
         },
         {
@@ -75,7 +78,8 @@ const SLIDES: SlideItem[][] = [
             title: 'Travel Portal',
             subtitle: 'Corporate travel booking platform',
             image: '/images/travel-cover.png',
-            link: '/archive/travel-portal',
+            pdf: '/assets/Travel Portal.pdf',
+            pdfTitle: 'Travel Portal — Enterprise Case Study',
             tags: ['Enterprise', 'Travel'],
         },
     ],
@@ -87,7 +91,8 @@ const SLIDES: SlideItem[][] = [
             title: 'WordU',
             subtitle: 'Viral word game · 12,000+ organic downloads in week one',
             image: '/images/wordu-cover.png',
-            link: '/archive/wordu',
+            pdf: '/assets/Wordu case study.pdf',
+            pdfTitle: 'WordU — Game Design Case Study',
             tags: ['Game Design', 'Viral Growth'],
         },
         { type: 'quote', id: 'vikram', ...TESTIMONIALS.vikram },
@@ -100,7 +105,8 @@ const SLIDES: SlideItem[][] = [
             title: 'CRBS',
             subtitle: 'Conference Room Booking · Tablet interface for enterprise',
             image: '/images/crbs-cover.png',
-            link: '/archive/crbs',
+            pdf: '/assets/CRBS case study.pdf',
+            pdfTitle: 'CRBS — Enterprise UX Case Study',
             tags: ['Enterprise UX', 'Tablet'],
         },
         {
@@ -109,7 +115,8 @@ const SLIDES: SlideItem[][] = [
             title: 'Early Graphic Design',
             subtitle: 'Logos, print, and brand identity from the early days',
             image: '/images/graphic-cover.png',
-            link: '/archive/graphic-design',
+            pdf: '/assets/graphic design portfolio.pdf',
+            pdfTitle: 'Graphic Design Portfolio',
             tags: ['Visual Design', 'Brand Identity'],
         },
     ],
@@ -136,9 +143,9 @@ function QuoteCard({ item }: { item: QuoteItem }) {
 }
 
 /* ─── Project card component ─── */
-function ProjectCard({ item }: { item: ProjectItem }) {
+function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (pdf: string, title: string) => void }) {
     return (
-        <Link href={item.link}>
+        <button onClick={() => onOpen(item.pdf, item.pdfTitle)} className="text-left w-full">
             <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
                 {/* Image with cinematic desaturation — restores on hover */}
                 <div className="absolute inset-0 transition-[filter] duration-700 grayscale-[0.3] brightness-[0.8] group-hover:grayscale-0 group-hover:brightness-100">
@@ -165,7 +172,7 @@ function ProjectCard({ item }: { item: ProjectItem }) {
                     <p className="text-zinc-500 text-sm">{item.subtitle}</p>
                 </div>
             </div>
-        </Link>
+        </button>
     )
 }
 
@@ -174,6 +181,7 @@ export default function ExtendedPortfolio() {
     const ref = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
     const [activeSlide, setActiveSlide] = useState(0)
+    const { openPdf } = usePdf()
 
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -256,7 +264,7 @@ export default function ExtendedPortfolio() {
                                         transition={{ duration: 1.2, delay: i * 0.2 }}
                                     >
                                         {item.type === 'project' ? (
-                                            <ProjectCard item={item} />
+                                            <ProjectCard item={item} onOpen={openPdf} />
                                         ) : (
                                             <QuoteCard item={item} />
                                         )}

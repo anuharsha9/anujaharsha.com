@@ -1738,3 +1738,24 @@ motion.div[data-visible="true"] {
     opacity: 0.7;
   }
 }
+
+/* ── Beat wireframe responsive scaling ──
+   Complex wireframe mockups with absolute positioning
+   scale down on mobile to stay proportional.
+   Applied to wireframe containers in ML/DSML beats. ── */
+.beat-wireframe {
+  transform-origin: top center;
+}
+
+@media (max-width: 767px) {
+  .beat-wireframe {
+    transform: scale(0.72);
+    margin-bottom: -15%;
+  }
+}
+
+/* ── Shimmer sweep for life context pills ── */
+@keyframes shimmer-sweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

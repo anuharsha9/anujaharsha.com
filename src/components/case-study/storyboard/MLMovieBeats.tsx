@@ -7,7 +7,7 @@ import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
-const BEAT_PACE = 1.22
+const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
 
 function AnimNumber({ value, suffix = '', delay = 0 }: { value: number; suffix?: string; delay?: number }) {
@@ -122,7 +122,7 @@ export function MLBeatProblem() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -336,7 +336,7 @@ export function MLBeatGoal() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
@@ -479,7 +479,7 @@ export function MLBeatDiscovery() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
@@ -650,7 +650,7 @@ export function MLBeatEntryPoint() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
@@ -943,7 +943,7 @@ export function MLBeatBreakthrough() {
     const stepLabels = ['Select Problem Type', 'Specify Problem', 'Select Predictors', 'Configure Hyperparameters']
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center">
                     <PresenterBar delay={0.1}>
@@ -1120,7 +1120,7 @@ export function MLBeatOrigin() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
@@ -1291,7 +1291,7 @@ export function MLBeatConfusionMatrix() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
@@ -1472,7 +1472,7 @@ export function MLBeatExplainability() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>
@@ -1631,7 +1631,7 @@ export function MLBeatValidation() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12 flex flex-col items-center text-center">
                     <PresenterBar delay={0.1}>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 
 /* ─── Evolution log data ─── */
@@ -87,6 +87,16 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
 
     const current = EVOLUTION_VERSIONS[currentIndex]
 
+    // Swipe handler for mobile navigation
+    const handleDragEnd = useCallback((_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+        const threshold = 50
+        if (info.offset.x < -threshold && currentIndex < EVOLUTION_VERSIONS.length - 1) {
+            goNext()
+        } else if (info.offset.x > threshold && currentIndex > 0) {
+            goPrev()
+        }
+    }, [currentIndex, goNext, goPrev])
+
     return (
         <SystemLightbox
             isOpen={isOpen}
@@ -105,8 +115,14 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
             {/* Main layout: video left, sidebar right */}
             <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 md:gap-8 h-full max-h-[80vh]">
 
-                {/* Left: Video + version info */}
-                <div className="flex flex-col min-h-0">
+                {/* Left: Video + version info — swipeable on mobile */}
+                <motion.div
+                    className="flex flex-col min-h-0"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.15}
+                    onDragEnd={handleDragEnd}
+                >
                     {/* Version badge row */}
                     <div className="flex items-center gap-4 mb-4 shrink-0">
                         <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-zinc-600">
@@ -163,7 +179,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                             />
                         ))}
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Right sidebar: Orchestration Stack */}
                 <div className="hidden lg:flex flex-col border-l border-white/8 pl-6 overflow-y-auto">

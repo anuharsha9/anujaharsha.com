@@ -195,15 +195,15 @@ export default function SystemLightbox({
                             <>
                                 <button
                                     onClick={onPrev}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-slate-600 transition-all hover:scale-105 active:scale-95 shadow-xl"
                                 >
-                                    <ArrowLeft size={32} />
+                                    <ArrowLeft className="w-5 h-5 md:w-7 md:h-7" />
                                 </button>
                                 <button
                                     onClick={onNext}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-slate-600 transition-all hidden md:flex hover:scale-105 active:scale-95 shadow-xl"
+                                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-[var(--bg-ink-900)] border border-slate-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-slate-600 transition-all hover:scale-105 active:scale-95 shadow-xl"
                                 >
-                                    <ArrowRight size={32} />
+                                    <ArrowRight className="w-5 h-5 md:w-7 md:h-7" />
                                 </button>
                             </>
                         )}

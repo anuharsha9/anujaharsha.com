@@ -15,7 +15,7 @@ import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
-const BEAT_PACE = 1.22
+const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
 
 /* ─────────────────────────────────────────────────
@@ -67,7 +67,7 @@ export function DSMLBeatProblem() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -173,7 +173,7 @@ export function DSMLBeatSpark() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -246,7 +246,7 @@ export function DSMLBeatModernize() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -355,7 +355,7 @@ export function DSMLBeatArchitecture() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -527,7 +527,7 @@ export function DSMLBeatIterations() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -610,7 +610,7 @@ export function DSMLBeatNavFight() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -735,7 +735,7 @@ export function DSMLBeatVeterans() {
     ]
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
@@ -835,7 +835,7 @@ export function DSMLBeatImpact() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto beat-wireframe">
             <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm overflow-hidden">
                 <div className="px-6 md:px-10 py-8 md:py-12">
 
