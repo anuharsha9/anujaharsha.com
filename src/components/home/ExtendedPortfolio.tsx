@@ -2,8 +2,30 @@
 
 import { useRef, useState, useCallback } from 'react'
 import Image from 'next/image'
-import { usePdf } from '@/contexts/PdfContext'
-import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import SystemLightbox from '@/components/ui/SystemLightbox'
+
+/* ─── Archive image maps — generated from public/images/archive/ ─── */
+const ARCHIVE_IMAGES: Record<string, string[]> = {
+    kedazzle: Array.from({ length: 16 }, (_, i) =>
+        `/images/archive/kedazzle/Case Study Kedazzle_Page_${String(i + 1).padStart(2, '0')}.png`
+    ),
+    'infinite-analytics': Array.from({ length: 11 }, (_, i) =>
+        `/images/archive/infinite-analytics/Infinite case study${i + 1}.png`
+    ),
+    'travel-portal': Array.from({ length: 6 }, (_, i) =>
+        `/images/archive/travel-portal/Travel Portal${i + 1}.png`
+    ),
+    wordu: Array.from({ length: 9 }, (_, i) =>
+        `/images/archive/wordu/Wordu case study${i + 1}.png`
+    ),
+    crbs: Array.from({ length: 10 }, (_, i) =>
+        `/images/archive/crbs/CRBS case study${i + 1}.png`
+    ),
+    'graphic-design': Array.from({ length: 13 }, (_, i) =>
+        `/images/archive/graphic-design/graphic design portfolio${i + 1}.png`
+    ),
+}
 
 /* ─── Testimonial data ─── */
 const TESTIMONIALS = {
@@ -28,8 +50,7 @@ type ProjectItem = {
     title: string
     subtitle: string
     image: string
-    pdf: string
-    pdfTitle: string
+    archiveKey: string
     tags: string[]
 }
 
@@ -54,8 +75,7 @@ const SLIDES: SlideItem[][] = [
             title: 'Kedazzle',
             subtitle: 'EdTech MVP · Concept to shipped product',
             image: '/images/Kedazzle-cover.png',
-            pdf: '/assets/Case Study Kedazzle.pdf',
-            pdfTitle: 'Kedazzle — EdTech Case Study',
+            archiveKey: 'kedazzle',
             tags: ['0-to-1', 'EdTech'],
         },
         { type: 'quote', id: 'radhika', ...TESTIMONIALS.radhika },
@@ -68,8 +88,7 @@ const SLIDES: SlideItem[][] = [
             title: 'Infinite',
             subtitle: 'All-in-one productivity app · Tasks, notes, goals',
             image: '/images/Infinite-Cover.png',
-            pdf: '/assets/Infinite case study.pdf',
-            pdfTitle: 'Infinite — Productivity App Case Study',
+            archiveKey: 'infinite-analytics',
             tags: ['Productivity', 'Mobile App'],
         },
         {
@@ -78,12 +97,11 @@ const SLIDES: SlideItem[][] = [
             title: 'Travel Portal',
             subtitle: 'Corporate travel booking platform',
             image: '/images/travel-cover.png',
-            pdf: '/assets/Travel Portal.pdf',
-            pdfTitle: 'Travel Portal — Enterprise Case Study',
+            archiveKey: 'travel-portal',
             tags: ['Enterprise', 'Travel'],
         },
     ],
-    // Slide 3: WordU + Vikram (he was her boss at 9P Studioz where WordU was built)
+    // Slide 3: WordU + Vikram
     [
         {
             type: 'project',
@@ -91,8 +109,7 @@ const SLIDES: SlideItem[][] = [
             title: 'WordU',
             subtitle: 'Viral word game · 12,000+ organic downloads in week one',
             image: '/images/wordu-cover.png',
-            pdf: '/assets/Wordu case study.pdf',
-            pdfTitle: 'WordU — Game Design Case Study',
+            archiveKey: 'wordu',
             tags: ['Game Design', 'Viral Growth'],
         },
         { type: 'quote', id: 'vikram', ...TESTIMONIALS.vikram },
@@ -105,8 +122,7 @@ const SLIDES: SlideItem[][] = [
             title: 'CRBS',
             subtitle: 'Conference Room Booking · Tablet interface for enterprise',
             image: '/images/crbs-cover.png',
-            pdf: '/assets/CRBS case study.pdf',
-            pdfTitle: 'CRBS — Enterprise UX Case Study',
+            archiveKey: 'crbs',
             tags: ['Enterprise UX', 'Tablet'],
         },
         {
@@ -115,8 +131,7 @@ const SLIDES: SlideItem[][] = [
             title: 'Early Graphic Design',
             subtitle: 'Logos, print, and brand identity from the early days',
             image: '/images/graphic-cover.png',
-            pdf: '/assets/graphic design portfolio.pdf',
-            pdfTitle: 'Graphic Design Portfolio',
+            archiveKey: 'graphic-design',
             tags: ['Visual Design', 'Brand Identity'],
         },
     ],
@@ -143,9 +158,9 @@ function QuoteCard({ item }: { item: QuoteItem }) {
 }
 
 /* ─── Project card component ─── */
-function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (pdf: string, title: string) => void }) {
+function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey: string, title: string) => void }) {
     return (
-        <button onClick={() => onOpen(item.pdf, item.pdfTitle)} className="text-left w-full">
+        <button onClick={() => onOpen(item.archiveKey, item.title)} className="text-left w-full">
             <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
                 {/* Image with cinematic desaturation — restores on hover */}
                 <div className="absolute inset-0 transition-[filter] duration-700 grayscale-[0.3] brightness-[0.8] group-hover:grayscale-0 group-hover:brightness-100">
@@ -181,7 +196,18 @@ export default function ExtendedPortfolio() {
     const ref = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
     const [activeSlide, setActiveSlide] = useState(0)
-    const { openPdf } = usePdf()
+
+    /* ── Image slideshow lightbox state ── */
+    const [lightbox, setLightbox] = useState<{ images: string[]; title: string; index: number } | null>(null)
+
+    const openSlideshow = useCallback((archiveKey: string, title: string) => {
+        const images = ARCHIVE_IMAGES[archiveKey]
+        if (images) setLightbox({ images, title, index: 0 })
+    }, [])
+
+    const closeLightbox = useCallback(() => setLightbox(null), [])
+    const goNext = useCallback(() => setLightbox(prev => prev ? { ...prev, index: Math.min(prev.index + 1, prev.images.length - 1) } : null), [])
+    const goPrev = useCallback(() => setLightbox(prev => prev ? { ...prev, index: Math.max(prev.index - 1, 0) } : null), [])
 
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -264,7 +290,7 @@ export default function ExtendedPortfolio() {
                                         transition={{ duration: 1.2, delay: i * 0.2 }}
                                     >
                                         {item.type === 'project' ? (
-                                            <ProjectCard item={item} onOpen={openPdf} />
+                                            <ProjectCard item={item} onOpen={openSlideshow} />
                                         ) : (
                                             <QuoteCard item={item} />
                                         )}
@@ -290,6 +316,27 @@ export default function ExtendedPortfolio() {
                     />
                 ))}
             </div>
+
+            {/* ── Archive slideshow lightbox ── */}
+            {lightbox && (
+                <SystemLightbox
+                    isOpen={true}
+                    onClose={closeLightbox}
+                    title={`${lightbox.title} — ${lightbox.index + 1} / ${lightbox.images.length}`}
+                    onNext={lightbox.index < lightbox.images.length - 1 ? goNext : undefined}
+                    onPrev={lightbox.index > 0 ? goPrev : undefined}
+                >
+                    <div className="flex items-center justify-center w-full h-full min-h-[50vh]">
+                        <Image
+                            src={lightbox.images[lightbox.index]}
+                            alt={`${lightbox.title} — slide ${lightbox.index + 1}`}
+                            width={1200}
+                            height={800}
+                            className="max-w-full max-h-[75vh] object-contain rounded-lg"
+                        />
+                    </div>
+                </SystemLightbox>
+            )}
         </motion.section>
     )
 }
