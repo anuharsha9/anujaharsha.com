@@ -1772,3 +1772,87 @@ motion.div[data-visible="true"] {
   50%  { transform: translateX(-25%); }
   100% { transform: translateX(0%); }
 }
+
+/* ============================================
+   WAVE DESIGN LANGUAGE — Micro-Interactions
+   ============================================ */
+
+/* ── Aurora Border Shimmer ──
+   A rotating gradient border that gives cards an alive, breathing feel.
+   Apply: .aurora-border class on any card or container */
+@property --aurora-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes aurora-border-rotate {
+  to { --aurora-angle: 360deg; }
+}
+
+.aurora-border {
+  position: relative;
+  border: 1px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image:
+    linear-gradient(var(--bg-cinematic), var(--bg-cinematic)),
+    linear-gradient(
+      var(--aurora-angle, 0deg),
+      transparent 20%,
+      rgba(var(--accent-teal-rgb, 0, 200, 180), 0.15) 50%,
+      transparent 80%
+    );
+  animation: aurora-border-rotate 8s linear infinite;
+}
+
+/* ── Teal Glow Hover ──
+   Interactive elements get a soft teal radial glow on hover.
+   Apply: .teal-glow-hover to any interactive element */
+.teal-glow-hover {
+  position: relative;
+}
+
+.teal-glow-hover::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(var(--accent-teal-rgb, 0, 200, 180), 0.08), transparent 70%);
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.teal-glow-hover:hover::after {
+  opacity: 1;
+}
+
+/* ── Breathing Opacity ──
+   Static elements pulse subtly. Feels alive.
+   Apply: .breathe to watermarks, borders, static mono text */
+@keyframes breathe {
+  0%, 100% { opacity: var(--breathe-base, 0.4); }
+  50% { opacity: var(--breathe-peak, 0.55); }
+}
+
+.breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+.breathe-slow {
+  animation: breathe 10s ease-in-out infinite;
+}
+
+/* ── Reduced motion: disable all wave micro-interactions ── */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-border {
+    animation: none;
+  }
+  .breathe,
+  .breathe-slow {
+    animation: none;
+  }
+}
