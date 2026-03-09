@@ -1,113 +1,110 @@
-# Cinematic Experience Upgrade — "She Knows Her Stuff"
+# Cinematic Experience Upgrade — Continuation Plan
 
-> The medium IS the message. The craft of the portfolio is the proof of competence.
-> Every scroll position should say: *"The person who made THIS understands how humans experience things."*
-
----
-
-## The One Rule
-
-**Content stays. Layout stays. Only the experience layer changes.**
-
-Same sections, same order, same text, same images, same structure.
-What transforms: how things enter, move, breathe, and connect.
+> Branch: `cinematic-experience-upgrade` (off `visual-polish-v3`)
+> Commit: `9f6cac8`
+> Date: Mar 7, 2026
 
 ---
 
-## Philosophy
+## ✅ Completed (Landing Page)
 
-### The Scroll Is a Film
-The viewport is the screen. The user's scroll is the playhead. Every pixel that enters the viewport enters *as if directed*. Not animated — **directed**. Animation is movement. Direction is movement with meaning.
+### P1 — Hero → CSG Transition
+- Hero fades to `opacity: 0` (not just blur) at scroll progress `0.50→0.70` (bio) and `0.55→0.75` (container)
+- Hero height reduced from `200vh` → `135vh`
+- CSG overlap: `-mt-[50vh]` — no dead scroll zone
+- **No separate background on CSG wrapper** — continuous `bg-cinematic` from page root. No visible division line.
 
-### Three Pillars
-1. **Choreographed Scroll** — Every section entrance uses section-specific choreography. CSG cards don't enter the same way as testimonials.
-2. **Atmospheric Continuity** — The dark canvas is a living ocean. Faint aurora whispers at varying intensities as you scroll. Depth. Texture. No dead zones.
-3. **Seamless Transitions** — No section just "starts." The end of one section morphs into the beginning of the next.
+### P2 — CSG Entrance Choreography
+- Tiles: `blur(16px)`, `1.4s` resolve, wider stagger (`0.25 + i*0.2`)
+- Era label: `blur(20px)`, `1.6s` resolve
+- Heading: scroll-driven `blur(16px→0)` via `useTransform` + `useMotionTemplate`
 
-### What This Is NOT
-- ❌ Adding flashy animations
-- ❌ Making the page slower
-- ❌ Overwhelming content with effects
-- ❌ Touching the gear/brain experience (stays separate/hidden)
-- ❌ Changing any content or layout
+### P3 — Atmospheric Continuity
+- Faint teal radial gradient (`0.04` opacity) in fixed background layer
+- `mix-blend-screen` + `aurora-ambient` CSS animation (20s gentle drift)
+- SVG noise texture remains for film grain
 
----
+### P4 — Vibe Coding + Extended Portfolio
+- Same blur-to-focus protocol: `20px` era labels, `16px` tiles, `1.4s` resolve
+- Heading scroll-driven blur removed (performance) — individual items still blur-to-focus
 
-## Landing Page — Section-by-Section
+### P5 — Testimonials
+- Era label + heading upgraded to match
+- Individual quote transitions already use blur-to-focus via `AnimatePresence`
 
-### 1. Hero (✅ Already at target level)
-- Canvas aurora curtains ✅
-- Blur-to-focus cinematic entrance ✅
-- Typewriter philosophy ✅
-- No changes needed
+### P6 — Foundation + Footer
+- Foundation: `16px` blur, `1.2s` resolve
+- TalkSection: `20px` blur, `1.6s` resolve
 
-### 2. Hero → CSG Transition
-- **Current**: Hero fades, CSG appears with a gap
-- **Target**: Aurora light flows downward and becomes the atmospheric glow around the first CSG card. Continuous — no dead zone, no hard cut.
+### Aurora (Canvas 2D)
+- [HeroAurora.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/HeroAurora.tsx) — vertical curtain rays from wavy bezier top edges
+- 3 curtains (was 4), rayWidth 12-14px (was 3-5px) for performance
+- Colors from `--accent-teal-rgb` design token
+- Reduced motion support
 
-### 3. CSG Block (Case Study Gallery)
-- **Current**: Cards in a grid, standard entrance
-- **Target**: Each card reveals with blur-to-focus as it enters viewport. Trailer thumbnails have subtle ambient motion (not static). The block feels like a **title sequence** — "Now Showing." Cards stagger their entrance like film credits.
-- **Constraint**: Same card layout, same content, same grid structure
-
-### 4. CSG → Extended Portfolio Transition
-- **Current**: Hard section boundary
-- **Target**: Smooth depth transition. The CSG block's trailing edge dissolves into the darker zone where extended work lives.
-
-### 5. Extended Portfolio / Vibe Coding
-- **Current**: Grid of projects, standard appearance
-- **Target**: Artifacts surfacing from the dark — each project emerges as you scroll to it. Blur-to-focus entrance per item. Subtle depth/parallax.
-- **Constraint**: Same grid, same content
-
-### 6. Testimonials
-- **Current**: Quotes in containers
-- **Target**: Whispered endorsements — appearing with blur-to-focus, slight drift. Like voices from the dark. Not "trust badges." Memories.
-- **Constraint**: Same quotes, same structure
-
-### 7. Footer / End
-- **Current**: Standard footer
-- **Target**: Aurora returns faintly. Bookend — you entered through light, you exit through light.
-
-### 8. Between ALL Sections
-- **Current**: Dead black space
-- **Target**: Atmospheric continuity — very faint aurora whispers, subtle texture. The sense of moving through a space, not past slides.
+### Performance Fixes
+- **Removed all `useSpring` on blur values** — springs compute continuously
+- **Removed section-level `filter: blur()`** — forces GPU compositing of entire section trees
+- **Canvas aurora: 4x draw call reduction** — wider rays, fewer curtains
+- Individual item `whileInView` blur preserved (cheap, fires once)
 
 ---
 
-## Case Study Pages — Section-by-Section
+## ⬜ Remaining (P7+)
 
-*(To be audited and planned after landing page work)*
+### P7 — Case Study Pages
+Priority order:
+1. **Section entrance blur-to-focus** — Apply same 16-20px blur protocol to beat/section reveals
+2. **Beat transitions** — Ensure smooth handoffs between StoryDeck/Movie Beats sections
+3. **Trailer entrance** — The trailers should feel like "lights dim, curtain rises" moments
+4. **Atmospheric continuity** — Very faint aurora/teal presence on case study dark backgrounds
+5. **End-of-journey navigation** — Polish the transition from case study back to landing
 
-### General Principles
-- Same blur-to-focus protocol for content reveals
-- Atmospheric dark background continuity
-- Section transitions should feel like chapter changes in a film, not page breaks
-- The trailer (RCTrailer, MLTrailer, DSMLTrailer) is the peak — everything around it should build toward and away from that peak
-- Beat/StoryDeck sections should feel like scenes — each entering with directorial intention
+Files to audit:
+- [src/components/case-study-experiment/CinematicCaseStudy.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/CinematicCaseStudy.tsx)
+- [src/components/case-study-experiment/RCCaseStudyView.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/RCCaseStudyView.tsx)
+- [src/components/case-study-experiment/MLFullContent.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/MLFullContent.tsx)
+- [src/components/case-study-experiment/DSMLCaseStudyView.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/DSMLCaseStudyView.tsx)
+- `src/components/case-study/storyboard/*.tsx`
 
----
+### Wave Design Language Integration
+Ideas discussed but not implemented:
+- Hover states with wave ripple effect
+- Loading indicator as a single flowing wave line
+- Wave-like easing curves site-wide
+- Text reveals with wave stagger
+- Scroll-driven wave parallax on background elements
 
-## Priority Order
-
-| Priority | What | Impact |
-|---|---|---|
-| **P1** | Hero → CSG transition seamlessness | Eliminates the biggest "dead zone" |
-| **P2** | CSG block entrance choreography | The first thing after the hero — must match its level |
-| **P3** | Atmospheric continuity (faint background aurora/texture across scroll) | Makes the entire canvas feel alive |
-| **P4** | Extended Portfolio / Vibe Coding entrance refinement | Second content block |
-| **P5** | Testimonials entrance refinement | Supporting content |
-| **P6** | Footer aurora bookend | Closing beat |
-| **P7** | Case study pages audit + upgrade | Second phase |
-
----
-
-## Aesthetic Anchors (from Anu's design-thoughts)
-- **Ocean** — movement philosophy. Everything like water.
-- **Aurora** — light philosophy. Teal curtains, not blobs or glows.
-- **Dim light** — atmosphere. Ocean at night, lit from within.
-- **"Whispering Intensity"** — alive but barely. You're not sure if it's moving.
-- **Teal** — not decoration. The color of the atmosphere itself.
+### Performance Monitoring
+- Verify no more flickering/lag after the fixes
+- Consider `will-change: transform` hints on animated elements
+- Profile canvas aurora on lower-end devices
 
 ---
 
-*This is a living plan. We talk first, implement second.*
+## Key Files Changed
+
+| File | What Changed |
+|---|---|
+| [src/components/home/HeroAurora.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/HeroAurora.tsx) | **NEW** — Canvas 2D aurora with vertical curtain rays |
+| [src/components/home/HeroLanding.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/HeroLanding.tsx) | Hero exit: opacity fade, adjusted timings, 135vh height |
+| [src/app/page.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/app/page.tsx) | Ambient aurora background, CSG overlap cleanup |
+| [src/app/globals.css](file:///Users/anu/Work/anu-portfolio-exploration/src/app/globals.css) | `@keyframes aurora-ambient`, old CSS aurora removed |
+| [src/components/home/CSGBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/CSGBlock.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/TestimonialsBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/TestimonialsBlock.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/VibeCodingBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/VibeCodingBlock.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/ExtendedPortfolio.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/ExtendedPortfolio.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/FoundationBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/FoundationBlock.tsx) | Deeper blur entrance |
+| [src/components/home/TalkSection.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/TalkSection.tsx) | Deeper blur entrance |
+| [src/components/home/LifeContextStrip.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/LifeContextStrip.tsx) | Unused import cleanup |
+
+---
+
+## Design Principles (Locked In)
+
+1. **The scroll is a film** — every pixel enters as if directed
+2. **Content stays, layout stays, only experience changes**
+3. **Blur-to-focus is the transition protocol** — no crossfades, no opacity-only fades
+4. **The dark canvas is alive** — ambient aurora, never dead black
+5. **"Whispering Intensity"** — alive but barely, you're not sure if it's moving
+6. **The gear/brain experience is separate** — hidden, immersive, its own world

@@ -2,6 +2,17 @@
 
 > This file captures Anu's explicit preferences for AI orchestration, vibe coding workflow, transitions, animations, typography, and design patterns across the portfolio. Always check this file before implementing changes.
 
+---
+
+## Core Experience Metaphor: The Ocean Boat
+
+> "I want the user to feel like they're floating on a boat in the ocean."
+
+- The **fixed aurora background** is the ocean — always present, always alive, never scrolling
+- **Content zones** are what you see from the boat — they drift into view through blur, hold steady so you can observe them, then blur away as new scenery appears
+- The experience is **serene, continuous, and breathing** — not snappy or jarring
+- This metaphor guides every scroll interaction, transition, and layout decision
+
 ## AI Orchestration & Workflow
 
 - **Plan before execute.** For any creative, structural, or visual change — present a plan and get Anu's approval BEFORE writing code.
@@ -26,7 +37,23 @@
 - Use **blur-to-focus** (element entering) and **focus-to-blur** (element leaving) instead.
 - Every transition between content sections should follow the blur ↔ focus pattern.
 - This applies to: scroll-based reveals, timed animations, beat transitions, page transitions.
-- **Blur values should be high** (40-60px) so blurred elements are truly invisible on dark backgrounds — no ghostly shapes leaking through.
+- **Blur values:** Hero = 20px (desktop) / 14px (mobile). All other zones = 14px (desktop) / 10px (mobile).
+- **Focus plateau:** Content stays sharp for ~76% of its scroll distance (desktop) / ~80% (mobile). The user must be able to READ the content before it blurs away.
+- **Bidirectional:** Scrolling up re-focuses content. The page is alive — not a one-time animation.
+- **Watermark timing:** Ghosted watermark text ("2022 — 2025", "SOCIAL PROOF") resolves at 2× speed — appears before zone content sharpens.
+- **Zone overlap:** As outgoing content is ~90% blurred, incoming content starts focusing. Creates a "content morphs through blur" effect.
+
+---
+
+## Wave Design Language
+
+- **ONE universal fixed background** across the entire portfolio: dark bg + HeroAurora canvas, sized to `100vw × 100vh`, `position: fixed`.
+- **The aurora never moves.** Content scrolls over it like scenery passing a boat.
+- **Content has NO opaque backgrounds** — everything is transparent so the aurora shows through.
+- **6 landing page zones**, each wrapped in a `BlurZone` with scroll-driven blur + parallax.
+- **Subtle parallax** on all zones: content gently translates 30px (desktop) / 16px (mobile) as it scrolls.
+- **The same wave language extends to case study pages and /me page** for visual continuity.
+- **Aurora micro-interactions**: border shimmer on cards, teal glow on hover, breathing opacity on static elements.
 
 ## Particles / WebGL Effects
 
@@ -61,13 +88,26 @@
 
 ## Hero / Landing
 
-- Chair philosophy should be a **timed animation on load** (4-5 seconds), not a scroll-based reveal.
+- Hero loads on page load with its current entrance animation. **No scroll required to see the hero.**
+- The hero's dark bg + aurora ARE the universal fixed background (same component, just placed in the fixed layer).
+- On scroll, the hero blurs out like any other zone — it's Zone 1 of 6.
+- Scroll back up = hero re-focuses. The page is alive.
 - Recruiter should see "Hi, I'm Anuja" within **5 seconds of landing**.
-- Hero height should be minimal — no excessive scroll distance before real content.
+- "LET'S TALK" nav link = **instant jump** to footer (Zone 6), no scroll-through.
 
 ## Code Quality
 
 - **No patchwork.** If incremental edits make code messy, do a clean rewrite of the whole file.
 - **Rewrite over patch** when more than 3 edits are needed on the same file.
 - Code should be readable and well-structured at all times — not a stack of fixes on top of fixes.
+
+---
+
+## Locked Experiences — DO NOT TOUCH
+
+These components are finalized and must **never be modified, refactored, or restructured**:
+
+- **Brain SVG experience** — the interactive brain/neural network triggered by "EXPLORE MY MIND". Code is locked.
+- **HeroAurora component** — the Canvas 2D aurora rendering code (curtain config, draw loop, rendering logic). It can be *placed* in different containers (hero vs fixed background), but its internal code stays identical.
+- **Case study trailer animations** — RCTrailer, MLTrailer, DSMLTrailer. Internal code is locked.
 
