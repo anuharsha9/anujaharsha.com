@@ -25,7 +25,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT I — A SIDE PROJECT EARNED ME THE WHOLE THING
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-1-hook">
+            <div className="relative z-20" id="act-1-hook">
                 <CinematicScene
                     title="A Side Project Earned Me the Whole Thing."
                     body={
@@ -142,7 +142,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT II — ONE PATH. NOT TWO EXPERIENCES.
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-2-investigation">
+            <div className="relative z-20" id="act-2-investigation">
                 <CinematicScene
                     title="One Path. Not Two Experiences."
                     body={
@@ -214,7 +214,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT III — WHY DON'T WE HAVE A LANDING PAGE HERE?
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-3-architecture">
+            <div className="relative z-20" id="act-3-architecture">
                 <CinematicScene
                     title="Why Don't We Have a Landing Page Here?"
                     body={
@@ -280,7 +280,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT IV — THE MOST COMPLEX SCREEN I'VE EVER DESIGNED
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-4-craft">
+            <div className="relative z-20" id="act-4-craft">
                 <CinematicScene
                     title="The Most Complex Screen I've Ever Designed."
                     body={
@@ -388,7 +388,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT V — I FOUGHT FOR EVERY DAMN THING IN ML.
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-5-team">
+            <div className="relative z-20" id="act-5-team">
                 <CinematicScene
                     title="I Fought for Every Damn Thing in ML."
                     body={
@@ -439,7 +439,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT VI — THEY JUST BLAZED THROUGH IT.
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-6-outcome">
+            <div className="relative z-20" id="act-6-outcome">
                 <CinematicScene
                     title="They Just Blazed Through It."
                     body={

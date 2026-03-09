@@ -310,7 +310,7 @@ function DualityWriting() {
             transition={{ duration: 0.5 }}
           >
             {/* ─── LEFT: The Poem as Graphic Art ─── */}
-            <div className="relative bg-black text-white overflow-hidden flex flex-col justify-center items-center min-h-screen px-8 md:px-16 lg:px-20 py-20">
+            <div className="relative bg-black/80 text-white overflow-hidden flex flex-col justify-center items-center min-h-screen px-8 md:px-16 lg:px-20 py-20">
               {/* Decorative vertical line */}
               <div className="absolute top-0 right-0 w-[1px] h-full bg-white/[0.06] hidden lg:block" />
 
@@ -443,7 +443,7 @@ function DualityWriting() {
             </div>
 
             {/* ─── RIGHT: Articles — Clean & Spaced ─── */}
-            <div className="relative bg-[var(--surface-charcoal-950)] text-white flex flex-col justify-center px-6 md:px-12 lg:px-16 py-20 min-h-screen">
+            <div className="relative bg-black/60 text-white flex flex-col justify-center px-6 md:px-12 lg:px-16 py-20 min-h-screen">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -669,7 +669,7 @@ function DualityWriting() {
    ═══════════════════════════════════════════════════════════════════════════════ */
 function LifeGallery() {
   return (
-    <section className="relative bg-black py-20 md:py-28 overflow-hidden" id="life-gallery">
+    <section className="relative py-20 md:py-28 overflow-hidden" id="life-gallery">
       {/* Ambient background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full"
@@ -768,7 +768,7 @@ function LifeGallery() {
    ═══════════════════════════════════════════════════════════════════════════════ */
 function ConnectionClose() {
   return (
-    <section className="relative bg-black py-20 md:py-28 overflow-hidden" id="connect">
+    <section className="relative py-20 md:py-28 overflow-hidden" id="connect">
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full"
@@ -867,7 +867,7 @@ function ConnectionClose() {
    ═══════════════════════════════════════════════════════════════════════════════ */
 export default function AboutPage() {
   return (
-    <div className="bg-black relative" style={{ overflowX: 'clip' }}>
+    <div className="relative" style={{ overflowX: 'clip' }}>
       <GlitchPortalHero />
       <DualityWriting />
       <LifeGallery />

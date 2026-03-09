@@ -142,7 +142,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT I — THREE POWERFUL AI FEATURES. NEAR-ZERO ADOPTION.
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-1-hook">
+            <div className="relative z-20" id="act-1-hook">
                 <CinematicScene
                     title="Three Powerful AI Features. Near-Zero Adoption."
                     body={
@@ -226,7 +226,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT II — MODERNIZING THE BUILDING BLOCKS
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-2-investigation">
+            <div className="relative z-20" id="act-2-investigation">
                 <CinematicScene
                     title="Upgrading the Building Blocks."
                     body={
@@ -261,7 +261,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT III — ARCHITECTURE BEFORE TICKETS
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-3-architecture">
+            <div className="relative z-20" id="act-3-architecture">
                 <CinematicScene
                     title="Architecture Before Tickets."
                     body={
@@ -347,7 +347,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT IV — FOUR ITERATIONS TO THE FINAL HUB
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-4-craft">
+            <div className="relative z-20" id="act-4-craft">
                 <CinematicScene
                     title="Four Iterations to the Final Hub."
                     body={
@@ -458,7 +458,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT V — THE ROOM FULL OF VETERANS
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-5-team">
+            <div className="relative z-20" id="act-5-team">
                 <CinematicScene
                     title="The Room Full of Veterans."
                     body={
@@ -508,7 +508,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT VI — VISIBILITY WAS THE SOLUTION
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-6-outcome">
+            <div className="relative z-20" id="act-6-outcome">
                 <CinematicScene
                     title="Visibility Was the Solution."
                     body={

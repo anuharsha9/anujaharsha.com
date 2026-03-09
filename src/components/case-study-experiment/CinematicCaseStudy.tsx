@@ -18,7 +18,6 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { CaseStudyData } from '@/types/caseStudy'
-import FloatingOrbs from '@/components/ui/FloatingOrbs'
 import ViewModeToggle from '@/components/case-study/ViewModeToggle'
 import StoryDeck, { StorySlide } from '@/components/case-study/StoryDeck'
 import { LightboxProvider } from './BentoGrid'
@@ -125,20 +124,9 @@ export default function CinematicCaseStudy({
 
                 {/* ── Full Cinematic Case Study ── */}
                 <div style={{ display: viewMode === 'presentation' ? 'none' : 'contents' }}>
-                    <div className="bg-[var(--bg-cinematic)] relative min-h-screen text-white overflow-hidden pb-48">
-                        {/* Background */}
+                    <div className="relative min-h-screen text-white overflow-hidden pb-48">
+                        {/* Scanline overlay */}
                         <div className="scanline-overlay" aria-hidden="true" />
-                        <div className="fixed inset-0 z-0 pointer-events-none">
-                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--cs-bg-radial),transparent)]" />
-                            <div
-                                className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
-                                style={{
-                                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                                    backgroundSize: '128px 128px',
-                                }}
-                            />
-                        </div>
-                        <FloatingOrbs />
 
                         {/* ═══ SCROLL PROGRESS DOTS ═══ */}
                         {actSections && actSections.length > 0 && (

@@ -51,7 +51,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT I — HOW I LANDED THE PROJECT
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-i">
+            <div className="relative z-20" id="act-i">
                 <CinematicScene
                     title="How I Landed the Project"
                     body={
@@ -104,7 +104,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT II — I BUILT MY OWN RESEARCH NETWORK
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-ii">
+            <div className="relative z-20" id="act-ii">
                 <CinematicScene
                     title="I Built My Own Research Network"
                     body={
@@ -161,7 +161,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT III — WHAT I DISCOVERED
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-iii">
+            <div className="relative z-20" id="act-iii">
                 <CinematicScene
                     title="What I Discovered"
                     body={
@@ -222,7 +222,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                 ACT IV — TWO REJECTIONS. ONE BREAKTHROUGH.
                ═══════════════════════════════════════════════ */}
             {section4 && (
-                <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-iv">
+                <div className="relative z-20" id="act-iv">
                     <CinematicScene
                         title="Two Rejections. One Breakthrough."
                         body={
@@ -375,7 +375,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT V — I ONBOARDED 20 PEOPLE.
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-v">
+            <div className="relative z-20" id="act-v">
                 <CinematicScene
                     title="I Onboarded 20 People."
                     body={
@@ -461,7 +461,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT VI — POWERING 20M+ SCHEDULES
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-vi">
+            <div className="relative z-20" id="act-vi">
                 <CinematicScene
                     title="Powering 20M+ Schedules"
                     body={
@@ -539,7 +539,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ✦ REFLECTION — GRAPHICAL BENTO FINALE
                ═══════════════════════════════════════════════ */}
-            <div className="relative z-20 bg-[var(--bg-cinematic)]" id="act-reflection">
+            <div className="relative z-20" id="act-reflection">
                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[60vw] h-[600px] bg-[var(--cs-accent)]/3 blur-[200px] rounded-full pointer-events-none" />
 
                 <CinematicScene
