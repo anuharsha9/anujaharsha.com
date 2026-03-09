@@ -22,16 +22,18 @@ interface AuroraCurtain {
 }
 
 const CURTAINS: AuroraCurtain[] = [
-    // Upper region (visible when hero scrolls away)
-    { baseY: 0.22, rayLength: 180, opacity: 0.14, waveAmplitude: 38, speed: 0.08, phase: 0, rayWidth: 12 },
-    // Mid-upper
-    { baseY: 0.38, rayLength: 160, opacity: 0.10, waveAmplitude: 34, speed: 0.06, phase: 2.0, rayWidth: 14 },
-    // Center
-    { baseY: 0.55, rayLength: 150, opacity: 0.10, waveAmplitude: 32, speed: 0.07, phase: 3.5, rayWidth: 13 },
-    // Lower
-    { baseY: 0.72, rayLength: 140, opacity: 0.09, waveAmplitude: 30, speed: 0.09, phase: 5.0, rayWidth: 12 },
-    // Footer
-    { baseY: 0.88, rayLength: 120, opacity: 0.08, waveAmplitude: 26, speed: 0.10, phase: 1.2, rayWidth: 13 },
+    // ── Cluster 1: Upper region (matches hero's visual density) ──
+    { baseY: 0.22, rayLength: 200, opacity: 0.18, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 12 },
+    { baseY: 0.15, rayLength: 150, opacity: 0.10, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 14 },
+    { baseY: 0.32, rayLength: 130, opacity: 0.08, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 12 },
+    // ── Cluster 2: Mid-page ──
+    { baseY: 0.52, rayLength: 200, opacity: 0.16, waveAmplitude: 38, speed: 0.07, phase: 1.5, rayWidth: 12 },
+    { baseY: 0.45, rayLength: 150, opacity: 0.10, waveAmplitude: 33, speed: 0.05, phase: 3.2, rayWidth: 14 },
+    { baseY: 0.60, rayLength: 130, opacity: 0.08, waveAmplitude: 28, speed: 0.09, phase: 5.5, rayWidth: 12 },
+    // ── Cluster 3: Footer region ──
+    { baseY: 0.78, rayLength: 180, opacity: 0.14, waveAmplitude: 36, speed: 0.08, phase: 0.8, rayWidth: 12 },
+    { baseY: 0.72, rayLength: 140, opacity: 0.09, waveAmplitude: 30, speed: 0.06, phase: 2.5, rayWidth: 14 },
+    { baseY: 0.86, rayLength: 120, opacity: 0.07, waveAmplitude: 25, speed: 0.10, phase: 4.5, rayWidth: 13 },
 ]
 
 export default function FixedAurora() {
