@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Play } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 
@@ -136,8 +136,6 @@ export default function CSGBlock() {
     const headingY = useTransform(scrollYProgress, [0, 0.15], [20, 0])
     const headingOpacity = useTransform(scrollYProgress, [0, 0.08], [0, 1])
     const headingScale = useTransform(scrollYProgress, [0, 0.15], [0.98, 1])
-    const headingBlurVal = useTransform(scrollYProgress, [0, 0.12], [16, 0])
-    const headingFilter = useMotionTemplate`blur(${headingBlurVal}px)`
 
 
     const leftTiles = TILES.filter(t => !t.flagship)
@@ -162,7 +160,7 @@ export default function CSGBlock() {
             {/* Section header */}
             <motion.div
                 className="mb-12 md:mb-16"
-                style={{ y: headingY, opacity: headingOpacity, scale: headingScale, filter: headingFilter }}
+                style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
             >
                 <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     2022 — 2025

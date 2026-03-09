@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Play, Sparkles, Gamepad2 } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 
