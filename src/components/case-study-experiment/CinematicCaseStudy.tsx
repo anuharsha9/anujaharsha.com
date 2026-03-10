@@ -186,7 +186,7 @@ export default function CinematicCaseStudy({
                                     {/* Right — Wireframe or Cover (7 cols) */}
                                     <div className="lg:col-span-7 relative">
                                         {heroBackground ? (
-                                            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 aspect-video relative">
+                                            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-black/50 aspect-video relative aurora-border">
                                                 {heroBackground}
                                             </div>
                                         ) : data.coverImage && (

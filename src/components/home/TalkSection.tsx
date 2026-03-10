@@ -73,7 +73,7 @@ export default function TalkSection() {
                 href="https://www.linkedin.com/in/anu159"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-zinc-200 font-medium text-sm hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300 overflow-hidden`}
+                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-zinc-200 font-medium text-sm hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300 overflow-hidden teal-glow-hover`}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:animate-shine" />
                 <svg aria-hidden="true" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@ export default function TalkSection() {
                 href="https://medium.com/@anu.anuja"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-zinc-200 font-medium text-sm hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300 overflow-hidden`}
+                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-zinc-200 font-medium text-sm hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300 overflow-hidden teal-glow-hover`}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:animate-shine" />
                 <svg aria-hidden="true" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -120,7 +120,7 @@ export default function TalkSection() {
                 href="https://adplist.org/mentors/anuja-harsha-nimmagadda"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-zinc-200 font-medium text-sm hover:bg-teal-400/10 hover:text-teal-400 hover:border-teal-400/50 transition-all duration-300 overflow-hidden`}
+                className={`group relative inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-zinc-200 font-medium text-sm hover:bg-teal-400/10 hover:text-teal-400 hover:border-teal-400/50 transition-all duration-300 overflow-hidden teal-glow-hover`}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-400/20 to-transparent translate-x-[-100%] group-hover:animate-shine" />
                 <svg aria-hidden="true" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export default function TalkSection() {
           </div>
 
           {/* Sign-off — absorbs footer role */}
-          <p className={`${t.textDim} text-[11px] font-mono tracking-wide opacity-40`} suppressHydrationWarning>
+          <p className={`${t.textDim} text-[11px] font-mono tracking-wide breathe`} style={{ '--breathe-base': '0.3', '--breathe-peak': '0.45' } as React.CSSProperties} suppressHydrationWarning>
             © {new Date().getFullYear()} Anuja Harsha · Designed + AI-Orchestrated
           </p>
 

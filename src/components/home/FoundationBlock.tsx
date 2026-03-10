@@ -15,7 +15,7 @@ export default function FoundationBlock() {
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-xl bg-[var(--surface-obsidian-900)] border border-white/[0.06] overflow-hidden"
+                className="rounded-xl bg-[var(--surface-obsidian-900)] overflow-hidden aurora-border"
             >
                 {/* Compact title bar */}
                 <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.02] border-b border-white/[0.05]">
@@ -24,7 +24,7 @@ export default function FoundationBlock() {
                         <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-yellow)]/60" />
                         <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-green-alt)]/60" />
                     </div>
-                    <span className="ml-2 text-[10px] font-mono text-zinc-800 tracking-wider uppercase">
+                    <span className="ml-2 text-[10px] font-mono text-zinc-800 tracking-wider uppercase breathe-slow" style={{ '--breathe-base': '0.3', '--breathe-peak': '0.5' } as React.CSSProperties}>
                         the foundation · birth — 2012
                     </span>
                 </div>
@@ -41,7 +41,7 @@ export default function FoundationBlock() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 + i * 0.08, duration: 0.3 }}
-                            className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-zinc-400 text-[11px] tracking-wide hover:bg-[var(--accent-teal)]/10 hover:border-[var(--accent-teal)]/15 hover:text-[var(--accent-teal)] transition-all duration-300 cursor-default"
+                            className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-zinc-400 text-[11px] tracking-wide hover:bg-[var(--accent-teal)]/10 hover:border-[var(--accent-teal)]/15 hover:text-[var(--accent-teal)] transition-all duration-300 cursor-default teal-glow-hover"
                         >
                             {skill}
                         </motion.span>

@@ -152,7 +152,7 @@ export default function CSGBlock() {
                 viewport={{ once: true }}
                 transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
             >
-                <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
+                <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block breathe-slow" style={{ '--breathe-base': '0.03', '--breathe-peak': '0.05' } as React.CSSProperties}>
                     2022 — 2025
                 </span>
             </motion.div>
