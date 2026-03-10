@@ -11,9 +11,10 @@
  * - Landing hero (scroll < ~100vh):  full intensity — the aurora IS the hero
  * - Landing after hero:              dims to 35% — content takes focus
  * - All other pages:                 always 35% — a whisper, not a distraction
+ * - During page transitions:         surges to 100% — the wave is the ocean
  */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 
@@ -29,36 +30,62 @@ export default function FixedBackground() {
     const pathname = usePathname()
     const isLanding = pathname === '/'
     const [opacity, setOpacity] = useState(isLanding ? FULL_OPACITY : DIMMED_OPACITY)
+    const [transitioning, setTransitioning] = useState(false)
+    const scrollOpacityRef = useRef(isLanding ? FULL_OPACITY : DIMMED_OPACITY)
+
+    // Listen for wave-transition events from PageTransition
+    useEffect(() => {
+        const handleWaveTransition = (e: Event) => {
+            const { phase } = (e as CustomEvent).detail
+            if (phase === 'surge' || phase === 'hold') {
+                setTransitioning(true)
+                setOpacity(FULL_OPACITY)
+            } else {
+                setTransitioning(false)
+                // Return to scroll-based opacity
+                setOpacity(scrollOpacityRef.current)
+            }
+        }
+
+        window.addEventListener('wave-transition', handleWaveTransition)
+        return () => window.removeEventListener('wave-transition', handleWaveTransition)
+    }, [])
 
     useEffect(() => {
+        if (transitioning) return // Don't interfere during wave transition
+
         if (!isLanding) {
+            scrollOpacityRef.current = DIMMED_OPACITY
             setOpacity(DIMMED_OPACITY)
             return
         }
 
         // On landing page: dim aurora once user scrolls past the hero
-        // Hero is 135vh — start dimming at 80vh, fully dim by 120vh
         const handleScroll = () => {
+            if (transitioning) return
             const scrollY = window.scrollY
             const vh = window.innerHeight
             const fadeStart = vh * 0.8
             const fadeEnd = vh * 1.2
 
+            let newOpacity: number
             if (scrollY <= fadeStart) {
-                setOpacity(FULL_OPACITY)
+                newOpacity = FULL_OPACITY
             } else if (scrollY >= fadeEnd) {
-                setOpacity(DIMMED_OPACITY)
+                newOpacity = DIMMED_OPACITY
             } else {
-                // Lerp between full and dimmed
                 const t = (scrollY - fadeStart) / (fadeEnd - fadeStart)
-                setOpacity(FULL_OPACITY - t * (FULL_OPACITY - DIMMED_OPACITY))
+                newOpacity = FULL_OPACITY - t * (FULL_OPACITY - DIMMED_OPACITY)
             }
+
+            scrollOpacityRef.current = newOpacity
+            setOpacity(newOpacity)
         }
 
-        handleScroll() // Initial check
+        handleScroll()
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [isLanding])
+    }, [isLanding, transitioning])
 
     return (
         <div
@@ -68,13 +95,13 @@ export default function FixedBackground() {
             {/* Dark cinematic base */}
             <div className="absolute inset-0 bg-[var(--bg-cinematic)]" />
 
-            {/* Aurora waves — full during hero, dimmed everywhere else */}
+            {/* Aurora waves — intensity controlled by scroll + wave transitions */}
             <div
                 className="absolute inset-0"
                 style={{
                     opacity,
                     willChange: 'opacity',
-                    transition: isLanding ? 'none' : 'opacity 0.7s ease',
+                    transition: transitioning ? 'opacity 0.3s ease-in' : (isLanding ? 'none' : 'opacity 0.7s ease'),
                 }}
             >
                 <HeroAurora />
