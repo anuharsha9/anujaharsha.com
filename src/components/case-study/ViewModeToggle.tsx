@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useRouter, usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import TransitionLink from '@/components/transitions/TransitionLink'
+import { useTransition } from '@/components/transitions/TransitionContext'
 import { ArrowLeft, ChevronDown } from 'lucide-react'
 import { featuredCaseStudies } from '@/data/home'
 
@@ -38,7 +39,7 @@ const caseStudyMeta: Record<string, { title: string; shortTitle: string; accent:
 }
 
 export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation }: ViewModeToggleProps) {
-    const router = useRouter()
+    const { navigateTo } = useTransition()
     const pathname = usePathname()
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
@@ -62,7 +63,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
     if (!hasPresentation) return null
 
     const handleHomeClick = () => {
-        router.push('/')
+        navigateTo('/')
         setTimeout(() => {
             const heroHeight = window.innerHeight * 3
             const bioScrollPosition = heroHeight * 0.52
@@ -183,7 +184,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
                                     {otherCaseStudies.map((cs) => {
                                         const meta = caseStudyMeta[cs.slug]
                                         return (
-                                            <Link
+                                            <TransitionLink
                                                 key={cs.slug}
                                                 href={`/work/${cs.slug}`}
                                                 onClick={() => setDropdownOpen(false)}
@@ -215,7 +216,7 @@ export default function ViewModeToggle({ viewMode, setViewMode, hasPresentation 
 
                                                 {/* Arrow */}
                                                 <ArrowLeft className="w-3.5 h-3.5 text-zinc-800 group-hover/item:text-zinc-500 rotate-180 transition-all duration-200 group-hover/item:translate-x-0.5 shrink-0" />
-                                            </Link>
+                                            </TransitionLink>
                                         )
                                     })}
                                 </div>

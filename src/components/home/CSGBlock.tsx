@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Play } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
@@ -51,7 +51,7 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1.4, delay, ease }}
         >
-            <Link href={tile.link} className="group block">
+            <TransitionLink href={tile.link} className="group block">
                 <div
                     className="relative w-full overflow-hidden rounded-2xl cursor-pointer transition-all duration-500"
                     onMouseEnter={() => setIsHovered(true)}
@@ -120,7 +120,7 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                         </div>
                     </div>
                 </div>
-            </Link>
+            </TransitionLink>
         </motion.div>
     )
 }

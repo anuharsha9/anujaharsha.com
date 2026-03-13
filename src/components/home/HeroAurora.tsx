@@ -31,12 +31,12 @@ interface AuroraCurtain {
 }
 
 const CURTAINS: AuroraCurtain[] = [
-    // Main curtain — brightest, most prominent
-    { baseY: 0.30, rayLength: 200, opacity: 0.22, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 12 },
-    // Upper curtain — fainter, higher
-    { baseY: 0.18, rayLength: 150, opacity: 0.13, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 14 },
-    // Lower accent curtain
-    { baseY: 0.40, rayLength: 130, opacity: 0.10, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 12 },
+    // Main curtain — brightest, below the CTAs (the "shoreline")
+    { baseY: 0.68, rayLength: 200, opacity: 0.22, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 12 },
+    // Upper accent curtain — just below CTAs
+    { baseY: 0.60, rayLength: 150, opacity: 0.13, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 14 },
+    // Lower curtain — closer to bottom
+    { baseY: 0.78, rayLength: 130, opacity: 0.10, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 12 },
 ]
 
 export default function HeroAurora() {

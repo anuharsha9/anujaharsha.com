@@ -1,11 +1,11 @@
 'use client'
 
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { motion } from 'framer-motion'
 import { ArrowRight, Home, User } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from './CaseStudyWireframes'
 import { type ReactNode } from 'react'
-import { useRouter } from 'next/navigation'
+import { useTransition } from '@/components/transitions/TransitionContext'
 
 interface ProjectMeta {
   id: string
@@ -65,13 +65,13 @@ const nextStepMap: Record<string, string[]> = {
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 export default function SystemIndex({ currentId }: SystemIndexProps) {
-  const router = useRouter()
+  const { navigateTo } = useTransition()
   const nextIds = nextStepMap[currentId] || []
   const nextProjects = nextIds.map((id) => allProjects[id]).filter(Boolean)
   const isEndOfJourney = currentId === 'IQ_PLUGIN'
 
   const handleHomeClick = () => {
-    router.push('/')
+    navigateTo('/')
     setTimeout(() => {
       const heroHeight = window.innerHeight * 3
       const bioScrollPosition = heroHeight * 0.52
@@ -117,7 +117,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease }}
             >
-              <Link
+              <TransitionLink
                 href="/#extended-portfolio"
                 className="group relative block rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden transition-all duration-500 hover:border-white/[0.15] hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-black/30 p-8 md:p-10 text-center"
               >
@@ -128,7 +128,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                 <p className="text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors">
                   Vibe coding, side projects, and more
                 </p>
-              </Link>
+              </TransitionLink>
             </motion.div>
 
             <motion.div
@@ -137,7 +137,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1, ease }}
             >
-              <Link
+              <TransitionLink
                 href="/me"
                 className="group relative block rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden transition-all duration-500 hover:border-white/[0.15] hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-black/30 p-8 md:p-10 text-center"
               >
@@ -148,7 +148,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                 <p className="text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors">
                   13 years of complexity, simplified
                 </p>
-              </Link>
+              </TransitionLink>
             </motion.div>
           </div>
         ) : (
@@ -164,7 +164,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1, ease }}
               >
-                <Link
+                <TransitionLink
                   href={project.link}
                   className="group relative block rounded-2xl border border-white/[0.06] overflow-hidden transition-all duration-500 hover:border-white/[0.12] hover:shadow-2xl hover:shadow-black/30"
                   style={{
@@ -249,7 +249,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
                       background: `radial-gradient(ellipse at 50% 0%, ${project.accent}08, transparent 70%)`,
                     }}
                   />
-                </Link>
+                </TransitionLink>
               </motion.div>
             ))}
           </div>

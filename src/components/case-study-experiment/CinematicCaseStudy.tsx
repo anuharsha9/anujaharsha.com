@@ -16,7 +16,7 @@
 import React, { useRef, useState, useCallback, type ReactNode } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useTransition } from '@/components/transitions/TransitionContext'
 import { CaseStudyData } from '@/types/caseStudy'
 import ViewModeToggle from '@/components/case-study/ViewModeToggle'
 import StoryDeck, { StorySlide } from '@/components/case-study/StoryDeck'
@@ -60,7 +60,7 @@ export default function CinematicCaseStudy({
     children,
 }: CinematicCaseStudyProps) {
     const heroRef = useRef<HTMLDivElement>(null)
-    const router = useRouter()
+    const { navigateTo } = useTransition()
     const hasFullView = !!children
     const [viewMode, setViewMode] = useState<'full' | 'presentation'>('presentation')
 
@@ -105,8 +105,8 @@ export default function CinematicCaseStudy({
     }, [actSections])
 
     const handlePresentationClose = useCallback(() => {
-        router.push('/#work-overview')
-    }, [router])
+        navigateTo('/#work-overview')
+    }, [navigateTo])
 
     return (
         <div data-cs-theme={theme}>

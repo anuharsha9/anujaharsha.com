@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useId, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
@@ -207,7 +208,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                 }
                 const accent = accentColors[item.id] || '#666'
                 return (
-                  <Link
+                  <TransitionLink
                     key={item.href}
                     href={item.href}
                     onClick={handleClick}
@@ -242,7 +243,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                     <svg className="w-3.5 h-3.5 text-zinc-800 group-hover/item:text-zinc-500 transition-all duration-200 group-hover/item:translate-x-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 18 15 12 9 6" />
                     </svg>
-                  </Link>
+                  </TransitionLink>
                 )
               })}
             </nav>

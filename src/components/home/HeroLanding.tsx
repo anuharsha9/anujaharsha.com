@@ -8,7 +8,7 @@ import {
     AnimatePresence,
     useMotionTemplate,
 } from 'framer-motion'
-import { useRouter } from 'next/navigation'
+import { useTransition } from '@/components/transitions/TransitionContext'
 import { Play, Cog } from 'lucide-react'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -102,7 +102,7 @@ function InterlockedGearGlyph({ className = '' }: { className?: string }) {
 
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
-    const router = useRouter()
+    const { navigateTo } = useTransition()
     const [isReady, setIsReady] = useState(false)
 
     // Trigger cinematic entrance on mount
@@ -213,7 +213,7 @@ export default function HeroLanding() {
                                     />
                                 </div>
                                 <button
-                                    onClick={() => router.push('/work/reportcaster')}
+                                    onClick={() => navigateTo('/work/reportcaster')}
                                     className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-3 rounded-full border border-white bg-white px-8 py-3.5 font-sans text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
                                 >
                                     <Play className="w-4 h-4 fill-current transition-transform duration-500 group-hover:scale-110" />
@@ -224,7 +224,7 @@ export default function HeroLanding() {
                             {/* SECONDARY CTA — Explore My Mind */}
                             <div className="relative order-1 sm:order-2 w-full h-14 pointer-events-auto">
                                 <button
-                                    onClick={() => router.push('/quiz')}
+                                    onClick={() => navigateTo('/quiz')}
                                     className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-3 overflow-hidden rounded-full border border-white/40 px-8 py-3.5 font-sans text-xs font-bold uppercase tracking-widest text-white transition-all duration-500 hover:bg-white/5 hover:border-white/80 backdrop-blur-sm"
                                 >
                                     <span className="relative z-10 flex h-5 w-5 shrink-0 items-center justify-center">

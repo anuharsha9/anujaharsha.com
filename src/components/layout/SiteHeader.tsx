@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
@@ -102,7 +103,7 @@ export default function SiteHeader() {
         {/* Logo - positioned absolutely on the left */}
         <div className="absolute left-4 xs:left-5 sm:left-6 md:left-8 lg:left-12 xl:left-16">
           <EasterEgg clicksRequired={5}>
-            <Link
+            <TransitionLink
               href="/"
               aria-label="Go to homepage"
               className="flex items-center transition-colors group"
@@ -114,7 +115,7 @@ export default function SiteHeader() {
                   pauseDuration={2000}
                 />
               </div>
-            </Link>
+            </TransitionLink>
           </EasterEgg>
         </div>
 
@@ -132,7 +133,7 @@ export default function SiteHeader() {
 
             {/* Me */}
             <Magnetic>
-              <Link
+              <TransitionLink
                 href="/me"
                 className={`block font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors relative px-2 py-1 ${isAboutPage
                   ? 'text-[var(--accent-teal)]'
@@ -144,7 +145,7 @@ export default function SiteHeader() {
                 {isAboutPage && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--accent-teal)]" />
                 )}
-              </Link>
+              </TransitionLink>
             </Magnetic>
           </div>
         </div>
@@ -153,12 +154,12 @@ export default function SiteHeader() {
         <div className="absolute right-4 xs:right-5 sm:right-6 md:right-8 lg:right-12 xl:right-16 hidden lg:flex items-center gap-space-3">
           {/* Let's Talk - Primary CTA */}
           <Magnetic strength={0.4}>
-            <Link
+            <TransitionLink
               href="/#lets-talk"
               className="inline-flex items-center gap-space-2 px-space-4 py-space-2 rounded-full bg-[var(--accent-teal)]/15 text-[var(--accent-teal)] font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 hover:bg-[var(--accent-teal)]/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]"
             >
               <span>Let&apos;s Talk</span>
-            </Link>
+            </TransitionLink>
           </Magnetic>
 
           {/* Resume - Secondary CTA */}

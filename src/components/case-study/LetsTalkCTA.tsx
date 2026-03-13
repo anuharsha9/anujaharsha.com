@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { motion } from 'framer-motion'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
@@ -15,7 +15,7 @@ export default function LetsTalkCTA({ className = '', variant = 'card' }: LetsTa
   if (variant === 'inline') {
     return (
       <div className={className}>
-        <Link
+        <TransitionLink
           href="/#lets-talk"
           className="inline-flex items-center gap-2 text-[var(--accent-teal)] hover:text-[var(--accent-teal)]/80 transition-colors font-medium group"
           aria-label="Let's talk - Contact me"
@@ -29,7 +29,7 @@ export default function LetsTalkCTA({ className = '', variant = 'card' }: LetsTa
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </Link>
+        </TransitionLink>
       </div>
     )
   }
@@ -49,13 +49,13 @@ export default function LetsTalkCTA({ className = '', variant = 'card' }: LetsTa
             Interested in working together?
           </p>
           <div className="flex items-center gap-4">
-            <Link
+            <TransitionLink
               href="/#lets-talk"
               className="text-xs text-zinc-600 hover:text-[var(--accent-teal)] transition-colors duration-300 font-mono tracking-wider uppercase"
               aria-label="Contact me"
             >
               Get in touch →
-            </Link>
+            </TransitionLink>
             <span className="w-px h-3 bg-white/[0.06]" />
             <button
               onClick={() => {
