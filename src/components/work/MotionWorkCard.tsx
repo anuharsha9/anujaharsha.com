@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react'
 import { motion, useMotionTemplate, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion'
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { ArrowRight, Lock, Play } from 'lucide-react'
 import { WorkItem } from '@/data/career-data'
 import Image from 'next/image'
@@ -44,7 +44,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
     }
 
     return (
-        <Link
+        <TransitionLink
             href={work.link}
             className={`block group/work relative w-full ${fillHeight ? 'h-full' : ''} ${isExternal ? 'cursor-default pointer-events-none' : ''}`}
         >
@@ -213,6 +213,6 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                     </div>
                 )}
             </div>
-        </Link>
+        </TransitionLink>
     )
 }

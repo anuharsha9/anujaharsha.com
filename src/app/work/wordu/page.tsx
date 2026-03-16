@@ -4,7 +4,7 @@ import React from 'react'
 import WorduGame from '@/components/work/wordu/WorduGame'
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 
 export default function WorduPage() {
   return (
@@ -22,13 +22,13 @@ export default function WorduPage() {
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5"
       >
         {/* Left: Back to portfolio */}
-        <Link
+        <TransitionLink
           href="/"
           className="flex items-center gap-2 font-mono text-xs tracking-[0.15em] uppercase text-slate-500 hover:text-white transition-colors"
         >
           <ArrowLeft size={14} />
           Back to Portfolio
-        </Link>
+        </TransitionLink>
 
         {/* Center: System title */}
         <div className="flex items-center gap-4 font-mono text-xs tracking-[0.2em] uppercase">

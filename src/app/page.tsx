@@ -55,21 +55,12 @@ export const metadata: Metadata = {
     description:
       'Senior Product Designer & Complexity Architect. 13+ years transforming enterprise complexity into clarity through AI-Native design, vibe coding, and code prototyping. Open to work.',
     url: siteUrl,
-    images: [
-      {
-        url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Anuja Harsha Nimmagadda - Senior Product Designer | AI-Native, Vibe Coding, Code Prototyping',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
     description:
       'Complexity Architect. 13+ years turning enterprise chaos into clarity. AI-Native design, vibe coding, code prototyping. Interactive Brain Gears portfolio. Open to work.',
-    images: ['/images/og-image.png'],
   },
   alternates: {
     canonical: siteUrl,

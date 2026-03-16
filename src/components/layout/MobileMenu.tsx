@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback } from 'react'
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
@@ -181,13 +181,13 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                     </svg>
                   </button>
                 </div>
-                <Link
+                <TransitionLink
                   href="/"
                   onClick={closeMenu}
                   className={`text-xl font-sans font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                 >
                   Anuja Harsha Nimmagadda
-                </Link>
+                </TransitionLink>
                 <p className={`${t.textSecondary} text-sm mt-2`}>Senior Product Designer</p>
               </div>
 
@@ -219,13 +219,13 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                     Work
                   </button>
 
-                  <Link
+                  <TransitionLink
                     href="/me"
                     onClick={closeMenu}
                     className={`block px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:${t.bgAccent} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                   >
                     Me
-                  </Link>
+                  </TransitionLink>
 
                   <button
                     onClick={() => {
@@ -247,14 +247,14 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                       Case Study Sections
                     </p>
                     {caseStudySections.map((section) => (
-                      <Link
+                      <TransitionLink
                         key={section.href}
                         href={section.href}
                         onClick={closeMenu}
                         className={`block px-6 py-3 rounded-lg text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.textSecondary} hover:${t.bgAccent} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                       >
                         {section.label}
-                      </Link>
+                      </TransitionLink>
                     ))}
                   </div>
                 )}

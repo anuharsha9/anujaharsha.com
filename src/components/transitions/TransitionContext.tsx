@@ -21,12 +21,39 @@ export function useTransition() {
   return useContext(TransitionContext)
 }
 
+/* ── Water physics easing ──────────────────────────────────
+ *
+ * Real waves are asymmetric:
+ *   SURGE:   Accelerates fast, powerful push → eases to a stop
+ *            (power curve: t^1.6 with smooth deceleration)
+ *   RETREAT: Starts slow, gravity pulls it back → accelerates away
+ *            (gentle ease-in with a soft landing)
+ *
+ * This creates the feeling of mass and momentum — water, not a UI.
+ */
+
+/** Surge: fast attack, smooth deceleration — wave crashing onto shore */
+function easeSurge(t: number): number {
+  // Quadratic ease-out with a slight overshoot feel
+  return 1 - Math.pow(1 - t, 2.4)
+}
+
+/** Retreat: slow start, then gravity pulls it away — water receding */
+function easeRetreat(t: number): number {
+  // Cubic ease-in-out biased toward ease-in (slow start, faster finish)
+  return t < 0.4
+    ? 2 * Math.pow(t / 0.4, 2) * 0.4   // slow crawl for first 40%
+    : 0.4 + (1 - 0.4) * (1 - Math.pow(1 - (t - 0.4) / 0.6, 2))  // then ease out
+}
+
 /**
  * TransitionProvider — intercepts navigation to play transitions.
  *
- * SUBMERGE (500ms): Old content blurs + fades into the aurora.
- * HOLD     (200ms): Pure aurora. Navigate + scroll reset.
- * EMERGE   (600ms): New content sharpens + rises from the aurora.
+ * SUBMERGE (350ms): Wave surges up — fast, powerful, like a wave breaking.
+ * HOLD     (200ms): Full coverage. Navigate + scroll reset.
+ * EMERGE   (650ms): Wave retreats — slow, gravitational, deliberate.
+ *
+ * Total: ~1.2s — the asymmetry makes it feel physical.
  */
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
@@ -36,19 +63,19 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const navLock = useRef(false)
   const animRef = useRef<number>(0)
 
-  const animate = useCallback((ms: number, cb: () => void) => {
+  /** Animate with a custom easing curve */
+  const animateWith = useCallback((ms: number, easing: (t: number) => number, cb: () => void) => {
     const t0 = performance.now()
     const tick = (now: number) => {
-      const t = Math.min((now - t0) / ms, 1)
-      setProgress(1 - Math.pow(1 - t, 3)) // ease-out cubic
-      if (t < 1) animRef.current = requestAnimationFrame(tick)
+      const raw = Math.min((now - t0) / ms, 1)
+      setProgress(easing(raw))
+      if (raw < 1) animRef.current = requestAnimationFrame(tick)
       else cb()
     }
     animRef.current = requestAnimationFrame(tick)
   }, [])
 
   const navigateTo = useCallback((href: string) => {
-    // Normalize paths (strip trailing slashes for comparison)
     const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
     if (navLock.current || normalize(href) === normalize(pathname)) return
     navLock.current = true
@@ -59,28 +86,26 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // Tell aurora to surge
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'surge' } }))
 
-    // Phase 1: SUBMERGE — wave sweeps up, old content fades
+    // Phase 1: SUBMERGE — wave crashes up (fast, powerful)
     setPhase('submerge')
     setProgress(0)
 
-    animate(500, () => {
-      // Phase 2: HOLD — navigate while wave covers everything
+    animateWith(350, easeSurge, () => {
+      // Phase 2: HOLD — total submersion, navigate underneath
       setPhase('hold')
       setProgress(1)
       window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'hold' } }))
 
-      // Do the actual navigation
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
       router.push(href)
 
-      // Give Next.js time to render the new page, then retreat
+      // Phase 3: EMERGE — wave retreats (slow, gravitational)
       setTimeout(() => {
-        // Phase 3: EMERGE — wave recedes, new content revealed
         setPhase('emerge')
         setProgress(0)
         window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
 
-        animate(600, () => {
+        animateWith(650, easeRetreat, () => {
           setPhase('idle')
           setProgress(0)
           navLock.current = false
@@ -91,9 +116,9 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
             window.dispatchEvent(new Event('scroll'))
           })
         })
-      }, 350) // hold: give Next.js time to render new page
+      }, 200) // hold: brief submersion
     })
-  }, [pathname, router, animate])
+  }, [pathname, router, animateWith])
 
   return (
     <TransitionContext.Provider value={{ phase, progress, navigateTo }}>

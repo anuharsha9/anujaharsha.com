@@ -13,7 +13,6 @@ import FlagshipTheater from '@/components/FlagshipTheater'
 import { ERA_TAGS } from './constants'
 import { motion } from 'framer-motion'
 import { Play, ArrowDown } from 'lucide-react'
-import Link from 'next/link'
 
 interface MobileTimelineProps {
     onOpenLightbox: (id: string) => void

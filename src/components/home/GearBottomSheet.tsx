@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import { X, ArrowRight } from 'lucide-react'
 import { GearInspectorItem } from '@/data/gear-inspector'
 import { getTheme, spacing } from '@/lib/design-system'
@@ -107,7 +107,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
               </p>
 
               {/* CTA Button - Premium Pill */}
-              <Link
+              <TransitionLink
                 href={gear.link}
                 onClick={onClose}
                 className="group flex items-center justify-center gap-3 w-full py-4 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-[0.98] transition-all backdrop-blur-md border border-white/5"
@@ -116,7 +116,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
                   {gear.linkLabel}
                 </span>
                 <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors group-hover:translate-x-1" />
-              </Link>
+              </TransitionLink>
 
               {/* Case Study Badge */}
               {gear.caseStudy && gear.caseStudy !== 'me' && (

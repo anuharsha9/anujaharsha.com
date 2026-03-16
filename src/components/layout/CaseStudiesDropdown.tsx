@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect, useId, type KeyboardEvent as ReactKeyboardEvent } from 'react'
-import Link from 'next/link'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -118,12 +117,12 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
   // Don't render until mounted on client
   if (!isMounted) {
     return (
-      <Link
+      <TransitionLink
         href="/#work-overview"
         className={className}
       >
         Work
-      </Link>
+      </TransitionLink>
     )
   }
 
@@ -189,14 +188,14 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
             {/* Case Study Links */}
             <nav className="py-1" aria-label="Case studies navigation">
               {/* View All Link */}
-              <Link
+              <TransitionLink
                 href="/#work-overview"
                 onClick={handleClick}
                 className="block px-4 py-2.5 text-zinc-500 text-sm hover:bg-white/[0.04] hover:text-zinc-200 transition-colors border-b border-white/[0.06]"
                 role="menuitem"
               >
                 <span className="font-medium">View All Work</span>
-              </Link>
+              </TransitionLink>
 
               {/* Individual Case Studies */}
               {caseStudies.map((item) => {
@@ -250,14 +249,14 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
 
             {/* Footer */}
             <div className="px-4 py-2.5 border-t border-white/[0.06]">
-              <Link
+              <TransitionLink
                 href="/#lets-talk"
                 onClick={handleClick}
                 className="font-mono text-[10px] text-zinc-600 hover:text-zinc-400 uppercase tracking-wider transition-colors"
                 role="menuitem"
               >
                 → LET&apos;S TALK
-              </Link>
+              </TransitionLink>
             </div>
           </motion.div>
         )}

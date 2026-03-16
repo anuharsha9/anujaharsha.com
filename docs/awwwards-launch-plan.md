@@ -183,9 +183,10 @@ Pick 1.
 
 ### 7.4 Micro-Details That Judges Notice
 - [x] Page load: meaningful loading sequence (LoadingScreen.tsx)
-- [ ] Smooth page transitions between routes (shared layout animations)
+- [x] Smooth page transitions between routes ("Tidal Wash" — asymmetric water physics, blur-to-focus)
 - [ ] Scroll-linked progress indicator that's visually interesting
-- [ ] Easter egg somewhere
+- [x] Easter egg — 404 "Lost at Sea" page (stormy aurora, ocean copy, sonar depth indicator)
+- [x] Wave visual language: aurora formation intro (blur-to-focus on landing), aurora surge visible through transitions, stormy 404
 - [ ] Sound design — optional subtle audio on key interactions (muted by default)
 
 ---

@@ -24,21 +24,12 @@ export const metadata: Metadata = {
             'A fast-paced word game. Tap tiles, build words, beat the clock. Vibe-coded by Anuja Harsha.',
         url: `${siteUrl}/work/wordu/`,
         type: 'website',
-        images: [
-            {
-                url: '/images/og-image.png',
-                width: 1200,
-                height: 630,
-                alt: 'WordU — A Word Game by Anuja Harsha',
-            },
-        ],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'WordU — A Word Game by Anuja Harsha',
         description:
             'Tap tiles, build words, beat the clock. A vibe-coded side project by Anuja Harsha.',
-        images: ['/images/og-image.png'],
     },
     alternates: {
         canonical: `${siteUrl}/work/wordu/`,

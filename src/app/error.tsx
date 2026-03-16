@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import SignatureLogo from '@/components/brand/SignatureLogo'
 
 export default function Error({
@@ -67,7 +67,7 @@ export default function Error({
             </svg>
             Try again
           </button>
-          <Link
+          <TransitionLink
             href="/"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-300 text-zinc-600 text-sm font-medium transition-all duration-300 hover:border-slate-400 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
           >
@@ -86,7 +86,7 @@ export default function Error({
               />
             </svg>
             Back to Home
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </main>

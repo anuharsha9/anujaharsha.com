@@ -107,14 +107,14 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         name: 'Anuja Harsha Nimmagadda',
         logo: {
           '@type': 'ImageObject',
-          url: `${siteUrl}/images/og-image.png`,
+          url: `${siteUrl}/opengraph-image`,
         },
       },
       image: data.coverImage && typeof data.coverImage === 'string'
         ? `${siteUrl}${data.coverImage}`
         : data.coverImage?.src
           ? `${siteUrl}${data.coverImage.src}`
-          : `${siteUrl}/images/og-image.png`,
+          : `${siteUrl}/opengraph-image`,
       datePublished: data.publishedDate || '2025-01-02T00:00:00.000Z',
       dateModified: data.updatedDate || '2025-01-02T00:00:00.000Z',
       mainEntityOfPage: {
@@ -144,12 +144,12 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         name: 'Anuja Harsha Nimmagadda',
         logo: {
           '@type': 'ImageObject',
-          url: `${siteUrl}/images/og-image.png`,
+          url: `${siteUrl}/opengraph-image`,
         },
       },
       image: data.coverImage
         ? `${siteUrl}${data.coverImage.src}`
-        : `${siteUrl}/images/og-image.png`,
+        : `${siteUrl}/opengraph-image`,
       url: `${siteUrl}/work/${data.slug}/`,
       mainEntityOfPage: {
         '@type': 'WebPage',

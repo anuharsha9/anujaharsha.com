@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence, animate } from 'framer-motion'
 import { useEffect, useRef, useState, useMemo, memo, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { useTransition } from '@/components/transitions/TransitionContext'
 import GearBottomSheet from '@/components/home/GearBottomSheet'
 import { GEAR_INSPECTOR, GearInspectorItem } from '@/data/gear-inspector'
 import { spacing } from '@/lib/design-system'
@@ -290,7 +290,7 @@ const GearsSvgContainer = memo(function GearsSvgContainer({
  * Full-viewport immersive brain SVG with quiz progression and gear lighting
  */
 export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQuiz?: boolean }) {
-  const router = useRouter()
+  const { navigateTo } = useTransition()
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const brainSceneRef = useRef<HTMLDivElement | null>(null)
@@ -917,7 +917,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
 
             const gearData = GEAR_INSPECTOR[gearId]
             if (gearData?.link) {
-              router.push(gearData.link)
+              navigateTo(gearData.link)
             }
           }
 
@@ -1026,7 +1026,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
     return () => {
       if (cleanup) cleanup()
     }
-  }, [router, isAppReady, shouldSkipEntrance, quizState, litGears, currentQuestionId, currentActiveGearId, baseSvg])
+  }, [isAppReady, shouldSkipEntrance, quizState, litGears, currentQuestionId, currentActiveGearId, baseSvg, navigateTo])
 
   // Click outside to close the hover card
   useEffect(() => {

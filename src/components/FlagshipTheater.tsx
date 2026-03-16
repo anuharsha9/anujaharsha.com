@@ -12,7 +12,7 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Play, X } from 'lucide-react'
-import Link from 'next/link'
+import TransitionLink from '@/components/transitions/TransitionLink'
 import AutoPlayStory, { type MovieBeat } from './case-study/storyboard/AutoPlayStory'
 import {
     MovieBeatAssignment,
@@ -219,12 +219,12 @@ function UpNextCard({
                 transition={{ delay: 1, duration: 0.5 }}
                 className="mt-4"
             >
-                <Link
+                <TransitionLink
                     href={study.link}
                     className="text-xs font-mono text-zinc-500 hover:text-zinc-200 transition-colors underline underline-offset-4"
                 >
                     or skip to full case study →
-                </Link>
+                </TransitionLink>
             </motion.div>
         </motion.div>
     )
@@ -377,7 +377,7 @@ export default function FlagshipTheater() {
 
                         {/* CTA */}
                         <div>
-                            <Link
+                            <TransitionLink
                                 href="/work/reportcaster"
                                 className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full
                                            bg-white text-black overflow-hidden
@@ -388,7 +388,7 @@ export default function FlagshipTheater() {
                                 <span className="text-sm sm:text-base font-bold relative z-10">
                                     Watch the Story
                                 </span>
-                            </Link>
+                            </TransitionLink>
                         </div>
                     </motion.div>
                 )}

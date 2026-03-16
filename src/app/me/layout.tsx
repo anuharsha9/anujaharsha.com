@@ -29,21 +29,12 @@ export const metadata: Metadata = {
       'Complexity Architect with 13+ years transforming enterprise systems into high-impact products. AI-Native design, vibe coding, code prototyping. Open to work.',
     url: `${siteUrl}/me/`,
     type: 'profile',
-    images: [
-      {
-        url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Anuja Harsha Nimmagadda - Senior Product Designer | Open to Work',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
     description:
       'Complexity Architect. 13+ years transforming enterprise chaos into clarity. AI-Native design, vibe coding, code prototyping. Open to work.',
-    images: ['/images/og-image.png'],
   },
   alternates: {
     canonical: `${siteUrl}/me/`,

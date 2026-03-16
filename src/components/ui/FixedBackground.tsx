@@ -5,9 +5,14 @@
  *
  * Aurora intensity & position is context-aware:
  * - Landing hero:         full viewport, full intensity
+ *   → On initial load, aurora enters with a blur-to-focus animation
+ *     (~2.5s), as if the waves are forming from deep water.
  * - Landing after hero:   full viewport, dims to 35%
- * - Other pages at rest:  masked to lower ~40% of viewport, dimmed to 35%
- * - During transitions:   full viewport, surges to 100% (the wave IS the ocean)
+ * - Other pages (case studies, /me):
+ *     Soft gradient mask — aurora fades in from ~15% viewport height,
+ *     fully visible from ~35% down. Resting opacity 55% so waves are
+ *     clearly felt as backdrop behind content.
+ * - During transitions:   full viewport, surges to 100%
  */
 
 import { useEffect, useState, useRef } from 'react'
@@ -16,15 +21,32 @@ import { usePathname } from 'next/navigation'
 
 const HeroAurora = dynamic(() => import('@/components/home/HeroAurora'), { ssr: false })
 
-const DIMMED = 0.35
+const DIMMED_LANDING = 0.35   // Landing page scrolled past hero
+const DIMMED_OTHER = 0.55     // Case studies / other pages — visible enough to feel
 const FULL = 1
 
 export default function FixedBackground() {
   const pathname = usePathname()
   const isLanding = pathname === '/'
-  const [opacity, setOpacity] = useState(isLanding ? FULL : DIMMED)
+  const restingOpacity = isLanding ? FULL : DIMMED_OTHER
+  const [opacity, setOpacity] = useState(restingOpacity)
   const [transitioning, setTransitioning] = useState(false)
-  const scrollRef = useRef(isLanding ? FULL : DIMMED)
+  const scrollRef = useRef(restingOpacity)
+
+  // ── Intro blur-to-focus: waves "forming" on landing page ──
+  // Starts at 20px blur, sharpens to 0 over 2.5s
+  const [introBlur, setIntroBlur] = useState(isLanding ? 20 : 0)
+  const introStarted = useRef(false)
+
+  useEffect(() => {
+    if (!isLanding || introStarted.current) return
+    introStarted.current = true
+
+    // Small delay so the canvas has time to render its first frames
+    const t1 = setTimeout(() => setIntroBlur(0), 100)
+
+    return () => clearTimeout(t1)
+  }, [isLanding])
 
   // Wave transition events
   useEffect(() => {
@@ -46,15 +68,15 @@ export default function FixedBackground() {
   useEffect(() => {
     if (transitioning) return
     if (!isLanding) {
-      scrollRef.current = DIMMED
-      setOpacity(DIMMED)
+      scrollRef.current = DIMMED_OTHER
+      setOpacity(DIMMED_OTHER)
       return
     }
     const onScroll = () => {
       if (transitioning) return
       const y = window.scrollY, vh = window.innerHeight
       const s = vh * 0.8, e = vh * 1.2
-      const o = y <= s ? FULL : y >= e ? DIMMED : FULL - ((y - s) / (e - s)) * (FULL - DIMMED)
+      const o = y <= s ? FULL : y >= e ? DIMMED_LANDING : FULL - ((y - s) / (e - s)) * (FULL - DIMMED_LANDING)
       scrollRef.current = o
       setOpacity(o)
     }
@@ -63,7 +85,8 @@ export default function FixedBackground() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [isLanding, transitioning])
 
-  // Aurora visible everywhere on landing or during transition; masked to lower viewport otherwise
+  // Aurora visible everywhere on landing or during transition;
+  // On other pages: soft gradient mask — aurora fades in from top, fully present by ~35%
   const showFull = transitioning || isLanding
 
   return (
@@ -73,14 +96,21 @@ export default function FixedBackground() {
         className="absolute inset-0"
         style={{
           opacity,
-          willChange: 'opacity',
-          transition: transitioning ? 'opacity 0.3s ease-in' : isLanding ? 'none' : 'opacity 0.7s ease',
+          filter: introBlur > 0 ? `blur(${introBlur}px)` : 'none',
+          willChange: introBlur > 0 ? 'opacity, filter' : 'opacity',
+          transition: introBlur > 0
+            ? 'filter 2.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-in'
+            : transitioning
+              ? 'opacity 0.3s ease-in'
+              : isLanding
+                ? 'filter 2.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                : 'opacity 0.7s ease',
           maskImage: showFull
             ? 'none'
-            : 'linear-gradient(to bottom, transparent 0%, transparent 50%, black 72%, black 100%)',
+            : 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 30%, black 45%, black 100%)',
           WebkitMaskImage: showFull
             ? 'none'
-            : 'linear-gradient(to bottom, transparent 0%, transparent 50%, black 72%, black 100%)',
+            : 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 30%, black 45%, black 100%)',
         }}
       >
         <HeroAurora />
