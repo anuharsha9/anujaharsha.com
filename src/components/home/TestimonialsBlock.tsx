@@ -106,8 +106,7 @@ export default function TestimonialsBlock() {
                     Social Proof
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                    What they say
-                    <span className="text-zinc-600 font-normal"> — CSG colleagues</span>
+                    What leaders say
                 </h2>
             </motion.div>
 

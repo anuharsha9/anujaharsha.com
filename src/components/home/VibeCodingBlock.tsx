@@ -345,7 +345,7 @@ export default function VibeCodingBlock() {
                     transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
-                        NOV / 2025
+                        BUILD LAB
                     </span>
                 </motion.div>
 
@@ -358,9 +358,12 @@ export default function VibeCodingBlock() {
                         Nov 2025 — Present
                     </p>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                        Vibe Coding
+                        Design Engineering
                         <span className="text-zinc-600 font-normal"> & Code Prototyping</span>
                     </h2>
+                    <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
+                        Full-stack prototyping — design, code, ship. Built with Cursor and Google Antigravity.
+                    </p>
                 </motion.div>
 
                 {/* 3 tiles */}

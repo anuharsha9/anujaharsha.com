@@ -31,7 +31,7 @@ export default function PageShell({ children }: PageShellProps) {
           <URLHashSync />
           <PageTransition>
             <LayoutGroup>
-              <main id="main-content" className="relative">
+              <main id="main-content" className="relative z-[1]">
                 {children}
               </main>
             </LayoutGroup>

@@ -21,7 +21,7 @@ import { usePathname } from 'next/navigation'
 
 const HeroAurora = dynamic(() => import('@/components/home/HeroAurora'), { ssr: false })
 
-const DIMMED_LANDING = 0.35   // Landing page scrolled past hero
+const DIMMED_LANDING = 0.55   // Landing page scrolled past hero — clearly visible, always behind content (z-[-1])
 const DIMMED_OTHER = 0.55     // Case studies / other pages — visible enough to feel
 const FULL = 1
 
@@ -99,7 +99,7 @@ export default function FixedBackground() {
   const showFull = transitioning || isLanding
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+    <div className="fixed inset-0 z-[-1] pointer-events-none" aria-hidden="true">
       <div className="absolute inset-0 bg-[var(--bg-cinematic)]" />
       <div
         className="absolute inset-0"

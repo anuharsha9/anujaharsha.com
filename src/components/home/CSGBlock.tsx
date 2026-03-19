@@ -12,7 +12,8 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 const TILES = [
     {
         id: 'ml-functions',
-        title: 'Feature adoption/simplification for Machine Learning workflows',
+        domain: 'AI Workflow Design · ML Accessibility',
+        title: 'Democratizing ML — 12-step coding task to a 4-step visual wizard',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
         accentVar: '--semantic-cyan-rgb',
@@ -20,7 +21,8 @@ const TILES = [
     },
     {
         id: 'iq-plugin',
-        title: 'AI powered HUB to meet business needs',
+        domain: 'Platform Unification · AI-Powered Hub',
+        title: 'Driving data science adoption by unifying 3 siloed tools into one hub',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
         accentVar: '--semantic-purple-rgb',
@@ -28,7 +30,8 @@ const TILES = [
     },
     {
         id: 'reportcaster',
-        title: 'Customer retention success for Enterprise Scheduling',
+        domain: 'Legacy Modernization · Customer Retention',
+        title: 'Retaining enterprise customers by modernizing a 40-year scheduling platform',
         link: '/work/reportcaster',
         flagship: true,
         Wireframe: RCWireframe,
@@ -59,7 +62,7 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                     style={{
                         minHeight: tile.flagship ? '420px' : '200px',
                         border: `1px solid rgba(${rgb}, 0.12)`,
-                        backgroundColor: `rgba(${rgb}, 0.04)`,
+                        background: `linear-gradient(135deg, rgba(${rgb}, 0.08), rgba(${rgb}, 0.03)), var(--bg-cinematic)`,
                         boxShadow: isHovered
                             ? `0 0 40px rgba(${rgb}, 0.10), inset 0 0 0 1px rgba(${rgb}, 0.20)`
                             : `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`,
@@ -86,9 +89,12 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                         <WireframeComponent />
                     </div>
 
-                    {/* MOBILE: Always-visible bottom overlay with title + CTA */}
+                    {/* MOBILE: Always-visible bottom overlay with domain + title + CTA */}
                     <div className="absolute inset-x-0 bottom-0 z-20 md:hidden pointer-events-none">
                         <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-4 px-4">
+                            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500 block mb-1">
+                                {tile.domain}
+                            </span>
                             <p className="text-zinc-100 text-sm font-semibold leading-snug mb-1.5">
                                 {tile.title}
                             </p>
@@ -111,12 +117,15 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                             <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
                                 <Play className="w-5 h-5 text-white fill-white ml-0.5" />
                             </div>
-                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
-                                Watch Case Study
+                            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500">
+                                {tile.domain}
                             </span>
                             <p className="text-zinc-100 text-sm md:text-base font-semibold leading-snug mt-1">
                                 {tile.title}
                             </p>
+                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
+                                View Case Study
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -169,6 +178,9 @@ export default function CSGBlock() {
                     Senior Product Designer
                     <span className="text-zinc-600 font-normal"> at Cloud Software Group</span>
                 </h2>
+                <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
+                    Three products. One platform. One goal — retain customers.
+                </p>
             </motion.div>
 
             {/* Bento Grid: RC flagship left (65%) / ML + IQ stacked right (35%) */}

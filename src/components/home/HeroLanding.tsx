@@ -145,10 +145,14 @@ export default function HeroLanding() {
 
     return (
         <div ref={containerRef} className="relative w-full z-[2]" style={{ height: '100vh' }}>
-            {/* Opaque background that covers content underneath until hero fades */}
+            {/* Bottom-edge cover — blocks CSG from peeking below hero,
+                 transparent at top so fixed aurora waves show through */}
             <motion.div
-                className="absolute inset-0 bg-[#0a0a0f]"
-                style={{ opacity: heroOpacity }}
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    opacity: heroOpacity,
+                    background: 'linear-gradient(to bottom, transparent 60%, #0a0a0f 95%)',
+                }}
             />
             <motion.div
                 className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
@@ -251,8 +255,6 @@ export default function HeroLanding() {
                             </div>
                         </motion.div>
 
-                        {/* CHAIR PHILOSOPHY — typewriter under bio */}
-                        <PhilosophyTypewriter delay={3500} />
                     </motion.div>
                 </motion.div>
             </motion.div>

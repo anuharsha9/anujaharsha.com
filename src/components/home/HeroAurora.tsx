@@ -240,7 +240,7 @@ export default function HeroAurora() {
     return (
         <canvas
             ref={canvasRef}
-            className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
+            className="absolute inset-0 w-full h-full pointer-events-none"
             aria-hidden="true"
         />
     )
