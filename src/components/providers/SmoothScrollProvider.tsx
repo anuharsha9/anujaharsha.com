@@ -23,11 +23,13 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
         if (isTouchDevice) return
 
         const lenis = new Lenis({
-            duration: 1.2,           // Duration of the scroll animation (controls "weight")
+            duration: 1.6,           // Slower = heavier, more deliberate scroll weight
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
+            wheelMultiplier: 0.8,    // Less distance per scroll tick = smoother, more controlled
+            touchMultiplier: 1.5,    // Keep mobile scrolling responsive
             // Lenis automatically syncs with native scroll events,
             // so useScrollManager, whileInView, IntersectionObserver all work
         })

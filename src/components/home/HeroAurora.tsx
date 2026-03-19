@@ -150,7 +150,7 @@ export default function HeroAurora() {
             ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.5})`
             ctx.lineWidth = 2
             ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${curtain.opacity})`
-            ctx.shadowBlur = 20
+            ctx.shadowBlur = 10
             ctx.stroke()
             ctx.shadowBlur = 0
         }
@@ -177,7 +177,7 @@ export default function HeroAurora() {
 
         // Resize handler
         const resize = () => {
-            const dpr = window.devicePixelRatio || 1
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5) // Cap DPR — aurora doesn't need retina clarity
             const rect = canvas.getBoundingClientRect()
             canvas.width = rect.width * dpr
             canvas.height = rect.height * dpr

@@ -6,12 +6,15 @@ import {
     useScroll,
     useTransform,
     AnimatePresence,
-    useMotionTemplate,
 } from 'framer-motion'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { Play, Cog } from 'lucide-react'
 
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+/**
+ * Cinematic easing — extremely long deceleration tail.
+ * Content drifts into its final position like it was always meant to be there.
+ */
+const ease = [0.05, 0.7, 0.1, 1] as [number, number, number, number]
 
 /* ─── Typewriter: types text char-by-char with pauses at punctuation ─── */
 const CHAIR_PHILOSOPHY = [
@@ -105,40 +108,51 @@ export default function HeroLanding() {
     const { navigateTo } = useTransition()
     const [isReady, setIsReady] = useState(false)
 
-    // Trigger cinematic entrance on mount
+    // Trigger cinematic entrance when loading screen finishes (or immediately for returning visitors)
     useEffect(() => {
-        const timer = setTimeout(() => setIsReady(true), 150)
-        return () => clearTimeout(timer)
+        const handleReady = () => setIsReady(true)
+
+        // If app-ready already fired (returning visitors, non-/ routes), start immediately
+        // Use a short timeout as fallback in case event was dispatched before listener attached
+        const fallback = setTimeout(() => setIsReady(true), 300)
+
+        window.addEventListener('app-ready', handleReady)
+        return () => {
+            clearTimeout(fallback)
+            window.removeEventListener('app-ready', handleReady)
+        }
     }, [])
 
-    /* ─── Scroll choreography (200vh) ─── */
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start start', 'end end']
-    })
+    /* ─── Scroll choreography — viewport-based ─── 
+     * Use raw scrollY instead of container progress.
+     * This gives a predictable pixel range for the exit,
+     * regardless of container height.
+     */
+    const { scrollY } = useScroll()
 
-    // Bio: blur-out + fade on scroll exit
-    const bioY = useTransform(scrollYProgress, [0, 0.50, 0.70], [0, 0, -40])
-    const bioBlurScroll = useTransform(scrollYProgress, [0, 0.50, 0.70], [0, 0, 30])
-    const bioFilter = useMotionTemplate`blur(${bioBlurScroll}px)`
-    const bioOpacity = useTransform(scrollYProgress, [0, 0.50, 0.70], [1, 1, 0])
+    // Bio: opacity + drift on scroll exit (no blur — GPU-compositable only)
+    const bioY = useTransform(scrollY, [0, 100, 400], [0, 0, -30])
+    const bioOpacity = useTransform(scrollY, [0, 100, 400], [1, 1, 0])
 
-    // Hero container: blur + fade + scale on scroll exit
-    const heroBlur = useTransform(scrollYProgress, [0.55, 0.75], [0, 20])
-    const heroScale = useTransform(scrollYProgress, [0.55, 0.75], [1, 0.97])
-    const heroOpacity = useTransform(scrollYProgress, [0.55, 0.75], [1, 0])
-    const heroContainerFilter = useMotionTemplate`blur(${heroBlur}px)`
+    // Hero container: fade + gentle scale on scroll exit
+    const heroScale = useTransform(scrollY, [150, 500], [1, 0.98])
+    const heroOpacity = useTransform(scrollY, [150, 500], [1, 0])
 
     // CTA glow ring + sweep
-    const glowRingScale = useTransform(scrollYProgress, [0.15, 0.25], [0.8, 1.6])
-    const glowRingOpacity = useTransform(scrollYProgress, [0.15, 0.20, 0.25], [0, 0.6, 0])
-    const lightSweepX = useTransform(scrollYProgress, [0.20, 0.35], ['-120%', '120%'])
+    const glowRingScale = useTransform(scrollY, [30, 80], [0.8, 1.6])
+    const glowRingOpacity = useTransform(scrollY, [30, 50, 80], [0, 0.6, 0])
+    const lightSweepX = useTransform(scrollY, [50, 120], ['-120%', '120%'])
 
     return (
-        <div ref={containerRef} className="relative w-full z-10" style={{ height: '135vh' }}>
+        <div ref={containerRef} className="relative w-full z-[2]" style={{ height: '100vh' }}>
+            {/* Opaque background that covers content underneath until hero fades */}
+            <motion.div
+                className="absolute inset-0 bg-[#0a0a0f]"
+                style={{ opacity: heroOpacity }}
+            />
             <motion.div
                 className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
-                style={{ filter: heroContainerFilter, scale: heroScale, opacity: heroOpacity }}
+                style={{ scale: heroScale, opacity: heroOpacity }}
             >
                 {/* ── HERO TEXT — cinematic blur-to-focus entrance ── */}
                 <motion.div
@@ -146,57 +160,57 @@ export default function HeroLanding() {
                 >
                     <motion.div
                         className="flex flex-col items-center justify-center px-6"
-                        style={{ y: bioY, filter: bioFilter, opacity: bioOpacity }}
+                        style={{ y: bioY, opacity: bioOpacity }}
                     >
                         <div className="flex flex-col items-center text-center max-w-4xl">
                             {/* SENIOR PRODUCT DESIGNER — label */}
                             <motion.span
                                 className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-                                initial={{ filter: 'blur(80px)', opacity: 0, scale: 0.92 }}
+                                initial={{ opacity: 0, y: 8 }}
                                 animate={isReady
-                                    ? { filter: 'blur(0px)', opacity: 1, scale: 1 }
-                                    : { filter: 'blur(80px)', opacity: 0, scale: 0.92 }
+                                    ? { opacity: 1, y: 0 }
+                                    : { opacity: 0, y: 8 }
                                 }
                                 transition={{ duration: 2.8, delay: 0, ease }}
                             >
                                 Senior Product Designer
                             </motion.span>
 
-                            {/* MAIN HEADLINE — heaviest blur, longest resolve */}
+                            {/* MAIN HEADLINE — slowest, most dramatic reveal */}
                             <motion.h1
                                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6"
-                                initial={{ filter: 'blur(100px)', opacity: 0, scale: 0.96, y: 20 }}
+                                initial={{ opacity: 0, y: 16, scale: 0.98 }}
                                 animate={isReady
-                                    ? { filter: 'blur(0px)', opacity: 1, scale: 1, y: 0 }
-                                    : { filter: 'blur(100px)', opacity: 0, scale: 0.96, y: 20 }
+                                    ? { opacity: 1, y: 0, scale: 1 }
+                                    : { opacity: 0, y: 16, scale: 0.98 }
                                 }
-                                transition={{ duration: 3.2, delay: 0.2, ease }}
+                                transition={{ duration: 3.2, delay: 0.15, ease }}
                             >
                                 <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
                                 <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
                             </motion.h1>
 
-                            {/* SUBTITLE — medium blur */}
+                            {/* SUBTITLE — positioning + credibility */}
                             <motion.p
                                 className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl"
-                                initial={{ filter: 'blur(60px)', opacity: 0, y: 12 }}
+                                initial={{ opacity: 0, y: 10 }}
                                 animate={isReady
-                                    ? { filter: 'blur(0px)', opacity: 1, y: 0 }
-                                    : { filter: 'blur(60px)', opacity: 0, y: 12 }
+                                    ? { opacity: 1, y: 0 }
+                                    : { opacity: 0, y: 10 }
                                 }
                                 transition={{ duration: 2.4, delay: 0.4, ease }}
                             >
-                                13 years of experience specializing in B2B enterprise UX, product strategy, and high-fidelity code prototyping.
+                                I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.
                             </motion.p>
                         </div>
 
                         {/* CTAs — last to resolve */}
                         <motion.div
                             className="mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-4 sm:grid-cols-2"
-                            initial={{ filter: 'blur(50px)', opacity: 0, y: 16 }}
+                            initial={{ opacity: 0, y: 12 }}
                             animate={isReady
-                                ? { filter: 'blur(0px)', opacity: 1, y: 0 }
-                                : { filter: 'blur(50px)', opacity: 0, y: 16 }
+                                ? { opacity: 1, y: 0 }
+                                : { opacity: 0, y: 12 }
                             }
                             transition={{ duration: 2.0, delay: 0.6, ease }}
                         >

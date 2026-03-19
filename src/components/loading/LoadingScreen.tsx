@@ -176,6 +176,7 @@ export default function LoadingScreen() {
   const fadeTimeoutRef = useRef<number | null>(null)
   const hideTimeoutRef = useRef<number | null>(null)
   const startTimeRef = useRef<number>(0)
+  const progressRef = useRef<number>(0)
 
   const LOADING_DURATION = 2000
 
@@ -238,7 +239,11 @@ export default function LoadingScreen() {
       }
       const currentProgress = Math.min(Math.round(easedProgress * 100), 100)
 
-      setProgress(currentProgress)
+      // Only re-render when the displayed integer changes
+      if (currentProgress !== progressRef.current) {
+        progressRef.current = currentProgress
+        setProgress(currentProgress)
+      }
 
       // Depth metaphor status text
       if (currentProgress < 20) {
@@ -260,9 +265,13 @@ export default function LoadingScreen() {
       } else {
         fadeTimeoutRef.current = window.setTimeout(() => {
           setIsFading(true)
+
+          // Dispatch app-ready 300ms into the 800ms fade, so hero entrance
+          // begins while loading screen is still partially visible — crossfade overlap
+          window.setTimeout(() => dispatchReady(), 300)
+
           hideTimeoutRef.current = window.setTimeout(() => {
             setIsVisible(false)
-            dispatchReady()
           }, 800)
         }, 200)
       }

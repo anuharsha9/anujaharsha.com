@@ -1,44 +1,59 @@
 'use client'
 
-import React from 'react'
+import React, { useRef } from 'react'
 import { motion } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 /**
- * Page transition: Cinematic focus pull.
- * 
- * Content starts blurred, slightly scaled up, and faded — then sharpens
- * into focus like pulling focus on a cinema lens. A thin horizontal light
- * sweep adds the wireframe/scanner aesthetic of the rest of the portfolio.
+ * Page transition: Cinematic slow-born reveal.
+ *
+ * On initial load (/), skips the transition so the loading screen →
+ * hero entrance is the ONLY entrance animation — no stacking.
+ *
+ * On navigation between pages, content gently fades up from below
+ * with a subtle scale shift. Uses ONLY GPU-compositable properties
+ * (opacity, transform) to avoid paint-per-frame jank.
  */
 
-const ease = [0.22, 1, 0.36, 1] as const
+const cinematicEase = [0.05, 0.7, 0.1, 1] as const
 
 export default function Template({ children }: { children: React.ReactNode }) {
-    return (
-        <motion.div className="min-h-screen w-full relative">
+    const pathname = usePathname()
+    const isInitialLoad = useRef(true)
 
-
-
-            {/* ── Content — cinematic focus pull ── */}
-            <motion.div
-                initial={{
-                    opacity: 0,
-                    scale: 1.015,
-                    filter: 'blur(12px) brightness(0.7)',
-                }}
-                animate={{
-                    opacity: 1,
-                    scale: 1,
-                    filter: 'blur(0px) brightness(1)',
-                }}
-                transition={{
-                    duration: 0.8,
-                    delay: 0.1,
-                    ease,
-                }}
-            >
+    // On the very first render (initial page load), skip the template
+    // transition — the loading screen + hero entrance handle it.
+    // After that, every route change gets the cinematic reveal.
+    if (isInitialLoad.current) {
+        isInitialLoad.current = false
+        return (
+            <div className="min-h-screen w-full relative">
                 {children}
-            </motion.div>
+            </div>
+        )
+    }
+
+    return (
+        <motion.div
+            className="min-h-screen w-full relative"
+            initial={{
+                opacity: 0,
+                y: 12,
+                scale: 1.008,
+            }}
+            animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+            }}
+            transition={{
+                duration: 1.4,
+                delay: 0.05,
+                ease: cinematicEase,
+            }}
+            style={{ willChange: 'opacity, transform' }}
+        >
+            {children}
         </motion.div>
     )
 }

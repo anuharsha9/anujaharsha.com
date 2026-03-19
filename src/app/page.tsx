@@ -27,9 +27,9 @@ import {
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'Anuja Harsha Nimmagadda | Senior Product Designer — AI-Native, Code Prototyping, Open to Work',
+  title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
   description:
-    'Senior Product Designer & Complexity Architect with 13+ years transforming high-ambiguity enterprise systems into high-impact products. Specializing in AI-Native design, vibe coding, code prototyping, and engineering empathy. Interactive Brain Gears portfolio experience. Open to work.',
+    'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
   keywords: [
     'Senior Product Designer',
     'Staff Product Designer',
@@ -51,16 +51,16 @@ export const metadata: Metadata = {
     'Anuja Harsha Nimmagadda',
   ],
   openGraph: {
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — AI-Native, Code Prototyping, Open to Work',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization',
     description:
-      'Senior Product Designer & Complexity Architect. 13+ years transforming enterprise complexity into clarity through AI-Native design, vibe coding, and code prototyping. Open to work.',
+      'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native experiences.',
     url: siteUrl,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
     description:
-      'Complexity Architect. 13+ years turning enterprise chaos into clarity. AI-Native design, vibe coding, code prototyping. Interactive Brain Gears portfolio. Open to work.',
+      'I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
   },
   alternates: {
     canonical: siteUrl,
@@ -78,10 +78,15 @@ export default function Home() {
           No BlurZone — hero has its own blur/scale/opacity transforms. */}
       <HeroLanding />
 
-      {/* ═══ ZONE 2: CSG BLOCK ═══ */}
-      <BlurZone id="work-overview" containerHeight="200vh">
-        <CSGBlock />
-      </BlurZone>
+      {/* ═══ ZONE 2: CSG BLOCK ═══ 
+           Negative margin pulls this zone UP into the hero zone,
+           so the blur-to-sharp resolve starts while the hero is still visible.
+           This creates a cinematic crossfade — hero fading out as CSG fades in. */}
+      <div style={{ marginTop: '-50vh' }} className="relative z-[1]">
+        <BlurZone id="work-overview" containerHeight="180vh">
+          <CSGBlock />
+        </BlurZone>
+      </div>
 
       {/* ═══ ZONE 3: SOCIAL PROOF + LIFE CONTEXT ═══ */}
       <BlurZone id="social-proof-zone" containerHeight="200vh">

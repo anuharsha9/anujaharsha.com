@@ -1,8 +1,10 @@
 /**
  * Motion System — Animation & interaction presets
  * 
- * Separated from design-system.ts to keep visual design 
- * and motion concerns cleanly decoupled.
+ * Philosophy: "Slow-born, revealing, effortless"
+ * Every motion should feel like it was always meant to arrive
+ * at its final position. Long deceleration tails, generous
+ * durations, breathing room between staggers.
  * 
  * Easing curves reference CSS variables from /src/styles/tokens.css
  */
@@ -12,9 +14,9 @@
 // =============================================================================
 
 export const transitions = {
-    fast: 'transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
-    normal: 'transition-all duration-350 ease-[cubic-bezier(0.25,0.1,0.25,1)]',
-    slow: 'transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
+    fast: 'transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
+    normal: 'transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
+    slow: 'transition-all duration-700 ease-[cubic-bezier(0.05,0.7,0.1,1)]',
 } as const
 
 // =============================================================================
@@ -38,27 +40,34 @@ export const fadeIn = {
 } as const
 
 export const slideUp = {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 16 },
     animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -10 },
+    exit: { opacity: 0, y: -8 },
 } as const
 
 export const scaleIn = {
-    initial: { opacity: 0, scale: 0.95 },
+    initial: { opacity: 0, scale: 0.97 },
     animate: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.95 },
+    exit: { opacity: 0, scale: 0.97 },
 } as const
 
 // =============================================================================
-// EASING CURVES (matching tokens.css)
+// EASING CURVES
 // =============================================================================
 
 export const easing = {
+    /** Cinematic — extremely long deceleration tail, drifts into place */
+    cinematic: [0.05, 0.7, 0.1, 1] as const,
+    /** Smooth — material decelerate, natural feeling stop */
+    smooth: [0.16, 1, 0.3, 1] as const,
+    /** Standard — slightly quicker decelerate for interactions */
+    standard: [0.22, 1, 0.36, 1] as const,
+    /** Spring — subtle overshoot for playful interactions */
     spring: [0.34, 1.56, 0.64, 1] as const,
-    smooth: [0.4, 0, 0.2, 1] as const,
-    bounce: [0.68, -0.55, 0.265, 1.55] as const,
-    decelerate: [0.16, 1, 0.3, 1] as const,
-    standard: [0.25, 0.1, 0.25, 1] as const,
+    /** Decelerate — long ease-out for scroll reveals */
+    decelerate: [0.0, 0.0, 0.2, 1] as const,
+    /** Google material — clean middle ground */
+    material: [0.4, 0, 0.2, 1] as const,
 } as const
 
 // =============================================================================
@@ -66,18 +75,27 @@ export const easing = {
 // =============================================================================
 
 export const duration = {
-    fast: 0.2,
-    normal: 0.35,
-    slow: 0.5,
-    cinematic: 0.8,
+    /** Micro-interactions: toggles, button feedback */
+    fast: 0.3,
+    /** Default motion: cards, tooltips, hover states */
+    normal: 0.55,
+    /** Sections revealing on scroll */
+    slow: 0.85,
+    /** Page transitions, hero elements */
+    cinematic: 1.4,
+    /** Hero-level slow-born reveals */
+    glacial: 2.2,
+    /** Section content reveals */
+    reveal: 1.0,
 } as const
 
 // =============================================================================
-// STAGGER PRESETS
+// STAGGER PRESETS — generous breathing room between items
 // =============================================================================
 
 export const stagger = {
-    fast: 0.05,
-    normal: 0.1,
-    slow: 0.15,
+    fast: 0.08,
+    normal: 0.12,
+    slow: 0.18,
 } as const
+

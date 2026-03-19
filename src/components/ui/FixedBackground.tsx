@@ -64,12 +64,16 @@ export default function FixedBackground() {
     return () => window.removeEventListener('wave-transition', handler)
   }, [])
 
-  // Scroll-based dimming
+  // Scroll-based dimming — ref-tracked to avoid re-renders on every scroll tick
+  const lastOpacityRef = useRef(restingOpacity)
   useEffect(() => {
     if (transitioning) return
     if (!isLanding) {
       scrollRef.current = DIMMED_OTHER
-      setOpacity(DIMMED_OTHER)
+      if (lastOpacityRef.current !== DIMMED_OTHER) {
+        lastOpacityRef.current = DIMMED_OTHER
+        setOpacity(DIMMED_OTHER)
+      }
       return
     }
     const onScroll = () => {
@@ -78,7 +82,12 @@ export default function FixedBackground() {
       const s = vh * 0.8, e = vh * 1.2
       const o = y <= s ? FULL : y >= e ? DIMMED_LANDING : FULL - ((y - s) / (e - s)) * (FULL - DIMMED_LANDING)
       scrollRef.current = o
-      setOpacity(o)
+      // Only trigger re-render when opacity visually changes (2dp precision)
+      const rounded = Math.round(o * 100) / 100
+      if (rounded !== lastOpacityRef.current) {
+        lastOpacityRef.current = rounded
+        setOpacity(rounded)
+      }
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Senior Product Designer & Complexity Architect with 13+ years transforming high-ambiguity enterprise systems into high-impact products. Specializing in AI-Native design, vibe coding, code prototyping, and engineering empathy. Open to work.',
+    'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
   keywords: [
     'Senior Product Designer',
     'Staff Product Designer',
@@ -87,15 +87,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Anuja Harsha Nimmagadda',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — AI-Native, Code Prototyping, Vibe Coding',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization',
     description:
-      'Senior Product Designer & Complexity Architect with 13+ years transforming high-ambiguity enterprise systems into high-impact products. Specializing in AI-Native design, vibe coding, code prototyping. Open to work.',
+      'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
     description:
-      'Senior Product Designer & Complexity Architect. 13+ years transforming enterprise complexity into clarity. AI-Native design, vibe coding, code prototyping. Open to work.',
+      'I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
   },
   robots: {
     index: true,
@@ -135,8 +135,6 @@ export default function RootLayout({
         <meta name="theme-color" content="#0a0a0f" />
         {/* Preconnect hints for external domains (WPO) */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Favicon - Multiple formats for best compatibility */}
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" type="image/svg+xml" href="/anuja-sign.svg" />

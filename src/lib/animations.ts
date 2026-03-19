@@ -22,11 +22,13 @@ export const appleEase = {
 
 // Standard durations (Apple-like timing)
 export const duration = {
-  fast: 0.2,
-  standard: 0.3,
-  medium: 0.4,
-  slow: 0.6,
-  slower: 0.8,
+  fast: 0.3,
+  standard: 0.45,
+  medium: 0.65,
+  slow: 0.9,
+  slower: 1.4,
+  cinematic: 2.0,
+  reveal: 1.1,
 }
 
 // ============================================
@@ -36,13 +38,13 @@ export const duration = {
 export const fadeInUp = {
   hidden: { 
     opacity: 0, 
-    y: 24,
+    y: 20,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: { 
-      duration: duration.slow, 
+      duration: duration.reveal, 
       ease: appleEase.standard,
     },
   },
@@ -81,15 +83,15 @@ export const fadeInDown = {
 export const sectionReveal = {
   hidden: { 
     opacity: 0, 
-    y: 20, // Reduced from 32 for smoother animation
-    visibility: 'hidden' as const, // Ensure hidden state
+    y: 28,
+    visibility: 'hidden' as const,
   },
   visible: {
     opacity: 1,
     y: 0,
-    visibility: 'visible' as const, // Ensure visible state
+    visibility: 'visible' as const,
     transition: { 
-      duration: 0.5, // Faster for smoother feel
+      duration: duration.reveal,
       ease: appleEase.standard,
     },
   },
@@ -98,13 +100,13 @@ export const sectionReveal = {
 export const sectionRevealSubtle = {
   hidden: { 
     opacity: 0, 
-    y: 16,
+    y: 14,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: { 
-      duration: duration.medium, 
+      duration: duration.slow, 
       ease: appleEase.gentle,
     },
   },
@@ -117,13 +119,13 @@ export const sectionRevealSubtle = {
 export const heroTitleVariant = {
   hidden: { 
     opacity: 0, 
-    y: 32,
+    y: 24,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: { 
-      duration: duration.slower, 
+      duration: duration.cinematic, 
       ease: appleEase.standard,
     },
   },
@@ -132,14 +134,14 @@ export const heroTitleVariant = {
 export const heroSubVariant = {
   hidden: { 
     opacity: 0, 
-    y: 20,
+    y: 16,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: { 
       duration: duration.slower, 
-      delay: 0.15, 
+      delay: 0.25, 
       ease: appleEase.gentle,
     },
   },
@@ -148,14 +150,14 @@ export const heroSubVariant = {
 export const heroButtonsVariant = {
   hidden: { 
     opacity: 0, 
-    y: 16,
+    y: 12,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: { 
-      duration: duration.slow, 
-      delay: 0.3, 
+      duration: duration.slower, 
+      delay: 0.5, 
       ease: appleEase.standard,
     },
   },
@@ -207,8 +209,8 @@ export const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
+      staggerChildren: 0.14,
+      delayChildren: 0.15,
     },
   },
 }
@@ -217,8 +219,8 @@ export const staggerList = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.05,
+      staggerChildren: 0.10,
+      delayChildren: 0.08,
     },
   },
 }
@@ -227,8 +229,8 @@ export const staggerFast = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.04,
-      delayChildren: 0.02,
+      staggerChildren: 0.07,
+      delayChildren: 0.04,
     },
   },
 }
@@ -269,21 +271,21 @@ export const linkHover = {
 export const pageTransition = {
   hidden: { 
     opacity: 0, 
-    y: 16,
+    y: 12,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: { 
-      duration: duration.medium, 
+      duration: duration.slower, 
       ease: appleEase.standard,
     },
   },
   exit: {
     opacity: 0,
-    y: -16,
+    y: -8,
     transition: { 
-      duration: duration.standard, 
+      duration: duration.slow, 
       ease: appleEase.gentle,
     },
   },
