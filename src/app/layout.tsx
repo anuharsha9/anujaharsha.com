@@ -36,49 +36,70 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Anuja Harsha Nimmagadda | Senior Product Designer',
+    default: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
+    'Senior Product Designer who makes complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
   keywords: [
+    // ── Primary identity ──
     'Senior Product Designer',
     'Staff Product Designer',
+    'Lead Product Designer',
     'Product Designer Portfolio',
-    'Enterprise UX',
-    'B2B Enterprise UX',
-    'Design Systems',
-    'Legacy Modernization',
-    'Complex Systems Design',
-    'Product Design',
-    'User Experience Design',
-    'Enterprise Software Design',
-    'Data Science UX',
-    'Machine Learning UX',
-    'AI-Native Design',
-    'AI Native UX',
-    'UX Architect',
-    'Design Strategist',
-    'Design Technologist',
-    'Design Engineer',
-    'Data Workflow Modernization',
-    'Enterprise Complexity',
-    'Vibe Coding',
-    'Vibe Coding Portfolio',
-    'Code Prototyping',
-    'High Fidelity Code Prototyping',
-    'Interactive Portfolio',
-    'Open to Work',
-    'OpenToWork',
-    'Hiring Product Designer',
-    'FAANG Product Designer',
-    'Complexity Architect',
-    'Engineering Empathy',
-    'WebFOCUS',
-    'ReportCaster',
     'Anuja Harsha',
     'Anuja Harsha Nimmagadda',
     'Anuja Nimmagadda',
+    // ── Value Wedge: domain + problem ──
+    'Enterprise UX',
+    'B2B Enterprise UX',
+    'Enterprise Software Design',
+    'Enterprise Complexity',
+    'Complex Systems Design',
+    'Legacy Modernization',
+    'Legacy System Modernization',
+    'Data Workflow Modernization',
+    'Enterprise Data Platforms',
+    // ── Growing role titles (Shift UX 2026) ──
+    'UX Architect',
+    'Information Architect',
+    'Design Strategist',
+    'UX Strategist',
+    'Design Technologist',
+    'Creative Technologist',
+    'Design Engineer',
+    'UX Engineer',
+    'Experience Designer',
+    // ── AI / ML specialization ──
+    'AI-Native Design',
+    'AI Native UX',
+    'AI UX Designer',
+    'Machine Learning UX',
+    'Data Science UX',
+    'ML Workflow Design',
+    'Enterprise AI Design',
+    // ── Technical + craft ──
+    'Design Systems',
+    'Product Design',
+    'User Experience Design',
+    'Code Prototyping',
+    'High Fidelity Prototyping',
+    'Full Stack Design',
+    'Systems Thinking',
+    'Engineering Empathy',
+    // ── Discoverability / hiring ──
+    'Open to Work',
+    'OpenToWork',
+    'Hiring Product Designer',
+    'Product Designer Open to Work',
+    'Interactive Portfolio',
+    'Vibe Coding',
+    'Vibe Coding Portfolio',
+    // ── Brand / product names ──
+    'WebFOCUS',
+    'ReportCaster',
+    'DSML Hub',
+    'Complexity Architect',
   ],
   authors: [{ name: 'Anuja Harsha Nimmagadda' }],
   creator: 'Anuja Harsha Nimmagadda',
@@ -87,16 +108,25 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    siteName: 'Anuja Harsha Nimmagadda',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization',
+    siteName: 'Anuja Harsha Nimmagadda — Senior Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
     description:
-      'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
+      'I make complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Anuja Harsha Nimmagadda — Senior Product Designer specializing in enterprise products, legacy modernization, and AI-native design',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise · Legacy Modernization · AI-Native',
     description:
       'I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
@@ -152,6 +182,8 @@ export default function RootLayout({
         </Suspense>
         <StructuredData type="website" />
         <StructuredData type="person" />
+        <StructuredData type="profilePage" />
+        <StructuredData type="portfolio" />
         <LightboxProvider>
           <PdfProvider>
             <ReducedMotionProvider>

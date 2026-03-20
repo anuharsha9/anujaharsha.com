@@ -197,7 +197,7 @@ function GlitchPortalHero() {
                 Senior Product Designer · 13 Years
               </p>
               <p className="text-zinc-400 text-sm md:text-base max-w-md leading-relaxed">
-                I specialize in untangling the most complex enterprise systems through code-first architecture.
+                I make complex enterprise products easier to understand, use, and adopt.
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -855,7 +855,7 @@ function ConnectionClose() {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          Designed by Anuja. Orchestrated via Multi-Agent AI.
+           Designed by Anuja. Built with Cursor + Google Antigravity.
         </motion.p>
       </div>
     </section>

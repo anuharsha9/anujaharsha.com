@@ -11,9 +11,12 @@
  * Interactive layer:
  *   - Mouse proximity gently displaces nearby rays (cursor ripple).
  *     Effect radius ~200px, max displacement ~12px. Felt, not seen.
- *   - Scroll-linked calm: as the user scrolls past the hero fold,
- *     wave amplitude and speed gradually reduce — deep water is
- *     calmer. This is driven by a scroll factor (1 → 0.5).
+ *   - Scroll-phase undulation: the page's scroll position is smoothly
+ *     blended into the wave's phase, so scrolling gently pushes the
+ *     aurora — like wind moving a curtain. Constant speed, constant
+ *     amplitude, perfectly smooth.
+ *   - Scroll-linked calm: base wave amplitude gently reduces (1 → 0.75)
+ *     as the user scrolls past the hero fold.
  *
  * Colors from CSS custom properties (design tokens).
  */
@@ -50,6 +53,10 @@ const CURTAINS: AuroraCurtain[] = [
 const RIPPLE_RADIUS = 200    // px — influence radius
 const RIPPLE_STRENGTH = 12   // px — max displacement at epicenter
 
+// Scroll-to-phase conversion: how many "wave cycles" per 1000px of scroll
+// Lower = more subtle. 0.3 means ~1 full wave cycle per ~3300px of scroll.
+const SCROLL_PHASE_SCALE = 0.3 / 1000
+
 export default function HeroAurora() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const rafRef = useRef<number>(0)
@@ -58,7 +65,12 @@ export default function HeroAurora() {
 
     // Interactive refs — updated outside React render cycle for perf
     const mouseRef = useRef({ x: -1000, y: -1000 }) // Off-canvas by default
-    const scrollFactorRef = useRef(1) // 1 = full intensity, 0.5 = calmed
+    const scrollFactorRef = useRef(1) // 1 = full intensity, 0.75 = calmed
+
+    // Scroll-phase: smoothly lerped scroll position → wave phase offset
+    // Target is set by scroll events, current is lerped toward target each frame
+    const scrollPhaseTargetRef = useRef(0)
+    const scrollPhaseCurrentRef = useRef(0)
 
     const draw = useCallback((ctx: CanvasRenderingContext2D, time: number) => {
         const w = sizeRef.current.w
@@ -71,13 +83,17 @@ export default function HeroAurora() {
         const { r, g, b } = tealRef.current
         const mx = mouseRef.current.x
         const my = mouseRef.current.y
-        const scrollCalm = scrollFactorRef.current // 1 → 0.5
+        const scrollCalm = scrollFactorRef.current // 1 → 0.75
+        const scrollPhase = scrollPhaseCurrentRef.current // smoothly lerped scroll offset
 
         for (const curtain of CURTAINS) {
-            // Speed and amplitude scale with scroll calm
-            const effectiveSpeed = curtain.speed * (0.5 + scrollCalm * 0.5) // min 50% speed
-            const effectiveAmp = curtain.waveAmplitude * (0.6 + scrollCalm * 0.4) // min 60% amplitude
-            const t = time * effectiveSpeed + curtain.phase
+            // Constant speed and amplitude — no surges, no flickering
+            const effectiveSpeed = curtain.speed * (0.5 + scrollCalm * 0.5)
+            const effectiveAmp = curtain.waveAmplitude * (0.6 + scrollCalm * 0.4)
+
+            // Time drives the animation, scroll phase is added as a gentle offset
+            // This makes the waves flow continuously AND respond to scroll
+            const t = time * effectiveSpeed + curtain.phase + scrollPhase
 
             // Vertical drift of the whole curtain
             const drift = Math.sin(t * 0.2) * 10 * scrollCalm
@@ -203,12 +219,20 @@ export default function HeroAurora() {
             mouseRef.current = { x: -1000, y: -1000 }
         }
 
-        // ── Scroll-linked calm ──
+        // ── Scroll → phase offset (smooth, no velocity tracking) ──
+        // Simply converts scroll position to a target phase offset.
+        // The animation loop lerps toward this target each frame,
+        // creating buttery smooth undulation without any speed changes.
         const onScroll = () => {
             const vh = window.innerHeight
-            const progress = Math.min(window.scrollY / vh, 1) // 0 → 1 over first viewport
-            // Ease: 1 at top → 0.5 when scrolled past 1vh
-            scrollFactorRef.current = 1 - progress * 0.5
+
+            // Scroll-linked calm: eases from 1.0 → 0.75 over first 2 viewports
+            const progress = Math.min(window.scrollY / (vh * 2), 1)
+            scrollFactorRef.current = 1 - progress * 0.25
+
+            // Scroll position → wave phase offset
+            // scrollY * SCROLL_PHASE_SCALE gives a smooth, continuous phase shift
+            scrollPhaseTargetRef.current = window.scrollY * SCROLL_PHASE_SCALE
         }
 
         // Only attach mouse listeners on non-touch devices
@@ -219,10 +243,18 @@ export default function HeroAurora() {
         }
         window.addEventListener('scroll', onScroll, { passive: true })
         onScroll() // Initial value
+        scrollPhaseCurrentRef.current = scrollPhaseTargetRef.current // Sync on mount
 
         const startTime = performance.now()
         const animate = () => {
             const elapsed = (performance.now() - startTime) / 1000
+
+            // Smoothly lerp scroll phase toward target — this is what makes
+            // the undulation feel silky rather than jittery
+            const current = scrollPhaseCurrentRef.current
+            const target = scrollPhaseTargetRef.current
+            scrollPhaseCurrentRef.current = current + (target - current) * 0.08
+
             draw(ctx, prefersReducedMotion ? 0 : elapsed)
             rafRef.current = requestAnimationFrame(animate)
         }

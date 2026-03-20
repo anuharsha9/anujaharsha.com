@@ -171,12 +171,17 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                             <button
                                 key={v.id}
                                 onClick={() => setCurrentIndex(i)}
-                                className="h-1.5 rounded-full transition-all duration-500"
-                                style={{
-                                    width: i === currentIndex ? 24 : 8,
-                                    backgroundColor: i === currentIndex ? current.accent : 'rgba(255,255,255,0.15)',
-                                }}
-                            />
+                                aria-label={`Go to version ${i + 1}: ${v.title}`}
+                                className="relative flex items-center justify-center min-w-[44px] min-h-[44px]"
+                            >
+                                <span
+                                    className="h-1.5 rounded-full transition-all duration-500 block"
+                                    style={{
+                                        width: i === currentIndex ? 24 : 8,
+                                        backgroundColor: i === currentIndex ? current.accent : 'rgba(255,255,255,0.15)',
+                                    }}
+                                />
+                            </button>
                         ))}
                     </div>
                 </motion.div>

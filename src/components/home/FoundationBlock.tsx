@@ -2,59 +2,42 @@
 
 import { motion } from 'framer-motion'
 
-const FOUNDATIONS = [
-    'MS Paint', 'CorelDRAW', 'Pencil Drawing',
-    'Origami', 'Acrylic & Oil Painting', 'Embroidery',
-]
+const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 export default function FoundationBlock() {
     return (
-        <div className="px-4 md:px-8 lg:px-12 max-w-3xl mx-auto pb-12 md:pb-16">
-            <motion.div
-                initial={{ opacity: 0, y: 20, filter: 'blur(16px)' }}
-                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-xl bg-[var(--surface-obsidian-900)] overflow-hidden aurora-border"
-            >
-                {/* Compact title bar */}
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.02] border-b border-white/[0.05]">
-                    <div className="flex gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-red)]/60" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-yellow)]/60" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-green-alt)]/60" />
-                    </div>
-                    <span className="ml-2 text-[10px] font-mono text-zinc-800 tracking-wider uppercase breathe-slow" style={{ '--breathe-base': '0.3', '--breathe-peak': '0.5' } as React.CSSProperties}>
-                        the foundation · birth — 2012
-                    </span>
-                </div>
+        <section className="relative w-full py-24 md:py-32 overflow-hidden border-y border-white/[0.04] bg-transparent">
+            {/* Subtle background glow */}
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--accent-teal)]/5 blur-[120px] rounded-full point-events-none" />
+            
+            <div className="relative max-w-4xl mx-auto px-4 md:px-8 lg:px-12 flex flex-col items-center text-center">
+                    
+                {/* ─── Philosophy & Foundations ─── */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 1.2, delay: 0.2, ease }}
+                >
+                    <blockquote className="relative flex flex-col items-center">
+                        {/* Large decorative quote mark */}
+                        <span className="absolute -top-12 text-7xl text-white/[0.04] font-serif leading-none select-none">
+                            &ldquo;
+                        </span>
+                        <p className="relative z-10 font-serif italic text-2xl md:text-3xl lg:text-4xl text-zinc-400 leading-[1.6]">
+                            When you look at a chair… the only thing that comes to mind is to sit on it.
+                            It&apos;s the whole point of creating anything — to achieve that obviousness. No?
+                        </p>
+                        <p className="mt-8 font-serif italic text-2xl md:text-3xl lg:text-4xl text-zinc-300 leading-[1.6]">
+                            How does one achieve that? <br className="hidden md:block" />
+                            <span className="text-white font-medium drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                                By obsessing over how humans experience things.
+                            </span>
+                        </p>
+                    </blockquote>
+                </motion.div>
 
-                {/* Compact terminal content */}
-                <div className="px-4 py-3.5 md:px-5 font-mono text-xs md:text-sm flex flex-wrap items-center gap-2">
-                    <span className="text-[var(--accent-teal)]/50 shrink-0">~</span>
-                    <span className="text-zinc-800 shrink-0">$</span>
-                    <span className="text-zinc-600 shrink-0 mr-1">ls ./creative-foundations/</span>
-                    {FOUNDATIONS.map((skill, i) => (
-                        <motion.span
-                            key={skill}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 + i * 0.08, duration: 0.3 }}
-                            className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06] text-zinc-400 text-[11px] tracking-wide hover:bg-[var(--accent-teal)]/10 hover:border-[var(--accent-teal)]/15 hover:text-[var(--accent-teal)] transition-all duration-300 cursor-default teal-glow-hover"
-                        >
-                            {skill}
-                        </motion.span>
-                    ))}
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 + FOUNDATIONS.length * 0.08 + 0.1 }}
-                        className="inline-block w-1.5 h-3.5 bg-white/30 animate-pulse ml-0.5"
-                    />
-                </div>
-            </motion.div>
-        </div>
+            </div>
+        </section>
     )
 }

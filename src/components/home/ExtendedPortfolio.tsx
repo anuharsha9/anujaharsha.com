@@ -308,12 +308,17 @@ export default function ExtendedPortfolio() {
                     <button
                         key={i}
                         onClick={() => scrollToSlide(i)}
-                        className="h-1.5 rounded-full transition-all duration-500"
-                        style={{
-                            width: i === activeSlide ? 28 : 8,
-                            backgroundColor: i === activeSlide ? 'var(--accent-teal)' : 'rgba(255,255,255,0.12)',
-                        }}
-                    />
+                        aria-label={`Go to slide ${i + 1} of ${SLIDES.length}`}
+                        className="relative flex items-center justify-center min-w-[44px] min-h-[44px]"
+                    >
+                        <span
+                            className="h-1.5 rounded-full transition-all duration-500 block"
+                            style={{
+                                width: i === activeSlide ? 28 : 8,
+                                backgroundColor: i === activeSlide ? 'var(--accent-teal)' : 'rgba(255,255,255,0.12)',
+                            }}
+                        />
+                    </button>
                 ))}
             </div>
 

@@ -95,7 +95,7 @@ export default async function Image() {
                             marginTop: 14,
                         }}
                     >
-                        Senior / Staff Product Designer
+                        Senior Product Designer
                     </div>
 
                     {/* Separator */}
@@ -121,11 +121,11 @@ export default async function Image() {
                             textTransform: 'uppercase' as const,
                         }}
                     >
-                        <span>Enterprise UX</span>
+                        <span>Enterprise Products</span>
                         <span style={{ color: staticPalette.neutralZinc600 }}>·</span>
-                        <span>Design Systems</span>
+                        <span>Legacy Modernization</span>
                         <span style={{ color: staticPalette.neutralZinc600 }}>·</span>
-                        <span>13 Years</span>
+                        <span>AI-Native Design</span>
                     </div>
 
                     {/* Tagline */}
@@ -139,8 +139,8 @@ export default async function Image() {
                             maxWidth: 480,
                         }}
                     >
-                        Solves complex problems for global platforms.
-                        Makes enterprise software feel as intuitive as consumer products.
+                        I make complex enterprise products easier
+                        to understand, use, and adopt.
                     </div>
 
                     {/* URL */}

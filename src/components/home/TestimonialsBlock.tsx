@@ -161,27 +161,31 @@ export default function TestimonialsBlock() {
                     <button
                         key={i}
                         onClick={() => goTo(i)}
-                        className="relative h-1.5 rounded-full transition-all duration-500 overflow-hidden"
-                        style={{
-                            width: i === active ? 32 : 8,
-                            backgroundColor: i === active ? 'transparent' : 'rgba(255,255,255,0.1)',
-                        }}
+                        className="relative flex items-center justify-center min-w-[44px] min-h-[44px]"
                         aria-label={`Go to testimonial ${i + 1}`}
                     >
-                        {i === active && (
-                            <>
-                                {/* Background track */}
-                                <div className="absolute inset-0 bg-white/10 rounded-full" />
-                                {/* Animated fill — represents time remaining */}
-                                <motion.div
-                                    className="absolute inset-y-0 left-0 bg-[var(--accent-teal)] rounded-full"
-                                    initial={{ width: '0%' }}
-                                    animate={{ width: '100%' }}
-                                    transition={{ duration: CYCLE_DURATION / 1000, ease: 'linear' }}
-                                    key={`fill-${active}`}
-                                />
-                            </>
-                        )}
+                        <span
+                            className="relative h-1.5 rounded-full transition-all duration-500 overflow-hidden block"
+                            style={{
+                                width: i === active ? 32 : 8,
+                                backgroundColor: i === active ? 'transparent' : 'rgba(255,255,255,0.1)',
+                            }}
+                        >
+                            {i === active && (
+                                <>
+                                    {/* Background track */}
+                                    <span className="absolute inset-0 bg-white/10 rounded-full" />
+                                    {/* Animated fill — represents time remaining */}
+                                    <motion.span
+                                        className="absolute inset-y-0 left-0 bg-[var(--accent-teal)] rounded-full"
+                                        initial={{ width: '0%' }}
+                                        animate={{ width: '100%' }}
+                                        transition={{ duration: CYCLE_DURATION / 1000, ease: 'linear' }}
+                                        key={`fill-${active}`}
+                                    />
+                                </>
+                            )}
+                        </span>
                     </button>
                 ))}
                 <span className="ml-3 text-[10px] font-mono text-zinc-800">

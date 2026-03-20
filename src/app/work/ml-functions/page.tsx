@@ -5,26 +5,30 @@ import { mlFunctionsCaseStudy } from '@/data/ml-functions'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'Democratizing Machine Learning for Everyone',
+  title: 'Making ML Accessible Without Sacrificing Power',
   description:
-    'How I transformed an engineer-driven ML model training workflow into a guided, step-by-step experience. A case study in AI/ML UX, making machine learning accessible to non-technical users without sacrificing power.',
+    'Enterprise ML was engineer-only — I turned it into a guided workflow anyone could use. From zero ML knowledge to owning the full UX revamp. A case study in AI/ML UX, complexity reduction, and cross-functional ownership.',
   keywords: [
     'ML Functions',
-    'AI/ML UX',
-    'Machine Learning UX',
-    'Data Science UX',
-    'Enterprise AI',
-    'UX Case Study',
+    'AI Workflow Design',
     'ML Workflow Design',
+    'Machine Learning UX',
+    'AI/ML UX',
+    'Data Science UX',
+    'Enterprise AI Design',
     'AI-Native Design',
+    'UX Case Study',
     'Senior Product Designer',
+    'Design Technologist',
+    'Complex Systems Design',
     'Code Prototyping',
     'Anuja Harsha',
+    'Anuja Harsha Nimmagadda',
   ],
   openGraph: {
-    title: 'ML Functions: Making Enterprise ML Training Usable | Anuja Harsha',
+    title: 'Making ML Accessible Without Sacrificing Power | Anuja Harsha',
     description:
-      'How I transformed an engineer-driven ML workflow into a guided experience for non-experts. A case study in AI/ML UX.',
+      'Enterprise ML was engineer-only — I designed a guided workflow anyone could use. From side project to full ownership.',
     url: `${siteUrl}/work/ml-functions/`,
     type: 'article',
     images: [
@@ -38,9 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ML Functions: Making Enterprise ML Training Usable',
+    title: 'Making ML Accessible Without Sacrificing Power',
     description:
-      'How I transformed an engineer-driven ML workflow into a guided experience for non-experts.',
+      'Enterprise ML was engineer-only — I designed a guided workflow anyone could use.',
     images: ['/images/case-study/ml-functions/ml-functions-cover.png'],
   },
   alternates: {

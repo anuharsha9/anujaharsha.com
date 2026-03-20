@@ -29,39 +29,43 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 export const metadata: Metadata = {
   title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
   description:
-    'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
+    'I make complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
   keywords: [
     'Senior Product Designer',
     'Staff Product Designer',
     'Product Designer Portfolio',
     'Enterprise UX',
     'B2B Enterprise UX',
+    'Legacy Modernization',
     'AI-Native Design',
     'UX Architect',
     'Design Strategist',
     'Design Technologist',
     'Design Engineer',
-    'Legacy Modernization',
+    'UX Engineer',
+    'Experience Designer',
     'Data Workflow Modernization',
     'Enterprise Complexity',
+    'Complex Systems Design',
+    'Machine Learning UX',
+    'Data Science UX',
     'Code Prototyping',
-    'Interactive Portfolio',
-    'Open to Work',
-    'OpenToWork',
+    'Systems Thinking',
     'Engineering Empathy',
+    'Open to Work',
     'Complexity Architect',
     'Anuja Harsha',
     'Anuja Harsha Nimmagadda',
   ],
   openGraph: {
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
     description:
-      'Senior Product Designer. I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native experiences.',
+      'I make complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
     url: siteUrl,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise · Legacy Modernization · AI-Native',
     description:
       'I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
   },
@@ -109,9 +113,13 @@ export default function Home() {
         <LifeContextStrip milestones={AGENCY_MILESTONES} />
       </BlurZone>
 
-      {/* ═══ ZONE 6: FOUNDATION + FOOTER ═══ */}
-      <BlurZone id="footer-zone" containerHeight="180vh">
+      {/* ═══ ZONE 6: FOUNDATION ═══ */}
+      <BlurZone id="foundation-zone" containerHeight="120vh">
         <FoundationBlock />
+      </BlurZone>
+
+      {/* ═══ ZONE 7: FOOTER ═══ */}
+      <BlurZone id="footer-zone" containerHeight="100vh">
         <TalkSection />
       </BlurZone>
 

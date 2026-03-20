@@ -11,6 +11,16 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 /* ─── tile data ─── */
 const TILES = [
     {
+        id: 'reportcaster',
+        domain: 'Legacy Modernization · Customer Retention',
+        title: 'Retaining enterprise customers by modernizing a 40-year scheduling platform',
+        link: '/work/reportcaster',
+        flagship: true,
+        Wireframe: RCWireframe,
+        accentVar: '--accent-amber-rgb',
+        wireframeHue: 40,
+    },
+    {
         id: 'ml-functions',
         domain: 'AI Workflow Design · ML Accessibility',
         title: 'Democratizing ML — 12-step coding task to a 4-step visual wizard',
@@ -27,16 +37,6 @@ const TILES = [
         Wireframe: IQWireframe,
         accentVar: '--semantic-purple-rgb',
         wireframeHue: 260,
-    },
-    {
-        id: 'reportcaster',
-        domain: 'Legacy Modernization · Customer Retention',
-        title: 'Retaining enterprise customers by modernizing a 40-year scheduling platform',
-        link: '/work/reportcaster',
-        flagship: true,
-        Wireframe: RCWireframe,
-        accentVar: '--accent-amber-rgb',
-        wireframeHue: 40,
     },
 ]
 
@@ -60,7 +60,7 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     style={{
-                        minHeight: tile.flagship ? '420px' : '200px',
+                        minHeight: '320px',
                         border: `1px solid rgba(${rgb}, 0.12)`,
                         background: `linear-gradient(135deg, rgba(${rgb}, 0.08), rgba(${rgb}, 0.03)), var(--bg-cinematic)`,
                         boxShadow: isHovered
@@ -146,10 +146,6 @@ export default function CSGBlock() {
     const headingOpacity = useTransform(scrollYProgress, [0, 0.08], [0, 1])
     const headingScale = useTransform(scrollYProgress, [0, 0.15], [0.98, 1])
 
-
-    const leftTiles = TILES.filter(t => !t.flagship)
-    const rightTile = TILES.find(t => t.flagship)!
-
     return (
         <motion.section ref={ref} className="relative pt-8 md:pt-16 pb-12 md:pb-20 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
             {/* Era label — decorative, above content */}
@@ -183,17 +179,11 @@ export default function CSGBlock() {
                 </p>
             </motion.div>
 
-            {/* Bento Grid: RC flagship left (65%) / ML + IQ stacked right (35%) */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_35%] gap-4 md:gap-5">
-                {/* Left column — RC flagship */}
-                <BentoTile tile={rightTile} delay={0.1} />
-
-                {/* Right column — ML + IQ stacked */}
-                <div className="flex flex-col gap-4 md:gap-5">
-                    {leftTiles.map((tile, i) => (
-                        <BentoTile key={tile.id} tile={tile} delay={0.25 + i * 0.2} />
-                    ))}
-                </div>
+            {/* 3-column equal grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+                {TILES.map((tile, i) => (
+                    <BentoTile key={tile.id} tile={tile} delay={0.1 + i * 0.15} />
+                ))}
             </div>
         </motion.section>
     )

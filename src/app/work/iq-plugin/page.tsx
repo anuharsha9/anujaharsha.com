@@ -5,28 +5,32 @@ import { iqPluginCaseStudy } from '@/data/iq-plugin'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'Driving Data Science Adoption in Enterprise BI',
+  title: 'AI Features Nobody Could Find — 25% Adoption Boost',
   description:
-    'How I unified NLQ, Insights, and ML capabilities into one discoverable DSML Hub — driving a 25% adoption boost. A case study in platform vision, multi-persona design, and progressive disclosure.',
+    'Three powerful AI capabilities buried across three menus. I unified NLQ, Insights, and ML into one discoverable DSML Hub — driving a 25% adoption boost. A case study in platform vision and making AI features visible.',
   keywords: [
+    'Platform Unification',
+    'DSML Hub',
     'Data Science Adoption',
-    'DSML UX',
-    'NLQ',
-    'Insights',
-    'WebFOCUS',
+    'NLQ UX Design',
     'Enterprise BI',
+    'AI-Native Design',
     'Multi-Persona Design',
     'Progressive Disclosure',
     'UX Case Study',
-    'AI-Native Design',
     'Senior Product Designer',
+    'UX Architect',
+    'Design Strategist',
+    'Experience Designer',
     'Enterprise UX',
+    'Complex Systems Design',
     'Anuja Harsha',
+    'Anuja Harsha Nimmagadda',
   ],
   openGraph: {
-    title: 'Driving Data Science Adoption in Enterprise BI | Anuja Harsha',
+    title: 'AI Features Nobody Could Find — 25% Adoption Boost | Anuja Harsha',
     description:
-      'How I unified NLQ, Insights, and ML into one discoverable DSML Hub — driving 25% adoption boost.',
+      'Three AI capabilities buried across menus. I unified them into one Hub — 25% adoption boost.',
     url: `${siteUrl}/work/iq-plugin/`,
     type: 'article',
     images: [
@@ -40,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Driving Data Science Adoption in Enterprise BI',
+    title: 'AI Features Nobody Could Find — 25% Adoption Boost',
     description:
-      'How I unified NLQ, Insights, and ML into one discoverable DSML Hub — driving 25% adoption boost.',
+      'Three AI capabilities buried across menus. I unified them into one Hub — 25% adoption boost.',
     images: ['/images/case-study/iq-plugin/iq-cover.png'],
   },
   alternates: {
