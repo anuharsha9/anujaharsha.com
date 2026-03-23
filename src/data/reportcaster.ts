@@ -3,9 +3,9 @@ import { CaseStudyData } from '@/types/caseStudy'
 export const reportcasterCaseStudy: CaseStudyData = {
   slug: 'reportcaster',
   heroTitle: 'Customers Were Leaving. 40 Years Without Updates.',
-  heroSubheading: 'The platform\'s enterprise scheduler was losing customers after 40+ years without meaningful updates. The goal: retain them. The challenge: modernize a 50-year-old system with zero documentation.',
+  heroSubheading: '20M+ weekly jobs. 40 years without updates. Customers were leaving — and the platform had zero documentation for the system they needed fixed.',
   heroSubtitle:
-    'Volunteered one week in. Mapped 5 undocumented subsystems from scratch. Navigated 2 rejected architectures. Delivered a brand-new integrated system — not a UI refresh.',
+    'I rebuilt 5 fragmented subsystems into one integrated hub. Two architectures rejected before the breakthrough. Shipped April 2024 — customers retained.',
   coverImage: {
     src: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
     alt: 'ReportCaster Explorer - Unified Schedule Management',
@@ -145,7 +145,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
       {
         type: 'title',
         layout: 'center',
-        title: 'Customers Were Leaving. I Rebuilt the System.',
+        title: 'Customers Were Leaving. 40 Years Without Updates.',
         content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'],
         image: '/images/case-study/ReportCaster/rc-cover.png',
       },

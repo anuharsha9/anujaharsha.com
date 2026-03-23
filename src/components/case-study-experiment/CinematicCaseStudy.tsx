@@ -3,23 +3,24 @@
 /**
  * CinematicCaseStudy — Reusable case study shell.
  *
- * ZERO hardcoded content. Everything is prop-driven:
- * - slides: StorySlide[]           → presentation mode content
- * - theme: 'rc' | 'ml' | 'dsml'   → sets CSS --cs-* tokens via data-cs-theme
- * - heroStats: HeroStat[]          → the 3 stats in the hero
- * - actSections: ActSection[]      → scroll nav dots (full view)
- * - children: ReactNode            → full view content (Acts)
+ * Single-scroll experience:  Trailer → ScrollDeck → Full Case Study
+ * No toggles. No mode switching. Just scroll.
  *
- * Design tokens consumed: --cs-accent, --cs-accent-rgb, --cs-bg-radial, etc.
+ * Props:
+ * - slides: StorySlide[]           → scroll-driven deck scenes
+ * - theme: 'rc' | 'ml' | 'dsml'   → sets CSS --cs-* tokens via data-cs-theme
+ * - heroStats: HeroStat[]          → impact metrics below the trailer
+ * - actSections: ActSection[]      → scroll nav dots (full view)
+ * - children: ReactNode            → full case study content (Acts)
  */
 
-import React, { useRef, useState, useCallback, type ReactNode } from 'react'
+import React, { useRef, type ReactNode } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { useTransition } from '@/components/transitions/TransitionContext'
 import { CaseStudyData } from '@/types/caseStudy'
 import ViewModeToggle from '@/components/case-study/ViewModeToggle'
-import StoryDeck, { StorySlide } from '@/components/case-study/StoryDeck'
+import ScrollDeck from '@/components/case-study/ScrollDeck'
+import { StorySlide } from '@/components/case-study/StoryDeck'
 import { LightboxProvider } from './BentoGrid'
 
 
@@ -60,20 +61,6 @@ export default function CinematicCaseStudy({
     children,
 }: CinematicCaseStudyProps) {
     const heroRef = useRef<HTMLDivElement>(null)
-    const { navigateTo } = useTransition()
-    const hasFullView = !!children
-    const [viewMode, setViewMode] = useState<'full' | 'presentation'>('presentation')
-
-    // Scroll to top when switching view modes so content is visible
-    // Then dispatch a scroll event to force framer-motion to recalculate
-    // (useScroll doesn't detect layout changes — needs a scroll event)
-    React.useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'instant' })
-        // Wait for DOM reflow, then nudge framer-motion
-        requestAnimationFrame(() => {
-            window.dispatchEvent(new Event('scroll'))
-        })
-    }, [viewMode])
 
     const { scrollYProgress: heroProgress } = useScroll({
         target: heroRef,
@@ -104,122 +91,116 @@ export default function CinematicCaseStudy({
         return () => window.removeEventListener('scroll', handleScroll)
     }, [actSections])
 
-    const handlePresentationClose = useCallback(() => {
-        navigateTo('/#work-overview')
-    }, [navigateTo])
-
     return (
         <div data-cs-theme={theme}>
             <LightboxProvider>
-                {/* ── Sticky Nav with View Mode Toggle ── */}
-                <ViewModeToggle
-                    viewMode={viewMode}
-                    setViewMode={setViewMode}
-                    hasPresentation={true}
-                />
+                {/* ── Nav Bar (Home + Case Study Dropdown) ── */}
+                <ViewModeToggle />
 
-                {/* ── Presentation Mode — StoryDeck Carousel ── */}
-                {viewMode === 'presentation' && (
-                    <StoryDeck
-                        slides={slides}
-                        onExit={() => setViewMode('full')}
-                        onClose={handlePresentationClose}
-                        embedded
-                    />
+                {/* ── Single Scroll Experience ── */}
+
+                {/* ═══ SCROLL PROGRESS DOTS ═══ */}
+                {actSections && actSections.length > 0 && (
+                    <nav
+                        className={`fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 transition-opacity duration-500 ${showProgress ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                        aria-label="Case study navigation"
+                    >
+                        {actSections.map((act) => (
+                            <a
+                                key={act.id}
+                                href={`#${act.id}`}
+                                className="group flex items-center gap-2 transition-all duration-300"
+                                title={act.title}
+                            >
+                                <span className={`block rounded-full transition-all duration-300 ${activeAct === act.id
+                                    ? 'w-2.5 h-2.5 bg-[var(--cs-accent)] shadow-[0_0_8px_var(--cs-accent-glow)]'
+                                    : 'w-1.5 h-1.5 bg-white/20 group-hover:bg-white/40'
+                                    }`} />
+                                <span className={`text-[9px] font-mono tracking-widest uppercase transition-all duration-300 ${activeAct === act.id ? 'text-[var(--cs-accent)] opacity-100' : 'text-zinc-800 group-hover:text-zinc-500'}`}>
+                                    {act.label}
+                                </span>
+                            </a>
+                        ))}
+                    </nav>
                 )}
 
-                {/* ── Full Cinematic Case Study ── */}
-                <div style={{ display: viewMode === 'presentation' ? 'none' : 'contents' }}>
-                    <div className="relative min-h-screen text-white overflow-hidden pb-48">
-                        {/* Scanline overlay */}
-                        <div className="scanline-overlay" aria-hidden="true" />
+                {/* Scanline overlay */}
+                <div className="scanline-overlay fixed inset-0 z-[1] pointer-events-none" aria-hidden="true" />
 
-                        {/* ═══ SCROLL PROGRESS DOTS ═══ */}
-                        {actSections && actSections.length > 0 && (
-                            <nav
-                                className={`fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 transition-opacity duration-500 ${showProgress ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                                aria-label="Case study navigation"
-                            >
-                                {actSections.map((act) => (
-                                    <a
-                                        key={act.id}
-                                        href={`#${act.id}`}
-                                        className="group flex items-center gap-2 transition-all duration-300"
-                                        title={act.title}
-                                    >
-                                        <span className={`block rounded-full transition-all duration-300 ${activeAct === act.id
-                                            ? 'w-2.5 h-2.5 bg-[var(--cs-accent)] shadow-[0_0_8px_var(--cs-accent-glow)]'
-                                            : 'w-1.5 h-1.5 bg-white/20 group-hover:bg-white/40'
-                                            }`} />
-                                        <span className={`text-[9px] font-mono tracking-widest uppercase transition-all duration-300 ${activeAct === act.id ? 'text-[var(--cs-accent)] opacity-100' : 'text-zinc-800 group-hover:text-zinc-500'}`}>
-                                            {act.label}
-                                        </span>
-                                    </a>
-                                ))}
-                            </nav>
-                        )}
+                {/* ═══ HERO — Trailer + Metadata ═══ */}
+                <div className="relative text-white">
+                    <motion.section
+                        ref={heroRef}
+                        className="relative z-10 min-h-[100vh] flex flex-col justify-center px-6 md:px-16 pt-20"
+                        style={{ opacity, scale }}
+                    >
+                        <div className="max-w-[1440px] mx-auto w-full">
+                            <h1 className="sr-only">{data.heroTitle}</h1>
 
-                        {/* ═══ HERO ═══ */}
-                        <motion.section
-                            ref={heroRef}
-                            className="relative z-10 min-h-[100vh] flex flex-col justify-center px-6 md:px-16 pt-20 sticky top-[56px]"
-                            style={{ opacity, scale }}
-                        >
-                            <div className="max-w-[1440px] mx-auto w-full">
-                                {/* Split layout: Title left (narrower), Trailer right (wider) */}
-                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                                    {/* Left — Text (5 cols) */}
-                                    <div className="lg:col-span-5">
-                                        <span className="text-[var(--cs-accent)] font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.3em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] block">
-                                            {data.role}
-                                        </span>
-
-                                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-500 mb-6 pb-2">
-                                            {data.heroTitle}
-                                        </h1>
-
-                                        <p className="text-xs font-mono text-[var(--accent-teal)] mt-6 uppercase tracking-widest">
-                                            {data.company} • {data.timeframe}
-                                        </p>
+                            {/* Trailer — full width, clean and undistracted */}
+                            <div className="relative w-full">
+                                {heroBackground ? (
+                                    <div className="rounded-2xl overflow-hidden shadow-2xl shadow-black/50 aspect-video relative aurora-border">
+                                        {heroBackground}
                                     </div>
-
-                                    {/* Right — Wireframe or Cover (7 cols) */}
-                                    <div className="lg:col-span-7 relative">
-                                        {heroBackground ? (
-                                            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-black/50 aspect-video relative aurora-border">
-                                                {heroBackground}
-                                            </div>
-                                        ) : data.coverImage && (
-                                            <div className="rounded-2xl overflow-hidden border border-white/5 shadow-2xl shadow-black/50">
-                                                <Image
-                                                    src={data.coverImage.src}
-                                                    alt={data.coverImage.alt}
-                                                    width={1920}
-                                                    height={1080}
-                                                    priority
-                                                    className="w-full h-auto object-contain"
-                                                />
-                                            </div>
-                                        )}
+                                ) : data.coverImage && (
+                                    <div className="rounded-2xl overflow-hidden border border-white/5 shadow-2xl shadow-black/50 relative">
+                                        <Image
+                                            src={data.coverImage.src}
+                                            alt={data.coverImage.alt}
+                                            width={1920}
+                                            height={1080}
+                                            priority
+                                            className="w-full h-auto object-contain"
+                                        />
                                     </div>
-                                </div>
-
-                                {/* Hero Stats — clean row below */}
-                                <div className="mt-16 sm:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 border-t border-white/5 pt-10">
-                                    {heroStats.map((stat, i) => (
-                                        <div key={i}>
-                                            <p className="text-[10px] uppercase font-mono tracking-widest text-[var(--cs-accent)] mb-2">{stat.label}</p>
-                                            <h3 className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">{stat.value}</h3>
-                                            <p className="text-zinc-500 mt-2 font-light">{stat.description}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                                )}
                             </div>
-                        </motion.section>
 
-                        {/* ═══ CASE STUDY CONTENT (from children) ═══ */}
-                        {children}
-                    </div>
+                            {/* Info bar — metadata left, impact stats right */}
+                            <div className="flex items-center justify-between mt-4 md:mt-5">
+                                <div className="flex items-center gap-2 md:gap-3">
+                                    <span className="text-[var(--cs-accent)] font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.25em]">
+                                        {data.role}
+                                    </span>
+                                    <span className="text-zinc-600 font-mono text-xs sm:text-sm">•</span>
+                                    <span className="text-xs sm:text-sm font-mono text-zinc-400 uppercase tracking-widest">
+                                        {data.company} • {data.timeframe}
+                                    </span>
+                                </div>
+
+                                {heroStats.filter(s => s.label !== 'Timeline').length > 0 && (
+                                    <div className="flex items-center gap-3 md:gap-5">
+                                        {heroStats
+                                            .filter(s => s.label !== 'Timeline')
+                                            .map((stat, i, arr) => (
+                                                <React.Fragment key={i}>
+                                                    <div className="flex flex-col items-center">
+                                                        <span className="text-white font-bold text-sm md:text-lg lg:text-xl leading-none tracking-tight whitespace-nowrap">
+                                                            {stat.value}
+                                                        </span>
+                                                        <span className="text-[9px] md:text-[10px] uppercase font-mono tracking-widest text-white/40 mt-1">
+                                                            {stat.label}
+                                                        </span>
+                                                    </div>
+                                                    {i < arr.length - 1 && (
+                                                        <div className="w-px h-6 md:h-8 bg-white/10" />
+                                                    )}
+                                                </React.Fragment>
+                                            ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </motion.section>
+                </div>
+
+                {/* ═══ SCROLL DECK — Story scenes driven by scroll ═══ */}
+                <ScrollDeck slides={slides} />
+
+                {/* ═══ FULL CASE STUDY CONTENT ═══ */}
+                <div className="relative text-white pb-48">
+                    {children}
                 </div>
             </LightboxProvider>
         </div>

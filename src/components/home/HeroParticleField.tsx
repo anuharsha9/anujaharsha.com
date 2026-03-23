@@ -10,7 +10,7 @@
 
 import { useRef, useEffect, useCallback } from 'react'
 
-const COUNT = 5000
+const COUNT = 3000
 const SCATTER = 800
 const LERP_SPEED = 0.025        // fraction of gap closed per frame — no overshoot possible
 const MOUSE_R = 120
@@ -177,10 +177,19 @@ export default function HeroParticleField({
 
                 const gap = Math.abs(tx[i] - px[i]) + Math.abs(ty[i] - py[i])
                 if (gap > maxGap) maxGap = gap
+            }
 
-                // Draw flat dot
-                ctx.fillStyle = teal[i] ? '#00D2D3' : '#ffffff'
-                ctx.globalAlpha = 0.65
+            // Batch render by color to minimize fillStyle switches
+            ctx.fillStyle = '#ffffff'
+            ctx.globalAlpha = 0.65
+            for (let i = 0; i < COUNT; i++) {
+                if (teal[i]) continue
+                const s = sizes[i]
+                ctx.fillRect(px[i] - s / 2, py[i] - s / 2, s, s)
+            }
+            ctx.fillStyle = '#00D2D3'
+            for (let i = 0; i < COUNT; i++) {
+                if (!teal[i]) continue
                 const s = sizes[i]
                 ctx.fillRect(px[i] - s / 2, py[i] - s / 2, s, s)
             }

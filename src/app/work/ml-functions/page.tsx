@@ -5,9 +5,9 @@ import { mlFunctionsCaseStudy } from '@/data/ml-functions'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'Making ML Accessible Without Sacrificing Power',
+  title: 'Nobody Could Use Our ML Engine.',
   description:
-    'Enterprise ML was engineer-only — I turned it into a guided workflow anyone could use. From zero ML knowledge to owning the full UX revamp. A case study in AI/ML UX, complexity reduction, and cross-functional ownership.',
+    'A multi-million dollar ML engine with zero adoption. I turned 15 clicks through data flow canvases into a 4-step guided workflow. 4/4 SMEs completed it without help.',
   keywords: [
     'ML Functions',
     'AI Workflow Design',
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     'Anuja Harsha Nimmagadda',
   ],
   openGraph: {
-    title: 'Making ML Accessible Without Sacrificing Power | Anuja Harsha',
+    title: 'Nobody Could Use Our ML Engine. | Anuja Harsha',
     description:
-      'Enterprise ML was engineer-only — I designed a guided workflow anyone could use. From side project to full ownership.',
+      'A multi-million dollar ML engine with zero adoption — turned into a 4-step guided workflow. 4/4 SMEs completed without help.',
     url: `${siteUrl}/work/ml-functions/`,
     type: 'article',
     images: [
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Making ML Accessible Without Sacrificing Power',
+    title: 'Nobody Could Use Our ML Engine.',
     description:
-      'Enterprise ML was engineer-only — I designed a guided workflow anyone could use.',
+      'Zero adoption ML engine → 4-step guided workflow. 4/4 SMEs completed without help.',
     images: ['/images/case-study/ml-functions/ml-functions-cover.png'],
   },
   alternates: {

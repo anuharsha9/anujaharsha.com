@@ -3,9 +3,9 @@ import { CaseStudyData } from '@/types/caseStudy'
 export const iqPluginCaseStudy: CaseStudyData = {
   slug: 'iq-plugin',
   heroTitle: 'We Built the Intelligence. Nobody Knew It Existed.',
-  heroSubheading: 'Three AI features. Low adoption. Millions invested. I unified them into one Hub.',
+  heroSubheading: 'Millions invested in NLQ, Insights, and ML. Near-zero adoption. Three powerful AI features buried in separate menus — invisible to the users who needed them.',
   heroSubtitle:
-    'Team vision. My architecture. I designed how three features I\u2019d already built would come together in one Hub \u2014 pushing for things never done in the org.',
+    'I unified all three into one hub, modernized each workflow, and drove NLQ adoption up 25%. Architecture defined before tickets existed — PM wrote tickets after seeing my mockups.',
   coverImage: {
     src: '/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png',
     alt: 'DSML Hub - Unified Data Science & Machine Learning',
@@ -125,7 +125,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
     slides: [
       {
         type: 'title',
-        title: 'Driving Data Science Adoption',
+        title: 'We Built the Intelligence. Nobody Knew It Existed.',
         content: ['Anuja Harsha — Lead Product Designer', 'Third Case Study'],
         image: '/images/case-study/iq-plugin/iq-cover.png',
       },

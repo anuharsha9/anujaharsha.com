@@ -5,7 +5,7 @@ import { iqPluginCaseStudy } from '@/data/iq-plugin'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'AI Features Nobody Could Find — 25% Adoption Boost',
+  title: 'We Built the Intelligence. Nobody Knew It Existed.',
   description:
     'Three powerful AI capabilities buried across three menus. I unified NLQ, Insights, and ML into one discoverable DSML Hub — driving a 25% adoption boost. A case study in platform vision and making AI features visible.',
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     'Anuja Harsha Nimmagadda',
   ],
   openGraph: {
-    title: 'AI Features Nobody Could Find — 25% Adoption Boost | Anuja Harsha',
+    title: 'We Built the Intelligence. Nobody Knew It Existed. | Anuja Harsha',
     description:
       'Three AI capabilities buried across menus. I unified them into one Hub — 25% adoption boost.',
     url: `${siteUrl}/work/iq-plugin/`,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Features Nobody Could Find — 25% Adoption Boost',
+    title: 'We Built the Intelligence. Nobody Knew It Existed.',
     description:
       'Three AI capabilities buried across menus. I unified them into one Hub — 25% adoption boost.',
     images: ['/images/case-study/iq-plugin/iq-cover.png'],

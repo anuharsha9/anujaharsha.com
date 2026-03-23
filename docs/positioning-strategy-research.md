@@ -371,3 +371,323 @@ These keywords should appear naturally in:
 ---
 
 *This document synthesizes the Shift Market Fit Method™ framework, The Shift UX Vault, and the UX Job Title Database 2026 with Anuja's specific positioning needs. All page references are from "How to Become the Obvious Hire in a Broken 2026 Job Market" (PDF) and The Shift UX Vault / Job Title Database (Notion).*
+
+---
+
+## Part 11: Positioning Sprint Canvas
+
+> **Goal:** Reposition so the market reads you as:  
+> *Senior Product Designer for complex, data-heavy enterprise products and workflows — improving usability, clarity, and adoption.*
+
+---
+
+### 1. Core Positioning Lock ✅
+
+**Decide the exact market-facing story.**
+
+One sentence that answers: what kind of designer you are, what kind of products you work on, what value you create.
+
+Finalize:
+- [x] Homepage hero line
+- [x] 1 supporting credibility line
+- [x] LinkedIn headline (guide created)
+- [x] Resume summary
+
+**Output:** A single positioning stack that stays consistent everywhere.
+
+**Current stack:**
+- **Hero:** "I make complex enterprise products easier to understand, use, and adopt."
+- **Credibility:** "13 years across data-driven platforms, legacy modernization, and AI-native product experiences."
+- **LinkedIn headline:** "Senior Product Designer | Enterprise Complexity · Legacy Modernization · AI-Native Design"
+- **Resume summary:** Opens with Value Wedge, supported by 50-year platform / 25M+ users proof
+
+---
+
+### 2. Homepage Copy ✅
+
+**Rewrite the landing section. Keep it brutally clear.**
+
+Current hero structure:
+- [x] Role label: `Senior Product Designer`
+- [x] Name: `Hi, I'm Anuja`
+- [x] Value proposition: "I make complex enterprise products easier to understand, use, and adopt."
+- [x] Credibility line: "13 years across data-driven platforms, legacy modernization, and AI-native product experiences."
+- [x] CTA hierarchy in place
+
+**Check:** A recruiter should understand you in 5 seconds. ✅
+
+---
+
+### 3. CTA and Hero Hierarchy ✅
+
+- [x] Flagship Case Study = primary CTA (white filled button, play icon, light sweep)
+- [x] Explore My Mind = secondary CTA (ghost button, gear icon)
+- [x] Nothing above the fold distracts from professional category
+
+---
+
+### 4. Proof Strip — CSG Block ✅
+
+**Attached directly to each tile (not a floating strip).**
+
+Each proof line sits below its corresponding case study tile with a teal dot anchor:
+1. **ReportCaster:** Reduced churn risk by modernizing a legacy enterprise platform
+2. **ML Functions:** Made ML accessible to non-technical users through workflow redesign
+3. **IQ Plugin:** Boosted AI feature discovery 25% through UX redesign
+
+**Style:** Mono font, zinc-600, teal dot prefix. Inherits tile's staggered animation.
+
+**⚠️ ML Fact Note:** The ML workflow reduction was ~15 clicks → 7-8 clicks for the full workflow, and ~6 clicks → 2 clicks specifically for starting training. The feature was NOT released — cannot claim adoption metrics. The "12-step coding task to 4-step visual wizard" framing in the case study title refers to the conceptual step reduction, not literal click counts.
+
+**Status:** Implemented in `CSGBlock.tsx` — proof lines in tile data, rendered per-tile.
+
+---
+
+### 5. Case Study Framing ✅ (Full Narrative Standardization)
+
+**Every touchpoint now tells the same story per case study.**
+
+Pattern: Each case study has ONE canonical narrative thread. Tile → Hero → Presentation → SEO all echo it.
+
+**ReportCaster — "Customers were leaving"**
+- Landing tile: "Customers were leaving — I rebuilt a 40-year-old scheduling platform from scratch"
+- heroTitle: "Customers Were Leaving. 40 Years Without Updates."
+- heroSubheading: "20M+ weekly jobs. 40 years without updates..."
+- Presentation slide 0: "Customers Were Leaving. I Rebuilt the System."
+- SEO title: "Customers Were Leaving. 40 Years Without Updates."
+
+**ML Functions — "Nobody could use it"**
+- Landing tile: "A powerful ML engine nobody could use — I turned it into a 4-step guided workflow"
+- heroTitle: "Nobody Could Use Our ML Engine."
+- heroSubheading: "A multi-million dollar ML engine with zero adoption..."
+- Presentation slide 0: "Nobody Could Use Our ML Engine."
+- SEO title: "Nobody Could Use Our ML Engine — 4-Step Guided Workflow"
+- Note: "A Side Project Earned Me the Whole Thing" preserved as section/reflection title (Act I hook)
+
+**IQ Plugin — "Nobody knew it existed"**
+- Landing tile: "Three AI features nobody could find — I unified them into one hub"
+- heroTitle: "We Built the Intelligence. Nobody Knew It Existed."
+- heroSubheading: "Millions invested in NLQ, Insights, and ML. Near-zero adoption..."
+- Presentation slide 0: "We Built the Intelligence. Nobody Knew It Existed."
+- SEO title: "AI Features Nobody Could Find — 25% Adoption Boost"
+
+Status:
+- [x] Canonical narrative thread defined per case study
+- [x] Landing tile titles aligned with hero/SEO thread
+- [x] heroTitle, heroSubheading, heroSubtitle rewritten — stakes first
+- [x] Presentation slide 0 titles aligned
+- [x] SEO page titles aligned
+- [x] ML heroTitle changed from personal narrative to business stakes
+- [x] "Side Project" hook preserved as section title (Act I)
+
+---
+
+### 6. Portfolio Tile Labels and Descriptions 🟡
+
+**Every visible label should reinforce the lane.**
+
+Questions for each tile:
+- Does this support "complex, data-heavy enterprise products and workflows"?
+- Does this add to the story or dilute it?
+- Is the value obvious before someone clicks?
+
+Status:
+- [x] CSG block domain labels aligned (Legacy Modernization, AI/ML Workflow Design, Platform Unification)
+- [x] CSG hover overlay simplified to play + title only
+- [ ] Extended Portfolio tiles — do they dilute the enterprise signal?
+
+---
+
+### 7. Side Projects / AI Projects 🟡
+
+**These are not "cool builds." They are proof of product thinking, workflow design, AI-assisted interaction design, systems thinking.**
+
+For each project, define:
+- What user problem it solves
+- What workflow it structures
+- What data or AI role it plays
+- What it proves about you
+
+College OS framing: Position as "a data-driven, AI-assisted decision-support workflow product" — NOT "a vibe-coded side project."
+
+Status:
+- [x] Section renamed from "Vibe Coding" to "Design Engineering"
+- [ ] Individual project descriptions not yet reframed
+- [ ] College OS not yet deployed / description not updated
+
+---
+
+### 8. LinkedIn Alignment ✅
+
+- [x] Headline copy written
+- [x] About section copy written
+- [x] Featured section labels defined
+- [x] Experience bullet guidance created
+- [x] Full guide at `linkedin_update_guide.md`
+
+**Action:** Apply the guide to actual LinkedIn profile.
+
+---
+
+### 9. Resume Alignment ✅
+
+- [x] Summary rewritten — opens with Value Wedge
+- [x] Headline updated: "Enterprise Complexity · Legacy Modernization · AI-Native Design"
+- [x] Domain Expertise reframed (Legacy System Modernization, Data Workflow Design, AI/ML Product Design)
+- [x] AI skills label cleaned ("AI-Native Tools" not "Vibe Coding")
+
+---
+
+### 10. Target Market Definition ⬜
+
+**Build your real-fit lane.**
+
+Primary fit:
+- Complex B2B enterprise products
+- Data-heavy workflows
+- Platform / admin / ops tools
+- Analytics and AI workflow products
+- Fintech / governance / compliance-adjacent tools
+- Enterprise modernization roles
+
+Lower priority: Anything too far from core story unless unusually compelling.
+
+**Status:** Not started.
+
+---
+
+### 11. Target Company List ⬜
+
+**Build a shortlist of 25–40 companies that fit positioning.**
+
+For each company, note:
+- What kind of product they build
+- Whether it's data-heavy / workflow-heavy / enterprise
+- Why your background is relevant
+- Whether the role level matches your caliber
+
+**Goal:** Stop random applying. Start fit-based applying.
+
+**Status:** Not started.
+
+---
+
+### 12. Application Strategy ⬜
+
+**Replace spray strategy with selective strategy.**
+
+Apply only where:
+- Your story fits
+- Your case studies support the role
+- The level is appropriate
+- You can explain the fit cleanly
+
+For each application:
+- Tailor top summary / intro if needed
+- Match role language without distorting yourself
+- Keep notes on application quality and response
+
+**Status:** Not started.
+
+---
+
+### 13. Outreach Strategy ⬜
+
+**Create 2–3 outreach templates. Not generic. Not begging.**
+
+Outreach should communicate:
+- Your lane
+- Why you fit their product space
+- What makes your background relevant
+
+**Goal:** Start conversations from fit, not from desperation.
+
+**Status:** Not started.
+
+---
+
+### 14. LinkedIn Content ⬜
+
+**Post 2–4 posts that reinforce your niche.**
+
+Better topics:
+- What legacy modernization taught you
+- Why enterprise UX is really about adoption and clarity
+- How AI should support workflows, not just decorate them
+- What makes data-heavy products hard to use well
+
+**Goal:** Strengthen public signal.
+
+**Status:** Not started.
+
+---
+
+### 15. Market Test Window ⬜
+
+**After positioning is updated, run a real test.**
+
+Apply to a meaningful number of targeted roles (not 5, not 200 randoms — enough to generate signal).
+
+Track:
+- Recruiter replies
+- Outreach response rate
+- Profile views from relevant people
+- Interview invites
+- Quality of conversations
+
+**This is the real checkpoint.** Not "does my portfolio feel better?" but "does the market respond differently?"
+
+**Status:** Not started.
+
+---
+
+### 16. Decision Checkpoint ⬜
+
+**After 2–4 weeks of real testing, ask:**
+- Is my new positioning generating more traction?
+- Am I getting responses from the right kinds of roles?
+- Is my signal finally clear enough?
+- Am I still too close to my own work to judge what's off?
+
+If yes → keep going.  
+If no → external help becomes a rational acceleration option, not an emotional one.
+
+**Status:** Not started.
+
+---
+
+### Immediate Action Order
+
+**Today**
+- [x] Lock hero copy
+- [x] Lock supporting line
+- [x] Update CTA hierarchy
+- [ ] Rewrite proof strip
+- [ ] Rewrite top case study intros
+
+**Tomorrow**
+- [x] Align LinkedIn headline/about (guide ready)
+- [x] Align resume summary
+- [ ] Refine project tile descriptions
+
+**Next 2–3 days**
+- [ ] Build target company list
+- [ ] Define target role categories
+- [ ] Prepare selective application plan
+
+**Next week**
+- [ ] Apply strategically
+- [ ] Post on LinkedIn
+- [ ] Begin tracking response quality
+
+---
+
+### Success Criteria
+
+You'll know the positioning is improving when:
+- People understand what you do faster
+- Your materials feel more unified
+- Your outreach sounds cleaner
+- You apply with more confidence and less randomness
+- Better-fit roles start responding
+

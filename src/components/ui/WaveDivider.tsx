@@ -7,6 +7,10 @@
  *     sizing to the full page height instead of viewport.
  *   - Curtains spread across the entire viewport (not just hero region).
  *   - Hero area covered by HeroLanding's own opaque bg + HeroAurora.
+ *
+ * PERF: Throttled to ~30fps (aurora waves are slow enough that 30fps is
+ *       indistinguishable from 60fps). Removed shadowBlur (huge GPU cost).
+ *       Reduced to 6 curtains. Wider ray spacing.
  */
 
 import { useRef, useEffect, useCallback } from 'react'
@@ -22,25 +26,26 @@ interface AuroraCurtain {
 }
 
 const CURTAINS: AuroraCurtain[] = [
-    // ── Cluster 1: Upper region (matches hero's visual density) ──
-    { baseY: 0.22, rayLength: 200, opacity: 0.18, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 12 },
-    { baseY: 0.15, rayLength: 150, opacity: 0.10, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 14 },
-    { baseY: 0.32, rayLength: 130, opacity: 0.08, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 12 },
+    // ── Cluster 1: Upper region ──
+    { baseY: 0.22, rayLength: 200, opacity: 0.18, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 18 },
+    { baseY: 0.15, rayLength: 150, opacity: 0.10, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 20 },
     // ── Cluster 2: Mid-page ──
-    { baseY: 0.52, rayLength: 200, opacity: 0.16, waveAmplitude: 38, speed: 0.07, phase: 1.5, rayWidth: 12 },
-    { baseY: 0.45, rayLength: 150, opacity: 0.10, waveAmplitude: 33, speed: 0.05, phase: 3.2, rayWidth: 14 },
-    { baseY: 0.60, rayLength: 130, opacity: 0.08, waveAmplitude: 28, speed: 0.09, phase: 5.5, rayWidth: 12 },
+    { baseY: 0.52, rayLength: 200, opacity: 0.16, waveAmplitude: 38, speed: 0.07, phase: 1.5, rayWidth: 18 },
+    { baseY: 0.45, rayLength: 150, opacity: 0.10, waveAmplitude: 33, speed: 0.05, phase: 3.2, rayWidth: 20 },
     // ── Cluster 3: Footer region ──
-    { baseY: 0.78, rayLength: 180, opacity: 0.14, waveAmplitude: 36, speed: 0.08, phase: 0.8, rayWidth: 12 },
-    { baseY: 0.72, rayLength: 140, opacity: 0.09, waveAmplitude: 30, speed: 0.06, phase: 2.5, rayWidth: 14 },
-    { baseY: 0.86, rayLength: 120, opacity: 0.07, waveAmplitude: 25, speed: 0.10, phase: 4.5, rayWidth: 13 },
+    { baseY: 0.78, rayLength: 180, opacity: 0.14, waveAmplitude: 36, speed: 0.08, phase: 0.8, rayWidth: 18 },
+    { baseY: 0.72, rayLength: 140, opacity: 0.09, waveAmplitude: 30, speed: 0.06, phase: 2.5, rayWidth: 20 },
 ]
+
+// Target ~30fps: skip frames if less than 33ms elapsed
+const FRAME_INTERVAL = 33
 
 export default function FixedAurora() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const rafRef = useRef<number>(0)
     const tealRef = useRef({ r: 7, g: 139, b: 156 })
     const sizeRef = useRef({ w: 0, h: 0 })
+    const lastFrameRef = useRef(0)
 
     const draw = useCallback((ctx: CanvasRenderingContext2D, time: number) => {
         const w = sizeRef.current.w
@@ -87,11 +92,12 @@ export default function FixedAurora() {
                 ctx.fillRect(x, edgeY - 10, curtain.rayWidth, curtain.rayLength + 10)
             }
 
-            // Glowing top-edge rope
+            // Glowing top-edge rope — NO shadowBlur (huge perf cost)
             ctx.beginPath()
             ctx.moveTo(0, curtain.baseY * h + drift + Math.sin(t) * curtain.waveAmplitude)
 
-            for (let x = 0; x <= w; x += 3) {
+            // Step by 4px instead of 3px for rope path
+            for (let x = 0; x <= w; x += 4) {
                 const xFrac = x / w
                 const y = curtain.baseY * h + drift
                     + Math.sin(t + xFrac * 6) * curtain.waveAmplitude
@@ -99,12 +105,13 @@ export default function FixedAurora() {
                 ctx.lineTo(x, y)
             }
 
+            // Draw rope glow via double-stroke (wider dim + narrow bright) instead of shadowBlur
+            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 0.4})`
+            ctx.lineWidth = 4
+            ctx.stroke()
             ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.2})`
             ctx.lineWidth = 1
-            ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 0.6})`
-            ctx.shadowBlur = 12
             ctx.stroke()
-            ctx.shadowBlur = 0
         }
 
         ctx.globalCompositeOperation = 'source-over'
@@ -127,10 +134,9 @@ export default function FixedAurora() {
             }
         }
 
-        // Use viewport dimensions — NOT getBoundingClientRect
-        // (fixed container's BoundingClientRect returns full page height, not viewport)
+        // Use viewport dimensions
         const resize = () => {
-            const dpr = window.devicePixelRatio || 1
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5) // Cap DPR — aurora doesn't need retina
             const w = window.innerWidth
             const h = window.innerHeight
             canvas.width = w * dpr
@@ -144,9 +150,13 @@ export default function FixedAurora() {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
         const startTime = performance.now()
-        const animate = () => {
-            const elapsed = (performance.now() - startTime) / 1000
-            draw(ctx, prefersReducedMotion ? 0 : elapsed)
+        const animate = (now: number) => {
+            // Throttle to ~30fps
+            if (now - lastFrameRef.current >= FRAME_INTERVAL) {
+                lastFrameRef.current = now
+                const elapsed = (now - startTime) / 1000
+                draw(ctx, prefersReducedMotion ? 0 : elapsed)
+            }
             rafRef.current = requestAnimationFrame(animate)
         }
         rafRef.current = requestAnimationFrame(animate)

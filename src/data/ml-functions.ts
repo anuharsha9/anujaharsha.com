@@ -3,10 +3,10 @@ import { CaseStudyData } from '@/types/caseStudy'
 export const mlFunctionsCaseStudy: CaseStudyData = {
   slug: 'ml-functions',
   // Blueprint Hero - Architect Design System
-  heroTitle: 'A Side Project Earned Me the Whole Thing.',
-  heroSubheading: 'I turned a broken, zero-adoption ML engine into a guided workflow that four SMEs blazed through without help.',
+  heroTitle: 'Nobody Could Use Our ML Engine.',
+  heroSubheading: 'A multi-million dollar ML engine with zero adoption. 15 clicks through data flow canvases and cascading menus. Business users couldn\'t touch it.',
   heroSubtitle:
-    'Our data scientist showed me a screenshot and said, "I want this in WebFOCUS." I didn\'t design it blindly. I dug in, learned the domain, got MIT certified, and earned the trust to own the full ML revamp. Two years. Engineering delays, layoffs, resource constraints — I fought for every damn thing in ML.',
+    'I turned it into a 4-step guided workflow. Got MIT certified to earn credibility with the data science team. 4 out of 4 SMEs completed it without help — and the right-click entry pattern was adopted across 3 AI features.',
   coverImage: {
     src: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
     alt: 'ML Functions Confusion Matrix - Model Performance Visualization',
@@ -129,7 +129,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     slides: [
       {
         type: 'title',
-        title: 'A Side Project Earned Me the Whole Thing.',
+        title: 'Nobody Could Use Our ML Engine.',
         content: ['Anuja Harsha — Senior Product Designer', 'ML Functions Case Study'],
         image: '/images/case-study/ml-functions/ml-functions-cover.png',
       },
@@ -235,7 +235,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   },
 
   quickOverview: {
-    title: 'ML Functions — A Side Project Earned Me the Whole Thing',
+    title: 'ML Functions — Nobody Could Use Our ML Engine',
     subtitle: 'From zero ML knowledge to owning the entire ML UX revamp',
     leadershipSummary: 'Our data scientist gave me a small explainability project. I didn\'t design it blindly — I dug in, asked questions, understood the entire upstream workflow. That earned the trust to own the full ML revamp. I led this alongside ReportCaster and IQ Plugin, managing multiple teams simultaneously.',
     whatTheSystemWas:

@@ -42,11 +42,11 @@ interface AuroraCurtain {
 
 const CURTAINS: AuroraCurtain[] = [
     // Main curtain — brightest, below the CTAs (the "shoreline")
-    { baseY: 0.68, rayLength: 200, opacity: 0.22, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 12 },
+    { baseY: 0.68, rayLength: 200, opacity: 0.22, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 18 },
     // Upper accent curtain — just below CTAs
-    { baseY: 0.60, rayLength: 150, opacity: 0.13, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 14 },
+    { baseY: 0.60, rayLength: 150, opacity: 0.13, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 20 },
     // Lower curtain — closer to bottom
-    { baseY: 0.78, rayLength: 130, opacity: 0.10, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 12 },
+    { baseY: 0.78, rayLength: 130, opacity: 0.10, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 18 },
 ]
 
 // Cursor ripple constants — whisper-level
@@ -57,11 +57,15 @@ const RIPPLE_STRENGTH = 12   // px — max displacement at epicenter
 // Lower = more subtle. 0.3 means ~1 full wave cycle per ~3300px of scroll.
 const SCROLL_PHASE_SCALE = 0.3 / 1000
 
+// Target ~30fps: skip frames if less than 33ms elapsed
+const FRAME_INTERVAL = 33
+
 export default function HeroAurora() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const rafRef = useRef<number>(0)
     const tealRef = useRef({ r: 7, g: 139, b: 156 })
     const sizeRef = useRef({ w: 0, h: 0 })
+    const lastFrameRef = useRef(0)
 
     // Interactive refs — updated outside React render cycle for perf
     const mouseRef = useRef({ x: -1000, y: -1000 }) // Off-canvas by default
@@ -139,12 +143,12 @@ export default function HeroAurora() {
                 ctx.fillRect(x, edgeY - 15, curtain.rayWidth, curtain.rayLength + 15)
             }
 
-            // Draw the bright top edge glow (the "rope")
+            // Draw the bright top edge glow (the "rope") — no shadowBlur for perf
             ctx.beginPath()
             const ropeStartY = curtain.baseY * h + drift + Math.sin(t) * effectiveAmp
             ctx.moveTo(0, ropeStartY)
 
-            for (let x = 0; x <= w; x += 2) {
+            for (let x = 0; x <= w; x += 4) {
                 const xFrac = x / w
                 let y = curtain.baseY * h + drift
                     + Math.sin(t + xFrac * 8) * effectiveAmp
@@ -163,12 +167,13 @@ export default function HeroAurora() {
                 ctx.lineTo(x, y)
             }
 
-            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.5})`
-            ctx.lineWidth = 2
-            ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${curtain.opacity})`
-            ctx.shadowBlur = 10
+            // Double-stroke fake glow (much cheaper than shadowBlur)
+            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 0.5})`
+            ctx.lineWidth = 5
             ctx.stroke()
-            ctx.shadowBlur = 0
+            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.5})`
+            ctx.lineWidth = 1.5
+            ctx.stroke()
         }
 
         ctx.globalCompositeOperation = 'source-over'
@@ -246,16 +251,19 @@ export default function HeroAurora() {
         scrollPhaseCurrentRef.current = scrollPhaseTargetRef.current // Sync on mount
 
         const startTime = performance.now()
-        const animate = () => {
-            const elapsed = (performance.now() - startTime) / 1000
+        const animate = (now: number) => {
+            // Throttle to ~30fps
+            if (now - lastFrameRef.current >= FRAME_INTERVAL) {
+                lastFrameRef.current = now
+                const elapsed = (now - startTime) / 1000
 
-            // Smoothly lerp scroll phase toward target — this is what makes
-            // the undulation feel silky rather than jittery
-            const current = scrollPhaseCurrentRef.current
-            const target = scrollPhaseTargetRef.current
-            scrollPhaseCurrentRef.current = current + (target - current) * 0.08
+                // Smoothly lerp scroll phase toward target
+                const current = scrollPhaseCurrentRef.current
+                const target = scrollPhaseTargetRef.current
+                scrollPhaseCurrentRef.current = current + (target - current) * 0.08
 
-            draw(ctx, prefersReducedMotion ? 0 : elapsed)
+                draw(ctx, prefersReducedMotion ? 0 : elapsed)
+            }
             rafRef.current = requestAnimationFrame(animate)
         }
         rafRef.current = requestAnimationFrame(animate)

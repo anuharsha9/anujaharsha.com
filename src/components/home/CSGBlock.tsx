@@ -13,7 +13,8 @@ const TILES = [
     {
         id: 'reportcaster',
         domain: 'Legacy Modernization · Customer Retention',
-        title: 'Retaining enterprise customers by modernizing a 40-year scheduling platform',
+        title: 'Customers Were Leaving. 40 Years Without Updates.',
+        proof: 'Reduced churn risk by modernizing a legacy enterprise platform',
         link: '/work/reportcaster',
         flagship: true,
         Wireframe: RCWireframe,
@@ -23,7 +24,8 @@ const TILES = [
     {
         id: 'ml-functions',
         domain: 'AI Workflow Design · ML Accessibility',
-        title: 'Democratizing ML — 12-step coding task to a 4-step visual wizard',
+        title: 'Nobody Could Use Our ML Engine.',
+        proof: 'Made ML accessible to non-technical users through workflow redesign',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
         accentVar: '--semantic-cyan-rgb',
@@ -32,7 +34,8 @@ const TILES = [
     {
         id: 'iq-plugin',
         domain: 'Platform Unification · AI-Powered Hub',
-        title: 'Driving data science adoption by unifying 3 siloed tools into one hub',
+        title: 'We Built the Intelligence. Nobody Knew It Existed.',
+        proof: 'Boosted AI feature discovery 25% through UX redesign',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
         accentVar: '--semantic-purple-rgb',
@@ -113,23 +116,23 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                             backgroundColor: isHovered ? 'rgba(0,0,0,0.50)' : 'transparent',
                         }}
                     >
-                        <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
+                        <div className="flex flex-col items-center gap-4 max-w-xs text-center px-4">
                             <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
                                 <Play className="w-5 h-5 text-white fill-white ml-0.5" />
                             </div>
-                            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500">
-                                {tile.domain}
-                            </span>
-                            <p className="text-zinc-100 text-sm md:text-base font-semibold leading-snug mt-1">
+                            <p className="text-zinc-100 text-sm md:text-base font-semibold leading-snug">
                                 {tile.title}
                             </p>
-                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
-                                View Case Study
-                            </span>
                         </div>
                     </div>
                 </div>
             </TransitionLink>
+
+            {/* Proof line — attached to this tile */}
+            <p className="mt-3 flex items-center gap-2 text-zinc-600 text-[11px] md:text-xs font-mono tracking-wide">
+                <span className="w-1 h-1 rounded-full bg-[var(--accent-teal)] opacity-40 shrink-0" />
+                {tile.proof}
+            </p>
         </motion.div>
     )
 }
@@ -178,6 +181,7 @@ export default function CSGBlock() {
                     Three products. One platform. One goal — retain customers.
                 </p>
             </motion.div>
+
 
             {/* 3-column equal grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">

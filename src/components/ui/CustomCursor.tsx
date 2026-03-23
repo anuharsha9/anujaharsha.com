@@ -62,14 +62,19 @@ export default function CustomCursor() {
     document.documentElement.style.cursor = 'none'
 
     // Update cursor position
+    let lastHitTest = 0
     const updatePosition = (e: MouseEvent) => {
       mouseX.set(e.clientX)
       mouseY.set(e.clientY)
       setIsHidden(false)
 
-      // Check what element is under cursor
-      const hoveredElement = document.elementFromPoint(e.clientX, e.clientY)
-      setIsPointer(isClickable(hoveredElement))
+      // Throttle expensive hit-testing to ~10fps (100ms)
+      const now = performance.now()
+      if (now - lastHitTest > 100) {
+        lastHitTest = now
+        const hoveredElement = document.elementFromPoint(e.clientX, e.clientY)
+        setIsPointer(isClickable(hoveredElement))
+      }
     }
 
     const handleMouseDown = () => setIsClicking(true)
