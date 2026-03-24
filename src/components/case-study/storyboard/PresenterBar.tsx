@@ -172,7 +172,8 @@ export default function PresenterBar({
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.5, delay: delay + 0.1, ease }}
-                    className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl border border-white/[0.08] overflow-hidden shadow-lg shadow-black/20"
+                    className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden shadow-lg shadow-black/20"
+                    style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 20%, transparent)' }}
                 >
                     <Image
                         src="/images/presenter-avatar.png"
@@ -188,7 +189,8 @@ export default function PresenterBar({
                 initial={{ opacity: 0, x: -8, scale: 0.92 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 transition={{ duration: 0.5, delay: delay + 0.15, ease: [0.34, 1.56, 0.64, 1] }}
-                className={`relative flex-1 bg-white/[0.04] border border-white/[0.08] rounded-2xl ${showAvatar ? 'rounded-tl-md' : ''} px-5 py-4 md:px-6 md:py-5 overflow-hidden`}
+                className={`relative flex-1 bg-white/[0.04] rounded-2xl ${showAvatar ? 'rounded-tl-md' : ''} px-5 py-4 md:px-6 md:py-5 overflow-hidden`}
+                style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 12%, transparent)' }}
             >
                 {showAvatar && (
                     <div

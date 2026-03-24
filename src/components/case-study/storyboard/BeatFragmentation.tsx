@@ -107,13 +107,8 @@ export default function BeatFragmentation() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        Customers were leaving. Not because the data was bad — because{' '}
-                                        <span className="text-zinc-200 font-medium">the product looked and felt like it hadn&apos;t been touched in decades.</span>{' '}
-                                        Competitors like <span className="text-zinc-200 font-medium">Power BI</span> were modern, intuitive, beautiful.
-                                    </p>
-                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
-                                        And on top of that — <span className="text-zinc-200">5 separate systems buried under layers of tabs and clicks.</span>{' '}
-                                        Context switching everywhere. Nothing unified.
+                                        Not a feature.{' '}
+                                        <span className="text-zinc-200 font-medium">A product inside a product</span> — 40+ years old, zero documentation, five independent subsystems. Customers running 13 million schedules a day on a tool nobody on the team truly understood.
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -135,20 +130,22 @@ export default function BeatFragmentation() {
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={phase >= 1 ? { opacity: 1, x: 0 } : {}}
                                         transition={{ duration: 0.6, delay: 0.2, ease }}
-                                        className="rounded-xl border border-blue-500/20 bg-gradient-to-br from-blue-950/40 to-slate-950/60 p-4 relative overflow-hidden"
+                                        className="rounded-xl border bg-gradient-to-br from-zinc-900/40 to-zinc-950/60 p-4 relative overflow-hidden"
+                                        style={{ borderColor: 'color-mix(in srgb, var(--cs-accent) 15%, transparent)' }}
                                     >
-                                        <div className="text-[11px] font-mono text-blue-400 tracking-widest uppercase mb-3">Modern BI tools</div>
+                                        <div className="text-[11px] font-mono tracking-widest uppercase mb-3" style={{ color: 'var(--cs-accent)', opacity: 0.7 }}>Modern BI tools</div>
                                         {/* Mini dashboard mockup */}
                                         <div className="space-y-2">
                                             <div className="flex gap-2">
-                                                <div className="flex-1 h-12 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/10 border border-blue-500/10" />
-                                                <div className="flex-1 h-12 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/10 border border-purple-500/10" />
+                                                <div className="flex-1 h-12 rounded-lg border border-white/[0.06]" style={{ background: 'color-mix(in srgb, var(--cs-accent) 10%, transparent)' }} />
+                                                <div className="flex-1 h-12 rounded-lg border border-white/[0.06]" style={{ background: 'color-mix(in srgb, var(--cs-accent) 6%, transparent)' }} />
                                             </div>
-                                            <div className="h-16 rounded-lg bg-gradient-to-r from-blue-500/10 to-teal-500/10 border border-blue-500/10 flex items-end p-2 gap-1">
+                                            <div className="h-16 rounded-lg border border-white/[0.06] flex items-end p-2 gap-1" style={{ background: 'color-mix(in srgb, var(--cs-accent) 5%, transparent)' }}>
                                                 {[65, 45, 80, 55, 70, 90, 60, 75, 85].map((h, i) => (
                                                     <motion.div
                                                         key={i}
-                                                        className="flex-1 rounded-sm bg-gradient-to-t from-blue-500/40 to-cyan-400/30"
+                                                        className="flex-1 rounded-sm"
+                                                        style={{ background: 'color-mix(in srgb, var(--cs-accent) 30%, transparent)' }}
                                                         initial={{ height: 0 }}
                                                         animate={phase >= 2 ? { height: `${h}%` } : { height: 0 }}
                                                         transition={{ duration: 0.5, delay: 0.3 + i * 0.05, ease }}
@@ -156,8 +153,8 @@ export default function BeatFragmentation() {
                                                 ))}
                                             </div>
                                             <div className="flex gap-2">
-                                                <div className="h-3 flex-[2] rounded-full bg-blue-500/15" />
-                                                <div className="h-3 flex-1 rounded-full bg-cyan-500/15" />
+                                                <div className="h-3 flex-[2] rounded-full" style={{ background: 'color-mix(in srgb, var(--cs-accent) 12%, transparent)' }} />
+                                                <div className="h-3 flex-1 rounded-full" style={{ background: 'color-mix(in srgb, var(--cs-accent) 10%, transparent)' }} />
                                             </div>
                                         </div>
                                         {/* Glow */}
@@ -165,9 +162,10 @@ export default function BeatFragmentation() {
                                             initial={{ opacity: 0 }}
                                             animate={phase >= 2 ? { opacity: 1 } : {}}
                                             transition={{ duration: 1 }}
-                                            className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full blur-2xl bg-blue-500/10 pointer-events-none"
+                                            className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full blur-2xl pointer-events-none"
+                                            style={{ background: 'color-mix(in srgb, var(--cs-accent) 8%, transparent)' }}
                                         />
-                                        <div className="mt-3 text-[11px] text-blue-300 font-mono">✓ Unified · Modern · Intuitive</div>
+                                        <div className="mt-3 text-[11px] font-mono" style={{ color: 'var(--cs-accent)', opacity: 0.6 }}>✓ Unified · Modern · Intuitive</div>
                                     </motion.div>
 
                                     {/* ReportCaster (dated) */}
@@ -206,9 +204,9 @@ export default function BeatFragmentation() {
                                             initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
                                             animate={phase >= 3 ? { opacity: 1, scale: 1, rotate: -5 } : {}}
                                             transition={{ duration: 0.4, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
-                                            className="absolute top-3 right-3 px-2 py-0.5 rounded border border-rose-500/30 bg-rose-500/10"
+                                            className="absolute top-3 right-3 px-2 py-0.5 rounded border border-zinc-500/30 bg-zinc-500/10"
                                         >
-                                            <span className="text-[11px] font-mono text-rose-400 tracking-wider uppercase">Outdated</span>
+                                            <span className="text-[11px] font-mono text-zinc-400 tracking-wider uppercase">Outdated</span>
                                         </motion.div>
                                         <div className="mt-3 text-[11px] text-zinc-400 font-mono">✗ Fragmented · Dated · Buried</div>
                                     </motion.div>
@@ -243,13 +241,13 @@ export default function BeatFragmentation() {
                                                     transition={{ duration: 0.4, delay: i * 0.15, ease }}
                                                     className="flex items-center gap-2 px-3 py-2 rounded-lg border"
                                                     style={{
-                                                        borderColor: isChaos ? 'var(--overlay-rose-25)' : 'var(--overlay-white-08)',
-                                                        background: isChaos ? 'var(--overlay-rose-05)' : 'var(--overlay-white-02)',
+                                                        borderColor: isChaos ? 'var(--overlay-white-08)' : 'var(--overlay-white-08)',
+                                                        background: isChaos ? 'var(--overlay-white-03)' : 'var(--overlay-white-02)',
                                                         transition: 'border-color 0.6s, background 0.6s',
                                                     }}
                                                 >
                                                     <Icon className="w-3.5 h-3.5" strokeWidth={1.5} style={{
-                                                        color: isChaos ? 'var(--overlay-rose-70)' : 'var(--overlay-zinc-400)',
+                                                        color: isChaos ? 'var(--overlay-zinc-400)' : 'var(--overlay-zinc-400)',
                                                         transition: 'color 0.6s',
                                                     }} />
                                                     <span className="text-xs text-zinc-200 font-medium">{sys.label}</span>
@@ -272,7 +270,7 @@ export default function BeatFragmentation() {
                                                         key={i}
                                                         d={d}
                                                         fill="none"
-                                                        stroke="var(--overlay-rose-20)"
+                                                        stroke="var(--overlay-white-10)"
                                                         strokeWidth="0.4"
                                                         strokeDasharray="2 2"
                                                         initial={{ pathLength: 0 }}
@@ -295,7 +293,7 @@ export default function BeatFragmentation() {
                                 initial={{ scaleX: 0 }}
                                 animate={{ scaleX: 1 }}
                                 transition={{ duration: 0.6, ease }}
-                                className="h-px bg-gradient-to-r from-transparent via-rose-500/20 to-transparent my-8 origin-left"
+                                className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent my-8 origin-left"
                             />
                         )}
                     </AnimatePresence>
@@ -307,7 +305,7 @@ export default function BeatFragmentation() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                             >
-                                <div className="font-mono text-xs tracking-[0.25em] text-rose-400 uppercase text-center mb-6">
+                                <div className="font-mono text-xs tracking-[0.25em] uppercase text-center mb-6" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>
                                     Why customers were leaving
                                 </div>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
@@ -324,7 +322,8 @@ export default function BeatFragmentation() {
                                             className="text-center"
                                         >
                                             <motion.div
-                                                className="text-3xl md:text-4xl font-bold text-rose-400 font-mono mb-1"
+                                                className="text-3xl md:text-4xl font-bold font-mono mb-1"
+                                                style={{ color: 'var(--cs-accent)' }}
                                                 initial={{ scale: 1 }}
                                                 animate={
                                                     phase >= 9 + i

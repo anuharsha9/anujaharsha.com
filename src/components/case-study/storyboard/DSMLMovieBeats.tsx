@@ -10,7 +10,7 @@
 
 import { useRef, useEffect, useState, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Search, Eye, EyeOff, Layers3, Sparkles, Users, Target, Zap } from 'lucide-react'
+import { ArrowRight, Search, Eye, EyeOff, Layers3, Sparkles, Users, Target, Zap, MessageSquare, BarChart3, BrainCircuit, LayoutDashboard, BookOpen, PanelLeft, Grid3X3, Code2, FlaskConical, Shield, Bug, UserCircle2 } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
 
@@ -47,6 +47,64 @@ function AnimNumber({ value, suffix = '', delay = 0 }: { value: number; suffix?:
    BEAT 1: "THE INVISIBLE FEATURE PROBLEM"
    Three powerful features nobody could find
    ═════════════════════════════════════════════════ */
+
+/* Inline SVG illustrations for the three buried features */
+function NLQIllustration() {
+    return (
+        <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
+            {/* Chat bubble with question mark */}
+            <rect x="10" y="16" width="60" height="40" rx="8" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.4" />
+            <path d="M26 48 L20 58 L32 48" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.4" />
+            {/* Question mark */}
+            <text x="40" y="42" textAnchor="middle" fill="var(--cs-accent)" fontSize="22" fontFamily="monospace" opacity="0.7">?</text>
+            {/* Tiny sparkles near top */}
+            <circle cx="58" cy="20" r="1.5" fill="var(--cs-accent)" opacity="0.5" />
+            <circle cx="62" cy="24" r="1" fill="var(--cs-accent)" opacity="0.3" />
+            {/* Strike-through line — hidden */}
+            <motion.line x1="8" y1="70" x2="72" y2="70" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.15" strokeDasharray="3,5" animate={{ x2: [60, 72, 60] }} transition={{ duration: 3, repeat: Infinity }} />
+        </svg>
+    )
+}
+
+function InsightsIllustration() {
+    return (
+        <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
+            {/* Bar chart */}
+            <rect x="14" y="50" width="10" height="18" rx="2" fill="var(--cs-accent)" opacity="0.25" />
+            <rect x="28" y="38" width="10" height="30" rx="2" fill="var(--cs-accent)" opacity="0.35" />
+            <rect x="42" y="28" width="10" height="40" rx="2" fill="var(--cs-accent)" opacity="0.45" />
+            <rect x="56" y="20" width="10" height="48" rx="2" fill="var(--cs-accent)" opacity="0.55" />
+            {/* Trend line */}
+            <motion.path d="M19 48 L33 36 L47 26 L61 18" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.6" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, ease: 'easeOut' }} />
+            {/* Eye icon at top */}
+            <circle cx="40" cy="12" r="4" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.3" fill="none" />
+            <circle cx="40" cy="12" r="1.5" fill="var(--cs-accent)" opacity="0.3" />
+        </svg>
+    )
+}
+
+function MLIllustration() {
+    return (
+        <svg viewBox="0 0 80 80" fill="none" className="w-full h-full">
+            {/* Brain/Neural network nodes */}
+            <circle cx="40" cy="18" r="5" stroke="var(--cs-accent)" strokeWidth="1.2" opacity="0.5" fill="none" />
+            <circle cx="22" cy="40" r="5" stroke="var(--cs-accent)" strokeWidth="1.2" opacity="0.4" fill="none" />
+            <circle cx="58" cy="40" r="5" stroke="var(--cs-accent)" strokeWidth="1.2" opacity="0.4" fill="none" />
+            <circle cx="30" cy="62" r="5" stroke="var(--cs-accent)" strokeWidth="1.2" opacity="0.35" fill="none" />
+            <circle cx="50" cy="62" r="5" stroke="var(--cs-accent)" strokeWidth="1.2" opacity="0.35" fill="none" />
+            {/* Connections */}
+            <line x1="40" y1="23" x2="22" y2="35" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.25" />
+            <line x1="40" y1="23" x2="58" y2="35" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.25" />
+            <line x1="22" y1="45" x2="30" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.25" />
+            <line x1="58" y1="45" x2="50" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.25" />
+            <line x1="22" y1="45" x2="50" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
+            <line x1="58" y1="45" x2="30" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
+            {/* Pulse dot */}
+            <motion.circle cx="40" cy="18" r="2" fill="var(--cs-accent)" opacity="0.6" animate={{ r: [2, 3.5, 2], opacity: [0.6, 0.2, 0.6] }} transition={{ duration: 2, repeat: Infinity }} />
+        </svg>
+    )
+}
+
 export function DSMLBeatProblem() {
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -61,9 +119,9 @@ export function DSMLBeatProblem() {
     }, [])
 
     const features = [
-        { name: 'NLQ', label: 'Ask questions in plain English', menu: 'Hub → + Menu → Explore Data', color: 'var(--accent-violet)' },
-        { name: 'Insights', label: 'Auto-generated visualizations', menu: 'Hub → + Menu → Explore Data', color: 'var(--accent-teal)' },
-        { name: 'ML', label: 'Predictive model training', menu: 'Hub → App Dirs → Right-click', color: 'var(--accent-amber)' },
+        { name: 'NLQ', label: 'Ask questions in plain English', icon: <NLQIllustration />, color: 'var(--cs-accent)' },
+        { name: 'Insights', label: 'Auto-generated visualizations', icon: <InsightsIllustration />, color: 'var(--cs-accent)' },
+        { name: 'ML', label: 'Predictive model training', icon: <MLIllustration />, color: 'var(--cs-accent)' },
     ]
 
     return (
@@ -79,38 +137,47 @@ export function DSMLBeatProblem() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                Three powerful AI features — <span className="text-zinc-200 font-medium">NLQ, Insights, ML</span> — sat buried in different menus. Significant engineering investment, <span className="text-rose-400 font-bold">near-zero adoption</span>. Nobody knew they existed.
+                                Three AI features — <span className="text-zinc-200 font-medium">NLQ, Insights, ML</span> — buried in different menus. All shipping. None legacy. <span className="text-zinc-300 font-bold">Near-zero adoption.</span> The problem wasn&apos;t quality — it was discoverability.
                             </p>
                         </PresenterBar>
                     </motion.div>
 
-                    {/* Three buried feature cards */}
+                    {/* Three illustrated feature cards */}
                     <AnimatePresence>
                         {step >= 1 && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, ease }}
-                                className="flex flex-wrap items-stretch justify-center gap-3 md:gap-4 mt-6"
+                                className="flex flex-wrap items-stretch justify-center gap-4 md:gap-5 mt-8"
                             >
                                 {features.map((feat, i) => (
                                     <motion.div
                                         key={feat.name}
-                                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                                        initial={{ opacity: 0, y: 25, scale: 0.85 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        transition={{ delay: i * 0.12, duration: 0.5, ease }}
-                                        className="w-36 md:w-44 rounded-xl border p-3 text-left"
+                                        transition={{ delay: i * 0.15, duration: 0.6, ease }}
+                                        className="w-44 md:w-56 rounded-xl border p-4 text-center relative overflow-hidden group"
                                         style={{
-                                            borderColor: withHexAlpha(feat.color, '30'),
-                                            background: withHexAlpha(feat.color, '08'),
+                                            borderColor: withHexAlpha(feat.color, '25'),
+                                            background: withHexAlpha(feat.color, '05'),
                                         }}
                                     >
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <EyeOff className="h-3.5 w-3.5 text-rose-400/70" />
-                                            <span className="font-mono text-sm font-bold" style={{ color: feat.color }}>{feat.name}</span>
+                                        {/* Large SVG illustration */}
+                                        <div className="w-28 h-28 md:w-32 md:h-32 mx-auto mb-3">
+                                            {feat.icon}
                                         </div>
-                                        <p className="text-[11px] text-zinc-200 leading-snug mb-2">{feat.label}</p>
-                                        <div className="text-[10px] font-mono text-rose-400/60 truncate">{feat.menu}</div>
+                                        {/* Hidden eye overlay */}
+                                        <motion.div
+                                            className="absolute inset-0 flex items-center justify-center bg-zinc-950/60 backdrop-blur-[2px]"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: [0, 0.7, 0.5] }}
+                                            transition={{ delay: 0.8 + i * 0.15, duration: 1, ease }}
+                                        >
+                                            <EyeOff className="h-6 w-6 text-zinc-400" strokeWidth={1.5} />
+                                        </motion.div>
+                                        <span className="font-mono text-sm font-bold block" style={{ color: feat.color }}>{feat.name}</span>
+                                        <p className="text-[11px] text-zinc-400 leading-snug mt-1">{feat.label}</p>
                                     </motion.div>
                                 ))}
                             </motion.div>
@@ -132,7 +199,7 @@ export function DSMLBeatProblem() {
                                     { val: '0', label: 'Discoverability' },
                                 ].map((stat, idx) => (
                                     <div key={idx} className="text-center">
-                                        <div className="text-2xl md:text-3xl font-bold text-rose-400 font-mono">{stat.val}</div>
+                                        <div className="text-2xl md:text-3xl font-bold text-[var(--cs-accent)] font-mono">{stat.val}</div>
                                         <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mt-1">{stat.label}</div>
                                     </div>
                                 ))}
@@ -149,8 +216,85 @@ export function DSMLBeatProblem() {
 
 /* ═════════════════════════════════════════════════
    BEAT 2: "THE STRATEGIC SPARK"
-   How the Hub idea was born
+   How the Hub idea was born — with scene illustrations
    ═════════════════════════════════════════════════ */
+
+/* SVG: Three silhouettes around a round table — co-creation */
+function SceneTeamVision() {
+    return (
+        <svg viewBox="0 0 48 40" fill="none" className="w-full h-full">
+            <ellipse cx="24" cy="28" rx="14" ry="5" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" />
+            {/* Person left */}
+            <circle cx="12" cy="16" r="3" fill="var(--cs-accent)" opacity="0.2" />
+            <path d="M7 26 C7 22, 9 20, 12 20 C15 20, 17 22, 17 26" fill="var(--cs-accent)" opacity="0.15" />
+            {/* Person center */}
+            <circle cx="24" cy="14" r="3.5" fill="var(--cs-accent)" opacity="0.25" />
+            <path d="M19 26 C19 21, 21 19, 24 19 C27 19, 29 21, 29 26" fill="var(--cs-accent)" opacity="0.2" />
+            {/* Person right */}
+            <circle cx="36" cy="16" r="3" fill="var(--cs-accent)" opacity="0.2" />
+            <path d="M31 26 C31 22, 33 20, 36 20 C39 20, 41 22, 41 26" fill="var(--cs-accent)" opacity="0.15" />
+            {/* Idea spark */}
+            <motion.circle cx="24" cy="8" r="1.5" fill="var(--cs-accent)" opacity="0.5" animate={{ opacity: [0.5, 0.15, 0.5], r: [1.5, 2.5, 1.5] }} transition={{ duration: 2, repeat: Infinity }} />
+        </svg>
+    )
+}
+
+/* SVG: A wireframe sheet with layout blocks — design work */
+function SceneDesignFit() {
+    return (
+        <svg viewBox="0 0 48 40" fill="none" className="w-full h-full">
+            <rect x="8" y="4" width="32" height="32" rx="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" />
+            {/* Header bar */}
+            <rect x="10" y="6" width="28" height="4" rx="1" fill="var(--cs-accent)" opacity="0.15" />
+            {/* Sidebar */}
+            <rect x="10" y="12" width="8" height="22" rx="1.5" fill="var(--cs-accent)" opacity="0.1" />
+            {/* Content tiles — the IQ panel fitting in */}
+            <rect x="20" y="12" width="18" height="10" rx="2" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.4" fill="var(--cs-accent)" fillOpacity="0.08" />
+            <rect x="20" y="24" width="8" height="10" rx="1.5" fill="var(--cs-accent)" opacity="0.1" />
+            <rect x="30" y="24" width="8" height="10" rx="1.5" fill="var(--cs-accent)" opacity="0.1" />
+            {/* Arrow pointing to the fitted panel */}
+            <motion.path d="M42 17 L46 17" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.5" animate={{ x: [0, 2, 0] }} transition={{ duration: 1.5, repeat: Infinity }} />
+        </svg>
+    )
+}
+
+/* SVG: Stack of mockup pages — dozens of concepts */
+function SceneMockups() {
+    return (
+        <svg viewBox="0 0 48 40" fill="none" className="w-full h-full">
+            {/* Stacked pages */}
+            <rect x="14" y="8" width="24" height="28" rx="2" fill="var(--cs-accent)" fillOpacity="0.06" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.15" />
+            <rect x="12" y="6" width="24" height="28" rx="2" fill="var(--cs-accent)" fillOpacity="0.08" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" />
+            <rect x="10" y="4" width="24" height="28" rx="2" fill="var(--cs-accent)" fillOpacity="0.1" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" />
+            {/* Content lines on top page */}
+            <rect x="13" y="8" width="14" height="2" rx="0.5" fill="var(--cs-accent)" opacity="0.2" />
+            <rect x="13" y="12" width="18" height="1.5" rx="0.5" fill="var(--cs-accent)" opacity="0.12" />
+            <rect x="13" y="15" width="16" height="1.5" rx="0.5" fill="var(--cs-accent)" opacity="0.1" />
+            {/* Mini wireframe blocks */}
+            <rect x="13" y="19" width="8" height="6" rx="1" fill="var(--cs-accent)" opacity="0.12" />
+            <rect x="23" y="19" width="8" height="6" rx="1" fill="var(--cs-accent)" opacity="0.1" />
+            {/* Count badge */}
+            <circle cx="38" cy="8" r="5" fill="var(--cs-accent)" opacity="0.2" />
+            <text x="38" y="10" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.6">24</text>
+        </svg>
+    )
+}
+
+/* SVG: VP stamp of approval — checkmark in a seal */
+function SceneApproval() {
+    return (
+        <svg viewBox="0 0 48 40" fill="none" className="w-full h-full">
+            {/* Approval seal circle */}
+            <circle cx="24" cy="20" r="14" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.3" />
+            <circle cx="24" cy="20" r="11" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.2" strokeDasharray="2,2" />
+            {/* Checkmark */}
+            <motion.path d="M17 20 L22 25 L31 15" stroke="var(--cs-accent)" strokeWidth="2" opacity="0.6" fill="none" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: 'easeOut' }} />
+            {/* VP text */}
+            <text x="24" y="35" textAnchor="middle" fill="var(--cs-accent)" fontSize="5" fontFamily="monospace" opacity="0.4">APPROVED</text>
+        </svg>
+    )
+}
+
 export function DSMLBeatSpark() {
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -166,10 +310,10 @@ export function DSMLBeatSpark() {
     }, [])
 
     const timeline = [
-        { label: 'Team vision takes shape', icon: <Users className="h-4 w-4" />, color: 'var(--accent-teal)' },
-        { label: 'I designed how it fits the Hub', icon: <Sparkles className="h-4 w-4" />, color: 'var(--accent-violet)' },
-        { label: 'Dozens of concept mockups', icon: <Layers3 className="h-4 w-4" />, color: 'var(--accent-amber)' },
-        { label: 'PM pitches. VP approves.', icon: <Target className="h-4 w-4" />, color: 'var(--semantic-emerald)' },
+        { label: 'Team vision takes shape', scene: <SceneTeamVision />, color: 'var(--cs-accent)' },
+        { label: 'I designed how it fits the Hub', scene: <SceneDesignFit />, color: 'var(--cs-accent)' },
+        { label: 'Dozens of concept mockups', scene: <SceneMockups />, color: 'var(--cs-accent)' },
+        { label: 'PM pitches. VP approves.', scene: <SceneApproval />, color: 'var(--cs-accent)' },
     ]
 
     return (
@@ -184,13 +328,13 @@ export function DSMLBeatSpark() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                The Hub concept was a <span className="text-zinc-200 font-medium">team effort</span> — my PM, Director of Design, and Head PM. I designed <span className="text-teal-400 font-bold">how it would fit into the existing Hub</span> — the architecture, the interactions, the visual design. PM pitched. VP approved.
+                                The Hub was <span className="text-zinc-200 font-medium">co-created</span> — my PM, Director of Design, and Head PM. The <span className="text-[var(--cs-accent)] font-bold">entire IQ architecture was conceptualized by me</span> — how it fits the existing Hub, the interactions, the visual design. PM pitched. VP approved.
                             </p>
                         </PresenterBar>
                     </motion.div>
 
-                    {/* Timeline progression */}
-                    <div className="flex flex-col items-center gap-3 w-full max-w-sm mx-auto mt-6">
+                    {/* Timeline with scene illustrations */}
+                    <div className="flex flex-col items-center gap-3 w-full max-w-md mx-auto mt-6">
                         {timeline.map((item, i) => (
                             <AnimatePresence key={item.label}>
                                 {step >= i + 1 && (
@@ -198,20 +342,22 @@ export function DSMLBeatSpark() {
                                         initial={{ opacity: 0, x: -20, scale: 0.9 }}
                                         animate={{ opacity: 1, x: 0, scale: 1 }}
                                         transition={{ duration: 0.5, ease }}
-                                        className="w-full flex items-center gap-3 rounded-lg border px-4 py-3"
+                                        className="w-full flex items-center gap-3 rounded-xl border px-4 py-3"
                                         style={{
                                             borderColor: withHexAlpha(item.color, '30'),
                                             background: withHexAlpha(item.color, '06'),
                                         }}
                                     >
-                                        <span style={{ color: item.color }}>{item.icon}</span>
+                                        <div className="w-16 h-14 flex-shrink-0">
+                                            {item.scene}
+                                        </div>
                                         <span className="text-sm text-zinc-200 text-left">{item.label}</span>
                                         {i === timeline.length - 1 && (
                                             <motion.span
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
                                                 transition={{ delay: 0.3, type: 'spring', stiffness: 300 }}
-                                                className="ml-auto text-emerald-400 text-xs font-mono font-bold"
+                                                className="ml-auto text-[var(--cs-accent)] text-xs font-mono font-bold"
                                             >
                                                 ✓ GO
                                             </motion.span>
@@ -257,7 +403,7 @@ export function DSMLBeatModernize() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                Before building the Hub, I modernized each feature. NLQ upgraded from simple SQL queries to <span className="text-emerald-400 font-bold">Microsoft&apos;s Phi-3 SLM</span> — question suggestions, chart switching, ambiguity correction.
+                                Before building the Hub, I modernized each feature. NLQ upgraded from simple SQL queries to <span className="text-[var(--cs-accent)] font-bold">Microsoft&apos;s Phi-3 SLM</span> — question suggestions, chart switching, ambiguity correction.
                             </p>
                         </PresenterBar>
                     </motion.div>
@@ -273,10 +419,10 @@ export function DSMLBeatModernize() {
                                 transition={{ duration: 0.62, ease }}
                                 className="w-full max-w-lg mx-auto text-center mt-6"
                             >
-                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-rose-300/90 uppercase">Before — Simple SQL Queries</p>
-                                <div className="mx-auto max-w-sm rounded-xl border border-rose-400/20 bg-rose-400/[0.04] p-4">
+                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-zinc-400 uppercase">Before — Simple SQL Queries</p>
+                                <div className="mx-auto max-w-sm rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
                                     <div className="flex items-center gap-2 border-b border-white/[0.06] pb-2 mb-3">
-                                        <Search className="h-3.5 w-3.5 text-rose-300/40" />
+                                        <Search className="h-3.5 w-3.5 text-zinc-500" />
                                         <span className="font-mono text-[10px] text-zinc-500">Enter a question...</span>
                                     </div>
                                     <motion.div
@@ -285,7 +431,7 @@ export function DSMLBeatModernize() {
                                         className="text-xs text-zinc-400 text-left space-y-2"
                                     >
                                         <div className="rounded bg-white/[0.03] px-3 py-2 font-mono text-[11px] text-zinc-500">show me sales data</div>
-                                        <div className="text-rose-400/60 text-[10px] px-1">No suggestions. No chart options. No ambiguity handling.</div>
+                                        <div className="text-zinc-500 text-[10px] px-1">No suggestions. No chart options. No ambiguity handling.</div>
                                     </motion.div>
                                 </div>
                                 <p className="mt-4 font-mono text-xs text-zinc-400">Basic SQL queries. No intelligence. Limited results.</p>
@@ -298,10 +444,10 @@ export function DSMLBeatModernize() {
                                 transition={{ duration: 0.75, ease }}
                                 className="w-full max-w-lg mx-auto text-center mt-6"
                             >
-                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-emerald-400/90 uppercase">After — Phi-3 SLM Powered</p>
-                                <div className="mx-auto max-w-sm rounded-xl border border-emerald-400/20 bg-emerald-400/[0.04] p-4">
+                                <p className="mb-4 font-mono text-xs tracking-[0.3em] text-[var(--cs-accent)] uppercase">After — Phi-3 SLM Powered</p>
+                                <div className="mx-auto max-w-sm rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_96%)] p-4">
                                     <div className="flex items-center gap-2 border-b border-white/[0.06] pb-2 mb-3">
-                                        <Search className="h-3.5 w-3.5 text-emerald-300/60" />
+                                        <Search className="h-3.5 w-3.5 text-[var(--cs-accent)]" />
                                         <span className="font-mono text-[10px] text-zinc-200">Ask anything about your data...</span>
                                     </div>
                                     <div className="space-y-2">
@@ -311,15 +457,15 @@ export function DSMLBeatModernize() {
                                                 initial={{ opacity: 0, x: -10 }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 transition={{ delay: 0.2 + i * 0.12, duration: 0.4, ease }}
-                                                className="flex items-center gap-2 rounded-lg bg-emerald-300/[0.06] px-3 py-2 text-left"
+                                                className="flex items-center gap-2 rounded-lg bg-[color-mix(in_srgb,var(--cs-accent),transparent_94%)] px-3 py-2 text-left"
                                             >
-                                                <Sparkles className="h-3 w-3 text-emerald-300/50 flex-shrink-0" />
+                                                <Sparkles className="h-3 w-3 text-[var(--cs-accent)] flex-shrink-0" />
                                                 <span className="text-[11px] text-zinc-200">{q}</span>
                                             </motion.div>
                                         ))}
                                     </div>
                                 </div>
-                                <p className="mt-4 font-mono text-xs text-emerald-300/70">Suggested queries. Conversational errors. Clear results.</p>
+                                <p className="mt-4 font-mono text-xs text-[var(--cs-accent)] opacity-70">Suggested queries. Conversational errors. Clear results.</p>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -333,8 +479,72 @@ export function DSMLBeatModernize() {
 
 /* ═════════════════════════════════════════════════
    BEAT 4: "ARCHITECTURE BEFORE TICKETS"
-   Hub integration strategy
+   Hub integration — with architectural SVG diagrams
    ═════════════════════════════════════════════════ */
+
+/* Mini app icon SVGs for scattered state */
+function MiniNLQ() {
+    return (
+        <svg viewBox="0 0 32 32" fill="none" className="w-12 h-12 mx-auto mb-1">
+            <rect x="4" y="6" width="24" height="16" rx="4" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.4" />
+            <path d="M10 20 L7 24 L14 20" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.4" />
+            <text x="16" y="17" textAnchor="middle" fill="var(--cs-accent)" fontSize="10" fontFamily="monospace" opacity="0.5">?</text>
+        </svg>
+    )
+}
+
+function MiniInsights() {
+    return (
+        <svg viewBox="0 0 32 32" fill="none" className="w-12 h-12 mx-auto mb-1">
+            <rect x="6" y="18" width="5" height="8" rx="1" fill="var(--cs-accent)" opacity="0.2" />
+            <rect x="13" y="12" width="5" height="14" rx="1" fill="var(--cs-accent)" opacity="0.3" />
+            <rect x="20" y="8" width="5" height="18" rx="1" fill="var(--cs-accent)" opacity="0.4" />
+            <circle cx="16" cy="6" r="2" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" fill="none" />
+        </svg>
+    )
+}
+
+function MiniML() {
+    return (
+        <svg viewBox="0 0 32 32" fill="none" className="w-12 h-12 mx-auto mb-1">
+            <circle cx="16" cy="8" r="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.4" fill="none" />
+            <circle cx="8" cy="20" r="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" fill="none" />
+            <circle cx="24" cy="20" r="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" fill="none" />
+            <line x1="16" y1="11" x2="8" y2="17" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" />
+            <line x1="16" y1="11" x2="24" y2="17" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" />
+            <line x1="8" y1="23" x2="24" y2="23" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.15" />
+        </svg>
+    )
+}
+
+/* Hub wireframe SVG for the unified state */
+function HubDiagramSVG() {
+    return (
+        <svg viewBox="0 0 200 120" fill="none" className="w-full h-full max-w-md mx-auto">
+            {/* Central hub node */}
+            <rect x="65" y="35" width="70" height="50" rx="10" stroke="var(--cs-accent)" strokeWidth="1.2" opacity="0.5" />
+            <text x="100" y="55" textAnchor="middle" fill="var(--cs-accent)" fontSize="10" fontFamily="monospace" opacity="0.6">DSML Hub</text>
+            {/* Feature tiles inside hub */}
+            <rect x="72" y="62" width="16" height="16" rx="3" fill="var(--cs-accent)" fillOpacity="0.12" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.4" />
+            <rect x="92" y="62" width="16" height="16" rx="3" fill="var(--cs-accent)" fillOpacity="0.12" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.4" />
+            <rect x="112" y="62" width="16" height="16" rx="3" fill="var(--cs-accent)" fillOpacity="0.12" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.4" />
+            {/* Tiny icons inside tiles */}
+            <text x="80" y="74" textAnchor="middle" fill="var(--cs-accent)" fontSize="7" fontFamily="monospace" opacity="0.5">?</text>
+            <rect x="96" y="67" width="3" height="7" rx="0.5" fill="var(--cs-accent)" opacity="0.3" />
+            <rect x="100" y="65" width="3" height="9" rx="0.5" fill="var(--cs-accent)" opacity="0.35" />
+            <circle cx="120" cy="70" r="2.5" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.35" fill="none" />
+            {/* Connection lines from outside to hub */}
+            <motion.line x1="20" y1="20" x2="65" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8 }} />
+            <motion.line x1="180" y1="20" x2="135" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.15, duration: 0.8 }} />
+            <motion.line x1="100" y1="110" x2="100" y2="85" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.8 }} />
+            {/* Source labels */}
+            <text x="16" y="16" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">NLQ</text>
+            <text x="184" y="16" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">Insights</text>
+            <text x="100" y="118" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">ML</text>
+        </svg>
+    )
+}
+
 export function DSMLBeatArchitecture() {
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -349,9 +559,9 @@ export function DSMLBeatArchitecture() {
     }, [])
 
     const features = [
-        { name: 'NLQ', color: 'var(--accent-violet)', x: 10, y: 25 },
-        { name: 'Insights', color: 'var(--accent-teal)', x: 75, y: 20 },
-        { name: 'ML', color: 'var(--accent-amber)', x: 42, y: 70 },
+        { name: 'NLQ', color: 'var(--cs-accent)', x: 10, y: 25, icon: <MiniNLQ /> },
+        { name: 'Insights', color: 'var(--cs-accent)', x: 75, y: 20, icon: <MiniInsights /> },
+        { name: 'ML', color: 'var(--cs-accent)', x: 42, y: 70, icon: <MiniML /> },
     ]
 
     return (
@@ -366,7 +576,7 @@ export function DSMLBeatArchitecture() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                I defined the architecture <span className="text-zinc-200 font-medium">before any tickets existed</span>. PM wrote tickets after seeing my mockups. Three scattered tools became <span className="text-teal-400 font-bold">one unified DSML Hub</span> — no new infrastructure.
+                                I defined the architecture <span className="text-zinc-200 font-medium">before any tickets existed</span>. PM wrote tickets after seeing my mockups. Three scattered tools became <span className="text-[var(--cs-accent)] font-bold">one unified DSML Hub</span> — no new infrastructure.
                             </p>
                         </PresenterBar>
                     </motion.div>
@@ -382,24 +592,24 @@ export function DSMLBeatArchitecture() {
                                 transition={{ duration: 0.5, ease }}
                                 className="relative w-full max-w-md mx-auto h-44 mt-6"
                             >
-                                <p className="absolute -top-1 left-0 right-0 font-mono text-xs text-rose-300/70 uppercase tracking-wider text-center">3 scattered tools</p>
+                                <p className="absolute -top-1 left-0 right-0 font-mono text-xs text-zinc-400 uppercase tracking-wider text-center">3 scattered tools</p>
                                 {features.map((f, i) => (
                                     <motion.div
                                         key={f.name}
                                         initial={{ opacity: 0, scale: 0 }}
                                         animate={step >= 1 ? { opacity: 1, scale: 1 } : {}}
                                         transition={{ delay: i * 0.15, duration: 0.5, type: 'spring', stiffness: 200 }}
-                                        className="absolute px-4 py-2.5 rounded-xl border font-mono text-sm font-bold"
+                                        className="absolute rounded-xl border text-center p-2"
                                         style={{
                                             left: `${f.x}%`,
                                             top: `${f.y}%`,
-                                            color: f.color,
                                             borderColor: withHexAlpha(f.color, '35'),
                                             background: withHexAlpha(f.color, '10'),
                                             transform: 'translate(-50%, -50%)',
                                         }}
                                     >
-                                        {f.name}
+                                        {f.icon}
+                                        <span className="font-mono text-xs font-bold block" style={{ color: f.color }}>{f.name}</span>
                                     </motion.div>
                                 ))}
 
@@ -416,7 +626,7 @@ export function DSMLBeatArchitecture() {
                                                 <motion.line
                                                     key={idx}
                                                     x1={x1} y1={y1} x2={x2} y2={y2}
-                                                    stroke="var(--semantic-rose)"
+                                                    stroke="var(--cs-accent)"
                                                     strokeWidth="0.3"
                                                     strokeDasharray="2,2"
                                                     initial={{ pathLength: 0 }}
@@ -436,56 +646,29 @@ export function DSMLBeatArchitecture() {
                                 transition={{ duration: 0.75, ease }}
                                 className="w-full max-w-md mx-auto text-center mt-6"
                             >
-                                <p className="mb-4 font-mono text-xs text-emerald-400/90 uppercase tracking-wider">1 unified Hub</p>
-                                <motion.div
-                                    initial={{ scale: 0.9 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                                    className="mx-auto rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.06] p-5 max-w-sm"
-                                >
-                                    <div className="text-lg font-bold text-emerald-300 mb-3 font-mono">DSML Hub</div>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {features.map((f, i) => (
-                                            <motion.div
-                                                key={f.name}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.2 + i * 0.1, duration: 0.4, ease }}
-                                                className="rounded-lg border p-3 text-center"
-                                                style={{
-                                                    borderColor: withHexAlpha(f.color, '30'),
-                                                    background: withHexAlpha(f.color, '08'),
-                                                }}
-                                            >
-                                                <div className="font-mono text-xs font-bold mb-1" style={{ color: f.color }}>{f.name}</div>
-                                                <motion.div
-                                                    className="h-1.5 rounded-full mx-auto w-8"
-                                                    style={{ background: withHexAlpha(f.color, '40') }}
-                                                    animate={{ scaleX: [0.4, 1, 0.7] }}
-                                                    transition={{ duration: 1.5, repeat: Infinity, repeatType: 'mirror' }}
-                                                />
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </motion.div>
+                                <p className="mb-4 font-mono text-xs text-[var(--cs-accent)] uppercase tracking-wider">1 unified Hub</p>
+                                {/* Hub architecture diagram SVG */}
+                                <div className="h-32 mb-4">
+                                    <HubDiagramSVG />
+                                </div>
 
                                 {step >= 3 && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 12 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, ease }}
-                                        className="flex justify-center gap-8 mt-6"
+                                        className="flex justify-center gap-8 mt-2"
                                     >
                                         <div className="text-center">
-                                            <div className="text-lg font-bold text-emerald-300 font-mono">0</div>
+                                            <div className="text-lg font-bold text-[var(--cs-accent)] font-mono">0</div>
                                             <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">New infra</div>
                                         </div>
                                         <div className="text-center">
-                                            <div className="text-lg font-bold text-emerald-300 font-mono">1</div>
+                                            <div className="text-lg font-bold text-[var(--cs-accent)] font-mono">1</div>
                                             <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">Learning curve</div>
                                         </div>
                                         <div className="text-center">
-                                            <div className="text-lg font-bold text-emerald-300 font-mono">100%</div>
+                                            <div className="text-lg font-bold text-[var(--cs-accent)] font-mono">100%</div>
                                             <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">Responsive</div>
                                         </div>
                                     </motion.div>
@@ -503,8 +686,98 @@ export function DSMLBeatArchitecture() {
 
 /* ═════════════════════════════════════════════════
    BEAT 5: "FOUR ITERATIONS"
-   V1 → V2 → V3 → V4 (Landed)
+   V1 → V2 → V3 → V4 (Landed) — with wireframe thumbnails
    ═════════════════════════════════════════════════ */
+
+/* Miniature wireframe SVGs for each iteration layout */
+function WireframeV1() {
+    return (
+        <svg viewBox="0 0 56 40" fill="none" className="w-full h-full">
+            {/* Tabbed dashboard — dense tabs at top, crowded grid below */}
+            <rect x="2" y="2" width="52" height="36" rx="3" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
+            {/* Tabs */}
+            <rect x="4" y="4" width="12" height="4" rx="1" fill="currentColor" opacity="0.25" />
+            <rect x="18" y="4" width="12" height="4" rx="1" fill="currentColor" opacity="0.15" />
+            <rect x="32" y="4" width="12" height="4" rx="1" fill="currentColor" opacity="0.15" />
+            {/* Dense grid of cards */}
+            <rect x="4" y="10" width="15" height="10" rx="1.5" fill="currentColor" opacity="0.12" />
+            <rect x="21" y="10" width="15" height="10" rx="1.5" fill="currentColor" opacity="0.12" />
+            <rect x="38" y="10" width="15" height="10" rx="1.5" fill="currentColor" opacity="0.12" />
+            <rect x="4" y="22" width="15" height="10" rx="1.5" fill="currentColor" opacity="0.08" />
+            <rect x="21" y="22" width="15" height="10" rx="1.5" fill="currentColor" opacity="0.08" />
+            <rect x="38" y="22" width="15" height="10" rx="1.5" fill="currentColor" opacity="0.08" />
+            {/* X mark for rejection */}
+            <line x1="42" y1="30" x2="50" y2="36" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+            <line x1="50" y1="30" x2="42" y2="36" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+        </svg>
+    )
+}
+
+function WireframeV2() {
+    return (
+        <svg viewBox="0 0 56 40" fill="none" className="w-full h-full">
+            {/* Educational layout — big text, step-by-step */}
+            <rect x="2" y="2" width="52" height="36" rx="3" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
+            {/* Large heading area */}
+            <rect x="8" y="6" width="28" height="3" rx="1" fill="currentColor" opacity="0.2" />
+            <rect x="8" y="11" width="40" height="2" rx="0.5" fill="currentColor" opacity="0.1" />
+            <rect x="8" y="14" width="36" height="2" rx="0.5" fill="currentColor" opacity="0.1" />
+            {/* Step indicators */}
+            <circle cx="12" cy="22" r="3" fill="currentColor" opacity="0.15" />
+            <rect x="18" y="21" width="20" height="2" rx="0.5" fill="currentColor" opacity="0.1" />
+            <circle cx="12" cy="29" r="3" fill="currentColor" opacity="0.1" />
+            <rect x="18" y="28" width="18" height="2" rx="0.5" fill="currentColor" opacity="0.08" />
+            {/* X for rejection */}
+            <line x1="42" y1="30" x2="50" y2="36" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+            <line x1="50" y1="30" x2="42" y2="36" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+        </svg>
+    )
+}
+
+function WireframeV3() {
+    return (
+        <svg viewBox="0 0 56 40" fill="none" className="w-full h-full">
+            {/* Sidebar navigation — sidebar + content area */}
+            <rect x="2" y="2" width="52" height="36" rx="3" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
+            {/* Sidebar */}
+            <rect x="3" y="3" width="14" height="34" rx="2" fill="currentColor" opacity="0.1" />
+            <rect x="5" y="7" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.2" />
+            <rect x="5" y="12" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.15" />
+            <rect x="5" y="17" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.12" />
+            <rect x="5" y="22" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.1" />
+            {/* Content */}
+            <rect x="20" y="6" width="30" height="12" rx="2" fill="currentColor" opacity="0.08" />
+            <rect x="20" y="20" width="30" height="12" rx="2" fill="currentColor" opacity="0.06" />
+            {/* X for rejection */}
+            <line x1="42" y1="30" x2="50" y2="36" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+            <line x1="50" y1="30" x2="42" y2="36" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+        </svg>
+    )
+}
+
+function WireframeV4() {
+    return (
+        <svg viewBox="0 0 56 40" fill="none" className="w-full h-full">
+            {/* Icon tiles — clean 3-tile grid */}
+            <rect x="2" y="2" width="52" height="36" rx="3" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
+            {/* Three beautiful icon tiles */}
+            <rect x="5" y="8" width="14" height="18" rx="3" stroke="currentColor" strokeWidth="0.8" opacity="0.5" fill="currentColor" fillOpacity="0.08" />
+            <rect x="21" y="8" width="14" height="18" rx="3" stroke="currentColor" strokeWidth="0.8" opacity="0.5" fill="currentColor" fillOpacity="0.08" />
+            <rect x="37" y="8" width="14" height="18" rx="3" stroke="currentColor" strokeWidth="0.8" opacity="0.5" fill="currentColor" fillOpacity="0.08" />
+            {/* Icons inside tiles */}
+            <circle cx="12" cy="15" r="3" stroke="currentColor" strokeWidth="0.8" opacity="0.6" fill="none" />
+            <circle cx="28" cy="15" r="3" stroke="currentColor" strokeWidth="0.8" opacity="0.6" fill="none" />
+            <circle cx="44" cy="15" r="3" stroke="currentColor" strokeWidth="0.8" opacity="0.6" fill="none" />
+            {/* Labels under icons */}
+            <rect x="7" y="21" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.3" />
+            <rect x="23" y="21" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.3" />
+            <rect x="39" y="21" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.3" />
+            {/* Checkmark */}
+            <motion.path d="M40 30 L44 34 L52 26" stroke="currentColor" strokeWidth="1.5" opacity="0.7" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }} />
+        </svg>
+    )
+}
+
 export function DSMLBeatIterations() {
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -520,10 +793,10 @@ export function DSMLBeatIterations() {
     }, [])
 
     const iterations = [
-        { version: 'V1', verdict: 'TOO DENSE', desc: 'Tabbed dashboard', color: 'var(--semantic-rose)' },
-        { version: 'V2', verdict: 'TOO PASSIVE', desc: 'Educational layout', color: 'var(--accent-amber)' },
-        { version: 'V3', verdict: 'COMPETING', desc: 'Sidebar navigation', color: 'var(--accent-amber)' },
-        { version: 'V4', verdict: 'LANDED', desc: 'Icon tiles', color: 'var(--semantic-emerald)' },
+        { version: 'V1', verdict: 'TOO DENSE', desc: 'Tabbed dashboard', color: 'var(--overlay-white-40)', wireframe: <WireframeV1 />, rejected: true },
+        { version: 'V2', verdict: 'TOO PASSIVE', desc: 'Educational layout', color: 'var(--overlay-white-40)', wireframe: <WireframeV2 />, rejected: true },
+        { version: 'V3', verdict: 'COMPETING', desc: 'Sidebar navigation', color: 'var(--overlay-white-40)', wireframe: <WireframeV3 />, rejected: true },
+        { version: 'V4', verdict: 'LANDED', desc: 'Icon tiles', color: 'var(--cs-accent)', wireframe: <WireframeV4 />, rejected: false },
     ]
 
     return (
@@ -538,12 +811,12 @@ export function DSMLBeatIterations() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                Four distinct iterations. V1 too dense. V2 too passive. V3 competed with Hub navigation. <span className="text-emerald-400 font-bold">V4 — clean icon tiles — landed.</span>
+                                Four distinct iterations. V1 too dense. V2 too passive. V3 competed with Hub navigation. <span className="text-[var(--cs-accent)] font-bold">V4 — clean icon tiles — landed.</span>
                             </p>
                         </PresenterBar>
                     </motion.div>
 
-                    {/* Iteration cards */}
+                    {/* Iteration cards with wireframe thumbnails */}
                     <div className="flex items-center justify-center gap-2 md:gap-4 mt-6">
                         {iterations.map((iter, i) => (
                             <motion.div
@@ -554,22 +827,26 @@ export function DSMLBeatIterations() {
                                 className="relative"
                             >
                                 <div
-                                    className="w-20 md:w-28 h-28 md:h-36 rounded-xl border flex flex-col items-center justify-center text-center p-2"
+                                    className="w-28 md:w-36 rounded-xl border flex flex-col items-center text-center p-2 pt-3"
                                     style={{
                                         borderColor: withHexAlpha(iter.color, '30'),
                                         background: withHexAlpha(iter.color, '08'),
                                     }}
                                 >
-                                    <span className="text-xl md:text-2xl font-bold font-mono" style={{ color: iter.color }}>
+                                    {/* Wireframe thumbnail */}
+                                    <div className="w-full h-20 md:h-24 mb-2" style={{ color: iter.color }}>
+                                        {iter.wireframe}
+                                    </div>
+                                    <span className="text-base md:text-lg font-bold font-mono" style={{ color: iter.color }}>
                                         {iter.version}
                                     </span>
                                     <span
-                                        className="text-[9px] md:text-[10px] font-mono tracking-wider mt-1 uppercase font-bold"
+                                        className="text-[9px] md:text-[10px] font-mono tracking-wider mt-0.5 uppercase font-bold"
                                         style={{ color: iter.color }}
                                     >
                                         {iter.verdict}
                                     </span>
-                                    <span className="text-[10px] text-zinc-400 mt-1">{iter.desc}</span>
+                                    <span className="text-[10px] text-zinc-400 mt-0.5 mb-1">{iter.desc}</span>
                                 </div>
 
                                 {i < iterations.length - 1 && (
@@ -594,8 +871,81 @@ export function DSMLBeatIterations() {
 
 /* ═════════════════════════════════════════════════
    BEAT 6: "THE NAVIGATION FIGHT"
-   List views vs. Icon tiles — I won
+   List views vs. Icon tiles — with SVG wireframes
    ═════════════════════════════════════════════════ */
+
+/* SVG wireframe: Traditional list view — items buried in a sidebar */
+function ListViewWireframe() {
+    return (
+        <svg viewBox="0 0 160 120" fill="none" className="w-full h-full">
+            {/* App shell */}
+            <rect x="4" y="4" width="152" height="112" rx="6" stroke="currentColor" strokeWidth="0.8" opacity="0.25" />
+            {/* Top nav bar */}
+            <rect x="6" y="6" width="148" height="12" rx="3" fill="currentColor" opacity="0.06" />
+            <rect x="10" y="10" width="24" height="4" rx="1" fill="currentColor" opacity="0.12" />
+            {/* Sidebar */}
+            <rect x="6" y="20" width="38" height="94" rx="3" fill="currentColor" opacity="0.04" />
+            {/* Nav items — small, buried, barely visible */}
+            {[28, 38, 48, 58, 68, 78, 88, 98].map((y, i) => (
+                <g key={y} opacity={i < 3 ? 0.2 : 0.08}>
+                    <circle cx="14" cy={y} r="2" fill="currentColor" />
+                    <rect x="20" y={y - 2} width={18 + (i % 3) * 4} height="3" rx="0.5" fill="currentColor" />
+                </g>
+            ))}
+            {/* The 3 AI features buried as tiny items */}
+            <rect x="9" y="44" width="32" height="12" rx="2" stroke="currentColor" strokeWidth="0.5" opacity="0.15" strokeDasharray="2,2" />
+            {/* Content area — mostly empty */}
+            <rect x="48" y="20" width="106" height="94" rx="3" fill="currentColor" opacity="0.02" />
+            <rect x="60" y="50" width="80" height="4" rx="1" fill="currentColor" opacity="0.05" />
+            <rect x="60" y="58" width="60" height="4" rx="1" fill="currentColor" opacity="0.04" />
+            {/* "Buried" annotation */}
+            <text x="80" y="84" textAnchor="middle" fill="currentColor" fontSize="7" fontFamily="monospace" opacity="0.15">Features buried here</text>
+            {/* X mark */}
+            <line x1="130" y1="96" x2="142" y2="108" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+            <line x1="142" y1="96" x2="130" y2="108" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+        </svg>
+    )
+}
+
+/* SVG wireframe: Icon tiles — large, prominent, immediate context */
+function TileViewWireframe() {
+    return (
+        <svg viewBox="0 0 160 120" fill="none" className="w-full h-full">
+            {/* App shell */}
+            <rect x="4" y="4" width="152" height="112" rx="6" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.35" />
+            {/* Top nav bar */}
+            <rect x="6" y="6" width="148" height="12" rx="3" fill="var(--cs-accent)" fillOpacity="0.06" />
+            <rect x="10" y="10" width="24" height="4" rx="1" fill="var(--cs-accent)" opacity="0.15" />
+            {/* Three large icon tiles — prominent and clear */}
+            <rect x="12" y="28" width="42" height="56" rx="6" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.45" fill="var(--cs-accent)" fillOpacity="0.06" />
+            <rect x="59" y="28" width="42" height="56" rx="6" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.45" fill="var(--cs-accent)" fillOpacity="0.06" />
+            <rect x="106" y="28" width="42" height="56" rx="6" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.45" fill="var(--cs-accent)" fillOpacity="0.06" />
+            {/* Icons inside tiles — chat, chart, brain */}
+            {/* Ask tile */}
+            <rect x="24" y="40" width="18" height="12" rx="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.4" />
+            <text x="33" y="50" textAnchor="middle" fill="var(--cs-accent)" fontSize="8" fontFamily="monospace" opacity="0.5">?</text>
+            <rect x="22" y="58" width="22" height="3" rx="1" fill="var(--cs-accent)" opacity="0.25" />
+            <text x="33" y="68" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">Ask</text>
+            {/* Analyze tile */}
+            <rect x="67" y="44" width="4" height="8" rx="0.5" fill="var(--cs-accent)" opacity="0.2" />
+            <rect x="73" y="40" width="4" height="12" rx="0.5" fill="var(--cs-accent)" opacity="0.3" />
+            <rect x="79" y="36" width="4" height="16" rx="0.5" fill="var(--cs-accent)" opacity="0.4" />
+            <rect x="69" y="58" width="22" height="3" rx="1" fill="var(--cs-accent)" opacity="0.25" />
+            <text x="80" y="68" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">Analyze</text>
+            {/* Predict tile */}
+            <circle cx="127" cy="44" r="5" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.35" fill="none" />
+            <circle cx="120" cy="48" r="3" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" fill="none" />
+            <line x1="121" y1="46" x2="126" y2="42" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.2" />
+            <rect x="116" y="58" width="22" height="3" rx="1" fill="var(--cs-accent)" opacity="0.25" />
+            <text x="127" y="68" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">Predict</text>
+            {/* Subtitle */}
+            <text x="80" y="100" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.3">Immediate context. Zero learning curve.</text>
+            {/* Checkmark */}
+            <motion.path d="M134 96 L140 102 L150 90" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.5" fill="none" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6 }} />
+        </svg>
+    )
+}
+
 export function DSMLBeatNavFight() {
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -621,12 +971,12 @@ export function DSMLBeatNavFight() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                The biggest fight: <span className="text-zinc-200 font-medium">icon tiles vs. list views</span>. The veteran architects wanted traditional lists. My argument: list views caused the low adoption. <span className="text-emerald-400 font-bold">Large tiles gave immediate context. I won.</span>
+                                <span className="text-zinc-200 font-medium">Icon tiles vs. list views.</span> Veteran architects wanted traditional lists. My argument: buried list items are exactly what caused poor adoption. <span className="text-[var(--cs-accent)] font-bold">Large tiles give immediate context. I won.</span>
                             </p>
                         </PresenterBar>
                     </motion.div>
 
-                    {/* List → Tiles transition */}
+                    {/* List → Tiles transition with SVG wireframes */}
                     <AnimatePresence mode="wait">
                         {step < 2 ? (
                             <motion.div
@@ -635,24 +985,17 @@ export function DSMLBeatNavFight() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.96, filter: 'blur(6px)' }}
                                 transition={{ duration: 0.5, ease }}
-                                className="w-full max-w-xs mx-auto text-center mt-6"
+                                className="w-full max-w-lg mx-auto text-center mt-6"
                             >
-                                <p className="mb-3 font-mono text-[10px] text-rose-300/70 uppercase tracking-wider">Architects Wanted</p>
-                                <div className="rounded-xl border border-rose-400/20 bg-rose-400/[0.04] p-3 space-y-2">
-                                    {['NLQ', 'Insights', 'Predict Data'].map((item, i) => (
-                                        <motion.div
-                                            key={item}
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={step >= 1 ? { opacity: 1, x: 0 } : {}}
-                                            transition={{ delay: i * 0.1, duration: 0.3 }}
-                                            className="flex items-center gap-2 rounded bg-rose-300/[0.06] px-3 py-2 text-left"
-                                        >
-                                            <div className="h-1.5 w-1.5 rounded-full bg-rose-300/40" />
-                                            <span className="text-xs text-zinc-200 font-mono">{item}</span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                                <p className="mt-3 text-[10px] text-rose-400/60 font-mono">List items caused low adoption.</p>
+                                <p className="mb-3 font-mono text-[10px] text-zinc-400 uppercase tracking-wider">Architects Wanted</p>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={step >= 1 ? { opacity: 1 } : {}}
+                                    transition={{ duration: 0.6, ease }}
+                                    className="text-zinc-400"
+                                >
+                                    <ListViewWireframe />
+                                </motion.div>
                             </motion.div>
                         ) : (
                             <motion.div
@@ -660,40 +1003,17 @@ export function DSMLBeatNavFight() {
                                 initial={{ opacity: 0, y: 14, scale: 0.94, filter: 'blur(8px)' }}
                                 animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                 transition={{ duration: 0.75, ease }}
-                                className="w-full max-w-sm mx-auto text-center mt-6"
+                                className="w-full max-w-lg mx-auto text-center mt-6"
                             >
-                                <p className="mb-3 font-mono text-[10px] text-emerald-400/90 uppercase tracking-wider">What I Designed — &amp; Won</p>
-                                <div className="rounded-xl border border-emerald-400/20 bg-emerald-400/[0.04] p-4">
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {[
-                                            { name: 'Ask', icon: <Search className="h-6 w-6" />, color: 'var(--accent-violet)' },
-                                            { name: 'Analyze', icon: <Eye className="h-6 w-6" />, color: 'var(--accent-teal)' },
-                                            { name: 'Predict', icon: <Zap className="h-6 w-6" />, color: 'var(--accent-amber)' },
-                                        ].map((tile, i) => (
-                                            <motion.div
-                                                key={tile.name}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.15 + i * 0.1, duration: 0.4, ease }}
-                                                className="rounded-xl border p-4 flex flex-col items-center gap-2"
-                                                style={{
-                                                    borderColor: withHexAlpha(tile.color, '30'),
-                                                    background: withHexAlpha(tile.color, '08'),
-                                                }}
-                                            >
-                                                <span style={{ color: tile.color }}>{tile.icon}</span>
-                                                <span className="font-mono text-xs font-bold text-zinc-200">{tile.name}</span>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
+                                <p className="mb-3 font-mono text-[10px] text-[var(--cs-accent)] uppercase tracking-wider">What I Designed — &amp; Won</p>
+                                <TileViewWireframe />
 
                                 {step >= 3 && (
                                     <motion.p
                                         initial={{ opacity: 0, y: 8 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, ease }}
-                                        className="mt-4 text-xs text-emerald-300/70 font-mono"
+                                        className="mt-4 text-xs text-[var(--cs-accent)] font-mono opacity-70"
                                     >
                                         Outcome-based labels. Immediate context. Zero learning curve.
                                     </motion.p>
@@ -711,7 +1031,22 @@ export function DSMLBeatNavFight() {
 
 /* ═════════════════════════════════════════════════
    BEAT 7: "THE ROOM FULL OF VETERANS"
+   Now with SVG avatar silhouettes for each role
    ═════════════════════════════════════════════════ */
+
+/* SVG avatar silhouette — a generic head/shoulders used for all roles */
+function AvatarSilhouette({ accent = false }: { accent?: boolean }) {
+    const col = accent ? 'var(--cs-accent)' : 'currentColor'
+    return (
+        <svg viewBox="0 0 36 36" fill="none" className="w-full h-full">
+            {/* Head */}
+            <circle cx="18" cy="12" r="6" fill={col} opacity={accent ? 0.35 : 0.18} />
+            {/* Shoulders */}
+            <path d="M6 32 C6 24, 12 20, 18 20 C24 20, 30 24, 30 32" fill={col} opacity={accent ? 0.25 : 0.12} />
+        </svg>
+    )
+}
+
 export function DSMLBeatVeterans() {
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -726,12 +1061,12 @@ export function DSMLBeatVeterans() {
     }, [])
 
     const people = [
-        { role: 'Dir. of Engineering', veteran: true },
-        { role: 'Principal Data Scientist', veteran: true },
-        { role: 'Lead Architect (IQ)', veteran: true },
-        { role: 'Lead Architect (WF)', veteran: true },
-        { role: 'Dir. of QA', veteran: true },
-        { role: 'My PM', veteran: false, note: 'Onboarded together' },
+        { role: 'Dir. of Engineering', veteran: true, icon: <Code2 className="h-4 w-4" /> },
+        { role: 'Principal Data Scientist', veteran: true, icon: <FlaskConical className="h-4 w-4" /> },
+        { role: 'Lead Architect (IQ)', veteran: true, icon: <BrainCircuit className="h-4 w-4" /> },
+        { role: 'Lead Architect (WF)', veteran: true, icon: <Layers3 className="h-4 w-4" /> },
+        { role: 'Dir. of QA', veteran: true, icon: <Shield className="h-4 w-4" /> },
+        { role: 'My PM', veteran: false, note: 'Onboarded together', icon: <UserCircle2 className="h-4 w-4" /> },
     ]
 
     return (
@@ -746,30 +1081,46 @@ export function DSMLBeatVeterans() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                Every meeting — a room full of <span className="text-amber-300 font-medium">20 to 30+ year WebFOCUS veterans</span>. The only other new person was my PM. We onboarded together. <span className="text-teal-400 font-bold">Two years in. I was driving the conversation.</span>
+                                Director of Engineering. Principal Data Scientist. Head PM. Lead Architect. <span className="text-zinc-200 font-medium">All decades of tenure.</span> It hit me later — I was 2 years in, and <span className="text-[var(--cs-accent)] font-bold">I was driving the conversation.</span>
                             </p>
                         </PresenterBar>
                     </motion.div>
 
-                    {/* People grid */}
+                    {/* People grid with avatars */}
                     <AnimatePresence>
                         {step >= 1 && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, ease }}
-                                className="flex flex-wrap justify-center gap-2 max-w-lg mx-auto mt-6"
+                                className="grid grid-cols-3 gap-3 max-w-md mx-auto mt-8"
                             >
                                 {people.map((p, i) => (
                                     <motion.div
                                         key={p.role}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: i * 0.1, duration: 0.4, ease }}
-                                        className={`rounded-lg border px-3 py-2 text-center ${p.veteran ? 'border-amber-300/20 bg-amber-300/[0.06]' : 'border-teal-300/20 bg-teal-300/[0.06]'}`}
+                                        initial={{ opacity: 0, scale: 0.7, y: 15 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        transition={{ delay: i * 0.12, duration: 0.5, ease }}
+                                        className="rounded-xl border px-3 py-3 text-center flex flex-col items-center gap-1.5"
+                                        style={{
+                                            borderColor: p.veteran
+                                                ? 'color-mix(in srgb, var(--cs-accent), transparent 80%)'
+                                                : 'color-mix(in srgb, var(--cs-accent), transparent 60%)',
+                                            background: p.veteran
+                                                ? 'color-mix(in srgb, var(--cs-accent), transparent 96%)'
+                                                : 'color-mix(in srgb, var(--cs-accent), transparent 92%)',
+                                        }}
                                     >
-                                        <div className="text-[10px] text-zinc-200 font-mono">{p.role}</div>
-                                        <div className={`text-xs font-bold font-mono ${p.veteran ? 'text-amber-300' : 'text-teal-300'}`}>
+                                        {/* Avatar silhouette */}
+                                        <div className="w-14 h-14 md:w-16 md:h-16">
+                                            <AvatarSilhouette accent={!p.veteran} />
+                                        </div>
+                                        {/* Role icon badge */}
+                                        <span className={`${p.veteran ? 'text-zinc-400' : 'text-[var(--cs-accent)]'}`}>
+                                            {p.icon}
+                                        </span>
+                                        <div className="text-[10px] text-zinc-200 font-mono leading-tight">{p.role}</div>
+                                        <div className={`text-[9px] font-bold font-mono ${p.veteran ? 'text-zinc-400' : 'text-[var(--cs-accent)]'}`}>
                                             {p.veteran ? '20-30+ yrs' : p.note}
                                         </div>
                                     </motion.div>
@@ -778,7 +1129,7 @@ export function DSMLBeatVeterans() {
                         )}
                     </AnimatePresence>
 
-                    {/* "Me" card */}
+                    {/* "Me" card — with accent avatar */}
                     <AnimatePresence>
                         {step >= 2 && (
                             <motion.div
@@ -787,9 +1138,19 @@ export function DSMLBeatVeterans() {
                                 transition={{ duration: 0.7, ease }}
                                 className="mt-6 flex justify-center"
                             >
-                                <div className="rounded-xl border border-teal-300/20 bg-teal-300/[0.06] px-6 py-3">
-                                    <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1">Me</div>
-                                    <div className="text-lg font-bold text-teal-300 font-mono">2 years in</div>
+                                <div className="rounded-xl border border-[var(--cs-accent)]/30 bg-[var(--cs-accent)]/[0.08] px-6 py-4 flex items-center gap-4">
+                                    <div className="w-16 h-16">
+                                        <svg viewBox="0 0 36 36" fill="none" className="w-full h-full">
+                                            <circle cx="18" cy="12" r="6" fill="var(--cs-accent)" opacity="0.5" />
+                                            <path d="M6 32 C6 24, 12 20, 18 20 C24 20, 30 24, 30 32" fill="var(--cs-accent)" opacity="0.35" />
+                                            {/* Glow ring */}
+                                            <motion.circle cx="18" cy="18" r="16" stroke="var(--cs-accent)" strokeWidth="0.8" fill="none" opacity="0.3" animate={{ r: [15, 17, 15], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-1">Me</div>
+                                        <div className="text-lg font-bold text-[var(--cs-accent)] font-mono">2 years in</div>
+                                    </div>
                                 </div>
                             </motion.div>
                         )}
@@ -805,7 +1166,7 @@ export function DSMLBeatVeterans() {
                                 className="text-sm text-zinc-200 mt-6 font-mono max-w-sm mx-auto text-center"
                             >
                                 I wasn&apos;t just the designer in the room.<br />
-                                <span className="text-teal-200/90">I was driving the conversation.</span>
+                                <span className="text-[var(--cs-accent)]">I was driving the conversation.</span>
                             </motion.p>
                         )}
                     </AnimatePresence>
@@ -819,8 +1180,86 @@ export function DSMLBeatVeterans() {
 
 /* ═════════════════════════════════════════════════
    BEAT 8: "VISIBILITY WAS THE SOLUTION"
-   Impact metrics
+   Impact metrics — with adoption curve SVG
    ═════════════════════════════════════════════════ */
+
+/* SVG: Adoption curve — shows the rise from redesign */
+function AdoptionCurveSVG() {
+    return (
+        <svg viewBox="0 0 200 80" fill="none" className="w-full h-full">
+            {/* Grid lines */}
+            {[20, 40, 60].map(y => (
+                <line key={y} x1="10" y1={y} x2="190" y2={y} stroke="var(--cs-accent)" strokeWidth="0.3" opacity="0.08" />
+            ))}
+            {/* Baseline flat adoption */}
+            <line x1="10" y1="60" x2="80" y2="60" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.2" strokeDasharray="3,3" />
+            {/* The redesign moment — vertical marker */}
+            <line x1="80" y1="10" x2="80" y2="72" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.15" strokeDasharray="2,4" />
+            <text x="80" y="78" textAnchor="middle" fill="var(--cs-accent)" fontSize="5" fontFamily="monospace" opacity="0.25">redesign</text>
+            {/* Rising adoption curve */}
+            <motion.path
+                d="M10 60 L40 60 L60 59 L80 58 L100 48 L120 38 L140 30 L160 24 L180 20 L190 18"
+                stroke="var(--cs-accent)"
+                strokeWidth="1.5"
+                opacity="0.5"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 2, ease: 'easeOut' }}
+            />
+            {/* Shaded area under curve */}
+            <path
+                d="M10 60 L40 60 L60 59 L80 58 L100 48 L120 38 L140 30 L160 24 L180 20 L190 18 L190 60 L10 60 Z"
+                fill="var(--cs-accent)"
+                opacity="0.06"
+            />
+            {/* +25% annotation at peak */}
+            <motion.circle cx="190" cy="18" r="3" fill="var(--cs-accent)" opacity="0.4" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8, duration: 0.3, type: 'spring' }} />
+        </svg>
+    )
+}
+
+/* Small SVG icons for secondary stats */
+function StatIconHub() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 mx-auto mb-1">
+            <circle cx="6" cy="6" r="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" />
+            <circle cx="18" cy="6" r="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" />
+            <circle cx="12" cy="18" r="3" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" />
+            <line x1="8" y1="8" x2="11" y2="16" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.2" />
+            <line x1="16" y1="8" x2="13" y2="16" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.2" />
+            <rect x="8" y="14" width="8" height="8" rx="2" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.5" fill="var(--cs-accent)" fillOpacity="0.1" />
+        </svg>
+    )
+}
+
+function StatIconResponsive() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 mx-auto mb-1">
+            {/* Desktop */}
+            <rect x="2" y="4" width="14" height="10" rx="1.5" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.3" />
+            <line x1="5" y1="14" x2="13" y2="14" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.2" />
+            {/* Phone */}
+            <rect x="16" y="6" width="6" height="12" rx="1" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.4" />
+            <circle cx="19" cy="16" r="0.5" fill="var(--cs-accent)" opacity="0.3" />
+        </svg>
+    )
+}
+
+function StatIconShip() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 mx-auto mb-1">
+            {/* Rocket shape */}
+            <path d="M12 2 L15 10 L12 22 L9 10 Z" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.4" fill="var(--cs-accent)" fillOpacity="0.1" />
+            {/* Fins */}
+            <path d="M9 10 L5 14 L9 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
+            <path d="M15 10 L19 14 L15 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
+            {/* Exhaust */}
+            <motion.circle cx="12" cy="22" r="1" fill="var(--cs-accent)" opacity="0.3" animate={{ r: [1, 2, 1], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }} />
+        </svg>
+    )
+}
+
 export function DSMLBeatImpact() {
     const [step, setStep] = useState(-1)
     const timers = useRef<NodeJS.Timeout[]>([])
@@ -846,34 +1285,42 @@ export function DSMLBeatImpact() {
                     >
                         <PresenterBar>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                NLQ redesign + Phi-3 model upgrade drove <span className="text-emerald-400 font-bold">+25% adoption</span>. Customers looked forward to NLQ the most. <span className="text-zinc-200 font-medium">The Hub brings all of it front and center.</span>
+                                NLQ redesign + Phi-3 model upgrade drove <span className="text-[var(--cs-accent)] font-bold">+25% adoption</span>. Customers looked forward to NLQ the most. <span className="text-zinc-200 font-medium">The Hub brings all of it front and center.</span>
                             </p>
                         </PresenterBar>
                     </motion.div>
 
-                    {/* Big stat */}
+                    {/* Big stat with adoption curve behind */}
                     <AnimatePresence>
                         {step >= 1 && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, ease }}
-                                className="text-center mt-6 mb-6"
+                                className="relative text-center mt-6 mb-6"
                             >
-                                <div className="text-5xl md:text-7xl font-bold text-emerald-300 font-mono">
-                                    +<AnimNumber value={25} />%
+                                {/* SVG curve behind the number */}
+                                <div className="absolute inset-0 flex items-end justify-center pointer-events-none opacity-60">
+                                    <div className="w-full max-w-md h-32">
+                                        <AdoptionCurveSVG />
+                                    </div>
                                 </div>
-                                <div className="text-sm font-mono text-zinc-200 uppercase tracking-wider mt-2">
-                                    NLQ Adoption
-                                </div>
-                                <div className="text-xs text-zinc-400 mt-1">
-                                    From discoverability alone — no feature changes.
+                                <div className="relative z-10">
+                                    <div className="text-5xl md:text-7xl font-bold text-[var(--cs-accent)] font-mono">
+                                        +<AnimNumber value={25} />%
+                                    </div>
+                                    <div className="text-sm font-mono text-zinc-200 uppercase tracking-wider mt-2">
+                                        NLQ Adoption
+                                    </div>
+                                    <div className="text-xs text-zinc-400 mt-1">
+                                        From discoverability alone — no feature changes.
+                                    </div>
                                 </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    {/* Secondary stats */}
+                    {/* Secondary stats with icons */}
                     <AnimatePresence>
                         {step >= 2 && (
                             <motion.div
@@ -883,9 +1330,9 @@ export function DSMLBeatImpact() {
                                 className="flex justify-center gap-6 md:gap-10"
                             >
                                 {[
-                                    { val: '3 → 1', label: 'Hub Unified' },
-                                    { val: '100%', label: 'Responsive' },
-                                    { val: '2027', label: 'Hub Ships' },
+                                    { val: '3 → 1', label: 'Hub Unified', icon: <StatIconHub /> },
+                                    { val: '100%', label: 'Responsive', icon: <StatIconResponsive /> },
+                                    { val: '2027', label: 'Hub Ships', icon: <StatIconShip /> },
                                 ].map((stat, i) => (
                                     <motion.div
                                         key={stat.label}
@@ -894,6 +1341,7 @@ export function DSMLBeatImpact() {
                                         transition={{ delay: i * 0.1, duration: 0.4, ease }}
                                         className="text-center"
                                     >
+                                        {stat.icon}
                                         <div className="text-lg md:text-xl font-bold text-white font-mono">{stat.val}</div>
                                         <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mt-1">{stat.label}</div>
                                     </motion.div>

@@ -17,12 +17,12 @@ interface FolderItem {
 }
 
 const FOLDER_CONTENTS: FolderItem[] = [
-    { icon: StickyNote, label: 'Research & findings', count: 40, displayCount: '40+', color: 'var(--accent-amber)' },
-    { icon: Map, label: 'Pain point maps & flows', count: 25, displayCount: '25+', color: 'var(--semantic-blue)' },
-    { icon: PenTool, label: 'Sketch files & prototypes', count: 80, displayCount: '80+', color: 'var(--semantic-purple)' },
-    { icon: Video, label: 'Zoom demo recordings', count: 15, displayCount: '15+', color: 'var(--semantic-rose)' },
-    { icon: FileText, label: 'Current-state docs & scratchpads', count: 30, displayCount: '30+', color: 'var(--semantic-emerald)' },
-    { icon: Ticket, label: 'JIRA epics & ticket tracking', count: 60, displayCount: '60+', color: 'var(--semantic-cyan)' },
+    { icon: StickyNote, label: 'Research & findings', count: 40, displayCount: '40+', color: 'var(--cs-accent)' },
+    { icon: Map, label: 'Pain point maps & flows', count: 25, displayCount: '25+', color: 'var(--cs-accent)' },
+    { icon: PenTool, label: 'Sketch files & prototypes', count: 80, displayCount: '80+', color: 'var(--cs-accent)' },
+    { icon: Video, label: 'Zoom demo recordings', count: 15, displayCount: '15+', color: 'var(--cs-accent)' },
+    { icon: FileText, label: 'Current-state docs & scratchpads', count: 30, displayCount: '30+', color: 'var(--cs-accent)' },
+    { icon: Ticket, label: 'JIRA epics & ticket tracking', count: 60, displayCount: '60+', color: 'var(--cs-accent)' },
 ]
 
 /* ── Animated file counter ── */
@@ -120,13 +120,8 @@ export default function BeatHandoff() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        I didn&apos;t just hand off files.
-                                    </p>
-                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                        I built a living system. 📂
-                                    </p>
-                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
-                                        A Google Drive folder — the single source of truth for the entire project. Every spec, every decision, every edge case.
+                                        I didn&apos;t hand off files. I built a{' '}
+                                        <span className="text-zinc-200 font-medium">living system</span> — workflows, maps, recorded meetings, annotated design files, and delegation plans.
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -176,7 +171,7 @@ export default function BeatHandoff() {
                                             transition={{ duration: 0.4, ease }}
                                             className="h-full rounded-full"
                                             style={{
-                                                background: 'linear-gradient(90deg, var(--semantic-blue), var(--semantic-emerald))',
+                                                background: 'linear-gradient(90deg, var(--cs-accent), var(--cs-accent))',
                                             }}
                                         />
                                     </div>

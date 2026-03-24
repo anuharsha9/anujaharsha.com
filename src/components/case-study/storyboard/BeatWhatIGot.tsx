@@ -16,9 +16,9 @@ interface Item {
 }
 
 const GOT: Item[] = [
-    { icon: Monitor, label: 'A sandbox', detail: 'One login. No guide.', color: 'var(--semantic-blue)' },
-    { icon: FileText, label: 'A presentation', detail: 'From the support lead. My bible.', color: 'var(--semantic-purple)' },
-    { icon: Play, label: 'A 30-min demo', detail: 'Tribal knowledge. Unrecorded.', color: 'var(--tone-amber-500)' },
+    { icon: Monitor, label: 'A sandbox', detail: 'One login. No guide.', color: 'var(--cs-accent)' },
+    { icon: FileText, label: 'A presentation', detail: 'From the support lead. My bible.', color: 'var(--cs-accent)' },
+    { icon: Play, label: 'A 30-min demo', detail: 'Tribal knowledge. Unrecorded.', color: 'var(--cs-accent)' },
 ]
 
 const MISSING = [
@@ -42,7 +42,7 @@ function SparseCounter({ active }: { active: boolean }) {
         return () => clearInterval(id)
     }, [active])
     return (
-        <span className="text-5xl md:text-7xl font-black tabular-nums font-mono" style={{ color: 'var(--semantic-orange)' }}>
+        <span className="text-5xl md:text-7xl font-black tabular-nums font-mono" style={{ color: 'var(--cs-accent)' }}>
             {val}
         </span>
     )
@@ -94,13 +94,10 @@ export default function BeatWhatIGot() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        These three things you see below?
+                                        No documentation. No design files. No team.
                                     </p>
                                     <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                        That&apos;s it. That&apos;s all I had to work with.
-                                    </p>
-                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
-                                        No documentation. No design files. No team. No nothing.
+                                        A sandbox. And that was it.
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -241,9 +238,9 @@ export default function BeatWhatIGot() {
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.6, ease }}
                                         >
-                                            <div className="h-px bg-gradient-to-r from-transparent via-red-500/20 to-transparent mb-6" />
+                                            <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent mb-6" />
                                             <div className="text-center mb-4">
-                                                <span className="text-[10px] font-mono tracking-widest uppercase text-red-400/60">
+                                                <span className="text-[10px] font-mono tracking-widest uppercase" style={{ color: 'var(--cs-accent)', opacity: 0.4 }}>
                                                     What was NOT provided
                                                 </span>
                                             </div>
@@ -261,10 +258,10 @@ export default function BeatWhatIGot() {
                                                             duration: 0.4,
                                                             ease: [0.34, 1.56, 0.64, 1],
                                                         }}
-                                                        className="flex items-center gap-2 rounded-lg border border-red-500/10 bg-red-500/[0.03] px-3 py-2.5"
+                                                        className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5"
                                                     >
-                                                        <X className="w-3.5 h-3.5 text-red-400/70 flex-shrink-0" strokeWidth={2.5} />
-                                                        <span className="text-[11px] text-red-300/60 font-mono">
+                                                        <X className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'var(--cs-accent)', opacity: 0.4 }} strokeWidth={2.5} />
+                                                        <span className="text-[11px] text-zinc-500 font-mono">
                                                             {item}
                                                         </span>
                                                     </motion.div>

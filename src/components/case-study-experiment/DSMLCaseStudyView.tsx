@@ -10,7 +10,6 @@ import { CaseStudyData } from '@/types/caseStudy'
 import CinematicCaseStudy, { type HeroStat, type ActSection } from '@/components/case-study-experiment/CinematicCaseStudy'
 import { StorySlide } from '@/components/case-study/StoryDeck'
 const DSMLFullContent = dynamic(() => import('@/components/case-study-experiment/DSMLFullContent'), { ssr: true })
-import { IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 import DSMLTrailer from '@/components/home/DSMLTrailer'
 
 /* ─── Beat Imports ─── */
@@ -28,7 +27,6 @@ import {
 
 /* ─── DSML Presentation Slides ─── */
 const DSML_SLIDES: StorySlide[] = [
-    { type: 'title', title: 'We Built the Intelligence. Nobody Knew It Existed.', content: ['Anuja Harsha — Lead Product Designer', 'DSML Hub · Cloud Software Group — WebFOCUS'], backgroundComponent: <IQWireframe /> },
     { type: 'problem', title: 'The Invisible Feature Problem', content: ['3 powerful AI features — NLQ, Insights, ML — buried in different menus. Near-zero adoption. Millions in engineering investment, effectively invisible.'], component: <DSMLBeatProblem />, signal: 'LOW ADOPTION' },
     { type: 'research', title: 'The Strategic Spark', content: ['Data Intelligence merger talks opened the door. My PM and I saw the opportunity for a shared AI hub. The merger dropped — the Hub idea stayed. Dozens of concept mockups. VP approved.'], component: <DSMLBeatSpark />, signal: 'VP APPROVED' },
     { type: 'execution', title: 'Upgrading the Building Blocks', content: ['Before building the Hub, I modernized each feature. NLQ upgraded to Phi-3 SLM — question suggestions, chart switching, ambiguity correction.'], component: <DSMLBeatModernize />, signal: 'MODERNIZED' },

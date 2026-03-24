@@ -19,13 +19,13 @@ interface ZoomParticipant {
 }
 
 const PARTICIPANTS: ZoomParticipant[] = [
-    { name: 'Dave', role: 'Head PM', years: '15 yrs', initials: 'DV', bg: 'var(--surface-navy-780)', accent: 'var(--semantic-blue)' },
-    { name: 'Angie', role: 'Gold Support Lead', years: '20+ yrs', initials: 'AG', bg: 'var(--surface-purple-900)', accent: 'var(--accent-violet)' },
-    { name: 'Yingchun', role: 'OG RC Engineer', years: '30+ yrs', initials: 'YC', bg: 'var(--surface-amber-900)', accent: 'var(--accent-amber)' },
-    { name: 'Julian', role: 'Lead WF Architect', years: '40 yrs', initials: 'JL', bg: 'var(--surface-amber-950)', accent: 'var(--accent-amber-600)' },
-    { name: 'Chris', role: 'Support TAM Lead', years: '20 yrs', initials: 'CH', bg: 'var(--surface-emerald-900)', accent: 'var(--semantic-emerald)' },
-    { name: 'Alan', role: 'Backend Lead', years: '30+ yrs', initials: 'AL', bg: 'var(--semantic-navy)', accent: 'var(--semantic-cyan)' },
-    { name: 'Anuja', role: 'Me', years: '3 weeks', initials: 'AH', bg: 'var(--surface-rose-900)', accent: 'var(--semantic-rose)', me: true },
+    { name: 'Dave', role: 'Head PM', years: '15 yrs', initials: 'DV', bg: 'var(--overlay-white-02)', accent: 'var(--cs-accent)' },
+    { name: 'Angie', role: 'Gold Support Lead', years: '20+ yrs', initials: 'AG', bg: 'var(--overlay-white-02)', accent: 'var(--cs-accent)' },
+    { name: 'Yingchun', role: 'OG RC Engineer', years: '30+ yrs', initials: 'YC', bg: 'var(--overlay-white-02)', accent: 'var(--cs-accent)' },
+    { name: 'Julian', role: 'Lead WF Architect', years: '40 yrs', initials: 'JL', bg: 'var(--overlay-white-02)', accent: 'var(--cs-accent)' },
+    { name: 'Chris', role: 'Support TAM Lead', years: '20 yrs', initials: 'CH', bg: 'var(--overlay-white-02)', accent: 'var(--cs-accent)' },
+    { name: 'Alan', role: 'Backend Lead', years: '30+ yrs', initials: 'AL', bg: 'var(--overlay-white-02)', accent: 'var(--cs-accent)' },
+    { name: 'Anuja', role: 'Me', years: '3 weeks', initials: 'AH', bg: 'var(--overlay-white-02)', accent: 'var(--cs-accent)', me: true },
 ]
 
 const REVELATIONS = [
@@ -85,19 +85,11 @@ export default function BeatTheRoom() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        Week 3. Monday. <span className="text-zinc-200 font-medium">First kickoff meeting.</span>{' '}
-                                        A handful of people — the <span className="text-zinc-200">only ones who knew RC existed.</span>
+                                        First kickoff meeting. Everyone in the room had at least{' '}
+                                        <span className="text-zinc-200 font-medium">a decade at the company</span> — some two, three, even four decades.
                                     </p>
-                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-3">
-                                        Everyone in the room had at least{' '}
-                                        <span className="text-zinc-200 font-medium">a decade at the company</span> — some two, three —{' '}
-                                        <span className="text-amber-400 font-bold">even four decades!</span> 😳
-                                    </p>
-                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-3">
-                                        And me? Sure, a decade of design experience —
-                                    </p>
-                                    <p className="text-lg md:text-xl text-white font-bold mt-2 tracking-tight">
-                                        but with webFOCUS? <span className="text-rose-400">3 weeks.</span>
+                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
+                                        Me? <span style={{ color: 'var(--cs-accent)' }}>3 weeks.</span>
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -193,7 +185,7 @@ export default function BeatTheRoom() {
                                                                 animate={
                                                                     isHighlight
                                                                         ? {
-                                                                            color: isMe ? 'var(--semantic-rose)' : 'var(--overlay-white-20)',
+                                                                            color: isMe ? 'var(--cs-accent)' : 'var(--overlay-white-20)',
                                                                             scale: isMe ? 1.1 : 1,
                                                                         }
                                                                         : {}
@@ -278,7 +270,7 @@ export default function BeatTheRoom() {
                                         </p>
                                         <motion.div
                                             className="w-8 h-px mx-auto mt-2"
-                                            style={{ background: 'linear-gradient(90deg, transparent, var(--overlay-rose-40), transparent)' }}
+                                            style={{ background: 'linear-gradient(90deg, transparent, var(--overlay-white-10), transparent)' }}
                                             animate={{ opacity: [0.3, 0.7, 0.3] }}
                                             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                                         />
@@ -307,7 +299,7 @@ export default function BeatTheRoom() {
                                         transition={{ duration: 0.5, ease }}
                                         className="text-center"
                                     >
-                                        <span className="text-xl md:text-2xl font-bold text-amber-400">40+ years old.</span>
+                                        <span className="text-xl md:text-2xl font-bold" style={{ color: 'var(--cs-accent)' }}>40+ years old.</span>
                                         <span className="text-base md:text-lg text-zinc-500 ml-2">No redesign. Ever.</span>
                                     </motion.div>
 
@@ -318,7 +310,7 @@ export default function BeatTheRoom() {
                                         transition={{ duration: 0.5, ease }}
                                         className="text-center"
                                     >
-                                        <span className="text-xl md:text-2xl font-bold text-blue-400">20 million</span>
+                                        <span className="text-xl md:text-2xl font-bold" style={{ color: 'var(--cs-accent)' }}>20 million</span>
                                         <span className="text-base md:text-lg text-zinc-400 ml-2">jobs a week.</span>
                                     </motion.div>
 
@@ -329,7 +321,7 @@ export default function BeatTheRoom() {
                                         transition={{ duration: 0.5, ease }}
                                         className="text-center"
                                     >
-                                        <span className="text-lg md:text-xl font-semibold text-red-400/90">Zero documentation.</span>
+                                        <span className="text-lg md:text-xl font-semibold text-zinc-300">Zero documentation.</span>
                                     </motion.div>
 
                                     {/* Revelation 4 — No redesign */}
@@ -351,7 +343,7 @@ export default function BeatTheRoom() {
                                         className="text-center"
                                     >
                                         <span className="text-base md:text-lg text-zinc-400">Only </span>
-                                        <span className="text-base md:text-lg text-violet-400 font-semibold">Yingchun</span>
+                                        <span className="text-base md:text-lg font-semibold" style={{ color: 'var(--cs-accent)' }}>Yingchun</span>
                                         <span className="text-base md:text-lg text-zinc-400"> truly knew the code.</span>
                                         <br />
                                         <span className="text-sm md:text-base text-zinc-500 italic">He wrote it in the &apos;80s.</span>

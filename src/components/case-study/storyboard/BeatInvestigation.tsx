@@ -22,42 +22,42 @@ const EVENTS: TimelineEvent[] = [
         icon: Camera,
         label: 'Sandbox Deep Dive',
         detail: 'I took hundreds of screenshots. Grouped them. Mapped them.',
-        color: 'var(--semantic-orange)',
+        color: 'var(--cs-accent)',
     },
     {
         month: 'Month 1–2',
         icon: Headphones,
         label: 'Embedded in Support',
         detail: "I joined Chris's CS team meetings every week for a month.",
-        color: 'var(--semantic-blue)',
+        color: 'var(--cs-accent)',
     },
     {
         month: 'Month 2',
         icon: Network,
         label: 'Mind Maps',
         detail: 'I documented what nobody had. Built the understanding from scratch.',
-        color: 'var(--semantic-purple)',
+        color: 'var(--cs-accent)',
     },
     {
         month: 'Month 2–3',
         icon: User,
         label: '1:1 Interviews',
         detail: "Customer reps. Support leads. The ONE engineer from the '80s.",
-        color: 'var(--semantic-pink)',
+        color: 'var(--cs-accent)',
     },
     {
         month: 'Month 3',
         icon: Map,
         label: 'Full System Map',
         detail: 'I mapped every workflow. Every edge case. A-to-Z.',
-        color: 'var(--accent-teal-bright)',
+        color: 'var(--cs-accent)',
     },
     {
         month: 'Month 3–4',
         icon: CheckCircle2,
         label: 'Validation',
         detail: 'I validated with support and customer reps. Over and over.',
-        color: 'var(--semantic-emerald)',
+        color: 'var(--cs-accent)',
     },
 ]
 
@@ -66,7 +66,7 @@ function ProgressFill({ progress }: { progress: number }) {
     return (
         <motion.div
             className="absolute left-0 top-0 w-full origin-top rounded-full"
-            style={{ background: 'linear-gradient(to bottom, var(--accent-teal-bright), var(--semantic-emerald))' }}
+            style={{ background: 'var(--cs-accent)' }}
             initial={{ height: '0%' }}
             animate={{ height: `${progress}%` }}
             transition={{ duration: 0.6, ease }}
@@ -122,10 +122,7 @@ export default function BeatInvestigation() {
                     >
                         <PresenterBar onTypingComplete={startVisuals}>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                I interviewed customer reps, support leads, the <span className="text-zinc-200 font-medium">one engineer who wrote the original code in the &apos;80s</span> — anyone who&apos;d talk to me, <span className="text-zinc-200 font-medium">like crazy.</span>
-                            </p>
-                            <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
-                                Joined <span className="text-zinc-200 font-medium">Chris&apos;s</span> — our customer support lead — meetings every week for a month. Took hundreds of screenshots. Mapped <span className="text-zinc-200">every single workflow</span> myself.
+                                I interviewed everyone — support leads, customer reps, <span className="text-zinc-200 font-medium">the engineer who wrote the original code in the &apos;80s</span>. Mapped every workflow myself.
                             </p>
                         </PresenterBar>
                     </motion.div>
@@ -140,8 +137,8 @@ export default function BeatInvestigation() {
                             className="flex items-center justify-between mb-4"
                         >
                             <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-                                <span className="text-[11px] font-mono tracking-widest uppercase text-teal-400">
+                                <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--cs-accent)', opacity: 0.6 }} />
+                                <span className="text-[11px] font-mono tracking-widest uppercase" style={{ color: 'var(--cs-accent)', opacity: 0.6 }}>
                                     Investigation Timeline
                                 </span>
                             </div>
@@ -152,7 +149,7 @@ export default function BeatInvestigation() {
                                 <div className="w-16 h-1 bg-white/[0.04] rounded-full overflow-hidden">
                                     <motion.div
                                         className="h-full rounded-full"
-                                        style={{ background: 'linear-gradient(to right, var(--accent-teal-bright), var(--semantic-emerald))' }}
+                                        style={{ background: 'var(--cs-accent)' }}
                                         initial={{ width: '0%' }}
                                         animate={{ width: `${progressPct}%` }}
                                         transition={{ duration: 0.4, ease }}

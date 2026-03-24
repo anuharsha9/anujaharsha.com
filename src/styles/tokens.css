@@ -288,12 +288,12 @@
    --cs-accent-rgb: 6, 182, 212;
 }
 
-/* DSML / IQ Hub — Purple/Violet (data science) */
+/* DSML / IQ Hub — Teal (unified Whispering Intensity) */
 [data-cs-theme="dsml"] {
-   --cs-accent: #a855f7;
-   --cs-accent-bright: #c084fc;
-   --cs-accent-soft: rgba(168, 85, 247, 0.08);
-   --cs-accent-rgb: 168, 85, 247;
+   --cs-accent: #0891b2;
+   --cs-accent-bright: #22d3ee;
+   --cs-accent-soft: rgba(8, 145, 178, 0.08);
+   --cs-accent-rgb: 8, 145, 178;
 }
 
 /* WordU — Blue/Aqua */

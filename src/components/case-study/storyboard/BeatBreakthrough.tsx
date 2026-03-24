@@ -17,9 +17,9 @@ interface ConsolidationItem {
 }
 
 const CONSOLIDATIONS: ConsolidationItem[] = [
-    { from: 'Scheduler', to: '+ Menu', icon: Calendar, color: 'var(--semantic-emerald)', angle: 150 },
-    { from: 'Distribution Lists', to: '+ Menu', icon: Mail, color: 'var(--semantic-blue)', angle: 30 },
-    { from: 'Access Lists', to: '+ Menu', icon: Lock, color: 'var(--semantic-purple)', angle: 270 },
+    { from: 'Scheduler', to: '+ Menu', icon: Calendar, color: 'var(--cs-accent)', angle: 150 },
+    { from: 'Distribution Lists', to: '+ Menu', icon: Mail, color: 'var(--cs-accent)', angle: 30 },
+    { from: 'Access Lists', to: '+ Menu', icon: Lock, color: 'var(--cs-accent)', angle: 270 },
 ]
 
 const METRICS = [
@@ -148,16 +148,11 @@ export default function BeatBreakthrough() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        The Hub already had a <span className="text-zinc-200 font-medium">+ menu</span>. What if RC workflows just… lived there? No new tabs. No new plugins.
+                                        I stopped asking &ldquo;where should RC live?&rdquo; and started asking:{' '}
+                                        <span className="text-zinc-200 font-medium">&ldquo;How does the platform want workflows to behave?&rdquo;</span>
                                     </p>
-                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                        Users never leave their context. Everything comes to them. ✨
-                                    </p>
-                                    <p className="text-lg md:text-xl text-emerald-400 font-semibold mt-4 tracking-tight">
-                                        I was like a child with candy. 🍬
-                                    </p>
-                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
-                                        I was literally dreaming about RC workflows at night. That&apos;s how deep I was in it.
+                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
+                                        The Hub already had a <span className="text-zinc-200 font-medium">+ menu</span>. Every major workflow started there. If RC is a creation workflow — why isn&apos;t it initiated from there?
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -333,7 +328,7 @@ export default function BeatBreakthrough() {
                                     className="font-light"
                                     style={{
                                         fontSize: phase >= 3 ? 40 : 28,
-                                        color: phase >= 3 ? 'var(--semantic-emerald)' : 'var(--overlay-white-15)',
+                                        color: phase >= 3 ? 'var(--cs-accent)' : 'var(--overlay-white-15)',
                                     }}
                                     animate={phase >= 3 ? {
                                         textShadow: [
@@ -425,7 +420,7 @@ export default function BeatBreakthrough() {
                                                 from={m.before}
                                                 to={m.after}
                                                 active={phase >= 5}
-                                                color="var(--semantic-emerald)"
+                                                color="var(--cs-accent)"
                                             />
 
                                             {/* Label */}
@@ -437,7 +432,7 @@ export default function BeatBreakthrough() {
                                             <div className="mt-3 mx-auto max-w-[60px] h-1 rounded-full bg-white/[0.04] overflow-hidden">
                                                 <motion.div
                                                     className="h-full rounded-full"
-                                                    style={{ background: 'var(--semantic-emerald)' }}
+                                                    style={{ background: 'var(--cs-accent)' }}
                                                     initial={{ width: '100%' }}
                                                     animate={phase >= 5
                                                         ? { width: `${(m.after / m.before) * 100}%` }

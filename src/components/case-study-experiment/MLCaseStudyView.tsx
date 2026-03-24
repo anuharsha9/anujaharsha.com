@@ -9,7 +9,6 @@ import { CaseStudyData } from '@/types/caseStudy'
 import CinematicCaseStudy, { type HeroStat, type ActSection } from '@/components/case-study-experiment/CinematicCaseStudy'
 import { StorySlide } from '@/components/case-study/StoryDeck'
 const MLFullContent = dynamic(() => import('@/components/case-study-experiment/MLFullContent'), { ssr: true })
-import { MLWireframe } from '@/components/case-study/CaseStudyWireframes'
 import MLTrailer from '@/components/home/MLTrailer'
 
 /* ─── Beat Imports ─── */
@@ -29,7 +28,6 @@ import {
 
 /* ─── ML Presentation Slides ─── */
 const ML_SLIDES: StorySlide[] = [
-    { type: 'title', title: 'Nobody Could Use Our ML Engine.', content: ['Anuja Harsha — Lead Product Designer', 'ML Functions · Cloud Software Group — WebFOCUS'], backgroundComponent: <MLWireframe /> },
     { type: 'problem', title: 'It Was Really Shitty', content: ['Click the plus menu, open a data flow, drag a dataset, drag a model pill. Hit a hidden play button. Right-click for cascading context menus. ~15 clicks minimum. Nobody used it.'], component: <MLBeatProblem />, signal: 'ZERO ADOPTION' },
     { type: 'research', title: 'The Side Project', content: ['The principal data scientist showed me a screenshot from a different software and said, "I want this for WebFOCUS." I didn\'t just recreate it. I dug into why the popup was needed. That\'s what got me the entire ML Functions redesign.'], component: <MLBeatOrigin />, signal: 'TRUST EARNED' },
     { type: 'research', title: 'The Full Revamp', content: ['After the explainability popup, I realized the entire ML workflow was not great. I earned the trust to own the whole thing.'], component: <MLBeatGoal />, signal: 'FULL OWNERSHIP' },

@@ -52,7 +52,7 @@ function WireframePanel({
             {/* Strike overlay */}
             {strikethrough && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-[80%] h-[1px] bg-red-500/30 rotate-[-8deg]" />
+                    <div className="w-[80%] h-[1px] bg-zinc-500/30 rotate-[-8deg]" />
                 </div>
             )}
         </div>
@@ -102,15 +102,10 @@ export default function BeatScheduler() {
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
                                         The scheduler hadn&apos;t been redesigned in{' '}
-                                        <span className="text-amber-400 font-bold">40+ years.</span>
-                                    </p>
-                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
-                                        Two entry points. Two completely different UIs.{' '}
+                                        <span className="text-zinc-200 font-bold">40+ years.</span>{' '}
+                                        Two entry points. Two completely different UIs —{' '}
                                         <span className="text-zinc-200 font-medium">Basic</span> and{' '}
                                         <span className="text-zinc-200 font-medium">Advanced</span> — doing the same thing, differently.
-                                    </p>
-                                    <p className="text-base md:text-lg text-red-400 font-semibold mt-3 tracking-tight">
-                                        BIG NO NO. 🚫
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -130,7 +125,7 @@ export default function BeatScheduler() {
                                         transition={{ duration: 0.6, ease }}
                                         className="space-y-3"
                                     >
-                                        <div className="font-mono text-[10px] tracking-[0.25em] text-rose-400/60 uppercase mb-3">
+                                        <div className="font-mono text-[10px] tracking-[0.25em] text-zinc-500 uppercase mb-3">
                                             Before
                                         </div>
 
@@ -158,7 +153,7 @@ export default function BeatScheduler() {
                                                     initial={{ scaleX: 0 }}
                                                     animate={{ scaleX: 1 }}
                                                     transition={{ duration: 0.4, ease }}
-                                                    className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-red-500/40 origin-left"
+                                                    className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-zinc-500/40 origin-left"
                                                 />
                                             )}
                                         </motion.div>
@@ -189,7 +184,7 @@ export default function BeatScheduler() {
                                                     initial={{ scaleX: 0 }}
                                                     animate={{ scaleX: 1 }}
                                                     transition={{ duration: 0.4, ease, delay: 0.15 }}
-                                                    className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-red-500/40 origin-left"
+                                                    className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-zinc-500/40 origin-left"
                                                 />
                                             )}
                                         </motion.div>
@@ -207,8 +202,8 @@ export default function BeatScheduler() {
                                     transition={{ type: 'spring', damping: 15, stiffness: 200 }}
                                     className="hidden md:flex flex-col items-center gap-2"
                                 >
-                                    <div className="w-10 h-10 rounded-full border border-emerald-500/20 bg-emerald-500/[0.05] flex items-center justify-center">
-                                        <span className="text-emerald-400 text-sm">→</span>
+                                    <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 20%, transparent)', background: 'color-mix(in srgb, var(--cs-accent) 5%, transparent)' }}>
+                                        <span className="text-sm" style={{ color: 'var(--cs-accent)' }}>→</span>
                                     </div>
                                 </motion.div>
                             )}
@@ -223,28 +218,28 @@ export default function BeatScheduler() {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         transition={{ duration: 0.7, ease }}
                                     >
-                                        <div className="font-mono text-[10px] tracking-[0.25em] text-emerald-400/60 uppercase mb-3">
+                                        <div className="font-mono text-[10px] tracking-[0.25em] uppercase mb-3" style={{ color: 'var(--cs-accent)', opacity: 0.6 }}>
                                             After
                                         </div>
 
                                         {/* Unified modal wireframe */}
-                                        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.02] p-4 relative overflow-hidden">
+                                        <div className="rounded-xl border p-4 relative overflow-hidden" style={{ borderColor: 'color-mix(in srgb, var(--cs-accent) 20%, transparent)', background: 'color-mix(in srgb, var(--cs-accent) 2%, transparent)' }}>
                                             {/* Modal title bar */}
                                             <div className="flex items-center gap-2 mb-4">
                                                 <div className="flex gap-1">
-                                                    <div className="w-2 h-2 rounded-full bg-emerald-500/30" />
-                                                    <div className="w-2 h-2 rounded-full bg-emerald-500/20" />
-                                                    <div className="w-2 h-2 rounded-full bg-emerald-500/20" />
+                                                    <div className="w-2 h-2 rounded-full" style={{ background: 'color-mix(in srgb, var(--cs-accent) 30%, transparent)' }} />
+                                                    <div className="w-2 h-2 rounded-full" style={{ background: 'color-mix(in srgb, var(--cs-accent) 20%, transparent)' }} />
+                                                    <div className="w-2 h-2 rounded-full" style={{ background: 'color-mix(in srgb, var(--cs-accent) 20%, transparent)' }} />
                                                 </div>
-                                                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400/70">
+                                                <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--cs-accent)', opacity: 0.7 }}>
                                                     Unified Scheduler
                                                 </span>
                                             </div>
 
                                             {/* Top section — always visible */}
                                             <div className="space-y-2 mb-3">
-                                                <SkeletonLine w="50%" className="bg-emerald-500/20" />
-                                                <SkeletonLine w="70%" className="bg-emerald-500/10" />
+                                                <SkeletonLine w="50%" className="bg-[color-mix(in_srgb,var(--cs-accent)_20%,transparent)]" />
+                                                <SkeletonLine w="70%" className="bg-[color-mix(in_srgb,var(--cs-accent)_10%,transparent)]" />
                                             </div>
 
                                             {/* Progressive disclosure layers */}
@@ -256,25 +251,25 @@ export default function BeatScheduler() {
                                                         transition={{ duration: 0.6, ease }}
                                                         className="overflow-hidden"
                                                     >
-                                                        <div className="border-t border-emerald-500/10 pt-3 mt-1 space-y-2">
+                                                        <div className="border-t pt-3 mt-1 space-y-2" style={{ borderColor: 'color-mix(in srgb, var(--cs-accent) 10%, transparent)' }}>
                                                             <div className="flex items-center gap-2">
-                                                                <div className="w-3 h-3 rounded border border-emerald-500/30 flex items-center justify-center">
+                                                                <div className="w-3 h-3 rounded flex items-center justify-center" style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 30%, transparent)' }}>
                                                                     <motion.span
                                                                         initial={{ scale: 0 }}
                                                                         animate={{ scale: 1 }}
                                                                         transition={{ delay: 0.3 }}
-                                                                        className="text-[6px] text-emerald-400"
+                                                                        className="text-[6px]" style={{ color: 'var(--cs-accent)' }}
                                                                     >
                                                                         ▾
                                                                     </motion.span>
                                                                 </div>
-                                                                <span className="text-[10px] font-mono text-emerald-400/50 uppercase tracking-wider">
+                                                                <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>
                                                                     Advanced options
                                                                 </span>
                                                             </div>
-                                                            <SkeletonLine w="65%" className="bg-emerald-500/10" />
-                                                            <SkeletonLine w="80%" className="bg-emerald-500/10" />
-                                                            <SkeletonLine w="40%" className="bg-emerald-500/10" />
+                                                            <SkeletonLine w="65%" className="bg-[color-mix(in_srgb,var(--cs-accent)_10%,transparent)]" />
+                                                            <SkeletonLine w="80%" className="bg-[color-mix(in_srgb,var(--cs-accent)_10%,transparent)]" />
+                                                            <SkeletonLine w="40%" className="bg-[color-mix(in_srgb,var(--cs-accent)_10%,transparent)]" />
                                                         </div>
                                                     </motion.div>
                                                 )}
@@ -287,13 +282,13 @@ export default function BeatScheduler() {
                                                         initial={{ opacity: 0, y: 8 }}
                                                         animate={{ opacity: 1, y: 0 }}
                                                         transition={{ duration: 0.5, ease }}
-                                                        className="mt-3 pt-3 border-t border-emerald-500/10"
+                                                        className="mt-3 pt-3" style={{ borderTop: '1px solid color-mix(in srgb, var(--cs-accent) 10%, transparent)' }}
                                                     >
                                                         <div className="flex items-center gap-2">
-                                                            <div className="w-5 h-5 rounded bg-emerald-500/10 flex items-center justify-center">
-                                                                <span className="text-[9px] text-emerald-400">+</span>
+                                                            <div className="w-5 h-5 rounded flex items-center justify-center" style={{ background: 'color-mix(in srgb, var(--cs-accent) 10%, transparent)' }}>
+                                                                <span className="text-[9px]" style={{ color: 'var(--cs-accent)' }}>+</span>
                                                             </div>
-                                                            <span className="text-[10px] font-mono text-emerald-400/40">
+                                                            <span className="text-[10px] font-mono" style={{ color: 'var(--cs-accent)', opacity: 0.4 }}>
                                                                 Launch from anywhere
                                                             </span>
                                                         </div>
@@ -305,7 +300,7 @@ export default function BeatScheduler() {
                                             <motion.div
                                                 animate={{ opacity: [0, 0.15, 0] }}
                                                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                                                className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none"
+                                                className="absolute inset-0 rounded-xl pointer-events-none" style={{ background: 'linear-gradient(to bottom right, color-mix(in srgb, var(--cs-accent) 5%, transparent), transparent)' }}
                                             />
                                         </div>
                                     </motion.div>

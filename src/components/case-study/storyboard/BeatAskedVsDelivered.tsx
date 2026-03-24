@@ -66,12 +66,9 @@ export default function BeatAskedVsDelivered() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        Customers were leaving. The brief said{' '}
-                                        <span className="text-zinc-200 font-medium">&quot;visual refresh.&quot;</span>{' '}
-                                        But a fresh coat of paint wouldn&apos;t bring them back.
-                                    </p>
-                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                        So I rebuilt the entire product. 🏗️
+                                        The brief said{' '}
+                                        <span className="text-zinc-200 font-medium">&quot;UI makeover.&quot;</span>{' '}
+                                        But this needed a structural redesign, not a UI facelift.
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -134,8 +131,8 @@ export default function BeatAskedVsDelivered() {
                                                             width={50 - i * 10}
                                                             height={10}
                                                             rx={2}
-                                                            fill="var(--overlay-red-15)"
-                                                            stroke="var(--overlay-red-30)"
+                                                            fill="var(--overlay-white-10)"
+                                                            stroke="var(--overlay-white-15)"
                                                             strokeWidth={0.5}
                                                             initial={{ opacity: 0, y: -30 }}
                                                             animate={{ opacity: 1, y: 0 }}
@@ -151,7 +148,7 @@ export default function BeatAskedVsDelivered() {
                                             ))}
 
                                             {/* Left label */}
-                                            <text x="110" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="var(--overlay-red-40)">
+                                            <text x="110" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="var(--overlay-white-20)">
                                                 Asked
                                             </text>
 
@@ -170,8 +167,8 @@ export default function BeatAskedVsDelivered() {
                                                             width={70}
                                                             height={10}
                                                             rx={2}
-                                                            fill="var(--overlay-emerald-light-15)"
-                                                            stroke="var(--overlay-emerald-light-30)"
+                                                            fill="color-mix(in srgb, var(--cs-accent) 12%, transparent)"
+                                                            stroke="color-mix(in srgb, var(--cs-accent) 25%, transparent)"
                                                             strokeWidth={0.5}
                                                             initial={{ opacity: 0, y: -40 }}
                                                             animate={{ opacity: 1, y: 0 }}
@@ -187,7 +184,7 @@ export default function BeatAskedVsDelivered() {
                                             ))}
 
                                             {/* Right label */}
-                                            <text x="390" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="var(--overlay-emerald-light-40)">
+                                            <text x="390" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="color-mix(in srgb, var(--cs-accent) 35%, transparent)">
                                                 Delivered
                                             </text>
                                         </motion.g>
@@ -205,7 +202,7 @@ export default function BeatAskedVsDelivered() {
                                                     animate={{ opacity: phase >= 5 ? 0.3 : 1 }}
                                                     transition={{ duration: 0.5, ease }}
                                                 >
-                                                    <div className="font-mono text-[10px] tracking-[0.3em] text-red-400/40 uppercase mb-4">
+                                                    <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase mb-4">
                                                         What they asked for
                                                     </div>
                                                     <div className="space-y-3">
@@ -216,8 +213,8 @@ export default function BeatAskedVsDelivered() {
                                                                 transition={{ duration: 0.4, ease }}
                                                                 className="flex items-center gap-3"
                                                             >
-                                                                <span className="w-1.5 h-1.5 rounded-full bg-red-500/30 flex-shrink-0" />
-                                                                <span className={`text-sm transition-all duration-500 ${phase >= 5 ? 'text-zinc-600 line-through decoration-red-500/30 decoration-2' : 'text-zinc-200'}`}>
+                                                                <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 flex-shrink-0" />
+                                                                <span className={`text-sm transition-all duration-500 ${phase >= 5 ? 'text-zinc-600 line-through decoration-zinc-500/30 decoration-2' : 'text-zinc-200'}`}>
                                                                     {item}
                                                                 </span>
                                                             </motion.div>
@@ -246,7 +243,7 @@ export default function BeatAskedVsDelivered() {
                                         <AnimatePresence>
                                             {phase >= 6 && (
                                                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease }}>
-                                                    <div className="font-mono text-[10px] tracking-[0.3em] text-emerald-400/60 uppercase mb-4">
+                                                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase mb-4" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>
                                                         What I actually delivered
                                                     </div>
                                                     <div className="space-y-3">
@@ -264,11 +261,11 @@ export default function BeatAskedVsDelivered() {
                                                                     transition={{ type: 'spring', stiffness: 400 }}
                                                                 >
                                                                     <svg width="12" height="12" viewBox="0 0 12 12">
-                                                                        <circle cx="6" cy="6" r="5.5" fill="none" stroke="var(--overlay-emerald-light-40)" strokeWidth="1" />
+                                                                        <circle cx="6" cy="6" r="5.5" fill="none" stroke="color-mix(in srgb, var(--cs-accent) 35%, transparent)" strokeWidth="1" />
                                                                         <motion.path
                                                                             d="M3.5 6l2 2 3-3.5"
                                                                             fill="none"
-                                                                            stroke="var(--semantic-emerald)"
+                                                                            stroke="var(--cs-accent)"
                                                                             strokeWidth="1.2"
                                                                             strokeLinecap="round"
                                                                             strokeLinejoin="round"
@@ -278,7 +275,7 @@ export default function BeatAskedVsDelivered() {
                                                                         />
                                                                     </svg>
                                                                 </motion.span>
-                                                                <span className="text-sm text-emerald-300/90">{item}</span>
+                                                                <span className="text-sm" style={{ color: 'var(--cs-accent)', opacity: 0.8 }}>{item}</span>
                                                             </motion.div>
                                                         ))}
                                                     </div>
@@ -298,20 +295,21 @@ export default function BeatAskedVsDelivered() {
                                             className="mt-8 flex items-center justify-center gap-6"
                                         >
                                             <div className="text-center">
-                                                <div className="text-3xl font-bold font-mono text-red-400/40">3</div>
-                                                <div className="text-[9px] font-mono text-red-400/30 uppercase tracking-wider">asked</div>
+                                                <div className="text-3xl font-bold font-mono text-zinc-500">3</div>
+                                                <div className="text-[9px] font-mono text-zinc-600 uppercase tracking-wider">asked</div>
                                             </div>
                                             <div className="text-zinc-600 text-lg font-light">vs</div>
                                             <div className="text-center">
                                                 <motion.div
-                                                    className="text-4xl font-bold font-mono text-emerald-400"
+                                                    className="text-4xl font-bold font-mono"
+                                                    style={{ color: 'var(--cs-accent)' }}
                                                     initial={{ scale: 0.5 }}
                                                     animate={{ scale: [0.5, 1.15, 1] }}
                                                     transition={{ duration: 0.5, ease }}
                                                 >
                                                     6
                                                 </motion.div>
-                                                <div className="text-[9px] font-mono text-emerald-400/60 uppercase tracking-wider">delivered</div>
+                                                <div className="text-[9px] font-mono uppercase tracking-wider" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>delivered</div>
                                             </div>
                                         </motion.div>
                                     )}

@@ -7,13 +7,14 @@ type Phase = 'idle' | 'submerge' | 'hold' | 'emerge'
 
 interface TransitionContextValue {
   phase: Phase
-  progress: number
+  /** Live progress ref — read in rAF loops, never triggers re-renders */
+  progressRef: React.RefObject<number>
   navigateTo: (href: string) => void
 }
 
 const TransitionContext = createContext<TransitionContextValue>({
   phase: 'idle',
-  progress: 0,
+  progressRef: { current: 0 },
   navigateTo: () => {},
 })
 
@@ -21,54 +22,53 @@ export function useTransition() {
   return useContext(TransitionContext)
 }
 
-/* ── Water physics easing ──────────────────────────────────
+/* ── Fluid-dynamics easing ──────────────────────────────────
  *
- * Real waves are asymmetric:
- *   SURGE:   Accelerates fast, powerful push → eases to a stop
- *            (power curve: t^1.6 with smooth deceleration)
- *   RETREAT: Starts slow, gravity pulls it back → accelerates away
- *            (gentle ease-in with a soft landing)
+ * Sinusoidal curves model real fluid momentum:
+ *   SURGE:   Smooth acceleration → effortless coast → gentle arrival
+ *   RETREAT: Barely perceptible start → flowing middle → soft landing
  *
- * This creates the feeling of mass and momentum — water, not a UI.
+ * Sine curves are C∞-smooth (infinitely differentiable). No corners,
+ * no piecewise joins, no "mechanical" moments. Just fluid motion.
  */
 
-/** Surge: fast attack, smooth deceleration — wave crashing onto shore */
+/** Surge: smooth ramp-up, effortless deceleration — wave rushing ashore */
 function easeSurge(t: number): number {
-  // Quadratic ease-out with a slight overshoot feel
-  return 1 - Math.pow(1 - t, 2.4)
+  return Math.sin(t * Math.PI * 0.5)
 }
 
-/** Retreat: slow start, then gravity pulls it away — water receding */
+/** Retreat: barely-there start, flowing through, soft landing */
 function easeRetreat(t: number): number {
-  // Cubic ease-in-out biased toward ease-in (slow start, faster finish)
-  return t < 0.4
-    ? 2 * Math.pow(t / 0.4, 2) * 0.4   // slow crawl for first 40%
-    : 0.4 + (1 - 0.4) * (1 - Math.pow(1 - (t - 0.4) / 0.6, 2))  // then ease out
+  return (1 - Math.cos(t * Math.PI)) * 0.5
 }
 
 /**
  * TransitionProvider — intercepts navigation to play transitions.
  *
- * SUBMERGE (350ms): Wave surges up — fast, powerful, like a wave breaking.
- * HOLD     (200ms): Full coverage. Navigate + scroll reset.
- * EMERGE   (650ms): Wave retreats — slow, gravitational, deliberate.
+ * ZERO React re-renders during animation. Progress lives in a ref,
+ * DOM updates happen via rAF in PageTransition. React only re-renders
+ * on phase changes (4 total per transition: idle→submerge→hold→emerge→idle).
  *
- * Total: ~1.2s — the asymmetry makes it feel physical.
+ * SUBMERGE  (900ms): Wave surges up — smooth, effortless momentum.
+ * HOLD      (350ms): Full coverage. Navigate + scroll reset.
+ * EMERGE    (900ms): Wave retreats — gravitational, unhurried.
+ *
+ * Total: ~2.15s
  */
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const [phase, setPhase] = useState<Phase>('idle')
-  const [progress, setProgress] = useState(0)
+  const progressRef = useRef(0)
   const navLock = useRef(false)
   const animRef = useRef<number>(0)
 
-  /** Animate with a custom easing curve */
+  /** Animate via ref — NO React state updates during animation */
   const animateWith = useCallback((ms: number, easing: (t: number) => number, cb: () => void) => {
     const t0 = performance.now()
     const tick = (now: number) => {
       const raw = Math.min((now - t0) / ms, 1)
-      setProgress(easing(raw))
+      progressRef.current = easing(raw)  // ← ref, not setState
       if (raw < 1) animRef.current = requestAnimationFrame(tick)
       else cb()
     }
@@ -80,34 +80,39 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     if (navLock.current || normalize(href) === normalize(pathname)) return
     navLock.current = true
 
-    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis
+    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void; scrollTo: (target: number, options?: { immediate?: boolean }) => void } }).__lenis
     if (lenis) lenis.stop()
 
     // Tell aurora to surge
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'surge' } }))
 
-    // Phase 1: SUBMERGE — wave crashes up (fast, powerful)
-    setPhase('submerge')
-    setProgress(0)
+    // Phase 1: SUBMERGE — wave flows up (smooth sine momentum)
+    progressRef.current = 0
+    setPhase('submerge')  // ← only re-render: phase change
 
-    animateWith(350, easeSurge, () => {
+    animateWith(900, easeSurge, () => {
       // Phase 2: HOLD — total submersion, navigate underneath
+      progressRef.current = 1
       setPhase('hold')
-      setProgress(1)
       window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'hold' } }))
 
+      // Force scroll to top
+      if (lenis) lenis.scrollTo(0, { immediate: true })
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
       router.push(href)
 
-      // Phase 3: EMERGE — wave retreats (slow, gravitational)
+      // Phase 3: EMERGE — wave retreats (smooth sine, gravitational)
       setTimeout(() => {
+        if (lenis) lenis.scrollTo(0, { immediate: true })
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+
+        progressRef.current = 0
         setPhase('emerge')
-        setProgress(0)
         window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
 
-        animateWith(650, easeRetreat, () => {
+        animateWith(900, easeRetreat, () => {
+          progressRef.current = 0
           setPhase('idle')
-          setProgress(0)
           navLock.current = false
           window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'idle' } }))
           if (lenis) lenis.start()
@@ -116,12 +121,12 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
             window.dispatchEvent(new Event('scroll'))
           })
         })
-      }, 200) // hold: brief submersion
+      }, 350)
     })
   }, [pathname, router, animateWith])
 
   return (
-    <TransitionContext.Provider value={{ phase, progress, navigateTo }}>
+    <TransitionContext.Provider value={{ phase, progressRef, navigateTo }}>
       {children}
     </TransitionContext.Provider>
   )

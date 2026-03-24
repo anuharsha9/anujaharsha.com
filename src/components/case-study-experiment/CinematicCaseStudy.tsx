@@ -99,30 +99,7 @@ export default function CinematicCaseStudy({
 
                 {/* ── Single Scroll Experience ── */}
 
-                {/* ═══ SCROLL PROGRESS DOTS ═══ */}
-                {actSections && actSections.length > 0 && (
-                    <nav
-                        className={`fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 transition-opacity duration-500 ${showProgress ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                        aria-label="Case study navigation"
-                    >
-                        {actSections.map((act) => (
-                            <a
-                                key={act.id}
-                                href={`#${act.id}`}
-                                className="group flex items-center gap-2 transition-all duration-300"
-                                title={act.title}
-                            >
-                                <span className={`block rounded-full transition-all duration-300 ${activeAct === act.id
-                                    ? 'w-2.5 h-2.5 bg-[var(--cs-accent)] shadow-[0_0_8px_var(--cs-accent-glow)]'
-                                    : 'w-1.5 h-1.5 bg-white/20 group-hover:bg-white/40'
-                                    }`} />
-                                <span className={`text-[9px] font-mono tracking-widest uppercase transition-all duration-300 ${activeAct === act.id ? 'text-[var(--cs-accent)] opacity-100' : 'text-zinc-800 group-hover:text-zinc-500'}`}>
-                                    {act.label}
-                                </span>
-                            </a>
-                        ))}
-                    </nav>
-                )}
+                {/* Scroll progress dots removed — cinematic presentation, no deck nav */}
 
                 {/* Scanline overlay */}
                 <div className="scanline-overlay fixed inset-0 z-[1] pointer-events-none" aria-hidden="true" />

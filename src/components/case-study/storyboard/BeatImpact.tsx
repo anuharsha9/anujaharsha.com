@@ -18,10 +18,10 @@ interface MetricItem {
 }
 
 const METRICS: MetricItem[] = [
-    { value: '20M+', numericTarget: 20, suffix: 'M+', label: 'Weekly schedules', icon: Calendar, color: 'var(--semantic-blue)' },
-    { value: '100%', numericTarget: 100, suffix: '%', label: 'Legacy parity', icon: CheckCircle2, color: 'var(--semantic-emerald)' },
-    { value: '0', numericTarget: 0, label: 'Regressions', icon: Shield, color: 'var(--accent-amber)' },
-    { value: 'Apr 2024', label: 'Ship date', icon: Rocket, color: 'var(--semantic-pink)' },
+    { value: '20M+', numericTarget: 20, suffix: 'M+', label: 'Weekly schedules', icon: Calendar, color: 'var(--cs-accent)' },
+    { value: '100%', numericTarget: 100, suffix: '%', label: 'Legacy parity', icon: CheckCircle2, color: 'var(--cs-accent)' },
+    { value: '0', numericTarget: 0, label: 'Regressions', icon: Shield, color: 'var(--cs-accent)' },
+    { value: 'Apr 2024', label: 'Ship date', icon: Rocket, color: 'var(--cs-accent)' },
 ]
 
 /* ── Animated metric counter ── */
@@ -121,13 +121,10 @@ export default function BeatImpact() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        The business needed to retain customers. That was the mission.
+                                        Customers retained. System rebuilt. <span className="text-zinc-200 font-medium">250+ screens. Zero regressions.</span>
                                     </p>
                                     <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                        Customers retained. System rebuilt. Zero regressions. 🚀
-                                    </p>
-                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
-                                        Two years of work. 250+ screens. A brand-new integrated product.
+                                        RC was not just a redesign. It was a turning point.
                                     </p>
                                 </PresenterBar>
                             </motion.div>
@@ -150,7 +147,7 @@ export default function BeatImpact() {
                                     transition={{ duration: 1.5, ease: 'easeOut' }}
                                     className="absolute inset-0 flex items-center justify-center pointer-events-none"
                                 >
-                                    <div className="w-40 h-40 rounded-full border border-emerald-400/30" />
+                                    <div className="w-40 h-40 rounded-full border" style={{ borderColor: 'var(--cs-accent)', opacity: 0.2 }} />
                                 </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0.4, scale: 0.5 }}
@@ -158,14 +155,14 @@ export default function BeatImpact() {
                                     transition={{ duration: 2, delay: 0.2, ease: 'easeOut' }}
                                     className="absolute inset-0 flex items-center justify-center pointer-events-none"
                                 >
-                                    <div className="w-32 h-32 rounded-full border border-emerald-400/20" />
+                                    <div className="w-32 h-32 rounded-full border" style={{ borderColor: 'var(--cs-accent)', opacity: 0.15 }} />
                                 </motion.div>
 
                                 {/* Glow behind */}
                                 <div
                                     className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-24 pointer-events-none"
                                     style={{
-                                        background: 'radial-gradient(ellipse, var(--overlay-green-15) 0%, transparent 70%)',
+                                        background: `radial-gradient(ellipse, color-mix(in srgb, var(--cs-accent) 15%, transparent) 0%, transparent 70%)`,
                                         filter: 'blur(20px)',
                                     }}
                                 />
@@ -173,15 +170,15 @@ export default function BeatImpact() {
                                 <motion.div
                                     className="text-5xl md:text-7xl font-black tracking-tighter mb-2 relative"
                                     style={{
-                                        background: 'linear-gradient(135deg, var(--white) 0%, var(--semantic-emerald) 50%, var(--accent-teal-bright) 100%)',
+                                        background: 'linear-gradient(135deg, var(--white) 0%, var(--cs-accent) 100%)',
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
                                     }}
                                     animate={{
                                         textShadow: [
-                                            '0 0 20px var(--overlay-green-30)',
-                                            '0 0 60px var(--overlay-green-10)',
-                                            '0 0 20px var(--overlay-green-30)',
+                                            `0 0 20px color-mix(in srgb, var(--cs-accent) 20%, transparent)`,
+                                            `0 0 60px color-mix(in srgb, var(--cs-accent) 8%, transparent)`,
+                                            `0 0 20px color-mix(in srgb, var(--cs-accent) 20%, transparent)`,
                                         ],
                                     }}
                                     transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -293,7 +290,7 @@ export default function BeatImpact() {
                             >
                                 <div className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 md:p-8 overflow-hidden">
                                     {/* Accent line */}
-                                    <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400" />
+                                    <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ background: `linear-gradient(to bottom, var(--cs-accent), color-mix(in srgb, var(--cs-accent) 40%, transparent))` }} />
 
                                     <div className="text-4xl text-zinc-800 absolute -top-1 left-4">&ldquo;</div>
                                     <p className="text-base md:text-lg text-zinc-200 leading-relaxed italic pl-2">
@@ -307,7 +304,7 @@ export default function BeatImpact() {
                                                 transition={{ duration: 0.5, ease }}
                                                 className="flex items-center gap-3 mt-5 pl-2"
                                             >
-                                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center">
+                                                <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center" style={{ background: `color-mix(in srgb, var(--cs-accent) 15%, transparent)` }}>
                                                     <span className="text-xs font-bold text-zinc-200">YC</span>
                                                 </div>
                                                 <div>
@@ -340,9 +337,13 @@ export default function BeatImpact() {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: 0.5 }}
-                                        className="inline-block rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 mb-5"
+                                        className="inline-block rounded-full px-4 py-1.5 mb-5"
+                                        style={{
+                                            background: `color-mix(in srgb, var(--cs-accent) 8%, transparent)`,
+                                            border: `1px solid color-mix(in srgb, var(--cs-accent) 15%, transparent)`,
+                                        }}
                                     >
-                                        <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest">
+                                        <span className="text-[10px] font-mono uppercase tracking-widest" style={{ color: 'var(--cs-accent)', opacity: 0.7 }}>
                                             Customer Feedback
                                         </span>
                                     </motion.div>

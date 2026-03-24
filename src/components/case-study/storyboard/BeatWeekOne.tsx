@@ -16,10 +16,10 @@ interface Fact {
 }
 
 const FACTS: Fact[] = [
-    { label: 'Days at the company', value: '7', ring: 0.019, color: 'var(--semantic-blue)' },
-    { label: 'BI tools used before', value: '0', ring: 0, color: 'var(--tone-pink-400)' },
-    { label: 'Data analytics experience', value: 'Zero', ring: 0, color: 'var(--semantic-purple)' },
-    { label: 'Knowledge of ReportCaster', value: 'Zero', ring: 0, color: 'var(--tone-amber-400)' },
+    { label: 'Days at the company', value: '7', ring: 0.019, color: 'var(--cs-accent)' },
+    { label: 'BI tools used before', value: '0', ring: 0, color: 'var(--cs-accent)' },
+    { label: 'Data analytics experience', value: 'Zero', ring: 0, color: 'var(--cs-accent)' },
+    { label: 'Knowledge of ReportCaster', value: 'Zero', ring: 0, color: 'var(--cs-accent)' },
 ]
 
 const RING_R = 38
@@ -66,17 +66,10 @@ export default function BeatWeekOne() {
                     >
                         <PresenterBar onTypingComplete={startVisuals}>
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                One week in, my director mentioned{' '}
-                                <span className="text-zinc-200 font-medium">a project in the pipeline</span> — waiting to be assigned to the design team.
-                            </p>
-                            <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
-                                He was deciding which designer would lead it. I had zero domain knowledge. Never heard of BI tools.
+                                One week in, my director mentioned a legacy scheduling tool in the pipeline. No designer had taken it. No engineer wanted to own it.
                             </p>
                             <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                I volunteered anyway. 🙋‍♂️
-                            </p>
-                            <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
-                                Not because I was careless — because I trust my ability to figure things out.
+                                I raised my hand: &ldquo;I&apos;ll do it.&rdquo;
                             </p>
                         </PresenterBar>
                     </motion.div>

@@ -12,7 +12,6 @@ const RCFullContent = dynamic(() => import('@/components/case-study-experiment/R
 
 /* ─── Beat Imports ─── */
 import RCTrailer from '@/components/home/RCTrailer'
-import { RCWireframe } from '@/components/case-study/CaseStudyWireframes'
 import BeatWeekOne from '@/components/case-study/storyboard/BeatWeekOne'
 import BeatTheRoom from '@/components/case-study/storyboard/BeatTheRoom'
 import BeatWhatIGot from '@/components/case-study/storyboard/BeatWhatIGot'
@@ -32,7 +31,6 @@ import BeatAskedVsDelivered from '@/components/case-study/storyboard/BeatAskedVs
 
 /* ─── RC Presentation Slides ─── */
 const RC_SLIDES: StorySlide[] = [
-    { type: 'title', title: 'Customers Were Leaving. 40 Years Without Updates.', content: ['Anuja Harsha — Senior Product Designer', 'Flagship Case Study @ Cloud Software Group'], backgroundComponent: <RCWireframe /> },
     { type: 'problem', title: 'Week 1. Zero Domain Knowledge.', content: ['I had never worked in data analytics. Never heard of BI tools. And I volunteered for the biggest project in the pipeline.'], component: <BeatWeekOne /> },
     { type: 'research', title: 'The Room', content: ['130+ years of combined experience. And me — 3 weeks in.'], component: <BeatTheRoom /> },
     { type: 'problem', title: 'What I Got', content: ['Three things. That\'s all.'], component: <BeatWhatIGot /> },

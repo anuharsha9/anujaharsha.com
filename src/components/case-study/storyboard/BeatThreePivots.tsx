@@ -84,8 +84,8 @@ export default function BeatThreePivots() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        <span className="text-red-400 font-medium">V1 — rejected.</span>{' '}
-                                        <span className="text-red-400 font-medium">V2 — rejected.</span>
+                                        <span className="text-zinc-300 font-medium">V1 — rejected.</span>{' '}
+                                        <span className="text-zinc-300 font-medium">V2 — rejected.</span>
                                     </p>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
                                         Instead of fighting it,{' '}
@@ -120,15 +120,15 @@ export default function BeatThreePivots() {
                                     style={{
                                         borderColor: isJudged
                                             ? isAccepted
-                                                ? 'var(--overlay-emerald-light-30)'
-                                                : 'var(--overlay-red-20)'
+                                                ? 'color-mix(in srgb, var(--cs-accent) 25%, transparent)'
+                                                : 'var(--overlay-white-08)'
                                             : 'var(--overlay-white-08)',
                                         background: isJudged && isAccepted
-                                            ? 'var(--overlay-emerald-light-05)'
+                                            ? 'color-mix(in srgb, var(--cs-accent) 4%, transparent)'
                                             : 'var(--overlay-white-02)',
                                         transition: 'border-color 0.5s, background 0.5s, opacity 0.5s',
                                         boxShadow: isJudged && isAccepted
-                                            ? '0 0 24px var(--overlay-emerald-light-10)'
+                                            ? '0 0 24px color-mix(in srgb, var(--cs-accent) 8%, transparent)'
                                             : 'none',
                                     }}
                                 >
@@ -141,8 +141,8 @@ export default function BeatThreePivots() {
                                         style={{
                                             background: isJudged
                                                 ? isAccepted
-                                                    ? 'var(--semantic-emerald)'
-                                                    : 'var(--semantic-rose)'
+                                                    ? 'var(--cs-accent)'
+                                                    : 'var(--overlay-white-15)'
                                                 : 'var(--overlay-white-10)',
                                             transition: 'background 0.5s',
                                         }}
@@ -156,13 +156,13 @@ export default function BeatThreePivots() {
                                                 style={{
                                                     background: isJudged
                                                         ? isAccepted
-                                                            ? 'var(--overlay-emerald-light-20)'
-                                                            : 'var(--overlay-red-15)'
+                                                            ? 'color-mix(in srgb, var(--cs-accent) 15%, transparent)'
+                                                            : 'var(--overlay-white-06)'
                                                         : 'var(--overlay-white-06)',
                                                     border: `2px solid ${isJudged
                                                         ? isAccepted
-                                                            ? 'var(--overlay-emerald-light-50)'
-                                                            : 'var(--overlay-red-40)'
+                                                            ? 'color-mix(in srgb, var(--cs-accent) 40%, transparent)'
+                                                            : 'var(--overlay-white-10)'
                                                         : 'var(--overlay-white-10)'
                                                         }`,
                                                     transition: 'all 0.4s',
@@ -170,14 +170,14 @@ export default function BeatThreePivots() {
                                             >
                                                 <span className="font-mono text-[11px] font-bold" style={{
                                                     color: isJudged && isRejected
-                                                        ? isAccepted ? 'var(--semantic-emerald)' : 'var(--semantic-rose)'
+                                                        ? isAccepted ? 'var(--cs-accent)' : 'var(--zinc-400)'
                                                         : 'var(--white)',
                                                     transition: 'color 0.4s',
                                                 }}>
                                                     {pivot.version}
                                                 </span>
                                             </motion.div>
-                                            <span className={`text-sm font-semibold tracking-tight ${isJudged && isRejected ? 'line-through decoration-red-500/50 text-zinc-400' : 'text-white'
+                                            <span className={`text-sm font-semibold tracking-tight ${isJudged && isRejected ? 'line-through decoration-zinc-500/50 text-zinc-400' : 'text-white'
                                                 }`} style={{ transition: 'color 0.4s' }}>
                                                 {pivot.title}
                                             </span>
@@ -192,10 +192,10 @@ export default function BeatThreePivots() {
                                                     transition={{ duration: 0.4, ease }}
                                                     className="flex items-start gap-2 mt-2"
                                                 >
-                                                    <div className={`w-0.5 min-h-[20px] rounded-full flex-shrink-0 mt-0.5 ${isAccepted ? 'bg-emerald-500/40' : 'bg-red-500/30'
+                                                    <div className={`w-0.5 min-h-[20px] rounded-full flex-shrink-0 mt-0.5 ${isAccepted ? 'bg-[color-mix(in_srgb,var(--cs-accent)_40%,transparent)]' : 'bg-zinc-600/30'
                                                         }`} />
-                                                    <p className={`text-xs font-mono italic leading-relaxed ${isAccepted ? 'text-emerald-400' : 'text-red-400'
-                                                        }`}>
+                                                    <p className={`text-xs font-mono italic leading-relaxed ${isAccepted ? '' : 'text-zinc-400'
+                                                        }`} style={isAccepted ? { color: 'var(--cs-accent)' } : {}}>
                                                         {pivot.reason}
                                                     </p>
                                                 </motion.div>
@@ -212,12 +212,12 @@ export default function BeatThreePivots() {
                                                     className="mt-3 flex items-center gap-1.5"
                                                 >
                                                     {isAccepted ? (
-                                                        <Check className="w-3.5 h-3.5 text-emerald-400" strokeWidth={2.5} />
+                                                        <Check className="w-3.5 h-3.5" style={{ color: 'var(--cs-accent)' }} strokeWidth={2.5} />
                                                     ) : (
-                                                        <X className="w-3.5 h-3.5 text-red-400" strokeWidth={2.5} />
+                                                        <X className="w-3.5 h-3.5 text-zinc-400" strokeWidth={2.5} />
                                                     )}
-                                                    <span className={`font-mono text-[11px] tracking-[0.2em] uppercase ${isAccepted ? 'text-emerald-400' : 'text-red-400'
-                                                        }`}>
+                                                    <span className={`font-mono text-[11px] tracking-[0.2em] uppercase ${isAccepted ? '' : 'text-zinc-400'
+                                                        }`} style={isAccepted ? { color: 'var(--cs-accent)' } : {}}>
                                                         {isAccepted ? 'Approved' : 'Rejected'}
                                                     </span>
                                                 </motion.div>
@@ -238,7 +238,7 @@ export default function BeatThreePivots() {
                                 transition={{ duration: 0.8, ease }}
                                 className="text-center mt-6"
                             >
-                                <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent mb-4" />
+                                <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent mb-4" />
                                 <p className="text-zinc-400 text-sm leading-relaxed">
                                     Two rejections. Zero bitterness. Each &ldquo;no&rdquo; sharpened the final solution.
                                 </p>

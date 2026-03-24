@@ -266,14 +266,15 @@ export default function LoadingScreen() {
         fadeTimeoutRef.current = window.setTimeout(() => {
           setIsFading(true)
 
-          // Dispatch app-ready 300ms into the 800ms fade, so hero entrance
-          // begins while loading screen is still partially visible — crossfade overlap
-          window.setTimeout(() => dispatchReady(), 300)
+          // Dispatch app-ready 200ms into the 1.4s fade, so hero entrance
+          // begins while loading screen is still partially visible — crossfade overlap.
+          // The loading overlay lingers as a shroud that the hero "pushes through."
+          window.setTimeout(() => dispatchReady(), 200)
 
           hideTimeoutRef.current = window.setTimeout(() => {
             setIsVisible(false)
-          }, 800)
-        }, 200)
+          }, 1400)
+        }, 150)
       }
     }
 
@@ -296,7 +297,9 @@ export default function LoadingScreen() {
       style={{
         background: 'radial-gradient(ellipse at 50% 60%, rgb(10, 16, 22) 0%, rgb(4, 6, 10) 100%)',
         opacity: isFading ? 0 : 1,
-        transition: 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+        transform: isFading ? 'scale(1.05)' : 'scale(1)',
+        filter: isFading ? 'blur(8px)' : 'none',
+        transition: 'opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
         pointerEvents: isFading ? 'none' : 'auto',
       }}
     >
@@ -320,8 +323,15 @@ export default function LoadingScreen() {
         }}
       />
 
-      {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-center gap-8">
+      {/* Main content — fades out faster than the background for a layered dissolve */}
+      <div
+        className="relative z-10 flex flex-col items-center justify-center gap-8"
+        style={{
+          opacity: isFading ? 0 : 1,
+          transform: isFading ? 'translateY(-20px)' : 'translateY(0)',
+          transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
+      >
 
         {/* Depth counter — the primary visual */}
         <div className="flex flex-col items-center gap-2">

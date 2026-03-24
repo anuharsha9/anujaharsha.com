@@ -67,7 +67,7 @@ function AnimatedCounter({ active }: { active: boolean }) {
                     animate={finished ? { scale: [1, 1.05, 1] } : {}}
                     transition={{ duration: 0.4, ease }}
                 >
-                    {count}<span className="text-emerald-400">+</span>
+                    {count}<span style={{ color: 'var(--cs-accent)' }}>+</span>
                 </motion.div>
                 {/* Flash ring on finish */}
                 {finished && (
@@ -143,10 +143,7 @@ export default function Beat250Screens() {
                                         Every interaction. Every loading state. Every error.
                                     </p>
                                     <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                        250+ screens. Nothing left to interpretation. 📐
-                                    </p>
-                                    <p className="text-sm md:text-base text-zinc-500 mt-2 italic">
-                                        If a dev asked &quot;what happens when...&quot; — the answer was already documented.
+                                        250+ screens. Nothing left to interpretation.
                                     </p>
                                 </PresenterBar>
                             </motion.div>

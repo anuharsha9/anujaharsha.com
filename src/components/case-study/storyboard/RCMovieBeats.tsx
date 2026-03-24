@@ -85,11 +85,11 @@ function WireMorphBackdrop() {
 /* ── Floating ambient dots ── */
 function AbstractFlowBubbles({ active }: { active: boolean }) {
     const nodes = [
-        { id: 'n1', x: 8, y: 55, color: 'var(--neutral-zinc-300)', scale: 1.06 },
-        { id: 'n2', x: 25, y: 24, color: 'var(--tone-amber-200)', scale: 0.86 },
-        { id: 'n3', x: 46, y: 62, color: 'var(--tone-sky-200)', scale: 0.94 },
-        { id: 'n4', x: 66, y: 30, color: 'var(--tone-cyan-200)', scale: 0.88 },
-        { id: 'n5', x: 85, y: 58, color: 'var(--tone-violet-300)', scale: 1.02 },
+        { id: 'n1', x: 8, y: 55, color: 'var(--cs-accent)', scale: 1.06 },
+        { id: 'n2', x: 25, y: 24, color: 'var(--cs-accent)', scale: 0.86 },
+        { id: 'n3', x: 46, y: 62, color: 'var(--cs-accent)', scale: 0.94 },
+        { id: 'n4', x: 66, y: 30, color: 'var(--cs-accent)', scale: 0.88 },
+        { id: 'n5', x: 85, y: 58, color: 'var(--cs-accent)', scale: 1.02 },
     ]
 
     return (
@@ -155,7 +155,7 @@ export function MovieBeatAssignment() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, ease }}
-                        className="font-mono text-xs tracking-[0.3em] text-rose-300/90 uppercase mb-6"
+                        className="font-mono text-xs tracking-[0.3em] text-[var(--cs-accent)] uppercase mb-6"
                     >
                         The Business Problem
                     </motion.div>
@@ -228,7 +228,7 @@ export function MovieBeatDiscovery() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={step >= 0 ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, ease }}
-                className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-sky-300"
+                className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cs-accent)]"
             >
                 Discovery Arc
             </motion.p>
@@ -242,12 +242,12 @@ export function MovieBeatDiscovery() {
                 ].map((card, index) => (
                     <motion.div
                         key={card.title}
-                        className="w-full md:w-52 rounded-xl border border-sky-300/25 bg-sky-300/[0.05] px-5 py-4 text-center backdrop-blur-sm"
+                        className="w-full md:w-52 rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] px-5 py-4 text-center backdrop-blur-sm"
                         initial={{ opacity: 0, y: 20, scale: 0.9, filter: 'blur(8px)' }}
                         animate={step >= 1 ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : {}}
                         transition={{ duration: 0.55, delay: card.delay, ease }}
                     >
-                        <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-sky-300 mb-1.5">{card.title}</div>
+                        <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--cs-accent)] mb-1.5">{card.title}</div>
                         <p className="text-sm text-zinc-200 leading-snug">{card.meta}</p>
                     </motion.div>
                 ))}
@@ -260,7 +260,7 @@ export function MovieBeatDiscovery() {
                         initial={{ scaleX: 0, opacity: 0 }}
                         animate={{ scaleX: 1, opacity: 0.3 }}
                         transition={{ duration: 0.8, ease }}
-                        className="hidden md:block w-full max-w-lg h-px bg-gradient-to-r from-transparent via-sky-400 to-transparent mt-4 origin-center"
+                        className="hidden md:block w-full max-w-lg h-px bg-gradient-to-r from-transparent via-[var(--cs-accent)] to-transparent mt-4 origin-center"
                     />
                 )}
             </AnimatePresence>
@@ -286,11 +286,11 @@ export function MovieBeatDiscovery() {
    BEAT 3: "THE CHAOS" — Fragmentation
    ═════════════════════════════════════════════════ */
 const SYSTEMS = [
-    { name: 'Schedule', color: 'var(--semantic-rose)' },
-    { name: 'Distribution', color: 'var(--accent-violet)' },
-    { name: 'Log Viewer', color: 'var(--semantic-blue)' },
-    { name: 'My Reports', color: 'var(--semantic-emerald)' },
-    { name: 'Library', color: 'var(--accent-amber)' },
+    { name: 'Schedule', color: 'var(--cs-accent)' },
+    { name: 'Distribution', color: 'var(--cs-accent)' },
+    { name: 'Log Viewer', color: 'var(--cs-accent)' },
+    { name: 'My Reports', color: 'var(--cs-accent)' },
+    { name: 'Library', color: 'var(--cs-accent)' },
 ]
 
 export function MovieBeatChaos() {
@@ -309,7 +309,7 @@ export function MovieBeatChaos() {
     return (
         <div className="flex flex-col items-center justify-center w-full py-6 text-center">
             {/* System nodes — centered ring */}
-            <div className="relative w-full max-w-sm mx-auto h-48 md:h-56">
+            <div className="relative w-full max-w-md mx-auto h-56 md:h-64">
                 {SYSTEMS.map((sys, i) => {
                     const angle = (i / SYSTEMS.length) * Math.PI * 2 - Math.PI / 2
                     const radiusX = 38
@@ -362,7 +362,7 @@ export function MovieBeatChaos() {
                                             y1={50 + Math.sin(a1) * 38}
                                             x2={50 + Math.cos(a2) * 38}
                                             y2={50 + Math.sin(a2) * 38}
-                                            stroke="var(--semantic-rose)"
+                                            stroke="var(--cs-accent)"
                                             strokeWidth="0.3"
                                             strokeDasharray="2,2"
                                             initial={{ pathLength: 0 }}
@@ -387,7 +387,7 @@ export function MovieBeatChaos() {
                         className="flex gap-8 md:gap-12 mt-4"
                     >
                         <div className="text-center">
-                            <div className="text-2xl md:text-3xl font-bold text-rose-400 font-mono">
+                            <div className="text-2xl md:text-3xl font-bold text-[var(--cs-accent)] font-mono">
                                 <AnimNumber value={4} />
                             </div>
                             <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mt-1">clicks to start</div>
@@ -425,9 +425,9 @@ export function MovieBeatPivots() {
     }, [])
 
     const pivots = [
-        { version: 'V1', verdict: 'REJECTED', reason: 'Siloed Product', color: 'var(--semantic-rose)' },
-        { version: 'V2', verdict: 'REJECTED', reason: 'Plugin Approach', color: 'var(--accent-amber)' },
-        { version: 'V3', verdict: 'WINNER', reason: 'Unified Hub', color: 'var(--semantic-emerald)' },
+        { version: 'V1', verdict: 'REJECTED', reason: 'Siloed Product', color: 'var(--overlay-white-40)' },
+        { version: 'V2', verdict: 'REJECTED', reason: 'Plugin Approach', color: 'var(--overlay-white-40)' },
+        { version: 'V3', verdict: 'WINNER', reason: 'Unified Hub', color: 'var(--cs-accent)' },
     ]
 
     return (
@@ -451,7 +451,7 @@ export function MovieBeatPivots() {
                         className="relative"
                     >
                         <div
-                            className="w-24 md:w-32 h-32 md:h-40 rounded-xl border flex flex-col items-center justify-center text-center p-3"
+                            className="w-28 md:w-36 h-36 md:h-44 rounded-xl border flex flex-col items-center justify-center text-center p-3"
                             style={{
                                 borderColor: withHexAlpha(pivot.color, '30'),
                                 background: withHexAlpha(pivot.color, '08'),
@@ -527,7 +527,7 @@ export function MovieBeatBreakthrough() {
                         transition={{ duration: 0.62, ease }}
                         className="w-full max-w-lg text-center"
                     >
-                        <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-rose-300/90 uppercase">Before</p>
+                        <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-zinc-400 uppercase">Before</p>
                         <div className="flex items-center justify-center gap-3">
                             {['Scheduler', 'Distribution', 'Job Log'].map((title, idx) => (
                                 <motion.div
@@ -535,9 +535,9 @@ export function MovieBeatBreakthrough() {
                                     initial={{ opacity: 0, y: 12 }}
                                     animate={step >= 1 ? { opacity: 1, y: 0 } : {}}
                                     transition={{ duration: 0.5, delay: idx * 0.1, ease }}
-                                    className="px-4 py-3 rounded-lg border border-sky-300/25 bg-sky-300/[0.06] text-center"
+                                    className="px-4 py-3 rounded-lg border border-white/[0.08] bg-white/[0.03] text-center"
                                 >
-                                    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-sky-200">{title}</span>
+                                    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-300">{title}</span>
                                 </motion.div>
                             ))}
                         </div>
@@ -552,16 +552,16 @@ export function MovieBeatBreakthrough() {
                         transition={{ duration: 0.75, ease }}
                         className="w-full max-w-lg text-center"
                     >
-                        <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-emerald-400/90 uppercase">After</p>
+                        <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-[var(--cs-accent)] uppercase">After</p>
                         <motion.div
                             initial={{ scale: 0.86, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.1, type: 'spring', stiffness: 210, damping: 22 }}
-                            className="mx-auto mb-5 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.06] px-8 py-5"
+                            className="mx-auto mb-5 rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_94%)] px-8 py-5"
                         >
                             <div className="flex items-center justify-center gap-2 mb-3">
-                                <Layers3 className="h-4 w-4 text-emerald-300" />
-                                <span className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-200">
+                                <Layers3 className="h-4 w-4 text-[var(--cs-accent)]" />
+                                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--cs-accent)]">
                                     Unified Hub Architecture
                                 </span>
                             </div>
@@ -572,15 +572,15 @@ export function MovieBeatBreakthrough() {
                                         initial={{ opacity: 0, y: 8 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.4, delay: 0.15 + idx * 0.08, ease }}
-                                        className="rounded-md border border-emerald-200/20 bg-emerald-200/[0.05] px-2 py-2 text-center"
+                                        className="rounded-md border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] px-2 py-2 text-center"
                                     >
-                                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-100">{name}</span>
+                                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-200">{name}</span>
                                     </motion.div>
                                 ))}
                             </div>
                             <div className="flex items-center justify-center gap-2">
-                                <Sparkles className="h-3 w-3 text-emerald-300" />
-                                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-emerald-200">
+                                <Sparkles className="h-3 w-3 text-[var(--cs-accent)]" />
+                                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-300">
                                     One &quot;+&quot; menu. 2 clicks. Zero context switching.
                                 </span>
                             </div>
@@ -618,7 +618,7 @@ export function MovieBeatExecution() {
                 initial={{ opacity: 0 }}
                 animate={step >= 0 ? { opacity: 1 } : {}}
                 transition={{ duration: 0.45 }}
-                className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-cyan-300"
+                className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cs-accent)]"
             >
                 Execution: Recurrence Engine
             </motion.p>
@@ -634,10 +634,10 @@ export function MovieBeatExecution() {
                         transition={{ duration: 0.6, ease }}
                         className="w-full max-w-sm mx-auto"
                     >
-                        <p className="font-mono text-[11px] tracking-[0.2em] text-rose-300/80 uppercase mb-4">Before</p>
+                        <p className="font-mono text-[11px] tracking-[0.2em] text-zinc-400 uppercase mb-4">Before</p>
 
                         {/* Mock old UI — cluttered controls */}
-                        <div className="rounded-xl border border-rose-500/15 bg-rose-500/[0.03] p-5 text-left space-y-3">
+                        <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 text-left space-y-3">
                             {/* Fake dropdowns */}
                             {[
                                 { label: 'Frequency', value: 'WEEKLY' },
@@ -664,7 +664,7 @@ export function MovieBeatExecution() {
                                 initial={{ opacity: 0 }}
                                 animate={step >= 1 ? { opacity: 1 } : {}}
                                 transition={{ delay: 0.5, duration: 0.4 }}
-                                className="text-[11px] text-rose-400/70 font-mono text-center pt-2 border-t border-white/[0.04]"
+                                className="text-[11px] text-zinc-400 font-mono text-center pt-2 border-t border-white/[0.04]"
                             >
                                 Outdated. Confusing. Too many steps.
                             </motion.p>
@@ -679,22 +679,22 @@ export function MovieBeatExecution() {
                         transition={{ duration: 0.7, ease }}
                         className="w-full max-w-sm mx-auto"
                     >
-                        <p className="font-mono text-[11px] tracking-[0.2em] text-emerald-400/80 uppercase mb-4">After</p>
+                        <p className="font-mono text-[11px] tracking-[0.2em] text-[var(--cs-accent)] uppercase mb-4">After</p>
 
-                        <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] p-6 text-center">
+                        <div className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_96%)] p-6 text-center">
                             <motion.p
                                 initial={{ opacity: 0, y: 8 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2, duration: 0.5, ease }}
                                 className="text-lg md:text-xl text-white font-medium leading-relaxed"
                             >
-                                Every <span className="text-amber-400">Mon, Wed, Fri</span>
+                                Every <span className="text-[var(--cs-accent)]">Mon, Wed, Fri</span>
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.4, duration: 0.4 }}
-                                className="text-[11px] text-emerald-400/70 font-mono mt-3 uppercase tracking-wider"
+                                className="text-[11px] text-[var(--cs-accent)] font-mono mt-3 uppercase tracking-wider opacity-70"
                             >
                                 Natural language. One sentence. Pure UX.
                             </motion.p>
@@ -742,14 +742,14 @@ export function MovieBeatScale() {
     return (
         <div className="flex flex-col items-center justify-center w-full py-8 text-center">
             {/* Screen cascade */}
-            <div className="relative w-full max-w-sm mx-auto h-40 mb-6">
+            <div className="relative w-full max-w-md mx-auto h-48 mb-6">
                 {screens.map((s, i) => (
                     <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: s.delay, duration: 0.3, ease }}
-                        className="absolute w-[13%] h-[16%] rounded-sm border border-cyan-400/25 bg-cyan-400/[0.08]"
+                        className="absolute w-[13%] h-[16%] rounded-sm border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_92%)]"
                         style={{ left: `${s.x}%`, top: `${s.y}%` }}
                     />
                 ))}

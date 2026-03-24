@@ -18,38 +18,59 @@ import React, { useRef, useState, useCallback, useMemo } from 'react'
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import Image from 'next/image'
 import type { StorySlide } from '@/components/case-study/StoryDeck'
-import { withHexAlpha } from '@/lib/color-utils'
+import { withAlpha } from '@/lib/color-utils'
 
 /* ─── shared easing ─── */
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /* ─── scroll distance per scene (vh) ─── */
-const SCROLL_PER_SCENE = 80
+const SCROLL_PER_SCENE = 150
 
-/* ─── accent colors per type ─── */
-function getAccentColor(type: string): string {
-    switch (type) {
-        case 'problem': return 'var(--semantic-rose)'
-        case 'research': return 'var(--accent-violet)'
-        case 'decision': return 'var(--semantic-blue)'
-        case 'execution': return 'var(--semantic-emerald)'
-        case 'impact': return 'var(--accent-amber)'
-        case 'lesson': return 'var(--tone-indigo-500)'
-        case 'title': return 'var(--neutral-zinc-500)'
-        default: return 'var(--neutral-zinc-500)'
-    }
+/* ─── accent colors per type ─── 
+   Whispering Intensity: use the case-study accent for ALL types.
+   Scene typing is communicated through labels, not through
+   screaming color changes. The deck should feel near-monochrome
+   with just a whisper of accent color. */
+function getAccentColor(_type: string): string {
+    return 'var(--cs-accent)'
 }
 
-function getAccentLabel(type: string): string {
-    switch (type) {
-        case 'problem': return 'The Problem'
-        case 'research': return 'Research'
-        case 'decision': return 'Decision'
-        case 'execution': return 'Execution'
-        case 'impact': return 'Impact'
-        case 'lesson': return 'Looking Ahead'
-        default: return ''
-    }
+
+
+
+/* ─── Word-by-word kinetic text (trailer DNA, Whispering Intensity) ─── */
+function KineticTitle({
+    children,
+    isActive,
+    className = '',
+}: {
+    children: string
+    isActive: boolean
+    className?: string
+}) {
+    const words = children.split(' ')
+    return (
+        <span className={`inline-flex flex-wrap items-baseline justify-center gap-x-[0.3em] ${className}`}>
+            {words.map((word, i) => (
+                <motion.span
+                    key={i}
+                    initial={false}
+                    animate={{
+                        opacity: isActive ? 1 : 0,
+                        y: isActive ? 0 : 14,
+                        filter: isActive ? 'blur(0px)' : 'blur(6px)',
+                    }}
+                    transition={{
+                        duration: 0.55,
+                        delay: isActive ? 0.1 + i * 0.055 : 0,
+                        ease,
+                    }}
+                >
+                    {word}
+                </motion.span>
+            ))}
+        </span>
+    )
 }
 
 
@@ -69,7 +90,6 @@ function Scene({
     direction: 'up' | 'down'
 }) {
     const accent = getAccentColor(slide.type)
-    const label = getAccentLabel(slide.type)
     const isHero = slide.type === 'title' && index === 0
 
     return (
@@ -78,14 +98,14 @@ function Scene({
             initial={false}
             animate={{
                 opacity: isActive ? 1 : 0,
-                y: isActive ? 0 : direction === 'down' ? 40 : -40,
-                filter: isActive ? 'blur(0px)' : 'blur(12px)',
+                y: isActive ? 0 : direction === 'down' ? 30 : -30,
+                filter: isActive ? 'blur(0px)' : 'blur(10px)',
                 scale: isActive ? 1 : 0.97,
             }}
             transition={{
-                duration: 0.8,
+                duration: 0.85,
                 ease,
-                opacity: { duration: 0.6 },
+                opacity: { duration: 0.65 },
             }}
             style={{
                 pointerEvents: isActive ? 'auto' : 'none',
@@ -93,11 +113,11 @@ function Scene({
                 willChange: 'transform, opacity, filter',
             }}
         >
-            {/* Accent glow per scene */}
+            {/* Accent glow — barely perceptible atmospheric wash */}
             <div
                 className="absolute inset-0 pointer-events-none transition-opacity duration-1000"
                 style={{
-                    background: `radial-gradient(ellipse at 50% 40%, ${accent}0a 0%, transparent 60%)`,
+                    background: `radial-gradient(ellipse at 50% 40%, ${withAlpha(accent, 0.03)} 0%, transparent 65%)`,
                     opacity: isActive ? 1 : 0,
                 }}
             />
@@ -105,11 +125,11 @@ function Scene({
             {/* Scene content */}
             <div className="relative z-10 w-full h-full flex items-center justify-center">
                 {slide.component ? (
-                    <ComponentScene slide={slide} label={label} accent={accent} isActive={isActive} />
+                    <ComponentScene slide={slide} isActive={isActive} />
                 ) : isHero ? (
                     <HeroScene slide={slide} isActive={isActive} />
                 ) : (
-                    <ContentScene slide={slide} label={label} accent={accent} isActive={isActive} />
+                    <ContentScene slide={slide} accent={accent} isActive={isActive} />
                 )}
             </div>
         </motion.div>
@@ -141,19 +161,11 @@ function HeroScene({ slide, isActive }: { slide: StorySlide; isActive: boolean }
                 >
                     Case Study
                 </motion.p>
-                <motion.h2
-                    initial={false}
-                    animate={{
-                        opacity: isActive ? 1 : 0,
-                        y: isActive ? 0 : 40,
-                        scale: isActive ? 1 : 0.95,
-                        filter: isActive ? 'blur(0px)' : 'blur(12px)',
-                    }}
-                    transition={{ duration: 1, delay: isActive ? 0.15 : 0, ease }}
-                    className="text-3xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.1] mb-6 md:mb-8"
-                >
-                    {slide.title}
-                </motion.h2>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.1] mb-6 md:mb-8">
+                    <KineticTitle isActive={isActive}>
+                        {slide.title}
+                    </KineticTitle>
+                </h2>
                 {slide.content.map((line, i) => (
                     <motion.p
                         key={i}
@@ -163,7 +175,7 @@ function HeroScene({ slide, isActive }: { slide: StorySlide; isActive: boolean }
                             y: isActive ? 0 : 20,
                             filter: isActive ? 'blur(0px)' : 'blur(8px)',
                         }}
-                        transition={{ delay: isActive ? 0.4 + i * 0.15 : 0, duration: 0.8, ease }}
+                        transition={{ delay: isActive ? 0.5 + i * 0.15 : 0, duration: 0.8, ease }}
                         className="text-base md:text-lg lg:text-xl text-zinc-500 leading-relaxed"
                     >
                         {line}
@@ -193,46 +205,27 @@ function HeroScene({ slide, isActive }: { slide: StorySlide; isActive: boolean }
 }
 
 
-/* ── Component scene ── */
 function ComponentScene({
-    slide, label, accent, isActive,
+    slide, isActive,
 }: {
-    slide: StorySlide; label: string; accent: string; isActive: boolean
+    slide: StorySlide; isActive: boolean
 }) {
     return (
         <div className="flex flex-col items-center w-full h-full px-6 md:px-12 overflow-hidden">
+            {/* Component body — parallax drift in with scale */}
             <motion.div
                 initial={false}
                 animate={{
                     opacity: isActive ? 1 : 0,
-                    y: isActive ? 0 : 20,
-                    filter: isActive ? 'blur(0px)' : 'blur(8px)',
+                    y: isActive ? 0 : 24,
+                    filter: isActive ? 'blur(0px)' : 'blur(5px)',
                 }}
-                transition={{ duration: 0.8, ease }}
-                className="text-center py-6 md:py-8 shrink-0"
-            >
-                {label && (
-                    <div className="flex items-center justify-center gap-2 mb-3">
-                        <div className="w-1.5 h-1.5 rounded-full" style={{ background: accent }} />
-                        <span className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: accent }}>
-                            {label}
-                        </span>
-                    </div>
-                )}
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white tracking-tight">
-                    {slide.title}
-                </h2>
-            </motion.div>
-
-            <motion.div
-                initial={false}
-                animate={{
-                    opacity: isActive ? 1 : 0,
-                    y: isActive ? 0 : 30,
-                    filter: isActive ? 'blur(0px)' : 'blur(6px)',
+                transition={{
+                    delay: isActive ? 0.15 : 0,
+                    duration: 0.85,
+                    ease,
                 }}
-                transition={{ delay: isActive ? 0.3 : 0, duration: 0.9, ease }}
-                className="w-full max-w-5xl flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10"
+                className="w-full max-w-5xl flex-1 min-h-0 flex items-center justify-center overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10"
             >
                 {slide.component}
             </motion.div>
@@ -243,9 +236,9 @@ function ComponentScene({
 
 /* ── Text + optional image scene ── */
 function ContentScene({
-    slide, label, accent, isActive,
+    slide, accent, isActive,
 }: {
-    slide: StorySlide; label: string; accent: string; isActive: boolean
+    slide: StorySlide; accent: string; isActive: boolean
 }) {
     const hasImage = !!slide.image
 
@@ -253,44 +246,6 @@ function ContentScene({
         <div className="flex items-center justify-center w-full h-full px-6 md:px-16 lg:px-24 py-12 md:py-16">
             <div className={`w-full max-w-6xl grid gap-8 md:gap-14 ${hasImage ? 'grid-cols-1 md:grid-cols-2 items-center' : 'grid-cols-1 max-w-3xl'}`}>
                 <div className={!hasImage ? 'text-center' : ''}>
-                    {label && (
-                        <motion.div
-                            initial={false}
-                            animate={{
-                                opacity: isActive ? 1 : 0,
-                                filter: isActive ? 'blur(0px)' : 'blur(6px)',
-                            }}
-                            transition={{ delay: isActive ? 0.05 : 0, duration: 0.7, ease }}
-                            className="flex items-center gap-2.5 mb-4"
-                            style={{ justifyContent: !hasImage ? 'center' : 'flex-start' }}
-                        >
-                            <div className="w-1.5 h-1.5 rounded-full" style={{ background: accent }} />
-                            <span className="font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: accent }}>
-                                {label}
-                            </span>
-                        </motion.div>
-                    )}
-
-                    {slide.signal && (
-                        <motion.span
-                            initial={false}
-                            animate={{
-                                opacity: isActive ? 1 : 0,
-                                scale: isActive ? 1 : 0.7,
-                                filter: isActive ? 'blur(0px)' : 'blur(6px)',
-                            }}
-                            transition={{ delay: isActive ? 0.1 : 0, type: 'spring', stiffness: 300, damping: 20 }}
-                            className="inline-block text-[9px] md:text-[10px] font-mono tracking-wider uppercase px-2.5 py-1 rounded-full border mb-4"
-                            style={{
-                                color: withHexAlpha(accent, 'cc'),
-                                borderColor: withHexAlpha(accent, '22'),
-                                background: withHexAlpha(accent, '08'),
-                            }}
-                        >
-                            {slide.signal}
-                        </motion.span>
-                    )}
-
                     <motion.h2
                         initial={false}
                         animate={{
@@ -303,22 +258,6 @@ function ContentScene({
                     >
                         {slide.title}
                     </motion.h2>
-
-                    <motion.div
-                        initial={false}
-                        animate={{
-                            scaleX: isActive ? 1 : 0,
-                            opacity: isActive ? 1 : 0,
-                        }}
-                        transition={{ delay: isActive ? 0.3 : 0, duration: 0.8, ease }}
-                        className="h-[2px] w-16 rounded-full mb-5"
-                        style={{
-                            background: `linear-gradient(90deg, ${withHexAlpha(accent, '80')}, transparent)`,
-                            transformOrigin: !hasImage ? 'center' : 'left',
-                            margin: !hasImage ? '0 auto 1.25rem' : undefined,
-                            marginBottom: '1.25rem',
-                        }}
-                    />
 
                     <div className={`space-y-3 ${!hasImage ? 'max-w-xl mx-auto' : ''}`}>
                         {slide.content.map((line, i) => (
@@ -427,12 +366,7 @@ export default function ScrollDeck({ slides }: ScrollDeckProps) {
             {/* Sticky viewport — the "screen" */}
             <div className="sticky top-[56px] h-[calc(100vh-56px)] overflow-hidden bg-[var(--bg-primary)]">
 
-                {/* Scene counter */}
-                <div className="absolute top-4 left-6 z-20">
-                    <span className="font-mono text-[11px] text-zinc-600 tracking-wider tabular-nums">
-                        {String(activeScene + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
-                    </span>
-                </div>
+
 
                 {/* All nearby scenes — crossfade approach (no AnimatePresence gaps) */}
                 {slides.map((slide, i) => {
@@ -448,26 +382,7 @@ export default function ScrollDeck({ slides }: ScrollDeckProps) {
                     )
                 })}
 
-                {/* Bottom progress dots */}
-                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1">
-                    {slides.map((s, i) => {
-                        const dotAccent = getAccentColor(s.type)
-                        const isActive = i === activeScene
-                        const isPast = i < activeScene
-                        return (
-                            <div
-                                key={i}
-                                className="rounded-full transition-all duration-500"
-                                style={{
-                                    width: isActive ? '20px' : '4px',
-                                    height: '4px',
-                                    background: isPast ? dotAccent : isActive ? dotAccent : 'rgba(255,255,255,0.1)',
-                                    opacity: isPast ? 0.4 : isActive ? 0.8 : 0.3,
-                                }}
-                            />
-                        )
-                    })}
-                </div>
+
             </div>
         </section>
     )

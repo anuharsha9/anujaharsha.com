@@ -7,15 +7,16 @@ import PresenterBar from './PresenterBar'
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /* ── 8 constellation nodes ── */
+const ACCENT = 'var(--cs-accent)'
 const NODES = [
-    { label: '12 Engineers', color: '#60a5fa', x: 50, y: 12 },       // top center
-    { label: '4 QA', color: '#a78bfa', x: 82, y: 28 },              // top right
-    { label: '2 PMs', color: '#fb923c', x: 88, y: 58 },             // right
-    { label: '2 Leads', color: '#34d399', x: 68, y: 82 },           // bottom right
-    { label: 'Prototypes', color: '#f472b6', x: 32, y: 82 },        // bottom left
-    { label: 'QA Sessions', color: '#facc15', x: 12, y: 58 },       // left
-    { label: 'Zoom Demos', color: '#22d3ee', x: 18, y: 28 },        // top left
-    { label: 'Old + New Workflows', color: '#c084fc', x: 50, y: 48 }, // center
+    { label: '12 Engineers', color: ACCENT, x: 50, y: 12 },       // top center
+    { label: '4 QA', color: ACCENT, x: 82, y: 28 },              // top right
+    { label: '2 PMs', color: ACCENT, x: 88, y: 58 },             // right
+    { label: '2 Leads', color: ACCENT, x: 68, y: 82 },           // bottom right
+    { label: 'Prototypes', color: ACCENT, x: 32, y: 82 },        // bottom left
+    { label: 'QA Sessions', color: ACCENT, x: 12, y: 58 },       // left
+    { label: 'Zoom Demos', color: ACCENT, x: 18, y: 28 },        // top left
+    { label: 'Old + New Workflows', color: ACCENT, x: 50, y: 48 }, // center
 ]
 
 /* Lines connecting nodes — forms a web */
@@ -73,14 +74,9 @@ export default function BeatTeamBuilding() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        Most of the engineers were new to WebFOCUS — and aside from me and the head PM,{' '}
-                                        <span className="text-zinc-200 font-medium">nobody had worked on ReportCaster before.</span>
-                                    </p>
-                                    <p className="text-lg md:text-xl text-white font-bold mt-3 tracking-tight">
-                                        I onboarded everyone — group by group. 🫡
-                                    </p>
-                                    <p className="text-sm md:text-base text-zinc-400 mt-2 italic">
-                                        New engineers, QA, leads & architects — each got tailored sessions.
+                                        Lead architect, engineering squad, new PM, QA — most of them had{' '}
+                                        <span className="text-zinc-200 font-medium">never truly seen ReportCaster end-to-end.</span>{' '}
+                                        I ran dozens of demos. Translated tribal knowledge into UX rationale.
                                     </p>
                                 </PresenterBar>
                             </motion.div>

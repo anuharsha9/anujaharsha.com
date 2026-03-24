@@ -19,19 +19,19 @@ const EXAMPLES: RecurrenceExample[] = [
         label: 'Weekly',
         beforeUI: ['☐ Mon ☑ Tue ☐ Wed ☑ Thu ☐ Fri', 'End: ☐ Never ☑ Date [12/31/24]', 'Repeat: [1] week(s)'],
         after: 'Every Tuesday and Thursday until Dec 31',
-        color: 'var(--semantic-orange)',
+        color: 'var(--cs-accent)',
     },
     {
         label: 'Monthly',
         beforeUI: ['Day: [15] ▾', 'Interval: [2] month(s)', 'On: ☐ First ☐ Last ☑ Exact'],
         after: 'Every 2 months on the 15th',
-        color: 'var(--semantic-purple)',
+        color: 'var(--cs-accent)',
     },
     {
         label: 'Yearly',
         beforeUI: ['Month: [March] ▾', 'Week: [2nd] ▾  Day: [Monday] ▾', 'End: ☐ After [—] occ.'],
         after: 'Every March on the 2nd Monday',
-        color: 'var(--semantic-blue)',
+        color: 'var(--cs-accent)',
     },
 ]
 
@@ -124,14 +124,9 @@ export default function BeatRecurrence() {
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <PresenterBar onTypingComplete={startVisuals}>
                                     <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                        The recurrence settings were{' '}
-                                        <span className="text-zinc-200 font-medium">outdated, cluttered, and confusing.</span>{' '}
-                                        Too many options crammed together — hard to tell what you&apos;d actually configured.
-                                    </p>
-                                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed mt-2">
-                                        I added a{' '}
-                                        <span className="text-zinc-200 font-medium">natural language sentence</span>{' '}
-                                        that renders after selecting your settings — so you instantly see what your schedule means. Pure UX.
+                                        I was configuring a recurrence pattern and tried to read it out loud. I thought: why not just{' '}
+                                        <span className="text-zinc-200 font-medium">show that?</span>{' '}
+                                        A natural language sentence that renders after selecting your settings — so you read your schedule like a sentence, not a settings panel.
                                     </p>
                                 </PresenterBar>
                             </motion.div>
