@@ -101,18 +101,19 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
         const timeline: [number, number][] = [
             [300, 0],       // "Customers were leaving."
-            [2200, 1],      // "They wanted the product modernized."
-            [4100, 2],      // "Competitors were closing in."
-            [6000, 3],      // "Leadership said: it's time."
-            [8300, 4],      // "I had just joined the team."
-            [10800, 5],     // Fragmentation: 5 nodes scatter
-            [13800, 6],     // Attempt 1: ✗
-            [15000, 7],     // Attempt 2: ✗
-            [16200, 8],     // Attempt 3: ✓ merge
-            [18000, 9],     // 250 cascade
-            [20400, 10],    // SHIPPED.
-            [22200, 11],    // Yingchun quote
-            [26500, 12],    // CTA or loop point
+            [2200, 1],      // 15M+ Users | 5→1 Hub (scale/stakes)
+            [4400, 2],      // "They wanted the product modernized."
+            [6300, 3],      // "Competitors were closing in."
+            [8200, 4],      // "Leadership said: it's time."
+            [10500, 5],     // "I had just joined the team."
+            [13000, 6],     // Fragmentation: 5 nodes scatter
+            [16000, 7],     // Attempt 1: ✗
+            [17200, 8],     // Attempt 2: ✗
+            [18400, 9],     // Attempt 3: ✓ merge
+            [20200, 10],    // 250 cascade
+            [22600, 11],    // SHIPPED.
+            [24400, 12],    // Yingchun quote
+            [28700, 13],    // CTA or loop point
         ]
 
         timeline.forEach(([ms, s]) => {
@@ -123,7 +124,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
             t.push(setTimeout(() => {
                 setStep(-1)
                 setTimeout(() => setCycle(c => c + 1), 1000)
-            }, 28500))
+            }, 30700))
         }
 
         return () => t.forEach(clearTimeout)
@@ -158,10 +159,62 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     </motion.div>
                 )}
 
-                {/* ═══ LINE 1: "They wanted the product modernized." ═══ */}
+                {/* ═══ LINE 1: Scale — 15M+ Users | 5→1 Hub ═══ */}
                 {step === 1 && (
                     <motion.div
-                        key="s1"
+                        key="s1-metrics"
+                        className="absolute inset-0 flex items-center justify-center px-6"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={textExit}
+                        transition={textExitT}
+                    >
+                        <div className="flex items-center gap-6 sm:gap-10 md:gap-14">
+                            {/* 15M+ Users */}
+                            <motion.div
+                                className="text-center"
+                                initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ duration: 0.6, delay: 0.15, ease }}
+                            >
+                                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+                                    15M<span className="text-[var(--semantic-cyan)]">+</span>
+                                </div>
+                                <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-1.5">
+                                    Users
+                                </div>
+                            </motion.div>
+
+                            {/* Separator */}
+                            <motion.div
+                                className="w-px h-12 sm:h-16 md:h-20 bg-zinc-700/50"
+                                initial={{ scaleY: 0, opacity: 0 }}
+                                animate={{ scaleY: 1, opacity: 1 }}
+                                transition={{ duration: 0.4, delay: 0.4, ease }}
+                            />
+
+                            {/* 5→1 Hub */}
+                            <motion.div
+                                className="text-center"
+                                initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ duration: 0.6, delay: 0.35, ease }}
+                            >
+                                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+                                    5<span className="text-[var(--semantic-cyan)]">&thinsp;→&thinsp;</span>1
+                                </div>
+                                <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-1.5">
+                                    Hub
+                                </div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* ═══ LINE 2: "They wanted the product modernized." ═══ */}
+                {step === 2 && (
+                    <motion.div
+                        key="s2"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -174,10 +227,10 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     </motion.div>
                 )}
 
-                {/* ═══ LINE 2: "Competitors were closing in." ═══ */}
-                {step === 2 && (
+                {/* ═══ LINE 3: "Competitors were closing in." ═══ */}
+                {step === 3 && (
                     <motion.div
-                        key="s2"
+                        key="s3"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -194,10 +247,10 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     </motion.div>
                 )}
 
-                {/* ═══ LINE 3: "Leadership said: it's time." ═══ */}
-                {step === 3 && (
+                {/* ═══ LINE 4: "Leadership said: it's time." ═══ */}
+                {step === 4 && (
                     <motion.div
-                        key="s3"
+                        key="s4"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -214,10 +267,10 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     </motion.div>
                 )}
 
-                {/* ═══ LINE 4: "I had just joined the team." ═══ */}
-                {step === 4 && (
+                {/* ═══ LINE 5: "I had just joined the team." ═══ */}
+                {step === 5 && (
                     <motion.div
-                        key="s4"
+                        key="s5"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -234,7 +287,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                 )}
 
                 {/* ═══ PHASE B: Fragmentation + Unification (steps 5-8) ═══ */}
-                {step >= 5 && step <= 8 && (
+                {step >= 6 && step <= 9 && (
                     <motion.div
                         key="frag"
                         className="absolute inset-0 flex flex-col items-center justify-center"
@@ -268,7 +321,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             {/* Connection lines */}
                             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                                 {LINES.map(([a, b], idx) => {
-                                    const scattered = step < 8
+                                    const scattered = step < 9
                                     const n1 = NODES[a]
                                     const n2 = NODES[b]
                                     return (
@@ -291,7 +344,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
                             {/* Nodes */}
                             {NODES.map((node, i) => {
-                                const merged = step >= 8
+                                const merged = step >= 9
                                 return (
                                     <motion.div
                                         key={i}
@@ -322,8 +375,8 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                             y: '-50%',
                                         }}
                                         transition={{
-                                            duration: step === 5 ? 1.0 : 0.6,
-                                            delay: step === 5 ? i * 0.08 : 0,
+                                            duration: step === 6 ? 1.0 : 0.6,
+                                            delay: step === 6 ? i * 0.08 : 0,
                                             ease,
                                         }}
                                     />
@@ -332,7 +385,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
                             {/* ✗ flash */}
                             <AnimatePresence>
-                                {(step === 6 || step === 7) && (
+                                {(step === 7 || step === 8) && (
                                     <motion.div
                                         key={`x-${step}`}
                                         className="absolute inset-0 flex items-center justify-center z-10"
@@ -348,7 +401,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
                             {/* ✓ glow */}
                             <AnimatePresence>
-                                {step === 8 && (
+                                {step === 9 && (
                                     <motion.div
                                         key="check"
                                         className="absolute inset-0 flex items-center justify-center z-10"
@@ -376,7 +429,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                 )}
 
                 {/* ═══ PHASE C: 250 Screen Cascade (step 9) ═══ */}
-                {step === 9 && (
+                {step === 10 && (
                     <motion.div
                         key="cascade"
                         className="absolute inset-0 flex flex-col items-center justify-center"
@@ -424,7 +477,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                 )}
 
                 {/* ═══ PHASE D: SHIPPED. (step 10) ═══ */}
-                {step === 10 && (
+                {step === 11 && (
                     <motion.div
                         key="shipped"
                         className="absolute inset-0 flex items-center justify-center"
@@ -440,7 +493,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                 )}
 
                 {/* ═══ PHASE E: Quote (step 11) ═══ */}
-                {step === 11 && (
+                {step === 12 && (
                     <motion.div
                         key="quote"
                         className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12"
@@ -475,7 +528,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                 )}
 
                 {/* ═══ PHASE F: CTA (step 12) ═══ */}
-                {step === 12 && showCTA && (
+                {step === 13 && showCTA && (
                     <motion.div
                         key="cta"
                         className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6"

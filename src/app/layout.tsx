@@ -9,7 +9,6 @@ import LoadingScreen from '@/components/loading/LoadingScreen'
 import FixedBackground from '@/components/ui/FixedBackground'
 import { LightboxProvider } from '@/contexts/LightboxContext'
 import { PdfProvider } from '@/contexts/PdfContext'
-import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
 import ReducedMotionProvider from '@/components/providers/ReducedMotionProvider'
 
 const inter = Inter({
@@ -187,9 +186,7 @@ export default function RootLayout({
         <LightboxProvider>
           <PdfProvider>
             <ReducedMotionProvider>
-              <SmoothScrollProvider>
                 <PageShell>{children}</PageShell>
-              </SmoothScrollProvider>
             </ReducedMotionProvider>
           </PdfProvider>
         </LightboxProvider>

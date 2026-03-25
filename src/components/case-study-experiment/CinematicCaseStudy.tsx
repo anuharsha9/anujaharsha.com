@@ -134,39 +134,17 @@ export default function CinematicCaseStudy({
                                 )}
                             </div>
 
-                            {/* Info bar — metadata left, impact stats right */}
-                            <div className="flex items-center justify-between mt-4 md:mt-5">
-                                <div className="flex items-center gap-2 md:gap-3">
-                                    <span className="text-[var(--cs-accent)] font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.25em]">
+                            {/* Info bar — metadata centered */}
+                            <div className="flex items-center justify-center mt-5 md:mt-7">
+                                <div className="flex items-center gap-2.5 md:gap-4">
+                                    <span className="text-[var(--cs-accent)] font-mono text-sm sm:text-base font-bold uppercase tracking-[0.25em]">
                                         {data.role}
                                     </span>
-                                    <span className="text-zinc-600 font-mono text-xs sm:text-sm">•</span>
-                                    <span className="text-xs sm:text-sm font-mono text-zinc-400 uppercase tracking-widest">
+                                    <span className="text-zinc-600 font-mono text-sm sm:text-base">•</span>
+                                    <span className="text-sm sm:text-base font-mono text-zinc-400 uppercase tracking-widest">
                                         {data.company} • {data.timeframe}
                                     </span>
                                 </div>
-
-                                {heroStats.filter(s => s.label !== 'Timeline').length > 0 && (
-                                    <div className="flex items-center gap-3 md:gap-5">
-                                        {heroStats
-                                            .filter(s => s.label !== 'Timeline')
-                                            .map((stat, i, arr) => (
-                                                <React.Fragment key={i}>
-                                                    <div className="flex flex-col items-center">
-                                                        <span className="text-white font-bold text-sm md:text-lg lg:text-xl leading-none tracking-tight whitespace-nowrap">
-                                                            {stat.value}
-                                                        </span>
-                                                        <span className="text-[9px] md:text-[10px] uppercase font-mono tracking-widest text-white/40 mt-1">
-                                                            {stat.label}
-                                                        </span>
-                                                    </div>
-                                                    {i < arr.length - 1 && (
-                                                        <div className="w-px h-6 md:h-8 bg-white/10" />
-                                                    )}
-                                                </React.Fragment>
-                                            ))}
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </motion.section>

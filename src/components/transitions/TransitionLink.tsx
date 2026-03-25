@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode, MouseEvent } from 'react'
-import Link from 'next/link'
 import { useTransition } from './TransitionContext'
 
 interface TransitionLinkProps {
@@ -15,7 +14,13 @@ interface TransitionLinkProps {
 
 /**
  * TransitionLink — drop-in replacement for next/link.
- * Intercepts clicks to play the submerge/emerge transition before navigating.
+ * 
+ * Uses a plain <a> tag instead of Next.js <Link> to avoid
+ * internal click-handling conflicts. Navigation is handled
+ * entirely by our TransitionContext's router.push().
+ * 
+ * SEO/accessibility: renders a real <a> with href, so crawlers
+ * and screen readers see a proper link.
  */
 export default function TransitionLink({
   href,
@@ -44,7 +49,7 @@ export default function TransitionLink({
   }
 
   return (
-    <Link
+    <a
       href={href}
       className={className}
       style={style}
@@ -52,6 +57,6 @@ export default function TransitionLink({
       {...rest}
     >
       {children}
-    </Link>
+    </a>
   )
 }
