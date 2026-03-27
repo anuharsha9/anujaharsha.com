@@ -23,27 +23,44 @@ export function useTransition() {
 
 /* ── Water physics easing ──────────────────────────────────
  *
- * Real waves are asymmetric:
- *   SURGE:   Sinusoidal ease — accelerates smoothly, decelerates at peak
- *   RETREAT: Quadratic ease-in — lingers at crest, then gravity takes over
+ * Real waves are asymmetric — surge ≠ retreat:
+ *
+ *   SURGE:   Builds momentum like water being pulled by undertow,
+ *            then crashes with force. Slight deceleration at crest,
+ *            but NOT symmetric — the wave is still moving fast when
+ *            it reaches peak. Think: 30% ease-in, 70% sustained speed.
+ *
+ *   RETREAT: Lingers at crest (surface tension), then gravity kicks in
+ *            and accelerates the pullback. The retreat STARTS slow
+ *            and ENDS fast — like water draining off a tilted surface.
  *
  * Timing (continuous, no perceivable pause):
- *   SURGE   = 800ms  (heavy upward sweep)
- *   HOLD    = imperceptible (just route swap, ~50-100ms)
- *   RETREAT = 900ms  (slow gravity-driven drain)
+ *   SURGE   = 850ms  (heavy, building momentum)
+ *   HOLD    = imperceptible (just route swap)
+ *   RETREAT = 1000ms (languid gravity drain)
  */
 
-/** Surge: smooth sweep upward — sinusoidal for even visual motion */
+/** Surge: builds momentum, sustains through crest — asymmetric ease */
 function easeSurge(t: number): number {
-  // Sinusoidal ease-in-out: starts gently, accelerates mid, decelerates at peak
-  // This ensures the wave sweep is VISIBLE — not front-loaded like cubic ease-out
-  return 0.5 * (1 - Math.cos(Math.PI * t))
+  // Custom curve: gentle start (0-20%), rapid acceleration (20-60%),
+  // sustained speed through crest (60-100%) with only slight decel.
+  // This feels like water CRASHING — not a gentle sine wave.
+  if (t < 0.3) {
+    // Slow start: cubic ease-in for first 30%
+    const local = t / 0.3
+    return 0.15 * (local * local * local)
+  }
+  // Fast sustained: sine curve from 15% to 100% over remaining 70%
+  const local = (t - 0.3) / 0.7
+  return 0.15 + 0.85 * Math.sin(local * Math.PI * 0.5)
 }
 
-/** Retreat: smooth sweep downward — slightly faster ending for "gravity" feel */
+/** Retreat: lingers at crest, then gravity accelerates pullback */
 function easeRetreat(t: number): number {
-  // Ease-in: starts slow (lingering at peak), accelerates like gravity
-  return t * t
+  // Quartic ease-in: much slower start than quadratic,
+  // then snaps into acceleration — like surface tension breaking
+  // and gravity yanking the water back.
+  return t * t * t * t
 }
 
 /**
@@ -101,7 +118,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setProgress(0)
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
 
-    animateWith(900, easeRetreat, () => {
+    animateWith(1000, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       setProgress(0)
@@ -151,7 +168,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     phaseRef.current = 'submerge'
     setProgress(0)
 
-    animateWith(800, easeSurge, () => {
+    animateWith(850, easeSurge, () => {
       // Phase 2: HOLD — 80% coverage, aurora breathes
       setPhase('hold')
       phaseRef.current = 'hold'

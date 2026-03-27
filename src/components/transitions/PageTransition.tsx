@@ -48,11 +48,13 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const rafRef = useRef(0)
   const startTimeRef = useRef(0)
   const coverageRef = useRef(0)
+  const phaseRef = useRef<string>('idle')
 
   const isActive = phase !== 'idle'
 
   // Update coverage ref so canvas loop reads latest value
   useEffect(() => {
+    phaseRef.current = phase
     if (phase === 'submerge') coverageRef.current = progress
     else if (phase === 'hold') coverageRef.current = 1
     else if (phase === 'emerge') coverageRef.current = 1 - progress
@@ -109,13 +111,25 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
       ctx.clearRect(0, 0, w, h)
 
-      // Primary wave Y: coverage 0→below viewport, 1→80% coverage (20% from top)
-      const primaryBaseY = 1.10 - coverage * 0.90
+      // Primary wave Y: coverage 0→fully below viewport, 1→80% coverage (20% from top)
+      // Rest position at 1.20 (20% below viewport) ensures wave crests with
+      // their full amplitude (~46px) are completely off-screen at start/end.
+      const primaryBaseY = 1.20 - coverage * 1.00
+
+      // Phase-aware motion: waves are more energetic during crash,
+      // slower and heavier during retreat
+      const currentPhase = phaseRef.current
+      const speedMult = currentPhase === 'submerge' ? 1.3
+                       : currentPhase === 'emerge' ? 0.6
+                       : 0.4  // hold: gentle idle ripple
+      const ampMult = currentPhase === 'submerge' ? 1.15
+                    : currentPhase === 'emerge' ? 0.85
+                    : 1.0
 
       // Pre-compute edge-Y arrays for each curtain (reused for fill + rope)
       const curtainEdges: number[][] = WAVE_CURTAINS.map(curtain => {
-        const t = time * curtain.speed + curtain.phase
-        const amp = curtain.waveAmplitude
+        const t = time * curtain.speed * speedMult + curtain.phase
+        const amp = curtain.waveAmplitude * ampMult
         const curtainBaseY = (primaryBaseY + curtain.baseYOffset) * h
         const edges: number[] = []
         for (let x = 0; x <= w; x += step) {
