@@ -21,58 +21,47 @@ export function useTransition() {
   return useContext(TransitionContext)
 }
 
-/* ── Water physics easing ──────────────────────────────────
+/* ── Oceanic wave easing ──────────────────────────────────
  *
- * Real waves are asymmetric — surge ≠ retreat:
+ *   SURGE   = 1600ms — deep-water swell gathering and crashing
+ *   HOLD    = imperceptible route swap
+ *   RETREAT = 2000ms — gravity drains the water mass back
  *
- *   SURGE:   Builds momentum like water being pulled by undertow,
- *            then crashes with force. Slight deceleration at crest,
- *            but NOT symmetric — the wave is still moving fast when
- *            it reaches peak. Think: 30% ease-in, 70% sustained speed.
+ *   Total cycle: ~3.6 seconds. Heavy, tidal, oceanic.
  *
- *   RETREAT: Lingers at crest (surface tension), then gravity kicks in
- *            and accelerates the pullback. The retreat STARTS slow
- *            and ENDS fast — like water draining off a tilted surface.
+ *   Asymmetric motion — like REAL ocean waves:
+ *   - Surge: slow build (0–40%) → gathering momentum (40–80%) → decelerates at peak
+ *   - Retreat: quick initial pull → long slow drainage tail
  *
- * Timing (continuous, no perceivable pause):
- *   SURGE   = 850ms  (heavy, building momentum)
- *   HOLD    = imperceptible (just route swap)
- *   RETREAT = 1000ms (languid gravity drain)
+ *   Both curves use smooth power-based easing to feel heavy and viscous.
  */
 
-/** Surge: builds momentum, sustains through crest — asymmetric ease */
+/** Surge: slow start, accelerating middle, soft arrival at peak.
+ *  Models a wave building momentum and crashing. */
 function easeSurge(t: number): number {
-  // Custom curve: gentle start (0-20%), rapid acceleration (20-60%),
-  // sustained speed through crest (60-100%) with only slight decel.
-  // This feels like water CRASHING — not a gentle sine wave.
-  if (t < 0.3) {
-    // Slow start: cubic ease-in for first 30%
-    const local = t / 0.3
-    return 0.15 * (local * local * local)
-  }
-  // Fast sustained: sine curve from 15% to 100% over remaining 70%
-  const local = (t - 0.3) / 0.7
-  return 0.15 + 0.85 * Math.sin(local * Math.PI * 0.5)
+  // Sine ease-in-out: natural pendulum/water motion
+  // Slow start → fast middle → slow peak arrival
+  return (1 - Math.cos(t * Math.PI)) * 0.5
 }
 
-/** Retreat: lingers at crest, then gravity accelerates pullback */
+/** Retreat: quick initial pull, then a long slow drainage tail.
+ *  Models gravity pulling water back — fast at first, then a thin film draining. */
 function easeRetreat(t: number): number {
-  // Quartic ease-in: much slower start than quadratic,
-  // then snaps into acceleration — like surface tension breaking
-  // and gravity yanking the water back.
-  return t * t * t * t
+  // Ease-out cubic: fast start → long deceleration tail
+  // This IS how water drains — gravity pulls hard initially, friction slows the rest
+  return 1 - Math.pow(1 - t, 3)
 }
 
 /**
  * TransitionProvider — intercepts navigation to play the Tidal Wash.
  *
- * Timeline (from spec):
- *   SUBMERGE  (800ms): Canvas waves crash upward → cover ~80% of viewport
+ * Timeline:
+ *   SUBMERGE  (1600ms): Heavy swell rises with gathering momentum
  *   HOLD      (imperceptible): Route swaps, waves keep undulating
- *   EMERGE    (900ms): Waves retreat with gravity, revealing new content
+ *   EMERGE    (2000ms): Gravity drainage — fast pull then slow tail
  *
- * 80-20 Rule: Waves never cover full viewport — ~80% at peak.
- * No pause at top — continuous crash-and-retreat like real ocean.
+ * 80% coverage at peak — wave crest stops at ~20% from viewport top.
+ * No pause at top — continuous tidal motion like real ocean.
  */
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
@@ -118,7 +107,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setProgress(0)
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
 
-    animateWith(1000, easeRetreat, () => {
+    animateWith(2000, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       setProgress(0)
@@ -163,13 +152,13 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // Tell aurora to surge
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'surge' } }))
 
-    // Phase 1: SUBMERGE — canvas waves crash upward (800ms, slow physics)
+    // Phase 1: SUBMERGE — canvas waves build upward (1600ms, oceanic physics)
     setPhase('submerge')
     phaseRef.current = 'submerge'
     setProgress(0)
 
-    animateWith(850, easeSurge, () => {
-      // Phase 2: HOLD — 80% coverage, aurora breathes
+    animateWith(1600, easeSurge, () => {
+      // Phase 2: HOLD — 80% coverage, waves keep undulating
       setPhase('hold')
       phaseRef.current = 'hold'
       setProgress(1)
