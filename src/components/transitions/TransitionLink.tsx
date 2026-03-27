@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, MouseEvent } from 'react'
+import { ReactNode, MouseEvent, useRef, useEffect } from 'react'
 import { useTransition } from './TransitionContext'
 
 interface TransitionLinkProps {
@@ -19,6 +19,10 @@ interface TransitionLinkProps {
  * internal click-handling conflicts. Navigation is handled
  * entirely by our TransitionContext's router.push().
  * 
+ * Safety: if the transition system gets stuck in a non-idle
+ * phase for more than 3s, we force a native navigation to
+ * prevent the site from becoming un-navigable.
+ * 
  * SEO/accessibility: renders a real <a> with href, so crawlers
  * and screen readers see a proper link.
  */
@@ -31,6 +35,18 @@ export default function TransitionLink({
   ...rest
 }: TransitionLinkProps) {
   const { navigateTo, phase } = useTransition()
+  const stuckTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastPhaseChange = useRef<number>(Date.now())
+
+  // Track when phase last changed
+  useEffect(() => {
+    lastPhaseChange.current = Date.now()
+    // Clear stuck timer on any phase change
+    if (stuckTimer.current) {
+      clearTimeout(stuckTimer.current)
+      stuckTimer.current = null
+    }
+  }, [phase])
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     // Allow modifier-key clicks to open in new tab
@@ -42,8 +58,18 @@ export default function TransitionLink({
     e.preventDefault()
     if (onClick) onClick(e)
 
-    // Don't double-trigger during transition
-    if (phase !== 'idle') return
+    // If transition is active, check if it's stuck
+    if (phase !== 'idle') {
+      const elapsed = Date.now() - lastPhaseChange.current
+      if (elapsed > 3000) {
+        // Phase has been stuck for 3+ seconds — force native navigation
+        console.warn('[TransitionLink] Phase stuck for', elapsed, 'ms — forcing native navigation')
+        window.location.href = href
+        return
+      }
+      // Otherwise, just wait for the transition to finish
+      return
+    }
 
     navigateTo(href)
   }

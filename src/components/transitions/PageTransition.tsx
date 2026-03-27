@@ -1,278 +1,192 @@
 'use client'
 
-import { ReactNode, useMemo } from 'react'
+import { ReactNode, useRef, useEffect } from 'react'
 import { useTransition } from './TransitionContext'
 
 interface PageTransitionProps { children: ReactNode }
 
 /**
- * PageTransition — "Tidal Wash" (Double Ripple)
+ * PageTransition — "Tidal Wash" v4: Canvas Ocean Waves
  *
- * Design spec (from wave-page-transition.md brainstorm v3):
+ * Uses the same Canvas 2D wave engine as HeroAurora to draw organic,
+ * undulating horizontal waves that sweep upward to mask content during
+ * navigation, then retreat to reveal the new page.
  *
- *   80-20 Rule:
- *     The wave rises from the BOTTOM and covers ~80% of the viewport.
- *     It does NOT go to 100% — a sliver of dark sky/content remains
- *     at the very top, giving the feeling of depth rather than a screen wipe.
+ * Visual DNA: Identical to landing page HeroAurora curtains.
+ *   - Layered sin() wave edges (3 curtains)
+ *   - Double-stroke teal ropes on crest edges
+ *   - Solid dark fill below wave edges
+ *   - NO extra glow, gradients, or box-shadows
  *
- *   Organic Horizontal Undulation:
- *     The wave edge is an organic bezier curve that WOBBLES horizontally as
- *     the wave rises — the sine control points shift ±px over time, creating
- *     the feeling of living water, not a rigid shape.
- *
- *   Double Ripple:
- *     PRIMARY wave — the main crest. Does the heavy lifting.
- *     TRAILING wash — a softer, smaller wave that follows ~60px behind.
- *     Like the secondary foam after a wave crashes.
- *
- *   Foam Zone:
- *     A blur-gradient band above the wave edge where content dissolves.
- *     40px band: progressive blur (0→30px) + opacity fade.
+ * 80-20 rule: waves cover ~80% of viewport at peak, never 100%.
+ * No pause at top — continuous crash-and-retreat like real ocean.
  */
+
+interface WaveCurtain {
+  baseYOffset: number
+  opacity: number
+  waveAmplitude: number
+  speed: number
+  phase: number
+}
+
+// 3 curtains — same count and aesthetic as HeroAurora landing page
+const WAVE_CURTAINS: WaveCurtain[] = [
+  // Trailing wave (lowest, drawn first)
+  { baseYOffset: 0.05, opacity: 0.10, waveAmplitude: 28, speed: 1.4, phase: 4.0 },
+  // Primary wave (the dominant edge)
+  { baseYOffset: 0, opacity: 0.20, waveAmplitude: 40, speed: 1.0, phase: 0 },
+  // Leading wave (highest, drawn last — defines visible boundary)
+  { baseYOffset: -0.06, opacity: 0.14, waveAmplitude: 34, speed: 0.8, phase: 2.0 },
+]
+
 export default function PageTransition({ children }: PageTransitionProps) {
   const { phase, progress } = useTransition()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const tealRef = useRef({ r: 7, g: 139, b: 156 })
+  const sizeRef = useRef({ w: 0, h: 0 })
+  const rafRef = useRef(0)
+  const startTimeRef = useRef(0)
+  const coverageRef = useRef(0)
 
   const isActive = phase !== 'idle'
 
-  // ── Wave edge Y position (percent from viewport TOP) ──
-  // At rest (progress=0): edge is at 100% (off-screen bottom)
-  // At peak (progress=1): edge is at 20% (covers bottom 80% = "80-20 rule")
-  //
-  // So edgeBaseY goes from 100% → 20% during submerge.
-  const edgeBaseY = useMemo(() => {
-    if (phase === 'submerge') return 100 - progress * 80 // 100 → 20
-    if (phase === 'hold') return 20
-    if (phase === 'emerge') return 20 + progress * 80   // 20 → 100
-    return 100 // idle: off-screen
+  // Update coverage ref so canvas loop reads latest value
+  useEffect(() => {
+    if (phase === 'submerge') coverageRef.current = progress
+    else if (phase === 'hold') coverageRef.current = 1
+    else if (phase === 'emerge') coverageRef.current = 1 - progress
+    else coverageRef.current = 0
   }, [phase, progress])
 
-  // ── Wave phase — horizontal travel over time ──
-  const horizontalPhase = useMemo(() => {
-    if (phase === 'submerge') return progress * Math.PI * 3
-    if (phase === 'hold') return Math.PI * 3
-    if (phase === 'emerge') return Math.PI * 3 + progress * Math.PI * 2
-    return 0
-  }, [phase, progress])
+  // Content opacity — stays visible during early surge so waves visibly sweep over it
+  const contentOpacity =
+    phase === 'submerge'
+      ? (progress < 0.4 ? 1 : 1 - ((progress - 0.4) / 0.6) * 0.85)
+      : phase === 'hold' ? 0.15
+      : phase === 'emerge'
+        ? (progress < 0.15 ? 0.15 : 0.15 + ((progress - 0.15) / 0.85) * 0.85)
+      : 1
 
-  // ── Wave amplitude — bell curve for organic swell ──
-  const waveAmplitude = useMemo(() => {
-    if (phase === 'submerge') {
-      const bell = Math.sin(progress * Math.PI)
-      return 1.5 + bell * 3.5  // 1.5 → 5 → 1.5
+  // Canvas animation loop — runs only during transition
+  useEffect(() => {
+    if (!isActive) return
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d', { alpha: true })
+    if (!ctx) return
+
+    // Read teal from CSS design tokens
+    const rootStyle = getComputedStyle(document.documentElement)
+    const tealRgb = rootStyle.getPropertyValue('--accent-teal-rgb').trim()
+    if (tealRgb) {
+      const parts = tealRgb.split(',').map(s => parseInt(s.trim(), 10))
+      if (parts.length === 3 && parts.every(n => !isNaN(n))) {
+        tealRef.current = { r: parts[0], g: parts[1], b: parts[2] }
+      }
     }
-    if (phase === 'hold') return 1.0
-    if (phase === 'emerge') {
-      const bell = Math.sin(progress * Math.PI)
-      return 1.5 + bell * 3.5
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+      canvas.width = window.innerWidth * dpr
+      canvas.height = window.innerHeight * dpr
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      sizeRef.current = { w: window.innerWidth, h: window.innerHeight }
     }
-    return 0
-  }, [phase, progress])
+    resize()
+    window.addEventListener('resize', resize)
+    startTimeRef.current = performance.now()
 
-  // ── Generate wave polygon points ──
-  const generateWavePolygon = useMemo(() => {
-    return (baseY: number, amp: number, phaseOffset: number, freqOffset: number) => {
-      const points: string[] = []
-      const segments = 48 // high resolution
+    const step = 3 // px per sample point along x-axis
 
-      for (let i = 0; i <= segments; i++) {
-        const t = i / segments
-        const x = t * 100
+    const animate = () => {
+      const { w, h } = sizeRef.current
+      if (w === 0 || h === 0) { rafRef.current = requestAnimationFrame(animate); return }
 
-        // Three layered sine waves for organic feel + horizontal drift
-        const wave1 = Math.sin(t * Math.PI * (1.8 + freqOffset) + phaseOffset) * amp
-        const wave2 = Math.sin(t * Math.PI * (3.2 + freqOffset) + phaseOffset * 1.3) * (amp * 0.35)
-        const wave3 = Math.sin(t * Math.PI * (5.0 + freqOffset) + phaseOffset * 0.7) * (amp * 0.12)
+      const time = (performance.now() - startTimeRef.current) / 1000
+      const coverage = coverageRef.current
+      const { r, g, b } = tealRef.current
 
-        const y = baseY + wave1 + wave2 + wave3
-        points.push(`${x.toFixed(2)}% ${y.toFixed(2)}%`)
+      ctx.clearRect(0, 0, w, h)
+
+      // Primary wave Y: coverage 0→below viewport, 1→80% coverage (20% from top)
+      const primaryBaseY = 1.10 - coverage * 0.90
+
+      // Pre-compute edge-Y arrays for each curtain (reused for fill + rope)
+      const curtainEdges: number[][] = WAVE_CURTAINS.map(curtain => {
+        const t = time * curtain.speed + curtain.phase
+        const amp = curtain.waveAmplitude
+        const curtainBaseY = (primaryBaseY + curtain.baseYOffset) * h
+        const edges: number[] = []
+        for (let x = 0; x <= w; x += step) {
+          const xFrac = x / w
+          // Same layered sin() formula as HeroAurora
+          edges.push(
+            curtainBaseY
+            + Math.sin(t + xFrac * 8) * amp
+            + Math.sin(t * 0.7 + xFrac * 12) * amp * 0.4
+            + Math.sin(t * 0.4 + xFrac * 5) * amp * 0.2
+          )
+        }
+        return edges
+      })
+
+      // Step 1: Fill dark below each wave edge
+      for (let ci = 0; ci < WAVE_CURTAINS.length; ci++) {
+        const edges = curtainEdges[ci]
+        ctx.beginPath()
+        ctx.moveTo(-10, h + 10)
+        edges.forEach((y, i) => ctx.lineTo(i * step, y))
+        ctx.lineTo(w + 10, h + 10)
+        ctx.closePath()
+        ctx.fillStyle = 'rgb(1, 2, 4)'
+        ctx.fill()
       }
 
-      // Close: bottom-right → bottom-left
-      points.push('100% 100%')
-      points.push('0% 100%')
-      return `polygon(${points.join(', ')})`
-    }
-  }, [])
+      // Step 2: Draw rope strokes — same double-stroke as HeroAurora
+      for (let ci = 0; ci < WAVE_CURTAINS.length; ci++) {
+        const curtain = WAVE_CURTAINS[ci]
+        const edges = curtainEdges[ci]
+        ctx.beginPath()
+        edges.forEach((y, i) => {
+          if (i === 0) ctx.moveTo(0, y)
+          else ctx.lineTo(i * step, y)
+        })
+        // Dim outer stroke
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 0.5})`
+        ctx.lineWidth = 5
+        ctx.stroke()
+        // Bright inner stroke
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.5})`
+        ctx.lineWidth = 1.5
+        ctx.stroke()
+      }
 
-  // ── PRIMARY wave clip-path ──
-  const primaryClipPath = useMemo(() => {
-    if (!isActive) return 'none'
-    return generateWavePolygon(edgeBaseY, waveAmplitude, horizontalPhase, 0)
-  }, [edgeBaseY, waveAmplitude, horizontalPhase, isActive, generateWavePolygon])
-
-  // ── TRAILING wash clip-path — follows behind by ~6% ──
-  const trailingClipPath = useMemo(() => {
-    if (!isActive) return 'none'
-    const trailBaseY = Math.min(100, edgeBaseY + 6) // 6% behind
-    const trailAmp = waveAmplitude * 0.55
-    return generateWavePolygon(trailBaseY, trailAmp, horizontalPhase * 0.8 + 1.0, 0.3)
-  }, [edgeBaseY, waveAmplitude, horizontalPhase, isActive, generateWavePolygon])
-
-  // ── SVG for the crest glow effect — follows the wave edge shape ──
-  const svgGlow = useMemo(() => {
-    if (!isActive) return null
-
-    const width = 1440
-    const height = 900
-    const segments = 48
-    const pathPoints: string[] = []
-
-    for (let i = 0; i <= segments; i++) {
-      const t = i / segments
-      const x = t * width
-
-      const wave1 = Math.sin(t * Math.PI * 1.8 + horizontalPhase) * waveAmplitude
-      const wave2 = Math.sin(t * Math.PI * 3.2 + horizontalPhase * 1.3) * (waveAmplitude * 0.35)
-      const wave3 = Math.sin(t * Math.PI * 5.0 + horizontalPhase * 0.7) * (waveAmplitude * 0.12)
-
-      const yPercent = edgeBaseY + wave1 + wave2 + wave3
-      const y = (yPercent / 100) * height
-
-      pathPoints.push(i === 0 ? `M ${x} ${y}` : `L ${x} ${y}`)
+      rafRef.current = requestAnimationFrame(animate)
     }
 
-    return pathPoints.join(' ')
-  }, [edgeBaseY, waveAmplitude, horizontalPhase, isActive])
+    rafRef.current = requestAnimationFrame(animate)
 
-  // ── Content effects — blur/opacity/scale as the wave passes ──
-  const maxBlur = 12
-
-  const contentBlur = phase === 'submerge'
-    ? progress * maxBlur
-    : phase === 'hold'
-    ? maxBlur
-    : phase === 'emerge'
-    ? maxBlur * (1 - progress)
-    : 0
-
-  const contentOpacity = phase === 'hold' ? 0.15
-    : phase === 'submerge' ? 1 - progress * 0.85
-    : phase === 'emerge' ? 0.15 + progress * 0.85
-    : 1
-
-  const contentScale = phase === 'submerge'
-    ? 1 - progress * 0.02
-    : phase === 'hold'
-    ? 0.98
-    : phase === 'emerge'
-    ? 0.98 + progress * 0.02
-    : 1
-
-  // ── Glow intensity — teal aurora light at the wave crest ──
-  const glowOpacity = phase === 'submerge'
-    ? 0.2 + progress * 0.5
-    : phase === 'hold' ? 0.65
-    : phase === 'emerge'
-    ? 0.65 * (1 - progress * 0.8)
-    : 0
+    return () => {
+      cancelAnimationFrame(rafRef.current)
+      window.removeEventListener('resize', resize)
+    }
+  }, [isActive])
 
   return (
     <>
-      {/* ── TRAILING WASH — secondary foam behind the primary wave ── */}
       {isActive && (
-        <div
-          className="fixed inset-0 z-[9998] pointer-events-none"
+        <canvas
+          ref={canvasRef}
+          className="fixed inset-0 z-[9997] pointer-events-none"
+          style={{ width: '100vw', height: '100vh' }}
           aria-hidden="true"
-          suppressHydrationWarning
-          style={{
-            clipPath: trailingClipPath,
-            WebkitClipPath: trailingClipPath,
-            willChange: 'clip-path',
-          }}
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(to top, rgb(4, 7, 10) 0%, rgb(6, 10, 15) 40%, rgb(8, 14, 22) 100%)',
-              opacity: 0.85,
-            }}
-          />
-        </div>
+        />
       )}
-
-      {/* ── PRIMARY WAVE — main crest that does the heavy lifting ── */}
-      {isActive && (
-        <div
-          className="fixed inset-0 z-[9999] pointer-events-none"
-          aria-hidden="true"
-          suppressHydrationWarning
-          style={{
-            clipPath: primaryClipPath,
-            WebkitClipPath: primaryClipPath,
-            willChange: 'clip-path',
-          }}
-        >
-          {/* Body — opaque dark wash (the mass of the wave) */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(to top, rgb(5, 8, 12) 0%, rgb(3, 6, 10) 50%, rgb(6, 10, 16) 100%)',
-            }}
-          />
-        </div>
-      )}
-
-      {/* ── CREST GLOW — SVG line that follows the wave edge ── */}
-      {isActive && svgGlow && (
-        <svg
-          className="fixed inset-0 z-[10000] pointer-events-none"
-          viewBox="0 0 1440 900"
-          preserveAspectRatio="none"
-          width="100%"
-          height="100%"
-          aria-hidden="true"
-          suppressHydrationWarning
-          style={{ willChange: 'contents' }}
-        >
-          <defs>
-            {/* Glow filter for the crest line */}
-            <filter id="crest-glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="6" result="blur1" />
-              <feGaussianBlur stdDeviation="18" result="blur2" />
-              <feMerge>
-                <feMergeNode in="blur2" />
-                <feMergeNode in="blur1" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          {/* Wide atmospheric glow — aurora light above the crest */}
-          <path
-            d={svgGlow}
-            fill="none"
-            stroke={`rgba(7, 139, 156, ${(glowOpacity * 0.25).toFixed(3)})`}
-            strokeWidth="60"
-            filter="url(#crest-glow)"
-          />
-
-          {/* Medium glow layer */}
-          <path
-            d={svgGlow}
-            fill="none"
-            stroke={`rgba(20, 184, 166, ${(glowOpacity * 0.4).toFixed(3)})`}
-            strokeWidth="12"
-            filter="url(#crest-glow)"
-          />
-
-          {/* Sharp crest line — the foam at the leading wave edge */}
-          <path
-            d={svgGlow}
-            fill="none"
-            stroke={`rgba(45, 212, 191, ${glowOpacity.toFixed(3)})`}
-            strokeWidth="2"
-          />
-        </svg>
-      )}
-
-      {/* Content with blur-to-focus + opacity + subtle scale */}
       <div style={{
         opacity: contentOpacity,
-        filter: contentBlur > 0.1 ? `blur(${contentBlur.toFixed(1)}px)` : 'none',
-        transform: contentScale < 0.999 ? `scale(${contentScale.toFixed(4)})` : 'none',
-        transformOrigin: 'center center',
-        willChange: phase !== 'idle' ? 'opacity, filter, transform' : 'auto',
-        transition: phase === 'idle' ? 'opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease' : 'none',
+        willChange: phase !== 'idle' ? 'opacity' : 'auto',
+        transition: phase === 'idle' ? 'opacity 0.3s ease' : 'none',
       }}>
         {children}
       </div>

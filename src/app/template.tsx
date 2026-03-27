@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
@@ -13,6 +13,9 @@ import { usePathname } from 'next/navigation'
  * On navigation between pages, content gently fades up from below
  * with a subtle scale shift. Uses ONLY GPU-compositable properties
  * (opacity, transform) to avoid paint-per-frame jank.
+ *
+ * Hydration-safe: first client render always matches server HTML (plain div).
+ * motion.div only activates after mount + on subsequent navigations.
  */
 
 const cinematicEase = [0.05, 0.7, 0.1, 1] as const
@@ -20,12 +23,16 @@ const cinematicEase = [0.05, 0.7, 0.1, 1] as const
 export default function Template({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const isInitialLoad = useRef(true)
+    const [mounted, setMounted] = useState(false)
 
-    // On the very first render (initial page load), skip the template
-    // transition — the loading screen + hero entrance handle it.
-    // After that, every route change gets the cinematic reveal.
-    if (isInitialLoad.current) {
-        isInitialLoad.current = false
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    // Before mount (SSR + first hydration pass) OR on initial page load:
+    // render a plain div — no motion styles, no hydration mismatch.
+    if (!mounted || isInitialLoad.current) {
+        if (mounted) isInitialLoad.current = false
         return (
             <div className="min-h-screen w-full relative">
                 {children}

@@ -24,45 +24,38 @@ export function useTransition() {
 /* ── Water physics easing ──────────────────────────────────
  *
  * Real waves are asymmetric:
- *   SURGE:   Accelerates fast initially, then decelerates gently at peak
- *            (mimics water momentum + resistance as crest reaches height)
- *   RETREAT: Slow departure from peak, then gravity takes over
- *            (lingering crest, then accelerating fall)
+ *   SURGE:   Sinusoidal ease — accelerates smoothly, decelerates at peak
+ *   RETREAT: Quadratic ease-in — lingers at crest, then gravity takes over
  *
- * Per the spec, total transition is ~1300ms:
- *   SURGE   = 600ms  (powerful, visible sweep up)
- *   HOLD    = dynamic (wait for route swap, min ~150ms)
- *   RETREAT = 700ms  (slower — gravity + wet sand reveal)
+ * Timing (continuous, no perceivable pause):
+ *   SURGE   = 800ms  (heavy upward sweep)
+ *   HOLD    = imperceptible (just route swap, ~50-100ms)
+ *   RETREAT = 900ms  (slow gravity-driven drain)
  */
 
-/** Surge: powerful push — starts fast, decelerates at peak */
+/** Surge: smooth sweep upward — sinusoidal for even visual motion */
 function easeSurge(t: number): number {
-  // Cubic ease-out: fast initial push, gentle arrival at peak
-  return 1 - Math.pow(1 - t, 3)
+  // Sinusoidal ease-in-out: starts gently, accelerates mid, decelerates at peak
+  // This ensures the wave sweep is VISIBLE — not front-loaded like cubic ease-out
+  return 0.5 * (1 - Math.cos(Math.PI * t))
 }
 
-/** Retreat: slow departure, then gravity accelerates the fall */
+/** Retreat: smooth sweep downward — slightly faster ending for "gravity" feel */
 function easeRetreat(t: number): number {
-  // Ease-in-quad: lingers at top, accelerates away
-  if (t < 0.25) {
-    // Slow departure (lingering at peak)
-    return (t / 0.25) * (t / 0.25) * 0.1
-  }
-  // Accelerating descent
-  const remaining = (t - 0.25) / 0.75
-  return 0.1 + 0.9 * (1 - Math.pow(1 - remaining, 2))
+  // Ease-in: starts slow (lingering at peak), accelerates like gravity
+  return t * t
 }
 
 /**
  * TransitionProvider — intercepts navigation to play the Tidal Wash.
  *
  * Timeline (from spec):
- *   SUBMERGE  (600ms): Wave surges from shoreline (70%) → covers 80% of viewport
- *   HOLD      (wait):  Full coverage. Navigate + scroll reset. Waits for route swap.
- *   EMERGE    (700ms): Wave retreats back to shoreline, revealing new content.
+ *   SUBMERGE  (800ms): Canvas waves crash upward → cover ~80% of viewport
+ *   HOLD      (imperceptible): Route swaps, waves keep undulating
+ *   EMERGE    (900ms): Waves retreat with gravity, revealing new content
  *
- * 80-20 Rule: The wave never covers the full viewport. 80% coverage with
- * organic horizontal undulation — not a simple vertical wipe.
+ * 80-20 Rule: Waves never cover full viewport — ~80% at peak.
+ * No pause at top — continuous crash-and-retreat like real ocean.
  */
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
@@ -74,6 +67,20 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const pendingHref = useRef<string | null>(null)
   const lenisRef = useRef<{ stop: () => void; start: () => void } | null>(null)
   const phaseRef = useRef<Phase>('idle')
+
+  // Safety net: reset navLock whenever phase returns to idle
+  useEffect(() => {
+    if (phase === 'idle') {
+      navLock.current = false
+    }
+  }, [phase])
+
+  // Cleanup animation frames on unmount
+  useEffect(() => {
+    return () => {
+      if (animRef.current) cancelAnimationFrame(animRef.current)
+    }
+  }, [])
 
   /** Animate with a custom easing curve */
   const animateWith = useCallback((ms: number, easing: (t: number) => number, cb: () => void) => {
@@ -94,7 +101,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setProgress(0)
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
 
-    animateWith(700, easeRetreat, () => {
+    animateWith(900, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       setProgress(0)
@@ -118,14 +125,18 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
     const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
     if (normalize(pathname) === normalize(pendingHref.current)) {
-      // Route has changed to our target — brief breathe-pulse then emerge
-      setTimeout(startEmerge, 150)
+      // Route has changed — immediately start retreat (no pause)
+      startEmerge()
     }
   }, [pathname, phase, startEmerge])
 
+  // Keep a ref in sync with pathname so navigateTo always has current value
+  const pathnameRef = useRef(pathname)
+  useEffect(() => { pathnameRef.current = pathname }, [pathname])
+
   const navigateTo = useCallback((href: string) => {
     const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
-    if (navLock.current || normalize(href) === normalize(pathname)) return
+    if (navLock.current || normalize(href) === normalize(pathnameRef.current)) return
     navLock.current = true
 
     const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis
@@ -135,12 +146,12 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // Tell aurora to surge
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'surge' } }))
 
-    // Phase 1: SUBMERGE — wave surges upward (600ms, powerful sweep)
+    // Phase 1: SUBMERGE — canvas waves crash upward (800ms, slow physics)
     setPhase('submerge')
     phaseRef.current = 'submerge'
     setProgress(0)
 
-    animateWith(600, easeSurge, () => {
+    animateWith(800, easeSurge, () => {
       // Phase 2: HOLD — 80% coverage, aurora breathes
       setPhase('hold')
       phaseRef.current = 'hold'
@@ -148,18 +159,24 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       pendingHref.current = href
       window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'hold' } }))
 
-      // Scroll to top + navigate. Emerge triggered by pathname useEffect.
+      // Scroll to top before navigation
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-      router.push(href)
 
-      // Safety valve: if route change doesn't fire within 2s, emerge anyway
+      // Defer router.push to next microtask — avoids conflicts with rAF callback
+      Promise.resolve().then(() => {
+        router.push(href)
+      })
+
+      // Safety valve: if route change doesn't complete within 1.5s,
+      // force navigation via window.location.href as absolute fallback
       setTimeout(() => {
         if (pendingHref.current === href && phaseRef.current === 'hold') {
-          startEmerge()
+          // router.push likely failed silently — force hard navigation
+          window.location.href = href
         }
-      }, 2000)
+      }, 1500)
     })
-  }, [pathname, router, animateWith, startEmerge])
+  }, [router, animateWith])
 
   return (
     <TransitionContext.Provider value={{ phase, progress, navigateTo }}>
