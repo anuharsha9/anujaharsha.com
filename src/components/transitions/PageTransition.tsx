@@ -6,140 +6,64 @@ import { useTransition } from './TransitionContext'
 interface PageTransitionProps { children: ReactNode }
 
 /**
- * PageTransition — "Tidal Wash" v8: Natural Ocean Feel
+ * PageTransition — "Tidal Wash" v16: Aurora-Matched Rolling Surge
  *
- * v7 had traveling waves but they felt mechanical. v8 fixes this with:
+ * Uses the SAME sine-based wave math and visual language as HeroAurora.tsx:
+ *   - Edge profile: 3-octave sine composition (not Gerstner trochoids)
+ *   - Visual: vertical rays hanging from a glowing rope edge
+ *   - Double-stroke rope glow (wide dim + narrow bright)
+ *   - Same ray gradient stops as HeroAurora
  *
- *   - GERSTNER TROCHOID WAVES: proper circular particle motion producing
- *     sharp crests and wide, flat troughs — the hallmark of ocean waves
- *   - WAVE GROUPS (sets): amplitude envelopes that make 3-5 waves bigger,
- *     then 3-5 smaller — like real "seventh wave" phenomenon  
- *   - VARIABLE PROPAGATION: each train moves at a distinct visible speed
- *   - TURBULENT SHORE BREAK: high-frequency chaos at the leading edge
- *   - ORGANIC SWAY: the entire surface undulates with long-period sway
- *
- * 80-20 rule: wave crest stops at ~20% from viewport top.
+ * Transition mechanics preserved:
+ *   - Independent layer timing (surgeLead / retreatLead)
+ *   - Diagonal sweep propagation
+ *   - 3 wave layers with staggered timing
+ *   - Spray particles from crests during surge
  */
 
-// ── NOISE FUNCTIONS ─────────────────────────────────────────
-function hash(n: number): number {
-  const s = Math.sin(n * 127.1 + n * 311.7) * 43758.5453
-  return s - Math.floor(s)
+interface SprayParticle {
+  x: number; y: number; vx: number; vy: number
+  opacity: number; size: number; life: number; maxLife: number
 }
 
-function smoothNoise(x: number): number {
-  const i = Math.floor(x)
-  const f = x - i
-  const u = f * f * (3 - 2 * f) // Hermite smoothstep
-  return hash(i) * (1 - u) + hash(i + 1) * u
-}
-
-function noise2D(x: number, y: number): number {
-  const i = Math.floor(x)
-  const j = Math.floor(y)
-  const fx = x - i
-  const fy = y - j
-  const ux = fx * fx * (3 - 2 * fx)
-  const uy = fy * fy * (3 - 2 * fy)
-  const a = hash(i + j * 57.0)
-  const b = hash(i + 1 + j * 57.0)
-  const c = hash(i + (j + 1) * 57.0)
-  const d = hash(i + 1 + (j + 1) * 57.0)
-  return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy
-}
-
-function fbm(x: number, octaves = 4): number {
-  let val = 0, amp = 0.5, freq = 1
-  for (let i = 0; i < octaves; i++) {
-    val += amp * (smoothNoise(x * freq) * 2 - 1)
-    freq *= 2.17
-    amp *= 0.45
-  }
-  return val
-}
-
-function fbm2D(x: number, y: number, octaves = 3): number {
-  let val = 0, amp = 0.5, freq = 1
-  for (let i = 0; i < octaves; i++) {
-    val += amp * (noise2D(x * freq, y * freq) * 2 - 1)
-    freq *= 2.3
-    amp *= 0.4
-  }
-  return val
-}
-
-// ── GERSTNER WAVE ───────────────────────────────────────────
-// True Gerstner/trochoid wave: produces sharp crests + wide troughs
-// Way more natural than sine waves
-interface WaveTrain {
-  wavelength: number   // pixels per full cycle
-  amplitude: number    // crest height in pixels  
-  speed: number        // phase velocity (px/s)
-  steepness: number    // Q factor: 0=sine, ~0.8=sharp crests
-  angle: number        // cross-swell angular offset
-}
-
-// Multiple wave trains that interfere to create complex ocean surface
-// Key insight: use irrational speed ratios so patterns never repeat
-const WAVE_TRAINS: WaveTrain[] = [
-  // Primary swell — long, powerful, fast
-  { wavelength: 380, amplitude: 1.0, speed: 90,  steepness: 0.55, angle: 0.0 },
-  // Secondary swell — crosses at slight angle  
-  { wavelength: 220, amplitude: 0.6, speed: 68,  steepness: 0.45, angle: 0.12 },
-  // Wind chop — shorter, choppier
-  { wavelength: 110, amplitude: 0.35, speed: 45, steepness: 0.60, angle: -0.15 },
-  // Capillary ripple — tiny fast detail
-  { wavelength: 55,  amplitude: 0.15, speed: 30, steepness: 0.30, angle: 0.08 },
-]
-
-/**
- * Gerstner wave displacement — the KEY to natural ocean look.
- * Instead of pure sine, it produces trochoid curves:
- * - Sharp peaked crests (water piles up)
- * - Wide flat troughs (water spreads out)
- * - The steepness parameter controls how extreme this is
- */
-function gerstnerY(phase: number, steepness: number): number {
-  // Trochoid: y = -cos(phase) with sharpening
-  // Higher harmonics sharpen the crest
-  const c = Math.cos(phase)
-  const s = Math.sin(phase)
-  // Base wave + crest sharpening through second harmonic
-  return -c + steepness * (s * s - 0.5) + steepness * 0.3 * Math.sin(phase * 2 + 0.5)
-}
-
-// ── WAVE CURTAIN CONFIG ─────────────────────────────────────
-interface WaveCurtain {
-  baseYOffset: number
+// Aurora-matched wave layers — same parameters as HeroAurora curtains
+// but with transition-specific timing fields
+interface WaveLayer {
   opacity: number
-  amplitude: number    // overall height multiplier in px
-  lag: number          // coverage offset
-  trainScale: number[] // per-train emphasis
-  foamIntensity: number
-  groupPhase: number   // offset for wave group envelope
+  rayLength: number
+  rayWidth: number
+  waveAmplitude: number
+  speed: number
+  phase: number
+  // Transition timing
+  surgeLead: number
+  retreatLead: number
+  sweepAngle: number
 }
 
-// 3 curtains: leading foam → main body → deep trailing swell
-const WAVE_CURTAINS: WaveCurtain[] = [
-  // Leading wave — choppy, frothy, arrives first
+const WAVE_LAYERS: WaveLayer[] = [
+  // Background curtain — arrives first, retreats last (matches HeroAurora main curtain)
   {
-    baseYOffset: -20, opacity: 0.14, amplitude: 55, lag: -0.05,
-    trainScale: [0.7, 1.0, 1.6, 2.0], // emphasize short chop
-    foamIntensity: 1.5, groupPhase: 0.0,
+    opacity: 0.20, rayLength: 200, rayWidth: 18,
+    waveAmplitude: 40, speed: 0.08, phase: 0,
+    surgeLead: 0, retreatLead: 0.35, sweepAngle: 0.18,
   },
-  // Primary wave — dominant visual mass
+  // Primary curtain — main visual mass (matches HeroAurora upper accent)
   {
-    baseYOffset: 0, opacity: 0.20, amplitude: 65, lag: 0,
-    trainScale: [1.0, 0.8, 0.5, 0.3],
-    foamIntensity: 0.7, groupPhase: 0.4,
+    opacity: 0.32, rayLength: 180, rayWidth: 16,
+    waveAmplitude: 35, speed: 0.06, phase: 2.0,
+    surgeLead: 0.12, retreatLead: 0.15, sweepAngle: 0.12,
   },
-  // Trailing swell — smooth, deep, arrives last
+  // Foreground curtain — arrives last, retreats first (matches HeroAurora lower curtain)
   {
-    baseYOffset: 25, opacity: 0.08, amplitude: 45, lag: 0.07,
-    trainScale: [1.3, 0.5, 0.2, 0.1], // dominated by primary swell
-    foamIntensity: 0.2, groupPhase: 0.9,
+    opacity: 0.14, rayLength: 150, rayWidth: 20,
+    waveAmplitude: 30, speed: 0.10, phase: 4.0,
+    surgeLead: 0.25, retreatLead: 0, sweepAngle: 0.08,
   },
 ]
+
+const MAX_SPRAY = 40
+const SPRAY_PER_FRAME = 2
 
 export default function PageTransition({ children }: PageTransitionProps) {
   const { phase, progress } = useTransition()
@@ -148,42 +72,40 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const sizeRef = useRef({ w: 0, h: 0 })
   const rafRef = useRef(0)
   const startTimeRef = useRef(0)
-  const coverageRef = useRef(0)
   const phaseRef = useRef<string>('idle')
-  const lastFrameRef = useRef(0)
+  const progressRef = useRef(0)
+  const sprayRef = useRef<SprayParticle[]>([])
+  const prevTimeRef = useRef(0)
 
   const isActive = phase !== 'idle'
-  const MAX_COVERAGE = 0.80
+  const MAX_COVERAGE = 0.82
 
   useEffect(() => {
     phaseRef.current = phase
-    if (phase === 'submerge') coverageRef.current = progress * MAX_COVERAGE
-    else if (phase === 'hold') coverageRef.current = MAX_COVERAGE
-    else if (phase === 'emerge') coverageRef.current = MAX_COVERAGE * (1 - progress)
-    else coverageRef.current = 0
+    progressRef.current = progress
   }, [phase, progress])
 
-  // Content wash effect — blur & fade happens underneath
+  // Content styling — content submerges and surfaces
   const contentOpacity =
-    phase === 'submerge'
-      ? Math.max(0, 1 - progress * 1.3)
-      : phase === 'hold' ? 0
-      : phase === 'emerge'
-        ? Math.min(1, progress * 1.2)
-      : 1
+    phase === 'submerge' ? Math.max(0, 1 - progress * 1.5)
+    : phase === 'hold' ? 0
+    : phase === 'emerge' ? Math.min(1, progress * 1.5)
+    : 1
 
   const contentBlur =
-    phase === 'submerge'
-      ? progress * 10
-      : phase === 'hold' ? 10
-      : phase === 'emerge'
-        ? (1 - progress) * 10
-      : 0
+    phase === 'submerge' ? progress * 12
+    : phase === 'hold' ? 12
+    : phase === 'emerge' ? Math.max(0, (1 - progress * 3) * 6)
+    : 0
 
-  const FRAME_INTERVAL = 33 // ~30fps
+  const contentTranslateY =
+    phase === 'emerge' ? Math.max(0, (1 - progress * 2)) * 20 : 0
 
   useEffect(() => {
-    if (!isActive) return
+    if (!isActive) {
+      sprayRef.current = []
+      return
+    }
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d', { alpha: true })
@@ -193,9 +115,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
     const tealRgb = rootStyle.getPropertyValue('--accent-teal-rgb').trim()
     if (tealRgb) {
       const parts = tealRgb.split(',').map(s => parseInt(s.trim(), 10))
-      if (parts.length === 3 && parts.every(n => !isNaN(n))) {
+      if (parts.length === 3 && parts.every(n => !isNaN(n)))
         tealRef.current = { r: parts[0], g: parts[1], b: parts[2] }
-      }
     }
 
     const resize = () => {
@@ -208,201 +129,249 @@ export default function PageTransition({ children }: PageTransitionProps) {
     resize()
     window.addEventListener('resize', resize)
     startTimeRef.current = performance.now()
+    prevTimeRef.current = performance.now()
 
-    const step = 3 // px between edge samples
-
-    // ── COMPUTE WAVE SURFACE AT POSITION X ──────────────────
-    const computeSurface = (
-      x: number, time: number, curtain: WaveCurtain,
-      energyScale: number
+    /**
+     * Aurora edge Y — EXACT same formula as HeroAurora.tsx line 109-111:
+     *   Math.sin(t + xFrac * 8) * amplitude
+     *   + Math.sin(t * 0.7 + xFrac * 12) * amplitude * 0.4
+     *   + Math.sin(t * 0.4 + xFrac * 5) * amplitude * 0.2
+     *
+     * This is the key to visual matching: same wave shape, same frequencies.
+     */
+    const auroraEdgeY = (
+      xFrac: number, t: number, amplitude: number
     ): number => {
-      let y = 0
+      return Math.sin(t + xFrac * 8) * amplitude
+        + Math.sin(t * 0.7 + xFrac * 12) * amplitude * 0.4
+        + Math.sin(t * 0.4 + xFrac * 5) * amplitude * 0.2
+    }
 
-      // WAVE GROUP ENVELOPE — amplitude waxes and wanes
-      // Creates "sets" of 4-6 bigger waves followed by calmer lulls
-      // Two overlapping envelopes at irrational ratio = never repeating
-      const groupEnv = 0.7
-        + 0.2 * Math.sin(time * 0.25 + curtain.groupPhase)
-        + 0.1 * Math.sin(time * 0.25 * 1.618 + curtain.groupPhase * 2.3)
+    /**
+     * Coverage: how far up the wave has swept at a given x-position.
+     * Diagonal propagation — left side leads during surge.
+     */
+    const getLayerCoverage = (
+      layer: WaveLayer, xNorm: number,
+      globalProgress: number, curPhase: string
+    ): number => {
+      if (curPhase === 'idle') return 0
+      if (curPhase === 'hold') return MAX_COVERAGE
 
-      // SUM TRAVELING WAVE TRAINS
-      for (let i = 0; i < WAVE_TRAINS.length; i++) {
-        const train = WAVE_TRAINS[i]
-        const scale = curtain.trainScale[i]
-
-        // Wave number
-        const k = (2 * Math.PI) / train.wavelength
-
-        // TRUE TRAVELING WAVE PHASE
-        // phase = k*x - ω*t where ω = 2π * speed / wavelength
-        // The minus sign makes waves travel RIGHT (positive x direction)
-        const xAngled = x + x * train.angle
-        const omega = (2 * Math.PI * train.speed) / train.wavelength
-        const phi = k * xAngled - omega * time
-
-        // Gerstner wave height
-        const waveY = gerstnerY(phi, train.steepness)
-        y += waveY * train.amplitude * scale
+      if (curPhase === 'submerge') {
+        const layerProgress = Math.max(0, (globalProgress - layer.surgeLead) / (1 - layer.surgeLead))
+        const sweepDelay = xNorm * Math.sin(layer.sweepAngle) * 0.3
+        const localProgress = Math.max(0, Math.min(1, layerProgress - sweepDelay))
+        const eased = localProgress * localProgress * (3 - 2 * localProgress)
+        return eased * MAX_COVERAGE
       }
 
-      // ORGANIC NOISE — slow-drifting large-scale undulation
-      const noiseVal = fbm(x * 0.003 + time * 0.06, 3)
-      y += noiseVal * 12
+      if (curPhase === 'emerge') {
+        const layerProgress = Math.max(0, (globalProgress - layer.retreatLead) / (1 - layer.retreatLead))
+        const sweepDelay = (1 - xNorm) * Math.sin(layer.sweepAngle) * 0.25
+        const localProgress = Math.max(0, Math.min(1, layerProgress - sweepDelay))
+        const eased = localProgress * localProgress * (3 - 2 * localProgress)
+        return MAX_COVERAGE * (1 - eased)
+      }
 
-      // FOAM TURBULENCE — high-frequency chaos at the surface
-      const foamVal = fbm2D(x * 0.02 + time * 0.3, time * 0.8, 2)
-      y += foamVal * curtain.foamIntensity * 6 * Math.max(0, y / 2) // only on crests
+      return 0
+    }
 
-      // Apply group envelope + energy scaling
-      y *= groupEnv * energyScale
+    // Spray particles — lighter, more mist-like to match aurora aesthetic
+    const emitSpray = (x: number, y: number, vxBias: number) => {
+      if (sprayRef.current.length >= MAX_SPRAY) return
+      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.2
+      const speed = 30 + Math.random() * 60
+      sprayRef.current.push({
+        x, y,
+        vx: Math.cos(angle) * speed + vxBias * 20,
+        vy: Math.sin(angle) * speed - 20,
+        opacity: 0.2 + Math.random() * 0.3,
+        size: 1 + Math.random() * 2,
+        life: 0, maxLife: 0.4 + Math.random() * 0.6,
+      })
+    }
 
-      return y * curtain.amplitude / 40 // normalize; curtain.amplitude is in px
+    const drawSpray = (dt: number) => {
+      const { r, g, b } = tealRef.current
+      const alive: SprayParticle[] = []
+      for (const p of sprayRef.current) {
+        p.life += dt
+        if (p.life >= p.maxLife) continue
+        p.x += p.vx * dt
+        p.vy += 180 * dt // gentler gravity
+        p.y += p.vy * dt
+        const fade = 1 - p.life / p.maxLife
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.size * fade, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${Math.min(255, r + 50)}, ${Math.min(255, g + 50)}, ${Math.min(255, b + 50)}, ${p.opacity * fade * fade})`
+        ctx.fill()
+        alive.push(p)
+      }
+      sprayRef.current = alive
     }
 
     const animate = (now: number) => {
-      if (now - lastFrameRef.current < FRAME_INTERVAL) {
-        rafRef.current = requestAnimationFrame(animate)
-        return
-      }
-      lastFrameRef.current = now
-
       const { w, h } = sizeRef.current
       if (w === 0 || h === 0) { rafRef.current = requestAnimationFrame(animate); return }
 
+      const dt = Math.min((now - prevTimeRef.current) / 1000, 0.05)
+      prevTimeRef.current = now
       const time = (now - startTimeRef.current) / 1000
-      const coverage = coverageRef.current
+      const curPhase = phaseRef.current
+      const globalProgress = progressRef.current
       const { r, g, b } = tealRef.current
+
+      const isSurge = curPhase === 'submerge'
 
       ctx.clearRect(0, 0, w, h)
 
-      const currentPhase = phaseRef.current
+      const step = 4 // match HeroAurora's rope step (line 151)
+      const ptCount = Math.ceil(w / step) + 1
 
-      // ENERGY SCALE — waves build during surge, calm during retreat
-      let energyScale = 1.0
-      if (currentPhase === 'submerge') {
-        // Waves get progressively choppier as they surge up
-        energyScale = 0.6 + 0.5 * Math.min(coverage / MAX_COVERAGE, 1)
-      } else if (currentPhase === 'emerge') {
-        // Waves lose energy as water drains — gravity wins
-        energyScale = 0.4 + 0.6 * Math.max(coverage / MAX_COVERAGE, 0)
-      }
+      // Slow ambient drift — same as HeroAurora (line 103)
+      const drift = Math.sin(time * 0.15) * 8
 
-      // DEEP SWAY — entire ocean surface heaves up and down slowly
-      const sway = Math.sin(time * 0.15) * 8 + Math.sin(time * 0.11) * 5
-        + Math.sin(time * 0.07) * 3
+      // Coverage range
+      const startY = h + 60
+      const endY = h * (1 - MAX_COVERAGE) - 30
 
-      // Compute all curtain edges
-      const allEdges: { edges: number[]; curtain: WaveCurtain; layerCoverage: number }[] =
-        WAVE_CURTAINS.map((curtain) => {
-          const layerCoverage = Math.max(0, Math.min(MAX_COVERAGE, coverage + curtain.lag))
+      for (let li = 0; li < WAVE_LAYERS.length; li++) {
+        const layer = WAVE_LAYERS[li]
+        const edgeYs = new Float32Array(ptCount)
 
-          // Base crest Y position: travels from below viewport to 20% from top
-          const crestBaseY = h + 60
-            - (layerCoverage / MAX_COVERAGE) * (h + 60 - h * 0.18)
-            + curtain.baseYOffset + sway
+        // Time factor — same formula as HeroAurora (line 100)
+        const t = time * layer.speed + layer.phase
 
-          const edges: number[] = []
-          for (let x = 0; x <= w; x += step) {
-            const waveY = computeSurface(x, time, curtain, energyScale)
-            edges.push(crestBaseY + waveY)
+        let hasAnyVisible = false
+
+        for (let i = 0; i < ptCount; i++) {
+          const x = i * step
+          const xNorm = x / w
+
+          const localCoverage = getLayerCoverage(layer, xNorm, globalProgress, curPhase)
+
+          if (localCoverage < 0.003) {
+            edgeYs[i] = h + 100
+            continue
           }
-          return { edges, curtain, layerCoverage }
-        })
 
-      allEdges.sort((a, b) => a.layerCoverage - b.layerCoverage)
+          hasAnyVisible = true
+          const covFrac = localCoverage / MAX_COVERAGE
 
-      // ── PASS 1: Dark water mass (Bézier-smoothed fill) ─────
-      for (const { edges } of allEdges) {
+          // Base Y — how far up this layer has reached at this x
+          const baseY = startY - covFrac * (startY - endY) + drift
+
+          // Progressive amplitude — small at leading edge, full at coverage
+          const ampScale = 0.4 + covFrac * 0.6
+          const amp = layer.waveAmplitude * ampScale
+
+          // Aurora edge calculation — SAME formula as HeroAurora
+          const waveY = auroraEdgeY(xNorm, t, amp)
+
+          edgeYs[i] = baseY + waveY
+        }
+
+        if (!hasAnyVisible) continue
+
+        // ── Dark fill beneath the wave edge ──
+        // Use a subtle gradient instead of flat solid for softer look
         ctx.beginPath()
         ctx.moveTo(-10, h + 10)
         ctx.lineTo(w + 10, h + 10)
-
-        // Smooth Bézier path from right to left along crest
-        if (edges.length > 2) {
-          ctx.lineTo((edges.length - 1) * step, edges[edges.length - 1])
-          for (let i = edges.length - 2; i >= 1; i--) {
-            const cpx = (i + 1) * step
-            const cpy = edges[i + 1]
-            const endx = (i * step + cpx) / 2
-            const endy = (edges[i] + edges[i + 1]) / 2
-            ctx.quadraticCurveTo(cpx, cpy, endx, endy)
-          }
-          ctx.lineTo(0, edges[0])
-        } else {
-          for (let i = edges.length - 1; i >= 0; i--) {
-            ctx.lineTo(i * step, edges[i])
-          }
+        ctx.lineTo(w + 10, edgeYs[ptCount - 1])
+        // Smooth curve through wave points (same quadratic as HeroAurora rope)
+        for (let i = ptCount - 1; i > 0; i--) {
+          const x1 = i * step, x0 = (i - 1) * step
+          const midX = (x1 + x0) / 2
+          ctx.quadraticCurveTo(x1, edgeYs[i], midX, (edgeYs[i] + edgeYs[i - 1]) / 2)
         }
-
-        ctx.lineTo(-10, edges[0])
+        ctx.lineTo(-10, edgeYs[0])
+        ctx.lineTo(-10, h + 10)
         ctx.closePath()
-        ctx.fillStyle = 'rgb(1, 2, 4)'
+
+        // Gradient fill — deep dark at bottom, slightly transparent near edge
+        const fillGrad = ctx.createLinearGradient(0, h, 0, endY - 50)
+        fillGrad.addColorStop(0, 'rgba(1, 2, 4, 1)')
+        fillGrad.addColorStop(0.6, 'rgba(1, 2, 4, 0.98)')
+        fillGrad.addColorStop(1, 'rgba(1, 2, 4, 0.92)')
+        ctx.fillStyle = fillGrad
         ctx.fill()
-      }
 
-      // ── PASS 2: Shimmer rays (track wave crests) ───────────
-      ctx.globalCompositeOperation = 'lighter'
-      const rayWidth = 20
-      const rayLength = 120
+        // ── Vertical rays hanging from edge — SAME style as HeroAurora ──
+        // (HeroAurora lines 106-143)
+        ctx.globalCompositeOperation = 'lighter'
+        for (let x = 0; x < w; x += layer.rayWidth) {
+          const idx = x / step
+          const i0 = Math.floor(idx)
+          const fr = idx - i0
+          const ey = i0 < ptCount - 1
+            ? edgeYs[i0] * (1 - fr) + edgeYs[i0 + 1] * fr
+            : edgeYs[ptCount - 1]
+          if (ey > h + 50) continue
 
-      for (const { curtain, edges, layerCoverage } of allEdges) {
-        if (layerCoverage < 0.02) continue
+          const xf = x / w
+          // Ray intensity — SAME formula as HeroAurora (lines 126-128)
+          const ri = 0.5
+            + 0.3 * Math.sin(t * 0.5 + xf * 20)
+            + 0.2 * Math.sin(t * 0.3 + xf * 35)
+          const ro = layer.opacity * ri * (0.7 + 0.3 * Math.sin(t * 0.25))
 
-        for (let rx = 0; rx < w; rx += rayWidth) {
-          const edgeIdx = Math.min(Math.floor(rx / step), edges.length - 1)
-          const edgeY = edges[edgeIdx]
-
-          // Ray intensity follows the traveling wave — creates shimmer
-          const rayPhase = (2 * Math.PI / 180) * rx - time * 1.2
-          const rayInt = 0.5
-            + 0.3 * Math.sin(rayPhase)
-            + 0.2 * Math.sin(rayPhase * 1.7 + time * 0.4)
-
-          const rayOp = curtain.opacity * rayInt
-            * (0.6 + 0.4 * Math.sin(time * 0.35 + rx * 0.01))
-
-          const grad = ctx.createLinearGradient(rx, edgeY - 10, rx, edgeY + rayLength)
-          grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`)
-          grad.addColorStop(0.05, `rgba(${r}, ${g}, ${b}, ${rayOp * 0.4})`)
-          grad.addColorStop(0.1, `rgba(${r}, ${g}, ${b}, ${rayOp})`)
-          grad.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, ${rayOp * 0.5})`)
-          grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${rayOp * 0.15})`)
-          grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`)
-
-          ctx.fillStyle = grad
-          ctx.fillRect(rx, edgeY - 10, rayWidth, rayLength + 10)
+          // Ray gradient — SAME stops as HeroAurora (lines 134-140)
+          const g2 = ctx.createLinearGradient(x, ey - 15, x, ey + layer.rayLength)
+          g2.addColorStop(0, `rgba(${r},${g},${b},0)`)
+          g2.addColorStop(0.05, `rgba(${r},${g},${b},${ro * 0.5})`)
+          g2.addColorStop(0.1, `rgba(${r},${g},${b},${ro})`)
+          g2.addColorStop(0.2, `rgba(${r},${g},${b},${ro * 0.7})`)
+          g2.addColorStop(0.5, `rgba(${r},${g},${b},${ro * 0.3})`)
+          g2.addColorStop(1, `rgba(${r},${g},${b},0)`)
+          ctx.fillStyle = g2
+          ctx.fillRect(x, ey - 15, layer.rayWidth, layer.rayLength + 15)
         }
-      }
-      ctx.globalCompositeOperation = 'source-over'
+        ctx.globalCompositeOperation = 'source-over'
 
-      // ── PASS 3: Crest rope strokes (teal glow) ────────────
-      for (const { edges, curtain } of allEdges) {
+        // ── Glowing rope edge — SAME double-stroke as HeroAurora (lines 170-176) ──
         ctx.beginPath()
-        ctx.moveTo(0, edges[0])
-        for (let i = 1; i < edges.length - 1; i++) {
-          const cpx = i * step
-          const cpy = edges[i]
-          const endx = (i * step + (i + 1) * step) / 2
-          const endy = (edges[i] + edges[i + 1]) / 2
-          ctx.quadraticCurveTo(cpx, cpy, endx, endy)
+        ctx.moveTo(0, edgeYs[0])
+        for (let i = 1; i < ptCount; i++) {
+          ctx.lineTo(i * step, edgeYs[i])
         }
-        ctx.lineTo((edges.length - 1) * step, edges[edges.length - 1])
 
-        // Outer glow
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 0.4})`
-        ctx.lineWidth = 6
+        // Outer glow — wider, dimmer
+        ctx.strokeStyle = `rgba(${r},${g},${b},${layer.opacity * 0.5})`
+        ctx.lineWidth = 5
         ctx.stroke()
-        // Bright core
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.2})`
+        // Inner bright line
+        ctx.strokeStyle = `rgba(${r},${g},${b},${layer.opacity * 1.5})`
         ctx.lineWidth = 1.5
         ctx.stroke()
+
+        // ── Spray from crests — primary layer during surge ──
+        if (li === 1 && (isSurge || curPhase === 'hold') && globalProgress > 0.3) {
+          for (let e = 0; e < SPRAY_PER_FRAME; e++) {
+            const ri2 = Math.floor(Math.random() * ptCount)
+            if (ri2 > 2 && ri2 < ptCount - 2) {
+              const ey = edgeYs[ri2]
+              if (ey < h && ey < edgeYs[ri2 - 1] && ey < edgeYs[ri2 + 1]) {
+                const xNorm = (ri2 * step) / w
+                emitSpray(ri2 * step, ey, isSurge ? (1 - xNorm) : 0)
+              }
+            }
+          }
+        }
+      }
+
+      // Draw spray
+      if (sprayRef.current.length > 0) {
+        ctx.globalCompositeOperation = 'lighter'
+        drawSpray(dt)
+        ctx.globalCompositeOperation = 'source-over'
       }
 
       rafRef.current = requestAnimationFrame(animate)
     }
 
     rafRef.current = requestAnimationFrame(animate)
-
     return () => {
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', resize)
@@ -412,18 +381,15 @@ export default function PageTransition({ children }: PageTransitionProps) {
   return (
     <>
       {isActive && (
-        <canvas
-          ref={canvasRef}
-          className="fixed inset-0 z-[9997] pointer-events-none"
-          style={{ width: '100vw', height: '100vh' }}
-          aria-hidden="true"
-        />
+        <canvas ref={canvasRef} className="fixed inset-0 z-[9997] pointer-events-none"
+          style={{ width: '100vw', height: '100vh' }} aria-hidden="true" />
       )}
       <div style={{
         opacity: contentOpacity,
         filter: contentBlur > 0.1 ? `blur(${contentBlur}px)` : 'none',
-        willChange: phase !== 'idle' ? 'opacity, filter' : 'auto',
-        transition: phase === 'idle' ? 'opacity 0.3s ease, filter 0.3s ease' : 'none',
+        transform: contentTranslateY > 0.5 ? `translateY(${contentTranslateY}px)` : 'none',
+        willChange: phase !== 'idle' ? 'opacity, filter, transform' : 'auto',
+        transition: phase === 'idle' ? 'opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease' : 'none',
       }}>
         {children}
       </div>

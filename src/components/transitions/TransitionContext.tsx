@@ -44,12 +44,12 @@ function easeSurge(t: number): number {
   return (1 - Math.cos(t * Math.PI)) * 0.5
 }
 
-/** Retreat: quick initial pull, then a long slow drainage tail.
- *  Models gravity pulling water back — fast at first, then a thin film draining. */
+/** Retreat: dramatic initial pull, then a long slow drainage tail.
+ *  Models gravity pulling water back — hard yank, then thin film draining. */
 function easeRetreat(t: number): number {
-  // Ease-out cubic: fast start → long deceleration tail
-  // This IS how water drains — gravity pulls hard initially, friction slows the rest
-  return 1 - Math.pow(1 - t, 3)
+  // Ease-out quartic: even faster start → much longer deceleration tail
+  // More dramatic than cubic — the initial "pull" is visceral
+  return 1 - Math.pow(1 - t, 4)
 }
 
 /**
@@ -107,7 +107,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setProgress(0)
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
 
-    animateWith(2000, easeRetreat, () => {
+    animateWith(2200, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       setProgress(0)
