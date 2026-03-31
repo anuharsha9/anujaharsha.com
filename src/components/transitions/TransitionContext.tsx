@@ -25,31 +25,28 @@ export function useTransition() {
  *
  *   SURGE   = 1600ms — deep-water swell gathering and crashing
  *   HOLD    = imperceptible route swap
- *   RETREAT = 2000ms — gravity drains the water mass back
+ *   RETREAT = 2200ms — gravity drains the water mass back
  *
- *   Total cycle: ~3.6 seconds. Heavy, tidal, oceanic.
+ *   Total cycle: ~3.8 seconds. Heavy, tidal, oceanic.
  *
  *   Asymmetric motion — like REAL ocean waves:
  *   - Surge: slow build (0–40%) → gathering momentum (40–80%) → decelerates at peak
- *   - Retreat: quick initial pull → long slow drainage tail
+ *   - Retreat: water lingers at apex (momentum exhausted) → gravity accelerates drain
  *
- *   Both curves use smooth power-based easing to feel heavy and viscous.
+ *   The retreat is NOT a "yank" — it's a ball at the top of its arc.
+ *   Velocity = 0 at the peak, then gravity gradually takes over.
  */
 
-/** Surge: slow start, accelerating middle, soft arrival at peak.
- *  Models a wave building momentum and crashing. */
+/** Surge: fast onset (the crash), smoothly decelerating roundly to the peak.
+ *  Uses pure sine calculus for flawless effortless $C^1$ continuity. */
 function easeSurge(t: number): number {
-  // Sine ease-in-out: natural pendulum/water motion
-  // Slow start → fast middle → slow peak arrival
-  return (1 - Math.cos(t * Math.PI)) * 0.5
+  return Math.sin(t * Math.PI / 2)
 }
 
-/** Retreat: dramatic initial pull, then a long slow drainage tail.
- *  Models gravity pulling water back — hard yank, then thin film draining. */
+/** Retreat: gravity drain.
+ *  Water rolls effortlessly out of the peak with harmonic acceleration. */
 function easeRetreat(t: number): number {
-  // Ease-out quartic: even faster start → much longer deceleration tail
-  // More dramatic than cubic — the initial "pull" is visceral
-  return 1 - Math.pow(1 - t, 4)
+  return 1 - Math.cos(t * Math.PI / 2)
 }
 
 /**
@@ -58,7 +55,7 @@ function easeRetreat(t: number): number {
  * Timeline:
  *   SUBMERGE  (1600ms): Heavy swell rises with gathering momentum
  *   HOLD      (imperceptible): Route swaps, waves keep undulating
- *   EMERGE    (2000ms): Gravity drainage — fast pull then slow tail
+ *   EMERGE    (2200ms): Gravity drainage — hover at apex, accelerating fall
  *
  * 80% coverage at peak — wave crest stops at ~20% from viewport top.
  * No pause at top — continuous tidal motion like real ocean.
@@ -88,12 +85,39 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  /** Animate with a custom easing curve */
+  /** Animate with a custom easing curve using strict delta-time clamping */
   const animateWith = useCallback((ms: number, easing: (t: number) => number, cb: () => void) => {
-    const t0 = performance.now()
-    const tick = (now: number) => {
-      const raw = Math.min((now - t0) / ms, 1)
-      setProgress(easing(raw))
+    let tPrev: number | null = null
+    let elapsed = 0 // Track accumulated time
+
+    const tick = (now?: number) => {
+      const currentNow = (typeof now === 'number' && Number.isFinite(now)) ? now : performance.now()
+      
+      if (tPrev === null) tPrev = currentNow
+      
+      // Calculate delta time in milliseconds
+      let dt = currentNow - tPrev
+      tPrev = currentNow
+      
+      // CRITICAL FIX: Clamp dt to a maximum of 50ms per frame.
+      // If Next.js completely freezes the main thread (router.push), 
+      // the timeline progress simply pauses and resumes gracefully, 
+      // completely eliminating "lag teleportation" whiplash.
+      if (!Number.isFinite(dt) || Number.isNaN(dt)) dt = 0
+      dt = Math.min(dt, 50) 
+      
+      elapsed += dt
+      
+      // Calculate fraction, ensure valid number, and strictly clamp
+      let raw = elapsed / ms
+      if (!Number.isFinite(raw) || Number.isNaN(raw)) raw = 0
+      raw = Math.max(0, Math.min(raw, 1))
+
+      let finalProgress = easing(raw)
+      if (!Number.isFinite(finalProgress) || Number.isNaN(finalProgress)) finalProgress = raw // fallback
+
+      setProgress(finalProgress)
+      
       if (raw < 1) animRef.current = requestAnimationFrame(tick)
       else cb()
     }
@@ -107,7 +131,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setProgress(0)
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
 
-    animateWith(2200, easeRetreat, () => {
+    animateWith(1100, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       setProgress(0)
@@ -152,37 +176,46 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // Tell aurora to surge
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'surge' } }))
 
-    // Phase 1: SUBMERGE — canvas waves build upward (1600ms, oceanic physics)
+    // Phase 1: SUBMERGE — canvas waves build upward (1400ms, oceanic physics)
     setPhase('submerge')
     phaseRef.current = 'submerge'
     setProgress(0)
+    pendingHref.current = href
 
-    animateWith(1600, easeSurge, () => {
-      // Phase 2: HOLD — 80% coverage, waves keep undulating
-      setPhase('hold')
-      phaseRef.current = 'hold'
-      setProgress(1)
-      pendingHref.current = href
-      window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'hold' } }))
-
-      // Scroll to top before navigation
+    // PRE-FIRE ROUTING: At 1050ms, the screen opacity reaches 0. We trigger the Next.js route swap early.
+    setTimeout(() => {
+      // If phase is somehow no longer submerge, abort (safety)
+      if (phaseRef.current !== 'submerge') return
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-
-      // Defer router.push to next microtask — avoids conflicts with rAF callback
       Promise.resolve().then(() => {
         router.push(href)
       })
+    }, 1050)
 
-      // Safety valve: if route change doesn't complete within 1.5s,
-      // force navigation via window.location.href as absolute fallback
-      setTimeout(() => {
-        if (pendingHref.current === href && phaseRef.current === 'hold') {
-          // router.push likely failed silently — force hard navigation
-          window.location.href = href
-        }
-      }, 1500)
+    animateWith(1400, easeSurge, () => {
+      const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
+      
+      // If Next.js completely finished the route swap during the last 500ms of the surge:
+      if (normalize(pathnameRef.current) === normalize(pendingHref.current || '')) {
+        // Zero pause! Instantly begin gravitational fall (emerge)
+        startEmerge()
+      } else {
+        // Fallback: The network is slow. The route hasn't resolved yet.
+        // We MUST hold the waves at the top until Next.js finishes.
+        setPhase('hold')
+        phaseRef.current = 'hold'
+        setProgress(1)
+        window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'hold' } }))
+
+        // Safety valve: if route change doesn't complete within 1.5s of holding, force hard navigation
+        setTimeout(() => {
+          if (pendingHref.current === href && phaseRef.current === 'hold') {
+            window.location.href = href
+          }
+        }, 1500)
+      }
     })
-  }, [router, animateWith])
+  }, [router, animateWith, startEmerge])
 
   return (
     <TransitionContext.Provider value={{ phase, progress, navigateTo }}>

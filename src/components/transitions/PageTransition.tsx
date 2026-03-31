@@ -46,13 +46,14 @@ const WAVE_LAYERS: WaveLayer[] = [
   {
     opacity: 0.20, rayLength: 200, rayWidth: 18,
     waveAmplitude: 40, speed: 0.08, phase: 0,
-    surgeLead: 0, retreatLead: 0.35, sweepAngle: 0.18,
+    // Tighter retreat lag so waves drain cohesively, reducing the "mechanical stagger" feel
+    surgeLead: 0, retreatLead: 0.10, sweepAngle: 0.18,
   },
   // Primary curtain — main visual mass (matches HeroAurora upper accent)
   {
     opacity: 0.32, rayLength: 180, rayWidth: 16,
     waveAmplitude: 35, speed: 0.06, phase: 2.0,
-    surgeLead: 0.12, retreatLead: 0.15, sweepAngle: 0.12,
+    surgeLead: 0.12, retreatLead: 0.04, sweepAngle: 0.12,
   },
   // Foreground curtain — arrives last, retreats first (matches HeroAurora lower curtain)
   {
@@ -76,6 +77,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const progressRef = useRef(0)
   const sprayRef = useRef<SprayParticle[]>([])
   const prevTimeRef = useRef(0)
+  const timeRef = useRef(0)
 
   const isActive = phase !== 'idle'
   const MAX_COVERAGE = 0.82
@@ -85,21 +87,25 @@ export default function PageTransition({ children }: PageTransitionProps) {
     progressRef.current = progress
   }, [phase, progress])
 
-  // Content styling — content submerges and surfaces
+  // Content styling — tightly tracking the physical wave edge for a cinematic "wipe"
+  // Submerge: Stay fully visible until the wave crashes over (progress > 0.4), then plummet.
+  // Emerge: Stay completely invisible while wave holds, then aggressively reveal as it drops.
   const contentOpacity =
-    phase === 'submerge' ? Math.max(0, 1 - progress * 1.5)
+    phase === 'submerge' ? Math.max(0, 1 - Math.pow(progress, 3) * 2.5) // Fades exactly as wave crests
     : phase === 'hold' ? 0
-    : phase === 'emerge' ? Math.min(1, progress * 1.5)
+    : phase === 'emerge' ? Math.min(1, Math.pow(progress, 0.4) * 1.5)   // Fast aggressive reveal
     : 1
 
   const contentBlur =
-    phase === 'submerge' ? progress * 12
+    phase === 'submerge' ? Math.pow(progress, 2) * 12
     : phase === 'hold' ? 12
-    : phase === 'emerge' ? Math.max(0, (1 - progress * 3) * 6)
+    : phase === 'emerge' ? Math.max(0, (1 - Math.pow(progress, 0.5)) * 12)
     : 0
 
   const contentTranslateY =
-    phase === 'emerge' ? Math.max(0, (1 - progress * 2)) * 20 : 0
+    phase === 'submerge' ? Math.pow(progress, 3) * 30 // Pushed down by the crashing wave
+    : phase === 'emerge' ? Math.max(0, Math.pow(1 - progress, 2)) * 30 // Rises up from the deep
+    : 0
 
   useEffect(() => {
     if (!isActive) {
@@ -130,6 +136,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
     window.addEventListener('resize', resize)
     startTimeRef.current = performance.now()
     prevTimeRef.current = performance.now()
+    timeRef.current = 0
 
     /**
      * Aurora edge Y — EXACT same formula as HeroAurora.tsx line 109-111:
@@ -153,42 +160,64 @@ export default function PageTransition({ children }: PageTransitionProps) {
      */
     const getLayerCoverage = (
       layer: WaveLayer, xNorm: number,
-      globalProgress: number, curPhase: string
+      globalProgress: number, curPhase: string,
+      time: number
     ): number => {
       if (curPhase === 'idle') return 0
-      if (curPhase === 'hold') return MAX_COVERAGE
 
-      if (curPhase === 'submerge') {
-        const layerProgress = Math.max(0, (globalProgress - layer.surgeLead) / (1 - layer.surgeLead))
+      // Calculate continuous wave "slosh" logic using actual time
+      const holdTime = Math.max(0, time - 1.6)
+      // Complex settling harmonic for natural momentum dissipation
+      const holdSlosh = (Math.sin(holdTime * Math.PI * 1.5) * 0.03 
+                       + Math.sin(holdTime * Math.PI * 3.7) * 0.01) * Math.exp(-holdTime * 2)
+
+      if (curPhase === 'submerge' || curPhase === 'hold') {
+        let effectiveProgress = globalProgress
+        if (curPhase === 'hold') {
+          effectiveProgress = 1.0 + holdSlosh
+        }
+
+        const layerProgress = Math.max(0, (effectiveProgress - layer.surgeLead) / (1 - layer.surgeLead))
         const sweepDelay = xNorm * Math.sin(layer.sweepAngle) * 0.3
-        const localProgress = Math.max(0, Math.min(1, layerProgress - sweepDelay))
-        const eased = localProgress * localProgress * (3 - 2 * localProgress)
-        return eased * MAX_COVERAGE
+        // Critical fix: divide by (1 - sweepDelay) so that when layerProgress = 1, localProgress = 1. 
+        // Eliminates the "invisible wall" that caused the mechanical plateau at 0.7x.
+        const localProgress = Math.max(0, Math.min(1, (layerProgress - sweepDelay) / (1 - sweepDelay)))
+
+        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, localProgress * MAX_COVERAGE))
       }
 
       if (curPhase === 'emerge') {
         const layerProgress = Math.max(0, (globalProgress - layer.retreatLead) / (1 - layer.retreatLead))
         const sweepDelay = (1 - xNorm) * Math.sin(layer.sweepAngle) * 0.25
-        const localProgress = Math.max(0, Math.min(1, layerProgress - sweepDelay))
-        const eased = localProgress * localProgress * (3 - 2 * localProgress)
-        return MAX_COVERAGE * (1 - eased)
+        // Scale so localProgress accurately hits 1 at the end of the drain
+        const localProgress = Math.max(0, Math.min(1, (layerProgress - sweepDelay) / (1 - sweepDelay)))
+
+        const drain = localProgress
+        const base = 1 - drain
+
+        // 2. Add the exact residual hold slosh momentum that was left over at the moment emerge started.
+        // This stops the wave from visibly "snapping" vertically from 1.0 + holdSlosh completely flat down to 1.0. 
+        const residualSlosh = holdSlosh * Math.max(0, 1 - (drain / 0.3))
+
+        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, (base + residualSlosh) * MAX_COVERAGE))
       }
 
       return 0
     }
 
-    // Spray particles — lighter, more mist-like to match aurora aesthetic
+    // Spray particles — mist-like but physically reactive (explosive crash, gravity fall)
     const emitSpray = (x: number, y: number, vxBias: number) => {
       if (sprayRef.current.length >= MAX_SPRAY) return
-      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.2
-      const speed = 30 + Math.random() * 60
+      // Spread angle mostly upwards, blowing slightly left/right based on wind/bias
+      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.4
+      const speed = 50 + Math.random() * 90 // Explosive kinetic burst
       sprayRef.current.push({
         x, y,
-        vx: Math.cos(angle) * speed + vxBias * 20,
-        vy: Math.sin(angle) * speed - 20,
-        opacity: 0.2 + Math.random() * 0.3,
-        size: 1 + Math.random() * 2,
-        life: 0, maxLife: 0.4 + Math.random() * 0.6,
+        vx: Math.cos(angle) * speed + vxBias * 40,
+        vy: Math.sin(angle) * speed - 50, // Harder initial vertical jet
+        opacity: 0.2 + Math.random() * 0.4, // Richer mist
+        size: 1 + Math.random() * 3, // Thicker water droplets
+        life: 0, maxLife: 0.5 + Math.random() * 1.0,
       })
     }
 
@@ -198,9 +227,13 @@ export default function PageTransition({ children }: PageTransitionProps) {
       for (const p of sprayRef.current) {
         p.life += dt
         if (p.life >= p.maxLife) continue
+        
+        // True mist physics: sharp aerodynamic drag horizontally, heavy gravity vertically
+        p.vx *= (1 - 3.5 * dt)
+        p.vy += 120 * dt // Aggressive gravity arc pulling mist back down into the ocean
         p.x += p.vx * dt
-        p.vy += 180 * dt // gentler gravity
         p.y += p.vy * dt
+        
         const fade = 1 - p.life / p.maxLife
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.size * fade, 0, Math.PI * 2)
@@ -217,7 +250,10 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
       const dt = Math.min((now - prevTimeRef.current) / 1000, 0.05)
       prevTimeRef.current = now
-      const time = (now - startTimeRef.current) / 1000
+      // CRITICAL FIX: Accumulate clamped delta-time. If Next.js blocks the thread for 500ms,
+      // the wave will not instantly teleport forward by half a second. It will resume seamlessly.
+      timeRef.current += dt
+      const time = timeRef.current
       const curPhase = phaseRef.current
       const globalProgress = progressRef.current
       const { r, g, b } = tealRef.current
@@ -229,8 +265,17 @@ export default function PageTransition({ children }: PageTransitionProps) {
       const step = 4 // match HeroAurora's rope step (line 151)
       const ptCount = Math.ceil(w / step) + 1
 
-      // Slow ambient drift — same as HeroAurora (line 103)
-      const drift = Math.sin(time * 0.15) * 8
+      // Ambient drift — smooth sinusoidal sway during transition
+      const driftBase = Math.sin(time * 0.15) * 8
+      // Use eased progress so drift intensifies/fades naturally
+      const easedSurge = 0.5 - 0.5 * Math.cos(globalProgress * Math.PI)
+      const easedProgress = isSurge
+        ? easedSurge
+        : curPhase === 'emerge'
+          ? 0.5 + 0.5 * Math.cos(globalProgress * Math.PI)
+          : 1.0
+      const driftTransition = Math.sin(time * 0.5) * 10 * easedProgress
+      const drift = driftBase + driftTransition
 
       // Coverage range
       const startY = h + 60
@@ -240,8 +285,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
         const layer = WAVE_LAYERS[li]
         const edgeYs = new Float32Array(ptCount)
 
-        // Time factor — same formula as HeroAurora (line 100)
-        const t = time * layer.speed + layer.phase
+        // CRITICAL FIX: To guarantee the wave NEVER stops undulating horizontally,
+        // we completely decouple its horizontal phase from the 'progress' state.
+        // Ambient time alone drives the wave sideways at a continuous, steady pace.
+        // Slower base time multiplier gives the vertical undulation massive, majestic weight (from 25.0 to 18.0)
+        const tBase = time * layer.speed * 18.0 + layer.phase
 
         let hasAnyVisible = false
 
@@ -249,7 +297,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
           const x = i * step
           const xNorm = x / w
 
-          const localCoverage = getLayerCoverage(layer, xNorm, globalProgress, curPhase)
+          const localCoverage = getLayerCoverage(layer, xNorm, globalProgress, curPhase, time)
 
           if (localCoverage < 0.003) {
             edgeYs[i] = h + 100
@@ -262,12 +310,37 @@ export default function PageTransition({ children }: PageTransitionProps) {
           // Base Y — how far up this layer has reached at this x
           const baseY = startY - covFrac * (startY - endY) + drift
 
-          // Progressive amplitude — small at leading edge, full at coverage
-          const ampScale = 0.4 + covFrac * 0.6
-          const amp = layer.waveAmplitude * ampScale
+          // Physicsy Amplitude: Waves gather height as they surge up, peak at the crest,
+          // and aggressively flatten out as they retreat like real backwash gravity.
+          let dynamicAmp = layer.waveAmplitude
+          if (isSurge) {
+            // Surges from base up to 1.6x height
+            dynamicAmp *= (1.0 + easedSurge * 0.6)
+          } else if (curPhase === 'hold') {
+            dynamicAmp *= 1.6 // Maintain chaotic peak height
+          } else if (curPhase === 'emerge') {
+            // Flattens out heavily as it sheets backward
+            dynamicAmp *= Math.max(0.3, 1.6 - globalProgress * 1.3)
+          }
 
-          // Aurora edge calculation — SAME formula as HeroAurora
-          const waveY = auroraEdgeY(xNorm, t, amp)
+          // Traveling wave — per-point phase offset makes crests visibly
+          // slide across the screen, like real waves rolling onto shore.
+          // By linking travel directly to 'time', we guarantee the sideways slide
+          // NEVER pauses or freezes, even if Next.js holds the transition at the peak!
+          let travelMult = time * 0.15 // Very slow, majestic baseline oceanic drift
+          
+          if (isSurge) {
+            travelMult += easedSurge * 0.4  // Gentle momentum push during crash
+          } else if (curPhase === 'hold') {
+            travelMult += 0.4  // Maintain exact extra momentum
+          } else if (curPhase === 'emerge') {
+            // Accelerate as gravity rips it back down into the ocean
+            const retreatEase = 0.5 - 0.5 * Math.cos(globalProgress * Math.PI)
+            travelMult += 0.4 + retreatEase * 0.8
+          }
+          
+          const travelPhase = travelMult * 2.0 
+          const waveY = auroraEdgeY(xNorm, tBase + travelPhase, dynamicAmp)
 
           edgeYs[i] = baseY + waveY
         }
@@ -313,9 +386,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
           const xf = x / w
           // Ray intensity — SAME formula as HeroAurora (lines 126-128)
           const ri = 0.5
-            + 0.3 * Math.sin(t * 0.5 + xf * 20)
-            + 0.2 * Math.sin(t * 0.3 + xf * 35)
-          const ro = layer.opacity * ri * (0.7 + 0.3 * Math.sin(t * 0.25))
+            + 0.3 * Math.sin(tBase * 0.5 + xf * 20)
+            + 0.2 * Math.sin(tBase * 0.3 + xf * 35)
+          const ro = layer.opacity * ri * (0.7 + 0.3 * Math.sin(tBase * 0.25))
 
           // Ray gradient — SAME stops as HeroAurora (lines 134-140)
           const g2 = ctx.createLinearGradient(x, ey - 15, x, ey + layer.rayLength)
@@ -346,15 +419,26 @@ export default function PageTransition({ children }: PageTransitionProps) {
         ctx.lineWidth = 1.5
         ctx.stroke()
 
-        // ── Spray from crests — primary layer during surge ──
-        if (li === 1 && (isSurge || curPhase === 'hold') && globalProgress > 0.3) {
-          for (let e = 0; e < SPRAY_PER_FRAME; e++) {
-            const ri2 = Math.floor(Math.random() * ptCount)
-            if (ri2 > 2 && ri2 < ptCount - 2) {
-              const ey = edgeYs[ri2]
-              if (ey < h && ey < edgeYs[ri2 - 1] && ey < edgeYs[ri2 + 1]) {
-                const xNorm = (ri2 * step) / w
-                emitSpray(ri2 * step, ey, isSurge ? (1 - xNorm) : 0)
+        // ── Spray from crests — turbulent sea foam ──
+        // Emit during surge, hold, AND emerge to prevent the exit from looking flat/dull
+        if (li === 1) {
+          const isChurning = (isSurge && globalProgress > 0.3) 
+                          || curPhase === 'hold' 
+                          || (curPhase === 'emerge' && globalProgress < 0.9)
+          
+          if (isChurning) {
+            // Emits more spray during the aggressive emerge drain for froth
+            const sprayCount = curPhase === 'emerge' ? SPRAY_PER_FRAME * 2 : SPRAY_PER_FRAME
+            for (let e = 0; e < sprayCount; e++) {
+              const ri2 = Math.floor(Math.random() * ptCount)
+              if (ri2 > 2 && ri2 < ptCount - 2) {
+                const ey = edgeYs[ri2]
+                if (ey < h && ey < edgeYs[ri2 - 1] && ey < edgeYs[ri2 + 1]) {
+                  const xNorm = (ri2 * step) / w
+                  // Spray drifts left during surge, backwards/right during backwash
+                  const vxBias = isSurge ? (1 - xNorm) : (curPhase === 'emerge' ? -0.5 : 0)
+                  emitSpray(ri2 * step, ey, vxBias)
+                }
               }
             }
           }
@@ -389,7 +473,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
         filter: contentBlur > 0.1 ? `blur(${contentBlur}px)` : 'none',
         transform: contentTranslateY > 0.5 ? `translateY(${contentTranslateY}px)` : 'none',
         willChange: phase !== 'idle' ? 'opacity, filter, transform' : 'auto',
-        transition: phase === 'idle' ? 'opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease' : 'none',
+        transition: phase === 'idle' ? 'opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none',
       }}>
         {children}
       </div>
