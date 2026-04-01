@@ -2,10 +2,10 @@ import { CaseStudyData } from '@/types/caseStudy'
 
 export const reportcasterCaseStudy: CaseStudyData = {
   slug: 'reportcaster',
-  heroTitle: 'Customers Were Leaving. 40 Years Without Updates.',
-  heroSubheading: '20M+ weekly jobs. 40 years without updates. Customers were leaving — and the platform had zero documentation for the system they needed fixed.',
+  heroTitle: 'I modernized a 40-year-old scheduling system powering millions of automated jobs.',
+  heroSubheading: 'It was a black box. 5 disconnected tools. Customers were threatening to leave for modern competitors unless we made it look pretty.',
   heroSubtitle:
-    'I rebuilt 5 fragmented subsystems into one integrated hub. Two architectures rejected before the breakthrough. Shipped April 2024 — customers retained.',
+    'But a fresh coat of paint wouldn\'t fix the broken engine. I sat with Support, saw users hacking the system just to work, and rebuilt all 5 tools into one simple hub.',
   coverImage: {
     src: '/images/case-study/ReportCaster/ReportCaster Explorer.png',
     alt: 'ReportCaster Explorer - Unified Schedule Management',

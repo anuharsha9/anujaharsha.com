@@ -42,24 +42,23 @@ interface WaveLayer {
 }
 
 const WAVE_LAYERS: WaveLayer[] = [
-  // Background curtain — arrives first, retreats last (matches HeroAurora main curtain)
+  // Background curtain — reaches highest, pushes far ahead
   {
-    opacity: 0.20, rayLength: 200, rayWidth: 18,
-    waveAmplitude: 40, speed: 0.08, phase: 0,
-    // Tighter retreat lag so waves drain cohesively, reducing the "mechanical stagger" feel
-    surgeLead: 0, retreatLead: 0.10, sweepAngle: 0.18,
+    opacity: 0.20, rayLength: 250, rayWidth: 18,
+    waveAmplitude: 60, speed: 0.10, phase: 0,
+    surgeLead: 0.4, retreatLead: 0.0, sweepAngle: 0.15,
   },
-  // Primary curtain — main visual mass (matches HeroAurora upper accent)
+  // Primary curtain — main visual mass
   {
-    opacity: 0.32, rayLength: 180, rayWidth: 16,
-    waveAmplitude: 35, speed: 0.06, phase: 2.0,
-    surgeLead: 0.12, retreatLead: 0.04, sweepAngle: 0.12,
+    opacity: 0.32, rayLength: 220, rayWidth: 16,
+    waveAmplitude: 45, speed: 0.08, phase: 2.5,
+    surgeLead: 0.15, retreatLead: 0.25, sweepAngle: 0.15,
   },
-  // Foreground curtain — arrives last, retreats first (matches HeroAurora lower curtain)
+  // Foreground curtain — heavy bottom layer, lags behind
   {
-    opacity: 0.14, rayLength: 150, rayWidth: 20,
-    waveAmplitude: 30, speed: 0.10, phase: 4.0,
-    surgeLead: 0.25, retreatLead: 0, sweepAngle: 0.08,
+    opacity: 0.14, rayLength: 180, rayWidth: 20,
+    waveAmplitude: 50, speed: 0.05, phase: 4.5,
+    surgeLead: 0.0, retreatLead: 0.5, sweepAngle: 0.15,
   },
 ]
 
@@ -93,7 +92,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const contentOpacity =
     phase === 'submerge' ? Math.max(0, 1 - Math.pow(progress, 3) * 2.5) // Fades exactly as wave crests
     : phase === 'hold' ? 0
-    : phase === 'emerge' ? Math.min(1, Math.pow(progress, 0.4) * 1.5)   // Fast aggressive reveal
+    : phase === 'emerge' ? Math.pow(progress, 1.8)                      // Majestic, cinematic fade-in synced with wave descent
     : 1
 
   const contentBlur =
@@ -165,41 +164,25 @@ export default function PageTransition({ children }: PageTransitionProps) {
     ): number => {
       if (curPhase === 'idle') return 0
 
-      // Calculate continuous wave "slosh" logic using actual time
-      const holdTime = Math.max(0, time - 1.6)
-      // Complex settling harmonic for natural momentum dissipation
-      const holdSlosh = (Math.sin(holdTime * Math.PI * 1.5) * 0.03 
-                       + Math.sin(holdTime * Math.PI * 3.7) * 0.01) * Math.exp(-holdTime * 2)
-
+      // Calculate continuous wave coverage logic with simple sweep delay
       if (curPhase === 'submerge' || curPhase === 'hold') {
-        let effectiveProgress = globalProgress
-        if (curPhase === 'hold') {
-          effectiveProgress = 1.0 + holdSlosh
-        }
-
-        const layerProgress = Math.max(0, (effectiveProgress - layer.surgeLead) / (1 - layer.surgeLead))
-        const sweepDelay = xNorm * Math.sin(layer.sweepAngle) * 0.3
-        // Critical fix: divide by (1 - sweepDelay) so that when layerProgress = 1, localProgress = 1. 
-        // Eliminates the "invisible wall" that caused the mechanical plateau at 0.7x.
-        const localProgress = Math.max(0, Math.min(1, (layerProgress - sweepDelay) / (1 - sweepDelay)))
+        const effectiveProgress = curPhase === 'hold' ? 1.0 : globalProgress
+        const sweepDelay = xNorm * Math.sin(layer.sweepAngle) * 0.25
+        
+        // Critical fix: Scale localProgress so the entire wave hits 1.0 continuously
+        const localProgress = Math.max(0, Math.min(1, (effectiveProgress - sweepDelay) / (1 - sweepDelay)))
 
         return Math.max(0, Math.min(MAX_COVERAGE + 0.05, localProgress * MAX_COVERAGE))
       }
 
       if (curPhase === 'emerge') {
-        const layerProgress = Math.max(0, (globalProgress - layer.retreatLead) / (1 - layer.retreatLead))
         const sweepDelay = (1 - xNorm) * Math.sin(layer.sweepAngle) * 0.25
-        // Scale so localProgress accurately hits 1 at the end of the drain
-        const localProgress = Math.max(0, Math.min(1, (layerProgress - sweepDelay) / (1 - sweepDelay)))
+        const localProgress = Math.max(0, Math.min(1, (globalProgress - sweepDelay) / (1 - sweepDelay)))
 
         const drain = localProgress
         const base = 1 - drain
 
-        // 2. Add the exact residual hold slosh momentum that was left over at the moment emerge started.
-        // This stops the wave from visibly "snapping" vertically from 1.0 + holdSlosh completely flat down to 1.0. 
-        const residualSlosh = holdSlosh * Math.max(0, 1 - (drain / 0.3))
-
-        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, (base + residualSlosh) * MAX_COVERAGE))
+        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, base * MAX_COVERAGE))
       }
 
       return 0
@@ -288,8 +271,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
         // CRITICAL FIX: To guarantee the wave NEVER stops undulating horizontally,
         // we completely decouple its horizontal phase from the 'progress' state.
         // Ambient time alone drives the wave sideways at a continuous, steady pace.
-        // Slower base time multiplier gives the vertical undulation massive, majestic weight (from 25.0 to 18.0)
-        const tBase = time * layer.speed * 18.0 + layer.phase
+        // Slower base time multiplier gives the vertical undulation massive, majestic weight (from 18.0 to 9.0)
+        const tBase = time * layer.speed * 9.0 + layer.phase
 
         let hasAnyVisible = false
 
@@ -340,6 +323,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
           }
           
           const travelPhase = travelMult * 2.0 
+
           const waveY = auroraEdgeY(xNorm, tBase + travelPhase, dynamicAmp)
 
           edgeYs[i] = baseY + waveY

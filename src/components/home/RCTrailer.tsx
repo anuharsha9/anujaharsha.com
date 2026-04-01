@@ -150,11 +150,11 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         transition={textExitT}
                     >
                         <KineticLine
-                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight"
-                            emphasisWords={['leaving.']}
-                            emphasisClass="text-[var(--semantic-rose)] font-extrabold"
+                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-zinc-300 tracking-tight leading-tight"
+                            emphasisWords={['40-year-old', 'scheduling', 'system.']}
+                            emphasisClass="text-zinc-100 font-medium"
                         >
-                            Customers were leaving.
+                            A 40-year-old scheduling system.
                         </KineticLine>
                     </motion.div>
                 )}
@@ -178,10 +178,10 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                 transition={{ duration: 0.6, delay: 0.15, ease }}
                             >
                                 <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-                                    15M<span className="text-[var(--semantic-cyan)]">+</span>
+                                    20M<span className="text-[var(--semantic-cyan)]">+</span>
                                 </div>
                                 <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-1.5">
-                                    Users
+                                    Automated Jobs
                                 </div>
                             </motion.div>
 
@@ -222,7 +222,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         transition={textExitT}
                     >
                         <KineticLine className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-zinc-200 tracking-tight">
-                            They wanted the product modernized.
+                            No documentation. 5 disconnected tools.
                         </KineticLine>
                     </motion.div>
                 )}
@@ -239,10 +239,10 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     >
                         <KineticLine
                             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-zinc-400 tracking-tight"
-                            emphasisWords={['closing', 'in.']}
+                            emphasisWords={['No', 'one']}
                             emphasisClass="text-[var(--semantic-orange)] font-medium"
                         >
-                            Competitors were closing in.
+                            No one wanted to touch it.
                         </KineticLine>
                     </motion.div>
                 )}
@@ -259,10 +259,10 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     >
                         <KineticLine
                             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white tracking-tight"
-                            emphasisWords={["it's", 'time.']}
-                            emphasisClass="bg-gradient-to-r from-[var(--semantic-cyan)] to-[var(--accent-teal-bright)] bg-clip-text text-transparent"
+                            emphasisWords={["leave", 'look', 'pretty.']}
+                            emphasisClass="text-[var(--semantic-rose)] font-bold"
                         >
-                            Leadership said: it&apos;s time.
+                            Customers threatened to leave unless we made it look pretty.
                         </KineticLine>
                     </motion.div>
                 )}
@@ -278,10 +278,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         transition={{ duration: 0.6, ease }}
                     >
                         <KineticLine
-                            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-zinc-500 tracking-tight italic"
+                            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-zinc-300 tracking-tight italic"
+                            emphasisWords={['So', 'I', 'pushed', 'back.']}
+                            emphasisClass="text-[var(--semantic-orange)] not-italic font-medium"
                             delay={0.25}
                         >
-                            I had just joined the team.
+                            But a fresh coat of paint wouldn&apos;t fix the broken engine. So I pushed back.
                         </KineticLine>
                     </motion.div>
                 )}
@@ -303,17 +305,13 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            <p className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400">
-                                A <span className="text-white font-medium">50-year-old</span> system.
+                            <p className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 max-w-lg mx-auto leading-snug">
+                                {step < 9 ? (
+                                    <>I sat with customer support, saw users <span className="text-[var(--semantic-rose)] font-medium">hacking</span> the system just to work...</>
+                                ) : (
+                                    <>...and rebuilt all 5 tools into <span className="text-[var(--semantic-emerald)] font-medium">one simple hub</span>.</>
+                                )}
                             </p>
-                            <motion.p
-                                className="text-sm md:text-base text-zinc-600 mt-1"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.7 }}
-                            >
-                                No designer had touched it.
-                            </motion.p>
                         </motion.div>
 
                         {/* Node visual */}
@@ -418,12 +416,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
                         {/* Bottom label */}
                         <motion.p
-                            className="text-xs sm:text-sm font-mono text-zinc-400 uppercase tracking-[0.25em] mt-6 md:mt-8"
+                            className="text-xs sm:text-sm font-mono text-[var(--semantic-cyan)] uppercase tracking-[0.25em] mt-6 md:mt-8"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2 }}
                         >
-                            5 disconnected tools · One product
+                            {step < 9 ? "5 disconnected modules" : "1 cohesive system"}
                         </motion.p>
                     </motion.div>
                 )}
@@ -469,8 +467,8 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             <div className="text-5xl md:text-7xl font-bold text-white font-mono tracking-tighter">
                                 250<span className="text-[var(--semantic-cyan)]">+</span>
                             </div>
-                            <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.3em] mt-2">
-                                screens designed
+                            <div className="text-[10px] sm:text-xs font-mono text-[var(--semantic-cyan)]/70 uppercase tracking-[0.3em] mt-2">
+                                screens simplified into 1 app
                             </div>
                         </motion.div>
                     </motion.div>
@@ -486,8 +484,8 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                     >
-                        <SlamText className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter">
-                            SHIPPED.
+                        <SlamText className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter text-center leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                            20M JOBS PROTECTED.
                         </SlamText>
                     </motion.div>
                 )}
@@ -504,11 +502,11 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     >
                         {/* Faded SHIPPED behind */}
                         <motion.div
-                            className="absolute text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white/[0.06] tracking-tighter select-none pointer-events-none"
+                            className="absolute text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white/[0.04] tracking-tighter select-none pointer-events-none text-center leading-none"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                         >
-                            SHIPPED.
+                            20M JOBS PROTECTED.
                         </motion.div>
 
                         <motion.blockquote

@@ -662,8 +662,8 @@ If no → external help becomes a rational acceleration option, not an emotional
 - [x] Lock hero copy
 - [x] Lock supporting line
 - [x] Update CTA hierarchy
-- [ ] Rewrite proof strip
-- [ ] Rewrite top case study intros
+- [x] Rewrite proof strip
+- [x] Rewrite top case study intros
 
 **Tomorrow**
 - [x] Align LinkedIn headline/about (guide ready)

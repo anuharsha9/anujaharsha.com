@@ -37,16 +37,17 @@ export function useTransition() {
  *   Velocity = 0 at the peak, then gravity gradually takes over.
  */
 
-/** Surge: fast onset (the crash), smoothly decelerating roundly to the peak.
- *  Uses pure sine calculus for flawless effortless $C^1$ continuity. */
+/** Surge: Explosive entry that smooths out at the peak.
+ *  Uses sine for a very organic "water crashing" velocity profile. */
 function easeSurge(t: number): number {
   return Math.sin(t * Math.PI / 2)
 }
 
-/** Retreat: gravity drain.
- *  Water rolls effortlessly out of the peak with harmonic acceleration. */
+/** Retreat: Gravity drain.
+ *  Uses perfect C1 continuity (starts and ends with velocity=0) via an easeInOutSine harmonic curve.
+ *  This creates an effortless, organic drop and a soft landing. */
 function easeRetreat(t: number): number {
-  return 1 - Math.cos(t * Math.PI / 2)
+  return 0.5 - 0.5 * Math.cos(Math.PI * t)
 }
 
 /**
@@ -129,9 +130,9 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setPhase('emerge')
     phaseRef.current = 'emerge'
     setProgress(0)
-    window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'retreat' } }))
+    window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(1100, easeRetreat, () => {
+    animateWith(800, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       setProgress(0)
@@ -146,23 +147,20 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     })
   }, [animateWith])
 
-  /**
-   * When pathname changes while we're in the 'hold' phase,
-   * it means Next.js has finished the route swap — start emerging.
-   */
-  useEffect(() => {
-    if (phase !== 'hold' || !pendingHref.current) return
-
-    const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
-    if (normalize(pathname) === normalize(pendingHref.current)) {
-      // Route has changed — immediately start retreat (no pause)
-      startEmerge()
-    }
-  }, [pathname, phase, startEmerge])
-
   // Keep a ref in sync with pathname so navigateTo always has current value
   const pathnameRef = useRef(pathname)
-  useEffect(() => { pathnameRef.current = pathname }, [pathname])
+
+  // Watch for pathname changes (Next.js route completed)
+  useEffect(() => {
+    // If we're entering a page and we were somehow still holding (safety net fallback)
+    if (phaseRef.current === 'hold') {
+      const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
+      if (normalize(pathname) === normalize(pendingHref.current || '')) {
+        startEmerge()
+      }
+    }
+    pathnameRef.current = pathname
+  }, [pathname, startEmerge])
 
   const navigateTo = useCallback((href: string) => {
     const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
@@ -176,43 +174,34 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // Tell aurora to surge
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'surge' } }))
 
-    // Phase 1: SUBMERGE — canvas waves build upward (1400ms, oceanic physics)
+    // Phase 1: SUBMERGE — canvas waves build upward
     setPhase('submerge')
     phaseRef.current = 'submerge'
     setProgress(0)
     pendingHref.current = href
 
-    // PRE-FIRE ROUTING: At 1050ms, the screen opacity reaches 0. We trigger the Next.js route swap early.
+    // Fire routing at 500ms precisely when content opacity has turned black 
+    // but long before the 900ms surge finishes. This prevents the React commit
+    // from freezing the thread right at the peak apex.
     setTimeout(() => {
-      // If phase is somehow no longer submerge, abort (safety)
       if (phaseRef.current !== 'submerge') return
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
       Promise.resolve().then(() => {
         router.push(href)
       })
-    }, 1050)
+    }, 500)
 
-    animateWith(1400, easeSurge, () => {
+    animateWith(900, easeSurge, () => {
+      // The instant the surging wave hits its peak, gravity takes over.
       const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
-      
-      // If Next.js completely finished the route swap during the last 500ms of the surge:
       if (normalize(pathnameRef.current) === normalize(pendingHref.current || '')) {
-        // Zero pause! Instantly begin gravitational fall (emerge)
+        // NO HOLD PHASE. A physical wave never pauses gracefully in mid-air.
         startEmerge()
       } else {
-        // Fallback: The network is slow. The route hasn't resolved yet.
-        // We MUST hold the waves at the top until Next.js finishes.
+        // Network is slow — we must hold the waves up to prevent revealing the old page
         setPhase('hold')
         phaseRef.current = 'hold'
         setProgress(1)
-        window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'hold' } }))
-
-        // Safety valve: if route change doesn't complete within 1.5s of holding, force hard navigation
-        setTimeout(() => {
-          if (pendingHref.current === href && phaseRef.current === 'hold') {
-            window.location.href = href
-          }
-        }, 1500)
       }
     })
   }, [router, animateWith, startEmerge])
