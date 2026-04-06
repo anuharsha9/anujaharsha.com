@@ -1,0 +1,20 @@
+/* TEAM */
+Designer & Developer: Anuja Harsha Nimmagadda
+Role: Senior Product Designer
+Location: Dallas, TX
+Site: anuharsha.com
+Contact: anuharsha.nimmagadda [at] gmail.com
+
+/* SITE */
+Last update: 2026/04/06
+Standards: HTML5, CSS3, ES2024
+Framework: Next.js 15
+Motion: Framer Motion
+Hosting: AWS CloudFront + S3
+Language: English
+
+/* THANKS */
+Marcus Horbach — Principal Data Scientist, for trusting me with ML
+Yingchun Chen — Engineering Partner, for teaching me the legacy
+Dave Pfeiffer — Director of Design, for giving me the freedom
+Vikram Patel — CEO, 9P Studioz, for the training ground

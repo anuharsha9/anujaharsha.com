@@ -1,7 +1,9 @@
 'use client'
 
-import React, { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React from 'react'
+import { motion } from 'framer-motion'
+
+const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 export interface CinematicSceneProps {
     eyebrow?: string
@@ -13,24 +15,19 @@ export interface CinematicSceneProps {
 }
 
 export default function CinematicScene({ eyebrow, title, body, bullets, children, alignment = 'left' }: CinematicSceneProps) {
-    const containerRef = useRef<HTMLDivElement>(null)
-
-    // Create a scroll trigger range to fade this scene in and out
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start 60%', 'start 20%']
-    })
-
-    const { scrollYProgress: exitProgress } = useScroll({
-        target: containerRef,
-        // When the top of this section reaches 0, we start fading out the text if it's tall
-        // Or we simply use whileInView for simpler setup that works better on long pages.
-    })
-
     const textAlign = alignment === 'center' ? 'text-center items-center' : 'text-left items-start'
 
     return (
-        <section ref={containerRef} className="relative min-h-[50vh] py-24 sm:py-32 flex flex-col justify-center">
+        <section className="relative min-h-[50vh] py-24 sm:py-32 flex flex-col justify-center">
+
+            {/* Atmospheric glow — barely visible, matches trailer aesthetic */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                aria-hidden="true"
+                style={{
+                    background: 'radial-gradient(ellipse 60% 40% at 50% 30%, rgba(var(--accent-teal-rgb, 45,212,191), 0.03) 0%, transparent 70%)',
+                }}
+            />
 
             {/* 
         The Narrative Block (Sticky or just inline fading) 
@@ -38,10 +35,10 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
       */}
             <motion.div
                 className={`w-full max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col ${textAlign} mb-12 lg:mb-24`}
-                initial={{ opacity: 0, scale: 0.95, filter: 'blur(8px)' }}
-                whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                initial={{ opacity: 0, scale: 0.95, y: 20, filter: 'blur(16px)' }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.0, ease }}
             >
                 {eyebrow && (
                     <span className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
@@ -67,10 +64,10 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
                         {bullets.map((b, i) => (
                             <motion.li
                                 key={i}
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                                whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: 0.2 + (i * 0.1) }}
+                                transition={{ duration: 0.6, delay: 0.2 + (i * 0.1), ease }}
                                 className="flex items-start gap-4"
                             >
                                 <span className="text-[var(--accent-teal)] font-mono text-xl leading-none mt-1">0{i + 1}</span>
@@ -85,9 +82,15 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
         Visual Payload (Bento grids, Carousels, Custom interactive elements)
       */}
             {children && (
-                <div className="w-full max-w-[1440px] mx-auto px-6 md:px-16">
+                <motion.div
+                    className="w-full max-w-[1440px] mx-auto px-6 md:px-16"
+                    initial={{ opacity: 0, y: 30, filter: 'blur(12px)' }}
+                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    viewport={{ once: true, margin: "-5%" }}
+                    transition={{ duration: 1.2, delay: 0.15, ease }}
+                >
                     {children}
-                </div>
+                </motion.div>
             )}
 
         </section>

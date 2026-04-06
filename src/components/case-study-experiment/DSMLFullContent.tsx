@@ -9,6 +9,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
+import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
     BentoGrid, BentoRow, ImageTile, TextTile,
@@ -142,6 +143,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT I — THREE POWERFUL AI FEATURES. NEAR-ZERO ADOPTION.
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-1-hook">
                 <CinematicScene
                     title="Three Powerful AI Features. Near-Zero Adoption."
@@ -221,11 +223,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                     I already owned NLQ, ML, and Insights. IQ was the culmination &mdash; bringing everything I&apos;d built to the front and center of WebFOCUS.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT II — MODERNIZING THE BUILDING BLOCKS
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-2-investigation">
                 <CinematicScene
                     title="Upgrading the Building Blocks."
@@ -256,11 +260,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                     Same PM. Same engineers. Same designer. NLQ, Insights, ML &mdash; I&apos;d modernized each one. IQ brought them all together. The culmination of everything I&apos;d pushed for.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT III — ARCHITECTURE BEFORE TICKETS
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-3-architecture">
                 <CinematicScene
                     title="Architecture Before Tickets."
@@ -305,7 +311,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                         <EyebrowLabel>IQ Architecture</EyebrowLabel>
                         <BentoRow layout="30/70">
                             <TextTile accent="teal">
-                                <h4 className="text-white font-bold text-lg mb-3">One Entry Point</h4>
+                                <h3 className="text-white font-bold text-lg mb-3">One Entry Point</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     Smart integration inside the existing Hub. No new infrastructure needed. Three scattered menus → one destination, one mental model.
                                 </p>
@@ -328,7 +334,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                         {/* Sketches — full width first */}
                         <EyebrowLabel>Sketches &amp; Early Concepts</EyebrowLabel>
                         <BentoRow layout="full">
-                            <ImageTile src="/images/case-study/iq-plugin/hand-drawn-sketches.png" alt="Hand-drawn Sketches" caption="Early concept sketching" />
+                            <ImageTile src="/images/case-study/iq-plugin/hand-drawn-sketches.webp" alt="Hand-drawn Sketches" caption="Early concept sketching" />
                         </BentoRow>
                         <BentoRow layout="full">
                             <ImageTile src="/images/case-study/iq-plugin/IQ Wireframes.png" alt="IQ Wireframes" caption="Architecture wireframes" delay={0.1} />
@@ -342,11 +348,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                     </BentoGrid>
                 </CinematicScene>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT IV — FOUR ITERATIONS TO THE FINAL HUB
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-4-craft">
                 <CinematicScene
                     title="Four Iterations to the Final Hub."
@@ -382,7 +390,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                         <BentoRow layout="30/70">
                             <TextTile accent="teal">
                                 <p className="font-mono text-xs text-emerald-400/60 uppercase tracking-[0.2em] mb-3">V4 — Shipped ✔</p>
-                                <h4 className="text-white font-bold text-xl md:text-2xl mb-4">The Navigation Fight</h4>
+                                <h3 className="text-white font-bold text-xl md:text-2xl mb-4">The Navigation Fight</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     The lead architect &mdash; 20+ years &mdash; wanted list views. The WebFOCUS architect &mdash; 35+ years &mdash; backed him. My argument: lists are exactly why nobody found these features. Large tiles give immediate context.
                                 </p>
@@ -453,11 +461,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                     My Director of Design said it best &mdash; bold and fearless. Industry examples. Interaction logic. Visual prototypes. He was fully in my corner, watching me make my own case.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT V — THE ROOM FULL OF VETERANS
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-5-team">
                 <CinematicScene
                     title="The Room Full of Veterans."
@@ -477,7 +487,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     <span className="text-sm text-zinc-500 font-medium">vs</span>
                                     <div className="px-3 py-1.5 rounded-lg text-xs font-mono text-[var(--cs-accent)] border border-[var(--cs-accent)]/40 bg-[var(--cs-accent)]/10 font-bold">2yr</div>
                                 </div>
-                                <h4 className="text-white font-bold text-lg md:text-xl mb-3">Every Meeting, Outnumbered</h4>
+                                <h3 className="text-white font-bold text-lg md:text-xl mb-3">Every Meeting, Outnumbered</h3>
                                 <p className="text-zinc-300 leading-relaxed text-base">
                                     Veterans with 20 to 35 years at WebFOCUS. My PM and I onboarded together. We pushed the vision together.
                                 </p>
@@ -489,7 +499,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     </div>
                                     <span className="text-sm font-mono text-[var(--cs-accent)]/80 uppercase tracking-widest font-medium">Earned Trust</span>
                                 </div>
-                                <h4 className="text-white font-bold text-lg md:text-xl mb-3">And They Were Listening</h4>
+                                <h3 className="text-white font-bold text-lg md:text-xl mb-3">And They Were Listening</h3>
                                 <p className="text-zinc-300 leading-relaxed text-base">
                                     It hit me later &mdash; I was arguing about data flows and ML architecture with people who&apos;d been here for decades. And they were listening.
                                 </p>
@@ -503,11 +513,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                     Two years in. Everyone else &mdash; decades. I set up meetings, drove cross-functional alignment, nudged PMs to collaborate. That wasn&apos;t my job title. It was just what the project needed.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT VI — VISIBILITY WAS THE SOLUTION
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-6-outcome">
                 <CinematicScene
                     title="Visibility Was the Solution."
@@ -591,7 +603,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     className="p-6 rounded-xl border-l-2 border-amber-500/40 bg-white/[0.02]"
                                 >
                                     <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
-                                    <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h4>
+                                    <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h3>
                                     <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.pushHarder.content }} />
                                 </motion.div>
                                 <motion.div
@@ -602,7 +614,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     className="p-6 rounded-xl border-l-2 border-[var(--cs-accent)]/40 bg-white/[0.02]"
                                 >
                                     <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>
-                                    <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h4>
+                                    <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h3>
                                     <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
                                 </motion.div>
                             </div>
@@ -613,6 +625,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                     <SystemIndex currentId="IQ_PLUGIN" />
                 </div>
             </div>
+            </PerspectiveReveal>
         </>
     )
 }

@@ -9,6 +9,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
+import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import ImpactDiff from '@/components/case-study/ImpactDiff'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
@@ -51,6 +52,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT I — HOW I LANDED THE PROJECT
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-i">
                 <CinematicScene
                     title="How I Landed the Project"
@@ -99,11 +101,13 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     There was no documentation at ALL. No roadmap. No plans to add features. I had a sandbox. And that&apos;s it.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT II — I BUILT MY OWN RESEARCH NETWORK
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-ii">
                 <CinematicScene
                     title="I Built My Own Research Network"
@@ -156,11 +160,13 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     I&apos;m not an engineer. But I made sure I understood the constraints — legacy FOCUS code, customer dependency, no JS or React. I understood enough to design around it.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT III — WHAT I DISCOVERED
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-iii">
                 <CinematicScene
                     title="What I Discovered"
@@ -216,12 +222,14 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     </BentoGrid>
                 </CinematicScene>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT IV — TWO REJECTIONS. ONE BREAKTHROUGH.
                ═══════════════════════════════════════════════ */}
             {section4 && (
+                <PerspectiveReveal>
                 <div className="relative z-20" id="act-iv">
                     <CinematicScene
                         title="Two Rejections. One Breakthrough."
@@ -233,7 +241,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             <EyebrowLabel>Version 1</EyebrowLabel>
                             <BentoRow layout="30/70">
                                 <TextTile>
-                                    <h4 className="text-white font-bold text-lg mb-3">V1: Independent Product</h4>
+                                    <h3 className="text-white font-bold text-lg mb-3">V1: Independent Product</h3>
                                     <p className="text-zinc-400 font-light leading-relaxed mb-4">
                                         I created a fully independent version. Beautiful. Looked exactly like the rest of the product. Seamless and easy to use.
                                     </p>
@@ -256,7 +264,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             </div>
                             <BentoRow layout="30/70">
                                 <TextTile>
-                                    <h4 className="text-white font-bold text-lg mb-3">V2: Plugin in the Hub</h4>
+                                    <h3 className="text-white font-bold text-lg mb-3">V2: Plugin in the Hub</h3>
                                     <p className="text-zinc-400 font-light leading-relaxed mb-4">
                                         I created a version where the entire independent version was integrated in the HUB in a plugin form. I loved this version the most.
                                     </p>
@@ -302,7 +310,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         <BentoGrid className="space-y-16 md:space-y-24 mt-12">
                             <BentoRow layout="30/70">
                                 <TextTile accent="teal">
-                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">Unifying the Setup</h4>
+                                    <h3 className="text-white font-bold text-xl md:text-2xl mb-4">Unifying the Setup</h3>
                                     <p className="text-zinc-400 font-light leading-relaxed">
                                         Instead of separating basic scheduling and advanced settings across disjointed forms, I built a single intelligent dialog. It feels lightweight out of the gate but progressively scales up in capability, adapting directly to user requirements natively from the Hub.
                                     </p>
@@ -315,7 +323,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
 
                             <BentoRow layout="30/70">
                                 <TextTile accent="teal" delay={0.1}>
-                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">A Natural Language System</h4>
+                                    <h3 className="text-white font-bold text-xl md:text-2xl mb-4">A Natural Language System</h3>
                                     <p className="text-zinc-400 font-light leading-relaxed">
                                         Cryptic legacy codes were replaced with human-readable, auto-generating sentence summaries. The recurrence engine protects users from configuration errors using smart inline validation, hiding complexity like blackout days until absolutely needed.
                                     </p>
@@ -331,7 +339,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
 
                             <BentoRow layout="30/70">
                                 <TextTile accent="teal" delay={0.1}>
-                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">Elevating Access & Control</h4>
+                                    <h3 className="text-white font-bold text-xl md:text-2xl mb-4">Elevating Access & Control</h3>
                                     <p className="text-zinc-400 font-light leading-relaxed">
                                         Managing distribution channels and security was previously an afterthought requiring complex navigation. We elevated them into first-class searchable assets. Whether you&apos;re configuring a network directory or an internal access list, the interaction paradigm remains identical.
                                     </p>
@@ -344,7 +352,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
 
                             <BentoRow layout="30/70">
                                 <TextTile accent="teal" delay={0.1}>
-                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">Contextual Job Diagnostics</h4>
+                                    <h3 className="text-white font-bold text-xl md:text-2xl mb-4">Contextual Job Diagnostics</h3>
                                     <p className="text-zinc-400 font-light leading-relaxed">
                                         Historically, running job logs popped out as completely detached web pages spanning thousands of rows of code. By designing a native embedded viewer with filtering and deep search directly within the UI, diagnosing scheduling failures became an instant, seamless action.
                                     </p>
@@ -356,7 +364,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
 
                             <BentoRow layout="30/70">
                                 <TextTile accent="teal" delay={0.1}>
-                                    <h4 className="text-white font-bold text-xl md:text-2xl mb-4">The Unified Dashboard</h4>
+                                    <h3 className="text-white font-bold text-xl md:text-2xl mb-4">The Unified Dashboard</h3>
                                     <p className="text-zinc-400 font-light leading-relaxed">
                                         Finally, the overarching environment. The ReportCaster Explorer aggregates schedules, access lists, and distribution rules in a single native Hub view. Administrators get dedicated, high-level status monitoring without jumping into an entirely separate enterprise module.
                                     </p>
@@ -369,12 +377,14 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         </BentoGrid>
                     </CinematicScene>
                 </div>
+                </PerspectiveReveal>
             )}
 
 
             {/* ═══════════════════════════════════════════════
                 ACT V — I ONBOARDED 20 PEOPLE.
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-v">
                 <CinematicScene
                     title="I Onboarded 20 People."
@@ -456,11 +466,13 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     By the time I left the team, the senior engineers who&apos;d worked for decades — they&apos;d become my family. They were no longer intimidating. I had earned respect and trust from them. They valued my opinion. I was the youngest in the room with an unspoken authority on the experience of RC.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT VI — POWERING 20M+ SCHEDULES
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-vi">
                 <CinematicScene
                     title="Powering 20M+ Schedules"
@@ -503,7 +515,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
 
                         <BentoRow layout="full">
                             <ImpactDiff
-                                beforeImage="/images/case-study/ReportCaster/Before.png"
+                                beforeImage="/images/case-study/ReportCaster/Before.webp"
                                 afterImage="/images/case-study/ReportCaster/After.png"
                                 beforeLabel="Legacy UI"
                                 afterLabel="Redesign"
@@ -534,6 +546,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     </BentoGrid>
                 </CinematicScene>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
@@ -583,7 +596,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 className="p-6 rounded-xl border-l-2 border-amber-500/40 bg-white/[0.02]"
                             >
                                 <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
-                                <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h4>
+                                <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h3>
                                 <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.pushHarder.content }} />
                             </motion.div>
                             <motion.div
@@ -594,7 +607,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 className="p-6 rounded-xl border-l-2 border-[var(--cs-accent)]/40 bg-white/[0.02]"
                             >
                                 <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>
-                                <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h4>
+                                <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h3>
                                 <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
                             </motion.div>
                         </div>

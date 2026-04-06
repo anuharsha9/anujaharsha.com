@@ -455,10 +455,10 @@ export default function MLTrailer() {
                             transition={{ delay: 0.2, duration: 0.6, ease }}
                         >
                             <p className="text-sm sm:text-base md:text-lg text-zinc-200 italic leading-relaxed">
-                                &ldquo;Four SMEs. Separate sessions. I told them one thing: it starts from the dataset. They right-clicked, saw Predict Data — and just blazed through it.&rdquo;
+                                &ldquo;The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive and has greatly contributed to the success of our products.&rdquo;
                             </p>
                             <footer className="mt-4 font-mono text-[10px] sm:text-xs text-zinc-600 uppercase tracking-[0.2em]">
-                                — Anuja Harsha · Lead Product Designer
+                                — Marcus Horbach · Principal Data Scientist
                             </footer>
                         </motion.blockquote>
                     </motion.div>

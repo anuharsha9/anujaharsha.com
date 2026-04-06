@@ -362,7 +362,7 @@ export default function VibeCodingBlock() {
                         <span className="text-zinc-600 font-normal"> & Code Prototyping</span>
                     </h2>
                     <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
-                        Full-stack prototyping — design, code, ship. Built with Cursor and Google Antigravity.
+                        I build what I design. Real products. Real users. Code validates design decisions faster than any spec.
                     </p>
                 </motion.div>
 

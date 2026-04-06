@@ -10,6 +10,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
+import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import ImpactDiff from '@/components/case-study/ImpactDiff'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
@@ -25,6 +26,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
             {/* ═══════════════════════════════════════════════
                 ACT I — A SIDE PROJECT EARNED ME THE WHOLE THING
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-1-hook">
                 <CinematicScene
                     title="A Side Project Earned Me the Whole Thing."
@@ -103,7 +105,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                         <EyebrowLabel>Legacy Pain Points</EyebrowLabel>
                         <BentoRow layout="30/70">
                             <TextTile accent="red">
-                                <h4 className="text-white font-bold text-lg mb-3">&ldquo;No Result Generated.&rdquo;</h4>
+                                <h3 className="text-white font-bold text-lg mb-3">&ldquo;No Result Generated.&rdquo;</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     There was a big exclamation mark in a red circle, and the expression was red itself. It said &lsquo;No model generated, please click on the play button to start training the model.&rsquo; So frustrating. That was the first thing I noticed, and it was the first thing I said — let&apos;s remove that messaging, please.
                                 </p>
@@ -113,7 +115,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
                         <BentoRow layout="30/70">
                             <TextTile>
-                                <h4 className="text-white font-bold text-lg mb-3">Three Levels of Navigation.</h4>
+                                <h3 className="text-white font-bold text-lg mb-3">Three Levels of Navigation.</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     You had the step navigation, you had the algorithm navigation, and inside algorithms, another level of tabs. Just for binary classification — 8 into 5 screens. That same structure applied to every model type.
                                 </p>
@@ -123,7 +125,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
                         <BentoRow layout="30/70">
                             <TextTile>
-                                <h4 className="text-white font-bold text-lg mb-3">The Data Flow Canvas.</h4>
+                                <h3 className="text-white font-bold text-lg mb-3">The Data Flow Canvas.</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     The old ML workflow had the data flow canvas visible at all times. Split view — data flow on top, table view at the bottom. You didn&apos;t really need the data flow in the view. I had to ask the data scientist for repeated walkthroughs because I couldn&apos;t get the sandbox to work.
                                 </p>
@@ -137,11 +139,13 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                     It was also something I had proposed — because after I found out about the explainability popup, I realized the entire machine learning workflow was not great. Understanding earned me ownership.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT II — ONE PATH. NOT TWO EXPERIENCES.
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-2-investigation">
                 <CinematicScene
                     title="One Path. Not Two Experiences."
@@ -209,11 +213,13 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                     Every session with the data scientist was enlightening. I don&apos;t think without those sessions I would have been able to do it at all. He loved machine learning. I loved user experience. That mutual passion is why it worked.
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT III — WHY DON'T WE HAVE A LANDING PAGE HERE?
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-3-architecture">
                 <CinematicScene
                     title="Why Don't We Have a Landing Page Here?"
@@ -231,7 +237,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
                         <BentoRow layout="30/70">
                             <TextTile accent="teal">
-                                <h4 className="text-white font-bold text-lg mb-3">Six Clicks to Two.</h4>
+                                <h3 className="text-white font-bold text-lg mb-3">Six Clicks to Two.</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     In WebFOCUS, right-click is like religion. Everything is right-clickable. So putting &ldquo;Predict Data&rdquo; in the right-click menu of a dataset was the most natural thing. I was capitalizing on the most common user behavior in the product. Once we saw how well it worked, we extended the pattern to Generate Insights and Ask a Question too.
                                 </p>
@@ -241,7 +247,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
                         <BentoRow layout="30/70">
                             <TextTile accent="teal">
-                                <h4 className="text-white font-bold text-lg mb-3">The Popup Won.</h4>
+                                <h3 className="text-white font-bold text-lg mb-3">The Popup Won.</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     I tried full-screen views, side-step layouts, two-column layouts. The popup wizard won because WebFOCUS loved modals — all engineers lived in popups. It gave me breathing room for helper text and definitions. It let each step exist cleanly without the whole screen jumping. And it was faster to engineer. Sometimes the best design move is the one that solves the problem without asking the legacy product to become something it isn&apos;t.
                                 </p>
@@ -275,11 +281,13 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                     </BentoGrid>
                 </CinematicScene>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT IV — THE MOST COMPLEX SCREEN I'VE EVER DESIGNED
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-4-craft">
                 <CinematicScene
                     title="The Most Complex Screen I've Ever Designed."
@@ -304,7 +312,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
 
                         <BentoRow layout="30/70">
                             <TextTile accent="teal" delay={0.1}>
-                                <h4 className="text-white font-bold text-xl md:text-2xl mb-4">The Confusion Matrix</h4>
+                                <h3 className="text-white font-bold text-xl md:text-2xl mb-4">The Confusion Matrix</h3>
                                 <p className="text-zinc-400 font-light leading-relaxed">
                                     I aligned the threshold slider directly under the chart point that moved — exactly 90 degrees parallel. As you drag it, the dot on the line chart moves with it. There&apos;s no way you can miss the relationship. It was like magic. After understanding every interaction on every chart, I could finally explain it to somebody else visually.
                                 </p>
@@ -383,11 +391,13 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                     &ldquo;The best screen in the entire UX revamp.&rdquo; He said that during a team walkthrough. Out loud. In front of everyone. — Marcus Horbach, Principal Data Scientist
                 </PullQuote>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT V — I FOUGHT FOR EVERY DAMN THING IN ML.
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-5-team">
                 <CinematicScene
                     title="I Fought for Every Damn Thing in ML."
@@ -434,11 +444,13 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                     </BentoGrid>
                 </CinematicScene>
             </div>
+            </PerspectiveReveal>
 
 
             {/* ═══════════════════════════════════════════════
                 ACT VI — THEY JUST BLAZED THROUGH IT.
                ═══════════════════════════════════════════════ */}
+            <PerspectiveReveal>
             <div className="relative z-20" id="act-6-outcome">
                 <CinematicScene
                     title="They Just Blazed Through It."
@@ -508,7 +520,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     className="p-6 rounded-xl border-l-2 border-amber-500/40 bg-white/[0.02]"
                                 >
                                     <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
-                                    <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h4>
+                                    <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h3>
                                     <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.pushHarder.content }} />
                                 </motion.div>
                                 <motion.div
@@ -519,7 +531,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                     className="p-6 rounded-xl border-l-2 border-[var(--cs-accent)]/40 bg-white/[0.02]"
                                 >
                                     <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>
-                                    <h4 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h4>
+                                    <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h3>
                                     <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
                                 </motion.div>
                             </div>
@@ -530,6 +542,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                     <SystemIndex currentId="ML_FUNCTIONS" />
                 </div>
             </div>
+            </PerspectiveReveal>
         </>
     )
 }

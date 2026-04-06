@@ -66,7 +66,7 @@ export const featuredCaseStudies: FeaturedCaseStudy[] = [
     impact:
       'Step-based flows, clearer mental models, aligned with DSML strategy.',
     tags: ['AI/ML UX', 'Workflow design'],
-    image: '/images/case-study/ml-functions/ml-functions-cover.png',
+    image: '/images/case-study/ml-functions/ml-functions-cover.webp',
     ctaText: 'View case study',
   },
   {
@@ -76,7 +76,7 @@ export const featuredCaseStudies: FeaturedCaseStudy[] = [
       'Designing a unified hub that brings scattered DSML services into one responsive experience — so business users can discover, run, and interpret insights without leaving their analytics hub.',
     impact: 'Reduced context switching and made insights discoverable.',
     tags: ['DSML Integration', 'Information Architecture'],
-    image: '/images/case-study/iq-plugin/iq-cover.png',
+    image: '/images/case-study/iq-plugin/iq-cover.webp',
     ctaText: 'View case study',
   },
 ]

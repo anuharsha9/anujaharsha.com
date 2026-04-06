@@ -131,7 +131,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
         type: 'title',
         title: 'Nobody Could Use Our ML Engine.',
         content: ['Anuja Harsha — Senior Product Designer', 'ML Functions Case Study'],
-        image: '/images/case-study/ml-functions/ml-functions-cover.png',
+        image: '/images/case-study/ml-functions/ml-functions-cover.webp',
       },
       {
         type: 'title',

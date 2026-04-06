@@ -127,7 +127,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
         type: 'title',
         title: 'We Built the Intelligence. Nobody Knew It Existed.',
         content: ['Anuja Harsha — Lead Product Designer', 'Third Case Study'],
-        image: '/images/case-study/iq-plugin/iq-cover.png',
+        image: '/images/case-study/iq-plugin/iq-cover.webp',
       },
       {
         type: 'title',

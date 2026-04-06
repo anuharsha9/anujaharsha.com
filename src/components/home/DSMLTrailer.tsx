@@ -441,10 +441,10 @@ export default function DSMLTrailer() {
                             transition={{ delay: 0.2, duration: 0.6, ease }}
                         >
                             <p className="text-sm sm:text-base md:text-lg text-zinc-200 italic leading-relaxed">
-                                &ldquo;Anu is bold and fearless in his design pursuits. He pushes boundaries and explores new design territory without hesitation.&rdquo;
+                                &ldquo;Anu is bold and fearless in her design pursuits. She pushes boundaries and explores new design territory without hesitation.&rdquo;
                             </p>
                             <footer className="mt-4 font-mono text-[10px] sm:text-xs text-zinc-600 uppercase tracking-[0.2em]">
-                                — Craig Clapper · Director of Design
+                                — Dave Pfeiffer · Director of Design
                             </footer>
                         </motion.blockquote>
                     </motion.div>

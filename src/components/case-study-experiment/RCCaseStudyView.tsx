@@ -50,7 +50,7 @@ const RC_SLIDES: StorySlide[] = [
 
 /* ─── RC Hero Stats ─── */
 const RC_HERO_STATS: HeroStat[] = [
-    { label: 'Scale', value: '15M+ Users', description: 'Enterprise platform reach' },
+    { label: 'Scale', value: '20M+ Jobs', description: 'Weekly schedules processed' },
     { label: 'Transformation', value: '5 → 1 Hub', description: 'Subsystems unified' },
     { label: 'Timeline', value: '', description: 'Research to production' },
 ]

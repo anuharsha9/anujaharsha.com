@@ -519,7 +519,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                 &ldquo;She impressed everyone with how quickly she grasped all aspects of a highly intricate system and translated that understanding into a clear, modern, and user-centered design.&rdquo;
                             </p>
                             <footer className="mt-4 font-mono text-[10px] sm:text-xs text-zinc-600 uppercase tracking-[0.2em]">
-                                — Yingchun Chen · Principal Systems Engineer
+                                — Yingchun Chen · Principal System Software Engineer
                             </footer>
                         </motion.blockquote>
                     </motion.div>
