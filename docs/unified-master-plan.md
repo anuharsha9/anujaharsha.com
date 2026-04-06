@@ -14,9 +14,9 @@ PHASE 1: Merge & Stabilize     ████████████████�
 PHASE 2: Cinematic Polish       ████████████████████░ ~90%
 PHASE 3: Content Alignment      ██████████████████████ DONE ✅
 PHASE 4: Hardening & Cleanup    ████████████████░░░░░ ~70%
-PHASE 5: Submission              ░░░░░░░░░░░░░░░░░░░░ NOT STARTED
+PHASE 5: Submission              █████████░░░░░░░░░░░ ~30%
 
-OVERALL PROGRESS  ██████████████████████░░ ~90%
+OVERALL PROGRESS  ███████████████████████░ ~95%
 ```
 
 ### What's Been Done (Verified in Code)
@@ -134,8 +134,8 @@ Target files:
 
 | # | Task | Status |
 |---|------|--------|
-| 5.1 | Deploy final build to production | ⬜ |
-| 5.2 | CloudFront cache invalidation | ⬜ |
+| 5.1 | Deploy final build to production | ✅ | Shipped via npm run ship. AWS S3 synced. |
+| 5.2 | CloudFront cache invalidation | ✅ | Invalidation ID I44JIQP9O8U4PGJKDHXUNT6TYW created. |
 | 5.3 | Final live site walkthrough | ⬜ |
 | 5.4 | Screenshots (desktop hero + case study + mobile) | ⬜ |
 | 5.5 | Short description (2-3 sentences) | ⬜ |
