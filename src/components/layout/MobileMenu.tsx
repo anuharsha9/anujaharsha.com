@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
+import { usePdf } from '@/contexts/PdfContext'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 
 import { getCaseStudyData } from '@/lib/getCaseStudyData'
@@ -20,6 +21,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const t = getTheme(isLightBackground)
+  const { openPdf } = usePdf()
   const closeMenu = useCallback(() => setIsOpen(false), [])
   const panelRef = useFocusTrap<HTMLDivElement>(isOpen, {
     onEscape: closeMenu,
@@ -225,19 +227,17 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                     Me
                   </TransitionLink>
 
-                  <a
-                    href="/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
                     onClick={() => {
                       trackResumeDownload()
                       closeMenu()
+                      openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
                     }}
                     className={`block w-full text-left px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 border-2 mt-4 ${t.textAccent} border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/5 hover:bg-[var(--accent-teal)]/10 focus-visible:outline-[var(--accent-teal)]`}
                     aria-label="View Resume PDF"
                   >
                     Resume (PDF)
-                  </a>
+                  </button>
                 </div>
 
                 {/* Case Study Sections - only show on case study pages */}

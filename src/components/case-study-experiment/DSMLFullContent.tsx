@@ -161,7 +161,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     <span className="text-[10px] font-mono text-purple-400/60 uppercase tracking-widest">Invisible Features</span>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    Three AI features. Three different entry points. Three different mental models. Users didn&apos;t even know they existed.
+                                    Three AI features. Three different entry points. Three different mental models. Users didn&apos;t even know they existed. <span className="font-semibold text-white">The business thought we needed better models. We didn&apos;t. We just needed to put them where people could actually find them.</span>
                                 </p>
                             </TextTile>
                             <TextTile delay={0.15}>

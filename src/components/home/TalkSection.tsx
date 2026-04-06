@@ -82,11 +82,11 @@ export default function TalkSection() {
             </Magnetic>
 
             <Magnetic strength={0.4}>
-              <a
-                href="/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackResumeDownload()}
+              <button
+                onClick={() => {
+                  trackResumeDownload()
+                  openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
+                }}
                 className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full border border-amber-500/25 bg-amber-500/[0.08] text-amber-200 text-sm font-medium tracking-wide hover:bg-amber-500/[0.15] hover:text-amber-100 hover:border-amber-500/40 transition-all duration-500 shadow-[0_0_30px_-8px_rgba(245,158,11,0.15)]"
                 aria-label="View Resume PDF"
               >
@@ -94,7 +94,7 @@ export default function TalkSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Resume
-              </a>
+              </button>
             </Magnetic>
 
             <Magnetic strength={0.2}>

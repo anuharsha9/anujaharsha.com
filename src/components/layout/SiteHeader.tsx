@@ -11,9 +11,11 @@ import MobileMenu from './MobileMenu'
 import CaseStudiesDropdown from './CaseStudiesDropdown'
 import Magnetic from '@/components/ui/Magnetic'
 import { getTheme, spacing } from '@/lib/design-system'
+import { usePdf } from '@/contexts/PdfContext'
 
 export default function SiteHeader() {
   const pathname = usePathname()
+  const { openPdf } = usePdf()
   const isLandingPage = pathname === '/'
   const isWorduPage = pathname?.startsWith('/work/wordu') ?? false
   const isAboutPage = pathname === '/me' || pathname === '/me/'
@@ -70,8 +72,8 @@ export default function SiteHeader() {
       return
     }
 
-    // On desktop landing page: hide navbar until user scrolls past the hero intro 
-    const heroThreshold = isLandingPage ? 50 : 0
+    // On desktop landing page: hide navbar until user scrolls past 0px 
+    const heroThreshold = 0
     const hasScrolled = scrollY > heroThreshold
     setIsVisible(hasScrolled)
   }, [isLandingPage])
@@ -161,11 +163,11 @@ export default function SiteHeader() {
 
           {/* Resume - Secondary CTA */}
           <Magnetic strength={0.2}>
-            <a
-              href="/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackResumeDownload()}
+            <button
+              onClick={() => {
+                trackResumeDownload()
+                openPdf('/assets/Anuja Harsha Nimmagadda - Senior Product Designer.pdf', 'Anuja Harsha - Senior Product Designer')
+              }}
               className={`inline-flex items-center gap-space-1.5 px-space-4 py-space-2 rounded-full ${isLandingPage ? 'text-zinc-500 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`} font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]`}
               aria-label="View Resume PDF"
             >
@@ -190,7 +192,7 @@ export default function SiteHeader() {
                   d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                 />
               </svg>
-            </a>
+            </button>
           </Magnetic>
         </div>
 

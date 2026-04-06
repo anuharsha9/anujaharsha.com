@@ -279,7 +279,7 @@ export const CAREER_DATA: CareerEra[] = [
             {
                 id: "kedazzle",
                 title: "Kedazzle",
-                description: "EdTech MVP. From concept to shipping product.",
+                description: "Blank canvas → Shipped EdTech MVP. End-to-end product design.",
                 image: "/images/Kedazzle-cover.png",
                 link: "/archive/kedazzle",
                 tags: ["0-to-1", "EdTech"]
@@ -287,7 +287,7 @@ export const CAREER_DATA: CareerEra[] = [
             {
                 id: "infinite-analytics",
                 title: "Infinite",
-                description: "All-in-one productivity app. Tasks, notes, and goals.",
+                description: "Fragmented tools → Unified productivity. Merged tasks, notes, and goals.",
                 image: "/images/Infinite-Cover.png",
                 link: "/archive/infinite-analytics",
                 tags: ["Productivity", "Mobile App"]
@@ -295,7 +295,7 @@ export const CAREER_DATA: CareerEra[] = [
             {
                 id: "travel-portal",
                 title: "Travel Portal",
-                description: "Corporate travel booking platform.",
+                description: "Complex routing → Simple booking. Designed for strict enterprise compliance.",
                 image: "/images/travel-cover.png",
                 link: "/archive/travel-portal",
                 tags: ["Enterprise", "Travel"]

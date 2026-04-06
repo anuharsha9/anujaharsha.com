@@ -43,13 +43,13 @@ export default function PdfLightbox({
             indexString="[ PDF_DOCUMENT ]"
             shortcuts={shortcuts}
             headerActions={downloadButton}
-            className="p-0 overflow-hidden bg-slate-900/50" // Override padding for iframe full size
+            className="!p-0 !max-w-full overflow-hidden"
             showArrows={false}
         >
-            <div className="w-full h-full max-w-6xl mx-auto flex items-center justify-center p-4 md:p-8">
+            <div className="w-full h-full flex items-center justify-center">
                 <iframe
                     src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                    className="w-full h-full rounded-none md:rounded-lg shadow-2xl bg-slate-800 border border-slate-700/50"
+                    className="w-full h-full bg-slate-800"
                     title="PDF Viewer"
                 />
             </div>

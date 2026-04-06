@@ -126,10 +126,10 @@ export default function BeatWeekOne() {
                                             {Array.from({ length: 12 }).map((_, ti) => {
                                                 const angle = (ti / 12) * 360
                                                 const rad = (angle * Math.PI) / 180
-                                                const x1 = 48 + 33 * Math.cos(rad)
-                                                const y1 = 48 + 33 * Math.sin(rad)
-                                                const x2 = 48 + 36 * Math.cos(rad)
-                                                const y2 = 48 + 36 * Math.sin(rad)
+                                                const x1 = +(48 + 33 * Math.cos(rad)).toFixed(3)
+                                                const y1 = +(48 + 33 * Math.sin(rad)).toFixed(3)
+                                                const x2 = +(48 + 36 * Math.cos(rad)).toFixed(3)
+                                                const y2 = +(48 + 36 * Math.sin(rad)).toFixed(3)
                                                 return (
                                                     <motion.line
                                                         key={ti}

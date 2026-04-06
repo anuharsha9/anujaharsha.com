@@ -61,13 +61,9 @@ export default function TransitionLink({
     // If transition is active, check if it's stuck
     if (phase !== 'idle') {
       const elapsed = Date.now() - lastPhaseChange.current
-      if (elapsed > 3000) {
-        // Phase has been stuck for 3+ seconds — force native navigation
-        console.warn('[TransitionLink] Phase stuck for', elapsed, 'ms — forcing native navigation')
-        window.location.href = href
-        return
+      if (elapsed > 8000) {
+        console.warn('[TransitionLink] Phase stuck for', elapsed, 'ms. We will wait instead of forcing reload.')
       }
-      // Otherwise, just wait for the transition to finish
       return
     }
 

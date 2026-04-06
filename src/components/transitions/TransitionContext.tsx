@@ -167,27 +167,28 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     if (navLock.current || normalize(href) === normalize(pathnameRef.current)) return
     navLock.current = true
 
+    pendingHref.current = href
+
+    // 1) Stop scroll
     const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis
     lenisRef.current = lenis || null
     if (lenis) lenis.stop()
 
-    // Tell aurora to surge
-    window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'surge' } }))
-
-    // Phase 1: SUBMERGE — canvas waves build upward
+    // 2) Start Submerge
     setPhase('submerge')
     phaseRef.current = 'submerge'
     setProgress(0)
-    pendingHref.current = href
+    window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'submerge' } }))
 
-    // Fire routing at 500ms precisely when content opacity has turned black 
-    // but long before the 900ms surge finishes. This prevents the React commit
-    // from freezing the thread right at the peak apex.
+    // 3) Push router midway through the submerge animation
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
-      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+      console.log('[TransitionContext] Firing router.push to:', href)
       Promise.resolve().then(() => {
-        router.push(href)
+        router.push(href, { scroll: true })
+        // Removed hard timeout so Next.js has time to compile in dev mode
+      }).catch(err => {
+        console.error('[TransitionContext] router.push threw error:', err)
       })
     }, 500)
 

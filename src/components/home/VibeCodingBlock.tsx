@@ -362,7 +362,7 @@ export default function VibeCodingBlock() {
                         <span className="text-zinc-600 font-normal"> & Code Prototyping</span>
                     </h2>
                     <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
-                        I build what I design. Real products. Real users. Code validates design decisions faster than any spec.
+                        I don&apos;t just hand off Figma files. <strong className="font-medium text-zinc-400">I prototype in code because the biggest risk isn&apos;t in the visuals &mdash; it&apos;s in the logic.</strong> Code proves it works faster than any spec ever could.
                     </p>
                 </motion.div>
 
