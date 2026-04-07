@@ -26,8 +26,13 @@ export default function ThreeBrainGears({
   onGearClick?: (id: string) => void
 }) {
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-auto z-10 block" style={{ opacity: 1, pointerEvents: 'auto' }}>
-      <Canvas camera={{ position: [0, 0, 500], fov: 45 }}>
+    <div className="absolute inset-0 w-full h-full pointer-events-auto z-10 block" style={{ opacity: 1, pointerEvents: 'auto', background: 'transparent' }}>
+      <Canvas 
+        camera={{ position: [0, 0, 500], fov: 45 }}
+        gl={{ alpha: true, antialias: true, preserveDrawingBuffer: false }}
+        dpr={[1, 1.5]}
+        style={{ background: 'transparent' }}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1.5} />
         <pointLight position={[-10, -10, -10]} intensity={2} color="#2dd4bf" />
