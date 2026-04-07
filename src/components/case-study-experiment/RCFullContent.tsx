@@ -13,7 +13,7 @@ import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import ImpactDiff from '@/components/case-study/ImpactDiff'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
-    BentoGrid, BentoRow, ImageTile, TextTile,
+    BentoGrid, BentoRow, ImageTile, TextTile, VideoTile,
     PullQuote, EyebrowLabel, CarouselTile,
 } from './BentoGrid'
 import {
@@ -49,6 +49,15 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
 
     return (
         <>
+            {/* ═══════════════════════════════════════════════
+                PROTOTYPE WALKTHROUGH
+               ═══════════════════════════════════════════════ */}
+            <BentoGrid className="mb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
+                <BentoRow layout="full">
+                    <VideoTile src="/videos/rc-old-workflow.mp4" title="Legacy Software • Original Workflow Walkthrough with Voiceover" aspectRatio="16/9" />
+                    <VideoTile src="/videos/rc-prototype-walkthrough.mp4" title="Unified Experience • Prototype Walkthrough with Voiceover" aspectRatio="16/9" />
+                </BentoRow>
+            </BentoGrid>
             {/* ═══════════════════════════════════════════════
                 ACT I — HOW I LANDED THE PROJECT
                ═══════════════════════════════════════════════ */}

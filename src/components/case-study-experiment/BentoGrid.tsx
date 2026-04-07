@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 import ImageLightbox from '@/components/case-study/ImageLightbox'
 
 /* ─── Lightbox Context ─── */
@@ -133,6 +134,115 @@ export function ImageTile({
                     </div>
                 </div>
             )}
+        </motion.div>
+    )
+}
+
+/* ─── Video Tile ─── */
+export function VideoTile({
+    src,
+    title,
+    delay = 0,
+    className = '',
+    aspectRatio,
+}: {
+    src: string
+    title?: string
+    delay?: number
+    className?: string
+    aspectRatio?: string
+}) {
+    const videoRef = React.useRef<HTMLVideoElement>(null)
+    const [isPlaying, setIsPlaying] = React.useState(false)
+    const [isMuted, setIsMuted] = React.useState(false)
+    const [progress, setProgress] = React.useState(0)
+
+    const togglePlay = () => {
+        if (!videoRef.current) return
+        if (isPlaying) {
+            videoRef.current.pause()
+        } else {
+            videoRef.current.play()
+        }
+    }
+
+    const toggleMute = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        if (!videoRef.current) return
+        videoRef.current.muted = !isMuted
+        setIsMuted(!isMuted)
+    }
+
+    const handleTimeUpdate = () => {
+        if (!videoRef.current) return
+        const p = (videoRef.current.currentTime / videoRef.current.duration) * 100
+        setProgress(p || 0)
+    }
+
+    const handleScrub = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation()
+        if (!videoRef.current) return
+        const rect = e.currentTarget.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const percentage = x / rect.width
+        videoRef.current.currentTime = percentage * videoRef.current.duration
+    }
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+            className={`flex flex-col gap-3 group/video ${className}`}
+        >
+            {title && (
+                <p className="text-sm font-mono text-zinc-400 uppercase tracking-[0.2em] px-2">{title}</p>
+            )}
+            <div
+                className="relative overflow-hidden rounded-xl bg-[var(--surface-sunken)] ring-1 ring-white/10 cursor-pointer shadow-2xl shadow-black/50"
+                style={aspectRatio ? { aspectRatio } : undefined}
+                onClick={togglePlay}
+            >
+                <video
+                    ref={videoRef}
+                    src={src}
+                    className="w-full h-auto object-contain block"
+                    playsInline
+                    preload="metadata"
+                    onTimeUpdate={handleTimeUpdate}
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    onEnded={() => setIsPlaying(false)}
+                />
+
+                {/* Big Center Play Button Overlay */}
+                <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 pointer-events-none ${isPlaying ? 'opacity-0 scale-110' : 'opacity-100 bg-black/40 scale-100'}`}>
+                    <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl transition-transform duration-300 hover:scale-105 hover:bg-white/20">
+                        <Play className="w-8 h-8 text-white ml-2" fill="currentColor" />
+                    </div>
+                </div>
+
+                {/* Custom Control Bar (appears on hover or when playing) */}
+                <div className={`absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-3 transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover/video:opacity-100' : 'opacity-100'}`}>
+                    {/* Scrub Bar */}
+                    <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer hover:h-2.5 transition-all group/scrub" onClick={handleScrub}>
+                        <div className="h-full bg-[var(--accent-teal)] rounded-full transition-all duration-75 ease-linear relative" style={{ width: `${progress}%` }}>
+                           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover/scrub:opacity-100 shadow-[0_0_10px_rgba(45,212,191,1)]" />
+                        </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-white w-full">
+                        <button onClick={(e) => { e.stopPropagation(); togglePlay(); }} className="hover:text-[var(--accent-teal)] transition-colors p-1" aria-label={isPlaying ? "Pause" : "Play"}>
+                            {isPlaying ? <Pause className="w-5 h-5" fill="currentColor" /> : <Play className="w-5 h-5" fill="currentColor" />}
+                        </button>
+                        
+                        <button onClick={toggleMute} className="hover:text-[var(--accent-teal)] transition-colors p-1 ml-auto" aria-label={isMuted ? "Unmute" : "Mute"}>
+                            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" fill={!isMuted ? "currentColor" : "none"} />}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </motion.div>
     )
 }

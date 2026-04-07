@@ -12,7 +12,7 @@ import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
-    BentoGrid, BentoRow, ImageTile, TextTile,
+    BentoGrid, BentoRow, ImageTile, TextTile, VideoTile,
     PullQuote, EyebrowLabel, CarouselTile,
 } from './BentoGrid'
 
@@ -140,6 +140,14 @@ function DSMLNavigationDiagram() {
 export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
     return (
         <>
+            {/* ═══════════════════════════════════════════════
+                PROTOTYPE WALKTHROUGH
+               ═══════════════════════════════════════════════ */}
+            <BentoGrid className="mb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
+                <BentoRow layout="full">
+                    <VideoTile src="/videos/iq-prototype-walkthrough.mp4" title="IQ Plugin Prototype • Workflow Walkthrough with Voiceover" aspectRatio="16/9" />
+                </BentoRow>
+            </BentoGrid>
             {/* ═══════════════════════════════════════════════
                 ACT I — THREE POWERFUL AI FEATURES. NEAR-ZERO ADOPTION.
                ═══════════════════════════════════════════════ */}
