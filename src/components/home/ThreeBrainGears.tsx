@@ -72,13 +72,14 @@ function BrainMesh({
     return parsedPaths.map((p) => {
       const node = p.userData?.node as Element | undefined
       const id = node?.id || node?.parentElement?.id || (node?.parentNode as Element)?.id || ''
-      
-      // Filter explicit backgrounds or invisible layers
-      if (node?.tagName === 'rect' || node?.nodeName === 'rect') return null
-      if (id.includes('lines-background') || id.includes('Background') || id === 'Layer_1') return null
-      
-      const fill = node?.getAttribute('fill')
-      if (fill === 'none' || fill === 'transparent') return null
+
+      // ONLY allow explicit gear IDs
+      if (!id.includes('gear-')) return null;
+
+      // The original SVG uses <path fill="#D9D9D9"> for drop shadow filters which SVGLoader hallucinates into solid gray blocks!
+      // All real 3D gears use linear gradients: fill="url(#paint...)"
+      const fill = node?.getAttribute('fill') || ''
+      if (!fill.startsWith('url')) return null;
 
       const shapeList = SVGLoader.createShapes(p)
       
@@ -94,9 +95,9 @@ function BrainMesh({
       const size = new THREE.Vector3()
       bb.getSize(size)
       
-      // Filter out simple backgrounds (boxes) and massive canvas elements
-      if (totalPts < 20) return null
-      if (size.x > 500 || size.y > 500) return null
+      // Keep only reasonably complex shapes that are large enough to be gears but small enough not to be the canvas
+      if (totalPts < 15) return null
+      if (size.x > 1800 || size.y > 1700) return null
 
       return {
         path: p,
