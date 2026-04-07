@@ -1215,7 +1215,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
               {/* Centered Gears - THE HERO (with 3D parallax wrapper) */}
               <div
                 ref={parallaxRef}
-                className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding,filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz'
+                className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz'
                   ? 'max-w-[360px] sm:max-w-[460px] md:max-w-[620px] lg:max-w-[760px] xl:max-w-[840px] max-h-[62vh] sm:max-h-[70vh] lg:max-h-[82vh] mt-0 brain-entry-container'
                   : showImmersiveCompleteState
                     ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0 brain-floating'
@@ -1224,15 +1224,21 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 style={{
                   transformOrigin: 'center center',
                   willChange: 'transform',
-                  filter: showImmersiveCompleteState
-                    ? 'drop-shadow(0 40px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3))'
-                    : 'none',
                 }}
               >
-                <GearsSvgContainer
-                  svgContent={baseSvg}
-                  containerRef={containerRef}
-                />
+                <div 
+                  className="w-full relative transition-[filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{
+                    filter: showImmersiveCompleteState
+                      ? 'drop-shadow(0 40px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3))'
+                      : 'none',
+                  }}
+                >
+                  <GearsSvgContainer
+                    svgContent={baseSvg}
+                    containerRef={containerRef}
+                  />
+                </div>
                 
                 <div className="absolute inset-x-0 -inset-y-[100px] pointer-events-none opacity-[0.15] mix-blend-screen scale-[1.1] z-0 blur-[2px]">
                    <ThreeBrainGears activeGearId={activeGear?.id || null} litGearIds={litGears} />
