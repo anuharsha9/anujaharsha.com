@@ -38,6 +38,15 @@ export default function FixedBackground() {
   const [introBlur, setIntroBlur] = useState(isLanding ? 20 : 0)
   const introStarted = useRef(false)
 
+  const [shouldMountAurora, setShouldMountAurora] = useState(false)
+
+  useEffect(() => {
+    // Artificial 1.5s delay before rendering the heavy Canvas 
+    // This allows the browser to paint the LCP text instantly
+    const t = setTimeout(() => setShouldMountAurora(true), 1500)
+    return () => clearTimeout(t)
+  }, [])
+
   useEffect(() => {
     if (!isLanding || introStarted.current) return
     introStarted.current = true
@@ -122,7 +131,7 @@ export default function FixedBackground() {
             : 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 30%, black 45%, black 100%)',
         }}
       >
-        <HeroAurora />
+        {shouldMountAurora && <HeroAurora />}
       </div>
     </div>
   )
