@@ -90,16 +90,16 @@ export default function PageTransition({ children }: PageTransitionProps) {
   // Submerge: Stay fully visible until the wave crashes over (progress > 0.4), then plummet.
   // Emerge: Stay completely invisible while wave holds, then aggressively reveal as it drops.
   const contentOpacity =
-    phase === 'submerge' ? Math.max(0, 1 - Math.pow(progress, 3) * 2.5) // Fades exactly as wave crests
+    phase === 'submerge' ? Math.max(0, 1 - Math.pow(progress, 2.5) * 1.8) // Smoother fade that rides the wave crest
     : phase === 'hold' ? 0
-    : phase === 'emerge' ? Math.pow(progress, 1.8)                      // Majestic, cinematic fade-in synced with wave descent
+    : phase === 'emerge' ? Math.pow(progress, 1.4)                        // Marginally faster cinematic fade-in
     : 1
 
   const contentBlur = 0
 
   const contentTranslateY =
-    phase === 'submerge' ? Math.pow(progress, 3) * 30 // Pushed down by the crashing wave
-    : phase === 'emerge' ? Math.max(0, Math.pow(1 - progress, 2)) * 30 // Rises up from the deep
+    phase === 'submerge' ? Math.pow(progress, 2.5) * 50 // Pushed deeper down organically
+    : phase === 'emerge' ? Math.max(0, Math.pow(1 - progress, 2)) * 50 // Rises up majestically from the deep
     : 0
 
   useEffect(() => {
@@ -166,14 +166,20 @@ export default function PageTransition({ children }: PageTransitionProps) {
         const sweepDelay = xNorm * Math.sin(layer.sweepAngle) * 0.25
         
         // Critical fix: Scale localProgress so the entire wave hits 1.0 continuously
-        const localProgress = Math.max(0, Math.min(1, (effectiveProgress - sweepDelay) / (1 - sweepDelay)))
+        let localProgress = Math.max(0, Math.min(1, (effectiveProgress - sweepDelay) / (1 - sweepDelay)))
+
+        // Easing for surge: fast initial climb, slows as it reaches the crest (easeOutCubic)
+        localProgress = 1 - Math.pow(1 - localProgress, 3)
 
         return Math.max(0, Math.min(MAX_COVERAGE + 0.05, localProgress * MAX_COVERAGE))
       }
 
       if (curPhase === 'emerge') {
         const sweepDelay = (1 - xNorm) * Math.sin(layer.sweepAngle) * 0.25
-        const localProgress = Math.max(0, Math.min(1, (globalProgress - sweepDelay) / (1 - sweepDelay)))
+        let localProgress = Math.max(0, Math.min(1, (globalProgress - sweepDelay) / (1 - sweepDelay)))
+
+        // Easing for retreat: starts slow (gravity taking hold, water hanging), speeds up as it drains out (easeInQuad)
+        localProgress = localProgress * localProgress
 
         const drain = localProgress
         const base = 1 - drain
