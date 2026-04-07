@@ -1464,20 +1464,12 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                     {/* Glassmorphic inner border */}
                     <div className="absolute inset-0 rounded-2xl border border-white/[0.08] pointer-events-none mix-blend-overlay" />
                     
-                    {/* Ambient Glow from Top edge */}
-                    <div
-                      className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[100px] opacity-40 pointer-events-none mix-blend-screen"
-                      style={{
-                        background: `radial-gradient(ellipse 100% 100% at 50% 0%, ${activeGear.accentColor}, transparent 70%)`,
-                      }}
-                    />
-                    
-                    {/* Sharp Top Indicator Light */}
+                    {/* Clean Minimal Accent line on the left side to elegantly ground the content */}
                     <div 
-                      className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-[1px] opacity-100"
+                      className="absolute top-4 bottom-4 left-0 w-[3px] rounded-r-full opacity-80"
                       style={{
-                        background: `linear-gradient(90deg, transparent, ${activeGear.accentColor}, transparent)`,
-                        boxShadow: `0 1px 12px 2px ${activeGear.accentColor}`
+                        backgroundColor: activeGear.accentColor,
+                        boxShadow: `0 0 10px ${activeGear.accentColor}`
                       }}
                     />
 
