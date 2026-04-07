@@ -88,6 +88,7 @@ export default function CustomCursor() {
     document.body.addEventListener('mouseleave', handleMouseLeave)
     document.body.addEventListener('mouseenter', handleMouseEnter)
 
+    const scrollTimeout = scrollTimeoutRef.current
     return () => {
       window.removeEventListener('mousemove', updatePosition)
       window.removeEventListener('mousedown', handleMouseDown)
@@ -96,7 +97,7 @@ export default function CustomCursor() {
       document.body.removeEventListener('mouseenter', handleMouseEnter)
       document.documentElement.classList.remove('has-custom-cursor')
       document.documentElement.style.cursor = ''
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+      if (scrollTimeout) clearTimeout(scrollTimeout)
     }
   }, [mouseX, mouseY, isClickable])
 

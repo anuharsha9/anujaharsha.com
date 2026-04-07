@@ -144,14 +144,14 @@ REMAINING    ░░░░░ ~22% (mostly cinematic + cleanup)
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 4.1 | `npx next lint` — fix all warnings | ⬜ | Never run |
-| 4.2 | Remove dead imports | ⬜ | |
+| 4.1 | `npx next lint` — fix all warnings | ✅ | Fixed hooks dependencies. 2 image warnings remain intentionally. |
+| 4.2 | Remove dead imports | ✅ | Handled during linting. |
 | 4.3 | Lighthouse audit (target: 95+, LCP < 2.5s) | ⬜ | Never run |
 | 4.4 | Bundle size check (< 200KB first load JS) | ⬜ | |
 | 4.5 | Verify images serve WebP/AVIF | ⬜ | |
 | 4.6 | Verify videos stream from CloudFront | ⬜ | |
 | 4.7 | Test OG images on social preview tools | ⬜ | |
-| 4.8 | Create `public/humans.txt` | ⬜ | **Missing** |
+| 4.8 | Create `public/humans.txt` | ✅ | Created. |
 | 4.9 | Tab through entire site — focus ring everywhere | ⬜ | |
 | 4.10 | VoiceOver screen reader test | ⬜ | |
 | 4.11 | Profile Canvas Aurora on low-end devices | ⬜ | |

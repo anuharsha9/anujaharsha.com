@@ -355,7 +355,7 @@ export default function StoryDeck({ slides, onExit, onClose, embedded = false }:
             if (timerRef.current) clearTimeout(timerRef.current)
             if (progressRef.current) clearTimeout(progressRef.current)
         }
-    }, [currentSlide, isPlaying, advanceSlide])
+    }, [currentSlide, isPlaying, advanceSlide, slides])
 
     /* ── manual navigation ── */
     const goToSlide = useCallback((index: number) => {
