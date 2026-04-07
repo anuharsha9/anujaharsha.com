@@ -89,17 +89,19 @@ export default function PageTransition({ children }: PageTransitionProps) {
   // Content styling — tightly tracking the physical wave edge for a cinematic "wipe"
   // Submerge: Stay fully visible until the wave crashes over (progress > 0.4), then plummet.
   // Emerge: Stay completely invisible while wave holds, then aggressively reveal as it drops.
+  const easeInOutSine = (t: number) => -(Math.cos(Math.PI * Math.max(0, Math.min(1, t))) - 1) / 2;
+
   const contentOpacity =
-    phase === 'submerge' ? Math.max(0, 1 - Math.pow(progress, 2.5) * 1.8) // Smoother fade that rides the wave crest
+    phase === 'submerge' ? Math.max(0, 1 - easeInOutSine(progress * 1.4)) // Fades natively matching the wave height
     : phase === 'hold' ? 0
-    : phase === 'emerge' ? Math.pow(progress, 1.4)                        // Marginally faster cinematic fade-in
+    : phase === 'emerge' ? easeInOutSine(progress) // Graceful, breath-like fade-in
     : 1
 
   const contentBlur = 0
 
   const contentTranslateY =
-    phase === 'submerge' ? Math.pow(progress, 2.5) * 50 // Pushed deeper down organically
-    : phase === 'emerge' ? Math.max(0, Math.pow(1 - progress, 2)) * 50 // Rises up majestically from the deep
+    phase === 'submerge' ? easeInOutSine(progress) * 70 // Graceful deep sink
+    : phase === 'emerge' ? easeInOutSine(1 - progress) * 70 // Rises organically into place
     : 0
 
   useEffect(() => {
@@ -168,8 +170,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
         // Critical fix: Scale localProgress so the entire wave hits 1.0 continuously
         let localProgress = Math.max(0, Math.min(1, (effectiveProgress - sweepDelay) / (1 - sweepDelay)))
 
-        // Easing for surge: fast initial climb, slows as it reaches the crest (easeOutCubic)
-        localProgress = 1 - Math.pow(1 - localProgress, 3)
+        // Ultra-smooth S-curve for surge: eases gently into the motion, flies through the middle, safely cushions at the crest
+        localProgress = -(Math.cos(Math.PI * localProgress) - 1) / 2
 
         return Math.max(0, Math.min(MAX_COVERAGE + 0.05, localProgress * MAX_COVERAGE))
       }
@@ -178,8 +180,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
         const sweepDelay = (1 - xNorm) * Math.sin(layer.sweepAngle) * 0.25
         let localProgress = Math.max(0, Math.min(1, (globalProgress - sweepDelay) / (1 - sweepDelay)))
 
-        // Easing for retreat: starts slow (gravity taking hold, water hanging), speeds up as it drains out (easeInQuad)
-        localProgress = localProgress * localProgress
+        // Ultra-smooth S-curve for retreat: delicately un-sticks from the top, rapidly pulls away, softly glides to rest at the bottom
+        localProgress = -(Math.cos(Math.PI * localProgress) - 1) / 2
 
         const drain = localProgress
         const base = 1 - drain
