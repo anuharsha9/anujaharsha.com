@@ -95,11 +95,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
     : phase === 'emerge' ? Math.pow(progress, 1.8)                      // Majestic, cinematic fade-in synced with wave descent
     : 1
 
-  const contentBlur =
-    phase === 'submerge' ? Math.pow(progress, 2) * 12
-    : phase === 'hold' ? 12
-    : phase === 'emerge' ? Math.max(0, (1 - Math.pow(progress, 0.5)) * 12)
-    : 0
+  const contentBlur = 0
 
   const contentTranslateY =
     phase === 'submerge' ? Math.pow(progress, 3) * 30 // Pushed down by the crashing wave

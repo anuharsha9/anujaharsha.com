@@ -43,11 +43,10 @@ function easeSurge(t: number): number {
   return Math.sin(t * Math.PI / 2)
 }
 
-/** Retreat: Gravity drain.
- *  Uses perfect C1 continuity (starts and ends with velocity=0) via an easeInOutSine harmonic curve.
- *  This creates an effortless, organic drop and a soft landing. */
+/** Retreat: Wave crashes and drains immediately like a scanner.
+ *  Uses an accelerating power curve so there is no pause at the apex. */
 function easeRetreat(t: number): number {
-  return 0.5 - 0.5 * Math.cos(Math.PI * t)
+  return Math.pow(t, 1.2)
 }
 
 /**
@@ -132,7 +131,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setProgress(0)
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(800, easeRetreat, () => {
+    animateWith(500, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       setProgress(0)
@@ -186,13 +185,12 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       console.log('[TransitionContext] Firing router.push to:', href)
       Promise.resolve().then(() => {
         router.push(href, { scroll: true })
-        // Removed hard timeout so Next.js has time to compile in dev mode
       }).catch(err => {
         console.error('[TransitionContext] router.push threw error:', err)
       })
-    }, 500)
+    }, 250)
 
-    animateWith(900, easeSurge, () => {
+    animateWith(700, easeSurge, () => {
       // The instant the surging wave hits its peak, gravity takes over.
       const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
       if (normalize(pathnameRef.current) === normalize(pendingHref.current || '')) {
