@@ -734,8 +734,8 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
           path.setAttribute('opacity', '0')
         })
 
-        const durationPerLine = 24000
-        const initialDelay = 3000
+        const durationPerLine = 12000
+        const initialDelay = 500
 
         paths.forEach((path) => {
           setTimeout(() => {
@@ -751,9 +751,16 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                     path.setAttribute('opacity', '0')
                     const delay = initialDelay
                     path.style.animation = `line-draw-path ${durationPerLine}ms ease-out ${delay}ms forwards`
+                  } else {
+                    path.style.opacity = '0.4'
+                    path.setAttribute('opacity', '0.4')
+                    path.style.transition = 'opacity 2s ease'
                   }
                 } catch {
-                  // Silent fail
+                  // Fallback if browser doesn't support getTotalLength
+                  path.style.opacity = '0.4'
+                  path.setAttribute('opacity', '0.4')
+                  path.style.transition = 'opacity 2s ease'
                 }
               })
             })
@@ -1227,7 +1234,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 }}
               >
                 <div 
-                  className="w-full relative transition-[filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  className="w-full relative transition-[filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-10 pointer-events-auto"
                   style={{
                     filter: showImmersiveCompleteState
                       ? 'drop-shadow(0 40px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3))'
