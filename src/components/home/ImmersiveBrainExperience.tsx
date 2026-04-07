@@ -1443,9 +1443,9 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                   exit={{ opacity: 0, scale: 0.92, y: 6 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
                 >
-                  {/* The Card */}
+                  {/* The Cinematic Popover Card */}
                   <div
-                    className={`pointer-events-auto p-5 w-[260px] xs:w-[300px] min-h-[100px] flex flex-col justify-center rounded-xl backdrop-blur-xl bg-slate-900/90 border border-slate-700/50 shadow-2xl relative overflow-hidden transition-all duration-300`}
+                    className="pointer-events-auto p-6 w-[260px] xs:w-[300px] min-h-[100px] flex flex-col justify-center rounded-2xl backdrop-blur-2xl bg-[#031016]/40 shadow-[0_0_40px_-5px_rgba(45,212,191,0.15),inset_0_1px_1px_rgba(255,255,255,0.15)] relative overflow-hidden transition-all duration-300"
                     data-gear-card
                     onMouseEnter={() => {
                       setIsCardHovered(true)
@@ -1461,10 +1461,24 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       }, 150)
                     }}
                   >
-                    {/* Accent Top Border */}
+                    {/* Glassmorphic inner border */}
+                    <div className="absolute inset-0 rounded-2xl border border-white/[0.08] pointer-events-none mix-blend-overlay" />
+                    
+                    {/* Ambient Glow from Top edge */}
                     <div
-                      className="absolute top-0 left-0 right-0 h-[2px]"
-                      style={{ backgroundColor: activeGear.accentColor, opacity: 0.8 }}
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[100px] opacity-40 pointer-events-none mix-blend-screen"
+                      style={{
+                        background: `radial-gradient(ellipse 100% 100% at 50% 0%, ${activeGear.accentColor}, transparent 70%)`,
+                      }}
+                    />
+                    
+                    {/* Sharp Top Indicator Light */}
+                    <div 
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-[1px] opacity-100"
+                      style={{
+                        background: `linear-gradient(90deg, transparent, ${activeGear.accentColor}, transparent)`,
+                        boxShadow: `0 1px 12px 2px ${activeGear.accentColor}`
+                      }}
                     />
 
                     {/* DISMISS BUTTON */}
@@ -1475,20 +1489,19 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                         e.preventDefault()
                         setActiveGear(null)
                       }}
-                      className="absolute top-2 right-2 p-1 text-zinc-400 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
+                      className="absolute top-3 right-3 p-1.5 text-zinc-400/70 hover:text-white transition-colors z-50 rounded-full hover:bg-white/10"
                     >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
                     </button>
 
-                    {/* PERSONALITY INSIGHT MODE */}
-                    <div className="block text-left group">
+                    {/* PERSONALITY INSIGHT TEXT */}
+                    <div className="block text-left relative z-10">
                       <div className="flex flex-col h-full justify-between gap-4">
-                        {/* Insight Content */}
                         <div className="space-y-2 select-text cursor-auto">
-                          <p className="text-zinc-100 text-[14px] leading-relaxed font-medium">
+                          <p className="text-zinc-200 text-[14.5px] leading-relaxed font-light tracking-wide drop-shadow-sm">
                             {activeGear.thought}
                           </p>
                         </div>
