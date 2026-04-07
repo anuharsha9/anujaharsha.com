@@ -1410,18 +1410,13 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 {!activeGear && showImmersiveCompleteState && (
                   <motion.div
                     key="immersive-hover-hint"
-                    className="pointer-events-none absolute z-10"
-                    style={{
-                      left: '46%',
-                      top: '54%',
-                      transform: 'translate(-50%, -50%)',
-                    }}
+                    className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
                     initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <div className="w-[min(94vw,38rem)] px-4 text-center">
+                    <div className="mx-auto w-[min(94vw,38rem)] px-4 text-center">
                       <p className="font-mono text-[10px] uppercase tracking-[0.36em] text-cyan-300/80 sm:text-xs">
                         Hover To Reveal
                       </p>
@@ -1442,12 +1437,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
               {activeGear && activeCoords && quizState === 'complete' && (
                 <motion.div
                   key={activeGear.id}
-                  className="absolute z-20 pointer-events-none"
-                  style={{
-                    left: '46%',
-                    top: '54%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
+                  className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"
                   initial={{ opacity: 0, scale: 0.92, y: 6 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.92, y: 6 }}
