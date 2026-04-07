@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 import ImageLightbox from '@/components/case-study/ImageLightbox'
@@ -188,11 +188,21 @@ export function VideoTile({
         videoRef.current.currentTime = percentage * videoRef.current.duration
     }
 
+    const containerRef = React.useRef<HTMLDivElement>(null)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start end', 'end start']
+    })
+    
+    // Cinematic interior parallax
+    const parallaxY = useTransform(scrollYProgress, [0, 1], [-40, 40])
+
     return (
         <motion.div
+            ref={containerRef}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
             className={`flex flex-col gap-3 group/video ${className}`}
         >
@@ -204,10 +214,11 @@ export function VideoTile({
                 style={aspectRatio ? { aspectRatio } : undefined}
                 onClick={togglePlay}
             >
-                <video
-                    ref={videoRef}
+                <motion.video
+                    ref={videoRef as any}
                     src={src}
-                    className="w-full h-auto object-contain block"
+                    className="w-full h-full object-cover block transform-gpu scale-[1.08]"
+                    style={{ y: parallaxY }}
                     playsInline
                     preload="metadata"
                     onTimeUpdate={handleTimeUpdate}
