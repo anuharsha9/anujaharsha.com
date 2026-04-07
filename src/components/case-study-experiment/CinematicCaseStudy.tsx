@@ -66,8 +66,14 @@ export default function CinematicCaseStudy({
         target: heroRef,
         offset: ['start start', 'end start'],
     })
-    const opacity = useTransform(heroProgress, [0, 0.6], [1, 0])
-    const scale = useTransform(heroProgress, [0, 0.6], [1, 0.96])
+    
+    // Outer section fades and shrinks out
+    const sectionOpacity = useTransform(heroProgress, [0, 0.75], [1, 0])
+    const sectionScale = useTransform(heroProgress, [0, 0.75], [1, 0.94])
+    
+    // Inner window parallax (the video stays locked while the frame moves, scaling slightly for "depth")
+    const parallaxY = useTransform(heroProgress, [0, 1], [0, 180])
+    const internalScale = useTransform(heroProgress, [0, 1], [1, 1.08])
 
     const [activeAct, setActiveAct] = React.useState(actSections?.[0]?.id ?? '')
     const [showProgress, setShowProgress] = React.useState(false)
@@ -109,29 +115,32 @@ export default function CinematicCaseStudy({
                     <motion.section
                         ref={heroRef}
                         className="relative z-10 min-h-[100vh] flex flex-col justify-center px-6 md:px-16 pt-20"
-                        style={{ opacity, scale }}
+                        style={{ opacity: sectionOpacity, scale: sectionScale }}
                     >
                         <div className="max-w-[1440px] mx-auto w-full">
                             <h1 className="sr-only">{data.heroTitle}</h1>
 
-                            {/* Trailer — full width, clean and undistracted */}
-                            <div className="relative w-full">
-                                {heroBackground ? (
-                                    <div className="rounded-2xl overflow-hidden shadow-2xl shadow-black/50 aspect-video relative aurora-border">
-                                        {heroBackground}
-                                    </div>
-                                ) : data.coverImage && (
-                                    <div className="rounded-2xl overflow-hidden border border-white/5 shadow-2xl shadow-black/50 relative">
+                            {/* Trailer — Frame with Parallax Inner */}
+                            <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/5 aspect-video aurora-border bg-[#02080a]">
+                                <motion.div 
+                                    className="w-full h-full transform-gpu"
+                                    style={{ 
+                                        y: parallaxY, 
+                                        scale: internalScale,
+                                        transformOrigin: '50% 40%'
+                                    }}
+                                >
+                                    {heroBackground ? heroBackground : data.coverImage && (
                                         <Image
                                             src={data.coverImage.src}
                                             alt={data.coverImage.alt}
                                             width={1920}
                                             height={1080}
                                             priority
-                                            className="w-full h-auto object-contain"
+                                            className="w-full h-full object-cover mix-blend-screen"
                                         />
-                                    </div>
-                                )}
+                                    )}
+                                </motion.div>
                             </div>
 
                             {/* Info bar — metadata centered */}
