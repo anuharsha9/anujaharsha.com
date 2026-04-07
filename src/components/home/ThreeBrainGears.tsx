@@ -73,21 +73,30 @@ function BrainMesh({
       const node = p.userData?.node as Element | undefined
       const id = node?.id || node?.parentElement?.id || (node?.parentNode as Element)?.id || ''
       
-      // Filter explicit backgrounds
+      // Filter explicit backgrounds or invisible layers
       if (node?.tagName === 'rect' || node?.nodeName === 'rect') return null
       if (id.includes('lines-background') || id.includes('Background') || id === 'Layer_1') return null
+      
+      const fill = node?.getAttribute('fill')
+      if (fill === 'none' || fill === 'transparent') return null
 
       const shapeList = SVGLoader.createShapes(p)
       
-      // Filter out massive paths that are likely canvas bounding boxes
+      // Compute bounding box and point cloud density
       let bb = new THREE.Box3()
+      let totalPts = 0
       shapeList.forEach(s => {
           let pts = s.getPoints()
+          totalPts += pts.length
           pts.forEach(pt => bb.expandByPoint(new THREE.Vector3(pt.x, pt.y, 0)))
       })
+      
       const size = new THREE.Vector3()
       bb.getSize(size)
-      if (size.x > 1000 || size.y > 1000) return null
+      
+      // Filter out simple backgrounds (boxes) and massive canvas elements
+      if (totalPts < 20) return null
+      if (size.x > 500 || size.y > 500) return null
 
       return {
         path: p,
