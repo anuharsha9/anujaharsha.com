@@ -1233,11 +1233,26 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                   willChange: 'transform',
                 }}
               >
+                {/* Beautiful gradient shadow background to make the brain appear floating */}
+                <div
+                  className="absolute pointer-events-none transition-opacity duration-1000 ease-in-out"
+                  style={{
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '120%',
+                    height: '120%',
+                    opacity: showImmersiveCompleteState ? 1 : 0,
+                    background: 'radial-gradient(ellipse 65% 45% at 50% 40%, rgba(11, 162, 181, 0.12) 0%, rgba(11, 162, 181, 0.04) 40%, transparent 70%)',
+                    zIndex: 0
+                  }}
+                />
+
                 <div 
                   className="w-full relative transition-[filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-10 pointer-events-auto"
                   style={{
                     filter: showImmersiveCompleteState
-                      ? 'drop-shadow(0 40px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3))'
+                      ? 'drop-shadow(0 40px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3)) drop-shadow(0 -5px 15px rgba(255, 255, 255, 0.05))'
                       : 'none',
                   }}
                 >
@@ -1245,10 +1260,6 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                     svgContent={baseSvg}
                     containerRef={containerRef}
                   />
-                </div>
-                
-                <div className="absolute inset-x-0 -inset-y-[100px] pointer-events-none opacity-40 scale-[1.1] z-0">
-                   <ThreeBrainGears activeGearId={activeGear?.id || null} litGearIds={litGears} />
                 </div>
 
                 {/* === QUIZ CARD OVERLAY === */}
