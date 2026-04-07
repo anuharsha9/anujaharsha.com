@@ -23,6 +23,7 @@
     "ship": "npm run build && git add -A && git commit -m 'deploy' && git push origin main && aws s3 sync out s3://anujaharsha.com --delete --region us-east-1 && aws cloudfront create-invalidation --distribution-id E1RKSKYEABLX6E --paths '/*' --region us-east-1"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@types/three": "^0.183.1",
     "framer-motion": "^11.15.0",

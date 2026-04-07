@@ -8,6 +8,9 @@ import { GEAR_INSPECTOR, GearInspectorItem } from '@/data/gear-inspector'
 import { spacing } from '@/lib/design-system'
 import { BRAIN_GEARS_SVG } from '@/data/brain-gears-svg'
 import { ArrowRight, Sparkles, Brain, Check } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+const ThreeBrainGears = dynamic(() => import('./ThreeBrainGears'), { ssr: false })
 
 // --- QUIZ DATA & TYPES ---
 
@@ -1230,6 +1233,10 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                   svgContent={baseSvg}
                   containerRef={containerRef}
                 />
+                
+                <div className="absolute inset-x-0 -inset-y-[100px] pointer-events-none opacity-[0.15] mix-blend-screen scale-[1.1] z-0 blur-[2px]">
+                   <ThreeBrainGears activeGearId={activeGear?.id || null} litGearIds={litGears} />
+                </div>
 
                 {/* === QUIZ CARD OVERLAY === */}
                 <AnimatePresence>
