@@ -41,10 +41,8 @@ export default function FixedBackground() {
   const [shouldMountAurora, setShouldMountAurora] = useState(false)
 
   useEffect(() => {
-    // Artificial 1.5s delay before rendering the heavy Canvas 
-    // This allows the browser to paint the LCP text instantly
-    const t = setTimeout(() => setShouldMountAurora(true), 1500)
-    return () => clearTimeout(t)
+    // Mount instantly to serve as the initial blur-to-focus preloader backdrop
+    setShouldMountAurora(true)
   }, [])
 
   useEffect(() => {
@@ -117,11 +115,11 @@ export default function FixedBackground() {
           filter: introBlur > 0 ? `blur(${introBlur}px)` : 'none',
           willChange: introBlur > 0 ? 'opacity, filter' : 'opacity',
           transition: introBlur > 0
-            ? 'filter 2.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-in'
+            ? 'filter 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-in'
             : transitioning
               ? 'opacity 0.3s ease-in'
               : isLanding
-                ? 'filter 2.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                ? 'filter 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
                 : 'opacity 0.7s ease',
           maskImage: showFull
             ? 'none'

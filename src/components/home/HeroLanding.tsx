@@ -112,9 +112,9 @@ export default function HeroLanding() {
     useEffect(() => {
         const handleReady = () => setIsReady(true)
 
-        // If app-ready already fired (returning visitors, non-/ routes), start immediately
-        // Use a short timeout as fallback in case event was dispatched before listener attached
-        const fallback = setTimeout(() => setIsReady(true), 300)
+        // Delay the text reveal until the canvas waves have finished their blur-to-focus transition
+        // This creates a sequential Awwwards preloader effect: Waves -> Text
+        const fallback = setTimeout(() => setIsReady(true), 1500)
 
         window.addEventListener('app-ready', handleReady)
         return () => {
@@ -170,12 +170,12 @@ export default function HeroLanding() {
                             {/* SENIOR PRODUCT DESIGNER — label */}
                             <motion.span
                                 className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-                                initial={{ opacity: 0, y: 8 }}
+                                initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
                                 animate={isReady
-                                    ? { opacity: 1, y: 0 }
-                                    : { opacity: 0, y: 8 }
+                                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                                    : { opacity: 0, y: 12, filter: 'blur(10px)' }
                                 }
-                                transition={{ duration: 2.8, delay: 0, ease }}
+                                transition={{ duration: 2.0, delay: 0, ease }}
                             >
                                 Senior Product Designer
                             </motion.span>
@@ -183,12 +183,12 @@ export default function HeroLanding() {
                             {/* MAIN HEADLINE — slowest, most dramatic reveal */}
                             <motion.h1
                                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6"
-                                initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                                initial={{ opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }}
                                 animate={isReady
-                                    ? { opacity: 1, y: 0, scale: 1 }
-                                    : { opacity: 0, y: 16, scale: 0.98 }
+                                    ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
+                                    : { opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }
                                 }
-                                transition={{ duration: 3.2, delay: 0.15, ease }}
+                                transition={{ duration: 2.8, delay: 0.2, ease }}
                             >
                                 <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
                                 <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
@@ -197,10 +197,10 @@ export default function HeroLanding() {
                             {/* SUBTITLE — positioning + credibility */}
                             <motion.p
                                 className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl"
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 16, filter: 'blur(12px)' }}
                                 animate={isReady
-                                    ? { opacity: 1, y: 0 }
-                                    : { opacity: 0, y: 10 }
+                                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                                    : { opacity: 0, y: 16, filter: 'blur(12px)' }
                                 }
                                 transition={{ duration: 2.4, delay: 0.4, ease }}
                             >
@@ -211,10 +211,10 @@ export default function HeroLanding() {
                         {/* CTAs — last to resolve */}
                         <motion.div
                             className="mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-4 sm:grid-cols-2"
-                            initial={{ opacity: 0, y: 12 }}
+                            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
                             animate={isReady
-                                ? { opacity: 1, y: 0 }
-                                : { opacity: 0, y: 12 }
+                                ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                                : { opacity: 0, y: 16, filter: 'blur(8px)' }
                             }
                             transition={{ duration: 2.0, delay: 0.6, ease }}
                         >
