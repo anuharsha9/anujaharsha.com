@@ -154,9 +154,9 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
             <PerspectiveReveal>
             <div className="relative z-20" id="act-1-hook">
                 <CinematicScene
-                    title="Three Powerful AI Features. Near-Zero Adoption."
+                    title="Millions Invested in AI. Nobody Knew It Existed."
                     body={
-                        <p>NLQ buried inside &ldquo;Explore Data.&rdquo; Insights in a submenu. ML in a data flow canvas. Millions invested. Nobody could find them.</p>
+                        <p>NLQ buried inside a popup. Insights hidden in a submenu. Predictive Machine Learning locked inside complex data flow canvases. We had built powerful enterprise ML capabilities, but because they were fragmented across the platform, adoption was sitting at near-zero.</p>
                     }
                 >
                     <BentoGrid className="mt-12">
@@ -166,10 +166,10 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     <div className="w-10 h-10 rounded-lg border border-purple-500/20 bg-purple-500/5 flex items-center justify-center">
                                         <span className="text-purple-400 text-lg">∅</span>
                                     </div>
-                                    <span className="text-[10px] font-mono text-purple-400/60 uppercase tracking-widest">Invisible Features</span>
+                                    <span className="text-[10px] font-mono text-purple-400/60 uppercase tracking-widest">The Adoption Crisis</span>
                                 </div>
                                 <p className="text-zinc-200 font-light leading-relaxed">
-                                    Three AI features. Three different entry points. Three different mental models. Users didn&apos;t even know they existed. <span className="font-semibold text-white">The business thought we needed better models. We didn&apos;t. We just needed to put them where people could actually find them.</span>
+                                    Three distinct ML features relying on three entirely different entry points and mental models. Leadership assumed our underlying forecasting models weren&apos;t robust enough. The truth was far simpler: <span className="font-semibold text-white">We didn&apos;t need to scrap our AI architecture. We just needed to consolidate it into a unified, discoverable surface.</span>
                                 </p>
                             </TextTile>
                             <TextTile delay={0.15}>
