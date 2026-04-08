@@ -27,25 +27,22 @@ const ARCHIVE_IMAGES: Record<string, string[]> = {
     ),
 }
 
-/* ─── Testimonial data ─── */
-const TESTIMONIALS = {
-    radhika: {
-        quote: 'Smart and very attuned to user needs, she \u2018just gets it\u2019 and developed intuitive designs that were very well received by our end users.',
+/* ─── Endorsement data — shown as hover badges on endorsed projects ─── */
+const ENDORSEMENTS: Record<string, { quote: string; name: string; role: string }> = {
+    kedazzle: {
+        quote: 'She "just gets it" — intuitive designs very well received by end users.',
         name: 'Radhika Tekumalla',
-        role: 'Founder · Kedazzle (EdTech)',
-        initial: 'R',
+        role: 'Founder · Kedazzle',
     },
-    vikram: {
-        quote: 'She quickly became the designer we trusted for everything. By the time she moved on, she was operating at a level far beyond her experience, ready for enterprise-grade work.',
+    wordu: {
+        quote: 'The designer we trusted for everything. Operating far beyond her experience.',
         name: 'Vikram Patel',
         role: 'Co-Founder & CEO · 9P Studioz',
-        initial: 'V',
     },
 }
 
-/* ─── Slide types ─── */
-type ProjectItem = {
-    type: 'project'
+/* ─── Slide type ─── */
+interface ProjectItem {
     id: string
     title: string
     subtitle: string
@@ -54,23 +51,11 @@ type ProjectItem = {
     tags: string[]
 }
 
-type QuoteItem = {
-    type: 'quote'
-    id: string
-    quote: string
-    name: string
-    role: string
-    initial: string
-}
-
-type SlideItem = ProjectItem | QuoteItem
-
-/* ─── Ordered slides: project + quote or project + project ─── */
-const SLIDES: SlideItem[][] = [
-    // Slide 1: Kedazzle + Radhika
+/* ─── Ordered slides: 3 slides × 2 projects each ─── */
+const SLIDES: ProjectItem[][] = [
+    // Slide 1: Kedazzle + Infinite
     [
         {
-            type: 'project',
             id: 'kedazzle',
             title: 'Kedazzle',
             subtitle: '0-to-1 Product Architecture · Web & mobile platform delivery, successfully shipped',
@@ -78,12 +63,7 @@ const SLIDES: SlideItem[][] = [
             archiveKey: 'kedazzle',
             tags: ['0-to-1 Execution', 'EdTech Systems'],
         },
-        { type: 'quote', id: 'radhika', ...TESTIMONIALS.radhika },
-    ],
-    // Slide 2: Infinite + Travel Portal
-    [
         {
-            type: 'project',
             id: 'infinite-analytics',
             title: 'Infinite',
             subtitle: 'Feature Ecosystem Scaling · Multi-modal UX architecture for task execution',
@@ -91,8 +71,10 @@ const SLIDES: SlideItem[][] = [
             archiveKey: 'infinite-analytics',
             tags: ['Productivity Suite', 'Mobile Architecture'],
         },
+    ],
+    // Slide 2: Travel Portal + WordU
+    [
         {
-            type: 'project',
             id: 'travel-portal',
             title: 'Travel Portal',
             subtitle: 'B2B Enterprise Booking · Complex flow orchestration & data simplification',
@@ -100,11 +82,7 @@ const SLIDES: SlideItem[][] = [
             archiveKey: 'travel-portal',
             tags: ['Enterprise Platform', 'B2B Orchestration'],
         },
-    ],
-    // Slide 3: WordU + Vikram
-    [
         {
-            type: 'project',
             id: 'wordu',
             title: 'WordU',
             subtitle: 'Consumer Gamification · Optimized behavioral loops, 12K+ organic downloads week 1',
@@ -112,12 +90,10 @@ const SLIDES: SlideItem[][] = [
             archiveKey: 'wordu',
             tags: ['Consumer Engagement', 'Behavioral UX'],
         },
-        { type: 'quote', id: 'vikram', ...TESTIMONIALS.vikram },
     ],
-    // Slide 4: CRBS + Graphic Design
+    // Slide 3: CRBS + Graphic Design
     [
         {
-            type: 'project',
             id: 'crbs',
             title: 'CRBS',
             subtitle: 'Enterprise IoT Integration · Touch-first hardware interfaces for live workplaces',
@@ -126,7 +102,6 @@ const SLIDES: SlideItem[][] = [
             tags: ['Enterprise IoT', 'Hardware/Software'],
         },
         {
-            type: 'project',
             id: 'graphic-design',
             title: 'Early Graphic Design',
             subtitle: 'Brand Identity Systems · Foundational visual architecture and print collateral',
@@ -137,28 +112,10 @@ const SLIDES: SlideItem[][] = [
     ],
 ]
 
-/* ─── Quote card component ─── */
-function QuoteCard({ item }: { item: QuoteItem }) {
-    return (
-        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[var(--accent-teal)]/[0.08] bg-[var(--accent-teal)]/[0.03] flex flex-col justify-center p-6 md:p-8">
-            <p className="text-zinc-200 text-sm md:text-[15px] leading-relaxed mb-5 italic">
-                &ldquo;{item.quote}&rdquo;
-            </p>
-            <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[var(--accent-teal)]/15 flex items-center justify-center text-[var(--accent-teal)] text-xs font-bold shrink-0">
-                    {item.initial}
-                </div>
-                <div>
-                    <p className="text-zinc-100 text-sm font-semibold">{item.name}</p>
-                    <p className="text-zinc-600 text-[11px] font-mono">{item.role}</p>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-/* ─── Project card component ─── */
+/* ─── Project card component with optional endorsement badge ─── */
 function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey: string, title: string) => void }) {
+    const endorsement = ENDORSEMENTS[item.archiveKey]
+
     return (
         <button onClick={() => onOpen(item.archiveKey, item.title)} className="text-left w-full">
             <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
@@ -172,6 +129,23 @@ function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey:
                     />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+
+                {/* Endorsement badge — slides up on hover */}
+                {endorsement && (
+                    <div className="absolute bottom-[88px] md:bottom-[96px] left-5 right-5 md:left-6 md:right-6 z-20
+                                    opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0
+                                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                        <div className="backdrop-blur-md bg-white/[0.07] border border-white/[0.08] rounded-xl px-4 py-3">
+                            <p className="text-zinc-200 text-[12px] md:text-[13px] leading-snug italic mb-1.5">
+                                &ldquo;{endorsement.quote}&rdquo;
+                            </p>
+                            <p className="text-zinc-500 text-[10px] font-mono">
+                                {endorsement.name} · {endorsement.role}
+                            </p>
+                        </div>
+                    </div>
+                )}
+
                 <div className="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-6">
                     <div className="flex flex-wrap gap-2 mb-3">
                         {item.tags.map(tag => (
@@ -289,11 +263,7 @@ export default function ExtendedPortfolio() {
                                         viewport={{ once: true, amount: 0.2 }}
                                         transition={{ duration: 1.2, delay: i * 0.2 }}
                                     >
-                                        {item.type === 'project' ? (
-                                            <ProjectCard item={item} onOpen={openSlideshow} />
-                                        ) : (
-                                            <QuoteCard item={item} />
-                                        )}
+                                        <ProjectCard item={item} onOpen={openSlideshow} />
                                     </motion.div>
                                 ))}
                             </div>
