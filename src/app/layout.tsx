@@ -5,7 +5,6 @@ import './globals.css'
 import PageShell from '@/components/layout/PageShell'
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics'
 import StructuredData from '@/components/structured-data/StructuredData'
-import LoadingScreen from '@/components/loading/LoadingScreen'
 import FixedBackground from '@/components/ui/FixedBackground'
 import { LightboxProvider } from '@/contexts/LightboxContext'
 import { PdfProvider } from '@/contexts/PdfContext'
@@ -175,7 +174,6 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} font-sans antialiased`} suppressHydrationWarning>
         <FixedBackground />
-        <LoadingScreen />
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
