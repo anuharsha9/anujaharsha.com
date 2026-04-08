@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {
-    Bot, Mountain, GraduationCap, Award, Baby, MapPin, Heart, Palette
+    Bot, Mountain, GraduationCap, Award, Baby, MapPin, Heart, Palette, LucideIcon
 } from 'lucide-react'
 
 /* ─── Milestone data per era ─── */
@@ -11,7 +11,7 @@ export interface LifeMilestone {
     title: string
     subtitle: string
     year: string
-    icon: React.ElementType
+    icon: any
 }
 
 export const CSG_MILESTONES: LifeMilestone[] = [

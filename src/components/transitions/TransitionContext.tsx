@@ -182,7 +182,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // 3) Push router midway through the submerge animation
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
-      console.log('[TransitionContext] Firing router.push to:', href)
+      // Removed console.log for production
       Promise.resolve().then(() => {
         router.push(href, { scroll: true })
       }).catch(err => {

@@ -37,15 +37,14 @@ const CURTAINS: AuroraCurtain[] = [
     { baseY: 0.72, rayLength: 140, opacity: 0.09, waveAmplitude: 30, speed: 0.06, phase: 2.5, rayWidth: 20 },
 ]
 
-// Target ~30fps: skip frames if less than 33ms elapsed
-const FRAME_INTERVAL = 33
+// Target native refresh rate for buttery smooth rendering
+// No artificial frame throttling
 
 export default function FixedAurora() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const rafRef = useRef<number>(0)
     const tealRef = useRef({ r: 7, g: 139, b: 156 })
     const sizeRef = useRef({ w: 0, h: 0 })
-    const lastFrameRef = useRef(0)
 
     const draw = useCallback((ctx: CanvasRenderingContext2D, time: number) => {
         const w = sizeRef.current.w
@@ -151,12 +150,8 @@ export default function FixedAurora() {
 
         const startTime = performance.now()
         const animate = (now: number) => {
-            // Throttle to ~30fps
-            if (now - lastFrameRef.current >= FRAME_INTERVAL) {
-                lastFrameRef.current = now
-                const elapsed = (now - startTime) / 1000
-                draw(ctx, prefersReducedMotion ? 0 : elapsed)
-            }
+            const elapsed = (now - startTime) / 1000
+            draw(ctx, prefersReducedMotion ? 0 : elapsed)
             rafRef.current = requestAnimationFrame(animate)
         }
         rafRef.current = requestAnimationFrame(animate)

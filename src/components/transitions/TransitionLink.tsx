@@ -62,7 +62,7 @@ export default function TransitionLink({
     if (phase !== 'idle') {
       const elapsed = Date.now() - lastPhaseChange.current
       if (elapsed > 8000) {
-        console.warn('[TransitionLink] Phase stuck for', elapsed, 'ms. We will wait instead of forcing reload.')
+        // Removed console.warn for production
       }
       return
     }
