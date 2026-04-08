@@ -57,15 +57,14 @@ const RIPPLE_STRENGTH = 12   // px — max displacement at epicenter
 // Lower = more subtle. 0.3 means ~1 full wave cycle per ~3300px of scroll.
 const SCROLL_PHASE_SCALE = 0.3 / 1000
 
-// Target ~30fps: skip frames if less than 33ms elapsed
-const FRAME_INTERVAL = 33
+// Target native refresh rate for buttery smooth rendering
+// No artificial frame throttling
 
 export default function HeroAurora() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const rafRef = useRef<number>(0)
     const tealRef = useRef({ r: 7, g: 139, b: 156 })
     const sizeRef = useRef({ w: 0, h: 0 })
-    const lastFrameRef = useRef(0)
 
     // Interactive refs — updated outside React render cycle for perf
     const mouseRef = useRef({ x: -1000, y: -1000 }) // Off-canvas by default
@@ -252,18 +251,14 @@ export default function HeroAurora() {
 
         const startTime = performance.now()
         const animate = (now: number) => {
-            // Throttle to ~30fps
-            if (now - lastFrameRef.current >= FRAME_INTERVAL) {
-                lastFrameRef.current = now
-                const elapsed = (now - startTime) / 1000
+            const elapsed = (now - startTime) / 1000
 
-                // Smoothly lerp scroll phase toward target
-                const current = scrollPhaseCurrentRef.current
-                const target = scrollPhaseTargetRef.current
-                scrollPhaseCurrentRef.current = current + (target - current) * 0.08
+            // Smoothly lerp scroll phase toward target
+            const current = scrollPhaseCurrentRef.current
+            const target = scrollPhaseTargetRef.current
+            scrollPhaseCurrentRef.current = current + (target - current) * 0.08
 
-                draw(ctx, prefersReducedMotion ? 0 : elapsed)
-            }
+            draw(ctx, prefersReducedMotion ? 0 : elapsed)
             rafRef.current = requestAnimationFrame(animate)
         }
         rafRef.current = requestAnimationFrame(animate)
