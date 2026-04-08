@@ -90,6 +90,7 @@ export default function FeatureCategoryCarousel({ categories }: { categories: Fe
                                         onClick={() => openLightbox(cat.images, j)}
                                     >
                                         <div className="relative w-full flex justify-center object-contain hover:scale-[1.02] transition-transform duration-500">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img
                                                 src={img.src}
                                                 alt={img.alt || cat.title}

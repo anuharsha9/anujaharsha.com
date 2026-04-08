@@ -24,6 +24,7 @@ export default function AppleEndlessCarousel({ slides }: AppleEndlessCarouselPro
 
     const Card = ({ slide }: { slide: SlideData }) => (
         <div className="w-[85vw] sm:w-[50vw] md:w-[45vw] lg:w-[35vw] shrink-0 flex flex-col gap-4 group-scope transition-transform duration-500 hover:scale-[1.02]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={slide.src} alt={slide.alt} loading="lazy" className="w-full h-auto rounded-xl md:rounded-2xl border border-white/10 shadow-lg" />
             {slide.caption && (
                 <p className="text-zinc-400 text-xs md:text-sm font-light leading-snug px-1">{slide.caption}</p>
