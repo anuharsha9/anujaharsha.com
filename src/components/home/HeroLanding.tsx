@@ -108,9 +108,9 @@ export default function HeroLanding() {
     const { navigateTo } = useTransition()
     const [isReady, setIsReady] = useState(false)
 
-    // Trigger cinematic entrance almost immediately, allowing it to overlap with the wave blur-to-focus
+    // Trigger cinematic entrance after a dramatic 1-second pause, letting the waves form first
     useEffect(() => {
-        const timer = setTimeout(() => setIsReady(true), 300)
+        const timer = setTimeout(() => setIsReady(true), 1000)
         return () => clearTimeout(timer)
     }, [])
 
@@ -166,7 +166,7 @@ export default function HeroLanding() {
                                     ? { opacity: 1, y: 0, filter: 'blur(0px)' }
                                     : { opacity: 0, y: 12, filter: 'blur(10px)' }
                                 }
-                                transition={{ duration: 1.2, delay: 0, ease }}
+                                transition={{ duration: 3.2, delay: 0.1, ease }}
                             >
                                 Senior Product Designer
                             </motion.span>
@@ -179,7 +179,7 @@ export default function HeroLanding() {
                                     ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
                                     : { opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }
                                 }
-                                transition={{ duration: 1.6, delay: 0.1, ease }}
+                                transition={{ duration: 3.8, delay: 0.6, ease }}
                             >
                                 <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
                                 <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
@@ -193,7 +193,7 @@ export default function HeroLanding() {
                                     ? { opacity: 1, y: 0, filter: 'blur(0px)' }
                                     : { opacity: 0, y: 16, filter: 'blur(12px)' }
                                 }
-                                transition={{ duration: 1.4, delay: 0.2, ease }}
+                                transition={{ duration: 3.2, delay: 1.1, ease }}
                             >
                                 I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.
                             </motion.p>
@@ -207,7 +207,7 @@ export default function HeroLanding() {
                                 ? { opacity: 1, y: 0, filter: 'blur(0px)' }
                                 : { opacity: 0, y: 16, filter: 'blur(8px)' }
                             }
-                            transition={{ duration: 1.2, delay: 0.3, ease }}
+                            transition={{ duration: 2.8, delay: 1.5, ease }}
                         >
                             {/* PRIMARY CTA — Flagship Case Study */}
                             <div className="relative order-2 sm:order-1 w-full h-14 pointer-events-auto">

@@ -115,11 +115,11 @@ export default function FixedBackground() {
           filter: introBlur > 0 ? `blur(${introBlur}px)` : 'none',
           willChange: introBlur > 0 ? 'opacity, filter' : 'opacity',
           transition: introBlur > 0
-            ? 'filter 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-in'
+            ? 'filter 3.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-in'
             : transitioning
               ? 'opacity 0.3s ease-in'
               : isLanding
-                ? 'filter 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                ? 'filter 3.5s cubic-bezier(0.16, 1, 0.3, 1)'
                 : 'opacity 0.7s ease',
           maskImage: showFull
             ? 'none'
