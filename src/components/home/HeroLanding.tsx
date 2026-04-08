@@ -5,7 +5,6 @@ import {
     motion,
     useScroll,
     useTransform,
-    AnimatePresence,
 } from 'framer-motion'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { Play, Cog } from 'lucide-react'
@@ -15,82 +14,6 @@ import { Play, Cog } from 'lucide-react'
  * Content drifts into its final position like it was always meant to be there.
  */
 const ease = [0.05, 0.7, 0.1, 1] as [number, number, number, number]
-
-/* ─── Typewriter: types text char-by-char with pauses at punctuation ─── */
-const CHAIR_PHILOSOPHY = [
-    `"When you look at a chair...`,
-    `the only thing that comes to mind is to sit on it.`,
-    ``,
-    `It's the whole point of creating anything —`,
-    `to achieve that obviousness. No?`,
-    ``,
-    `How does one achieve that?`,
-    ``,
-    `By obsessing over how humans experience things."`,
-]
-
-function PhilosophyTypewriter({ delay = 2000 }: { delay?: number }) {
-    const fullText = CHAIR_PHILOSOPHY.join('\n')
-    const [displayedChars, setDisplayedChars] = useState(0)
-    const [started, setStarted] = useState(false)
-    const [fading, setFading] = useState(false)
-
-    useEffect(() => {
-        const startTimer = setTimeout(() => setStarted(true), delay)
-        return () => clearTimeout(startTimer)
-    }, [delay])
-
-    // Fade out 10s after typing finishes
-    useEffect(() => {
-        if (displayedChars < fullText.length) return
-        const fadeTimer = setTimeout(() => setFading(true), 10000)
-        return () => clearTimeout(fadeTimer)
-    }, [displayedChars, fullText.length])
-
-    useEffect(() => {
-        if (!started || displayedChars >= fullText.length) return
-
-        const char = fullText[displayedChars]
-        let speed = 55
-        if (char === '.' || char === '?') speed = 450
-        else if (char === ',') speed = 200
-        else if (char === '—') speed = 350
-        else if (char === '\n') speed = 300
-
-        // Extra pause at "..." sequences
-        if (fullText.substring(displayedChars, displayedChars + 3) === '...') speed = 500
-
-        const timer = setTimeout(() => setDisplayedChars(c => c + 1), speed)
-        return () => clearTimeout(timer)
-    }, [started, displayedChars, fullText])
-
-    if (!started) return null
-
-    return (
-        <AnimatePresence>
-            {!fading && (
-                <motion.div
-                    className="mt-8 max-w-xl mx-auto text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0, filter: 'blur(10px)' }}
-                    transition={{ duration: 1.2, ease }}
-                >
-                    <p className="font-mono text-[11px] sm:text-xs md:text-sm text-zinc-500/70 leading-relaxed italic whitespace-pre-line">
-                        {fullText.slice(0, displayedChars)}
-                        {displayedChars < fullText.length && (
-                            <motion.span
-                                className="inline-block w-[2px] h-[1em] bg-zinc-500/60 ml-[1px] align-middle"
-                                animate={{ opacity: [1, 0] }}
-                                transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
-                            />
-                        )}
-                    </p>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    )
-}
 
 /* ─── Gear glyph icon ─── */
 function InterlockedGearGlyph({ className = '' }: { className?: string }) {
