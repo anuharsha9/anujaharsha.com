@@ -27,22 +27,32 @@ const ARCHIVE_IMAGES: Record<string, string[]> = {
     ),
 }
 
-/* ─── Endorsement data — shown as hover badges on endorsed projects ─── */
-const ENDORSEMENTS: Record<string, { quote: string; name: string; role: string }> = {
-    kedazzle: {
-        quote: 'She "just gets it" — intuitive designs very well received by end users.',
+/* ─── Testimonial data ─── */
+interface QuoteData {
+    quote: string
+    name: string
+    role: string
+    initial: string
+}
+
+const TESTIMONIALS: Record<string, QuoteData> = {
+    radhika: {
+        quote: 'Smart and very attuned to user needs, she \u2018just gets it\u2019 and developed intuitive designs that were very well received by our end users.',
         name: 'Radhika Tekumalla',
-        role: 'Founder · Kedazzle',
+        role: 'Founder · Kedazzle (EdTech)',
+        initial: 'R',
     },
-    wordu: {
-        quote: 'The designer we trusted for everything. Operating far beyond her experience.',
+    vikram: {
+        quote: 'She quickly became the designer we trusted for everything. By the time she moved on, she was operating at a level far beyond her experience, ready for enterprise-grade work.',
         name: 'Vikram Patel',
         role: 'Co-Founder & CEO · 9P Studioz',
+        initial: 'V',
     },
 }
 
-/* ─── Slide type ─── */
+/* ─── Slide types ─── */
 interface ProjectItem {
+    type: 'project'
     id: string
     title: string
     subtitle: string
@@ -51,11 +61,23 @@ interface ProjectItem {
     tags: string[]
 }
 
-/* ─── Ordered slides: 3 slides × 2 projects each ─── */
-const SLIDES: ProjectItem[][] = [
-    // Slide 1: Kedazzle + Infinite
+interface QuoteItem {
+    type: 'quote'
+    id: string
+    quote: string
+    name: string
+    role: string
+    initial: string
+}
+
+type SlideItem = ProjectItem | QuoteItem
+
+/* ─── Ordered slides ─── */
+const SLIDES: SlideItem[][] = [
+    // Slide 1: Kedazzle + Radhika
     [
         {
+            type: 'project',
             id: 'kedazzle',
             title: 'Kedazzle',
             subtitle: '0-to-1 Product Architecture · Web & mobile platform delivery, successfully shipped',
@@ -63,7 +85,12 @@ const SLIDES: ProjectItem[][] = [
             archiveKey: 'kedazzle',
             tags: ['0-to-1 Execution', 'EdTech Systems'],
         },
+        { type: 'quote', id: 'radhika', ...TESTIMONIALS.radhika },
+    ],
+    // Slide 2: Infinite + Travel Portal
+    [
         {
+            type: 'project',
             id: 'infinite-analytics',
             title: 'Infinite',
             subtitle: 'Feature Ecosystem Scaling · Multi-modal UX architecture for task execution',
@@ -71,10 +98,8 @@ const SLIDES: ProjectItem[][] = [
             archiveKey: 'infinite-analytics',
             tags: ['Productivity Suite', 'Mobile Architecture'],
         },
-    ],
-    // Slide 2: Travel Portal + WordU
-    [
         {
+            type: 'project',
             id: 'travel-portal',
             title: 'Travel Portal',
             subtitle: 'B2B Enterprise Booking · Complex flow orchestration & data simplification',
@@ -82,7 +107,11 @@ const SLIDES: ProjectItem[][] = [
             archiveKey: 'travel-portal',
             tags: ['Enterprise Platform', 'B2B Orchestration'],
         },
+    ],
+    // Slide 3: WordU + Vikram
+    [
         {
+            type: 'project',
             id: 'wordu',
             title: 'WordU',
             subtitle: 'Consumer Gamification · Optimized behavioral loops, 12K+ organic downloads week 1',
@@ -90,10 +119,12 @@ const SLIDES: ProjectItem[][] = [
             archiveKey: 'wordu',
             tags: ['Consumer Engagement', 'Behavioral UX'],
         },
+        { type: 'quote', id: 'vikram', ...TESTIMONIALS.vikram },
     ],
-    // Slide 3: CRBS + Graphic Design
+    // Slide 4: CRBS + Graphic Design
     [
         {
+            type: 'project',
             id: 'crbs',
             title: 'CRBS',
             subtitle: 'Enterprise IoT Integration · Touch-first hardware interfaces for live workplaces',
@@ -102,6 +133,7 @@ const SLIDES: ProjectItem[][] = [
             tags: ['Enterprise IoT', 'Hardware/Software'],
         },
         {
+            type: 'project',
             id: 'graphic-design',
             title: 'Early Graphic Design',
             subtitle: 'Brand Identity Systems · Foundational visual architecture and print collateral',
@@ -112,10 +144,31 @@ const SLIDES: ProjectItem[][] = [
     ],
 ]
 
-/* ─── Project card component with optional endorsement badge ─── */
-function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey: string, title: string) => void }) {
-    const endorsement = ENDORSEMENTS[item.archiveKey]
+/* ─── Quote card — no border, larger text, clean ─── */
+function QuoteCard({ item }: { item: QuoteItem }) {
+    return (
+        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.02] flex flex-col justify-center p-8 md:p-10">
+            {/* Subtle ambient glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[var(--accent-teal)]/[0.04] blur-[80px] rounded-full pointer-events-none" />
 
+            <p className="relative z-10 text-zinc-300 text-lg md:text-xl lg:text-2xl leading-relaxed italic mb-6">
+                &ldquo;{item.quote}&rdquo;
+            </p>
+            <div className="relative z-10 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[var(--accent-teal)]/10 flex items-center justify-center text-[var(--accent-teal)] text-sm font-bold shrink-0">
+                    {item.initial}
+                </div>
+                <div>
+                    <p className="text-zinc-200 text-sm font-semibold">{item.name}</p>
+                    <p className="text-zinc-600 text-[11px] font-mono">{item.role}</p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+/* ─── Project card component ─── */
+function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey: string, title: string) => void }) {
     return (
         <button onClick={() => onOpen(item.archiveKey, item.title)} className="text-left w-full">
             <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_40px_rgba(47,198,213,0.06)]">
@@ -129,23 +182,6 @@ function ProjectCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey:
                     />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-
-                {/* Endorsement badge — slides up on hover */}
-                {endorsement && (
-                    <div className="absolute bottom-[88px] md:bottom-[96px] left-5 right-5 md:left-6 md:right-6 z-20
-                                    opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0
-                                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                        <div className="backdrop-blur-md bg-white/[0.07] border border-white/[0.08] rounded-xl px-4 py-3">
-                            <p className="text-zinc-200 text-[12px] md:text-[13px] leading-snug italic mb-1.5">
-                                &ldquo;{endorsement.quote}&rdquo;
-                            </p>
-                            <p className="text-zinc-500 text-[10px] font-mono">
-                                {endorsement.name} · {endorsement.role}
-                            </p>
-                        </div>
-                    </div>
-                )}
-
                 <div className="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-6">
                     <div className="flex flex-wrap gap-2 mb-3">
                         {item.tags.map(tag => (
@@ -263,7 +299,11 @@ export default function ExtendedPortfolio() {
                                         viewport={{ once: true, amount: 0.2 }}
                                         transition={{ duration: 1.2, delay: i * 0.2 }}
                                     >
-                                        <ProjectCard item={item} onOpen={openSlideshow} />
+                                        {item.type === 'project' ? (
+                                            <ProjectCard item={item} onOpen={openSlideshow} />
+                                        ) : (
+                                            <QuoteCard item={item} />
+                                        )}
                                     </motion.div>
                                 ))}
                             </div>
