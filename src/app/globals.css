@@ -66,35 +66,47 @@ html.has-custom-cursor *::after {
   }
 }
 
-/* Webkit Scrollbar Customization */
-::-webkit-scrollbar {
-  width: 12px;
-  /* Slightly wider to make the teal visible */
-  height: 12px;
+/* Webkit Scrollbar Customization — desktop only */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-ink-950);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--accent-teal);
+    border-radius: var(--radius-sm);
+    border: 3px solid var(--bg-ink-950);
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-teal-dark);
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-ink-950);
+/* Mobile: use native scrollbar (overlay, auto-hidden on iOS/Android) */
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
+  
+  html {
+    scrollbar-width: none;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--accent-teal);
-  /* Teal color */
-  border-radius: var(--radius-sm);
-  border: 3px solid var(--bg-ink-950);
-  /* Padding effect */
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--accent-teal-dark);
-  /* Darker teal on hover */
-}
-
-/* Firefox Scrollbar support */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent-teal) var(--bg-primary);
+/* Firefox Scrollbar support — desktop */
+@media (min-width: 768px) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-teal) var(--bg-primary);
+  }
 }
 
 @keyframes fadeIn {

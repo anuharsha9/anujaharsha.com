@@ -99,8 +99,11 @@ export default function TestimonialsBlock() {
 
             {/* Header */}
             <motion.div
-                className="mb-10 md:mb-14"
-                style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
+                className="mb-8 md:mb-14"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
                 <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     Social Proof
@@ -112,7 +115,7 @@ export default function TestimonialsBlock() {
 
             {/* Cinematic single-quote display */}
             <div
-                className="relative min-h-[200px] md:min-h-[180px]"
+                className="relative min-h-[260px] md:min-h-[200px]"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >

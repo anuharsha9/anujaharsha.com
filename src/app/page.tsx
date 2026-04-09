@@ -89,7 +89,7 @@ export default function Home() {
            Negative margin pulls this zone UP into the hero zone,
            so the blur-to-sharp resolve starts while the hero is still visible.
            This creates a cinematic crossfade — hero fading out as CSG fades in. */}
-      <div style={{ marginTop: '-50vh' }} className="relative z-[1]">
+      <div className="relative z-[1] mt-0 md:-mt-[50vh]">
         <BlurZone id="work-overview" containerHeight="180vh">
           <CSGBlock />
         </BlurZone>

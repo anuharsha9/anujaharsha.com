@@ -124,7 +124,7 @@ export default function HeroLanding() {
 
                         {/* CTAs — last to resolve */}
                         <motion.div
-                            className="mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-4 sm:grid-cols-2"
+                            className="mt-8 md:mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4"
                             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
                             animate={isReady
                                 ? { opacity: 1, y: 0, filter: 'blur(0px)' }
@@ -133,7 +133,7 @@ export default function HeroLanding() {
                             transition={{ duration: 2.8, delay: 1.5, ease }}
                         >
                             {/* PRIMARY CTA — Flagship Case Study */}
-                            <div className="relative order-2 sm:order-1 w-full h-14 pointer-events-auto">
+                            <div className="relative order-2 sm:order-1 w-full h-12 sm:h-14 pointer-events-auto">
                                 <motion.div
                                     className="absolute inset-0 rounded-full border-2 border-white/60"
                                     style={{ scale: glowRingScale, opacity: glowRingOpacity }}
@@ -146,7 +146,7 @@ export default function HeroLanding() {
                                 </div>
                                 <button
                                     onClick={() => navigateTo('/work/reportcaster')}
-                                    className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-3 rounded-full border border-white bg-white px-8 py-3.5 font-sans text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
+                                    className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-2 sm:gap-3 rounded-full border border-white bg-white px-6 sm:px-8 py-3 sm:py-3.5 font-sans text-[11px] sm:text-xs font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
                                 >
                                     <Play className="w-4 h-4 fill-current transition-transform duration-500 group-hover:scale-110" />
                                     <span>Flagship Case Study</span>
@@ -154,10 +154,10 @@ export default function HeroLanding() {
                             </div>
 
                             {/* SECONDARY CTA — Explore My Mind */}
-                            <div className="relative order-1 sm:order-2 w-full h-14 pointer-events-auto">
+                            <div className="relative order-1 sm:order-2 w-full h-12 sm:h-14 pointer-events-auto">
                                 <button
                                     onClick={() => navigateTo('/quiz')}
-                                    className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-3 overflow-hidden rounded-full border border-white/40 px-8 py-3.5 font-sans text-xs font-bold uppercase tracking-widest text-white transition-all duration-500 hover:bg-white/5 hover:border-white/80 backdrop-blur-sm"
+                                    className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-2 sm:gap-3 overflow-hidden rounded-full border border-white/40 px-6 sm:px-8 py-3 sm:py-3.5 font-sans text-[11px] sm:text-xs font-bold uppercase tracking-widest text-white transition-all duration-500 hover:bg-white/5 hover:border-white/80 backdrop-blur-sm"
                                 >
                                     <span className="relative z-10 flex h-5 w-5 shrink-0 items-center justify-center">
                                         <div className="w-full h-full flex items-center justify-center group-hover:-rotate-90 transition-transform duration-500">

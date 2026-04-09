@@ -147,11 +147,11 @@ const SLIDES: SlideItem[][] = [
 /* ─── Quote card — no border, larger text, clean ─── */
 function QuoteCard({ item }: { item: QuoteItem }) {
     return (
-        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.02] flex flex-col justify-center p-8 md:p-10">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-white/[0.04] flex flex-col justify-center p-6 sm:p-8 md:p-10">
             {/* Subtle ambient glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[var(--accent-teal)]/[0.04] blur-[80px] rounded-full pointer-events-none" />
 
-            <p className="relative z-10 text-zinc-300 text-lg md:text-xl lg:text-2xl leading-relaxed italic mb-6">
+            <p className="relative z-10 text-zinc-200 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed italic mb-4 sm:mb-6">
                 &ldquo;{item.quote}&rdquo;
             </p>
             <div className="relative z-10 flex items-center gap-3">
@@ -160,7 +160,7 @@ function QuoteCard({ item }: { item: QuoteItem }) {
                 </div>
                 <div>
                     <p className="text-zinc-200 text-sm font-semibold">{item.name}</p>
-                    <p className="text-zinc-600 text-[11px] font-mono">{item.role}</p>
+                    <p className="text-zinc-500 text-[11px] font-mono">{item.role}</p>
                 </div>
             </div>
         </div>
@@ -262,7 +262,10 @@ export default function ExtendedPortfolio() {
             {/* Header */}
             <motion.div
                 className="mb-12 md:mb-16 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto"
-                style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             >
                 <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     2012 — 2022

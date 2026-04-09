@@ -352,7 +352,10 @@ export default function VibeCodingBlock() {
                 {/* Header */}
                 <motion.div
                     className="mb-12 md:mb-16"
-                    style={{ y: headingY, opacity: headingOpacity, scale: headingScale }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                         Nov 2025 — Present
