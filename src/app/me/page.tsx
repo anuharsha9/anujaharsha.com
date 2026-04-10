@@ -703,7 +703,7 @@ function LifeGallery() {
             // Bento sizing: first image spans wide, others vary
             const spanClasses = [
               'col-span-2 md:col-span-7 row-span-2',      // Baking — hero card
-              'col-span-1 md:col-span-5 row-span-2',      // Painting — tall right
+              'col-span-2 md:col-span-5 row-span-2',      // Painting — full width on mobile, tall right on desktop
               'col-span-2 md:col-span-4 row-span-1',      // Family — wide bottom-left
               'col-span-1 md:col-span-4 row-span-1',      // Cooking — square center
               'col-span-1 md:col-span-4 row-span-1',      // Flavor — square right

@@ -143,14 +143,14 @@ export default function CinematicCaseStudy({
                                 </motion.div>
                             </div>
 
-                            {/* Info bar — metadata centered */}
+                            {/* Info bar — metadata centered, stacks on mobile */}
                             <div className="flex items-center justify-center mt-5 md:mt-7">
-                                <div className="flex items-center gap-2.5 md:gap-4">
-                                    <span className="text-[var(--cs-accent)] font-mono text-sm sm:text-base font-bold uppercase tracking-[0.25em]">
+                                <div className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2.5 md:gap-4 text-center">
+                                    <span className="text-[var(--cs-accent)] font-mono text-[11px] sm:text-sm md:text-base font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em]">
                                         {data.role}
                                     </span>
-                                    <span className="text-zinc-600 font-mono text-sm sm:text-base">•</span>
-                                    <span className="text-sm sm:text-base font-mono text-zinc-400 uppercase tracking-widest">
+                                    <span className="text-zinc-600 font-mono text-sm hidden sm:inline">•</span>
+                                    <span className="text-[10px] sm:text-sm md:text-base font-mono text-zinc-400 uppercase tracking-wider sm:tracking-widest">
                                         {data.company} • {data.timeframe}
                                     </span>
                                 </div>

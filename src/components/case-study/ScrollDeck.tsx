@@ -14,7 +14,7 @@
  * - Subtle radial glow shifts per scene type
  */
 
-import React, { useRef, useState, useCallback, useMemo } from 'react'
+import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react'
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import Image from 'next/image'
 import type { StorySlide } from '@/components/case-study/StoryDeck'
@@ -24,7 +24,20 @@ import { withAlpha } from '@/lib/color-utils'
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /* ─── scroll distance per scene (vh) ─── */
-const SCROLL_PER_SCENE = 150
+const SCROLL_PER_SCENE_DESKTOP = 150
+const SCROLL_PER_SCENE_MOBILE = 100
+
+/* ─── mobile detection hook ─── */
+function useIsMobile(breakpoint = 768) {
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < breakpoint)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [breakpoint])
+    return isMobile
+}
 
 /* ─── accent colors per type ─── 
    Whispering Intensity: use the case-study accent for ALL types.
@@ -334,6 +347,8 @@ export default function ScrollDeck({ slides }: ScrollDeckProps) {
     const [activeScene, setActiveScene] = useState(0)
     const [scrollDir, setScrollDir] = useState<'up' | 'down'>('down')
     const prevProgress = useRef(0)
+    const isMobile = useIsMobile()
+    const scrollPerScene = isMobile ? SCROLL_PER_SCENE_MOBILE : SCROLL_PER_SCENE_DESKTOP
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -361,7 +376,7 @@ export default function ScrollDeck({ slides }: ScrollDeckProps) {
         <section
             ref={containerRef}
             className="relative"
-            style={{ height: `${slides.length * SCROLL_PER_SCENE}vh` }}
+            style={{ height: `${slides.length * scrollPerScene}vh` }}
         >
             {/* Sticky viewport — the "screen" */}
             <div className="sticky top-[56px] h-[calc(100vh-56px)] overflow-hidden bg-[var(--bg-primary)]">
