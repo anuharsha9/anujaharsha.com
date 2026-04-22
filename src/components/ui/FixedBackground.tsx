@@ -34,8 +34,9 @@ export default function FixedBackground() {
   const scrollRef = useRef(restingOpacity)
 
   // ── Intro blur-to-focus: waves "forming" on landing page ──
-  // Starts at 20px blur, sharpens to 0 over 2.5s
-  const [introBlur, setIntroBlur] = useState(isLanding ? 20 : 0)
+  // Starts at 14px blur, sharpens to 0 over 3.5s
+  // Slightly lower blur than before — the wave surge itself provides the drama
+  const [introBlur, setIntroBlur] = useState(isLanding ? 14 : 0)
   const introStarted = useRef(false)
 
   const [shouldMountAurora, setShouldMountAurora] = useState(false)
@@ -49,8 +50,8 @@ export default function FixedBackground() {
     if (!isLanding || introStarted.current) return
     introStarted.current = true
 
-    // Small delay so the canvas has time to render its first frames
-    const t1 = setTimeout(() => setIntroBlur(0), 100)
+    // 400ms delay — let the wave surge begin before sharpening
+    const t1 = setTimeout(() => setIntroBlur(0), 400)
 
     return () => clearTimeout(t1)
   }, [isLanding])

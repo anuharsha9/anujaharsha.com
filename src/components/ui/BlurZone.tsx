@@ -43,6 +43,8 @@ interface BlurZoneProps {
     containerHeight?: string
     /** Parallax Y travel in px. Default: 20 */
     parallaxOffset?: number
+    /** Enable 3D perspective tilt on scroll entrance (desktop only). Default: true */
+    perspective?: boolean
     /** Custom className for the sticky inner content */
     className?: string
     /** Unique ID for the section */
@@ -67,6 +69,7 @@ export default function BlurZone({
     maxBlur = 40,
     containerHeight = '200vh',
     parallaxOffset = 20,
+    perspective = true,
     className = '',
     id,
 }: BlurZoneProps) {
@@ -125,6 +128,27 @@ export default function BlurZone({
     const contentFilter = useMotionTemplate`blur(${contentBlur}px)`
     const watermarkFilter = useMotionTemplate`blur(${watermarkBlur}px)`
 
+    // ── 3D Perspective Tilt (desktop only) ──
+    // Content tilts slightly in 3D at edges, flattens in focus plateau
+    const tiltDeg = 3 // degrees
+    const minScale = 0.96
+
+    const rotateX = useTransform(
+        scrollYProgress,
+        [0, 0.25, 0.40, 0.60, 0.75, 1],
+        prefersReducedMotion || isMobile || !perspective
+            ? [0, 0, 0, 0, 0, 0]
+            : [tiltDeg, tiltDeg * 0.3, 0, 0, -tiltDeg * 0.3, -tiltDeg]
+    )
+
+    const contentScale = useTransform(
+        scrollYProgress,
+        [0, 0.25, 0.40, 0.60, 0.75, 1],
+        prefersReducedMotion || isMobile || !perspective
+            ? [1, 1, 1, 1, 1, 1]
+            : [minScale, minScale + 0.02, 1, 1, minScale + 0.02, minScale]
+    )
+
     // ── Mobile: auto-fit height, no sticky ──
     // Desktop: full cinematic scroll with sticky pinning
     if (isMobile) {
@@ -161,7 +185,7 @@ export default function BlurZone({
         )
     }
 
-    // ── Desktop: full cinematic sticky blur-morph ──
+    // ── Desktop: full cinematic sticky blur-morph + 3D perspective ──
     return (
         <div
             ref={containerRef}
@@ -170,7 +194,10 @@ export default function BlurZone({
             style={{ height: containerHeight }}
         >
             {/* Sticky inner — pins content to viewport during scroll */}
-            <div className={`sticky top-0 w-full h-screen flex flex-col justify-center ${className}`}>
+            <div
+                className={`sticky top-0 w-full h-screen flex flex-col justify-center ${className}`}
+                style={perspective ? { perspective: '1200px' } : undefined}
+            >
                 {/* Watermark layer — resolves faster than content */}
                 {watermark && (
                     <motion.div
@@ -184,13 +211,16 @@ export default function BlurZone({
                     </motion.div>
                 )}
 
-                {/* Main content — blur morph + parallax */}
+                {/* Main content — blur morph + parallax + 3D tilt */}
                 <motion.div
                     className="relative z-[2] w-full"
                     style={{
                         filter: contentFilter,
                         y: contentY,
+                        rotateX,
+                        scale: contentScale,
                         willChange: 'filter, transform',
+                        transformOrigin: 'center center',
                     }}
                 >
                     {children}

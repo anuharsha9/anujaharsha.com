@@ -49,6 +49,12 @@ const CURTAINS: AuroraCurtain[] = [
     { baseY: 0.78, rayLength: 130, opacity: 0.10, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 18 },
 ]
 
+// ── Cinematic Entrance Constants ──
+// The ocean awakening: waves surge up from below viewport over ~3.5s
+const ENTRANCE_DURATION = 3.5     // seconds — total surge-in duration
+const ENTRANCE_OVERSHOOT_AT = 0.55 // normalized time — brief brightness flash
+const ENTRANCE_OVERSHOOT = 1.4     // multiplier — how bright the flash peaks
+
 // Cursor ripple constants — whisper-level
 const RIPPLE_RADIUS = 200    // px — influence radius
 const RIPPLE_STRENGTH = 12   // px — max displacement at epicenter
@@ -59,6 +65,14 @@ const SCROLL_PHASE_SCALE = 0.3 / 1000
 
 // Target native refresh rate for buttery smooth rendering
 // No artificial frame throttling
+
+/**
+ * Attempt at a smooth ease-out curve for entrance progress.
+ * t goes 0→1, output goes 0→1 with long deceleration tail.
+ */
+function easeOutExpo(t: number): number {
+    return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)
+}
 
 export default function HeroAurora() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -89,22 +103,51 @@ export default function HeroAurora() {
         const scrollCalm = scrollFactorRef.current // 1 → 0.75
         const scrollPhase = scrollPhaseCurrentRef.current // smoothly lerped scroll offset
 
+        // ── Cinematic Entrance Progress ──
+        // Raw 0→1 over ENTRANCE_DURATION, eased for organic feel
+        const rawProgress = Math.min(time / ENTRANCE_DURATION, 1)
+        const progress = easeOutExpo(rawProgress)
+
+        // Surge factor: curtains rise from below viewport to resting position
+        // 0.5 = start 50% of viewport height below resting pos
+        const surgeOffset = (1 - progress) * 0.5
+
+        // Amplitude builds from near-zero to full
+        const ampScale = progress
+
+        // Opacity crescendo with brief overshoot flash at ~55%
+        let opacityScale = progress
+        if (rawProgress > 0.3 && rawProgress < 0.8) {
+            // Overshoot pulse: peaks at ENTRANCE_OVERSHOOT_AT
+            const pulseT = (rawProgress - 0.3) / 0.5 // 0→1 within the pulse window
+            const pulse = Math.sin(pulseT * Math.PI) // 0→1→0
+            opacityScale = progress + pulse * (ENTRANCE_OVERSHOOT - 1) * progress
+        }
+
+        // Ray length grows from 30% stubs to full
+        const rayLengthScale = 0.3 + 0.7 * progress
+
+        // Speed surge: starts 2.5x faster, decelerates to resting
+        const speedMultiplier = 1 + (1 - progress) * 1.5
+
         for (const curtain of CURTAINS) {
-            // Constant speed and amplitude — no surges, no flickering
-            const effectiveSpeed = curtain.speed * (0.5 + scrollCalm * 0.5)
-            const effectiveAmp = curtain.waveAmplitude * (0.6 + scrollCalm * 0.4)
+            // Entrance-modulated speed and amplitude
+            const effectiveSpeed = curtain.speed * (0.5 + scrollCalm * 0.5) * speedMultiplier
+            const effectiveAmp = curtain.waveAmplitude * (0.6 + scrollCalm * 0.4) * ampScale
 
             // Time drives the animation, scroll phase is added as a gentle offset
             // This makes the waves flow continuously AND respond to scroll
             const t = time * effectiveSpeed + curtain.phase + scrollPhase
 
             // Vertical drift of the whole curtain
+            // Vertical drift + entrance surge (curtains rise from below)
             const drift = Math.sin(t * 0.2) * 10 * scrollCalm
+            const entranceY = surgeOffset * h
 
             // Draw vertical rays from the wavy top edge downward
             for (let x = 0; x < w; x += curtain.rayWidth) {
                 const xFrac = x / w
-                let edgeY = curtain.baseY * h + drift
+                let edgeY = curtain.baseY * h + drift + entranceY
                     + Math.sin(t + xFrac * 8) * effectiveAmp
                     + Math.sin(t * 0.7 + xFrac * 12) * effectiveAmp * 0.4
                     + Math.sin(t * 0.4 + xFrac * 5) * effectiveAmp * 0.2
@@ -126,11 +169,14 @@ export default function HeroAurora() {
                     + 0.3 * Math.sin(t * 0.5 + xFrac * 20)
                     + 0.2 * Math.sin(t * 0.3 + xFrac * 35)
 
-                const rayOpacity = curtain.opacity * rayIntensity
+                const rayOpacity = curtain.opacity * rayIntensity * opacityScale
                     * (0.7 + 0.3 * Math.sin(t * 0.25))
 
                 // Vertical gradient ray: bright at top edge, fading downward
-                const grad = ctx.createLinearGradient(x, edgeY - 15, x, edgeY + curtain.rayLength)
+                // Ray length grows during entrance
+                const effectiveRayLen = curtain.rayLength * rayLengthScale
+
+                const grad = ctx.createLinearGradient(x, edgeY - 15, x, edgeY + effectiveRayLen)
                 grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`)
                 grad.addColorStop(0.05, `rgba(${r}, ${g}, ${b}, ${rayOpacity * 0.5})`)
                 grad.addColorStop(0.1, `rgba(${r}, ${g}, ${b}, ${rayOpacity})`)
@@ -139,17 +185,17 @@ export default function HeroAurora() {
                 grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`)
 
                 ctx.fillStyle = grad
-                ctx.fillRect(x, edgeY - 15, curtain.rayWidth, curtain.rayLength + 15)
+                ctx.fillRect(x, edgeY - 15, curtain.rayWidth, effectiveRayLen + 15)
             }
 
             // Draw the bright top edge glow (the "rope") — no shadowBlur for perf
             ctx.beginPath()
-            const ropeStartY = curtain.baseY * h + drift + Math.sin(t) * effectiveAmp
+            const ropeStartY = curtain.baseY * h + drift + entranceY + Math.sin(t) * effectiveAmp
             ctx.moveTo(0, ropeStartY)
 
             for (let x = 0; x <= w; x += 4) {
                 const xFrac = x / w
-                let y = curtain.baseY * h + drift
+                let y = curtain.baseY * h + drift + entranceY
                     + Math.sin(t + xFrac * 8) * effectiveAmp
                     + Math.sin(t * 0.7 + xFrac * 12) * effectiveAmp * 0.4
                     + Math.sin(t * 0.4 + xFrac * 5) * effectiveAmp * 0.2
@@ -167,10 +213,10 @@ export default function HeroAurora() {
             }
 
             // Double-stroke fake glow (much cheaper than shadowBlur)
-            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 0.5})`
+            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 0.5 * opacityScale})`
             ctx.lineWidth = 5
             ctx.stroke()
-            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.5})`
+            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${curtain.opacity * 1.5 * opacityScale})`
             ctx.lineWidth = 1.5
             ctx.stroke()
         }
