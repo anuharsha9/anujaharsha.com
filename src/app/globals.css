@@ -176,6 +176,19 @@ html.has-custom-cursor *::after {
   h6 {
     color: var(--text-heading);
   }
+
+  /* Balanced headlines — prevent orphaned words on last line */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* Pretty wrap for body text — better line breaking */
+  p,
+  li {
+    text-wrap: pretty;
+  }
 }
 
 @layer components {

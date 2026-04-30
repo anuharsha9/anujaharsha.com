@@ -1,7 +1,8 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { LayoutGroup } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 import SiteHeader from './SiteHeader'
 
 import SkipToContent from '@/components/accessibility/SkipToContent'
@@ -13,6 +14,32 @@ import PageTransition from '@/components/transitions/PageTransition'
 import { TransitionProvider } from '@/components/transitions/TransitionContext'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
+
+/** Announces route changes to screen readers via aria-live */
+function RouteAnnouncer() {
+  const pathname = usePathname()
+  const [announcement, setAnnouncement] = useState('')
+
+  useEffect(() => {
+    // Short delay to let the page title update first
+    const timer = setTimeout(() => {
+      const pageTitle = document.title || 'Page'
+      setAnnouncement(`Navigated to ${pageTitle}`)
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [pathname])
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      className="sr-only"
+    >
+      {announcement}
+    </div>
+  )
+}
 
 interface PageShellProps {
   children: ReactNode
@@ -26,12 +53,13 @@ export default function PageShell({ children }: PageShellProps) {
           {/* Custom cursor for desktop - instant movement, matches system speed */}
           <CustomCursor />
           <SkipToContent />
+          <RouteAnnouncer />
           <ReadingProgress />
           <SiteHeader />
           <URLHashSync />
           <PageTransition>
             <LayoutGroup>
-              <main id="main-content" className="relative z-[1]">
+              <main id="main-content" role="main" className="relative z-[1]">
                 {children}
               </main>
             </LayoutGroup>
