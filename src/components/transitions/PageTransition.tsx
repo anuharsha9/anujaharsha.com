@@ -42,28 +42,28 @@ interface WaveLayer {
 }
 
 const WAVE_LAYERS: WaveLayer[] = [
-  // Background curtain — reaches highest, pushes far ahead
+  // Background curtain — towering, ominous peak
   {
-    opacity: 0.20, rayLength: 250, rayWidth: 18,
-    waveAmplitude: 60, speed: 0.10, phase: 0,
+    opacity: 0.25, rayLength: 320, rayWidth: 18,
+    waveAmplitude: 110, speed: 0.14, phase: 0,
     surgeLead: 0.4, retreatLead: 0.0, sweepAngle: 0.15,
   },
-  // Primary curtain — main visual mass
+  // Primary curtain — heavy, chaotic main mass
   {
-    opacity: 0.32, rayLength: 220, rayWidth: 16,
-    waveAmplitude: 45, speed: 0.08, phase: 2.5,
+    opacity: 0.40, rayLength: 260, rayWidth: 16,
+    waveAmplitude: 85, speed: 0.12, phase: 2.5,
     surgeLead: 0.15, retreatLead: 0.25, sweepAngle: 0.15,
   },
-  // Foreground curtain — heavy bottom layer, lags behind
+  // Foreground curtain — dense bottom layer, aggressively churning
   {
-    opacity: 0.14, rayLength: 180, rayWidth: 20,
-    waveAmplitude: 50, speed: 0.05, phase: 4.5,
+    opacity: 0.20, rayLength: 200, rayWidth: 20,
+    waveAmplitude: 90, speed: 0.09, phase: 4.5,
     surgeLead: 0.0, retreatLead: 0.5, sweepAngle: 0.15,
   },
 ]
 
-const MAX_SPRAY = 40
-const SPRAY_PER_FRAME = 2
+const MAX_SPRAY = 120
+const SPRAY_PER_FRAME = 6
 
 export default function PageTransition({ children }: PageTransitionProps) {
   const { phase, progress } = useTransition()
@@ -100,8 +100,14 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const contentBlur = 0
 
   const contentTranslateY =
-    phase === 'submerge' ? easeInOutSine(progress) * 70 // Graceful deep sink
-    : phase === 'emerge' ? easeInOutSine(1 - progress) * 70 // Rises organically into place
+    phase === 'submerge' ? easeInOutSine(progress) * 120 // Deep, heavy sink
+    : phase === 'emerge' ? easeInOutSine(1 - progress) * 120 // Rises organically into place
+    : 0
+
+  // Add visceral camera shake during the most violent parts of the surge/retreat
+  const contentShake = 
+    (phase === 'submerge' && progress > 0.4) ? Math.sin(progress * 50) * (progress * 8)
+    : (phase === 'emerge' && progress < 0.6) ? Math.sin(progress * 40) * ((1 - progress) * 6)
     : 0
 
   useEffect(() => {
@@ -200,11 +206,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
       const speed = 50 + Math.random() * 90 // Explosive kinetic burst
       sprayRef.current.push({
         x, y,
-        vx: Math.cos(angle) * speed + vxBias * 40,
-        vy: Math.sin(angle) * speed - 50, // Harder initial vertical jet
-        opacity: 0.2 + Math.random() * 0.4, // Richer mist
-        size: 1 + Math.random() * 3, // Thicker water droplets
-        life: 0, maxLife: 0.5 + Math.random() * 1.0,
+        vx: Math.cos(angle) * speed + vxBias * 50,
+        vy: Math.sin(angle) * speed - 80, // Harder initial vertical jet
+        opacity: 0.3 + Math.random() * 0.5, // Richer mist
+        size: 2 + Math.random() * 5, // Thicker water droplets
+        life: 0, maxLife: 0.8 + Math.random() * 1.5,
       })
     }
 
@@ -459,7 +465,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
       <div style={{
         opacity: contentOpacity,
         filter: contentBlur > 0.1 ? `blur(${contentBlur}px)` : 'none',
-        transform: contentTranslateY > 0.5 ? `translateY(${contentTranslateY}px)` : 'none',
+        transform: `translateY(${contentTranslateY + contentShake}px) translateX(${contentShake * 0.5}px)`,
         willChange: phase !== 'idle' ? 'opacity, filter, transform' : 'auto',
         transition: phase === 'idle' ? 'opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none',
       }}>
