@@ -32,9 +32,37 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Sync to S3
+      - name: Sync static assets to S3 (long cache)
         run: |
-          aws s3 sync out/ s3://anujaharsha.com --delete
+          aws s3 sync out/ s3://anujaharsha.com \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable" \
+            --exclude "*.html" \
+            --exclude "*.xml" \
+            --exclude "*.txt" \
+            --exclude "*.json"
+
+      - name: Upload HTML files (no cache)
+        run: |
+          find out -name "*.html" -type f | while read -r file; do
+            relative_path="${file#out/}"
+            aws s3 cp "$file" "s3://anujaharsha.com/$relative_path" \
+              --cache-control "public, max-age=0, must-revalidate" \
+              --content-type "text/html"
+          done
+
+      - name: Upload sitemap and robots.txt
+        run: |
+          if [ -f "out/sitemap.xml" ]; then
+            aws s3 cp out/sitemap.xml s3://anujaharsha.com/sitemap.xml \
+              --content-type "application/xml" \
+              --cache-control "public, max-age=3600"
+          fi
+          if [ -f "out/robots.txt" ]; then
+            aws s3 cp out/robots.txt s3://anujaharsha.com/robots.txt \
+              --content-type "text/plain" \
+              --cache-control "public, max-age=3600"
+          fi
 
       - name: Invalidate CloudFront
         run: |
