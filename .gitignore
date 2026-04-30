@@ -36,8 +36,8 @@ next-env.d.ts
 
 lighthouse-report.html
 
-# Temporary screenshot assets
-assets/
+# Temporary screenshot assets (root-level only, not public/assets/)
+/assets/
 legacy-preview-tree/
 
 # Generated sitemap
