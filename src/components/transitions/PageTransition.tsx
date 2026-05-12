@@ -66,8 +66,9 @@ const MAX_SPRAY = 120
 const SPRAY_PER_FRAME = 6
 
 export default function PageTransition({ children }: PageTransitionProps) {
-  const { phase, progress } = useTransition()
+  const { phase } = useTransition()
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const tealRef = useRef({ r: 7, g: 139, b: 156 })
   const sizeRef = useRef({ w: 0, h: 0 })
   const rafRef = useRef(0)
@@ -83,32 +84,15 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
   useEffect(() => {
     phaseRef.current = phase
-    progressRef.current = progress
-  }, [phase, progress])
+  }, [phase])
 
-  // Content styling — tightly tracking the physical wave edge for a cinematic "wipe"
-  // Submerge: Stay fully visible until the wave crashes over (progress > 0.4), then plummet.
-  // Emerge: Stay completely invisible while wave holds, then aggressively reveal as it drops.
-  const easeInOutSine = (t: number) => -(Math.cos(Math.PI * Math.max(0, Math.min(1, t))) - 1) / 2;
-
-  const contentOpacity =
-    phase === 'submerge' ? Math.max(0, 1 - easeInOutSine(progress * 1.4)) // Fades natively matching the wave height
-    : phase === 'hold' ? 0
-    : phase === 'emerge' ? easeInOutSine(progress) // Graceful, breath-like fade-in
-    : 1
-
-  const contentBlur = 0
-
-  const contentTranslateY =
-    phase === 'submerge' ? easeInOutSine(progress) * 120 // Deep, heavy sink
-    : phase === 'emerge' ? easeInOutSine(1 - progress) * 120 // Rises organically into place
-    : 0
-
-  // Add visceral camera shake during the most violent parts of the surge/retreat
-  const contentShake = 
-    (phase === 'submerge' && progress > 0.4) ? Math.sin(progress * 50) * (progress * 8)
-    : (phase === 'emerge' && progress < 0.6) ? Math.sin(progress * 40) * ((1 - progress) * 6)
-    : 0
+  useEffect(() => {
+    const handleProgress = (e: CustomEvent<number>) => {
+      progressRef.current = e.detail
+    }
+    window.addEventListener('wave-progress', handleProgress as EventListener)
+    return () => window.removeEventListener('wave-progress', handleProgress as EventListener)
+  }, [])
 
   useEffect(() => {
     if (!isActive) {
@@ -252,6 +236,32 @@ export default function PageTransition({ children }: PageTransitionProps) {
       const { r, g, b } = tealRef.current
 
       const isSurge = curPhase === 'submerge'
+
+      // Update DOM directly for content container to prevent React render lag
+      if (contentRef.current && curPhase !== 'idle') {
+        const easeInOutSine = (t: number) => -(Math.cos(Math.PI * Math.max(0, Math.min(1, t))) - 1) / 2
+        
+        const opacity =
+          curPhase === 'submerge' ? Math.max(0, 1 - easeInOutSine(globalProgress * 1.4))
+          : curPhase === 'hold' ? 0
+          : curPhase === 'emerge' ? easeInOutSine(globalProgress)
+          : 1
+          
+        const translateY =
+          curPhase === 'submerge' ? easeInOutSine(globalProgress) * 120
+          : curPhase === 'emerge' ? easeInOutSine(1 - globalProgress) * 120
+          : 0
+          
+        const shake = 
+          (curPhase === 'submerge' && globalProgress > 0.4) ? Math.sin(globalProgress * 50) * (globalProgress * 8)
+          : (curPhase === 'emerge' && globalProgress < 0.6) ? Math.sin(globalProgress * 40) * ((1 - globalProgress) * 6)
+          : 0
+          
+        contentRef.current.style.opacity = opacity.toString()
+        contentRef.current.style.transform = `translateY(${translateY + shake}px) translateX(${shake * 0.5}px)`
+        contentRef.current.style.willChange = 'opacity, transform'
+        contentRef.current.style.transition = 'none'
+      }
 
       ctx.clearRect(0, 0, w, h)
 
@@ -462,13 +472,15 @@ export default function PageTransition({ children }: PageTransitionProps) {
         <canvas ref={canvasRef} className="fixed inset-0 z-[9997] pointer-events-none"
           style={{ width: '100vw', height: '100vh' }} aria-hidden="true" />
       )}
-      <div style={{
-        opacity: contentOpacity,
-        filter: contentBlur > 0.1 ? `blur(${contentBlur}px)` : 'none',
-        transform: `translateY(${contentTranslateY + contentShake}px) translateX(${contentShake * 0.5}px)`,
-        willChange: phase !== 'idle' ? 'opacity, filter, transform' : 'auto',
-        transition: phase === 'idle' ? 'opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none',
-      }}>
+      <div 
+        ref={contentRef}
+        style={phase === 'idle' ? {
+          opacity: 1,
+          transform: 'translateY(0px) translateX(0px)',
+          willChange: 'auto',
+          transition: 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)'
+        } : undefined}
+      >
         {children}
       </div>
     </>

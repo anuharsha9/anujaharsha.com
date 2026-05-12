@@ -7,13 +7,11 @@ type Phase = 'idle' | 'submerge' | 'hold' | 'emerge'
 
 interface TransitionContextValue {
   phase: Phase
-  progress: number
   navigateTo: (href: string) => void
 }
 
 const TransitionContext = createContext<TransitionContextValue>({
   phase: 'idle',
-  progress: 0,
   navigateTo: () => {},
 })
 
@@ -64,7 +62,6 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const [phase, setPhase] = useState<Phase>('idle')
-  const [progress, setProgress] = useState(0)
   const navLock = useRef(false)
   const animRef = useRef<number>(0)
   const pendingHref = useRef<string | null>(null)
@@ -116,7 +113,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       let finalProgress = easing(raw)
       if (!Number.isFinite(finalProgress) || Number.isNaN(finalProgress)) finalProgress = raw // fallback
 
-      setProgress(finalProgress)
+      // Dispatch custom event to drive canvas loop without triggering React renders
+      window.dispatchEvent(new CustomEvent('wave-progress', { detail: finalProgress }))
       
       if (raw < 1) animRef.current = requestAnimationFrame(tick)
       else cb()
@@ -128,13 +126,13 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const startEmerge = useCallback(() => {
     setPhase('emerge')
     phaseRef.current = 'emerge'
-    setProgress(0)
+    window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
     animateWith(2200, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
-      setProgress(0)
+      window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
       navLock.current = false
       pendingHref.current = null
       window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'idle' } }))
@@ -176,7 +174,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // 2) Start Submerge
     setPhase('submerge')
     phaseRef.current = 'submerge'
-    setProgress(0)
+    window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'submerge' } }))
 
     // 3) Push router midway through the submerge animation (at 800ms)
@@ -199,13 +197,13 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         // Network is slow — we must hold the waves up to prevent revealing the old page
         setPhase('hold')
         phaseRef.current = 'hold'
-        setProgress(1)
+        window.dispatchEvent(new CustomEvent('wave-progress', { detail: 1 }))
       }
     })
   }, [router, animateWith, startEmerge])
 
   return (
-    <TransitionContext.Provider value={{ phase, progress, navigateTo }}>
+    <TransitionContext.Provider value={{ phase, navigateTo }}>
       {children}
     </TransitionContext.Provider>
   )

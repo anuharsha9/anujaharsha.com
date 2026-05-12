@@ -304,6 +304,8 @@ export default function DSMLTrailer() {
                                     initial={{
                                         left: `${10 + i * 35}%`,
                                         top: `${15 + (i === 1 ? 0 : 25)}%`,
+                                        x: '-50%',
+                                        y: '-50%',
                                         opacity: 0.8,
                                     }}
                                     animate={{
@@ -328,9 +330,9 @@ export default function DSMLTrailer() {
 
                             {/* Central hub glow */}
                             <motion.div
-                                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl border-2 border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/[0.06]"
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={{ opacity: 1, scale: 1 }}
+                                className="absolute left-1/2 top-1/2 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl border-2 border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/[0.06]"
+                                initial={{ opacity: 0, scale: 0, x: '-50%', y: '-50%' }}
+                                animate={{ opacity: 1, scale: 1, x: '-50%', y: '-50%' }}
                                 transition={{ delay: 1.0, duration: 0.8, ease }}
                                 style={{ boxShadow: '0 0 60px rgba(0, 210, 211, 0.2)' }}
                             />

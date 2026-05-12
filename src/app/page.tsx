@@ -1,15 +1,27 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import SectionSkeleton from '@/components/ui/SectionSkeleton'
 
 import HeroLanding from '@/components/home/HeroLanding'
 
 /* ── Lazy-load everything below the fold ── */
-const CSGBlock = dynamic(() => import('@/components/home/CSGBlock'), { ssr: true })
-const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true })
-const VibeCodingBlock = dynamic(() => import('@/components/home/VibeCodingBlock'), { ssr: true })
-const ExtendedPortfolio = dynamic(() => import('@/components/home/ExtendedPortfolio'), { ssr: true })
-const FoundationBlock = dynamic(() => import('@/components/home/FoundationBlock'), { ssr: true })
-const TalkSection = dynamic(() => import('@/components/home/TalkSection'), { ssr: true })
+const CSGLoading = () => <SectionSkeleton height="180vh" text="LOADING WORK MODULE" />
+const CSGBlock = dynamic(() => import('@/components/home/CSGBlock'), { ssr: true, loading: CSGLoading })
+
+const TestimonialsLoading = () => <SectionSkeleton height="200vh" text="LOADING PROOF MODULE" />
+const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true, loading: TestimonialsLoading })
+
+const VibeCodingLoading = () => <SectionSkeleton height="200vh" text="LOADING SKILLS MODULE" />
+const VibeCodingBlock = dynamic(() => import('@/components/home/VibeCodingBlock'), { ssr: true, loading: VibeCodingLoading })
+
+const ExtendedPortfolioLoading = () => <SectionSkeleton height="200vh" text="LOADING GALLERY MODULE" />
+const ExtendedPortfolio = dynamic(() => import('@/components/home/ExtendedPortfolio'), { ssr: true, loading: ExtendedPortfolioLoading })
+
+const FoundationLoading = () => <SectionSkeleton height="120vh" text="LOADING FOUNDATION MODULE" />
+const FoundationBlock = dynamic(() => import('@/components/home/FoundationBlock'), { ssr: true, loading: FoundationLoading })
+
+const TalkSectionLoading = () => <SectionSkeleton height="100vh" text="LOADING CONTACT MODULE" />
+const TalkSection = dynamic(() => import('@/components/home/TalkSection'), { ssr: true, loading: TalkSectionLoading })
 const ScrollGear = dynamic(() => import('@/components/ui/ScrollGear'), { ssr: true })
 const BlurZone = dynamic(() => import('@/components/ui/BlurZone'), { ssr: true })
 const LifeContextStrip = dynamic(
