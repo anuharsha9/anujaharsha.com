@@ -171,7 +171,7 @@ export default function TestimonialsBlock() {
                             className="relative h-1.5 rounded-full transition-all duration-500 overflow-hidden block"
                             style={{
                                 width: i === active ? 32 : 8,
-                                backgroundColor: i === active ? 'transparent' : 'rgba(255,255,255,0.1)',
+                                backgroundColor: i === active ? 'rgba(255,255,255,0)' : 'rgba(255,255,255,0.1)',
                             }}
                         >
                             {i === active && (

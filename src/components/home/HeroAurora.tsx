@@ -38,15 +38,19 @@ interface AuroraCurtain {
     phase: number
     /** Width of individual ray columns (px) */
     rayWidth: number
+    /** Optional specific color for this curtain */
+    colorRgb?: { r: number, g: number, b: number }
 }
 
 const CURTAINS: AuroraCurtain[] = [
     // Main curtain — brightest, below the CTAs (the "shoreline")
-    { baseY: 0.68, rayLength: 200, opacity: 0.22, waveAmplitude: 40, speed: 0.08, phase: 0, rayWidth: 18 },
-    // Upper accent curtain — just below CTAs
-    { baseY: 0.60, rayLength: 150, opacity: 0.13, waveAmplitude: 35, speed: 0.06, phase: 2.0, rayWidth: 20 },
-    // Lower curtain — closer to bottom
-    { baseY: 0.78, rayLength: 130, opacity: 0.10, waveAmplitude: 30, speed: 0.10, phase: 4.0, rayWidth: 18 },
+    { baseY: 0.68, rayLength: 220, opacity: 0.25, waveAmplitude: 60, speed: 0.04, phase: 0, rayWidth: 18, colorRgb: { r: 7, g: 139, b: 156 } }, // Deep Teal
+    // Upper accent curtain — slower, emerald green
+    { baseY: 0.60, rayLength: 180, opacity: 0.18, waveAmplitude: 50, speed: 0.03, phase: 2.0, rayWidth: 20, colorRgb: { r: 16, g: 185, b: 129 } }, // Emerald
+    // Lower curtain — hypnotic lime/cyan mix
+    { baseY: 0.78, rayLength: 150, opacity: 0.15, waveAmplitude: 45, speed: 0.05, phase: 4.0, rayWidth: 18, colorRgb: { r: 5, g: 150, b: 105 } }, // Sea Green
+    // Deep background curtain — massive, slow wave
+    { baseY: 0.85, rayLength: 250, opacity: 0.12, waveAmplitude: 70, speed: 0.02, phase: 1.0, rayWidth: 25, colorRgb: { r: 6, g: 182, b: 212 } }, // Cyan
 ]
 
 // ── Cinematic Entrance Constants ──
@@ -97,7 +101,7 @@ export default function HeroAurora() {
         ctx.clearRect(0, 0, w, h)
         ctx.globalCompositeOperation = 'lighter'
 
-        const { r, g, b } = tealRef.current
+        const defaultTeal = tealRef.current
         const mx = mouseRef.current.x
         const my = mouseRef.current.y
         const scrollCalm = scrollFactorRef.current // 1 → 0.75
@@ -131,6 +135,8 @@ export default function HeroAurora() {
         const speedMultiplier = 1 + (1 - progress) * 1.5
 
         for (const curtain of CURTAINS) {
+            const { r, g, b } = curtain.colorRgb || defaultTeal
+
             // Entrance-modulated speed and amplitude
             const effectiveSpeed = curtain.speed * (0.5 + scrollCalm * 0.5) * speedMultiplier
             const effectiveAmp = curtain.waveAmplitude * (0.6 + scrollCalm * 0.4) * ampScale
@@ -145,7 +151,10 @@ export default function HeroAurora() {
             const entranceY = surgeOffset * h
 
             // Draw vertical rays from the wavy top edge downward
-            for (let x = 0; x < w; x += curtain.rayWidth) {
+            // We step by a small amount but draw wide rays so they heavily overlap horizontally
+            const stepX = 12
+            const rayDrawWidth = 80 // wide rays for volumetric overlap
+            for (let x = 0; x < w; x += stepX) {
                 const xFrac = x / w
                 let edgeY = curtain.baseY * h + drift + entranceY
                     + Math.sin(t + xFrac * 8) * effectiveAmp
@@ -176,17 +185,45 @@ export default function HeroAurora() {
                 // Ray length grows during entrance
                 const effectiveRayLen = curtain.rayLength * rayLengthScale
 
-                const grad = ctx.createLinearGradient(x, edgeY - 15, x, edgeY + effectiveRayLen)
+                // We want the ray to fade out horizontally as well as vertically,
+                // but a linear gradient only goes one direction. Instead, we'll draw
+                // multiple overlapping passes or just let the dense overlap of low-opacity
+                // rays create the volumetric blur. We scale down the opacity because we 
+                // are drawing many overlapping rays now.
+                const overlapFactor = rayDrawWidth / stepX
+                const adjustedOpacity = rayOpacity / (overlapFactor * 0.6) // Boost overall brightness slightly
+
+                const grad = ctx.createLinearGradient(0, edgeY - 15, 0, edgeY + effectiveRayLen)
                 grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`)
-                grad.addColorStop(0.05, `rgba(${r}, ${g}, ${b}, ${rayOpacity * 0.5})`)
-                grad.addColorStop(0.1, `rgba(${r}, ${g}, ${b}, ${rayOpacity})`)
-                grad.addColorStop(0.2, `rgba(${r}, ${g}, ${b}, ${rayOpacity * 0.7})`)
-                grad.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${rayOpacity * 0.3})`)
+                grad.addColorStop(0.05, `rgba(${r}, ${g}, ${b}, ${adjustedOpacity * 0.5})`)
+                grad.addColorStop(0.1, `rgba(${r}, ${g}, ${b}, ${adjustedOpacity})`)
+                grad.addColorStop(0.2, `rgba(${r}, ${g}, ${b}, ${adjustedOpacity * 0.7})`)
+                grad.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${adjustedOpacity * 0.3})`)
                 grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`)
 
                 ctx.fillStyle = grad
-                ctx.fillRect(x, edgeY - 15, curtain.rayWidth, effectiveRayLen + 15)
+                // Draw centered on x
+                ctx.fillRect(x - rayDrawWidth / 2, edgeY - 15, rayDrawWidth, effectiveRayLen + 15)
             }
+
+            // After volumetric rays, we add a massive soft ambient glow to the entire curtain edge
+            ctx.beginPath()
+            ctx.moveTo(0, h)
+            for (let x = 0; x <= w; x += 10) {
+                const xFrac = x / w
+                let y = curtain.baseY * h + drift + entranceY
+                    + Math.sin(t + xFrac * 8) * effectiveAmp
+                    + Math.sin(t * 0.7 + xFrac * 12) * effectiveAmp * 0.4
+                    + Math.sin(t * 0.4 + xFrac * 5) * effectiveAmp * 0.2
+                ctx.lineTo(x, y)
+            }
+            ctx.lineTo(w, h)
+            ctx.closePath()
+            const ambientGrad = ctx.createLinearGradient(0, curtain.baseY * h - effectiveAmp, 0, h)
+            ambientGrad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${curtain.opacity * opacityScale * 0.15})`)
+            ambientGrad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`)
+            ctx.fillStyle = ambientGrad
+            ctx.fill()
 
             // Draw the bright top edge glow (the "rope") — no shadowBlur for perf
             ctx.beginPath()

@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useRef, ReactNode } from 'react'
+import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
 
 // Context to expose Lenis instance for programmatic scrollTo
@@ -16,6 +17,16 @@ interface SmoothScrollProviderProps {
 
 export default function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     const lenisRef = useRef<Lenis | null>(null)
+    const pathname = usePathname()
+
+    // Reset scroll position on route change
+    useEffect(() => {
+        if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true })
+        } else {
+            window.scrollTo(0, 0)
+        }
+    }, [pathname])
 
     useEffect(() => {
         // Don't initialize on mobile/touch devices — native scroll feels better there

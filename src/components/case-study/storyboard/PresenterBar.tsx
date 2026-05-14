@@ -180,6 +180,7 @@ export default function PresenterBar({
                         alt="Anuja"
                         width={96}
                         height={96}
+                        priority
                         className="w-full h-full object-cover"
                     />
                 </motion.div>

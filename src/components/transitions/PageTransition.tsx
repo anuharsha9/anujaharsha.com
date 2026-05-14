@@ -39,26 +39,37 @@ interface WaveLayer {
   surgeLead: number
   retreatLead: number
   sweepAngle: number
+  colorRgb?: { r: number, g: number, b: number }
 }
 
 const WAVE_LAYERS: WaveLayer[] = [
-  // Background curtain — towering, ominous peak
+  // Deep background curtain — massive, slow wave (Cyan)
   {
-    opacity: 0.25, rayLength: 320, rayWidth: 18,
-    waveAmplitude: 110, speed: 0.14, phase: 0,
+    opacity: 0.12, rayLength: 250, rayWidth: 25,
+    waveAmplitude: 70, speed: 0.02, phase: 1.0,
     surgeLead: 0.4, retreatLead: 0.0, sweepAngle: 0.15,
+    colorRgb: { r: 6, g: 182, b: 212 }
   },
-  // Primary curtain — heavy, chaotic main mass
+  // Main curtain — brightest (Deep Teal)
   {
-    opacity: 0.40, rayLength: 260, rayWidth: 16,
-    waveAmplitude: 85, speed: 0.12, phase: 2.5,
+    opacity: 0.25, rayLength: 220, rayWidth: 18,
+    waveAmplitude: 60, speed: 0.04, phase: 0,
     surgeLead: 0.15, retreatLead: 0.25, sweepAngle: 0.15,
+    colorRgb: { r: 7, g: 139, b: 156 }
   },
-  // Foreground curtain — dense bottom layer, aggressively churning
+  // Upper accent curtain — slower (Emerald)
   {
-    opacity: 0.20, rayLength: 200, rayWidth: 20,
-    waveAmplitude: 90, speed: 0.09, phase: 4.5,
+    opacity: 0.18, rayLength: 180, rayWidth: 20,
+    waveAmplitude: 50, speed: 0.03, phase: 2.0,
     surgeLead: 0.0, retreatLead: 0.5, sweepAngle: 0.15,
+    colorRgb: { r: 16, g: 185, b: 129 }
+  },
+  // Lower curtain — hypnotic mix (Sea Green)
+  {
+    opacity: 0.15, rayLength: 150, rayWidth: 18,
+    waveAmplitude: 45, speed: 0.05, phase: 4.0,
+    surgeLead: 0.1, retreatLead: 0.1, sweepAngle: 0.15,
+    colorRgb: { r: 5, g: 150, b: 105 }
   },
 ]
 
@@ -286,6 +297,10 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
       for (let li = 0; li < WAVE_LAYERS.length; li++) {
         const layer = WAVE_LAYERS[li]
+        const lr = layer.colorRgb ? layer.colorRgb.r : r
+        const lg = layer.colorRgb ? layer.colorRgb.g : g
+        const lb = layer.colorRgb ? layer.colorRgb.b : b
+        
         const edgeYs = new Float32Array(ptCount)
 
         // CRITICAL FIX: To guarantee the wave NEVER stops undulating horizontally,
@@ -313,18 +328,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
           // Base Y — how far up this layer has reached at this x
           const baseY = startY - covFrac * (startY - endY) + drift
 
-          // Physicsy Amplitude: Waves gather height as they surge up, peak at the crest,
-          // and aggressively flatten out as they retreat like real backwash gravity.
+          // We removed the aggressive dynamic amplitude scaling.
+          // This ensures the transition waves perfectly match the HeroAurora's wave shape exactly.
           let dynamicAmp = layer.waveAmplitude
-          if (isSurge) {
-            // Surges from base up to 1.6x height
-            dynamicAmp *= (1.0 + easedSurge * 0.6)
-          } else if (curPhase === 'hold') {
-            dynamicAmp *= 1.6 // Maintain chaotic peak height
-          } else if (curPhase === 'emerge') {
-            // Flattens out heavily as it sheets backward
-            dynamicAmp *= Math.max(0.3, 1.6 - globalProgress * 1.3)
-          }
 
           // Traveling wave — per-point phase offset makes crests visibly
           // slide across the screen, like real waves rolling onto shore.
@@ -376,9 +382,10 @@ export default function PageTransition({ children }: PageTransitionProps) {
         ctx.fill()
 
         // ── Vertical rays hanging from edge — SAME style as HeroAurora ──
-        // (HeroAurora lines 106-143)
         ctx.globalCompositeOperation = 'lighter'
-        for (let x = 0; x < w; x += layer.rayWidth) {
+        const stepX = 12
+        const rayDrawWidth = 80 // wide rays for volumetric overlap
+        for (let x = 0; x < w; x += stepX) {
           const idx = x / step
           const i0 = Math.floor(idx)
           const fr = idx - i0
@@ -388,23 +395,40 @@ export default function PageTransition({ children }: PageTransitionProps) {
           if (ey > h + 50) continue
 
           const xf = x / w
-          // Ray intensity — SAME formula as HeroAurora (lines 126-128)
           const ri = 0.5
             + 0.3 * Math.sin(tBase * 0.5 + xf * 20)
             + 0.2 * Math.sin(tBase * 0.3 + xf * 35)
           const ro = layer.opacity * ri * (0.7 + 0.3 * Math.sin(tBase * 0.25))
 
-          // Ray gradient — SAME stops as HeroAurora (lines 134-140)
-          const g2 = ctx.createLinearGradient(x, ey - 15, x, ey + layer.rayLength)
-          g2.addColorStop(0, `rgba(${r},${g},${b},0)`)
-          g2.addColorStop(0.05, `rgba(${r},${g},${b},${ro * 0.5})`)
-          g2.addColorStop(0.1, `rgba(${r},${g},${b},${ro})`)
-          g2.addColorStop(0.2, `rgba(${r},${g},${b},${ro * 0.7})`)
-          g2.addColorStop(0.5, `rgba(${r},${g},${b},${ro * 0.3})`)
-          g2.addColorStop(1, `rgba(${r},${g},${b},0)`)
+          const overlapFactor = rayDrawWidth / stepX
+          const adjustedOpacity = ro / (overlapFactor * 0.6)
+
+          const g2 = ctx.createLinearGradient(0, ey - 15, 0, ey + layer.rayLength)
+          g2.addColorStop(0, `rgba(${lr},${lg},${lb},0)`)
+          g2.addColorStop(0.05, `rgba(${lr},${lg},${lb},${adjustedOpacity * 0.5})`)
+          g2.addColorStop(0.1, `rgba(${lr},${lg},${lb},${adjustedOpacity})`)
+          g2.addColorStop(0.2, `rgba(${lr},${lg},${lb},${adjustedOpacity * 0.7})`)
+          g2.addColorStop(0.5, `rgba(${lr},${lg},${lb},${adjustedOpacity * 0.3})`)
+          g2.addColorStop(1, `rgba(${lr},${lg},${lb},0)`)
           ctx.fillStyle = g2
-          ctx.fillRect(x, ey - 15, layer.rayWidth, layer.rayLength + 15)
+          ctx.fillRect(x - rayDrawWidth / 2, ey - 15, rayDrawWidth, layer.rayLength + 15)
         }
+        
+        // Massive soft ambient glow to the entire curtain edge
+        const ambientGrad = ctx.createLinearGradient(0, startY - layer.waveAmplitude * 2, 0, h)
+        ambientGrad.addColorStop(0, `rgba(${lr}, ${lg}, ${lb}, ${layer.opacity * 0.2})`)
+        ambientGrad.addColorStop(1, `rgba(${lr}, ${lg}, ${lb}, 0)`)
+        ctx.fillStyle = ambientGrad
+        
+        ctx.beginPath()
+        ctx.moveTo(0, h + 50)
+        for (let i = 0; i < ptCount; i++) {
+          ctx.lineTo(i * step, edgeYs[i])
+        }
+        ctx.lineTo(w, h + 50)
+        ctx.closePath()
+        ctx.fill()
+        
         ctx.globalCompositeOperation = 'source-over'
 
         // ── Glowing rope edge — SAME double-stroke as HeroAurora (lines 170-176) ──
@@ -415,11 +439,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
         }
 
         // Outer glow — wider, dimmer
-        ctx.strokeStyle = `rgba(${r},${g},${b},${layer.opacity * 0.5})`
+        ctx.strokeStyle = `rgba(${lr},${lg},${lb},${layer.opacity * 0.5})`
         ctx.lineWidth = 5
         ctx.stroke()
         // Inner bright line
-        ctx.strokeStyle = `rgba(${r},${g},${b},${layer.opacity * 1.5})`
+        ctx.strokeStyle = `rgba(${lr},${lg},${lb},${layer.opacity * 1.5})`
         ctx.lineWidth = 1.5
         ctx.stroke()
 

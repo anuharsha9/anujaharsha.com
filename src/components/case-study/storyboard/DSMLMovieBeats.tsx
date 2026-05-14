@@ -100,7 +100,7 @@ function MLIllustration() {
             <line x1="22" y1="45" x2="50" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
             <line x1="58" y1="45" x2="30" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
             {/* Pulse dot */}
-            <motion.circle cx="40" cy="18" r="2" fill="var(--cs-accent)" opacity="0.6" animate={{ r: [2, 3.5, 2], opacity: [0.6, 0.2, 0.6] }} transition={{ duration: 2, repeat: Infinity }} />
+            <motion.circle cx="40" cy="18" r={2} fill="var(--cs-accent)" opacity={0.6} initial={{ r: 2, opacity: 0.6 }} animate={{ r: [2, 3.5, 2], opacity: [0.6, 0.2, 0.6] }} transition={{ duration: 2, repeat: Infinity }} />
         </svg>
     )
 }
@@ -234,7 +234,7 @@ function SceneTeamVision() {
             <circle cx="36" cy="16" r="3" fill="var(--cs-accent)" opacity="0.2" />
             <path d="M31 26 C31 22, 33 20, 36 20 C39 20, 41 22, 41 26" fill="var(--cs-accent)" opacity="0.15" />
             {/* Idea spark */}
-            <motion.circle cx="24" cy="8" r="1.5" fill="var(--cs-accent)" opacity="0.5" animate={{ opacity: [0.5, 0.15, 0.5], r: [1.5, 2.5, 1.5] }} transition={{ duration: 2, repeat: Infinity }} />
+            <motion.circle cx="24" cy="8" r={1.5} fill="var(--cs-accent)" opacity={0.5} initial={{ r: 1.5, opacity: 0.5 }} animate={{ opacity: [0.5, 0.15, 0.5], r: [1.5, 2.5, 1.5] }} transition={{ duration: 2, repeat: Infinity }} />
         </svg>
     )
 }
@@ -1144,7 +1144,7 @@ export function DSMLBeatVeterans() {
                                             <circle cx="18" cy="12" r="6" fill="var(--cs-accent)" opacity="0.5" />
                                             <path d="M6 32 C6 24, 12 20, 18 20 C24 20, 30 24, 30 32" fill="var(--cs-accent)" opacity="0.35" />
                                             {/* Glow ring */}
-                                            <motion.circle cx="18" cy="18" r="16" stroke="var(--cs-accent)" strokeWidth="0.8" fill="none" opacity="0.3" animate={{ r: [15, 17, 15], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
+                                            <motion.circle cx="18" cy="18" r={16} stroke="var(--cs-accent)" strokeWidth="0.8" fill="none" opacity={0.3} initial={{ r: 15, opacity: 0.3 }} animate={{ r: [15, 17, 15], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
                                         </svg>
                                     </div>
                                     <div>
@@ -1255,7 +1255,7 @@ function StatIconShip() {
             <path d="M9 10 L5 14 L9 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
             <path d="M15 10 L19 14 L15 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
             {/* Exhaust */}
-            <motion.circle cx="12" cy="22" r="1" fill="var(--cs-accent)" opacity="0.3" animate={{ r: [1, 2, 1], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }} />
+            <motion.circle cx="12" cy="22" r={1} fill="var(--cs-accent)" opacity={0.3} initial={{ r: 1, opacity: 0.3 }} animate={{ r: [1, 2, 1], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }} />
         </svg>
     )
 }

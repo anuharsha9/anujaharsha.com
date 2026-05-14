@@ -113,7 +113,7 @@ function BentoTile({ tile, delay }: { tile: typeof TILES[0]; delay: number }) {
                         className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500 pointer-events-none"
                         style={{
                             opacity: isHovered ? 1 : 0,
-                            backgroundColor: isHovered ? 'rgba(0,0,0,0.50)' : 'transparent',
+                            backgroundColor: isHovered ? 'rgba(0,0,0,0.50)' : 'rgba(0,0,0,0)',
                         }}
                     >
                         <div className="flex flex-col items-center gap-4 max-w-xs text-center px-4">
