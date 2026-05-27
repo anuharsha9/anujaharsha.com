@@ -97,7 +97,7 @@ export default function PerspectiveReveal({
         <div
             ref={ref}
             className={className}
-            style={{ perspective: '1200px' }}
+            style={{ perspective: '1200px', position: 'relative' }}
         >
             <motion.div
                 style={{

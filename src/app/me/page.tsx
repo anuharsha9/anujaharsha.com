@@ -275,6 +275,11 @@ function GlitchPortalHero() {
 function DualityWriting() {
   const [isPoemExpanded, setIsPoemExpanded] = useState(false)
   const [isButtonHovered, setIsButtonHovered] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Lock scroll when poem is expanded
   useEffect(() => {
@@ -527,7 +532,7 @@ function DualityWriting() {
       </AnimatePresence>
 
       {/* ═══════ FOCUS STATE — Full-Screen Immersive Poem (Portal) ═══════ */}
-      {typeof document !== 'undefined' && createPortal(
+      {mounted && createPortal(
         <AnimatePresence>
           {isPoemExpanded && (
             <motion.div
