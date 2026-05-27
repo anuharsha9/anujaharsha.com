@@ -101,7 +101,7 @@ export default function PresenterBar({
     showAvatar = true,
     typewriterSpeed = 40,
     onTypingComplete,
-    hideOnMobileAfterTyping = true,
+    hideOnMobileAfterTyping = false,
 }: PresenterBarProps) {
     const [phase, setPhase] = useState<'typing' | 'revealing' | 'done'>('typing')
     const [visibleChars, setVisibleChars] = useState(0)

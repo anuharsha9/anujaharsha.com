@@ -122,12 +122,6 @@ export default function FixedBackground() {
               : isLanding
                 ? 'filter 3.5s cubic-bezier(0.16, 1, 0.3, 1)'
                 : 'opacity 0.7s ease',
-          maskImage: showFull
-            ? 'none'
-            : 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 30%, black 45%, black 100%)',
-          WebkitMaskImage: showFull
-            ? 'none'
-            : 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 15%, rgba(0,0,0,0.7) 30%, black 45%, black 100%)',
         }}
       >
         {shouldMountAurora && <HeroAurora />}

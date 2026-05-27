@@ -111,7 +111,7 @@ export default function CinematicCaseStudy({
                 <div className="scanline-overlay fixed inset-0 z-[1] pointer-events-none" aria-hidden="true" />
 
                 {/* ═══ HERO — Trailer + Metadata ═══ */}
-                <div className="relative text-white">
+                <div className="relative text-white" id="cs-trailer">
                     <motion.section
                         ref={heroRef}
                         className="relative z-10 min-h-[100vh] flex flex-col justify-center px-6 md:px-16 pt-20"
@@ -160,10 +160,12 @@ export default function CinematicCaseStudy({
                 </div>
 
                 {/* ═══ SCROLL DECK — Story scenes driven by scroll ═══ */}
-                <ScrollDeck slides={slides} />
+                <div id="cs-presentation">
+                    <ScrollDeck slides={slides} />
+                </div>
 
                 {/* ═══ FULL CASE STUDY CONTENT ═══ */}
-                <div className="relative text-white pb-48">
+                <div className="relative text-white pb-48" id="cs-deep-dive">
                     {children}
                 </div>
             </LightboxProvider>

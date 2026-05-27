@@ -275,7 +275,7 @@ export default function MLTrailer() {
                         </motion.p>
 
                         {/* Wizard step progression */}
-                        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+                        <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-0">
                             {WIZARD_STEPS.map((ws, i) => (
                                 <motion.div
                                     key={ws.label}

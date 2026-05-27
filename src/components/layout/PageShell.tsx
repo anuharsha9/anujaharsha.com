@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode, useEffect, useState } from 'react'
-import { LayoutGroup } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import SiteHeader from './SiteHeader'
 
@@ -58,11 +57,9 @@ export default function PageShell({ children }: PageShellProps) {
           <SiteHeader />
           <URLHashSync />
           <PageTransition>
-            <LayoutGroup>
-              <main id="main-content" role="main" className="relative z-[1]">
-                {children}
-              </main>
-            </LayoutGroup>
+            <main id="main-content" role="main" className="relative z-[1]">
+              {children}
+            </main>
           </PageTransition>
           <BackToTop />
         </TransitionProvider>

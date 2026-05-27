@@ -6,11 +6,12 @@
  * Keeps: Home (left), case study title + dropdown (right).
  */
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { useTransition } from '@/components/transitions/TransitionContext'
+import { useLenis } from '@/components/providers/SmoothScrollProvider'
 import { ArrowLeft, ChevronDown } from 'lucide-react'
 import { featuredCaseStudies } from '@/data/home'
 
@@ -56,6 +57,38 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
     const currentSlug = pathParts[pathParts.length - 1]
     const currentMeta = caseStudyMeta[currentSlug]
 
+    // Navigation state
+    const [activeSection, setActiveSection] = useState<'trailer' | 'presentation' | 'deep-dive'>('trailer')
+    const lenis = useLenis()
+
+    // Track scroll to update active segment
+    useEffect(() => {
+        const handleScroll = () => {
+            const y = window.scrollY
+            const t = document.getElementById('cs-trailer')
+            const p = document.getElementById('cs-presentation')
+            const d = document.getElementById('cs-deep-dive')
+            
+            let active: 'trailer' | 'presentation' | 'deep-dive' = 'trailer'
+            const vh = window.innerHeight
+
+            // Add a slight offset so it switches slightly before hitting the exact pixel
+            if (p && y >= p.offsetTop - vh * 0.4) active = 'presentation'
+            if (d && y >= d.offsetTop - vh * 0.4) active = 'deep-dive'
+
+            setActiveSection(active)
+        }
+        
+        handleScroll() // Init
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
+    const scrollToSection = useCallback((id: string) => {
+        if (!lenis) return
+        lenis.scrollTo(`#${id}`, { offset: -50, duration: 1.2 })
+    }, [lenis])
+
     // Close dropdown on outside click
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -83,24 +116,74 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease }}
-            className="sticky top-0 z-50 w-full backdrop-blur-xl bg-[var(--bg-primary)]/80 border-b border-white/[0.06]"
+            className="sticky top-0 z-50 w-full backdrop-blur-xl bg-[var(--bg-primary)]/80 border-b border-white/[0.06] pt-safe"
         >
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between h-12 md:h-14">
-                {/* Left: Home */}
-                <button
-                    onClick={handleHomeClick}
-                    className="flex items-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors text-xs font-mono tracking-wider uppercase cursor-pointer shrink-0"
-                    aria-label="Back to home"
-                >
-                    <ArrowLeft className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Home</span>
-                </button>
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between py-2 sm:py-0 sm:h-14 gap-2 sm:gap-0 relative">
+                {/* Mobile Top Row: Home & Dropdown */}
+                <div className="w-full sm:w-auto flex items-center justify-between">
+                    {/* Left: Home */}
+                    <button
+                        onClick={handleHomeClick}
+                        className="flex items-center gap-2 text-zinc-600 hover:text-zinc-400 transition-colors text-xs font-mono tracking-wider uppercase cursor-pointer shrink-0"
+                        aria-label="Back to home"
+                    >
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">Home</span>
+                    </button>
 
-                {/* Center: intentionally empty — clean and minimal */}
-                <div />
+                    {/* Right: Other Case Studies (Mobile only visible here) */}
+                    <div className="relative shrink-0 sm:hidden" ref={dropdownRef}>
+                        <button
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                            className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-white/[0.04] transition-all duration-200 cursor-pointer group"
+                        >
+                            <span className="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors max-w-[160px] truncate text-right">
+                                {currentMeta?.title || currentSlug}
+                            </span>
+                            <motion.div
+                                animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <ChevronDown className="w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-500 transition-colors" />
+                            </motion.div>
+                        </button>
+                    </div>
+                </div>
 
-                {/* Right: Case study title with dropdown */}
-                <div className="relative shrink-0" ref={dropdownRef}>
+                {/* Center: Case Study Navigation (Segmented Control) */}
+                <div className="w-full sm:absolute sm:left-1/2 sm:-translate-x-1/2 flex justify-center order-last sm:order-none pb-1 sm:pb-0">
+                    <div className="flex items-center p-1 bg-white/[0.02] border border-white/[0.05] rounded-full backdrop-blur-md w-full sm:w-auto justify-between sm:justify-start">
+                        {[
+                            { id: 'cs-trailer', label: 'Trailer', mobileLabel: 'Intro', value: 'trailer' as const },
+                            { id: 'cs-presentation', label: 'Presentation', mobileLabel: 'Deck', value: 'presentation' as const },
+                            { id: 'cs-deep-dive', label: 'Deep Dive', mobileLabel: 'Details', value: 'deep-dive' as const },
+                        ].map((sec) => {
+                            const isActive = activeSection === sec.value
+                            return (
+                                <button
+                                    key={sec.id}
+                                    onClick={() => scrollToSection(sec.id)}
+                                    className={`relative px-4 sm:px-5 py-1.5 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold tracking-widest uppercase transition-all duration-300 flex-1 sm:flex-none text-center ${
+                                        isActive ? 'text-black' : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02]'
+                                    }`}
+                                >
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="activeSegment"
+                                            className="absolute inset-0 bg-gradient-to-r from-zinc-200 to-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                                        />
+                                    )}
+                                    <span className="relative z-10 hidden sm:inline">{sec.label}</span>
+                                    <span className="relative z-10 sm:hidden">{sec.mobileLabel}</span>
+                                </button>
+                            )
+                        })}
+                    </div>
+                </div>
+
+                {/* Right: Other Case Studies (Desktop) */}
+                <div className="relative shrink-0 hidden sm:block" ref={dropdownRef}>
                     <button
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                         className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-white/[0.04] transition-all duration-200 cursor-pointer group"

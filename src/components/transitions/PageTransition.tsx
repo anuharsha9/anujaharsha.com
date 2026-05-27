@@ -46,28 +46,28 @@ const WAVE_LAYERS: WaveLayer[] = [
   // Deep background curtain — massive, slow wave (Cyan)
   {
     opacity: 0.12, rayLength: 250, rayWidth: 25,
-    waveAmplitude: 70, speed: 0.02, phase: 1.0,
+    waveAmplitude: 35, speed: 0.02, phase: 1.0,
     surgeLead: 0.4, retreatLead: 0.0, sweepAngle: 0.15,
     colorRgb: { r: 6, g: 182, b: 212 }
   },
   // Main curtain — brightest (Deep Teal)
   {
     opacity: 0.25, rayLength: 220, rayWidth: 18,
-    waveAmplitude: 60, speed: 0.04, phase: 0,
+    waveAmplitude: 30, speed: 0.04, phase: 0,
     surgeLead: 0.15, retreatLead: 0.25, sweepAngle: 0.15,
     colorRgb: { r: 7, g: 139, b: 156 }
   },
   // Upper accent curtain — slower (Emerald)
   {
     opacity: 0.18, rayLength: 180, rayWidth: 20,
-    waveAmplitude: 50, speed: 0.03, phase: 2.0,
+    waveAmplitude: 25, speed: 0.03, phase: 2.0,
     surgeLead: 0.0, retreatLead: 0.5, sweepAngle: 0.15,
     colorRgb: { r: 16, g: 185, b: 129 }
   },
   // Lower curtain — hypnotic mix (Sea Green)
   {
     opacity: 0.15, rayLength: 150, rayWidth: 18,
-    waveAmplitude: 45, speed: 0.05, phase: 4.0,
+    waveAmplitude: 22, speed: 0.05, phase: 4.0,
     surgeLead: 0.1, retreatLead: 0.1, sweepAngle: 0.15,
     colorRgb: { r: 5, g: 150, b: 105 }
   },
@@ -93,9 +93,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const isActive = phase !== 'idle'
   const MAX_COVERAGE = 0.82
 
-  useEffect(() => {
-    phaseRef.current = phase
-  }, [phase])
+  phaseRef.current = phase
 
   useEffect(() => {
     const handleProgress = (e: CustomEvent<number>) => {
@@ -487,6 +485,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
     return () => {
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', resize)
+      if (contentRef.current) {
+        contentRef.current.style.opacity = ''
+        contentRef.current.style.transform = ''
+        contentRef.current.style.willChange = ''
+        contentRef.current.style.transition = ''
+      }
     }
   }, [isActive])
 
@@ -494,7 +498,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
     <>
       {isActive && (
         <canvas ref={canvasRef} className="fixed inset-0 z-[9997] pointer-events-none"
-          style={{ width: '100vw', height: '100vh' }} aria-hidden="true" />
+          style={{ width: '100vw', height: '100dvh' }} aria-hidden="true" />
       )}
       <div 
         ref={contentRef}

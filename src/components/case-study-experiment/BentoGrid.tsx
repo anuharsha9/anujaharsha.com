@@ -204,7 +204,7 @@ export function VideoTile({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-            className={`flex flex-col gap-3 group/video ${className}`}
+            className={`relative flex flex-col gap-3 group/video ${className}`}
         >
             {title && (
                 <p className="text-sm font-mono text-zinc-400 uppercase tracking-[0.2em] px-2">{title}</p>

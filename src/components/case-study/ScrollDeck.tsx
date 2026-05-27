@@ -206,7 +206,7 @@ function HeroScene({ slide, isActive }: { slide: StorySlide; isActive: boolean }
                     transition={{ duration: 1.2, delay: isActive ? 0.6 : 0, ease }}
                 >
                     <div className="absolute inset-0 z-10 pointer-events-none" style={{
-                        background: 'linear-gradient(to bottom, var(--bg-primary) 0%, transparent 20%, transparent 80%, var(--bg-primary) 100%), linear-gradient(to right, var(--bg-primary) 0%, transparent 15%, transparent 85%, var(--bg-primary) 100%)',
+                        background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.8) 100%), linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.8) 100%)',
                     }} />
                     <div className="w-full h-full scale-110">
                         {slide.backgroundComponent}
@@ -283,7 +283,7 @@ function ContentScene({
                                     filter: isActive ? 'blur(0px)' : 'blur(4px)',
                                 }}
                                 transition={{ delay: isActive ? 0.35 + i * 0.1 : 0, duration: 0.7, ease }}
-                                className="text-sm md:text-base lg:text-lg text-zinc-400 leading-relaxed"
+                                className="text-base md:text-lg lg:text-xl text-zinc-400 leading-relaxed"
                             >
                                 {line}
                             </motion.p>
@@ -379,7 +379,7 @@ export default function ScrollDeck({ slides }: ScrollDeckProps) {
             style={{ height: `${slides.length * scrollPerScene}vh` }}
         >
             {/* Sticky viewport — the "screen" */}
-            <div className="sticky top-[56px] h-[calc(100vh-56px)] overflow-hidden bg-[var(--bg-primary)]">
+            <div className="sticky top-[56px] h-[calc(100dvh-56px)] overflow-hidden bg-black/40 backdrop-blur-sm">
 
 
 
