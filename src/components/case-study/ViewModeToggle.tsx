@@ -71,10 +71,17 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
             
             let active: 'trailer' | 'presentation' | 'deep-dive' = 'trailer'
             const vh = window.innerHeight
+            const offset = vh * 0.4
 
-            // Add a slight offset so it switches slightly before hitting the exact pixel
-            if (p && y >= p.offsetTop - vh * 0.4) active = 'presentation'
-            if (d && y >= d.offsetTop - vh * 0.4) active = 'deep-dive'
+            // Use getBoundingClientRect to avoid offsetParent issues
+            if (p) {
+                const pTop = p.getBoundingClientRect().top
+                if (pTop <= offset) active = 'presentation'
+            }
+            if (d) {
+                const dTop = d.getBoundingClientRect().top
+                if (dTop <= offset) active = 'deep-dive'
+            }
 
             setActiveSection(active)
         }
@@ -85,8 +92,16 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
     }, [])
 
     const scrollToSection = useCallback((id: string) => {
-        if (!lenis) return
-        lenis.scrollTo(`#${id}`, { offset: -50, duration: 1.2 })
+        if (lenis) {
+            lenis.scrollTo(`#${id}`, { offset: -50, duration: 1.2 })
+        } else {
+            // Fallback for mobile where Lenis is disabled
+            const el = document.getElementById(id)
+            if (el) {
+                const y = el.getBoundingClientRect().top + window.scrollY - 50
+                window.scrollTo({ top: y, behavior: 'smooth' })
+            }
+        }
     }, [lenis])
 
     // Close dropdown on outside click
