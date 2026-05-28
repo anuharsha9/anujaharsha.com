@@ -534,9 +534,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
         ref={contentRef}
         style={phase === 'idle' ? {
           opacity: 1,
-          transform: 'translateY(0px) translateX(0px)',
-          willChange: 'auto',
-          transition: 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)'
+          transform: 'translateY(0px)',
+          willChange: 'auto'
         } : undefined}
       >
         {children}
