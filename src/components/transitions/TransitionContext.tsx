@@ -170,7 +170,18 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const lockTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const navigateTo = useCallback((href: string) => {
-    if (navLock.current || normalizePath(href) === normalizePath(pathnameRef.current)) return
+    // Append trailing slash to match next.config.js trailingSlash: true on S3 static hosting
+    let targetHref = href
+    if (targetHref.startsWith('/') && targetHref !== '/') {
+      const parts = targetHref.split(/[?#]/)
+      const path = parts[0]
+      if (!path.endsWith('/') && !path.includes('.')) {
+        parts[0] = path + '/'
+        targetHref = parts.join('')
+      }
+    }
+
+    if (navLock.current || normalizePath(targetHref) === normalizePath(pathnameRef.current)) return
     navLock.current = true
     
     // Global failsafe: clear lock and force transition completion after 4.5s to prevent infinite deadlocks
@@ -182,7 +193,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         }
     }, 4500)
 
-    pendingHref.current = href
+    pendingHref.current = targetHref
 
     // 1) Stop scroll
     const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis
@@ -199,7 +210,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
       Promise.resolve().then(() => {
-        router.push(href, { scroll: true })
+        router.push(targetHref, { scroll: true })
       }).catch(err => {
         console.error('[TransitionContext] router.push threw error:', err)
       })
