@@ -36,11 +36,11 @@ export function useTransition() {
  */
 
 function easeSurge(t: number): number {
-  return t
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2 // easeInOutCubic
 }
 
 function easeRetreat(t: number): number {
-  return t
+  return Math.pow(t, 3) // easeInCubic
 }
 
 /**
@@ -110,7 +110,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       if (!Number.isFinite(finalProgress) || Number.isNaN(finalProgress)) finalProgress = raw // fallback
 
       // Dispatch custom event to drive canvas loop without triggering React renders
-      window.dispatchEvent(new CustomEvent('wave-progress', { detail: finalProgress }))
+      window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: finalProgress, raw: raw } }))
       
       if (raw < 1) animRef.current = requestAnimationFrame(tick)
       else cb()
@@ -122,13 +122,13 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const startEmerge = useCallback(() => {
     setPhase('emerge')
     phaseRef.current = 'emerge'
-    window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
+    window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(600, easeRetreat, () => {
+    animateWith(2200, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
-      window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
+      window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
       navLock.current = false
       pendingHref.current = null
       window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'idle' } }))
@@ -162,11 +162,11 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     if (navLock.current || normalize(href) === normalize(pathnameRef.current)) return
     navLock.current = true
     
-    // Global failsafe: clear lock after 1.6s to prevent infinite deadlocks
+    // Global failsafe: clear lock after 5.0s to prevent infinite deadlocks
     if (lockTimeoutRef.current) clearTimeout(lockTimeoutRef.current)
     lockTimeoutRef.current = setTimeout(() => {
         navLock.current = false
-    }, 1600)
+    }, 5000)
 
     pendingHref.current = href
 
@@ -178,10 +178,10 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // 2) Start Submerge
     setPhase('submerge')
     phaseRef.current = 'submerge'
-    window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
+    window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'submerge' } }))
 
-    // 3) Push router midway through the submerge animation (at 250ms)
+    // 3) Push router when the wave is near the peak and content is fully black (at 1400ms)
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
       Promise.resolve().then(() => {
@@ -189,9 +189,9 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       }).catch(err => {
         console.error('[TransitionContext] router.push threw error:', err)
       })
-    }, 250)
+    }, 1400)
 
-    animateWith(500, easeSurge, () => {
+    animateWith(1800, easeSurge, () => {
       // The instant the surging wave hits its peak, gravity takes over.
       const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
       if (normalize(pathnameRef.current) === normalize(pendingHref.current || '')) {
@@ -201,7 +201,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         // Network is slow — we must hold the waves up to prevent revealing the old page
         setPhase('hold')
         phaseRef.current = 'hold'
-        window.dispatchEvent(new CustomEvent('wave-progress', { detail: 1 }))
+        window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 1, raw: 1 } }))
       }
     })
   }, [router, animateWith, startEmerge])

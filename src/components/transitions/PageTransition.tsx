@@ -46,28 +46,28 @@ const WAVE_LAYERS: WaveLayer[] = [
   // Deep background curtain — massive, slow wave (Cyan)
   {
     opacity: 0.12, rayLength: 250, rayWidth: 25,
-    waveAmplitude: 35, speed: 0.02, phase: 1.0,
+    waveAmplitude: 70, speed: 0.02, phase: 1.0,
     surgeLead: 0.4, retreatLead: 0.0, sweepAngle: 0.15,
     colorRgb: { r: 6, g: 182, b: 212 }
   },
   // Main curtain — brightest (Deep Teal)
   {
     opacity: 0.25, rayLength: 220, rayWidth: 18,
-    waveAmplitude: 30, speed: 0.04, phase: 0,
+    waveAmplitude: 60, speed: 0.04, phase: 0,
     surgeLead: 0.15, retreatLead: 0.25, sweepAngle: 0.15,
     colorRgb: { r: 7, g: 139, b: 156 }
   },
   // Upper accent curtain — slower (Emerald)
   {
     opacity: 0.18, rayLength: 180, rayWidth: 20,
-    waveAmplitude: 25, speed: 0.03, phase: 2.0,
+    waveAmplitude: 50, speed: 0.03, phase: 2.0,
     surgeLead: 0.0, retreatLead: 0.5, sweepAngle: 0.15,
     colorRgb: { r: 16, g: 185, b: 129 }
   },
   // Lower curtain — hypnotic mix (Sea Green)
   {
     opacity: 0.15, rayLength: 150, rayWidth: 18,
-    waveAmplitude: 22, speed: 0.05, phase: 4.0,
+    waveAmplitude: 45, speed: 0.05, phase: 4.0,
     surgeLead: 0.1, retreatLead: 0.1, sweepAngle: 0.15,
     colorRgb: { r: 5, g: 150, b: 105 }
   },
@@ -86,18 +86,25 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const startTimeRef = useRef(0)
   const phaseRef = useRef<string>('idle')
   const progressRef = useRef(0)
+  const rawProgressRef = useRef(0)
   const sprayRef = useRef<SprayParticle[]>([])
   const prevTimeRef = useRef(0)
   const timeRef = useRef(0)
 
   const isActive = phase !== 'idle'
-  const MAX_COVERAGE = 0.82
+  const MAX_COVERAGE = 1.05
 
   phaseRef.current = phase
 
   useEffect(() => {
-    const handleProgress = (e: CustomEvent<number>) => {
-      progressRef.current = e.detail
+    const handleProgress = (e: CustomEvent<number | { progress: number; raw: number }>) => {
+      if (typeof e.detail === 'number') {
+        progressRef.current = e.detail
+        rawProgressRef.current = e.detail
+      } else if (e.detail && typeof e.detail === 'object') {
+        progressRef.current = e.detail.progress
+        rawProgressRef.current = e.detail.raw
+      }
     }
     window.addEventListener('wave-progress', handleProgress as EventListener)
     return () => window.removeEventListener('wave-progress', handleProgress as EventListener)
@@ -164,12 +171,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
       if (curPhase === 'submerge' || curPhase === 'hold') {
         const effectiveProgress = curPhase === 'hold' ? 1.0 : globalProgress
-        const easedProgress = easeOutCubic(effectiveProgress)
-        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, easedProgress * MAX_COVERAGE))
+        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, effectiveProgress * MAX_COVERAGE))
       }
 
       if (curPhase === 'emerge') {
-        const easedRemaining = Math.pow(1 - globalProgress, 3)
+        const easedRemaining = 1 - globalProgress
         return Math.max(0, Math.min(MAX_COVERAGE + 0.05, easedRemaining * MAX_COVERAGE))
       }
 
@@ -231,21 +237,48 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
       const isSurge = curPhase === 'submerge'
 
+      const waveProgress =
+        curPhase === 'submerge' ? globalProgress
+        : curPhase === 'hold' ? 1.0
+        : curPhase === 'emerge' ? 1 - globalProgress
+        : 0
+
+      // Parameter scaling factors matching HeroAurora entrance animations
+      const ampScale = waveProgress
+      const rayLengthScale = 0.3 + 0.7 * waveProgress
+      const speedMultiplier = 1 + (1 - waveProgress) * 1.5
+
+      // Opacity crescendo with brief overshoot flash at ~55% during surge
+      let opacityScale = waveProgress
+      if (curPhase === 'submerge' && rawProgressRef.current > 0.3 && rawProgressRef.current < 0.8) {
+        const pulseT = (rawProgressRef.current - 0.3) / 0.5
+        const pulse = Math.sin(pulseT * Math.PI)
+        opacityScale = waveProgress + pulse * 0.4 * waveProgress
+      }
+
       // Update DOM directly for content container to prevent React render lag
       if (contentRef.current && curPhase !== 'idle') {
         const easeInOutSine = (t: number) => -(Math.cos(Math.PI * Math.max(0, Math.min(1, t))) - 1) / 2
         
-        const opacity =
-          curPhase === 'submerge' ? Math.max(0, 1 - easeInOutSine(globalProgress * 1.4))
-          : curPhase === 'hold' ? 0
-          : curPhase === 'emerge' ? easeInOutSine(globalProgress)
-          : 1
-          
-        const translateY =
-          curPhase === 'submerge' ? easeInOutSine(globalProgress) * 40
-          : curPhase === 'emerge' ? easeInOutSine(1 - globalProgress) * 40
-          : 0
-          
+        let opacity = 1
+        let translateY = 0
+        
+        if (curPhase === 'submerge') {
+          // Content fades out and moves down over the first 70% of the surge
+          const contentProgress = Math.min(1, rawProgressRef.current / 0.7)
+          const easedContent = easeInOutSine(contentProgress)
+          opacity = Math.max(0, 1 - easedContent)
+          translateY = easedContent * 40
+        } else if (curPhase === 'hold') {
+          opacity = 0
+          translateY = 40
+        } else if (curPhase === 'emerge') {
+          // Content fades in and moves up over the emerge duration
+          const easedContent = easeInOutSine(rawProgressRef.current)
+          opacity = easedContent
+          translateY = (1 - easedContent) * 40
+        }
+        
         contentRef.current.style.opacity = opacity.toString()
         contentRef.current.style.transform = `translateY(${translateY}px)`
         contentRef.current.style.willChange = 'opacity, transform'
@@ -281,11 +314,15 @@ export default function PageTransition({ children }: PageTransitionProps) {
         
         const edgeYs = new Float32Array(ptCount)
 
+        // Wave amplitude modulated dynamically
+        const effectiveAmp = layer.waveAmplitude * ampScale
+
         // CRITICAL FIX: To guarantee the wave NEVER stops undulating horizontally,
         // we completely decouple its horizontal phase from the 'progress' state.
         // Ambient time alone drives the wave sideways at a continuous, steady pace.
-        // Slower base time multiplier gives the vertical undulation massive, majestic weight (from 18.0 to 9.0)
-        const tBase = time * layer.speed * 9.0 + layer.phase
+        // Match HeroAurora.tsx speed by removing the 5.0 multiplier
+        // Modulated by dynamic speedMultiplier (faster initially, slows to resting)
+        const tBase = time * layer.speed * speedMultiplier + layer.phase
 
         let hasAnyVisible = false
 
@@ -306,15 +343,10 @@ export default function PageTransition({ children }: PageTransitionProps) {
           // Base Y — how far up this layer has reached at this x
           const baseY = startY - covFrac * (startY - endY) + drift
 
-          // We removed the aggressive dynamic amplitude scaling.
-          // This ensures the transition waves perfectly match the HeroAurora's wave shape exactly.
-          let dynamicAmp = layer.waveAmplitude
-
           // Traveling wave — per-point phase offset makes crests visibly
           // slide across the screen, like real waves rolling onto shore.
-          // By linking travel directly to 'time', we guarantee the sideways slide
-          // NEVER pauses or freezes, even if Next.js holds the transition at the peak!
-          let travelMult = time * 0.15 // Very slow, majestic baseline oceanic drift
+          // We remove the fast-running time term here to prevent 15x undulation speed.
+          let travelMult = 0
           
           if (isSurge) {
             travelMult += easedSurge * 0.4  // Gentle momentum push during crash
@@ -328,7 +360,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
           
           const travelPhase = travelMult * 2.0 
 
-          const waveY = auroraEdgeY(xNorm, tBase + travelPhase, dynamicAmp)
+          const waveY = auroraEdgeY(xNorm, tBase + travelPhase, effectiveAmp)
 
           edgeYs[i] = baseY + waveY
         }
@@ -376,12 +408,17 @@ export default function PageTransition({ children }: PageTransitionProps) {
           const ri = 0.5
             + 0.3 * Math.sin(tBase * 0.5 + xf * 20)
             + 0.2 * Math.sin(tBase * 0.3 + xf * 35)
-          const ro = layer.opacity * ri * (0.7 + 0.3 * Math.sin(tBase * 0.25))
+          
+          // Ray opacity modulated by dynamic opacityScale
+          const ro = layer.opacity * ri * opacityScale * (0.7 + 0.3 * Math.sin(tBase * 0.25))
 
           const overlapFactor = rayDrawWidth / stepX
           const adjustedOpacity = ro / (overlapFactor * 0.6)
 
-          const g2 = ctx.createLinearGradient(0, ey - 15, 0, ey + layer.rayLength)
+          // Ray length modulated by dynamic rayLengthScale
+          const effectiveRayLen = layer.rayLength * rayLengthScale
+
+          const g2 = ctx.createLinearGradient(0, ey - 15, 0, ey + effectiveRayLen)
           g2.addColorStop(0, `rgba(${lr},${lg},${lb},0)`)
           g2.addColorStop(0.05, `rgba(${lr},${lg},${lb},${adjustedOpacity * 0.5})`)
           g2.addColorStop(0.1, `rgba(${lr},${lg},${lb},${adjustedOpacity})`)
@@ -389,12 +426,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
           g2.addColorStop(0.5, `rgba(${lr},${lg},${lb},${adjustedOpacity * 0.3})`)
           g2.addColorStop(1, `rgba(${lr},${lg},${lb},0)`)
           ctx.fillStyle = g2
-          ctx.fillRect(x - rayDrawWidth / 2, ey - 15, rayDrawWidth, layer.rayLength + 15)
+          ctx.fillRect(x - rayDrawWidth / 2, ey - 15, rayDrawWidth, effectiveRayLen + 15)
         }
         
-        // Massive soft ambient glow to the entire curtain edge
-        const ambientGrad = ctx.createLinearGradient(0, startY - layer.waveAmplitude * 2, 0, h)
-        ambientGrad.addColorStop(0, `rgba(${lr}, ${lg}, ${lb}, ${layer.opacity * 0.2})`)
+        // Massive soft ambient glow to the entire curtain edge (modulated by effectiveAmp and opacityScale)
+        const ambientGrad = ctx.createLinearGradient(0, startY - effectiveAmp * 2, 0, h)
+        ambientGrad.addColorStop(0, `rgba(${lr}, ${lg}, ${lb}, ${layer.opacity * opacityScale * 0.2})`)
         ambientGrad.addColorStop(1, `rgba(${lr}, ${lg}, ${lb}, 0)`)
         ctx.fillStyle = ambientGrad
         
@@ -416,12 +453,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
           ctx.lineTo(i * step, edgeYs[i])
         }
 
-        // Outer glow — wider, dimmer
-        ctx.strokeStyle = `rgba(${lr},${lg},${lb},${layer.opacity * 0.5})`
+        // Outer glow — wider, dimmer (modulated by opacityScale)
+        ctx.strokeStyle = `rgba(${lr},${lg},${lb},${layer.opacity * opacityScale * 0.5})`
         ctx.lineWidth = 5
         ctx.stroke()
-        // Inner bright line
-        ctx.strokeStyle = `rgba(${lr},${lg},${lb},${layer.opacity * 1.5})`
+        // Inner bright line (modulated by opacityScale)
+        ctx.strokeStyle = `rgba(${lr},${lg},${lb},${layer.opacity * opacityScale * 1.5})`
         ctx.lineWidth = 1.5
         ctx.stroke()
 
