@@ -43,6 +43,19 @@ function easeRetreat(t: number): number {
   return Math.pow(t, 3) // easeInCubic
 }
 
+function normalizePath(p: string): string {
+  if (!p) return ''
+  let path = p
+  try {
+    if (p.startsWith('http://') || p.startsWith('https://')) {
+      path = new URL(p).pathname
+    }
+  } catch { /* ignore */ }
+  path = path.split('?')[0].split('#')[0]
+  const cleaned = path.toLowerCase().replace(/^\/+|\/+$/g, '')
+  return cleaned === '' ? '/' : cleaned
+}
+
 /**
  * TransitionProvider — intercepts navigation to play the Tidal Wash.
  *
@@ -147,8 +160,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // If we're entering a page and we were somehow still holding (safety net fallback)
     if (phaseRef.current === 'hold') {
-      const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
-      if (normalize(pathname) === normalize(pendingHref.current || '')) {
+      if (normalizePath(pathname) === normalizePath(pendingHref.current || '')) {
         startEmerge()
       }
     }
@@ -158,15 +170,17 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   const lockTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const navigateTo = useCallback((href: string) => {
-    const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
-    if (navLock.current || normalize(href) === normalize(pathnameRef.current)) return
+    if (navLock.current || normalizePath(href) === normalizePath(pathnameRef.current)) return
     navLock.current = true
     
-    // Global failsafe: clear lock after 5.0s to prevent infinite deadlocks
+    // Global failsafe: clear lock and force transition completion after 4.5s to prevent infinite deadlocks
     if (lockTimeoutRef.current) clearTimeout(lockTimeoutRef.current)
     lockTimeoutRef.current = setTimeout(() => {
         navLock.current = false
-    }, 5000)
+        if (phaseRef.current === 'submerge' || phaseRef.current === 'hold') {
+            startEmerge()
+        }
+    }, 4500)
 
     pendingHref.current = href
 
@@ -193,8 +207,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
     animateWith(2500, easeSurge, () => {
       // The instant the surging wave hits its peak, gravity takes over.
-      const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
-      if (normalize(pathnameRef.current) === normalize(pendingHref.current || '')) {
+      if (normalizePath(pathnameRef.current) === normalizePath(pendingHref.current || '')) {
         // NO HOLD PHASE. A physical wave never pauses gracefully in mid-air.
         startEmerge()
       } else {
