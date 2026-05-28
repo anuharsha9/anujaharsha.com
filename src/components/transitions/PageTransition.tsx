@@ -190,7 +190,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
       if (curPhase === 'emerge') {
         const retreatLead = layer.retreatLead
         const divisor = 1.0 + retreatLead - sweepAngle
-        const p = (1 - rawProgress + retreatLead - xOffset) / divisor
+        const p = ((1 - rawProgress) * (1.0 + retreatLead) - xOffset) / divisor
         const clamped = Math.max(0, Math.min(1, p))
         // easeOutCubic for smooth retreat deceleration back into the ocean
         return 1 - Math.pow(1 - clamped, 3)

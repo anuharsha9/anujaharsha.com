@@ -125,7 +125,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(2500, easeRetreat, () => {
+    animateWith(1400, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
