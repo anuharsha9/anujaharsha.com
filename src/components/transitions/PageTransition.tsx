@@ -113,8 +113,17 @@ export default function PageTransition({ children }: PageTransitionProps) {
         rawProgressRef.current = e.detail.raw
       }
     }
+    const handleTransition = (e: CustomEvent<{ phase: string }>) => {
+      if (e.detail && typeof e.detail.phase === 'string') {
+        phaseRef.current = e.detail.phase
+      }
+    }
     window.addEventListener('wave-progress', handleProgress as EventListener)
-    return () => window.removeEventListener('wave-progress', handleProgress as EventListener)
+    window.addEventListener('wave-transition', handleTransition as EventListener)
+    return () => {
+      window.removeEventListener('wave-progress', handleProgress as EventListener)
+      window.removeEventListener('wave-transition', handleTransition as EventListener)
+    }
   }, [])
 
   useEffect(() => {
