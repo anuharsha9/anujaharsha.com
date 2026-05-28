@@ -231,7 +231,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                     onClick={() => {
                       trackResumeDownload()
                       closeMenu()
-                      openPdf('/assets/Anuja_Harsha_Resume.pdf', 'Anuja Harsha - Senior Product Designer')
+                      openPdf('/assets/Anuja%20Harsha%20Nimmagadda%20-%20Senior%20Product%20Designer.pdf', 'Anuja Harsha Nimmagadda - Senior Product Designer')
                     }}
                     className={`block w-full text-left px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 border-2 mt-4 ${t.textAccent} border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/5 hover:bg-[var(--accent-teal)]/10 focus-visible:outline-[var(--accent-teal)]`}
                     aria-label="View Resume PDF"

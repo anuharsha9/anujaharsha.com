@@ -129,7 +129,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(1000, easeRetreat, () => {
+    animateWith(600, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
@@ -166,11 +166,11 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     if (navLock.current || normalize(href) === normalize(pathnameRef.current)) return
     navLock.current = true
     
-    // Global failsafe: clear lock after 2.5s to prevent infinite deadlocks
+    // Global failsafe: clear lock after 1.6s to prevent infinite deadlocks
     if (lockTimeoutRef.current) clearTimeout(lockTimeoutRef.current)
     lockTimeoutRef.current = setTimeout(() => {
         navLock.current = false
-    }, 2500)
+    }, 1600)
 
     pendingHref.current = href
 
@@ -185,7 +185,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: 0 }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'submerge' } }))
 
-    // 3) Push router midway through the submerge animation (at 400ms)
+    // 3) Push router midway through the submerge animation (at 250ms)
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
       Promise.resolve().then(() => {
@@ -193,9 +193,9 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       }).catch(err => {
         console.error('[TransitionContext] router.push threw error:', err)
       })
-    }, 400)
+    }, 250)
 
-    animateWith(800, easeSurge, () => {
+    animateWith(500, easeSurge, () => {
       // The instant the surging wave hits its peak, gravity takes over.
       const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
       if (normalize(pathnameRef.current) === normalize(pendingHref.current || '')) {

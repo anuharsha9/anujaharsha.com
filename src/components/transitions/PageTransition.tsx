@@ -257,17 +257,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
           : 1
           
         const translateY =
-          curPhase === 'submerge' ? easeInOutSine(globalProgress) * 120
-          : curPhase === 'emerge' ? easeInOutSine(1 - globalProgress) * 120
-          : 0
-          
-        const shake = 
-          (curPhase === 'submerge' && globalProgress > 0.4) ? Math.sin(globalProgress * 50) * (globalProgress * 8)
-          : (curPhase === 'emerge' && globalProgress < 0.6) ? Math.sin(globalProgress * 40) * ((1 - globalProgress) * 6)
+          curPhase === 'submerge' ? easeInOutSine(globalProgress) * 40
+          : curPhase === 'emerge' ? easeInOutSine(1 - globalProgress) * 40
           : 0
           
         contentRef.current.style.opacity = opacity.toString()
-        contentRef.current.style.transform = `translateY(${translateY + shake}px) translateX(${shake * 0.5}px)`
+        contentRef.current.style.transform = `translateY(${translateY}px)`
         contentRef.current.style.willChange = 'opacity, transform'
         contentRef.current.style.transition = 'none'
       }
