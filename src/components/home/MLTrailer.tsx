@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { playAdeleChord } from '@/lib/audio'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -11,7 +12,7 @@ function KineticLine({
     className = '',
     delay = 0,
     emphasisWords = [] as string[],
-    emphasisClass = 'text-[var(--semantic-violet)]',
+    emphasisClass = 'text-[var(--semantic-purple)]',
 }: {
     children: string
     className?: string
@@ -114,6 +115,12 @@ export default function MLTrailer() {
         return () => t.forEach(clearTimeout)
     }, [cycle])
 
+    useEffect(() => {
+        if (step >= 0) {
+            playAdeleChord(step, 0.4)
+        }
+    }, [step])
+
     const textExit = { opacity: 0, y: -25, filter: 'blur(14px)' }
     const textExitT = { duration: 0.45, ease }
 
@@ -194,7 +201,7 @@ export default function MLTrailer() {
                         <KineticLine
                             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-tight"
                             emphasisWords={['side', 'project']}
-                            emphasisClass="bg-gradient-to-r from-[var(--semantic-violet)] to-[var(--semantic-cyan)] bg-clip-text text-transparent"
+                            emphasisClass="bg-gradient-to-r from-[var(--semantic-purple)] to-[var(--semantic-cyan)] bg-clip-text text-transparent"
                             delay={0.15}
                         >
                             A side project earned me the whole thing.

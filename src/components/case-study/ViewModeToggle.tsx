@@ -8,7 +8,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { useLenis } from '@/components/providers/SmoothScrollProvider'
@@ -115,13 +115,17 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
 
+    const router = useRouter()
+
     const handleHomeClick = () => {
         navigateTo('/')
+        
+        // Failsafe: if navigateTo is locked or fails, force navigation after a long delay
         setTimeout(() => {
-            const heroHeight = window.innerHeight * 3
-            const bioScrollPosition = heroHeight * 0.52
-            window.scrollTo({ top: bioScrollPosition, behavior: 'instant' as ScrollBehavior })
-        }, 100)
+            if (window.location.pathname !== '/') {
+                router.push('/')
+            }
+        }, 1200)
     }
 
     const otherCaseStudies = featuredCaseStudies.filter((cs) => cs.slug !== currentSlug)
@@ -135,7 +139,7 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
         >
             <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between py-2 sm:py-0 sm:h-14 gap-2 sm:gap-0 relative">
                 {/* Mobile Top Row: Home & Dropdown */}
-                <div className="w-full sm:w-auto flex items-center justify-between">
+                <div className="w-full sm:w-auto flex items-center justify-between relative z-10">
                     {/* Left: Home */}
                     <button
                         onClick={handleHomeClick}
@@ -166,8 +170,8 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
                 </div>
 
                 {/* Center: Case Study Navigation (Segmented Control) */}
-                <div className="w-full sm:absolute sm:left-1/2 sm:-translate-x-1/2 flex justify-center order-last sm:order-none pb-1 sm:pb-0">
-                    <div className="flex items-center p-1 bg-white/[0.02] border border-white/[0.05] rounded-full backdrop-blur-md w-full sm:w-auto justify-between sm:justify-start">
+                <div className="w-full sm:w-auto sm:absolute sm:left-1/2 sm:-translate-x-1/2 flex justify-center order-last sm:order-none pb-1 sm:pb-0 pointer-events-none">
+                    <div className="flex items-center p-1 bg-white/[0.02] border border-white/[0.05] rounded-full backdrop-blur-md w-full sm:w-auto justify-between sm:justify-start pointer-events-auto">
                         {[
                             { id: 'cs-trailer', label: 'Trailer', mobileLabel: 'Intro', value: 'trailer' as const },
                             { id: 'cs-presentation', label: 'Presentation', mobileLabel: 'Deck', value: 'presentation' as const },

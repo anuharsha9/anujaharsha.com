@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { playAdeleChord } from '@/lib/audio'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -113,6 +114,12 @@ export default function DSMLTrailer() {
         return () => t.forEach(clearTimeout)
     }, [cycle])
 
+    useEffect(() => {
+        if (step >= 0) {
+            playAdeleChord(step, 0.4)
+        }
+    }, [step])
+
     const textExit = { opacity: 0, y: -25, filter: 'blur(14px)' }
     const textExitT = { duration: 0.45, ease }
 
@@ -200,12 +207,12 @@ export default function DSMLTrailer() {
                         </motion.p>
 
                         {/* Three scattered feature boxes */}
-                        <div className="relative w-80 h-40 sm:w-96 sm:h-48 md:w-[32rem] md:h-56">
+                        <div className="relative w-full max-w-[18rem] h-56 sm:max-w-sm sm:h-64 md:max-w-lg md:h-72">
                             {FEATURES.map((feat, i) => {
                                 const positions = [
-                                    { left: '5%', top: '15%' },
-                                    { left: '65%', top: '8%' },
-                                    { left: '35%', top: '60%' },
+                                    { left: '0%', top: '5%' },
+                                    { right: '0%', top: '25%' },
+                                    { left: '20%', bottom: '5%' },
                                 ]
                                 return (
                                     <motion.div
@@ -291,18 +298,18 @@ export default function DSMLTrailer() {
                         transition={{ duration: 0.5, ease }}
                     >
                         {/* Three features merging into one */}
-                        <div className="relative w-72 h-32 sm:w-80 sm:h-40 md:w-[28rem] md:h-48 mb-6">
+                        <div className="relative w-full max-w-[16rem] h-48 sm:max-w-sm sm:h-56 md:max-w-lg md:h-64 mb-6">
                             {FEATURES.map((feat, i) => (
                                 <motion.div
                                     key={feat.label}
-                                    className="absolute rounded-lg border px-3 py-2 sm:px-4 sm:py-3"
+                                    className="absolute rounded-lg border px-3 py-2 sm:px-4 sm:py-3 whitespace-nowrap"
                                     style={{
                                         borderColor: `rgba(${feat.color}, 0.6)`,
                                         background: `rgba(${feat.color}, 0.15)`,
                                         boxShadow: `0 0 30px rgba(${feat.color}, 0.25)`,
                                     }}
                                     initial={{
-                                        left: `${10 + i * 35}%`,
+                                        left: `${15 + i * 35}%`,
                                         top: `${15 + (i === 1 ? 0 : 25)}%`,
                                         x: '-50%',
                                         y: '-50%',

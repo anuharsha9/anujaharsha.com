@@ -159,10 +159,18 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     pathnameRef.current = pathname
   }, [pathname, startEmerge])
 
+  const lockTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
   const navigateTo = useCallback((href: string) => {
     const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
     if (navLock.current || normalize(href) === normalize(pathnameRef.current)) return
     navLock.current = true
+    
+    // Global failsafe: clear lock after 2.5s to prevent infinite deadlocks
+    if (lockTimeoutRef.current) clearTimeout(lockTimeoutRef.current)
+    lockTimeoutRef.current = setTimeout(() => {
+        navLock.current = false
+    }, 2500)
 
     pendingHref.current = href
 

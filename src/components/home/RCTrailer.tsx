@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { playAdeleChord } from '@/lib/audio'
 import { Play, RotateCcw } from 'lucide-react'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -129,6 +130,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
         return () => t.forEach(clearTimeout)
     }, [cycle, showCTA])
+
+    useEffect(() => {
+        if (step >= 0) {
+            playAdeleChord(step, 0.4)
+        }
+    }, [step])
 
     /* shared exit transition */
     const textExit = { opacity: 0, y: -25, filter: 'blur(14px)' }

@@ -15,9 +15,10 @@
  */
 
 import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react'
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import type { StorySlide } from '@/components/case-study/StoryDeck'
+import { playWaveCrash, playOceanSwoosh } from '@/lib/audio'
 import { withAlpha } from '@/lib/color-utils'
 
 /* ─── shared easing ─── */
@@ -149,9 +150,18 @@ function Scene({
     )
 }
 
+function playTransitionSound(type: 'hero' | 'component' | 'content') {
+    if (type === 'hero') playWaveCrash(0.2)
+    else playOceanSwoosh(0.1)
+}
+
 
 /* ── Hero / title scene ── */
 function HeroScene({ slide, isActive }: { slide: StorySlide; isActive: boolean }) {
+    useEffect(() => {
+        if (isActive) playTransitionSound('hero')
+    }, [isActive])
+
     return (
         <div className="flex flex-col items-center justify-center w-full h-full px-6 md:px-12 text-center relative">
             <div
@@ -223,6 +233,22 @@ function ComponentScene({
 }: {
     slide: StorySlide; isActive: boolean
 }) {
+    const [renderKey, setRenderKey] = useState(0)
+    const [prevActive, setPrevActive] = useState(isActive)
+    const [hasMounted, setHasMounted] = useState(isActive)
+
+    if (isActive && !prevActive) {
+        setRenderKey(k => k + 1)
+        setHasMounted(true)
+        setPrevActive(true)
+    } else if (!isActive && prevActive) {
+        setPrevActive(false)
+    }
+
+    useEffect(() => {
+        if (isActive) playTransitionSound('component')
+    }, [isActive])
+
     return (
         <div className="flex flex-col items-center w-full h-full px-6 md:px-12 overflow-hidden">
             {/* Component body — parallax drift in with scale */}
@@ -240,7 +266,11 @@ function ComponentScene({
                 }}
                 className="w-full max-w-5xl flex-1 min-h-0 flex items-center justify-center overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10"
             >
-                {slide.component}
+                {hasMounted ? (
+                    <React.Fragment key={renderKey}>
+                        {slide.component}
+                    </React.Fragment>
+                ) : null}
             </motion.div>
         </div>
     )
@@ -248,11 +278,11 @@ function ComponentScene({
 
 
 /* ── Text + optional image scene ── */
-function ContentScene({
-    slide, accent, isActive,
-}: {
-    slide: StorySlide; accent: string; isActive: boolean
-}) {
+function ContentScene({ slide, accent, isActive }: { slide: StorySlide; accent: string; isActive: boolean }) {
+    useEffect(() => {
+        if (isActive) playTransitionSound('content')
+    }, [isActive])
+
     const hasImage = !!slide.image
 
     return (
