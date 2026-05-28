@@ -152,8 +152,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
     /**
      * Coverage: how far up the wave has swept at a given x-position.
-     * Diagonal propagation — left side leads during surge.
      */
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+
     const getLayerCoverage = (
       layer: WaveLayer, xNorm: number,
       globalProgress: number, curPhase: string,
@@ -161,31 +162,15 @@ export default function PageTransition({ children }: PageTransitionProps) {
     ): number => {
       if (curPhase === 'idle') return 0
 
-      // Calculate continuous wave coverage logic with simple sweep delay
       if (curPhase === 'submerge' || curPhase === 'hold') {
         const effectiveProgress = curPhase === 'hold' ? 1.0 : globalProgress
-        const sweepDelay = xNorm * Math.sin(layer.sweepAngle) * 0.25
-        
-        // Critical fix: Scale localProgress so the entire wave hits 1.0 continuously
-        let localProgress = Math.max(0, Math.min(1, (effectiveProgress - sweepDelay) / (1 - sweepDelay)))
-
-        // Ultra-smooth S-curve for surge: eases gently into the motion, flies through the middle, safely cushions at the crest
-        localProgress = -(Math.cos(Math.PI * localProgress) - 1) / 2
-
-        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, localProgress * MAX_COVERAGE))
+        const easedProgress = easeOutCubic(effectiveProgress)
+        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, easedProgress * MAX_COVERAGE))
       }
 
       if (curPhase === 'emerge') {
-        const sweepDelay = (1 - xNorm) * Math.sin(layer.sweepAngle) * 0.25
-        let localProgress = Math.max(0, Math.min(1, (globalProgress - sweepDelay) / (1 - sweepDelay)))
-
-        // Ultra-smooth S-curve for retreat: delicately un-sticks from the top, rapidly pulls away, softly glides to rest at the bottom
-        localProgress = -(Math.cos(Math.PI * localProgress) - 1) / 2
-
-        const drain = localProgress
-        const base = 1 - drain
-
-        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, base * MAX_COVERAGE))
+        const easedRemaining = Math.pow(1 - globalProgress, 3)
+        return Math.max(0, Math.min(MAX_COVERAGE + 0.05, easedRemaining * MAX_COVERAGE))
       }
 
       return 0

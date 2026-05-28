@@ -35,16 +35,12 @@ export function useTransition() {
  *   Velocity = 0 at the peak, then gravity gradually takes over.
  */
 
-/** Surge: Explosive entry that smooths out at the peak.
- *  Uses sine for a very organic "water crashing" velocity profile. */
 function easeSurge(t: number): number {
-  return Math.sin(t * Math.PI / 2)
+  return t
 }
 
-/** Retreat: Wave crashes and drains immediately like a scanner.
- *  Uses an accelerating power curve so there is no pause at the apex. */
 function easeRetreat(t: number): number {
-  return Math.pow(t, 1.2)
+  return t
 }
 
 /**
