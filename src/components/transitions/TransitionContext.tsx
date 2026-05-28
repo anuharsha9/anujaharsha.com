@@ -125,7 +125,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(2200, easeRetreat, () => {
+    animateWith(2500, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
@@ -181,7 +181,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'submerge' } }))
 
-    // 3) Push router when the wave is near the peak and content is fully black (at 1400ms)
+    // 3) Push router when the wave is near the peak and content is fully black (at 1900ms)
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
       Promise.resolve().then(() => {
@@ -189,9 +189,9 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       }).catch(err => {
         console.error('[TransitionContext] router.push threw error:', err)
       })
-    }, 1400)
+    }, 1900)
 
-    animateWith(1800, easeSurge, () => {
+    animateWith(2500, easeSurge, () => {
       // The instant the surging wave hits its peak, gravity takes over.
       const normalize = (p: string) => p === '/' ? '/' : p.replace(/\/+$/, '')
       if (normalize(pathnameRef.current) === normalize(pendingHref.current || '')) {
