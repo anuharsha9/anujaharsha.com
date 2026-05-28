@@ -108,6 +108,18 @@ export default function SystemLightbox({
         }
     }, [isOpen])
 
+    // Toggle lightbox-open class on html element to restore native cursor
+    useEffect(() => {
+        if (isOpen) {
+            document.documentElement.classList.add('lightbox-open')
+        } else {
+            document.documentElement.classList.remove('lightbox-open')
+        }
+        return () => {
+            document.documentElement.classList.remove('lightbox-open')
+        }
+    }, [isOpen])
+
     // Keyboard Navigation
     useEffect(() => {
         if (!isOpen) return

@@ -49,10 +49,10 @@
    Activated by CustomCursor.tsx adding
    .has-custom-cursor to <html>
    ============================================ */
-html.has-custom-cursor,
-html.has-custom-cursor *,
-html.has-custom-cursor *::before,
-html.has-custom-cursor *::after {
+html.has-custom-cursor:not(.lightbox-open),
+html.has-custom-cursor:not(.lightbox-open) *,
+html.has-custom-cursor:not(.lightbox-open) *::before,
+html.has-custom-cursor:not(.lightbox-open) *::after {
   cursor: none !important;
 }
 
