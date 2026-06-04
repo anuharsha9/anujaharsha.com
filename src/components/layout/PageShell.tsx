@@ -48,36 +48,27 @@ export default function PageShell({ children }: PageShellProps) {
   const pathname = usePathname()
   const isManifesto = pathname === '/manifesto'
 
-  // Manifesto route: blank canvas — no nav, no scroll provider, no transitions
-  if (isManifesto) {
-    return (
-      <ErrorBoundary>
-        <CustomCursor />
-        <RouteAnnouncer />
-        <main id="main-content" role="main" className="relative z-[1]">
-          {children}
-        </main>
-      </ErrorBoundary>
-    )
-  }
-
   return (
     <ErrorBoundary>
       <SmoothScrollProvider>
         <TransitionProvider>
           {/* Custom cursor for desktop - instant movement, matches system speed */}
           <CustomCursor />
-          <SkipToContent />
           <RouteAnnouncer />
-          <ReadingProgress />
-          <SiteHeader />
-          <URLHashSync />
+          {!isManifesto && (
+            <>
+              <SkipToContent />
+              <ReadingProgress />
+              <SiteHeader />
+              <URLHashSync />
+            </>
+          )}
           <PageTransition>
             <main id="main-content" role="main" className="relative z-[1]">
               {children}
             </main>
           </PageTransition>
-          <BackToTop />
+          {!isManifesto && <BackToTop />}
         </TransitionProvider>
       </SmoothScrollProvider>
     </ErrorBoundary>
