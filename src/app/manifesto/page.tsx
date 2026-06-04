@@ -294,7 +294,7 @@ function Scene2Philosophy({ progress }: { progress: number }) {
           animate={{ opacity: progress > 0.15 ? 1 : 0 }}
           transition={{ duration: 0.8 }}
         >
-          I don't just redesign. My specialty is compartmentalizing and reorganizing systems to make your workflow feel effortless. Not everything needs a redesign. The goal is always to solve the problem with the least friction.
+          I don&apos;t just redesign. My specialty is compartmentalizing and reorganizing systems to make your workflow feel effortless. Not everything needs a redesign. The goal is always to solve the problem with the least friction.
         </motion.p>
       </motion.div>
 
@@ -803,12 +803,12 @@ function Scene5TechEdge({ progress }: { progress: number }) {
             <code>
               <span className="text-pink-400">export function</span> <span className="text-yellow-200">RevenueCard</span>() {'{\n'}
               {'  '}<span className="text-pink-400">return</span> (\n
-              {'    '}&lt;<span className="text-blue-400">Card</span> <span className="text-emerald-300">className</span>=<span className="text-orange-300">"glassmorphic"</span>&gt;\n
-              {'      '}&lt;<span className="text-blue-400">Header</span>&gt;\n
-              {'        '}&lt;<span className="text-blue-400">Title</span>&gt;<span className="text-white">Q3 Revenue</span>&lt;/<span className="text-blue-400">Title</span>&gt;\n
-              {'        '}&lt;<span className="text-blue-400">Badge</span> <span className="text-emerald-300">variant</span>=<span className="text-orange-300">"success"</span>&gt;<span className="text-white">+14%</span>&lt;/<span className="text-blue-400">Badge</span>&gt;\n
-              {'      '}&lt;/<span className="text-blue-400">Header</span>&gt;\n
-              {'      '}&lt;<span className="text-blue-400">ChartContainer</span>&gt;\n
+              {'    '}&lt;<span className="text-blue-400">Card</span> <span className="text-emerald-300">className</span>=<span className="text-orange-300">&quot;glassmorphic&quot;</span>&gt;{'\n'}
+              {'      '}&lt;<span className="text-blue-400">Header</span>&gt;{'\n'}
+              {'        '}&lt;<span className="text-blue-400">Title</span>&gt;<span className="text-white">Q3 Revenue</span>&lt;/<span className="text-blue-400">Title</span>&gt;{'\n'}
+              {'        '}&lt;<span className="text-blue-400">Badge</span> <span className="text-emerald-300">variant</span>=<span className="text-orange-300">&quot;success&quot;</span>&gt;<span className="text-white">+14%</span>&lt;/<span className="text-blue-400">Badge</span>&gt;{'\n'}
+              {'      '}&lt;/<span className="text-blue-400">Header</span>&gt;{'\n'}
+              {'      '}&lt;<span className="text-blue-400">ChartContainer</span>&gt;{'\n'}
               {'        '}&lt;<span className="text-blue-400">AreaChart</span> <span className="text-emerald-300">data</span>=<span className="text-orange-300">{`{metrics}`}</span> /&gt;\n
               {'      '}&lt;/<span className="text-blue-400">ChartContainer</span>&gt;\n
               {'    '}&lt;/<span className="text-blue-400">Card</span>&gt;\n
@@ -920,7 +920,7 @@ function Scene6Closer({ progress }: { progress: number }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1, ease: easeCinematic }}
         >
-          Let's untangle the architecture.
+          Let&apos;s untangle the architecture.
         </motion.p>
 
         <motion.div
@@ -939,7 +939,7 @@ function Scene6Closer({ progress }: { progress: number }) {
             href="/#lets-talk"
             className="px-8 py-4 bg-white/5 text-white border border-white/10 rounded-full font-medium tracking-wide hover:bg-white/10 transition-colors"
           >
-            Let's Connect
+            Let&apos;s Connect
           </Link>
         </motion.div>
       </motion.div>
@@ -1043,6 +1043,7 @@ function PlaybackBar({
           value={currentTime}
           onChange={(e) => onSeek(parseFloat(e.target.value))}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          aria-label="Seek timeline"
         />
       </div>
 

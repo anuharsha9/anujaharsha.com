@@ -136,6 +136,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
     const ctx = canvas.getContext('2d', { alpha: true })
     if (!ctx) return
 
+    const contentEl = contentRef.current
+
     const rootStyle = getComputedStyle(document.documentElement)
     const tealRgb = rootStyle.getPropertyValue('--accent-teal-rgb').trim()
     if (tealRgb) {
@@ -524,11 +526,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
     return () => {
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', resize)
-      if (contentRef.current) {
-        contentRef.current.style.opacity = ''
-        contentRef.current.style.transform = ''
-        contentRef.current.style.willChange = ''
-        contentRef.current.style.transition = ''
+      if (contentEl) {
+        contentEl.style.opacity = ''
+        contentEl.style.transform = ''
+        contentEl.style.willChange = ''
+        contentEl.style.transition = ''
       }
     }
   }, [isActive])

@@ -1222,11 +1222,9 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
               {/* Centered Gears - THE HERO (with 3D parallax wrapper) */}
               <div
                 ref={parallaxRef}
-                className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz'
-                  ? 'max-w-[360px] sm:max-w-[460px] md:max-w-[620px] lg:max-w-[760px] xl:max-w-[840px] max-h-[62vh] sm:max-h-[70vh] lg:max-h-[82vh] mt-0 brain-entry-container'
-                  : showImmersiveCompleteState
-                    ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0 brain-floating'
-                    : 'max-w-[150px] sm:max-w-[170px] md:max-w-[250px] lg:max-w-[290px] xl:max-w-[320px] max-h-[30vh] sm:max-h-[35vh] lg:max-h-[40vh] mt-0'
+                className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' || showImmersiveCompleteState
+                  ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0 ' + (quizState === 'quiz' ? 'brain-entry-container' : 'brain-floating')
+                  : 'max-w-[150px] sm:max-w-[170px] md:max-w-[250px] lg:max-w-[290px] xl:max-w-[320px] max-h-[30vh] sm:max-h-[35vh] lg:max-h-[40vh] mt-0'
                   }`}
                 style={{
                   transformOrigin: 'center center',
@@ -1274,7 +1272,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
                       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <div className="text-white bg-black/60 backdrop-blur-2xl border border-white/15 p-6 md:p-8 rounded-2xl shadow-[0_8px_60px_rgba(0,0,0,0.5),0_0_1px_rgba(255,255,255,0.1)] max-w-xl w-[90vw] relative overflow-hidden">
+                      <div className="text-white bg-black/50 backdrop-blur-xl border border-white/15 p-5 md:p-6 rounded-2xl shadow-[0_8px_60px_rgba(0,0,0,0.5),0_0_1px_rgba(255,255,255,0.1)] max-w-[420px] w-[90vw] relative overflow-hidden">
 
                         {/* Teal accent top border */}
                         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent opacity-60" />
@@ -1286,7 +1284,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                           transition={{ delay: 0.2 }}
                           className="mb-5 text-center"
                         >
-                          <h3 className="text-xl md:text-2xl font-light text-zinc-100 leading-snug tracking-tight">
+                          <h3 className="text-lg md:text-xl font-light text-zinc-100 leading-snug tracking-tight">
                             {currentQuestion.question}
                           </h3>
                         </motion.div>
@@ -1306,12 +1304,12 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                   <button
                                     key={option.id}
                                     onClick={() => handleAnswer(option.id)}
-                                    className={`text-left p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] 
+                                    className={`text-left p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] 
                                            border border-white/[0.08] hover:border-[var(--accent-teal)]/30 transition-all duration-300
                                            flex items-center gap-3 group h-full hover:shadow-[0_0_20px_rgba(11,162,181,0.08)] ${currentQuestion.options.length === 3 ? 'md:last:col-span-2 md:last:w-1/2 md:last:mx-auto' : ''}`}
                                   >
-                                    <span className="text-lg group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
-                                    <span className="text-sm text-zinc-100 font-light">{option.label}</span>
+                                    <span className="text-base group-hover:scale-110 transition-transform duration-300">{option.emoji}</span>
+                                    <span className="text-xs md:text-sm text-zinc-100 font-light">{option.label}</span>
                                     <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-300 text-[var(--accent-teal)]" />
                                   </button>
                                 ))}
@@ -1322,17 +1320,17 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className="bg-emerald-500/10 border border-emerald-500/20 p-5 md:p-6 rounded-xl mt-2"
+                                className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-xl mt-2"
                               >
                                 <div className="flex items-start gap-4">
                                   <div className="p-2 bg-emerald-500/20 rounded-xl shrink-0 mt-0.5">
                                     <Check className="w-5 h-5 text-emerald-400" />
                                   </div>
                                   <div>
-                                    <h4 className="text-emerald-400 font-medium mb-1.5 text-base md:text-lg tracking-tight">
+                                    <h4 className="text-emerald-400 font-medium mb-1 text-sm md:text-base tracking-tight">
                                       {selectedOption?.reveal.title}
                                     </h4>
-                                    <p className="text-zinc-100 text-sm md:text-base leading-relaxed font-light">
+                                    <p className="text-zinc-100 text-xs md:text-sm leading-relaxed font-light">
                                       {selectedOption?.reveal.content}
                                     </p>
                                   </div>
