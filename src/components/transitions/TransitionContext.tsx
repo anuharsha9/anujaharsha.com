@@ -70,7 +70,16 @@ function normalizePath(p: string): string {
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
-  const [phase, setPhase] = useState<Phase>('idle')
+  const [phase, setPhase] = useState<Phase>(() => {
+    if (typeof window !== 'undefined') {
+      const pending = sessionStorage.getItem('transition_pending')
+      if (pending === 'true') {
+        sessionStorage.removeItem('transition_pending')
+        return 'emerge'
+      }
+    }
+    return 'idle'
+  })
   const navLock = useRef(false)
   const animRef = useRef<number>(0)
   const pendingHref = useRef<string | null>(null)
@@ -133,6 +142,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
   /** Start the emerge (retreat) animation */
   const startEmerge = useCallback(() => {
+    sessionStorage.removeItem('transition_pending')
     setPhase('emerge')
     phaseRef.current = 'emerge'
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
@@ -155,6 +165,14 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
   // Keep a ref in sync with pathname so navigateTo always has current value
   const pathnameRef = useRef(pathname)
+
+  // Handle hard-navigation recovery
+  useEffect(() => {
+    if (phaseRef.current === 'emerge') {
+      startEmerge()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // ONLY run on mount to catch hard reloads
 
   // Watch for pathname changes (Next.js route completed)
   useEffect(() => {
@@ -209,6 +227,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     // 3) Push router when the wave is near the peak and content is fully black (at 1900ms)
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
+      sessionStorage.setItem('transition_pending', 'true')
       Promise.resolve().then(() => {
         router.push(targetHref, { scroll: true })
       }).catch(err => {
