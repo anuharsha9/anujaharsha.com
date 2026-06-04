@@ -132,25 +132,25 @@ export default function HeroLanding() {
                             }
                             transition={{ duration: 2.8, delay: 1.5, ease }}
                         >
-                            {/* PRIMARY CTA — Flagship Case Study */}
-                            <div className="relative order-2 sm:order-1 w-full h-12 sm:h-14 pointer-events-auto">
-                                <motion.div
-                                    className="absolute inset-0 rounded-full border-2 border-white/60"
-                                    style={{ scale: glowRingScale, opacity: glowRingOpacity }}
-                                />
-                                <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                                {/* PRIMARY CTA — The Manifesto */}
+                                <div className="relative order-2 sm:order-1 w-full h-12 sm:h-14 pointer-events-auto">
                                     <motion.div
-                                        className="absolute inset-y-0 w-[60%] bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                                        style={{ left: lightSweepX }}
+                                        className="absolute inset-0 rounded-full border-2 border-white/60"
+                                        style={{ scale: glowRingScale, opacity: glowRingOpacity }}
                                     />
-                                </div>
-                                <button
-                                    onClick={() => navigateTo('/work/reportcaster')}
-                                    className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-2 sm:gap-3 rounded-full border border-white bg-white px-6 sm:px-8 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
-                                >
-                                    <Play className="w-4 h-4 fill-current transition-transform duration-500 group-hover:scale-110" />
-                                    <span>Flagship Case Study</span>
-                                </button>
+                                    <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                                        <motion.div
+                                            className="absolute inset-y-0 w-[60%] bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                            style={{ left: lightSweepX }}
+                                        />
+                                    </div>
+                                    <button
+                                        onClick={() => navigateTo('/manifesto')}
+                                        className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-2 sm:gap-3 rounded-full border border-white bg-white px-6 sm:px-8 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
+                                    >
+                                        <Play className="w-4 h-4 fill-current transition-transform duration-500 group-hover:scale-110" />
+                                        <span>Watch: Why Hire Me</span>
+                                    </button>
                             </div>
 
                             {/* SECONDARY CTA — Explore My Mind */}
