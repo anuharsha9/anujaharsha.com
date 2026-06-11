@@ -345,7 +345,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
           const effectiveAmp = layer.waveAmplitude * lp
           
           // Wave undulation offset
-          const waveY = auroraEdgeY(xNorm, layerPhasesRef.current[li], effectiveAmp)
+          const xWave = x / Math.max(w, 1000)
+          const waveY = auroraEdgeY(xWave, layerPhasesRef.current[li], effectiveAmp)
           allEdgeYs[li][i] = baseY + waveY
         }
       }
@@ -430,9 +431,10 @@ export default function PageTransition({ children }: PageTransitionProps) {
               localOpacityScale = lp + pulse * 0.4 * lp
             }
 
+            const xWave = x / Math.max(w, 1000)
             const ri = 0.5
-              + 0.3 * Math.sin(layerPhasesRef.current[li] * 0.5 + xf * 20)
-              + 0.2 * Math.sin(layerPhasesRef.current[li] * 0.3 + xf * 35)
+              + 0.3 * Math.sin(layerPhasesRef.current[li] * 0.5 + xWave * 20)
+              + 0.2 * Math.sin(layerPhasesRef.current[li] * 0.3 + xWave * 35)
             
             const ro = layer.opacity * ri * localOpacityScale * (0.7 + 0.3 * Math.sin(layerPhasesRef.current[li] * 0.25))
 

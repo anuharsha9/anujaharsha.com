@@ -155,11 +155,11 @@ export default function HeroAurora() {
             const stepX = 12
             const rayDrawWidth = 80 // wide rays for volumetric overlap
             for (let x = 0; x < w; x += stepX) {
-                const xFrac = x / w
+                const xWave = x / Math.max(w, 1000)
                 let edgeY = curtain.baseY * h + drift + entranceY
-                    + Math.sin(t + xFrac * 8) * effectiveAmp
-                    + Math.sin(t * 0.7 + xFrac * 12) * effectiveAmp * 0.4
-                    + Math.sin(t * 0.4 + xFrac * 5) * effectiveAmp * 0.2
+                    + Math.sin(t + xWave * 8) * effectiveAmp
+                    + Math.sin(t * 0.7 + xWave * 12) * effectiveAmp * 0.4
+                    + Math.sin(t * 0.4 + xWave * 5) * effectiveAmp * 0.2
 
                 // ── Cursor ripple: gently push nearby rays ──
                 const dx = x - mx
@@ -175,8 +175,8 @@ export default function HeroAurora() {
 
                 // Ray intensity varies along the width
                 const rayIntensity = 0.5
-                    + 0.3 * Math.sin(t * 0.5 + xFrac * 20)
-                    + 0.2 * Math.sin(t * 0.3 + xFrac * 35)
+                    + 0.3 * Math.sin(t * 0.5 + xWave * 20)
+                    + 0.2 * Math.sin(t * 0.3 + xWave * 35)
 
                 const rayOpacity = curtain.opacity * rayIntensity * opacityScale
                     * (0.7 + 0.3 * Math.sin(t * 0.25))
@@ -210,11 +210,11 @@ export default function HeroAurora() {
             ctx.beginPath()
             ctx.moveTo(0, h)
             for (let x = 0; x <= w; x += 10) {
-                const xFrac = x / w
+                const xWave = x / Math.max(w, 1000)
                 let y = curtain.baseY * h + drift + entranceY
-                    + Math.sin(t + xFrac * 8) * effectiveAmp
-                    + Math.sin(t * 0.7 + xFrac * 12) * effectiveAmp * 0.4
-                    + Math.sin(t * 0.4 + xFrac * 5) * effectiveAmp * 0.2
+                    + Math.sin(t + xWave * 8) * effectiveAmp
+                    + Math.sin(t * 0.7 + xWave * 12) * effectiveAmp * 0.4
+                    + Math.sin(t * 0.4 + xWave * 5) * effectiveAmp * 0.2
                 ctx.lineTo(x, y)
             }
             ctx.lineTo(w, h)
@@ -231,11 +231,11 @@ export default function HeroAurora() {
             ctx.moveTo(0, ropeStartY)
 
             for (let x = 0; x <= w; x += 4) {
-                const xFrac = x / w
+                const xWave = x / Math.max(w, 1000)
                 let y = curtain.baseY * h + drift + entranceY
-                    + Math.sin(t + xFrac * 8) * effectiveAmp
-                    + Math.sin(t * 0.7 + xFrac * 12) * effectiveAmp * 0.4
-                    + Math.sin(t * 0.4 + xFrac * 5) * effectiveAmp * 0.2
+                    + Math.sin(t + xWave * 8) * effectiveAmp
+                    + Math.sin(t * 0.7 + xWave * 12) * effectiveAmp * 0.4
+                    + Math.sin(t * 0.4 + xWave * 5) * effectiveAmp * 0.2
 
                 // Apply same cursor ripple to the rope
                 const dx = x - mx
