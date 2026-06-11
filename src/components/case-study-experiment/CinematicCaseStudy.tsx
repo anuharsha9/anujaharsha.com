@@ -114,7 +114,7 @@ export default function CinematicCaseStudy({
                 <div className="relative text-white" id="cs-trailer">
                     <motion.section
                         ref={heroRef}
-                        className="relative z-10 min-h-[100vh] flex flex-col justify-center px-6 md:px-16 pt-20"
+                        className="relative z-10 min-h-[100dvh] flex flex-col justify-center px-6 md:px-16 pt-20"
                         style={{ opacity: sectionOpacity, scale: sectionScale }}
                     >
                         <div className="max-w-[1440px] mx-auto w-full">

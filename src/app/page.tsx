@@ -20,7 +20,7 @@ const ExtendedPortfolio = dynamic(() => import('@/components/home/ExtendedPortfo
 const FoundationLoading = () => <SectionSkeleton height="120vh" text="LOADING FOUNDATION MODULE" />
 const FoundationBlock = dynamic(() => import('@/components/home/FoundationBlock'), { ssr: true, loading: FoundationLoading })
 
-const TalkSectionLoading = () => <SectionSkeleton height="100vh" text="LOADING CONTACT MODULE" />
+const TalkSectionLoading = () => <SectionSkeleton height="100dvh" text="LOADING CONTACT MODULE" />
 const TalkSection = dynamic(() => import('@/components/home/TalkSection'), { ssr: true, loading: TalkSectionLoading })
 const ScrollGear = dynamic(() => import('@/components/ui/ScrollGear'), { ssr: true })
 const BlurZone = dynamic(() => import('@/components/ui/BlurZone'), { ssr: true })
@@ -131,7 +131,7 @@ export default function Home() {
       </BlurZone>
 
       {/* ═══ ZONE 7: FOOTER ═══ */}
-      <BlurZone id="footer-zone" containerHeight="100vh">
+      <BlurZone id="footer-zone" containerHeight="100dvh">
         <TalkSection />
       </BlurZone>
 

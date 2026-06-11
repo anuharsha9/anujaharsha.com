@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 
-export default function SectionSkeleton({ height = '100vh', text = 'LOADING MODULE' }: { height?: string, text?: string }) {
+export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MODULE' }: { height?: string, text?: string }) {
   return (
     <div 
       className="w-full relative overflow-hidden flex items-center justify-center"

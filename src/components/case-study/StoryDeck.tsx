@@ -402,7 +402,7 @@ export default function StoryDeck({ slides, onExit, onClose, embedded = false }:
         <div className={embedded
             ? 'relative w-full bg-[var(--bg-primary)] flex flex-col'
             : 'fixed inset-0 z-50 bg-[var(--bg-primary)] flex flex-col'
-        } style={embedded ? { height: 'calc(100vh - 56px)' } : undefined}>
+        } style={embedded ? { height: 'calc(100dvh - 56px)' } : undefined}>
             {/* ── Top right: Full case study link + X close (hidden when embedded) ── */}
             {!embedded && (
                 <div className="absolute top-5 right-5 z-50 flex items-center gap-2">

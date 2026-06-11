@@ -58,7 +58,7 @@ export default function HeroLanding() {
     const lightSweepX = useTransform(scrollY, [50, 120], ['-120%', '120%'])
 
     return (
-        <div ref={containerRef} className="relative w-full z-[2]" style={{ height: '100vh' }}>
+        <div ref={containerRef} className="relative w-full z-[2]" style={{ height: '100dvh' }}>
             {/* Bottom-edge cover — blocks CSG from peeking below hero,
                  transparent at top so fixed aurora waves show through */}
             <motion.div

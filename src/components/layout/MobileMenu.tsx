@@ -142,8 +142,8 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
               aria-label="Mobile navigation menu"
               tabIndex={-1}
               style={{
-                height: '100vh',
-                maxHeight: '100vh',
+                height: '100dvh',
+                maxHeight: '100dvh',
                 zIndex: 10002,
                 position: 'fixed',
                 top: 0,

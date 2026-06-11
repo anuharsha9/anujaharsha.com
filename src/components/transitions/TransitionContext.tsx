@@ -70,16 +70,7 @@ function normalizePath(p: string): string {
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
-  const [phase, setPhase] = useState<Phase>(() => {
-    if (typeof window !== 'undefined') {
-      const pending = sessionStorage.getItem('transition_pending')
-      if (pending === 'true') {
-        sessionStorage.removeItem('transition_pending')
-        return 'emerge'
-      }
-    }
-    return 'idle'
-  })
+  const [phase, setPhase] = useState<Phase>('idle')
   const navLock = useRef(false)
   const animRef = useRef<number>(0)
   const pendingHref = useRef<string | null>(null)
@@ -166,9 +157,11 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   // Keep a ref in sync with pathname so navigateTo always has current value
   const pathnameRef = useRef(pathname)
 
-  // Handle hard-navigation recovery
+  // Handle hard-navigation recovery safely on the client after hydration
   useEffect(() => {
-    if (phaseRef.current === 'emerge') {
+    const pending = sessionStorage.getItem('transition_pending')
+    if (pending === 'true') {
+      sessionStorage.removeItem('transition_pending')
       startEmerge()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
