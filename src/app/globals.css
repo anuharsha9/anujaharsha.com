@@ -49,10 +49,7 @@
    Activated by CustomCursor.tsx adding
    .has-custom-cursor to <html>
    ============================================ */
-html,
-body {
-  overflow-x: hidden;
-}
+
 
 html.has-custom-cursor:not(.lightbox-open),
 html.has-custom-cursor:not(.lightbox-open) *,
