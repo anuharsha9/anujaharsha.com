@@ -930,7 +930,7 @@ function Scene6Closer({ progress }: { progress: number }) {
           transition={{ delay: 1, duration: 1, ease: easeCinematic }}
         >
           <Link
-            href="/case-study/reportcaster"
+            href="/work/reportcaster"
             className="px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]"
           >
             View Case Study
