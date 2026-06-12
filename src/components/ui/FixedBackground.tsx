@@ -29,7 +29,8 @@ export default function FixedBackground() {
   const pathname = usePathname()
   const isLanding = pathname === '/'
   const restingOpacity = isLanding ? FULL : DIMMED_OTHER
-  const [opacity, setOpacity] = useState(restingOpacity)
+  // Start at 1.0 on landing for the initial fade-down
+  const [opacity, setOpacity] = useState(isLanding ? 1.0 : restingOpacity)
   const [transitioning, setTransitioning] = useState(false)
   const scrollRef = useRef(restingOpacity)
 
@@ -50,8 +51,11 @@ export default function FixedBackground() {
     if (!isLanding || introStarted.current) return
     introStarted.current = true
 
-    // 400ms delay — let the wave surge begin before sharpening
-    const t1 = setTimeout(() => setIntroBlur(0), 400)
+    // 400ms delay — let the wave surge begin before sharpening and dimming
+    const t1 = setTimeout(() => {
+      setIntroBlur(0)
+      setOpacity(FULL)
+    }, 400)
 
     return () => clearTimeout(t1)
   }, [isLanding])
@@ -116,11 +120,11 @@ export default function FixedBackground() {
           filter: introBlur > 0 ? `blur(${introBlur}px)` : 'none',
           willChange: introBlur > 0 ? 'opacity, filter' : 'opacity',
           transition: introBlur > 0
-            ? 'filter 3.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-in'
+            ? 'filter 3.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out'
             : transitioning
               ? 'opacity 0.3s ease-in'
               : isLanding
-                ? 'filter 3.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                ? 'filter 3.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out'
                 : 'opacity 0.7s ease',
         }}
       >
