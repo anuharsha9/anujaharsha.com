@@ -51,13 +51,20 @@ export default function FixedBackground() {
     if (!isLanding || introStarted.current) return
     introStarted.current = true
 
-    // 400ms delay — let the wave surge begin before sharpening and dimming
+    // 400ms delay — let the wave surge begin before sharpening
     const t1 = setTimeout(() => {
       setIntroBlur(0)
-      setOpacity(FULL)
     }, 400)
 
-    return () => clearTimeout(t1)
+    // Wait for the 3.5s blur transition to fully complete before dimming opacity
+    const t2 = setTimeout(() => {
+      setOpacity(FULL)
+    }, 4000)
+
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
   }, [isLanding])
 
   // Wave transition events
