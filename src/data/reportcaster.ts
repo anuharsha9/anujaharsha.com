@@ -58,7 +58,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
       'Must support all legacy schedule types.',
       'No direct access to end users.',
     ],
-    businessGoal: 'Retain customers by modernizing a 50-year-old enterprise scheduler — without breaking backward compatibility.',
+    businessGoal: 'Retain customers by modernizing a 40-year-old enterprise scheduler — without breaking backward compatibility.',
   },
   successCriteria: {
     baseline: '5 fragmented tools, 4 clicks to start, no centralized view.',
@@ -167,7 +167,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
         content: [
           'The platform\'s enterprise scheduler — powering 20M+ weekly jobs — was losing customers.',
           '40+ years without meaningful updates. Zero documentation.',
-          'The goal: retain customers. The challenge: modernize a 50-year-old system.',
+          'The goal: retain customers. The challenge: modernize a 40-year-old system.',
         ],
         image: '/images/case-study/ReportCaster/rc-old-workflow-poster.jpg',
         signal: 'CONSTRAINT: FRAGMENTATION',
@@ -262,7 +262,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
         layout: 'center',
         title: 'Validation',
         content: [
-          '"She impressed everyone. She took a 50-year-old system and made it look like it was built yesterday."',
+          '"She impressed everyone. She took a 40-year-old system and made it look like it was built yesterday."',
           '— Principal Engineer',
         ],
         signal: 'VALIDATION: PEER REVIEW',
@@ -313,7 +313,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
     ],
     star: {
       situation: 'The platform\'s enterprise scheduler was losing customers after 40+ years without modernization. 5 fragmented subsystems, no documentation, 20M+ weekly jobs at stake.',
-      task: 'Retain customers by modernizing the 50-year-old system. Document what had never been documented.',
+      task: 'Retain customers by modernizing the 40-year-old system. Document what had never been documented.',
       action: 'Volunteered one week into the job. Embedded with the Gold Support team and the original RC engineer to reconstruct tribal knowledge. Mapped all five subsystems from scratch. Explored three architectural directions — independent product, hub plugin, modal-based — before finding the breakthrough. Onboarded a ~20-person team and remained point of contact for 6 months after exit.',
       result: 'Rebuilt 5 subsystems into a brand-new integrated Hub — not a UI refresh. Reduced schedule creation from 4 clicks to 2. Customers retained. Shipped April 2024.',
     },

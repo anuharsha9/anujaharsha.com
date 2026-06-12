@@ -371,7 +371,7 @@ export default function FlagshipTheater() {
                             </h2>
 
                             <p className="text-base md:text-xl text-zinc-200 max-w-xl mx-auto font-light leading-relaxed">
-                                Modernizing a 50-year-old mission-critical system to retain enterprise customers.
+                                Modernizing a 40-year-old mission-critical system to retain enterprise customers.
                             </p>
                         </div>
 

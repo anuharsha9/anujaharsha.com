@@ -15,7 +15,7 @@ const TILES = [
     {
         id: 'reportcaster',
         domain: 'Legacy Modernization · Customer Retention',
-        title: 'Scale: Modernizing a 50-Year-Old Engine (20M+ Jobs/Week)',
+        title: 'Scale: Modernizing a 40-Year-Old Engine (20M+ Jobs/Week)',
         proof: 'Reduced churn risk by modernizing a legacy enterprise platform',
         link: '/work/reportcaster',
         flagship: true,
@@ -26,7 +26,7 @@ const TILES = [
     {
         id: 'ml-functions',
         domain: 'AI Workflow Design · ML Accessibility',
-        title: 'AI/ML Strategy: Architecting the Unified Intelligence Hub',
+        title: 'AI/ML Strategy: Nobody Could Use Our ML Engine',
         proof: 'Made ML accessible to non-technical users through workflow redesign',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
@@ -36,7 +36,7 @@ const TILES = [
     {
         id: 'iq-plugin',
         domain: 'Platform Unification · AI-Powered Hub',
-        title: 'Growth: Driving a 25% Increase in B2B Feature Discovery',
+        title: 'Growth: We Built the Intelligence. Nobody Knew It Existed.',
         proof: 'Boosted AI feature discovery 25% through UX redesign',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,

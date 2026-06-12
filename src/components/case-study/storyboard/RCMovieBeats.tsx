@@ -825,7 +825,7 @@ export function MovieBeatShipped() {
  className="max-w-md text-center px-4"
  >
  <p className="text-sm text-zinc-200 italic leading-relaxed">
- &ldquo;She impressed everyone. She took a 50-year-old system and made it look like it was built yesterday.&rdquo;
+ &ldquo;She impressed everyone. She took a 40-year-old system and made it look like it was built yesterday.&rdquo;
  </p>
  <p className="text-xs font-mono text-zinc-400 mt-2 uppercase tracking-wider">
  — Principal Engineer

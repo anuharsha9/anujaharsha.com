@@ -26,7 +26,7 @@ export interface ExecutiveSummaryItem {
 export const executiveSummary: ExecutiveSummaryItem[] = [
   {
     slug: 'reportcaster',
-    problem: '50-year-old scheduling system with 5 fragmented sub-products.',
+    problem: '40-year-old scheduling system with 5 fragmented sub-products.',
     caseStudyType: 'Flagship',
     status: 'Live',
     impactDirectional: 'Consolidated into 1 unified hub; powering 20M+ weekly schedules.'
@@ -50,9 +50,9 @@ export const executiveSummary: ExecutiveSummaryItem[] = [
 export const featuredCaseStudies: FeaturedCaseStudy[] = [
   {
     slug: 'reportcaster',
-    title: 'Modernizing a 50-Year-Old Enterprise Scheduler',
+    title: 'Modernizing a 40-Year-Old Enterprise Scheduler',
     summary:
-      'Owning the end-to-end UX modernization of a 50-year-old scheduling tool — turning scattered workflows into a clear, unified scheduling experience used by millions of enterprise reports.',
+      'Owning the end-to-end UX modernization of a 40-year-old scheduling tool — turning scattered workflows into a clear, unified scheduling experience used by millions of enterprise reports.',
     impact: 'Unified 5 subsystems, eliminated tab sprawl, streamlined workflows.',
     tags: ['Enterprise UX', 'Legacy modernization', 'Architecture'],
     image: '/images/case-study/ReportCaster/rc-cover.png',
