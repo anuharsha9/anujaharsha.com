@@ -4,7 +4,7 @@ import { readFile } from 'fs/promises'
 import { join } from 'path'
 import { staticPalette } from '@/lib/design-system'
 
-export const alt = 'Anuja Harsha Nimmagadda | Senior Product Designer'
+export const alt = 'Anuja Harsha Nimmagadda | Staff Product Designer & Architect'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -95,7 +95,7 @@ export default async function Image() {
                             marginTop: 14,
                         }}
                     >
-                        Senior Product Designer
+                        Staff Product Designer & Architect
                     </div>
 
                     {/* Separator */}

@@ -34,15 +34,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
+    default: 'Anuja Harsha Nimmagadda | Staff Product Designer & Architect — Enterprise Products, Legacy Modernization, AI-Native',
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Senior Product Designer who makes complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
+    'Staff Product Designer & Architect who turns absolute ambiguity into scalable enterprise software. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
   keywords: [
     // ── Primary identity ──
-    'Senior Product Designer',
     'Staff Product Designer',
+    'Product Architect',
     'Lead Product Designer',
     'Product Designer Portfolio',
     'Anuja Harsha',
