@@ -42,7 +42,7 @@ export default function IQExportPage() {
                             </ul>
                             {slide.notes && (
                                 <p className="mt-6 pt-4 border-t border-white/10 text-sm text-zinc-500 italic">
-                                    "{slide.notes}"
+                                    &quot;{slide.notes}&quot;
                                 </p>
                             )}
                         </div>
