@@ -85,7 +85,7 @@ export default function TalkSection() {
               <button
                 onClick={() => {
                   trackResumeDownload()
-                  openPdf('/assets/Anuja%20Harsha%20Nimmagadda%20-%20Senior%20Product%20Designer.pdf', 'Anuja Harsha Nimmagadda - Senior Product Designer')
+                  openPdf('/assets/Anuja%20Harsha%20Nimmagadda%20-%20Staff%20Product%20Designer.pdf', 'Anuja Harsha Nimmagadda - Staff Product Designer')
                 }}
                 className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full border border-amber-500/25 bg-amber-500/[0.08] text-amber-200 text-sm font-medium tracking-wide hover:bg-amber-500/[0.15] hover:text-amber-100 hover:border-amber-500/40 transition-all duration-500 shadow-[0_0_30px_-8px_rgba(245,158,11,0.15)]"
                 aria-label="View Resume PDF"

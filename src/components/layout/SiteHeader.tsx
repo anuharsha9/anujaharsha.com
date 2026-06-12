@@ -166,7 +166,7 @@ export default function SiteHeader() {
             <button
               onClick={() => {
                 trackResumeDownload()
-                openPdf('/assets/Anuja%20Harsha%20Nimmagadda%20-%20Senior%20Product%20Designer.pdf', 'Anuja Harsha Nimmagadda - Senior Product Designer')
+                openPdf('/assets/Anuja%20Harsha%20Nimmagadda%20-%20Staff%20Product%20Designer.pdf', 'Anuja Harsha Nimmagadda - Staff Product Designer')
               }}
               className={`inline-flex items-center gap-space-1.5 px-space-4 py-space-2 rounded-full ${isLandingPage ? 'text-zinc-500 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`} font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]`}
               aria-label="View Resume PDF"
