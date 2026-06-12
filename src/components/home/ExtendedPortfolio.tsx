@@ -271,8 +271,11 @@ export default function ExtendedPortfolio() {
                     2012 — 2022
                 </p>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                    Extended Portfolio
+                    Fractional Leadership & Zero-to-One Architecture
                 </h2>
+                <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
+                    Establishing scalable design-to-engineering workflows for high-velocity incubators and early-stage SaaS.
+                </p>
             </motion.div>
 
             {/* Carousel */}

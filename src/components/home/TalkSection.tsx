@@ -40,12 +40,12 @@ export default function TalkSection() {
 
           {/* Mission quote */}
           <h2 className="font-sans font-light text-2xl md:text-3xl lg:text-4xl leading-relaxed tracking-wide text-zinc-300 mb-6">
-            &ldquo;I design so I can be part of making people&apos;s lives a little easier every day.&rdquo;
+            &ldquo;I design to eliminate structural friction&mdash;translating absolute ambiguity into scalable engineering reality.&rdquo;
           </h2>
 
           {/* Roles seeking */}
           <p className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] text-zinc-500 mb-10">
-            Seeking Senior Product Designer / Lead Product Designer roles
+            STAFF PRODUCT DESIGNER & ARCHITECT
           </p>
 
           {/* Contact */}

@@ -8,7 +8,6 @@ export default function CustomCursor() {
   const [isHidden, setIsHidden] = useState(true)
   const [isClicking, setIsClicking] = useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Use motion values for better performance
@@ -102,36 +101,14 @@ export default function CustomCursor() {
     }
   }, [mouseX, mouseY, isClickable])
 
-  // Observe if a lightbox is open to restore native cursor inside it
-  useEffect(() => {
-    if (!isEnabled) return
-
-    const checkLightbox = () => {
-      setIsLightboxOpen(document.documentElement.classList.contains('lightbox-open'))
-    }
-
-    checkLightbox()
-
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.attributeName === 'class') {
-          checkLightbox()
-        }
-      }
-    })
-
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-    return () => observer.disconnect()
-  }, [isEnabled])
-
-  // Don't render anything until we know if cursor should be enabled, or if lightbox is open
-  if (!isEnabled || isLightboxOpen) return null
+  // Don't render anything until we know if cursor should be enabled
+  if (!isEnabled) return null
 
   return (
     <>
       {/* Main Cursor (Exact Position) - Small Teal Dot */}
       <motion.div
-        className="fixed top-0 left-0 z-[99999] pointer-events-none"
+        className="fixed top-0 left-0 z-[100000] pointer-events-none"
         style={{
           x: mouseX,
           y: mouseY,
@@ -149,7 +126,7 @@ export default function CustomCursor() {
 
       {/* Trailing Gear (Smooth Follow) */}
       <motion.div
-        className="fixed top-0 left-0 z-[99998] pointer-events-none"
+        className="fixed top-0 left-0 z-[99999] pointer-events-none"
         style={{
           x: ringX,
           y: ringY,

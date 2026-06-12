@@ -194,10 +194,10 @@ function GlitchPortalHero() {
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
             <div>
               <p className="font-mono text-[10px] md:text-xs text-zinc-600 uppercase tracking-[0.2em] mb-1">
-                Senior Product Designer · 13 Years
+                STAFF PRODUCT DESIGNER & ARCHITECT · 13 YEARS
               </p>
               <p className="text-zinc-400 text-sm md:text-base max-w-md leading-relaxed">
-                I make complex enterprise products easier to understand, use, and adopt.
+                I translate absolute ambiguity into scalable, data-heavy B2B enterprise software.
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -696,7 +696,7 @@ function LifeGallery() {
           </div>
           <h2 className="font-black text-3xl md:text-5xl text-white tracking-tight">Life Outside the Terminal</h2>
           <p className="text-zinc-600 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
-            Parent, baker, painter, poet. The raw material that shapes my design thinking.
+            Parent, baker, painter, poet. Systems thinking requires a life outside the terminal. This is where I build my capacity.
           </p>
         </motion.div>
       </div>
@@ -816,7 +816,7 @@ function ConnectionClose() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Whether it&apos;s about design, art, baking, or just life — I&apos;d love to hear from you.
+          Whether we are untangling a legacy enterprise system, discussing AI orchestration, or just talking about the perfect sourdough hydration&mdash;my inbox is open.
         </motion.p>
 
         {/* Clean inline links */}

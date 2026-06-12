@@ -21,9 +21,9 @@ import { usePathname } from 'next/navigation'
 
 const HeroAurora = dynamic(() => import('@/components/home/HeroAurora'), { ssr: false })
 
-const DIMMED_LANDING = 0.70   // Landing page scrolled past hero — waves clearly visible behind content
-const DIMMED_OTHER = 0.55     // Case studies / other pages — visible enough to feel
-const FULL = 1
+const DIMMED_LANDING = 0.20   // Landing page scrolled past hero — waves subtly visible
+const DIMMED_OTHER = 0.15     // Case studies / other pages — very subtle watermark
+const FULL = 0.20
 
 export default function FixedBackground() {
   const pathname = usePathname()

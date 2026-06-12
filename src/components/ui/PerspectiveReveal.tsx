@@ -104,8 +104,7 @@ export default function PerspectiveReveal({
                     scale,
                     rotateX,
                     y,
-                    filter: filterStr,
-                    willChange: 'transform, filter',
+                    willChange: 'transform',
                     transformOrigin: 'center bottom',
                 }}
             >

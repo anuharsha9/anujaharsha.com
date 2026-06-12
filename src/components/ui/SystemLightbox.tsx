@@ -108,17 +108,7 @@ export default function SystemLightbox({
         }
     }, [isOpen])
 
-    // Toggle lightbox-open class on html element to restore native cursor
-    useEffect(() => {
-        if (isOpen) {
-            document.documentElement.classList.add('lightbox-open')
-        } else {
-            document.documentElement.classList.remove('lightbox-open')
-        }
-        return () => {
-            document.documentElement.classList.remove('lightbox-open')
-        }
-    }, [isOpen])
+    // Removed lightbox-open class logic to keep custom cursor visible
 
     // Keyboard Navigation
     useEffect(() => {
@@ -150,7 +140,7 @@ export default function SystemLightbox({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="absolute inset-0 bg-[var(--bg-ink-950)]"
+                        className="absolute inset-0 bg-black"
                         onClick={onClose}
                     />
 

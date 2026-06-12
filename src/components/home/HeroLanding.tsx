@@ -29,13 +29,7 @@ function InterlockedGearGlyph({ className = '' }: { className?: string }) {
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { navigateTo } = useTransition()
-    const [isReady, setIsReady] = useState(false)
-
-    // Trigger cinematic entrance after a dramatic 1-second pause, letting the waves form first
-    useEffect(() => {
-        const timer = setTimeout(() => setIsReady(true), 1000)
-        return () => clearTimeout(timer)
-    }, [])
+    const [isReady, setIsReady] = useState(true)
 
     /* ─── Scroll choreography — viewport-based ─── 
      * Use raw scrollY instead of container progress.
@@ -72,6 +66,12 @@ export default function HeroLanding() {
                 className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
                 style={{ scale: heroScale, opacity: heroOpacity }}
             >
+                {/* ── RADIAL MASK — creates a dark spotlight behind the text ── */}
+                <div 
+                    className="absolute inset-0 z-[10] pointer-events-none" 
+                    style={{ background: 'radial-gradient(circle at center, var(--bg-cinematic) 0%, transparent 55%)' }} 
+                />
+
                 {/* ── HERO TEXT — cinematic blur-to-focus entrance ── */}
                 <motion.div
                     className="absolute inset-0 z-[15] flex flex-col items-center justify-center pointer-events-none"
@@ -85,40 +85,31 @@ export default function HeroLanding() {
                             <motion.span
                                 className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
                                 initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
-                                animate={isReady
-                                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                                    : { opacity: 0, y: 12, filter: 'blur(10px)' }
-                                }
-                                transition={{ duration: 3.2, delay: 0.1, ease }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ duration: 1, ease }}
                             >
-                                Senior Product Designer
+                                Staff Product Designer & Architect
                             </motion.span>
 
                             {/* MAIN HEADLINE — slowest, most dramatic reveal */}
                             <motion.h1
                                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6"
                                 initial={{ opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }}
-                                animate={isReady
-                                    ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
-                                    : { opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }
-                                }
-                                transition={{ duration: 3.8, delay: 0.6, ease }}
+                                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                                transition={{ duration: 1.2, delay: 0.1, ease }}
                             >
-                                <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
-                                <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja</span>
+                                <span className="text-[var(--text-heading)] drop-shadow-md">Anuja Harsha </span>
+                                <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Nimmagadda</span>
                             </motion.h1>
 
                             {/* SUBTITLE — positioning + credibility */}
                             <motion.p
                                 className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
                                 initial={{ opacity: 0, y: 16, filter: 'blur(12px)' }}
-                                animate={isReady
-                                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                                    : { opacity: 0, y: 16, filter: 'blur(12px)' }
-                                }
-                                transition={{ duration: 3.2, delay: 1.1, ease }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ duration: 1.2, delay: 0.2, ease }}
                             >
-                                I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.
+                                I turn absolute ambiguity into scalable, data-heavy B2B software. 13 years of modernizing legacy ecosystems, architecting zero-to-one SaaS platforms, and shipping AI-native UI to unblock engineering at scale.
                             </motion.p>
                         </div>
 
@@ -126,11 +117,8 @@ export default function HeroLanding() {
                         <motion.div
                             className="mt-8 md:mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 px-4 sm:px-0"
                             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
-                            animate={isReady
-                                ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                                : { opacity: 0, y: 16, filter: 'blur(8px)' }
-                            }
-                            transition={{ duration: 2.8, delay: 1.5, ease }}
+                            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                            transition={{ duration: 1.2, delay: 0.3, ease }}
                         >
                                 {/* PRIMARY CTA — The Manifesto */}
                                 <div className="relative order-2 sm:order-1 w-full h-12 sm:h-14 pointer-events-auto">

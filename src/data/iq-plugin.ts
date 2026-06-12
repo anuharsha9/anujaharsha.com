@@ -305,64 +305,106 @@ export const iqPluginCaseStudy: CaseStudyData = {
       id: 'section-01',
       index: 'D',
       title: 'Discover Deeply: The Invisible Feature Problem',
-      summary: 'Millions invested. Low adoption. Three AI features nobody could find.',
-      body: `NLQ buried inside "Explore Data." Insights in a submenu. ML in a separate context. Low adoption despite millions in engineering investment. The problem wasn't quality — it was visibility.
+      summary: 'Millions invested. Low adoption. The algorithms weren\'t broken; the architecture was.',
+      body: `We had built powerful enterprise AI capabilities—Natural Language Query, Automated Insights, and Predictive ML—but they were fragmented across the platform. NLQ was buried inside "Explore Data." Insights was hidden in a submenu.
 
-This wasn't on a roadmap. My PM and I seized it during product consolidation talks. Dozens of concept mockups. Weekly FigJam sessions across timezones. Our Director of Design started sketching his own ideas mid-pitch. VP approved. We owned it.`,
+The problem wasn't the algorithms; it was the architecture. Millions in engineering investment were sitting at near-zero adoption because the features were essentially invisible to the users who needed them most.
+
+This wasn't on a roadmap. My PM and I seized the opportunity during product consolidation talks. I designed dozens of concept mockups, ran weekly FigJam sessions across timezones, and pitched the vision. The VP approved. We owned it end-to-end.`,
     },
     {
       id: 'section-02',
       index: 'E',
       title: 'Empathize with the Ecosystem: Modernizing the Building Blocks',
-      summary: 'Before unifying, I modernized each feature individually.',
-      body: `NLQ: bare text field, cryptic errors, zero guidance. Insights: dense data grids, no context. Both felt like command-line tools dressed in web UI.
+      summary: 'Before unifying the system, I modernized each tool individually.',
+      body: `Before unifying the architecture, I had to fix the foundation. NLQ felt like a command-line tool dressed in web UI: bare text fields, cryptic errors, and zero guidance. Insights consisted of dense data grids lacking context.
 
-**Smarter NLQ via Phi-3 SLM.** Question suggestions. Chart switching. Ambiguity correction. Scannable insight cards. Each feature modernized before unifying them.
+**Smarter NLQ via Phi-3 SLM:** I redesigned the interaction model from the ground up. I introduced suggested queries to eliminate the "blank page" problem, replaced stack traces with conversational error states, and designed scannable insight cards.
 
-I already owned ML from my other case study. When the Hub opportunity came, I had all three building blocks ready.`,
+Because I already owned and modernized NLQ, Insights, and ML individually, I was the natural choice to lead the overarching IQ Plugin initiative. When the Hub opportunity arrived, I had all three building blocks modernized and ready for integration.`,
     },
     {
       id: 'section-03',
       index: 'S',
       title: 'Simplify the Chaos: Architecture Before Tickets',
-      summary: 'PM wrote tickets after seeing my mockups. That\'s how I operated.',
-      body: `**Architecture before tickets. Mockups before meetings. That's how I operated throughout.**
+      summary: 'I architected the cross-functional workflows before a single Jira ticket existed.',
+      body: `I pushed for cross-functional alignment in a way that hadn't been done in the organization before. I architected the unified workflows across all three AI engines before anyone asked for them.
 
-I owned all three features — no audit needed. The decisions:
-• **Smart integration** — inside the existing Hub. Zero new infrastructure.
-• **One entry point.** Three scattered menus → one destination.
-• **Consistent patterns.** Learn one, know all three.
-• **Fully responsive.** First Hub app designed mobile-up.`,
+My PM Karishma wrote the Jira tickets *after* seeing my mockups. We ran 3–4 meetings a week across timezones to ensure engineering feasibility.
+
+**One Entry Point**
+We designed smart integration inside the existing WebFOCUS Hub. No new backend infrastructure was needed. We transformed three scattered menus into one unified destination, with one consistent mental model.
+
+![IQ Plugin architecture — NLQ, Insights, and ML under one Hub](/images/case-study/iq-plugin/IQ%20Structure%20flowchart.png)
+![Unified dataset selection workflow](/images/case-study/iq-plugin/IQ%20Dataset%20Selection%20Workflow%202.png)
+![How IQ fits into the existing Hub layout](/images/case-study/iq-plugin/Structure%20Layout%20in%20HUB%201.png)
+
+**Sketches & Early Concepts**
+![Early concept sketching](/images/case-study/iq-plugin/hand-drawn-sketches.webp)
+![Architecture wireframes](/images/case-study/iq-plugin/IQ%20Wireframes.png)
+
+**Responsive Design**
+![First fully responsive Hub app](/images/case-study/iq-plugin/Mockups%20for%20IQ%20Plugin%20Reponsive%20UI%201.png)`,
     },
     {
       id: 'section-04',
       index: 'I',
       title: 'Iterate with Inclusion: Four Iterations to the Final Hub',
-      summary: 'Four iterations. One navigation fight. I won.',
-      body: `The biggest fight: large tiles vs. list views. Veteran architects wanted lists. My argument — lists caused the low adoption. Tiles gave immediate context. I won.`,
+      summary: 'V1 was too dense. V2 was too passive. V3 competed with Hub navigation. V4 landed perfectly.',
+      body: `V1 was too dense. V2 was too passive. V3 competed with the global Hub navigation. V4 landed perfectly: clean, outcome-based navigation tiles.
+
+**Design Iterations**
+![IQ Hub concept: NLQ + Insights + ML in one place](/images/case-study/iq-plugin/IQ%20plugin%20-%20visual%20-%203%20in%201%20IQ%20Hub.png)
+![First concept — too much information](/images/case-study/iq-plugin/Early%20concept%20-%201.png)
+![Second iteration — too sparse](/images/case-study/iq-plugin/Mid-Iteration.png)
+![Third iteration — competed with Hub navigation](/images/case-study/iq-plugin/Mid-Iteration-1.png)
+
+I designed a unified "Start Page" for Data Science that used clean, outcome-based verbs (Predict, Ask, Analyze) to guide business users naturally, rather than forcing them to decipher technical tool names.`,
     },
     {
       id: 'section-05',
       index: 'G',
-      title: 'Grow Through Constraints: The Room Full of Veterans',
-      summary: 'Decades of tenure across the table. Two years in. Driving the conversation.',
-      body: `Every team meeting was a room full of veterans — 20 to 30+ years at WebFOCUS. The only other new person was my PM. We onboarded together.
+      title: 'Grow Through Constraints: Defending Data Over Opinions',
+      summary: 'I used industry precedents and interaction logic to defend scannable tiles against veteran architects advocating for list views.',
+      body: `The lead architect (20+ years) and the WebFOCUS architect (35+ years) pushed hard for traditional list views. I demonstrated that list views were the exact reason these features were invisible in the first place. By using industry precedents and interaction logic, I shifted their mental model toward large, scannable tiles, proving they provided immediate context for intimidating AI features.
 
-The conversation that mattered most: integrating the ML workflow into the IQ Plugin. I fought for myself. Industry examples. Interaction logic. Visual prototypes. My Director of Design trusted me to make my own case.
+![The final IQ Discover page — shipped](/images/case-study/iq-plugin/Final%20Look.png)
 
-Two years in. Everyone else — decades. I was driving the conversation.`,
+**Insights in IQ**
+![Insights: Empty state](/images/case-study/iq-plugin/IQ%20-%20Insights%20_%20Empty%20State%201.png)
+![Insights: Data selected](/images/case-study/iq-plugin/IQ%20-%20Insights%20_%20Data%20Selected%201.png)
+![Insights: Scannable card-based results](/images/case-study/iq-plugin/IQ%20-%20Insights%20-%20Tile%20View%201.png)
+
+**NLQ in IQ**
+![NLQ: Ask questions in plain English](/images/case-study/iq-plugin/IQ%20-%20Ask%20a%20Question%20_%20Empty%20State%201.png)
+![NLQ: Data selected state](/images/case-study/iq-plugin/IQ%20-%20Ask%20a%20Question%20_%20Data%20Selected%201.png)
+![NLQ: AI-generated chart](/images/case-study/iq-plugin/IQ%20-%20Ask%20a%20Question%20-%20Vertical%20Stacked%20Bar%201.png)
+
+**ML in IQ**
+![Predict Data landing — inside IQ](/images/case-study/iq-plugin/IQ%20-%20Predict%20Data%20-%20Train%20Models%20-%20landing%20page%20-%20model%20tile%20view.png)
+![Compare models in context](/images/case-study/iq-plugin/IQ%20-%20Predict%20Data%20-%20Train%20Model%20Workflow%20-%20Compare%20models.png)
+![Model results — fitted values](/images/case-study/iq-plugin/IQ%20-%20Predict%20Data%20-%20Train%20Model%20Workflow%20-%20Results%20-%20Fitted%20Values.png)
+![Run model — explainability view](/images/case-study/iq-plugin/IQ%20-%20Predict%20Data%20-%20Run%20Model%20-%20explanability.png)
+![Run model — prediction results](/images/case-study/iq-plugin/IQ%20-%20Predict%20Data%20-%20Run%20Model%20-%20results.png)
+
+**Preview Data in IQ**
+![Preview data — sample tab](/images/case-study/iq-plugin/IQ%20-%20Preview%20Data%20Sample%20Tab%201.png)
+![Preview data — key analysis](/images/case-study/iq-plugin/IQ%20-%20Preview%20Data%20Key%20Analysis%20Tab%201.png)
+![Preview data — time series](/images/case-study/iq-plugin/IQ%20-%20Preview%20Data%20Time-series%20report%20tab%201.png)
+
+> Integrating the ML workflow into the IQ Plugin was the hardest sell. Despite being the newest person in a room of 30-year veterans, I backed my architecture with user evidence. My Director of Design gave me the mandate, and I drove the final integration.`,
     },
     {
       id: 'section-06',
       index: 'N',
       title: 'Navigate Forward: Visibility Was the Solution',
-      summary: '+25% NLQ adoption — from the NLQ redesign (Phi-3 model upgrade). Hub implemented, pending launch.',
-      body: `We didn't add capabilities. Didn't rewrite the engine. We made it visible.
+      summary: '+25% NLQ adoption jump. The Hub is now implemented, unifying three fragmented AI tools into one ecosystem.',
+      body: `We didn't add new capabilities. We didn't rewrite the core engines. We just made the existing ones visible.
 
-**Live now:** NLQ +25% adoption from redesign. Insights with auto-generated visualizations. Both modernized. Hub implemented, pending launch.
-**Implemented:** DSML Hub and ML Functions — code-complete at departure, final QA pending.
+**Live now:** NLQ adoption jumped 25% post-redesign. Insights with auto-generated visualizations is live. 
+**Implemented:** The unified DSML Hub and ML Functions were code-complete at my departure, with final QA pending.
 
-The features didn't change. The visibility did. Highest-leverage design work: making existing features findable.`,
+The features didn't change. The architecture did. It was the highest-leverage design work possible: making powerful tools findable.`,
     },
   ],
   // ----------------------------

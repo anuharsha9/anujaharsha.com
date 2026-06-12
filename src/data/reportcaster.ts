@@ -31,14 +31,14 @@ export const reportcasterCaseStudy: CaseStudyData = {
   // PROJECT SNAPSHOT & DEEP DIVE DATA
   // ----------------------------
   projectSnapshot: {
-    problem: 'The platform\'s enterprise scheduler — powering 20M+ weekly jobs — was losing customers after 40+ years without modernization.',
+    problem: 'The platform\'s enterprise scheduler — powering 20M+ weekly jobs — was bleeding trust. A 40-year-old, undocumented legacy codebase had become a black box. The breaking point? A massive, 5-year multi-million-dollar account was threatening to churn unless we modernized the entire scheduling ecosystem.',
     role: 'Lead Designer (Research to Production)',
     keyDecisions: [
       'Rejecting independent product strategy (silo)',
       'Abandoning plugin approach (technical constraints)',
       'Adopting modal-based "Hub" architecture',
     ],
-    impactDirectional: 'Rebuilt from the ground up. 5 tools → 1 unified hub. Customers retained.',
+    impactDirectional: '5 fragmented tools → 1 unified Hub ecosystem. Multi-million-dollar contract secured.',
     status: 'Live',
     scale: '20M+ Schedules',
   },
@@ -372,14 +372,12 @@ export const reportcasterCaseStudy: CaseStudyData = {
   // UX PRINCIPLES (Public)
   // ----------------------------
   uxPrinciples: {
-    title: 'Design Principles Applied',
+    title: 'Behavioral Principles Applied',
     principles: [
-      { title: 'Cognitive Load Reduction', description: 'Collapsed Basic and Advanced schedules into one smart flow. Users no longer choose a mode — the system adapts. 4 clicks became 2.' },
-      { title: 'Unified Mental Model', description: 'Five fragmented subsystems became one coherent experience. Schedule, distribute, manage access, explore, and administer — all from predictable entry points.' },
-      { title: 'User Control & Freedom', description: 'The Run button alone has 4 options within it. Power users get full control without the UI imposing a simplified workflow on them.' },
-      { title: 'Match System to Real World', description: 'Added natural language recurrence summaries: "Runs Monday to Friday at 6:00 PM, recurring every week." Users read their schedule like a sentence, not a settings panel.' },
-      { title: 'Progressive Disclosure', description: 'Burst logic, retention policies, blackout rules, crash recovery — all enterprise features that stay hidden until a power user needs them.' },
-      { title: 'Error Prevention', description: 'Inline validation replaced the old pattern of completing a full form only to hit an error modal. Users see issues as they build, not after they submit.' },
+      { title: 'Honor the Platform\'s Ecosystem', description: 'Instead of forcing users into a siloed application, we let the platform dictate the behavior. The platform is the ecosystem; the schedule is just a momentary action within it.' },
+      { title: 'Design for Progressive Trust', description: 'Users were overwhelmed by 40 years of settings. We built a system that feels lightweight out of the gate, progressively scaling up in capability only when the user explicitly asks for advanced power.' },
+      { title: 'Speak Human, Not Machine', description: 'Cryptic cron jobs and legacy codes were translated into auto-generating, human-readable sentence summaries. Users shouldn\'t have to decode their own schedules.' },
+      { title: 'Protect the User from the Engine', description: 'Running 20M+ jobs means failures are catastrophic. We designed smart, inline semantic validation that prevents configuration errors before they can even be submitted.' },
     ],
   },
   // ----------------------------
@@ -389,53 +387,67 @@ export const reportcasterCaseStudy: CaseStudyData = {
     {
       id: 'section-01',
       index: 'D',
-      title: 'Discover Deeply: How I Landed the Project',
-      summary: 'Customers were leaving after 40+ years without updates. One week in, I volunteered for the project no one else would take. No documentation, no roadmap, no prior designer.',
-      body: `One week in, my design director mentioned a legacy scheduling tool — old, massive, untouched for decades. No designer had taken it. No PM had a roadmap.
+      title: 'Discover Deeply: Stepping into the Black Box',
+      body: `Customers were threatening to churn after 40+ years without a single update. One week into my role, I volunteered for the project no one else wanted to touch.
 
-I said, "I'll do it." He gave it to me the same day.
+When I asked for the constraints, the reality set in: there was no documentation, no roadmap, and no prior UX work. Ever. Out of ~200 people in my business unit, the only people who actually knew how to use the system were the customer support team and the single engineer who wrote the original code in the 1980s.
 
-40+ years old. Millions of automated jobs. Zero documentation. I had a sandbox. That was it.`,
+My entire research foundation consisted of a sandbox environment, a single slide deck from a support lead, and hours of listening in on customer support calls.`,
     },
     {
       id: 'section-02',
       index: 'E',
-      title: 'Empathize with the Ecosystem: Understanding Users and Constraints',
+      title: 'Empathize with the Ecosystem',
       summary: 'No user access. No documentation. I embedded with the Gold Support lead and the original RC engineer — they became my sources of truth.',
-      body: `No user access. No interviews. No usability tests. Enterprise security blocked all of it.
-
-So I built my own research network. Two people became my sources of truth — and between them, I reconstructed decades of tribal knowledge that had never been written down.
-
-What I discovered changed the scope entirely: ReportCaster wasn't a feature. It was a product inside a product.`,
+      body: `With zero user access allowed, I couldn't run standard UX research. Instead, I embedded myself with the Gold Support lead and the original engineer. I lived in the sandbox, mapping hundreds of screenshots and validating every workaround and hack users had invented. I wasn't an engineer, but I learned the constraints of the legacy FOCUS code well enough to design a modern ecosystem around it.`,
     },
     {
       id: 'section-03',
       index: 'S',
       title: 'Simplify the Chaos: Mapping and Integrating the Architecture',
       summary: 'Mapped and unified five fragmented subsystems into one coherent mental model. Prioritized patterns, clarified undocumented rules, and made complexity digestible for everyone.',
-      body: `No onboarding. No spec. No design file. Just: "Here's the sandbox. Figure it out."
+      body: `ReportCaster was essentially a product in itself. It was huge. One customer alone had 13 million schedules running every day. I remember looking at that and thinking—that is some insane scale.
 
-I pieced together the system from fragments — hundreds of screenshots, support tickets, and one engineer who knew it end-to-end.`,
-      // Note: Hero image removed - SystemMappingBreakdown component provides the visual at section end
+But the system was a complete maze. I pieced the architecture together from hundreds of screenshots and support tickets, and the core problem became obvious: five completely fragmented subsystems.
+
+Schedule workflows were buried four clicks deep. Distribution lists were hidden. The explorer was stuffed inside a hamburger menu. Before I could even draw a single wireframe, I had to map out this chaos and unify it into one coherent mental model.
+
+**Architecture & Layout**
+![ReportCaster Basic Map Workflow](/images/case-study/reportcaster/ReportCaster%20Basic%20Map%20Workflow.png)
+
+**Sketchbook Sessions & Wireframes**
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+  <figure class="story-image" style="margin: 0;"><img src="../images/case-study/reportcaster/process/rc-sketchbook_Page_01_Image_0001.jpg" alt="Sketchbook Page 1" /><figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 8px; font-style: italic;">Sketchbook Page 1</figcaption></figure>
+  <figure class="story-image" style="margin: 0;"><img src="../images/case-study/reportcaster/process/rc-sketchbook_Page_02_Image_0001.jpg" alt="Sketchbook Page 2" /><figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 8px; font-style: italic;">Sketchbook Page 2</figcaption></figure>
+  <figure class="story-image" style="margin: 0;"><img src="../images/case-study/reportcaster/process/rc-sketchbook_Page_03_Image_0001.jpg" alt="Sketchbook Page 3" /><figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 8px; font-style: italic;">Sketchbook Page 3</figcaption></figure>
+  <figure class="story-image" style="margin: 0;"><img src="../images/case-study/reportcaster/process/rc-sketchbook_Page_04_Image_0001.jpg" alt="Sketchbook Page 4" /><figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 8px; font-style: italic;">Sketchbook Page 4</figcaption></figure>
+  <figure class="story-image" style="margin: 0;"><img src="../images/case-study/reportcaster/process/rc-sketchbook_Page_05_Image_0001.jpg" alt="Sketchbook Page 5" /><figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 8px; font-style: italic;">Sketchbook Page 5</figcaption></figure>
+  <figure class="story-image" style="margin: 0;"><img src="../images/case-study/reportcaster/process/rc-sketchbook_Page_06_Image_0001.jpg" alt="Sketchbook Page 6" /><figcaption style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 8px; font-style: italic;">Sketchbook Page 6</figcaption></figure>
+</div>`,
     },
     {
       id: 'section-04',
       index: 'I',
-      title: 'Iterate with Inclusion: Three Architectural Approaches',
+      title: 'Iterate with Inclusion: Two Rejections. One Breakthrough.',
       summary: 'V1 stung. V2 was my favorite. V3 was the breakthrough — born from asking how the platform itself wanted workflows to behave.',
-      body: `V1: standalone product. Rejected — leadership wanted hub centralization.
+      body: `I began drafting designs while I was still onboarding. My initial attempts felt out of place, but after internalizing the design system, I started building out full architectural models.
 
-V2: hub plugin. My favorite. Rejected — too much engineering effort.
+I pitched three completely different models:
+**V1 (The Independent Product)** was rejected because leadership wanted all workflows centralized in the Hub.
+**V2 (The Hub Plugin)** was my favorite, but it was rejected because it required too much engineering effort to build a new top-level plugin.
 
-Two rejections in, I reframed from scratch: "How does the platform WANT workflows to behave?"`,
+Two rejections in, I was perplexed. I reframed the problem from scratch, which led to **V3 (The Platform-Native Approach)** — the breakthrough that defined the final product.`,
 
       // Store V1, V2, V3 data for the VersionIteration component
       v1Data: {
         id: 'version-1',
-        title: 'Version 1: Independent Product',
-        body: `I designed V1 as a standalone product matching existing platform patterns — dedicated scheduling, explorer, and admin in one place.
+        title: 'Version 1: The Independent Product',
+        body: `Because massive tools like "Designer" and "Data Flow" had their own independent environments outside the hub, I assumed a massive 5-subsystem scheduler should too.
 
-Rejected: "Leadership wants all workflows centralized in the hub." Fair constraint. I moved on.`,
+I created a fully independent version of RC that incorporated the main workflows, admin status, and explorer into one seamless app. I thought it was beautiful.
+
+**Rejected.**
+The engineers and PM liked the experience, but leadership wanted the Hub to remain the central command station. This design took users outside the Hub. Fair constraint. I moved on.`,
         images: [
           {
             src: '/images/case-study/ReportCaster/RC - V1.3 - Independent version - Home.png',
@@ -457,10 +469,15 @@ Rejected: "Leadership wants all workflows centralized in the hub." Fair constrai
       },
       v2Data: {
         id: 'version-2',
-        title: 'Version 2: Plugin Integration',
-        body: `I built a hub-friendly plugin with integrated navigation and consolidated subsystems. This was my favorite version.
+        title: 'Version 2: The Hub Plugin',
+        body: `Taking the feedback, I integrated the entire independent version directly into the Hub as a dedicated plugin, adding an RC icon to the main side navigation. Everything lived inside the Hub shell.
 
-Rejected: "Too much engineering effort this year." Different constraint — resourcing, not strategy. Two rejections. Time to reframe from scratch.`,
+This was my favorite version. It was clean and powerful.
+
+**Rejected.**
+I was hit with a wall of technical jargon. Creating a new top-level plugin in the Hub required too much cross-team engineering effort for the year. This was a resourcing constraint, not a strategy constraint.
+
+Now I was perplexed. They wanted it fully integrated in the Hub, but we couldn't build a new plugin.`,
         images: [
           {
             src: '/images/case-study/ReportCaster/RC Hub Integration V2.1 - Home - Create new schedule context menu.png',
@@ -482,12 +499,17 @@ Rejected: "Too much engineering effort this year." Different constraint — reso
       },
       v3Data: {
         id: 'version-3',
-        title: 'Version 3: The Breakthrough (Platform-native Design)',
-        body: `Reframed: "How does the platform WANT workflows to behave?" Every major workflow starts in the + menu. That's platform architecture, not just UI.
+        title: 'Version 3: The Breakthrough (Platform-Native)',
+        body: `I looked closely at the Hub. We had a universal "+" menu where every major workflow began — creating visualizations, exploring data, building data flows.
 
-Aha moment: If RC is a creation workflow, why not initiate from + menu? Modals worked within legacy FOCUS code without a rewrite. Constraint became advantage.
+That was the "Ah-ha" moment: **If RC is a creation workflow, why not initiate from the + menu?** The platform is the ecosystem; the schedule is just a momentary action within it.
 
-Final solution: Scheduling → modals from + menu. Explorer → filtered view in Home. Admin → management center.`,
+I completely decoupled the 5 subsystems and embedded them natively where they belonged:
+1. **Creation (Schedules & Lists):** Launched as intelligent, progressive dialog modals directly from the + menu. The Hub remains the parent window.
+2. **Explorer:** Integrated straight into the Hub's Home view alongside Recents and Favorites. We originally wanted to add RC as deep-dive filters for all files, but pushed that to a future phase and finalized a dedicated Home area.
+3. **Admin Status:** Given its own dedicated, highly-visible tab in the main Management Center, rather than being buried three clicks deep in an admin console.
+
+No new plugins. No external apps. UX done. Time to build hundreds of UI screens.`,
         subsections: [
           {
             title: 'Schedule Dialog',
@@ -606,23 +628,25 @@ Final solution: Scheduling → modals from + menu. Explorer → filtered view in
       id: 'section-05',
       index: 'G',
       title: 'Grow Through Constraints: Aligning the Team Within the Ecosystem',
-      summary: 'Onboarded a ~20-person team who had never seen RC. Managed three projects simultaneously. Remained the knowledge hub for 6 months after exit.',
-      body: `Direction approved. Next challenge: onboarding ~20 people who had never seen RC end-to-end.
+      summary: 'Onboarded a ~20-person team who had never seen RC. Managed multiple massive projects simultaneously. Remained the knowledge hub for 6 months after handoff.',
+      body: `With the UX locked and over 250 UI screens designed, the next hurdle was engineering. The 20-person execution team—lead architect, core engineers, QA, and a new PM—had never actually seen ReportCaster before. 
 
-Dozens of demos. Tribal knowledge translated to UX rationale. Single source of truth — docs, recordings, annotated files — organized by subsystem.
+I became the educator. I started with the lead architect and lead engineer, and eventually expanded to dozens of demos for the entire cross-functional team, translating my unified mental model into actionable engineering phases.
 
-Borrowed one designer at month 9. A second at month 13. By then, schedules, distribution lists, and access lists were done. Architecture was set.
+At this point, I was running RC and our Machine Learning platform simultaneously, while three other designers were focused on a single feature. Being trusted with two massive systems simultaneously spoke volumes about leadership's confidence in my ownership.
 
-Remained point of contact 6 months after exit.`,
+Once the heavy lifting was done, I brought on a junior designer, mentored her on the system's intricacies, and eventually handed the project off. But my role as the core knowledge hub persisted long after I left the team.
+
+> I was in a room full of veterans — the Head of PM (15 years), Gold Support Lead (20 years), Original RC Engineer (35+ years), Lead Architect (40 years), and Backend Lead (30+ years). By the time I left the team, they'd become my family. They were no longer intimidating. I had earned respect and trust from them. I was the youngest in the room with an unspoken authority on the experience of RC.`,
     },
     {
       id: 'section-06',
       index: 'N',
       title: 'Navigate Forward: Shipping Impact and Reflection',
       summary: 'Asked for: a UI makeover. Delivered: a brand-new integrated ReportCaster. Customers retained. Satisfaction validated.',
-      body: `Asked for: a UI makeover. Delivered: a brand-new integrated system.
+      body: `Shipped. From 4 clicks to 2. No more individual browser tabs. Everything smoothly integrated within the hub ecosystem. Customers noticed.
 
-Customers retained. Shipped April 2024.`,
+At the Virtual User Group, a customer praised the redesign directly and said he was looking forward to what's next. A 5-year contract worth millions was signed after RC shipped.`,
     },
   ],
   // ----------------------------
