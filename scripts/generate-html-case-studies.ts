@@ -429,22 +429,55 @@ function generateHTML(data: CaseStudyData, accentColor: string): string {
     
     @media print {
       body {
-        font-size: 11pt;
+        font-size: 10pt;
+        line-height: 1.5;
       }
       .container {
         padding: 0;
         max-width: 100%;
       }
       .cover-image {
-        page-break-after: always;
+        page-break-after: auto;
+        max-height: 35vh;
+        object-fit: cover;
+        margin-bottom: 24px;
       }
+      h1 { font-size: 2.5rem; margin-bottom: 12px; }
+      h2 { font-size: 1.8rem; margin: 30px 0 16px 0; }
+      .subheading { font-size: 1.2rem; margin-bottom: 24px; }
+      .meta-strip { margin-bottom: 24px; padding: 16px 0; gap: 20px; }
+      .section { margin-bottom: 30px; }
+      p { margin-bottom: 12px; }
+      
+      .image-grid, .story-image, .before-after {
+        margin: 20px 0;
+      }
+      .image-grid img, .story-image img, .before-after img {
+        max-height: 35vh;
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+        display: block;
+      }
+      .image-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+      
       .slide-card {
         border: none;
         padding: 0;
-        margin-bottom: 60px;
+        margin-bottom: 30px;
       }
+      
+      /* Disable forced page breaks that cause massive empty gaps */
+      .page-break { page-break-before: auto; }
+      .page-break-inside-avoid { page-break-inside: auto; }
+      
       @page {
-        margin: 20mm 15mm;
+        margin: 10mm 10mm;
       }
     }
   </style>
