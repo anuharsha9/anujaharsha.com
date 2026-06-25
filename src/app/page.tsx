@@ -7,6 +7,8 @@ import CSGBlock from '@/components/home/CSGBlock'
 
 /* ── Hero + first proof render eagerly (above the fold); everything below is lazy ── */
 
+const TrailerTeaser = dynamic(() => import('@/components/home/TrailerTeaser'), { ssr: true })
+
 const TestimonialsLoading = () => <SectionSkeleton height="200vh" text="LOADING PROOF MODULE" />
 const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true, loading: TestimonialsLoading })
 
@@ -98,6 +100,9 @@ export default function Home() {
           <CSGBlock />
         </BlurZone>
       </div>
+
+      {/* ═══ TRAILER TEASER — closer for warm visitors, sits right after the 3 case studies ═══ */}
+      <TrailerTeaser />
 
       {/* ═══ ZONE 3: SOCIAL PROOF + LIFE CONTEXT ═══
            No BlurZone here — testimonials are read-heavy and must stay sharp/fully readable

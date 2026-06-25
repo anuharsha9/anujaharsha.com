@@ -7,7 +7,7 @@ import {
     useTransform,
 } from 'framer-motion'
 import { useTransition } from '@/components/transitions/TransitionContext'
-import { Play, Cog } from 'lucide-react'
+import { ArrowDown } from 'lucide-react'
 
 /**
  * Cinematic easing — extremely long deceleration tail.
@@ -15,21 +15,16 @@ import { Play, Cog } from 'lucide-react'
  */
 const ease = [0.05, 0.7, 0.1, 1] as [number, number, number, number]
 
-/* ─── Gear glyph icon ─── */
-function InterlockedGearGlyph({ className = '' }: { className?: string }) {
-    return (
-        <span className={`relative block h-5 w-5 ${className}`}>
-            <Cog className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 text-cyan-300" strokeWidth={2} />
-            <Cog className="absolute left-[26%] top-[28%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 text-cyan-200/90" strokeWidth={2.2} />
-            <Cog className="absolute left-[74%] top-[74%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 text-cyan-200/90" strokeWidth={2.2} />
-        </span>
-    )
-}
-
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
-    const { navigateTo } = useTransition()
+    useTransition()
     const [isReady, setIsReady] = useState(true)
+
+    /* Smooth-scroll to the case studies section just below the hero. */
+    const scrollToWork = () => {
+        const target = document.getElementById('work-overview')
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
 
     /* ─── Scroll choreography — viewport-based ─── 
      * Use raw scrollY instead of container progress.
@@ -113,46 +108,32 @@ export default function HeroLanding() {
                             </motion.p>
                         </div>
 
-                        {/* CTAs — last to resolve */}
+                        {/* CTA — single primary, sends visitors straight into the work */}
                         <motion.div
-                            className="mt-8 md:mt-10 grid w-full max-w-[42rem] grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 px-4 sm:px-0"
+                            className="mt-8 md:mt-10 flex justify-center pointer-events-auto"
                             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
                             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                             transition={{ duration: 1.2, delay: 0.3, ease }}
                         >
-                                {/* PRIMARY CTA — The Manifesto */}
-                                <div className="relative order-2 sm:order-1 w-full h-12 sm:h-14 pointer-events-auto">
+                            <div className="relative h-12 sm:h-14">
+                                {/* Outer glow ring — scales out as the hero exits */}
+                                <motion.div
+                                    className="absolute inset-0 rounded-full border-2 border-white/60 pointer-events-none"
+                                    style={{ scale: glowRingScale, opacity: glowRingOpacity }}
+                                />
+                                {/* Light sweep across the button on scroll-down */}
+                                <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
                                     <motion.div
-                                        className="absolute inset-0 rounded-full border-2 border-white/60"
-                                        style={{ scale: glowRingScale, opacity: glowRingOpacity }}
+                                        className="absolute inset-y-0 w-[60%] bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                        style={{ left: lightSweepX }}
                                     />
-                                    <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                                        <motion.div
-                                            className="absolute inset-y-0 w-[60%] bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                                            style={{ left: lightSweepX }}
-                                        />
-                                    </div>
-                                    <button
-                                        onClick={() => navigateTo('/manifesto')}
-                                        className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-2 sm:gap-3 rounded-full border border-white bg-white px-6 sm:px-8 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
-                                    >
-                                        <Play className="w-4 h-4 fill-current transition-transform duration-500 group-hover:scale-110" />
-                                        <span>Watch: Why Hire Me</span>
-                                    </button>
-                            </div>
-
-                            {/* SECONDARY CTA — Explore My Mind */}
-                            <div className="relative order-1 sm:order-2 w-full h-12 sm:h-14 pointer-events-auto">
+                                </div>
                                 <button
-                                    onClick={() => navigateTo('/quiz')}
-                                    className="group relative z-10 inline-flex h-full w-full items-center justify-center gap-2 sm:gap-3 overflow-hidden rounded-full border border-white/40 px-6 sm:px-8 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-white transition-all duration-500 hover:bg-white/5 hover:border-white/80 backdrop-blur-sm"
+                                    onClick={scrollToWork}
+                                    className="group relative z-10 inline-flex h-full items-center justify-center gap-3 rounded-full border border-white bg-white px-8 sm:px-10 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
                                 >
-                                    <span className="relative z-10 flex h-5 w-5 shrink-0 items-center justify-center">
-                                        <div className="w-full h-full flex items-center justify-center group-hover:-rotate-90 transition-transform duration-500">
-                                            <InterlockedGearGlyph />
-                                        </div>
-                                    </span>
-                                    <span className="relative z-10">Explore My Mind</span>
+                                    <span>See the Work</span>
+                                    <ArrowDown className="w-4 h-4 transition-transform duration-500 group-hover:translate-y-1" />
                                 </button>
                             </div>
                         </motion.div>
