@@ -66,6 +66,13 @@ export const TESTIMONIALS: Testimonial[] = [
         source: 'csg',
     },
     {
+        id: 'shay-bagwell',
+        name: 'Shay Bagwell',
+        role: 'Lead Customer Marketing Manager · ibi',
+        quote: 'I recommend Anuja for any team needing a qualified UI/UX team member. I worked with her on a couple of projects where her design was impactful. She is a collaborative teammate, strong advocate for user research and great designer. Any team would be lucky to have her.',
+        source: 'csg',
+    },
+    {
         id: 'radhika-tekumalla',
         name: 'Radhika Tekumalla',
         role: 'Founder · Kedazzle (EdTech)',
@@ -79,7 +86,4 @@ export const TESTIMONIALS: Testimonial[] = [
         quote: "She joined us at 18, fresh off learning Photoshop — she didn't know what 'UX' was yet, but she had intensity, discipline, and raw talent you can't teach. By the time she left, she was thinking in systems, trusted with high-stakes decisions, operating far beyond her years — ready for a much bigger stage.",
         source: 'early-career',
     },
-    // 10th endorser — Shay Bagwell, Lead Customer Marketing Manager — held out: her testimonial
-    // text in Peer_Testimonals.pdf is a copy-paste of Yingchun Chen's words (a source error).
-    // Add once her real quote is provided.
 ]
