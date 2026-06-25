@@ -99,11 +99,13 @@ export default function Home() {
         </BlurZone>
       </div>
 
-      {/* ═══ ZONE 3: SOCIAL PROOF + LIFE CONTEXT ═══ */}
-      <BlurZone id="social-proof-zone" containerHeight="200vh">
+      {/* ═══ ZONE 3: SOCIAL PROOF + LIFE CONTEXT ═══
+           No BlurZone here — testimonials are read-heavy and must stay sharp/fully readable
+           (the blur-morph + sticky pin obscured and clipped them). */}
+      <div id="social-proof-zone" className="relative w-full">
         <TestimonialsBlock />
         <LifeContextStrip milestones={CSG_MILESTONES} />
-      </BlurZone>
+      </div>
 
       {/* ═══ ZONE 4: VIBE CODING ═══ */}
       <BlurZone id="vibe-coding-zone" containerHeight="200vh">
