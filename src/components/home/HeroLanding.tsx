@@ -8,6 +8,7 @@ import {
 } from 'framer-motion'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { ArrowDown } from 'lucide-react'
+import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
 
 /**
  * Cinematic easing — extremely long deceleration tail.
@@ -17,7 +18,7 @@ const ease = [0.05, 0.7, 0.1, 1] as [number, number, number, number]
 
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
-    useTransition()
+    const { navigateTo } = useTransition()
     const [isReady, setIsReady] = useState(true)
 
     /* Smooth-scroll to the case studies section just below the hero. */
@@ -94,7 +95,21 @@ export default function HeroLanding() {
                                 transition={{ duration: 1.2, delay: 0.1, ease }}
                             >
                                 <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
-                                <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja.</span>
+                                {/* Easter-egg door — clicking the name opens the brain experience. No label; reward for curiosity. */}
+                                <button
+                                    onClick={() => navigateTo('/quiz')}
+                                    aria-label="Hidden — explore my mind"
+                                    title="There is more here…"
+                                    className="group relative inline-block pointer-events-auto cursor-pointer rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                                >
+                                    <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent transition-[filter] duration-500 group-hover:brightness-110">Anuja.</span>
+                                    <span
+                                        aria-hidden="true"
+                                        className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 opacity-0 scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-focus-visible:opacity-100 group-focus-visible:scale-100"
+                                    >
+                                        <InterlockedGearGlyph size={28} />
+                                    </span>
+                                </button>
                             </motion.h1>
 
                             {/* SUBTITLE — positioning + credibility */}

@@ -6,12 +6,15 @@ import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import Magnetic from '@/components/ui/Magnetic'
 import Image from 'next/image'
+import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
+import { useTransition } from '@/components/transitions/TransitionContext'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 export default function TalkSection() {
   const t = getTheme(false)
   const { openPdf } = usePdf()
+  const { navigateTo } = useTransition()
 
   return (
     <footer
@@ -126,9 +129,17 @@ export default function TalkSection() {
             </Magnetic>
           </div>
 
-          {/* Sign-off */}
-          <p className={`${t.textDim} text-[11px] font-mono tracking-wide breathe`} style={{ '--breathe-base': '0.3', '--breathe-peak': '0.45' } as React.CSSProperties} suppressHydrationWarning>
-            © {new Date().getFullYear()} Anuja Harsha · Designed + AI-Orchestrated
+          {/* Sign-off — with a small Easter-egg gear for thorough visitors who made it to the bottom. */}
+          <p className={`${t.textDim} text-[11px] font-mono tracking-wide breathe inline-flex items-center gap-2.5`} style={{ '--breathe-base': '0.3', '--breathe-peak': '0.45' } as React.CSSProperties} suppressHydrationWarning>
+            <span>© {new Date().getFullYear()} Anuja Harsha · Designed + AI-Orchestrated</span>
+            <button
+              onClick={() => navigateTo('/quiz')}
+              aria-label="Hidden — explore my mind"
+              title="There is more here…"
+              className="group inline-flex h-5 w-5 items-center justify-center rounded-md opacity-30 transition-opacity duration-500 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60"
+            >
+              <InterlockedGearGlyph size={16} className="transition-transform duration-500 group-hover:rotate-90" />
+            </button>
           </p>
 
           <div className="h-safe-area-inset-bottom" />
