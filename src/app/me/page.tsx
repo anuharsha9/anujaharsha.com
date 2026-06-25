@@ -194,10 +194,10 @@ function GlitchPortalHero() {
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
             <div>
               <p className="font-mono text-[10px] md:text-xs text-zinc-600 uppercase tracking-[0.2em] mb-1">
-                STAFF PRODUCT DESIGNER & ARCHITECT · 13 YEARS
+                STAFF PRODUCT DESIGNER · 13 YEARS
               </p>
               <p className="text-zinc-400 text-sm md:text-base max-w-md leading-relaxed">
-                I translate absolute ambiguity into scalable, data-heavy B2B enterprise software.
+                I make complex, data-heavy B2B enterprise software people can actually use.
               </p>
             </div>
             <div className="flex items-center gap-3">

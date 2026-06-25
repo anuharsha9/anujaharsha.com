@@ -221,7 +221,7 @@ function Scene1Terminal({ progress }: { progress: number }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.0, delay: 0.05, ease: easeCinematic }}
             >
-              Senior Product Designer
+              Staff Product Designer
             </motion.span>
             <motion.h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] mb-6"

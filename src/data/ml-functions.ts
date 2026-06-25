@@ -11,7 +11,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     src: '/images/case-study/ml-functions/11. Train Model Workflow - Confusion Matrix.png',
     alt: 'ML Functions Confusion Matrix - Model Performance Visualization',
   },
-  role: 'Lead Product Designer (End-to-End Ownership)',
+  role: 'Senior Product Designer (End-to-End Ownership)',
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Jan 2023 – Jan 2025',
   status: {

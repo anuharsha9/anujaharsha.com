@@ -11,10 +11,10 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
   const getWebsiteSchema = () => ({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Anuja Harsha Nimmagadda — Senior Product Designer',
+    name: 'Anuja Harsha Nimmagadda — Staff Product Designer',
     url: siteUrl,
     description:
-      'Senior Product Designer who makes complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
+      'Staff Product Designer who makes complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
     author: {
       '@type': 'Person',
       name: 'Anuja Harsha Nimmagadda',
@@ -37,9 +37,9 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     alternateName: ['Anuja Harsha', 'Anuja Nimmagadda'],
     url: siteUrl,
     image: `${siteUrl}/images/og-avatar.png`,
-    jobTitle: 'Senior Product Designer',
+    jobTitle: 'Staff Product Designer',
     description:
-      'Senior Product Designer who makes complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale. Specializes in enterprise complexity, data workflow modernization, and AI-native design.',
+      'Staff Product Designer who makes complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale. Specializes in enterprise complexity, data workflow modernization, and AI-native design.',
     email: 'anujanimmagadda@gmail.com',
     telephone: '+1-781-354-7394',
     sameAs: [
@@ -80,7 +80,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     ],
     hasOccupation: {
       '@type': 'Occupation',
-      name: 'Senior Product Designer',
+      name: 'Staff Product Designer',
       occupationLocation: {
         '@type': 'Country',
         name: 'United States',
@@ -113,7 +113,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
       alternateName: ['Anuja Harsha', 'Anuja Nimmagadda'],
       url: siteUrl,
       image: `${siteUrl}/images/og-avatar.png`,
-      jobTitle: 'Senior Product Designer',
+      jobTitle: 'Staff Product Designer',
       description: 'I make complex enterprise products easier to understand, use, and adopt.',
       sameAs: [
         'https://www.linkedin.com/in/anu159',
@@ -170,7 +170,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         '@type': 'Person',
         name: 'Anuja Harsha Nimmagadda',
         url: siteUrl,
-        jobTitle: 'Senior Product Designer',
+        jobTitle: 'Staff Product Designer',
       },
       publisher: {
         '@type': 'Organization',
@@ -207,7 +207,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         '@type': 'Person',
         name: 'Anuja Harsha Nimmagadda',
         url: siteUrl,
-        jobTitle: 'Senior Product Designer',
+        jobTitle: 'Staff Product Designer',
       },
       publisher: {
         '@type': 'Organization',

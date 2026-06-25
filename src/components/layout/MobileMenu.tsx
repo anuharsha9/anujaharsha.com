@@ -188,7 +188,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                 >
                   Anuja Harsha Nimmagadda
                 </TransitionLink>
-                <p className={`${t.textSecondary} text-sm mt-2`}>Senior Product Designer</p>
+                <p className={`${t.textSecondary} text-sm mt-2`}>Staff Product Designer</p>
               </div>
 
               {/* Navigation Links - Scrollable */}

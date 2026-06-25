@@ -16,7 +16,7 @@ const DELIVERED = [
  'A brand new integrated ReportCaster within the platform',
  '250+ screens covering every edge case',
  '5 fragmented subsystems unified into 1 Hub',
- 'New features to address 50 years of customer complaints',
+ 'New features to address 40 years of customer complaints',
  'Complete documentation written from scratch',
  'A team of ~20 onboarded and trained personally',
 ]

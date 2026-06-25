@@ -3,10 +3,9 @@ import dynamic from 'next/dynamic'
 import SectionSkeleton from '@/components/ui/SectionSkeleton'
 
 import HeroLanding from '@/components/home/HeroLanding'
+import CSGBlock from '@/components/home/CSGBlock'
 
-/* ── Lazy-load everything below the fold ── */
-const CSGLoading = () => <SectionSkeleton height="180vh" text="LOADING WORK MODULE" />
-const CSGBlock = dynamic(() => import('@/components/home/CSGBlock'), { ssr: true, loading: CSGLoading })
+/* ── Hero + first proof render eagerly (above the fold); everything below is lazy ── */
 
 const TestimonialsLoading = () => <SectionSkeleton height="200vh" text="LOADING PROOF MODULE" />
 const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true, loading: TestimonialsLoading })
@@ -39,7 +38,7 @@ import {
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
-  title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
+  title: 'Anuja Harsha Nimmagadda | Staff Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
   description:
     'I make complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
   keywords: [
@@ -50,12 +49,7 @@ export const metadata: Metadata = {
     'B2B Enterprise UX',
     'Legacy Modernization',
     'AI-Native Design',
-    'UX Architect',
-    'Design Strategist',
-    'Design Technologist',
-    'Design Engineer',
-    'UX Engineer',
-    'Experience Designer',
+    'Enterprise Data Platforms',
     'Data Workflow Modernization',
     'Enterprise Complexity',
     'Complex Systems Design',
@@ -64,20 +58,18 @@ export const metadata: Metadata = {
     'Code Prototyping',
     'Systems Thinking',
     'Engineering Empathy',
-    'Open to Work',
-    'Complexity Architect',
-    'Anuja Harsha',
+    'Open to Work',    'Anuja Harsha',
     'Anuja Harsha Nimmagadda',
   ],
   openGraph: {
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
+    title: 'Anuja Harsha Nimmagadda | Staff Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
     description:
       'I make complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
     url: siteUrl,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise · Legacy Modernization · AI-Native',
+    title: 'Anuja Harsha Nimmagadda | Staff Product Designer — Enterprise · Legacy Modernization · AI-Native',
     description:
       'I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
   },
@@ -120,7 +112,7 @@ export default function Home() {
       </BlurZone>
 
       {/* ═══ ZONE 5: EXTENDED PORTFOLIO ═══ */}
-      <BlurZone id="extended-portfolio-zone" containerHeight="200vh">
+      <BlurZone id="extended-portfolio-zone" containerHeight="130vh">
         <ExtendedPortfolio />
         <LifeContextStrip milestones={AGENCY_MILESTONES} />
       </BlurZone>

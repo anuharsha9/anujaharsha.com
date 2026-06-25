@@ -72,7 +72,7 @@ export const CAREER_DATA: CareerEra[] = [
     {
         id: "design-engineering",
         company: "AI-Orchestrated Portfolio",
-        role: "Design Engineering.",
+        role: "Staff Product Designer",
         period: "Nov 2025 — Present",
         heroLabel: "November 2025 — Present",
         description: "I prototype in code. The real risk isn't visuals — it's the logic.",

@@ -10,7 +10,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
     src: '/images/case-study/iq-plugin/IQ plugin - visual - 3 in 1 IQ Hub.png',
     alt: 'DSML Hub - Unified Data Science & Machine Learning',
   },
-  role: 'Lead Product Designer (End-to-End Ownership)',
+  role: 'Senior Product Designer (End-to-End Ownership)',
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Spring 2024 – Spring 2025',
   status: {
@@ -126,7 +126,7 @@ export const iqPluginCaseStudy: CaseStudyData = {
       {
         type: 'title',
         title: 'We Built the Intelligence. Nobody Knew It Existed.',
-        content: ['Anuja Harsha — Lead Product Designer', 'Third Case Study'],
+        content: ['Anuja Harsha — Senior Product Designer', 'Third Case Study'],
         image: '/images/case-study/iq-plugin/iq-cover.webp',
       },
       {

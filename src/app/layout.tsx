@@ -38,12 +38,11 @@ export const metadata: Metadata = {
     template: '%s | Anuja Harsha Nimmagadda',
   },
   description:
-    'Staff Product Designer & Architect who turns absolute ambiguity into scalable enterprise software. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
+    'Staff Product Designer who makes complex enterprise software people can actually use. 13 years modernizing legacy data workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
   keywords: [
     // ── Primary identity ──
     'Staff Product Designer',
-    'Product Architect',
-    'Lead Product Designer',
+    'Senior Product Designer',
     'Product Designer Portfolio',
     'Anuja Harsha',
     'Anuja Harsha Nimmagadda',
@@ -58,20 +57,9 @@ export const metadata: Metadata = {
     'Legacy System Modernization',
     'Data Workflow Modernization',
     'Enterprise Data Platforms',
-    // ── Growing role titles (Shift UX 2026) ──
-    'UX Architect',
-    'Information Architect',
-    'Design Strategist',
-    'UX Strategist',
-    'Design Technologist',
-    'Creative Technologist',
-    'Design Engineer',
-    'UX Engineer',
-    'Experience Designer',
     // ── AI / ML specialization ──
     'AI-Native Design',
     'AI Native UX',
-    'AI UX Designer',
     'Machine Learning UX',
     'Data Science UX',
     'ML Workflow Design',
@@ -96,9 +84,7 @@ export const metadata: Metadata = {
     // ── Brand / product names ──
     'WebFOCUS',
     'ReportCaster',
-    'DSML Hub',
-    'Complexity Architect',
-  ],
+    'DSML Hub',  ],
   authors: [{ name: 'Anuja Harsha Nimmagadda' }],
   creator: 'Anuja Harsha Nimmagadda',
   publisher: 'Anuja Harsha Nimmagadda',
@@ -106,8 +92,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    siteName: 'Anuja Harsha Nimmagadda — Senior Product Designer',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
+    siteName: 'Anuja Harsha Nimmagadda — Staff Product Designer',
+    title: 'Anuja Harsha Nimmagadda | Staff Product Designer — Enterprise Products, Legacy Modernization, AI-Native',
     description:
       'I make complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale.',
     images: [
@@ -115,13 +101,13 @@ export const metadata: Metadata = {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Anuja Harsha Nimmagadda — Senior Product Designer specializing in enterprise products, legacy modernization, and AI-native design',
+        alt: 'Anuja Harsha Nimmagadda — Staff Product Designer specializing in enterprise products, legacy modernization, and AI-native design',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anuja Harsha Nimmagadda | Senior Product Designer — Enterprise · Legacy Modernization · AI-Native',
+    title: 'Anuja Harsha Nimmagadda | Staff Product Designer — Enterprise · Legacy Modernization · AI-Native',
     description:
       'I make complex enterprise products easier to understand, use, and adopt. 13 years across data-driven platforms, legacy modernization, and AI-native product experiences.',
     images: ['/opengraph-image'],

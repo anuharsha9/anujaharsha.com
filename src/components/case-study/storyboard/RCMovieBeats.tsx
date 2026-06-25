@@ -171,7 +171,7 @@ export function MovieBeatAssignment() {
  className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-4 px-4"
  >
  Customers were leaving.<br />
- <span className="text-zinc-100">50 years without updates.</span>
+ <span className="text-zinc-100">40 years without updates.</span>
  </motion.h2>
  )}
  </AnimatePresence>

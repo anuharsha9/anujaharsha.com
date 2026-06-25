@@ -1,29 +1,38 @@
 'use client'
 
-import { useRef, useState, useEffect, useCallback } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-const TESTIMONIALS = [
+interface Testimonial {
+    id: string
+    name: string
+    role: string
+    quote: string
+    featured?: boolean
+}
+
+const TESTIMONIALS: Testimonial[] = [
     {
         id: 'vijay-raman',
         name: 'Vijay Raman',
         role: 'VP of Product Management',
         quote: 'She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams. Any team would be lucky to have her.',
-        isPrimary: true,
+        featured: true,
     },
     {
         id: 'dave-pfeiffer',
         name: 'Dave Pfeiffer',
         role: 'Director of Design',
-        quote: "She approaches her work with a fearless attitude and is never afraid to explore new ideas or directions. Anuja is willing to take on difficult problems and push for creative solutions, even under tight timelines.",
-        isPrimary: true,
+        quote: 'She approaches her work with a fearless attitude and is never afraid to explore new ideas or directions. Anuja is willing to take on difficult problems and push for creative solutions, even under tight timelines.',
+        featured: true,
     },
     {
         id: 'marcus-horbach',
         name: 'Marcus Horbach, Ph.D.',
         role: 'Principal Data Scientist',
         quote: 'The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive. Her design solutions are rooted in a deep understanding of the purpose of the product.',
+        featured: true,
     },
+    // — Additional endorsements (kept for reference; swap into the featured set anytime) —
     {
         id: 'yingchun-chen',
         name: 'Yingchun Chen',
@@ -44,66 +53,43 @@ const TESTIMONIALS = [
     },
 ]
 
-const CYCLE_DURATION = 6000 // ms per testimonial
+const FEATURED = TESTIMONIALS.filter(t => t.featured)
+
+function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
+    return (
+        <motion.figure
+            className="relative rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 md:p-7 flex flex-col h-full"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+        >
+            <blockquote className="text-zinc-200 text-base md:text-lg font-light leading-relaxed mb-6 flex-1">
+                <span className="text-[var(--accent-teal)]/60">&ldquo;</span>{t.quote}<span className="text-[var(--accent-teal)]/60">&rdquo;</span>
+            </blockquote>
+            <figcaption className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-[var(--accent-teal)]/12 flex items-center justify-center text-[var(--accent-teal)] text-sm font-bold shrink-0">
+                    {t.name.charAt(0)}
+                </div>
+                <div>
+                    <p className="text-zinc-100 text-sm font-semibold">{t.name}</p>
+                    <p className="text-zinc-500 text-[11px] font-mono">{t.role}</p>
+                </div>
+            </figcaption>
+        </motion.figure>
+    )
+}
 
 export default function TestimonialsBlock() {
-    const ref = useRef<HTMLDivElement>(null)
-    const [active, setActive] = useState(0)
-    const [isPaused, setIsPaused] = useState(false)
-
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ['start end', 'end start'],
-    })
-
-    const headingY = useTransform(scrollYProgress, [0, 0.3], [30, 0])
-    const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
-    const headingScale = useTransform(scrollYProgress, [0, 0.3], [0.98, 1])
-
-
-
-    // Auto-cycle
-    useEffect(() => {
-        if (isPaused) return
-        const timer = setInterval(() => {
-            setActive(prev => (prev + 1) % TESTIMONIALS.length)
-        }, CYCLE_DURATION)
-        return () => clearInterval(timer)
-    }, [isPaused])
-
-    const goTo = useCallback((idx: number) => {
-        setActive(idx)
-        setIsPaused(true)
-        // Resume auto-cycle after 10s of inactivity
-        const timer = setTimeout(() => setIsPaused(false), 10000)
-        return () => clearTimeout(timer)
-    }, [])
-
-    const t = TESTIMONIALS[active]
-
     return (
-        <motion.section ref={ref} className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
-            {/* Era label — decorative */}
-            <motion.div
-                className="mb-6 md:mb-8 pointer-events-none select-none"
-                aria-hidden="true"
-                initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
-                whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-                <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
-                    SOCIAL PROOF
-                </span>
-            </motion.div>
-
+        <section className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto">
             {/* Header */}
             <motion.div
-                className="mb-8 md:mb-14"
+                className="mb-8 md:mb-12"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
                 <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                     Social Proof
@@ -113,88 +99,12 @@ export default function TestimonialsBlock() {
                 </h2>
             </motion.div>
 
-            {/* Cinematic single-quote display */}
-            <div
-                className="relative min-h-[260px] md:min-h-[200px]"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-            >
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={t.id}
-                        initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
-                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                        exit={{ opacity: 0, y: -8, filter: 'blur(8px)' }}
-                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="max-w-4xl"
-                    >
-                        {/* Quote — hero typography */}
-                        <blockquote className="text-xl md:text-2xl lg:text-[28px] font-light leading-relaxed text-zinc-100 tracking-tight mb-8">
-                            <span className="text-[var(--accent-teal)]/60">&ldquo;</span>
-                            {t.quote}
-                            <span className="text-[var(--accent-teal)]/60">&rdquo;</span>
-                        </blockquote>
-
-                        {/* Attribution */}
-                        <div className="flex items-center gap-3">
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0
-                                ${t.isPrimary
-                                    ? 'bg-[var(--accent-teal)]/15 text-[var(--accent-teal)]'
-                                    : 'bg-white/[0.06] text-zinc-500'
-                                }`}>
-                                {t.name.charAt(0)}
-                            </div>
-                            <div>
-                                <p className="text-zinc-100 text-sm font-semibold">{t.name}</p>
-                                <p className="text-zinc-600 text-xs font-mono">{t.role}</p>
-                            </div>
-                            {t.isPrimary && (
-                                <span className="ml-2 text-[9px] font-mono uppercase tracking-[0.2em] text-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/[0.06] px-2 py-0.5 rounded-full">
-                                    Featured
-                                </span>
-                            )}
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-            </div>
-
-            {/* Progress dots — interactive */}
-            <div className="flex items-center gap-2 mt-8">
-                {TESTIMONIALS.map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => goTo(i)}
-                        className="relative flex items-center justify-center min-w-[44px] min-h-[44px]"
-                        aria-label={`Go to testimonial ${i + 1}`}
-                    >
-                        <span
-                            className="relative h-1.5 rounded-full transition-all duration-500 overflow-hidden block"
-                            style={{
-                                width: i === active ? 32 : 8,
-                                backgroundColor: i === active ? 'rgba(255,255,255,0)' : 'rgba(255,255,255,0.1)',
-                            }}
-                        >
-                            {i === active && (
-                                <>
-                                    {/* Background track */}
-                                    <span className="absolute inset-0 bg-white/10 rounded-full" />
-                                    {/* Animated fill — represents time remaining */}
-                                    <motion.span
-                                        className="absolute inset-y-0 left-0 bg-[var(--accent-teal)] rounded-full"
-                                        initial={{ width: '0%' }}
-                                        animate={{ width: '100%' }}
-                                        transition={{ duration: CYCLE_DURATION / 1000, ease: 'linear' }}
-                                        key={`fill-${active}`}
-                                    />
-                                </>
-                            )}
-                        </span>
-                    </button>
+            {/* Static featured quotes — no carousel, all readable at once */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-5">
+                {FEATURED.map((t, i) => (
+                    <QuoteCard key={t.id} t={t} i={i} />
                 ))}
-                <span className="ml-3 text-[10px] font-mono text-zinc-800">
-                    {active + 1} / {TESTIMONIALS.length}
-                </span>
             </div>
-        </motion.section>
+        </section>
     )
 }

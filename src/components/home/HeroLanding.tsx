@@ -81,25 +81,25 @@ export default function HeroLanding() {
                         style={{ y: bioY, opacity: bioOpacity }}
                     >
                         <div className="flex flex-col items-center text-center max-w-4xl">
-                            {/* SENIOR PRODUCT DESIGNER — label */}
+                            {/* STAFF PRODUCT DESIGNER — label */}
                             <motion.span
-                                className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+                                className="text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
                                 initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                                 transition={{ duration: 1, ease }}
                             >
-                                Staff Product Designer & Architect
+                                Staff Product Designer · Enterprise Data Platforms
                             </motion.span>
 
                             {/* MAIN HEADLINE — slowest, most dramatic reveal */}
                             <motion.h1
-                                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-6"
+                                className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-5"
                                 initial={{ opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }}
                                 animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                 transition={{ duration: 1.2, delay: 0.1, ease }}
                             >
-                                <span className="text-[var(--text-heading)] drop-shadow-md">Anuja Harsha </span>
-                                <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Nimmagadda</span>
+                                <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
+                                <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">Anuja.</span>
                             </motion.h1>
 
                             {/* SUBTITLE — positioning + credibility */}
@@ -109,7 +109,7 @@ export default function HeroLanding() {
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                                 transition={{ duration: 1.2, delay: 0.2, ease }}
                             >
-                                I turn absolute ambiguity into scalable, data-heavy B2B software. 13 years of modernizing legacy ecosystems, architecting zero-to-one SaaS platforms, and shipping AI-native UI to unblock engineering at scale.
+                                I make the most powerful tool in the building — the one nobody can use — obvious. 13 years modernizing legacy enterprise systems; most recently a ~50-year-old BI platform, where the work helped renew a multi-year, multi-million-dollar contract.
                             </motion.p>
                         </div>
 

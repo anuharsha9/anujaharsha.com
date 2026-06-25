@@ -4,10 +4,10 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'About Anuja Harsha | Senior Product Designer — AI-Native, Open to Work',
+    absolute: 'About Anuja Harsha | Staff Product Designer — AI-Native, Open to Work',
   },
   description:
-    'Senior Product Designer & Complexity Architect with 13+ years transforming enterprise systems. Discover the journey, philosophy, and AI-Native approach behind transforming legacy workflows into intuitive, high-impact products. Open to work.',
+    'Staff Product Designer with 13+ years making complex enterprise systems usable. The journey, philosophy, and craft behind modernizing legacy workflows into intuitive, high-impact products. Open to work.',
   keywords: [
     'Anuja Harsha Nimmagadda',
     'Anuja Harsha',
@@ -24,17 +24,17 @@ export const metadata: Metadata = {
     'Product Designer Portfolio',
   ],
   openGraph: {
-    title: 'About Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
+    title: 'About Anuja Harsha Nimmagadda | Staff Product Designer — Open to Work',
     description:
-      'Complexity Architect with 13+ years transforming enterprise systems into high-impact products. AI-Native design, vibe coding, code prototyping. Open to work.',
+      'Staff Product Designer with 13+ years turning complex enterprise systems into products people adopt. AI-native design, code prototyping. Open to work.',
     url: `${siteUrl}/me/`,
     type: 'profile',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Anuja Harsha Nimmagadda | Senior Product Designer — Open to Work',
+    title: 'About Anuja Harsha Nimmagadda | Staff Product Designer — Open to Work',
     description:
-      'Complexity Architect. 13+ years transforming enterprise chaos into clarity. AI-Native design, vibe coding, code prototyping. Open to work.',
+      'Staff Product Designer. 13+ years making complex enterprise software usable. AI-native design, code prototyping. Open to work.',
   },
   alternates: {
     canonical: `${siteUrl}/me/`,
