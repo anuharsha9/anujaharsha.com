@@ -128,9 +128,9 @@ export const SAME_TIME_PAIRS: SameTimePair[] = [
             icon: Bot,
         },
         life: {
-            title: 'Looking toward Hyderabad',
-            description: 'Closing the U.S. chapter on the horizon. Saving and planning for the next move home.',
-            icon: MapPin,
+            title: 'Building side projects · WealthEngine, Sous, this site',
+            description: 'AI orchestration as a personal practice. Side projects becoming a craft of their own.',
+            icon: Bot,
         },
     },
 ]

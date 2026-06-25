@@ -108,7 +108,7 @@ function HoldingNow() {
                     <p className="mt-4 text-base leading-relaxed text-zinc-300 md:text-lg">
                         Two kids and a husband I built a life with. Staff-level work at Cloud Software Group on the WebFOCUS platform.
                         Just finished a Master’s in English Literature & Critical Theory. Vibe-coding a few side projects —
-                        WealthEngine, Sous, this site. Saving toward the long game: home in Hyderabad by 2029.
+                        WealthEngine, Sous, this site.
                     </p>
                 </motion.div>
             </div>

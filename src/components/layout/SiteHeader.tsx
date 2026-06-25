@@ -151,17 +151,7 @@ export default function SiteHeader() {
 
         {/* Right Side CTAs */}
         <div className="absolute right-4 xs:right-5 sm:right-6 md:right-8 lg:right-12 xl:right-16 hidden lg:flex items-center gap-space-3">
-          {/* Let's Talk - Primary CTA */}
-          <Magnetic strength={0.4}>
-            <TransitionLink
-              href="/#lets-talk"
-              className="inline-flex items-center gap-space-2 px-space-4 py-space-2 rounded-full bg-[var(--accent-teal)]/15 text-[var(--accent-teal)] font-mono text-[13px] uppercase tracking-[0.1em] font-normal transition-all duration-300 hover:bg-[var(--accent-teal)]/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)]"
-            >
-              <span>Let&apos;s Talk</span>
-            </TransitionLink>
-          </Magnetic>
-
-          {/* Resume - Secondary CTA */}
+          {/* Resume - Primary CTA */}
           <Magnetic strength={0.2}>
             <button
               onClick={() => {

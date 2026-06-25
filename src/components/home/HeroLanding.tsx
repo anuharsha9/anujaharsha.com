@@ -7,8 +7,10 @@ import {
     useTransform,
 } from 'framer-motion'
 import { useTransition } from '@/components/transitions/TransitionContext'
-import { ArrowDown } from 'lucide-react'
+import { ArrowDown, FileText } from 'lucide-react'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
+import { usePdf } from '@/contexts/PdfContext'
+import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 
 /**
  * Cinematic easing — extremely long deceleration tail.
@@ -19,12 +21,21 @@ const ease = [0.05, 0.7, 0.1, 1] as [number, number, number, number]
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { navigateTo } = useTransition()
+    const { openPdf } = usePdf()
     const [isReady, setIsReady] = useState(true)
 
     /* Smooth-scroll to the case studies section just below the hero. */
     const scrollToWork = () => {
         const target = document.getElementById('work-overview')
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    const openResume = () => {
+        trackResumeDownload()
+        openPdf(
+            '/assets/Anuja%20Harsha%20Nimmagadda%20-%20Staff%20Product%20Designer.pdf',
+            'Anuja Harsha Nimmagadda - Staff Product Designer',
+        )
     }
 
     /* ─── Scroll choreography — viewport-based ─── 
@@ -123,9 +134,9 @@ export default function HeroLanding() {
                             </motion.p>
                         </div>
 
-                        {/* CTA — single primary, sends visitors straight into the work */}
+                        {/* CTAs — primary (work) + secondary (resume) */}
                         <motion.div
-                            className="mt-8 md:mt-10 flex justify-center pointer-events-auto"
+                            className="mt-8 md:mt-10 flex flex-col items-center gap-4 pointer-events-auto sm:flex-row sm:justify-center sm:gap-5"
                             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
                             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                             transition={{ duration: 1.2, delay: 0.3, ease }}
@@ -151,6 +162,16 @@ export default function HeroLanding() {
                                     <ArrowDown className="w-4 h-4 transition-transform duration-500 group-hover:translate-y-1" />
                                 </button>
                             </div>
+
+                            {/* Resume — secondary outline button */}
+                            <button
+                                onClick={openResume}
+                                aria-label="View Resume PDF"
+                                className="group inline-flex h-12 sm:h-14 items-center justify-center gap-2.5 rounded-full border border-white/40 bg-white/[0.04] px-7 sm:px-8 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-500 hover:border-white/80 hover:bg-white/[0.08]"
+                            >
+                                <FileText className="w-4 h-4" />
+                                <span>Resume</span>
+                            </button>
                         </motion.div>
 
                     </motion.div>
