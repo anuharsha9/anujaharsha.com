@@ -2,65 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-
-interface Testimonial {
-    id: string
-    name: string
-    role: string
-    quote: string
-}
-
-/* Ordered by strength — the first 3 show by default, the rest reveal on "show all". */
-const TESTIMONIALS: Testimonial[] = [
-    {
-        id: 'vijay-raman',
-        name: 'Vijay Raman',
-        role: 'VP of Product Management',
-        quote: 'She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams. Any team would be lucky to have her.',
-    },
-    {
-        id: 'dave-pfeiffer',
-        name: 'Dave Pfeiffer',
-        role: 'Director of Design',
-        quote: 'She approaches her work with a fearless attitude and is never afraid to explore new ideas or directions. Anuja is willing to take on difficult problems and push for creative solutions, even under tight timelines.',
-    },
-    {
-        id: 'marcus-horbach',
-        name: 'Marcus Horbach, Ph.D.',
-        role: 'Principal Data Scientist',
-        quote: 'The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive. Her design solutions are rooted in a deep understanding of the purpose of the product.',
-    },
-    {
-        id: 'vikram-patel',
-        name: 'Vikram Patel',
-        role: 'Co-Founder & CEO · 9P Studioz',
-        quote: 'She quickly became the designer we trusted for everything. By the time she moved on, she was operating at a level far beyond her experience, ready for enterprise-grade work.',
-    },
-    {
-        id: 'yingchun-chen',
-        name: 'Yingchun Chen',
-        role: 'Principal System Software Engineer',
-        quote: "From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She's the kind of UX leader any team would be lucky to have.",
-    },
-    {
-        id: 'radhika-tekumalla',
-        name: 'Radhika Tekumalla',
-        role: 'Founder · Kedazzle (EdTech)',
-        quote: "Smart and very attuned to user needs, she 'just gets it' and developed intuitive designs that were very well received by our end users.",
-    },
-    {
-        id: 'karishma-khadge',
-        name: 'Karishma Khadge',
-        role: 'Senior Product Manager',
-        quote: 'Her design thinking workshops and prototype walkthroughs often became the foundation for key product decisions, driving clarity and alignment across cross-functional teams.',
-    },
-    {
-        id: 'anita-george',
-        name: 'Anita George',
-        role: 'Principal Account Technology Strategist',
-        quote: 'Anticipating the next move of the user, that is next level UI! Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels.',
-    },
-]
+import { TESTIMONIALS, type Testimonial } from '@/data/testimonials'
 
 const VISIBLE_COUNT = 3
 
