@@ -4,6 +4,7 @@ import SectionSkeleton from '@/components/ui/SectionSkeleton'
 
 import HeroLanding from '@/components/home/HeroLanding'
 import CSGBlock from '@/components/home/CSGBlock'
+import HomeTabsWrapper from '@/components/home/HomeTabsWrapper'
 
 /* ── Hero + first proof render eagerly (above the fold); everything below is lazy ── */
 
@@ -86,12 +87,15 @@ export default function Home() {
       {/* Neural Mainframe — faint scanline overlay */}
       <div className="scanline-overlay" aria-hidden="true" />
 
+      {/* ═══ TABBED SHELL — Work (default) vs Life. URL: /?tab=life ═══ */}
+      <HomeTabsWrapper>
+
       {/* ═══ ZONE 1: HERO ═══
           Manages its own 135vh + sticky + scroll choreography.
           No BlurZone — hero has its own blur/scale/opacity transforms. */}
       <HeroLanding />
 
-      {/* ═══ ZONE 2: CSG BLOCK ═══ 
+      {/* ═══ ZONE 2: CSG BLOCK ═══
            Negative margin pulls this zone UP into the hero zone,
            so the blur-to-sharp resolve starts while the hero is still visible.
            This creates a cinematic crossfade — hero fading out as CSG fades in. */}
@@ -133,6 +137,8 @@ export default function Home() {
       <BlurZone id="footer-zone" containerHeight="100dvh">
         <TalkSection />
       </BlurZone>
+
+      </HomeTabsWrapper>
 
       <ScrollGear />
     </div>
