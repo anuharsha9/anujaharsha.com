@@ -26,17 +26,7 @@ const TalkSectionLoading = () => <SectionSkeleton height="100dvh" text="LOADING 
 const TalkSection = dynamic(() => import('@/components/home/TalkSection'), { ssr: true, loading: TalkSectionLoading })
 const ScrollGear = dynamic(() => import('@/components/ui/ScrollGear'), { ssr: true })
 const BlurZone = dynamic(() => import('@/components/ui/BlurZone'), { ssr: true })
-const LifeContextStrip = dynamic(
-  () => import('@/components/home/LifeContextStrip').then((m) => ({ default: m.default })),
-  { ssr: true }
-)
-
-/* Re-export the milestones for LifeContextStrip props */
-import {
-  CSG_MILESTONES,
-  CONSULTANT_MILESTONES,
-  AGENCY_MILESTONES,
-} from '@/components/home/LifeContextStrip'
+/* LifeContextStrip removed from Work tab — milestones now live in Life tab's Same Time room. */
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -108,24 +98,22 @@ export default function Home() {
       {/* ═══ TRAILER TEASER — closer for warm visitors, sits right after the 3 case studies ═══ */}
       <TrailerTeaser />
 
-      {/* ═══ ZONE 3: SOCIAL PROOF + LIFE CONTEXT ═══
+      {/* ═══ ZONE 3: SOCIAL PROOF ═══
            No BlurZone here — testimonials are read-heavy and must stay sharp/fully readable
-           (the blur-morph + sticky pin obscured and clipped them). */}
+           (the blur-morph + sticky pin obscured and clipped them).
+           Life milestone pills moved to the Life tab's "Same Time" room. */}
       <div id="social-proof-zone" className="relative w-full">
         <TestimonialsBlock />
-        <LifeContextStrip milestones={CSG_MILESTONES} />
       </div>
 
       {/* ═══ ZONE 4: VIBE CODING ═══ */}
       <BlurZone id="vibe-coding-zone" containerHeight="200vh">
         <VibeCodingBlock />
-        <LifeContextStrip milestones={CONSULTANT_MILESTONES} />
       </BlurZone>
 
       {/* ═══ ZONE 5: EXTENDED PORTFOLIO ═══ */}
       <BlurZone id="extended-portfolio-zone" containerHeight="130vh">
         <ExtendedPortfolio />
-        <LifeContextStrip milestones={AGENCY_MILESTONES} />
       </BlurZone>
 
       {/* ═══ ZONE 6: FOUNDATION ═══ */}
