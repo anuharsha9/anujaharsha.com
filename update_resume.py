@@ -132,15 +132,23 @@ new_body = """<body>
         <h3 class="section-title">Education & Certifications</h3>
         <div class="edu-item" style="margin-bottom: 0.25rem;">
             <div class="school">MIT xPRO</div>
-            <div class="degree">Professional Certificate in Product Design for AI and Machine Learning</div>
+            <div class="degree">Professional Certificate: Designing and Building AI Products and Services</div>
         </div>
         <div class="edu-item" style="margin-bottom: 0.25rem;">
             <div class="school">Georgia Institute of Technology</div>
-            <div class="degree">Human-Computer Interaction Certificate</div>
+            <div class="degree">Professional Certificate in Human-Computer Interaction</div>
+        </div>
+        <div class="edu-item" style="margin-bottom: 0.25rem;">
+            <div class="school">Dr. B.R. Ambedkar Open University</div>
+            <div class="degree">Master of Arts in English Literature</div>
+        </div>
+        <div class="edu-item" style="margin-bottom: 0.25rem;">
+            <div class="school">SNDT Women's University, Mumbai</div>
+            <div class="degree">Bachelor of Arts in English Literature</div>
         </div>
         <div class="edu-item" style="margin-bottom: 0;">
-            <div class="school">Dr. B.R. Ambedkar Open University</div>
-            <div class="degree">Master of Arts in English Literature | Dual Bachelor of Arts: English Literature and Animation & Visual Effects</div>
+            <div class="school">Mahatma Gandhi University</div>
+            <div class="degree">Bachelor of Arts in VFX &amp; Animation</div>
         </div>
     </section>
 
