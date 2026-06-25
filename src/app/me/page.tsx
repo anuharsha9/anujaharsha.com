@@ -6,6 +6,7 @@ import { createPortal } from 'react-dom'
 import { motion, useScroll, useTransform, useMotionValue, AnimatePresence, animate as fmAnimate } from 'framer-motion'
 import { articleLinks } from '@/data/home'
 import ScrollGear from '@/components/ui/ScrollGear'
+import SystemLightbox from '@/components/ui/SystemLightbox'
 
 
 /* ═══════════════════════════════════════════════════════════════════════════════
@@ -870,12 +871,106 @@ function ConnectionClose() {
 /* ═══════════════════════════════════════════════════════════════════════════════
    PAGE ASSEMBLY
    ═══════════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ACT 5.5: GRAPHIC DESIGN — early creative hobby. Gallery + lightbox.
+   (Will fold into the Work/Life tab view later.)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+const GRAPHIC_DESIGN = Array.from({ length: 13 }, (_, i) =>
+  `/images/archive/graphic-design/graphic design portfolio${i + 1}.png`
+)
+
+function GraphicDesign() {
+  const [index, setIndex] = useState<number | null>(null)
+  const open = index !== null
+
+  return (
+    <section className="relative py-20 md:py-28 overflow-hidden" id="graphic-design">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full"
+          style={{ background: 'radial-gradient(ellipse, var(--overlay-accent-06) 0%, transparent 70%)', filter: 'blur(100px)' }}
+        />
+      </div>
+
+      {/* Header */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 mb-10 md:mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center gap-4 mb-4">
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600">A Hobby · Where It Started</span>
+            <div className="flex-1 h-[1px] bg-white/[0.06]" />
+          </div>
+          <h2 className="font-black text-3xl md:text-5xl text-white tracking-tight">Graphic Design</h2>
+          <p className="text-zinc-600 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
+            Before product design, there was print — brand identities, posters, and visual systems. Still the craft I return to for fun.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Thumbnail grid → lightbox */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+          {GRAPHIC_DESIGN.map((src, i) => (
+            <motion.button
+              key={src}
+              onClick={() => setIndex(i)}
+              className="group relative aspect-square overflow-hidden rounded-xl border border-white/[0.06] transition-colors duration-500 hover:border-[var(--accent-teal)]/30"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              aria-label={`View graphic design piece ${i + 1}`}
+            >
+              <div className="absolute inset-0 grayscale brightness-[0.75] transition-[filter] duration-700 group-hover:grayscale-0 group-hover:brightness-100">
+                <Image
+                  src={src}
+                  alt={`Graphic design piece ${i + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Lightbox slideshow */}
+      {open && (
+        <SystemLightbox
+          isOpen={true}
+          onClose={() => setIndex(null)}
+          title={`Graphic Design — ${(index ?? 0) + 1} / ${GRAPHIC_DESIGN.length}`}
+          onNext={(index ?? 0) < GRAPHIC_DESIGN.length - 1 ? () => setIndex(i => Math.min((i ?? 0) + 1, GRAPHIC_DESIGN.length - 1)) : undefined}
+          onPrev={(index ?? 0) > 0 ? () => setIndex(i => Math.max((i ?? 0) - 1, 0)) : undefined}
+        >
+          <div className="flex items-center justify-center w-full h-full min-h-[50vh]">
+            <Image
+              src={GRAPHIC_DESIGN[index ?? 0]}
+              alt={`Graphic design — piece ${(index ?? 0) + 1}`}
+              width={1200}
+              height={900}
+              className="max-w-full max-h-[75vh] object-contain rounded-lg"
+            />
+          </div>
+        </SystemLightbox>
+      )}
+    </section>
+  )
+}
+
 export default function AboutPage() {
   return (
     <div className="relative" style={{ overflowX: 'clip' }}>
       <GlitchPortalHero />
       <DualityWriting />
       <LifeGallery />
+      <GraphicDesign />
       <ConnectionClose />
       <ScrollGear />
     </div>

@@ -9,11 +9,7 @@ import SystemLightbox from '@/components/ui/SystemLightbox'
 const ARCHIVE_IMAGES: Record<string, string[]> = {
     kedazzle: Array.from({ length: 16 }, (_, i) =>
         `/images/archive/kedazzle/Case Study Kedazzle_Page_${String(i + 1).padStart(2, '0')}.png`
-    ),
-    'infinite-analytics': Array.from({ length: 11 }, (_, i) =>
-        `/images/archive/infinite-analytics/Infinite case study${i + 1}.png`
-    ),
-    'travel-portal': Array.from({ length: 6 }, (_, i) =>
+    ),    'travel-portal': Array.from({ length: 6 }, (_, i) =>
         `/images/archive/travel-portal/Travel Portal${i + 1}.png`
     ),
     wordu: Array.from({ length: 9 }, (_, i) =>
@@ -21,11 +17,7 @@ const ARCHIVE_IMAGES: Record<string, string[]> = {
     ),
     crbs: Array.from({ length: 10 }, (_, i) =>
         `/images/archive/crbs/CRBS case study${i + 1}.png`
-    ),
-    'graphic-design': Array.from({ length: 13 }, (_, i) =>
-        `/images/archive/graphic-design/graphic design portfolio${i + 1}.png`
-    ),
-}
+    ),}
 
 /* ─── Earlier-work projects (2012–2022) ─── */
 interface ProjectItem {
@@ -38,11 +30,9 @@ interface ProjectItem {
 
 const PROJECTS: ProjectItem[] = [
     { id: 'kedazzle', title: 'Kedazzle', subtitle: '0-to-1 EdTech platform', image: '/images/Kedazzle-cover.png', archiveKey: 'kedazzle' },
-    { id: 'infinite-analytics', title: 'Infinite', subtitle: 'Productivity suite · mobile', image: '/images/Infinite-Cover.png', archiveKey: 'infinite-analytics' },
     { id: 'travel-portal', title: 'Travel Portal', subtitle: 'B2B enterprise booking', image: '/images/travel-cover.png', archiveKey: 'travel-portal' },
     { id: 'wordu', title: 'WordU', subtitle: 'Consumer game · 12K+ downloads wk 1', image: '/images/wordu-cover.png', archiveKey: 'wordu' },
     { id: 'crbs', title: 'CRBS', subtitle: 'Enterprise IoT interfaces', image: '/images/crbs-cover.png', archiveKey: 'crbs' },
-    { id: 'graphic-design', title: 'Graphic Design', subtitle: 'Brand identity & print', image: '/images/graphic-cover.png', archiveKey: 'graphic-design' },
 ]
 
 /* ─── Compact archive thumbnail ─── */
@@ -104,7 +94,7 @@ export default function ExtendedPortfolio() {
 
                 {/* Compact thumbnail grid */}
                 <motion.div
-                    className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4"
+                    className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
