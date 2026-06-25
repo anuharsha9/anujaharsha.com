@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 interface Testimonial {
@@ -7,37 +8,45 @@ interface Testimonial {
     name: string
     role: string
     quote: string
-    featured?: boolean
 }
 
+/* Ordered by strength — the first 3 show by default, the rest reveal on "show all". */
 const TESTIMONIALS: Testimonial[] = [
     {
         id: 'vijay-raman',
         name: 'Vijay Raman',
         role: 'VP of Product Management',
         quote: 'She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams. Any team would be lucky to have her.',
-        featured: true,
     },
     {
         id: 'dave-pfeiffer',
         name: 'Dave Pfeiffer',
         role: 'Director of Design',
         quote: 'She approaches her work with a fearless attitude and is never afraid to explore new ideas or directions. Anuja is willing to take on difficult problems and push for creative solutions, even under tight timelines.',
-        featured: true,
     },
     {
         id: 'marcus-horbach',
         name: 'Marcus Horbach, Ph.D.',
         role: 'Principal Data Scientist',
         quote: 'The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive. Her design solutions are rooted in a deep understanding of the purpose of the product.',
-        featured: true,
     },
-    // — Additional endorsements (kept for reference; swap into the featured set anytime) —
+    {
+        id: 'vikram-patel',
+        name: 'Vikram Patel',
+        role: 'Co-Founder & CEO · 9P Studioz',
+        quote: 'She quickly became the designer we trusted for everything. By the time she moved on, she was operating at a level far beyond her experience, ready for enterprise-grade work.',
+    },
     {
         id: 'yingchun-chen',
         name: 'Yingchun Chen',
         role: 'Principal System Software Engineer',
         quote: "From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She's the kind of UX leader any team would be lucky to have.",
+    },
+    {
+        id: 'radhika-tekumalla',
+        name: 'Radhika Tekumalla',
+        role: 'Founder · Kedazzle (EdTech)',
+        quote: "Smart and very attuned to user needs, she 'just gets it' and developed intuitive designs that were very well received by our end users.",
     },
     {
         id: 'karishma-khadge',
@@ -53,7 +62,7 @@ const TESTIMONIALS: Testimonial[] = [
     },
 ]
 
-const FEATURED = TESTIMONIALS.filter(t => t.featured)
+const VISIBLE_COUNT = 3
 
 function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
     return (
@@ -61,8 +70,8 @@ function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
             className="relative rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 md:p-7 flex flex-col h-full"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: Math.min(i, VISIBLE_COUNT) * 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
             <blockquote className="text-zinc-200 text-base md:text-lg font-light leading-relaxed mb-6 flex-1">
                 <span className="text-[var(--accent-teal)]/60">&ldquo;</span>{t.quote}<span className="text-[var(--accent-teal)]/60">&rdquo;</span>
@@ -81,6 +90,10 @@ function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
 }
 
 export default function TestimonialsBlock() {
+    const [expanded, setExpanded] = useState(false)
+    const shown = expanded ? TESTIMONIALS : TESTIMONIALS.slice(0, VISIBLE_COUNT)
+    const hiddenCount = TESTIMONIALS.length - VISIBLE_COUNT
+
     return (
         <section className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto">
             {/* Header */}
@@ -99,12 +112,28 @@ export default function TestimonialsBlock() {
                 </h2>
             </motion.div>
 
-            {/* Static featured quotes — no carousel, all readable at once */}
+            {/* Static quote wall — 3 by default, expands to all */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-5">
-                {FEATURED.map((t, i) => (
+                {shown.map((t, i) => (
                     <QuoteCard key={t.id} t={t} i={i} />
                 ))}
             </div>
+
+            {/* Show-all toggle */}
+            {hiddenCount > 0 && (
+                <div className="flex justify-center mt-8 md:mt-10">
+                    <button
+                        onClick={() => setExpanded(v => !v)}
+                        aria-expanded={expanded}
+                        className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full border border-white/[0.1] bg-white/[0.04] text-zinc-300 text-sm font-medium tracking-wide hover:bg-white/[0.08] hover:text-white hover:border-white/[0.2] transition-all duration-400"
+                    >
+                        {expanded ? 'Show fewer' : `Read all ${TESTIMONIALS.length} endorsements`}
+                        <span className={`text-[var(--accent-teal)] transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} aria-hidden="true">
+                            ↓
+                        </span>
+                    </button>
+                </div>
+            )}
         </section>
     )
 }
