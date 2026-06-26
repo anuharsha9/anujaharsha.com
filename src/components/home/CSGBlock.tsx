@@ -53,18 +53,20 @@ const TILES = [
     },
 ]
 
-/* ─── Vertical case-study tile — 3-column grid.
+/* ─── Case-study tile — 3-column grid, hover-reveal content.
  *
- * Per Anuja: 'Can't we just keep the title and the two buttons? Do we
- * really need all that extra content making it so busy?' — and later:
- * 'make the CSG tiles back the 3 column layout. the vertical stack feels
- * too long and too space consuming.'
+ * Evolution per Anuja: keep just title + 2 buttons (no busy detail) → back
+ * to a 3-column grid (the vertical stack was too long) → and finally:
+ * "keep the title and 2 buttons on hover only … it's too white and opaque
+ * and bold, just dim it … use the fonts from the AI tiles."
  *
- * So: wireframe cover on top, then title + 2 buttons below. Three equal
- * columns. Buttons pin to the bottom (mt-auto) so they align across all
- * three tiles regardless of how many lines the title wraps to. The role /
- * domain / outcome detail still lives inside the case study itself via
- * QuickImpactOverview — not repeated here. */
+ * So now: the animated wireframe fills the tile and is the default view.
+ * On hover (desktop) a bottom gradient fades in with the title + the two
+ * buttons (Case Study / Watch); on mobile (no hover) they stay visible.
+ * Title is dimmed (zinc-300) and font-semibold to match the Build Lab
+ * AI-app tiles. aspect-[4/3] also matches those tiles, so equal heights
+ * come free in the grid. Role/domain/outcome detail lives in the case
+ * study itself via QuickImpactOverview — not repeated here. */
 function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
     const WireframeComponent = tile.Wireframe
     const rgb = `var(${tile.accentVar})`
@@ -76,10 +78,10 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
             whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1.4, delay, ease }}
-            className="group h-full"
+            className="group"
         >
             <div
-                className="relative flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-500 group-hover:-translate-y-1"
+                className="relative aspect-[4/3] overflow-hidden rounded-2xl transition-all duration-500 group-hover:-translate-y-1"
                 style={{
                     border: `1px solid rgba(${rgb}, 0.18)`,
                     background: `linear-gradient(135deg, rgba(${rgb}, 0.08), rgba(${rgb}, 0.03)), var(--bg-cinematic)`,
@@ -98,34 +100,33 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                     }}
                 />
 
-                {/* Wireframe cover — top, always crisp */}
-                <div
-                    className="relative aspect-[16/10] overflow-hidden border-b"
-                    style={{ borderColor: `rgba(${rgb}, 0.12)` }}
-                >
-                    <div className="absolute inset-0 pointer-events-none">
-                        <WireframeComponent />
-                    </div>
+                {/* Wireframe cover — fills the tile, always visible (the star). */}
+                <div className="absolute inset-0 z-[2] pointer-events-none">
+                    <WireframeComponent />
                 </div>
 
-                {/* Content — title + 2 buttons. Buttons pinned to the bottom. */}
-                <div className="relative z-[2] flex flex-1 flex-col gap-5 p-5 md:p-6">
-                    <h3 className="text-base md:text-lg lg:text-xl font-bold text-zinc-100 leading-snug tracking-tight">
+                {/* Title + 2 buttons — reveal on hover (desktop), always shown on
+                    mobile (no hover). Dimmed + font-semibold to match the Build Lab
+                    AI-app tiles. */}
+                <div
+                    className="absolute inset-0 z-[10] flex flex-col justify-end gap-3.5 p-5 bg-gradient-to-t from-black/85 via-black/40 to-transparent transition-opacity duration-500 opacity-100 pointer-events-auto md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto"
+                >
+                    <h3 className="font-sans text-sm md:text-base font-semibold leading-snug tracking-tight text-zinc-300">
                         {tile.title}
                     </h3>
 
-                    <div className="mt-auto flex flex-col gap-2.5">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                         <TransitionLink
                             href={tile.link}
-                            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)] active:scale-[0.98]"
+                            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white active:scale-[0.98]"
                         >
-                            <FileText className="w-4 h-4" /> Case Study
+                            <FileText className="w-3.5 h-3.5" /> Case Study
                         </TransitionLink>
                         <button
                             onClick={onWatch}
-                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:border-white/60 hover:bg-white/[0.10] active:scale-[0.98]"
+                            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-white/20 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-zinc-200 transition-all duration-300 hover:border-white/50 hover:bg-white/[0.10] hover:text-white active:scale-[0.98]"
                         >
-                            <MonitorPlay className="w-4 h-4" /> Watch
+                            <MonitorPlay className="w-3.5 h-3.5" /> Watch
                         </button>
                     </div>
                 </div>
