@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
+import VideoPlayer from '@/components/ui/VideoPlayer'
 import TalkSection from '@/components/home/TalkSection'
 import { ALL_MILESTONES, FAMILY_PHOTO, MAKES_GALLERIES, SAME_TIME_PAIRS, type MakeGallery } from '@/data/life-content'
 import { POEM_STANZAS } from '@/data/poem'
@@ -60,17 +61,13 @@ function LifeHero() {
                         Parent. Baker. Painter. Poet. Reader. Migrant. The capacity behind the work — and where the work begins.
                     </p>
                 </div>
-                <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] aspect-[4/5] md:col-span-5 md:aspect-square">
-                    <video
-                        src="/videos/intro-video.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="absolute inset-0 h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                </div>
+                <VideoPlayer
+                    src="/videos/intro-video.mp4"
+                    autoPlay
+                    loop
+                    ariaLabel="Anuja’s intro — outside the terminal"
+                    className="aspect-[4/5] overflow-hidden rounded-2xl border border-white/[0.06] md:col-span-5 md:aspect-square"
+                />
             </motion.div>
         </section>
     )
