@@ -162,11 +162,21 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
 }
 
 @layer base {
+  /* Kill horizontal scroll caused by decorative glows/blurs that extend past
+     the viewport. `clip` (not `hidden`) prevents a horizontal scrollbar WITHOUT
+     creating a scroll container — so position: sticky elsewhere keeps working,
+     and the Lenis smooth-scroll wrapper isn't affected. Applied to html too
+     because the Lenis scroll container can sit above body. */
+  html {
+    overflow-x: clip;
+  }
+
   body {
     background-color: transparent;
     color: var(--text-body);
     font-family: var(--font-sans);
-    overflow-x: hidden;
+    overflow-x: clip;
+    max-width: 100vw;
   }
 
   /* Headings use high-contrast color */

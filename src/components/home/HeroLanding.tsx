@@ -9,6 +9,7 @@ import {
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { ArrowDown, FileText } from 'lucide-react'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
+import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 
@@ -88,12 +89,27 @@ export default function HeroLanding() {
                         style={{ y: bioY, opacity: bioOpacity }}
                     >
                         <div className="flex flex-col items-center text-center max-w-4xl">
+                            {/* ANIMATED SIGNATURE — brandmark, draws itself on load. Centered above the eyebrow. */}
+                            <motion.div
+                                className="mb-5 h-16 w-[3.4rem] text-white/90 sm:mb-6 md:h-20 md:w-[4.25rem]"
+                                initial={{ opacity: 0, y: 8, filter: 'blur(8px)' }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ duration: 1, ease }}
+                                aria-hidden="true"
+                            >
+                                <AnimatedSignatureLogo
+                                    className="h-full w-full"
+                                    duration={3600}
+                                    pauseDuration={3000}
+                                />
+                            </motion.div>
+
                             {/* STAFF PRODUCT DESIGNER — label */}
                             <motion.span
                                 className="text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
                                 initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 1, ease }}
+                                transition={{ duration: 1, delay: 0.15, ease }}
                             >
                                 Staff Product Designer · Enterprise Data Platforms
                             </motion.span>
