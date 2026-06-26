@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -71,7 +71,7 @@ export default function BeatTeamBuilding() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  Lead architect, engineering squad, new PM, QA — most of them had{' '}
@@ -79,14 +79,14 @@ export default function BeatTeamBuilding() {
  I ran dozens of demos. Translated tribal knowledge into UX rationale.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Constellation ── */}
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.5 }}
@@ -99,7 +99,7 @@ export default function BeatTeamBuilding() {
  >
  {/* Lines */}
  {CONNECTIONS.map(([a, b], i) => (
- <motion.line
+ <m.line
  key={`line-${i}`}
  x1={NODES[a].x} y1={NODES[a].y}
  x2={NODES[b].x} y2={NODES[b].y}
@@ -125,7 +125,7 @@ export default function BeatTeamBuilding() {
  <g key={node.label}>
  {/* Outer glow ring */}
  {isPulsing && (
- <motion.circle
+ <m.circle
  cx={node.x} cy={node.y}
  r={isTeamNode ? 4.5 : 3.5}
  fill="none"
@@ -139,7 +139,7 @@ export default function BeatTeamBuilding() {
  )}
 
  {/* Main dot */}
- <motion.circle
+ <m.circle
  cx={node.x} cy={node.y}
  r={isTeamNode ? 3 : 2.2}
  fill={node.color}
@@ -156,7 +156,7 @@ export default function BeatTeamBuilding() {
  />
 
  {/* Inner bright core */}
- <motion.circle
+ <m.circle
  cx={node.x} cy={node.y}
  r={isTeamNode ? 1.2 : 0.8}
  fill="white"
@@ -166,7 +166,7 @@ export default function BeatTeamBuilding() {
  />
 
  {/* Label */}
- <motion.text
+ <m.text
  x={node.x}
  y={node.y + (node.y < 50 ? -5 : 6)}
  textAnchor="middle"
@@ -181,19 +181,19 @@ export default function BeatTeamBuilding() {
  transition={{ duration: 0.4, delay: 0.15 }}
  >
  {node.label}
- </motion.text>
+ </m.text>
  </g>
  )
  })}
  </svg>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Closing */}
  <AnimatePresence>
  {phase >= 11 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 1, ease }}
@@ -202,7 +202,7 @@ export default function BeatTeamBuilding() {
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
  By the time I left, they&apos;d become my family.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>

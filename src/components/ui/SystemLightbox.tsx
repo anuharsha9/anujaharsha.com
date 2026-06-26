@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { X, Play, Pause, ZoomIn, ZoomOut, ArrowRight, ArrowLeft } from 'lucide-react'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 
@@ -150,7 +150,7 @@ export default function SystemLightbox({
                 <div className="fixed inset-0 z-[99999] flex flex-col" role="dialog" aria-modal="true">
 
                     {/* 1. Backdrop */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -164,7 +164,7 @@ export default function SystemLightbox({
                         /* Mobile: floating close button at top-right with safe-area padding.
                            No title, no index, no header actions (consumers put primary
                            actions in body content), no shortcuts (no keyboard on mobile). */
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: -12 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -12 }}
@@ -182,10 +182,10 @@ export default function SystemLightbox({
                             >
                                 <X size={20} />
                             </button>
-                        </motion.div>
+                        </m.div>
                     ) : (
                         /* Desktop: cinematic terminal chrome */
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
@@ -219,7 +219,7 @@ export default function SystemLightbox({
                                     <X size={32} />
                                 </button>
                             </div>
-                        </motion.div>
+                        </m.div>
                     )}
 
                     {/* 3. Main Content Area
@@ -227,7 +227,7 @@ export default function SystemLightbox({
                         intercepts wheel events globally and the inner scroller
                         never receives them, so case-study content can't scroll
                         even though its scrollHeight > clientHeight. */}
-                    <motion.div
+                    <m.div
                         ref={containerRef as React.RefObject<HTMLDivElement>}
                         data-lenis-prevent
                         className={`relative z-10 flex-1 min-h-0 flex items-center justify-center p-4 md:p-8 w-full max-w-[1800px] mx-auto ${className}`}
@@ -257,11 +257,11 @@ export default function SystemLightbox({
                                 </button>
                             </>
                         )}
-                    </motion.div>
+                    </m.div>
 
                     {/* 4. Footer — keyboard shortcuts only on desktop (no keyboard on mobile) */}
                     {!isMobile && (
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
@@ -278,7 +278,7 @@ export default function SystemLightbox({
                                     </span>
                                 </div>
                             ))}
-                        </motion.div>
+                        </m.div>
                     )}
 
                 </div>

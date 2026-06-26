@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './storyboard/PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -73,7 +73,7 @@ export default function JobLogRedesignViz() {
  {/* ── Presenter narration ── */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6">
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6">
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  Users had <span className="text-zinc-200 font-medium">two completely separate paths</span> to view job logs — both broken in different ways.
@@ -82,7 +82,7 @@ export default function JobLogRedesignViz() {
  I unified them into one contextual experience. 🪵
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -90,7 +90,7 @@ export default function JobLogRedesignViz() {
  <AnimatePresence mode="wait">
  {/* ── PATH 1 ── */}
  {showPath1 && (
- <motion.div
+ <m.div
  key="path1"
  initial={{ opacity: 0, y: 16 }}
  animate={{ opacity: 1, y: 0 }}
@@ -110,7 +110,7 @@ export default function JobLogRedesignViz() {
  <div className="p-4">
  {/* Step 1: Grid + context menu */}
  <div className="flex gap-4 items-start">
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.2, duration: 0.4, ease }}
@@ -126,10 +126,10 @@ export default function JobLogRedesignViz() {
  <span className="text-sm">📅</span>
  <span className="text-[11px] text-blue-400 font-medium font-mono">Test Sched</span>
  </div>
- </motion.div>
+ </m.div>
 
  {/* Context menu */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: 0.5, duration: 0.3, ease }}
@@ -140,11 +140,11 @@ export default function JobLogRedesignViz() {
  {item}
  </div>
  ))}
- </motion.div>
+ </m.div>
  </div>
 
  {/* Step 2: Filter popup → new tab */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 1.2, duration: 0.4, ease }}
@@ -177,35 +177,35 @@ export default function JobLogRedesignViz() {
  <div className="text-rose-400">Error: Could not connect...</div>
  </div>
  </div>
- </motion.div>
+ </m.div>
  </div>
  </div>
 
  {/* Path 1 problems */}
  <AnimatePresence>
  {showPath1Problems && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.4, ease }}
  className="flex flex-wrap gap-2 mt-3"
  >
  {['4 clicks to view a log', 'Opens in new browser tab', 'Loses all context'].map((t, i) => (
- <motion.span key={t} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+ <m.span key={t} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: i * 0.12, type: 'spring', stiffness: 400, damping: 15 }}
  className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/8 border border-rose-500/15 text-[11px] font-mono text-rose-400">
  ⚠ {t}
- </motion.span>
+ </m.span>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
 
  {/* ── PATH 2 ── */}
  {showPath2 && !showBothBroken && (
- <motion.div
+ <m.div
  key="path2"
  initial={{ opacity: 0, x: 30 }}
  animate={{ opacity: 1, x: 0 }}
@@ -255,28 +255,28 @@ export default function JobLogRedesignViz() {
  {/* Path 2 problems */}
  <AnimatePresence>
  {showPath2Problems && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.4, ease }}
  className="flex flex-wrap gap-2 mt-3"
  >
  {['Raw text dump', 'Truncated messages', 'No copy, no search'].map((t, i) => (
- <motion.span key={t} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+ <m.span key={t} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: i * 0.12, type: 'spring', stiffness: 400, damping: 15 }}
  className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/8 border border-rose-500/15 text-[11px] font-mono text-rose-400">
  ⚠ {t}
- </motion.span>
+ </m.span>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
 
  {/* ── "Both broken" verdict ── */}
  {showBothBroken && !showAfter && (
- <motion.div
+ <m.div
  key="verdict"
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
@@ -290,14 +290,14 @@ export default function JobLogRedesignViz() {
  <p className="text-sm text-zinc-400 mt-1 font-mono">
  Time to consolidate into one unified, in-context experience.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ════════════ AFTER SECTION ════════════ */}
  <AnimatePresence>
  {showAfter && (
- <motion.div
+ <m.div
  key="after-section"
  initial={{ opacity: 0, y: 24 }}
  animate={{ opacity: 1, y: 0 }}
@@ -309,7 +309,7 @@ export default function JobLogRedesignViz() {
 
  <AnimatePresence>
  {showTable && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 12, scale: 0.98 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
  transition={{ duration: 0.5, ease }}
@@ -323,7 +323,7 @@ export default function JobLogRedesignViz() {
 
  <div className="flex">
  {/* Left sidebar nav */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -8 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.1, duration: 0.4, ease }}
@@ -336,20 +336,20 @@ export default function JobLogRedesignViz() {
  { icon: '⚙️', label: 'Props', active: false },
  { icon: '📊', label: 'Log Reports', active: true },
  ].map((item, i) => (
- <motion.div key={item.label} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+ <m.div key={item.label} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
  transition={{ delay: 0.15 + i * 0.05 }}
  className={`flex flex-col items-center gap-0.5 text-center ${item.active ? 'text-blue-400' : 'text-zinc-400'}`}>
  <span className="text-sm">{item.icon}</span>
  <span className={`text-[11px] font-mono ${item.active ? 'font-medium' : ''}`}>{item.label}</span>
  {item.active && <div className="w-full h-0.5 bg-blue-500 rounded-full mt-0.5" />}
- </motion.div>
+ </m.div>
  ))}
- </motion.div>
+ </m.div>
 
  {/* Main content */}
  <div className="flex-1 p-4">
  {/* Filter row */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.2, duration: 0.4, ease }}
@@ -364,12 +364,12 @@ export default function JobLogRedesignViz() {
  <div className="flex items-center gap-1.5">
  <div className="px-2 py-1 rounded bg-zinc-800/60 border border-white/[0.04] text-[11px] text-zinc-400 font-mono">🔍 Search...</div>
  {['🗑', '⬇', '↗', '⟳'].map((ic, i) => (
- <motion.span key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+ <m.span key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: 0.3 + i * 0.06, type: 'spring', stiffness: 300, damping: 20 }}
- className="w-6 h-6 rounded border border-blue-500/20 bg-blue-500/5 flex items-center justify-center text-[11px]">{ic}</motion.span>
+ className="w-6 h-6 rounded border border-blue-500/20 bg-blue-500/5 flex items-center justify-center text-[11px]">{ic}</m.span>
  ))}
  </div>
- </motion.div>
+ </m.div>
 
  <div className="text-[11px] text-zinc-400 font-mono mb-2">Job logs for: 9/12/2023 9:30 AM – 10/12/2023 11:30 PM</div>
 
@@ -386,7 +386,7 @@ export default function JobLogRedesignViz() {
  { n: 4, job: 'jfgre89655uuywdu...', s: '9/19 8:15', e: '9/19 10:45', st: 'Success' },
  { n: 5, job: 'jfgre89655u5kbtiejk...', s: '9/20 20:30', e: '9/20 22:45', st: 'Success' },
  ].map((r, i) => (
- <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{
+ <m.div key={i} initial={{ opacity: 0, x: -6 }} animate={{
  opacity: 1, x: 0,
  backgroundColor: showModal && i === 2 ? 'var(--overlay-indigo-10)' : 'rgba(0,0,0,0)'
  }} transition={{ delay: 0.2 + i * 0.06, duration: 0.25, ease }}
@@ -396,14 +396,14 @@ export default function JobLogRedesignViz() {
  <span className="text-zinc-400 hidden md:block">{r.s}</span>
  <span className="text-zinc-400 hidden md:block">{r.e}</span>
  <span className={r.st === 'Error' ? 'text-rose-400 font-medium' : 'text-zinc-400'}>{r.st}</span>
- </motion.div>
+ </m.div>
  ))}
 
  {/* Pagination */}
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
  className="flex justify-end mt-2 text-[11px] font-mono text-zinc-400">
  ⟨ Page 1 / 20 ⟩
- </motion.div>
+ </m.div>
  </div>
  </div>
 
@@ -417,21 +417,21 @@ export default function JobLogRedesignViz() {
  {/* ── Modal overlay — appears ON TOP of the scheduler ── */}
  <AnimatePresence>
  {showModal && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.3 }}
  className="absolute inset-0 z-20 flex items-center justify-center"
  >
  {/* Backdrop */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  className="absolute inset-0 bg-black/60 rounded-xl"
  />
 
  {/* Modal */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 14, scale: 0.96 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
  transition={{ delay: 0.15, type: 'spring', stiffness: 300, damping: 25 }}
@@ -441,9 +441,9 @@ export default function JobLogRedesignViz() {
  <span className="text-[11px] font-mono text-white font-medium">Job Process Log Report</span>
  <div className="flex items-center gap-1.5">
  {['⬇', '📋', '↗'].map((ic, i) => (
- <motion.span key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+ <m.span key={i} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: 0.3 + i * 0.06 }}
- className="w-6 h-6 rounded border border-blue-500/20 bg-blue-500/5 flex items-center justify-center text-[11px]">{ic}</motion.span>
+ className="w-6 h-6 rounded border border-blue-500/20 bg-blue-500/5 flex items-center justify-center text-[11px]">{ic}</m.span>
  ))}
  <span className="ml-1 text-[11px] text-zinc-400">✕</span>
  </div>
@@ -456,8 +456,8 @@ export default function JobLogRedesignViz() {
  ['Start:', '9/15/2023 12:56 EST'],
  ['End:', '9/15/2023 12:58 EST'],
  ].map(([k, v], i) => (
- <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 + i * 0.04 }}
- className="text-[11px] font-mono"><span className="text-zinc-400 font-medium">{k}</span> <span className="text-zinc-200">{v}</span></motion.div>
+ <m.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 + i * 0.04 }}
+ className="text-[11px] font-mono"><span className="text-zinc-400 font-medium">{k}</span> <span className="text-zinc-200">{v}</span></m.div>
  ))}
  </div>
 
@@ -474,11 +474,11 @@ export default function JobLogRedesignViz() {
  const isErr = typeof line === 'object'
  const text = isErr ? line.text : line
  return (
- <motion.div key={i} initial={{ opacity: 0, x: -3 }} animate={{ opacity: 1, x: 0 }}
+ <m.div key={i} initial={{ opacity: 0, x: -3 }} animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.4 + i * 0.04, duration: 0.2 }}
  className={`text-[11px] font-mono leading-relaxed ${isErr ? 'text-rose-400 font-medium' : 'text-zinc-400'}`}>
  {text}
- </motion.div>
+ </m.div>
  )
  })}
  </div>
@@ -486,29 +486,29 @@ export default function JobLogRedesignViz() {
  <div className="px-4 py-2 border-t border-white/[0.04] flex justify-center">
  <span className="px-4 py-1 rounded bg-blue-600 text-[11px] text-white font-mono font-medium">Close</span>
  </div>
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Solution badges */}
  <AnimatePresence>
  {showBadges && (
- <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}
+ <m.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}
  className="flex flex-wrap gap-2 mt-5 justify-center">
  {['Sidebar navigation', 'Inline filters', 'Sortable columns', 'Full log in modal', 'Action toolbar', 'Zero context-switching'].map((l, i) => (
- <motion.span key={l} initial={{ opacity: 0, scale: 0.7, y: 4 }} animate={{ opacity: 1, scale: 1, y: 0 }}
+ <m.span key={l} initial={{ opacity: 0, scale: 0.7, y: 4 }} animate={{ opacity: 1, scale: 1, y: 0 }}
  transition={{ delay: i * 0.08, type: 'spring', stiffness: 400, damping: 15 }}>
  <Pill color="emerald">{l}</Pill>
- </motion.span>
+ </m.span>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>

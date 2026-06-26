@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -27,7 +27,7 @@ function KineticLine({
                 const clean = word.replace(/[.,!?'"~]/g, '').toLowerCase()
                 const isEmphasis = emphasisWords.some(w => clean === w.toLowerCase())
                 return (
-                    <motion.span
+                    <m.span
                         key={i}
                         initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
@@ -39,7 +39,7 @@ function KineticLine({
                         className={isEmphasis ? emphasisClass : ''}
                     >
                         {word}
-                    </motion.span>
+                    </m.span>
                 )
             })}
         </span>
@@ -52,7 +52,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
     return (
         <span className={className}>
             {chars.map((char, i) => (
-                <motion.span
+                <m.span
                     key={i}
                     initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
@@ -64,7 +64,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
                     className="inline-block"
                 >
                     {char}
-                </motion.span>
+                </m.span>
             ))}
         </span>
     )
@@ -129,7 +129,7 @@ export default function DSMLTrailer() {
 
                 {/* ═══ LINE 0: "We built the intelligence." ═══ */}
                 {step === 0 && (
-                    <motion.div
+                    <m.div
                         key="s0"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -144,12 +144,12 @@ export default function DSMLTrailer() {
                         >
                             We built the intelligence.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 1: "Nobody knew it existed." ═══ */}
                 {step === 1 && (
-                    <motion.div
+                    <m.div
                         key="s1"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -164,12 +164,12 @@ export default function DSMLTrailer() {
                         >
                             Nobody knew it existed.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 2: "Three powerful features. Buried." ═══ */}
                 {step === 2 && (
-                    <motion.div
+                    <m.div
                         key="s2"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -184,12 +184,12 @@ export default function DSMLTrailer() {
                         >
                             Three powerful features. Buried.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE B: Scattered features (step 3) ═══ */}
                 {step === 3 && (
-                    <motion.div
+                    <m.div
                         key="scattered"
                         className="absolute inset-0 flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -197,14 +197,14 @@ export default function DSMLTrailer() {
                         exit={{ opacity: 0, scale: 1.05, filter: 'blur(14px)' }}
                         transition={{ duration: 0.5, ease }}
                     >
-                        <motion.p
+                        <m.p
                             className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 mb-8"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             <span className="text-white font-medium">Millions</span> invested. <span className="text-[var(--semantic-rose)]">Near-zero</span> adoption.
-                        </motion.p>
+                        </m.p>
 
                         {/* Three scattered feature boxes */}
                         <div className="relative w-full max-w-[18rem] h-56 sm:max-w-sm sm:h-64 md:max-w-lg md:h-72">
@@ -215,7 +215,7 @@ export default function DSMLTrailer() {
                                     { left: '20%', bottom: '5%' },
                                 ]
                                 return (
-                                    <motion.div
+                                    <m.div
                                         key={feat.label}
                                         className="absolute rounded-xl border px-4 py-3 sm:px-5 sm:py-4"
                                         style={{
@@ -232,43 +232,43 @@ export default function DSMLTrailer() {
                                             {feat.label}
                                         </span>
                                         <p className="text-[9px] sm:text-[10px] text-zinc-500 mt-0.5">{feat.desc}</p>
-                                    </motion.div>
+                                    </m.div>
                                 )
                             })}
 
                             {/* "?" marks between them */}
-                            <motion.span
+                            <m.span
                                 className="absolute left-[42%] top-[30%] text-3xl text-zinc-700/50 font-light"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.8 }}
                             >
                                 ?
-                            </motion.span>
-                            <motion.span
+                            </m.span>
+                            <m.span
                                 className="absolute left-[55%] top-[55%] text-2xl text-zinc-700/50 font-light"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.0 }}
                             >
                                 ?
-                            </motion.span>
+                            </m.span>
                         </div>
 
-                        <motion.p
+                        <m.p
                             className="text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-6"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2 }}
                         >
                             3 tools · 3 different menus · 0 visibility
-                        </motion.p>
-                    </motion.div>
+                        </m.p>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 4: "Team vision. My architecture." ═══ */}
                 {step === 4 && (
-                    <motion.div
+                    <m.div
                         key="s4"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0, scale: 0.96 }}
@@ -284,12 +284,12 @@ export default function DSMLTrailer() {
                         >
                             Team vision. My architecture.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE C: 3 → 1 Hub merge (step 5) ═══ */}
                 {step === 5 && (
-                    <motion.div
+                    <m.div
                         key="merge"
                         className="absolute inset-0 flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -300,7 +300,7 @@ export default function DSMLTrailer() {
                         {/* Three features merging into one */}
                         <div className="relative w-full max-w-[16rem] h-48 sm:max-w-sm sm:h-56 md:max-w-lg md:h-64 mb-6">
                             {FEATURES.map((feat, i) => (
-                                <motion.div
+                                <m.div
                                     key={feat.label}
                                     className="absolute rounded-lg border px-3 py-2 sm:px-4 sm:py-3 whitespace-nowrap"
                                     style={{
@@ -332,11 +332,11 @@ export default function DSMLTrailer() {
                                     <span className="text-xs sm:text-sm font-bold" style={{ color: `rgba(${feat.color}, 0.9)` }}>
                                         {feat.label}
                                     </span>
-                                </motion.div>
+                                </m.div>
                             ))}
 
                             {/* Central hub glow */}
-                            <motion.div
+                            <m.div
                                 className="absolute left-1/2 top-1/2 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl border-2 border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/[0.06]"
                                 initial={{ opacity: 0, scale: 0, x: '-50%', y: '-50%' }}
                                 animate={{ opacity: 1, scale: 1, x: '-50%', y: '-50%' }}
@@ -345,7 +345,7 @@ export default function DSMLTrailer() {
                             />
                         </div>
 
-                        <motion.div
+                        <m.div
                             className="text-center"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -357,13 +357,13 @@ export default function DSMLTrailer() {
                             <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.3em] mt-2">
                                 One unified DSML Hub
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </m.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE D: +25% (step 6) ═══ */}
                 {step === 6 && (
-                    <motion.div
+                    <m.div
                         key="adoption"
                         className="absolute inset-0 flex items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -375,21 +375,21 @@ export default function DSMLTrailer() {
                             <SlamText className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-[var(--accent-teal)] tracking-tighter">
                                 +25%
                             </SlamText>
-                            <motion.p
+                            <m.p
                                 className="text-sm sm:text-base md:text-lg font-mono text-zinc-400 uppercase tracking-[0.3em] mt-4"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5, duration: 0.4 }}
                             >
                                 NLQ Adoption
-                            </motion.p>
+                            </m.p>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 7: "The features didn't change." ═══ */}
                 {step === 7 && (
-                    <motion.div
+                    <m.div
                         key="s7"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -402,12 +402,12 @@ export default function DSMLTrailer() {
                         >
                             The features didn&apos;t change.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 8: "The visibility did." ═══ */}
                 {step === 8 && (
-                    <motion.div
+                    <m.div
                         key="s8"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -422,12 +422,12 @@ export default function DSMLTrailer() {
                         >
                             The visibility did.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE H: Quote (step 9) ═══ */}
                 {step === 9 && (
-                    <motion.div
+                    <m.div
                         key="quote"
                         className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12"
                         initial={{ opacity: 0 }}
@@ -435,15 +435,15 @@ export default function DSMLTrailer() {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.6, ease }}
                     >
-                        <motion.div
+                        <m.div
                             className="absolute text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white/[0.04] tracking-tighter select-none pointer-events-none"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                         >
                             +25%
-                        </motion.div>
+                        </m.div>
 
-                        <motion.blockquote
+                        <m.blockquote
                             className="relative z-10 max-w-2xl text-center"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -455,8 +455,8 @@ export default function DSMLTrailer() {
                             <footer className="mt-4 font-mono text-[10px] sm:text-xs text-zinc-600 uppercase tracking-[0.2em]">
                                 — Dave Pfeiffer · Director of Design
                             </footer>
-                        </motion.blockquote>
-                    </motion.div>
+                        </m.blockquote>
+                    </m.div>
                 )}
 
             </AnimatePresence>

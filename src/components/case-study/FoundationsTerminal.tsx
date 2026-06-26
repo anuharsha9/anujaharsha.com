@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface FoundationsTerminalProps {
  foundations?: string[]
@@ -11,7 +11,7 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
  return (
  <div className="w-full max-w-2xl mx-auto">
  {/* Terminal Window */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -38,7 +38,7 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
  {/* Skills as terminal output */}
  <div className="flex flex-wrap gap-2.5">
  {foundations.map((skill, i) => (
- <motion.span
+ <m.span
  key={skill}
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
@@ -51,12 +51,12 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
  className="px-3.5 py-1.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-zinc-200 text-[13px] tracking-wide hover:bg-[var(--accent-teal)]/10 hover:border-[var(--accent-teal)]/20 hover:text-[var(--accent-teal)] transition-all duration-300 cursor-default"
  >
  {skill}
- </motion.span>
+ </m.span>
  ))}
  </div>
 
  {/* Blinking cursor */}
- <motion.div
+ <m.div
  className="mt-4 text-zinc-600"
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
@@ -64,9 +64,9 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
  transition={{ delay: 0.3 + foundations.length * 0.1 + 0.2 }}
  >
  <span className="text-[var(--accent-teal)]/60">~</span> <span className="text-zinc-800">$</span> <span className="inline-block w-2 h-4 bg-white/40 animate-pulse ml-1 -mb-0.5" />
- </motion.div>
+ </m.div>
  </div>
- </motion.div>
+ </m.div>
  </div>
  )
 }

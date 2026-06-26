@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
@@ -299,7 +299,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     >
                         <PlusIconTree branches={['Schedule Dialog', 'Distribution List', 'Access List']} />
 
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -307,7 +307,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             className="text-center max-w-2xl mx-auto mb-16"
                         >
                             <p className="text-white font-bold text-lg">There it was — the final workflow of ReportCaster.</p>
-                        </motion.div>
+                        </m.div>
 
                         <BentoGrid className="space-y-16 md:space-y-24 mt-12">
                             <BentoRow layout="30/70">
@@ -568,7 +568,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     {data.reflection?.people && data.reflection.people.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                             {data.reflection.people.map((person: { quote: string; name: string; role: string; initials?: string }, i: number) => (
-                                <motion.div
+                                <m.div
                                     key={i}
                                     initial={{ opacity: 0, y: 24 }}
                                     whileInView={{ opacity: 1, y: 0 }}
@@ -585,14 +585,14 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                         <p className="text-zinc-200 italic font-light leading-relaxed text-lg mb-6">&ldquo;{person.quote}&rdquo;</p>
                                         <p className="text-xs text-zinc-500 font-mono uppercase tracking-wider">— {person.name}, {person.role}</p>
                                     </div>
-                                </motion.div>
+                                </m.div>
                             ))}
                         </div>
                     )}
 
                     {data.reflection?.retrospective && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -602,8 +602,8 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
                                 <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h3>
                                 <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.pushHarder.content }} />
-                            </motion.div>
-                            <motion.div
+                            </m.div>
+                            <m.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -613,13 +613,13 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>
                                 <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h3>
                                 <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
-                            </motion.div>
+                            </m.div>
                         </div>
                     )}
                 </CinematicScene>
 
                 {/* ═══ Closing Manifesto ═══ */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -635,7 +635,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.2] md:leading-[1.15] tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-zinc-200 to-zinc-500 mb-8" style={{ textWrap: 'balance' }}>
                             From hearing customers hack their way around the UI — to shipping an experience that made them excited about what&apos;s next.
                         </p>
-                        <motion.p
+                        <m.p
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
@@ -643,16 +643,16 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             className="text-xl md:text-2xl text-[var(--cs-accent)] font-bold"
                         >
                             I had never felt so proud of myself.
-                        </motion.p>
+                        </m.p>
 
-                        <motion.div
+                        <m.div
                             initial={{ scaleX: 0 }}
                             whileInView={{ scaleX: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1.5, delay: 0.6, ease: "easeInOut" }}
                             className="mt-16 w-24 h-[1px] mx-auto bg-gradient-to-r from-transparent via-white/20 to-transparent"
                         />
-                        <motion.p
+                        <m.p
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -660,12 +660,12 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             className="mt-8 text-sm text-zinc-500 font-mono tracking-widest uppercase"
                         >
                             RC made me the design leader I am today.
-                        </motion.p>
+                        </m.p>
                     </div>
-                </motion.div>
+                </m.div>
 
                 {/* ═══ Figma Config Pitch — In My Own Words ═══ */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -690,7 +690,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         />
                     </div>
 
-                    <motion.p
+                    <m.p
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
@@ -698,8 +698,8 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                         className="text-center mt-6 text-sm text-zinc-600 font-light italic"
                     >
                         &ldquo;Collaboration doesn&apos;t just transform products, it transforms people.&rdquo;
-                    </motion.p>
-                </motion.div>
+                    </m.p>
+                </m.div>
 
                 {/* ═══ Next Case Study ═══ */}
                 <SystemIndex currentId="REPORTCASTER" />

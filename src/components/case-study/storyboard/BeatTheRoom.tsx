@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 import { Mic, MicOff, Video, Monitor, MessageSquare, User, PhoneOff } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
@@ -82,7 +82,7 @@ export default function BeatTheRoom() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  First kickoff meeting. Everyone in the room had at least{' '}
@@ -92,14 +92,14 @@ export default function BeatTheRoom() {
  Me? <span style={{ color: 'var(--cs-accent)' }}>3 weeks.</span>
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ═══════ ZOOM WINDOW ═══════ */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -131,7 +131,7 @@ export default function BeatTheRoom() {
  const isMe = p.me
 
  return (
- <motion.div
+ <m.div
  key={p.initials}
  initial={{ opacity: 0, scale: 0.9 }}
  animate={
@@ -145,7 +145,7 @@ export default function BeatTheRoom() {
  >
  {/* Avatar silhouette */}
  <div className="absolute inset-0 flex items-center justify-center">
- <motion.div
+ <m.div
  animate={
  isHighlight && isMe
  ? { scale: [1, 1.05, 1], borderColor: p.accent }
@@ -172,7 +172,7 @@ export default function BeatTheRoom() {
  >
  {p.initials}
  </span>
- </motion.div>
+ </m.div>
  </div>
 
  {/* Name badge */}
@@ -181,7 +181,7 @@ export default function BeatTheRoom() {
  <span className="text-[9px] md:text-[10px] text-zinc-400 font-medium truncate">
  {p.name}
  </span>
- <motion.span
+ <m.span
  animate={
  isHighlight
  ? {
@@ -193,7 +193,7 @@ export default function BeatTheRoom() {
  className="text-[8px] font-mono text-zinc-500"
  >
  {p.years}
- </motion.span>
+ </m.span>
  </div>
  </div>
 
@@ -208,7 +208,7 @@ export default function BeatTheRoom() {
 
  {/* "Speaking" indicator for me */}
  {isMe && isHighlight && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: [0.3, 0.6, 0.3] }}
  transition={{ duration: 2, repeat: Infinity }}
@@ -216,7 +216,7 @@ export default function BeatTheRoom() {
  style={{ borderColor: p.accent }}
  />
  )}
- </motion.div>
+ </m.div>
  )
  })}
  </div>
@@ -233,14 +233,14 @@ export default function BeatTheRoom() {
  </div>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Internal monologue — thought bubble */}
  <AnimatePresence>
  {phase >= 9 && phase < 10 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.8, y: 10 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.9, y: -8 }}
@@ -249,18 +249,18 @@ export default function BeatTheRoom() {
  >
  <div className="relative">
  {/* Thought cloud bubbles */}
- <motion.div
+ <m.div
  className="absolute -bottom-3 left-8 w-3 h-3 rounded-full bg-white/[0.06] border border-white/[0.08]"
  animate={{ scale: [0.8, 1, 0.8], opacity: [0.3, 0.6, 0.3] }}
  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
  />
- <motion.div
+ <m.div
  className="absolute -bottom-5 left-4 w-2 h-2 rounded-full bg-white/[0.04] border border-white/[0.06]"
  animate={{ scale: [0.6, 1, 0.6], opacity: [0.2, 0.4, 0.2] }}
  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
  />
  {/* Main bubble */}
- <motion.div
+ <m.div
  className="relative rounded-2xl border border-white/[0.08] bg-white/[0.03] px-6 py-4 "
  animate={{ y: [0, -3, 0] }}
  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -268,22 +268,22 @@ export default function BeatTheRoom() {
  <p className="text-lg md:text-xl text-zinc-200/80 italic font-light tracking-tight text-center">
  &ldquo;What am I doing here?&rdquo;
  </p>
- <motion.div
+ <m.div
  className="w-8 h-px mx-auto mt-2"
  style={{ background: 'linear-gradient(90deg, transparent, var(--overlay-white-10), transparent)' }}
  animate={{ opacity: [0.3, 0.7, 0.3] }}
  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
  />
- </motion.div>
+ </m.div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Revelations — what I learned in that call */}
  <AnimatePresence>
  {phase >= 10 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  className="max-w-2xl mx-auto mt-8"
@@ -293,7 +293,7 @@ export default function BeatTheRoom() {
  </div>
  <div className="space-y-5 md:space-y-6">
  {/* Revelation 1 — Age */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 11 ? { opacity: 1, y: 0 } : {}}
  transition={{ duration: 0.5, ease }}
@@ -301,10 +301,10 @@ export default function BeatTheRoom() {
  >
  <span className="text-xl md:text-2xl font-bold" style={{ color: 'var(--cs-accent)' }}>40+ years old.</span>
  <span className="text-base md:text-lg text-zinc-500 ml-2">No redesign. Ever.</span>
- </motion.div>
+ </m.div>
 
  {/* Revelation 2 — Scale */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 12 ? { opacity: 1, y: 0 } : {}}
  transition={{ duration: 0.5, ease }}
@@ -312,20 +312,20 @@ export default function BeatTheRoom() {
  >
  <span className="text-xl md:text-2xl font-bold" style={{ color: 'var(--cs-accent)' }}>20 million</span>
  <span className="text-base md:text-lg text-zinc-400 ml-2">jobs a week.</span>
- </motion.div>
+ </m.div>
 
  {/* Revelation 3 — No docs */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 13 ? { opacity: 1, y: 0 } : {}}
  transition={{ duration: 0.5, ease }}
  className="text-center"
  >
  <span className="text-lg md:text-xl font-semibold text-zinc-300">Zero documentation.</span>
- </motion.div>
+ </m.div>
 
  {/* Revelation 4 — No redesign */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 14 ? { opacity: 1, y: 0 } : {}}
  transition={{ duration: 0.5, ease }}
@@ -333,10 +333,10 @@ export default function BeatTheRoom() {
  >
  <span className="text-base md:text-lg text-zinc-400">Last redesign attempt?</span>
  <span className="text-base md:text-lg text-zinc-200 font-medium ml-2 italic">Never happened.</span>
- </motion.div>
+ </m.div>
 
  {/* Revelation 5 — Yingchun */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 15 ? { opacity: 1, y: 0 } : {}}
  transition={{ duration: 0.5, ease }}
@@ -347,9 +347,9 @@ export default function BeatTheRoom() {
  <span className="text-base md:text-lg text-zinc-400"> truly knew the code.</span>
  <br />
  <span className="text-sm md:text-base text-zinc-500 italic">He wrote it in the &apos;80s.</span>
- </motion.div>
+ </m.div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

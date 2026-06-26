@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -33,7 +33,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  The Narrative Block (Sticky or just inline fading) 
  Here we use Framer motion whileInView for a simple, Apple-like smooth fade-in
  */}
- <motion.div
+ <m.div
  className={`w-full max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col ${textAlign} mb-12 lg:mb-24`}
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -62,7 +62,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  {bullets && bullets.length > 0 && (
  <ul className="mt-12 space-y-6 max-w-3xl text-left">
  {bullets.map((b, i) => (
- <motion.li
+ <m.li
  key={i}
  initial={{ opacity: 0, x: -20 }}
  whileInView={{ opacity: 1, x: 0 }}
@@ -72,17 +72,17 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  >
  <span className="text-[var(--accent-teal)] font-mono text-xl leading-none mt-1">0{i + 1}</span>
  <p className="text-lg md:text-xl text-zinc-200 font-light leading-relaxed">{b}</p>
- </motion.li>
+ </m.li>
  ))}
  </ul>
  )}
- </motion.div>
+ </m.div>
 
  {/* 
  Visual Payload (Bento grids, Carousels, Custom interactive elements)
  */}
  {children && (
- <motion.div
+ <m.div
  className="w-full max-w-[1440px] mx-auto px-6 md:px-16"
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  transition={{ duration: 1.2, delay: 0.15, ease }}
  >
  {children}
- </motion.div>
+ </m.div>
  )}
 
  </section>

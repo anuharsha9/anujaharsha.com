@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, CheckCircle2, Shield, Rocket, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
@@ -53,7 +53,7 @@ function MetricCounter({ item, active }: { item: MetricItem; active: boolean }) 
  if (item.numericTarget === undefined) {
  // Non-numeric (date)
  return (
- <motion.span
+ <m.span
  initial={{ opacity: 0 }}
  animate={active ? { opacity: 1 } : { opacity: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -61,19 +61,19 @@ function MetricCounter({ item, active }: { item: MetricItem; active: boolean }) 
  style={{ color: item.color }}
  >
  {item.value}
- </motion.span>
+ </m.span>
  )
  }
 
  return (
- <motion.span
+ <m.span
  className="text-2xl md:text-3xl font-bold font-mono tabular-nums"
  style={{ color: item.color }}
  animate={done ? { scale: [1, 1.15, 1] } : {}}
  transition={{ duration: 0.3, ease }}
  >
  {val}{item.suffix || ''}
- </motion.span>
+ </m.span>
  )
 }
 
@@ -118,7 +118,7 @@ export default function BeatImpact() {
  {/* Speech */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  Customers retained. System rebuilt. <span className="text-zinc-200 font-medium">250+ screens. Zero regressions.</span>
@@ -127,36 +127,36 @@ export default function BeatImpact() {
  RC was not just a redesign. It was a turning point.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Big "SHIPPED." moment ── */}
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 3 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ duration: 1.2, ease }}
  className="text-center mb-10 relative"
  >
  {/* Shockwave rings */}
- <motion.div
+ <m.div
  initial={{ opacity: 0.6, scale: 0.5 }}
  animate={{ opacity: 0, scale: 3 }}
  transition={{ duration: 1.5, ease: 'easeOut' }}
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  >
  <div className="w-40 h-40 rounded-full border" style={{ borderColor: 'var(--cs-accent)', opacity: 0.2 }} />
- </motion.div>
- <motion.div
+ </m.div>
+ <m.div
  initial={{ opacity: 0.4, scale: 0.5 }}
  animate={{ opacity: 0, scale: 4 }}
  transition={{ duration: 2, delay: 0.2, ease: 'easeOut' }}
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  >
  <div className="w-32 h-32 rounded-full border" style={{ borderColor: 'var(--cs-accent)', opacity: 0.15 }} />
- </motion.div>
+ </m.div>
 
  {/* Glow behind */}
  <div
@@ -166,7 +166,7 @@ export default function BeatImpact() {
  }}
  />
 
- <motion.div
+ <m.div
  className="text-5xl md:text-7xl font-black tracking-tighter mb-2 relative"
  style={{
  background: 'linear-gradient(135deg, var(--white) 0%, var(--cs-accent) 100%)',
@@ -183,27 +183,27 @@ export default function BeatImpact() {
  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
  >
  SHIPPED.
- </motion.div>
- <motion.div
+ </m.div>
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, delay: 0.5, ease }}
  className="text-sm text-zinc-500 font-mono"
  >
  Customers retained · Mission-critical · Zero regressions
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Metric cards with animated counters ── */}
  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10">
- {METRICS.map((m, i) => {
- const Icon = m.icon
+ {METRICS.map((metric, i) => {
+ const Icon = metric.icon
  const isActive = phase >= 2 + i
  return (
- <motion.div
- key={m.label}
+ <m.div
+ key={metric.label}
  initial={{ opacity: 0, y: 30, scale: 0.85 }}
  animate={
  isActive
@@ -216,20 +216,20 @@ export default function BeatImpact() {
  }}
  className="relative rounded-xl border bg-white/[0.02] p-4 md:p-5 text-center overflow-hidden"
  style={{
- borderColor: isActive ? withHexAlpha(m.color, '20') : 'var(--overlay-white-04)',
+ borderColor: isActive ? withHexAlpha(metric.color, '20') : 'var(--overlay-white-04)',
  }}
  >
  {/* Top accent */}
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  animate={isActive ? { scaleX: 1 } : { scaleX: 0 }}
  transition={{ duration: 0.5, delay: 0.2, ease }}
  className="absolute top-0 left-0 right-0 h-[2px] origin-left"
- style={{ background: m.color }}
+ style={{ background: metric.color }}
  />
 
  {/* Icon */}
- <motion.div
+ <m.div
  initial={{ scale: 0 }}
  animate={isActive ? { scale: 1 } : { scale: 0 }}
  transition={{ duration: 0.4, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
@@ -238,32 +238,32 @@ export default function BeatImpact() {
  <div
  className="w-10 h-10 rounded-full flex items-center justify-center"
  style={{
- background: withHexAlpha(m.color, '15'),
- border: `1px solid ${withHexAlpha(m.color, '25')}`,
+ background: withHexAlpha(metric.color, '15'),
+ border: `1px solid ${withHexAlpha(metric.color, '25')}`,
  }}
  >
- <Icon className="w-5 h-5" style={{ color: withHexAlpha(m.color, '99') }} strokeWidth={1.5} />
+ <Icon className="w-5 h-5" style={{ color: withHexAlpha(metric.color, '99') }} strokeWidth={1.5} />
  </div>
- </motion.div>
+ </m.div>
 
  {/* Counter */}
  <div className="mb-1">
- <MetricCounter item={m} active={isActive} />
+ <MetricCounter item={metric} active={isActive} />
  </div>
 
  {/* Label */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={isActive ? { opacity: 1 } : { opacity: 0 }}
  transition={{ duration: 0.4, delay: 0.3 }}
  className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider"
  >
- {m.label}
- </motion.div>
+ {metric.label}
+ </m.div>
 
  {/* Shimmer */}
  {isActive && (
- <motion.div
+ <m.div
  initial={{ x: '-100%' }}
  animate={{ x: '200%' }}
  transition={{ duration: 1, delay: 0.2, ease: 'easeInOut' }}
@@ -273,7 +273,7 @@ export default function BeatImpact() {
  }}
  />
  )}
- </motion.div>
+ </m.div>
  )
  })}
  </div>
@@ -281,7 +281,7 @@ export default function BeatImpact() {
  {/* ── Testimonial ── */}
  <AnimatePresence>
  {phase >= 6 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -297,7 +297,7 @@ export default function BeatImpact() {
  </p>
  <AnimatePresence>
  {phase >= 7 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ duration: 0.5, ease }}
@@ -314,25 +314,25 @@ export default function BeatImpact() {
  Principal System Software Engineer
  </p>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Customer validation ── */}
  <AnimatePresence>
  {phase >= 8 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 2, ease }}
  className="mt-14 md:mt-16 text-center max-w-2xl mx-auto"
  >
  <div className="border-t border-white/[0.06] pt-10">
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ delay: 0.5 }}
@@ -345,7 +345,7 @@ export default function BeatImpact() {
  <span className="text-[10px] font-mono uppercase tracking-widest" style={{ color: 'var(--cs-accent)', opacity: 0.7 }}>
  Customer Feedback
  </span>
- </motion.div>
+ </m.div>
  <p className="text-zinc-400 text-base md:text-lg leading-relaxed italic tracking-wide">
  During a Virtual User Group I hosted, a long-time customer said: &ldquo;RC looks great now &mdash; what are you planning next?&rdquo;
  </p>
@@ -353,7 +353,7 @@ export default function BeatImpact() {
  Customer retention validated. Satisfaction confirmed.
  </p>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

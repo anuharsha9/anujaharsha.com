@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Monitor, FileText, Play, X, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
@@ -91,7 +91,7 @@ export default function BeatWhatIGot() {
  {/* Speech bubble */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  No documentation. No design files. No team.
@@ -100,14 +100,14 @@ export default function BeatWhatIGot() {
  A sandbox. And that was it.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Evidence shelf ─ */}
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -134,7 +134,7 @@ export default function BeatWhatIGot() {
  const Icon = item.icon
  const isVisible = phase >= i + 2
  return (
- <motion.div
+ <m.div
  key={item.label}
  initial={{ opacity: 0, y: -60, scale: 0.7 }}
  animate={
@@ -149,7 +149,7 @@ export default function BeatWhatIGot() {
  className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 md:p-6 text-center overflow-hidden"
  >
  {/* Colored top accent bar */}
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  animate={isVisible ? { scaleX: 1 } : { scaleX: 0 }}
  transition={{ duration: 0.6, delay: 0.3, ease }}
@@ -158,7 +158,7 @@ export default function BeatWhatIGot() {
  />
 
  {/* Glow */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0 }}
  animate={isVisible ? { opacity: 0.6, scale: 1 } : { opacity: 0, scale: 0 }}
  transition={{ duration: 0.8, delay: 0.2, ease }}
@@ -169,7 +169,7 @@ export default function BeatWhatIGot() {
  />
 
  {/* Icon with drop-in bounce */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: -30, scale: 0 }}
  animate={
  isVisible
@@ -192,31 +192,31 @@ export default function BeatWhatIGot() {
  >
  <Icon className="w-5 h-5" style={{ color: item.color }} strokeWidth={1.5} />
  </div>
- </motion.div>
+ </m.div>
 
  {/* Label */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 8 }}
  animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
  transition={{ duration: 0.5, delay: 0.35, ease }}
  className="text-sm font-medium text-white mb-1"
  >
  {item.label}
- </motion.div>
+ </m.div>
 
  {/* Detail */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
  transition={{ duration: 0.5, delay: 0.5, ease }}
  className="text-[11px] text-zinc-500 font-mono leading-snug"
  >
  {item.detail}
- </motion.div>
+ </m.div>
 
  {/* Impact ring on drop */}
  {isVisible && (
- <motion.div
+ <m.div
  initial={{ opacity: 0.5, scale: 0.5 }}
  animate={{ opacity: 0, scale: 2 }}
  transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -224,7 +224,7 @@ export default function BeatWhatIGot() {
  style={{ border: `1px solid ${withHexAlpha(item.color, '40')}` }}
  />
  )}
- </motion.div>
+ </m.div>
  )
  })}
  </div>
@@ -232,7 +232,7 @@ export default function BeatWhatIGot() {
  {/* ── MISSING section — what was NOT provided ── */}
  <AnimatePresence>
  {phase >= 5 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -245,7 +245,7 @@ export default function BeatWhatIGot() {
  </div>
  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
  {MISSING.map((item, i) => (
- <motion.div
+ <m.div
  key={item}
  initial={{ opacity: 0, scale: 0.8 }}
  animate={
@@ -263,20 +263,20 @@ export default function BeatWhatIGot() {
  <span className="text-[11px] text-zinc-500 font-mono">
  {item}
  </span>
- </motion.div>
+ </m.div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Closer */}
  <AnimatePresence>
  {phase >= 10 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 1.2, ease }}
@@ -286,7 +286,7 @@ export default function BeatWhatIGot() {
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
  I had my work cut out for me — and so, I began.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

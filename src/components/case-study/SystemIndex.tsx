@@ -1,7 +1,7 @@
 'use client'
 
 import TransitionLink from '@/components/transitions/TransitionLink'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowRight, Home, User } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from './CaseStudyWireframes'
 import { type ReactNode } from 'react'
@@ -80,7 +80,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  }
 
  return (
- <motion.section
+ <m.section
  className="w-full py-16 md:py-24"
  aria-labelledby="system-index-heading"
  initial={{ opacity: 0, y: 40 }}
@@ -90,7 +90,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  >
  <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
  {/* Header */}
- <motion.div
+ <m.div
  className="text-center mb-10 md:mb-14"
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
@@ -106,12 +106,12 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  >
  {isEndOfJourney ? 'Continue Exploring' : 'Next Case Study'}
  </h2>
- </motion.div>
+ </m.div>
 
  {/* End of journey — Extended Portfolio + Me page */}
  {isEndOfJourney ? (
  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -129,9 +129,9 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  Early-stage SaaS & zero-to-one architecture
  </p>
  </TransitionLink>
- </motion.div>
+ </m.div>
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -149,7 +149,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  13 years of complexity, simplified
  </p>
  </TransitionLink>
- </motion.div>
+ </m.div>
  </div>
  ) : (
  <div
@@ -157,7 +157,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  }`}
  >
  {nextProjects.map((project, idx) => (
- <motion.div
+ <m.div
  key={project.id}
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
@@ -250,11 +250,11 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  }}
  />
  </TransitionLink>
- </motion.div>
+ </m.div>
  ))}
  </div>
  )}
  </div>
- </motion.section >
+ </m.section >
  )
 }

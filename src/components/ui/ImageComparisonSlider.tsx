@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
+import { m, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
 import Image from 'next/image'
 import { GripVertical } from 'lucide-react'
 import { getTheme } from '@/lib/design-system'
@@ -148,7 +148,7 @@ export default function ImageComparisonSlider({
             </div>
 
             {/* Before Image (Overlay - Legacy - Clipped) */}
-            <motion.div
+            <m.div
                 className="absolute inset-0 pt-11 overflow-hidden"
                 style={{ clipPath }}
                 variants={{}}
@@ -161,10 +161,10 @@ export default function ImageComparisonSlider({
                     sizes="(max-width: 1200px) 100vw, 1200px"
                     priority
                 />
-            </motion.div>
+            </m.div>
 
             {/* Slider Handle */}
-            <motion.div
+            <m.div
                 className="absolute top-11 bottom-0 z-10 cursor-ew-resize"
                 style={{ left: handleLeft, x: '-50%' }}
                 variants={{}}
@@ -181,7 +181,7 @@ export default function ImageComparisonSlider({
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[var(--accent-teal)] rounded-full flex items-center justify-center shadow-xl shadow-[var(--accent-teal)]/30 border-2 border-white cursor-ew-resize hover:scale-110 transition-transform">
                     <GripVertical className="w-5 h-5 text-white" />
                 </div>
-            </motion.div>
+            </m.div>
 
             {/* Labels on sides */}
             <div className="absolute bottom-space-4 left-space-4 z-20">

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { X, ArrowRight } from 'lucide-react'
@@ -26,7 +26,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
       {isOpen && (
         <>
           {/* Backdrop - tap to dismiss */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -36,7 +36,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
           />
 
           {/* Bottom Sheet */}
-          <motion.div
+          <m.div
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
@@ -130,7 +130,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
 
             {/* Safe area padding for iPhone */}
             <div className="h-safe-area-inset-bottom" />
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

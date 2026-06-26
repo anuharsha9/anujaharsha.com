@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import { type StorySlide } from '@/data/presentation-slides'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import HeroAurora from '@/components/home/HeroAurora'
 
 interface PresentationLightboxProps {
@@ -52,7 +52,7 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  </div>
  <div className="w-full h-full flex flex-col justify-center items-center px-4 md:px-12 py-8 overflow-y-auto relative z-10">
  <AnimatePresence mode="wait">
- <motion.div
+ <m.div
  key={currentIndex}
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  <div className="lg:col-span-7 flex justify-center items-center min-h-[400px]">
  {currentSlide.component}
  </div>
- </motion.div>
+ </m.div>
  </AnimatePresence>
  </div>
  </SystemLightbox>

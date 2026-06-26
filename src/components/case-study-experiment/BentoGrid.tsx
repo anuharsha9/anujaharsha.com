@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 import ImageLightbox from '@/components/case-study/ImageLightbox'
@@ -108,7 +108,7 @@ export function ImageTile({
  const isSketchbook = src.includes('sketchbook')
 
  return (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -139,7 +139,7 @@ export function ImageTile({
  </div>
  </div>
  )}
- </motion.div>
+ </m.div>
  )
 }
 
@@ -218,7 +218,7 @@ export function VideoTile({
  const parallaxY = useTransform(scrollYProgress, [0, 1], [-40, 40])
 
  return (
- <motion.div
+ <m.div
  ref={containerRef}
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
@@ -234,7 +234,7 @@ export function VideoTile({
  style={aspectRatio ? { aspectRatio } : undefined}
  onClick={togglePlay}
  >
- <motion.video
+ <m.video
  ref={videoRef as any}
  src={src}
  className="w-full h-full object-cover block transform-gpu scale-[1.08]"
@@ -284,7 +284,7 @@ export function VideoTile({
  </div>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )
 }
 
@@ -307,7 +307,7 @@ export function TextTile({
  : ''
 
  return (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -315,7 +315,7 @@ export function TextTile({
  className={`flex flex-col justify-center ${borderStyle} ${className}`}
  >
  {children}
- </motion.div>
+ </m.div>
  )
 }
 
@@ -332,7 +332,7 @@ export function StatTile({
  delay?: number
 }) {
  return (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -342,7 +342,7 @@ export function StatTile({
  {icon && <div className="mb-3 text-zinc-500">{icon}</div>}
  <p className="text-3xl md:text-4xl font-bold text-[var(--accent-teal)]">{value}</p>
  <p className="text-sm text-zinc-500 font-light mt-2">{label}</p>
- </motion.div>
+ </m.div>
  )
 }
 
@@ -355,7 +355,7 @@ export function PullQuote({
  className?: string
 }) {
  return (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
  viewport={{ once: true, margin: "-10%" }}
@@ -366,7 +366,7 @@ export function PullQuote({
  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[400px] max-w-3xl bg-[var(--accent-teal)]/5 blur-[120px] rounded-[100%] pointer-events-none" />
 
  {/* Top architectural border line */}
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
@@ -377,7 +377,7 @@ export function PullQuote({
  <div className="w-full max-w-[1440px] px-6 md:px-16 mx-auto relative z-10 flex flex-col items-center text-center">
 
  {/* Eyebrow / Label */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -386,10 +386,10 @@ export function PullQuote({
  >
  <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-[var(--accent-teal)]/50 mb-6" />
  <span className="text-[10px] sm:text-xs font-mono tracking-[0.4em] uppercase text-[var(--accent-teal)] font-bold">The Turning Point</span>
- </motion.div>
+ </m.div>
 
  {/* Massive bold typographic story */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -403,10 +403,10 @@ export function PullQuote({
  </div>
 
  <div className="absolute -bottom-16 -right-8 md:-bottom-24 md:-right-16 text-[100px] md:text-[160px] leading-none font-serif text-[var(--accent-teal)]/10 select-none pointer-events-none drop-shadow-[0_0_30px_rgba(45,212,191,0.2)]">&rdquo;</div>
- </motion.div>
+ </m.div>
 
  {/* Bottom accent indicating continuation */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0 }}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
@@ -416,14 +416,14 @@ export function PullQuote({
  </div>
 
  {/* Bottom architectural border line */}
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
  transition={{ duration: 1.5, ease: "easeInOut" }}
  className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"
  />
- </motion.div>
+ </m.div>
  )
 }
 
@@ -458,7 +458,7 @@ export function CarouselTile({
  if (!images || images.length === 0) return null;
 
  return (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -538,6 +538,6 @@ export function CarouselTile({
  </div>
  </>
  )}
- </motion.div>
+ </m.div>
  )
 }

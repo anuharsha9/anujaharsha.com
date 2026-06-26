@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Play, Pause, Volume2, VolumeX, RotateCcw } from 'lucide-react'
 import { useManifestoTimeline, SCENES, TOTAL_DURATION } from '@/hooks/useManifestoTimeline'
@@ -40,7 +40,7 @@ function KineticLine({
         const clean = word.replace(/[.,!?'"'—]/g, '').toLowerCase()
         const isEmphasis = emphasisWords.some(w => clean === w.toLowerCase())
         return (
-          <motion.span
+          <m.span
             key={i}
             initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
@@ -52,7 +52,7 @@ function KineticLine({
             className={isEmphasis ? emphasisClass : ''}
           >
             {word}
-          </motion.span>
+          </m.span>
         )
       })}
     </span>
@@ -68,7 +68,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
   return (
     <span className={className}>
       {chars.map((char, i) => (
-        <motion.span
+        <m.span
           key={i}
           initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
@@ -80,7 +80,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
           className="inline-block"
         >
           {char === ' ' ? '\u00A0' : char}
-        </motion.span>
+        </m.span>
       ))}
     </span>
   )
@@ -154,7 +154,7 @@ function Scene1Terminal({ progress }: { progress: number }) {
     <div className="absolute inset-0 flex items-center justify-center">
       <AnimatePresence mode="wait">
         {phase <= 2 && (
-          <motion.div
+          <m.div
             key="terminal"
             className="w-full max-w-3xl mx-6"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -205,26 +205,26 @@ function Scene1Terminal({ progress }: { progress: number }) {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
 
         {phase === 3 && (
-          <motion.div
+          <m.div
             key="hero-text"
             className="text-center px-6 max-w-4xl"
             initial={{ opacity: 0, y: 30, filter: 'blur(14px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 1.2, ease: easeCinematic }}
           >
-            <motion.span
+            <m.span
               className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 block"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.0, delay: 0.05, ease: easeCinematic }}
             >
               Staff Product Designer
-            </motion.span>
-            <motion.h1
+            </m.span>
+            <m.h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] mb-6"
               initial={{ opacity: 0, y: 24, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -234,16 +234,16 @@ function Scene1Terminal({ progress }: { progress: number }) {
               <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">
                 Anuja
               </span>
-            </motion.h1>
-            <motion.p
+            </m.h1>
+            <m.p
               className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.25, ease: easeCinematic }}
             >
               Enterprise UX Expert · 13 Years · Legacy Modernization & AI-Native Design
-            </motion.p>
-          </motion.div>
+            </m.p>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -280,7 +280,7 @@ function Scene2Philosophy({ progress }: { progress: number }) {
 
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
-      <motion.div
+      <m.div
         className="text-center mb-12 md:mb-16 z-10"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -289,15 +289,15 @@ function Scene2Philosophy({ progress }: { progress: number }) {
         <KineticLine emphasisWords={['compartmentalizing', 'reorganizing', 'friction.']} emphasisClass="text-[var(--accent-teal-bright)] font-medium">
           From 50-year monoliths to AI-powered plugins.
         </KineticLine>
-        <motion.p
+        <m.p
           className="mt-6 text-sm sm:text-base md:text-lg text-zinc-400 font-light max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: progress > 0.15 ? 1 : 0 }}
           transition={{ duration: 0.8 }}
         >
           I don&apos;t just redesign. My specialty is compartmentalizing and reorganizing systems to make your workflow feel effortless. Not everything needs a redesign. The goal is always to solve the problem with the least friction.
-        </motion.p>
-      </motion.div>
+        </m.p>
+      </m.div>
 
       <div className="relative w-full max-w-[400px] sm:max-w-[500px] aspect-square mx-auto">
         {BLOCKS.map((block) => {
@@ -402,7 +402,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
 
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
-      <motion.div
+      <m.div
         className="text-center mb-12 max-w-2xl"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -416,13 +416,13 @@ function Scene3Blueprint({ progress }: { progress: number }) {
         >
           Before I ever touch Figma, I map the logic.
         </KineticLine>
-      </motion.div>
+      </m.div>
 
       <div className="relative w-full max-w-[600px] aspect-[2/1] border border-white/5 rounded-2xl bg-black/20 overflow-hidden backdrop-blur-md">
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <AnimatePresence>
             {phase === 1 ? (
-              <motion.g
+              <m.g
                 key="tangled"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -430,7 +430,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                 transition={{ duration: 0.8 }}
               >
                 {TANGLED_EDGES.map(([a, b], i) => (
-                  <motion.path
+                  <m.path
                     key={i}
                     d={`M ${TANGLED_NODES[a].x} ${TANGLED_NODES[a].y} Q 50 50 ${TANGLED_NODES[b].x} ${TANGLED_NODES[b].y}`}
                     stroke="rgba(244, 63, 94, 0.4)"
@@ -445,9 +445,9 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                 {TANGLED_NODES.map((n, i) => (
                   <circle key={i} cx={n.x} cy={n.y} r="2" fill="rgba(244, 63, 94, 0.8)" />
                 ))}
-              </motion.g>
+              </m.g>
             ) : (
-              <motion.g
+              <m.g
                 key="clean"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -455,7 +455,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                 transition={{ duration: 0.8 }}
               >
                 {CLEAN_EDGES.map(([a, b], i) => (
-                  <motion.line
+                  <m.line
                     key={i}
                     x1={CLEAN_NODES[a].x + 5}
                     y1={CLEAN_NODES[a].y}
@@ -468,14 +468,14 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                     transition={{ duration: 1, delay: i * 0.3 }}
                   />
                 ))}
-              </motion.g>
+              </m.g>
             )}
           </AnimatePresence>
         </svg>
 
         <AnimatePresence>
           {phase === 2 && CLEAN_NODES.map((n, i) => (
-            <motion.div
+            <m.div
               key={n.label}
               className="absolute w-14 h-14 rounded-xl border border-[var(--accent-teal-bright)] bg-[var(--accent-teal)]/20 backdrop-blur-md flex items-center justify-center text-[10px] font-mono text-white shadow-[0_0_20px_rgba(0,210,211,0.2)]"
               style={{
@@ -488,17 +488,17 @@ function Scene3Blueprint({ progress }: { progress: number }) {
               transition={{ type: 'spring', stiffness: 200, damping: 20, delay: i * 0.2 }}
             >
               {n.label}
-            </motion.div>
+            </m.div>
           ))}
         </AnimatePresence>
       </div>
 
-      <motion.p
+      <m.p
         className="mt-8 text-xs font-mono uppercase tracking-[0.2em]"
         style={{ color: phase === 1 ? 'rgba(244, 63, 94, 0.8)' : 'var(--accent-teal-bright)' }}
       >
         {phase === 1 ? '50-Step Legacy Nightmare' : '3-Step Intuitive Flow'}
-      </motion.p>
+      </m.p>
     </div>
   )
 }
@@ -592,7 +592,7 @@ function Scene4Archaeology({
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
       {/* Header text */}
-      <motion.div
+      <m.div
         className="text-center mb-6 md:mb-8 max-w-2xl"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -606,10 +606,10 @@ function Scene4Archaeology({
         >
           I treat legacy systems like digital archaeology. I uncover the intent and rebuild with confidence.
         </KineticLine>
-      </motion.div>
+      </m.div>
 
       {/* Node visualization */}
-      <motion.div
+      <m.div
         className="relative w-72 h-44 sm:w-80 sm:h-48 md:w-[32rem] md:h-64 mb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -621,7 +621,7 @@ function Scene4Archaeology({
             const posA = getNodePosition(DATA_NODES[a], untangle)
             const posB = getNodePosition(DATA_NODES[b], untangle)
             return (
-              <motion.line
+              <m.line
                 key={idx}
                 x1={posA.x}
                 y1={posA.y}
@@ -640,7 +640,7 @@ function Scene4Archaeology({
         {DATA_NODES.map((node) => {
           const pos = getNodePosition(node, untangle)
           return (
-            <motion.div
+            <m.div
               key={node.id}
               className="absolute flex items-center justify-center rounded-lg border text-[8px] sm:text-[10px] font-mono uppercase tracking-widest"
               style={{
@@ -659,13 +659,13 @@ function Scene4Archaeology({
               transition={{ delay: 0.6 + DATA_NODES.indexOf(node) * 0.1, duration: 0.5, ease }}
             >
               {node.id}
-            </motion.div>
+            </m.div>
           )
         })}
-      </motion.div>
+      </m.div>
 
       {/* Refactor Slider */}
-      <motion.div
+      <m.div
         className="w-full max-w-md relative"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -673,7 +673,7 @@ function Scene4Archaeology({
       >
         <AnimatePresence>
           {!sliderCompleted && (
-            <motion.div
+            <m.div
               className="absolute -top-8 left-0 right-0 text-center"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: [0, -5, 0] }}
@@ -686,7 +686,7 @@ function Scene4Archaeology({
               <span className="text-xs font-mono text-[var(--accent-teal-bright)] tracking-widest uppercase bg-[var(--accent-teal)]/20 px-3 py-1 rounded-full border border-[var(--accent-teal)]/40 shadow-[0_0_15px_rgba(0,210,211,0.2)]">
                 Drag to untangle ➔
               </span>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
         
@@ -710,12 +710,12 @@ function Scene4Archaeology({
             <span>CLEAN</span>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Metrics — appear after slider hits 100% */}
       <AnimatePresence>
         {sliderCompleted && (
-          <motion.div
+          <m.div
             className="flex items-center gap-8 sm:gap-12 mt-8"
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -738,7 +738,7 @@ function Scene4Archaeology({
                 Task Time
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -777,7 +777,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
       {/* Header */}
-      <motion.div
+      <m.div
         className="text-center mb-10 md:mb-12"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -790,7 +790,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
         >
           I speak both design and code — prototyping to production-ready.
         </KineticLine>
-      </motion.div>
+      </m.div>
 
       {/* Morphing Container */}
       <div className="relative w-full max-w-[500px] h-[300px] sm:h-[350px]">
@@ -832,7 +832,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
             clipPath: `inset(0 ${scanPercentage}% 0 0)`,
           }}
         >
-          <motion.div
+          <m.div
             className="text-2xl sm:text-3xl font-light text-zinc-300 leading-tight mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -840,7 +840,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
           >
             <span className="text-zinc-500 block text-sm mb-4 uppercase tracking-widest font-mono">The Audit</span>
             When you untangle <span className="text-[var(--semantic-cyan)] font-medium">50 years</span> of tech debt...
-          </motion.div>
+          </m.div>
           {/* UI Representation */}
           <div className="flex justify-between items-start mb-8">
             <div>
@@ -877,7 +877,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
       </div>
 
       {/* Bottom label */}
-      <motion.p
+      <m.p
         className="mt-12 text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em]"
         style={{ color: phase >= 2 ? 'var(--accent-teal-bright)' : 'var(--text-dim)' }}
         initial={{ opacity: 0 }}
@@ -885,7 +885,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
         transition={{ delay: 0.5, duration: 0.5 }}
       >
         {phase < 2 ? 'The Design' : 'The Code'}
-      </motion.p>
+      </m.p>
     </div>
   )
 }
@@ -898,7 +898,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
 function Scene6Closer({ progress }: { progress: number }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
-      <motion.div
+      <m.div
         key="tagline"
         className="text-center max-w-3xl flex flex-col items-center"
         initial={{ opacity: 0, y: 30 }}
@@ -917,16 +917,16 @@ function Scene6Closer({ progress }: { progress: number }) {
             anujaharsha.com
           </span>
         </h2>
-        <motion.p
+        <m.p
           className="text-lg sm:text-xl md:text-2xl text-zinc-300 font-light mb-12"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1, ease: easeCinematic }}
         >
           Let&apos;s untangle the architecture.
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           className="flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -944,8 +944,8 @@ function Scene6Closer({ progress }: { progress: number }) {
           >
             Let&apos;s Connect
           </Link>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </div>
   )
 }
@@ -978,7 +978,7 @@ function PlaybackBar({
 }) {
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-      <motion.div
+      <m.div
         className="flex items-center gap-4 sm:gap-6 px-4 sm:px-6 py-3 rounded-full"
         style={{
           background: 'rgba(0, 0, 0, 0.6)',
@@ -1063,7 +1063,7 @@ function PlaybackBar({
           <Volume2 className="w-4 h-4 text-zinc-300" />
         )}
       </button>
-      </motion.div>
+      </m.div>
     </div>
   )
 }
@@ -1117,7 +1117,7 @@ export default function ManifestoPage() {
       />
 
       {/* Back to Portfolio */}
-      <motion.div
+      <m.div
         className="fixed top-6 left-6 z-50"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -1136,13 +1136,13 @@ export default function ManifestoPage() {
           <ArrowLeft className="w-3 h-3" />
           Portfolio
         </Link>
-      </motion.div>
+      </m.div>
 
       {/* ── Scene Renderer ─────────────────────────────────────────── */}
       <div className="absolute inset-0 z-[2]">
         <AnimatePresence mode="wait">
           {timeline.sceneId === 'scene1' && (
-            <motion.div
+            <m.div
               key="scene1"
               className="absolute inset-0"
               initial={{ opacity: 0 }}
@@ -1151,11 +1151,11 @@ export default function ManifestoPage() {
               transition={{ duration: 0.8, ease }}
             >
               <Scene1Terminal progress={timeline.sceneProgress} />
-            </motion.div>
+            </m.div>
           )}
 
           {timeline.sceneId === 'scene2' && (
-            <motion.div
+            <m.div
               key="scene2"
               className="absolute inset-0"
               initial={{ opacity: 0 }}
@@ -1167,11 +1167,11 @@ export default function ManifestoPage() {
                 progress={timeline.sceneProgress}
                 onSliderComplete={handleSliderComplete}
               />
-            </motion.div>
+            </m.div>
           )}
 
           {timeline.sceneId === 'scene3' && (
-            <motion.div
+            <m.div
               key="scene3"
               className="absolute inset-0"
               initial={{ opacity: 0 }}
@@ -1180,11 +1180,11 @@ export default function ManifestoPage() {
               transition={{ duration: 0.8, ease }}
             >
               <Scene3Unified progress={timeline.sceneProgress} />
-            </motion.div>
+            </m.div>
           )}
 
           {timeline.sceneId === 'scene4' && (
-            <motion.div
+            <m.div
               key="scene4"
               className="absolute inset-0"
               initial={{ opacity: 0 }}
@@ -1193,11 +1193,11 @@ export default function ManifestoPage() {
               transition={{ duration: 0.8, ease }}
             >
               <Scene4Stitch progress={timeline.sceneProgress} />
-            </motion.div>
+            </m.div>
           )}
 
           {timeline.sceneId === 'scene5' && (
-            <motion.div
+            <m.div
               key="scene5"
               className="absolute inset-0"
               initial={{ opacity: 0 }}
@@ -1206,11 +1206,11 @@ export default function ManifestoPage() {
               transition={{ duration: 0.8, ease }}
             >
               <Scene2Philosophy progress={timeline.sceneProgress} />
-            </motion.div>
+            </m.div>
           )}
 
           {timeline.sceneId === 'scene6' && (
-            <motion.div
+            <m.div
               key="scene6"
               className="absolute inset-0"
               initial={{ opacity: 0 }}
@@ -1219,7 +1219,7 @@ export default function ManifestoPage() {
               transition={{ duration: 1.2, ease: easeCinematic }}
             >
               <Scene6Closer progress={timeline.sceneProgress} />
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>

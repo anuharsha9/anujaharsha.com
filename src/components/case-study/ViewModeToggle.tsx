@@ -7,7 +7,7 @@
  */
 
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { useTransition } from '@/components/transitions/TransitionContext'
@@ -74,7 +74,7 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
     const otherCaseStudies = featuredCaseStudies.filter((cs) => cs.slug !== currentSlug)
 
     return (
-        <motion.nav
+        <m.nav
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease }}
@@ -108,18 +108,18 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
                         <span className="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors max-w-[160px] sm:max-w-none truncate">
                             {currentMeta?.title || currentSlug}
                         </span>
-                        <motion.div
+                        <m.div
                             animate={{ rotate: dropdownOpen ? 180 : 0 }}
                             transition={{ duration: 0.2 }}
                         >
                             <ChevronDown className="w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-500 transition-colors" />
-                        </motion.div>
+                        </m.div>
                     </button>
 
                     {/* Dropdown */}
                     <AnimatePresence>
                         {dropdownOpen && (
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, y: -8, scale: 0.95 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: -8, scale: 0.95 }}
@@ -165,11 +165,11 @@ export default function ViewModeToggle({ }: ViewModeToggleProps) {
                                         )
                                     })}
                                 </div>
-                            </motion.div>
+                            </m.div>
                         )}
                     </AnimatePresence>
                 </div>
             </div>
-        </motion.nav>
+        </m.nav>
     )
 }

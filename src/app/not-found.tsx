@@ -1,7 +1,7 @@
 'use client'
 
 import TransitionLink from '@/components/transitions/TransitionLink'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Magnetic from '@/components/ui/Magnetic'
 import { useEffect, useState, useRef, useCallback } from 'react'
 
@@ -163,7 +163,7 @@ export default function NotFound() {
       <div className="relative z-10 flex flex-col items-center max-w-3xl mx-auto">
 
         {/* The "404" — large, ghostly, with wave-like CSS animation */}
-        <motion.div
+        <m.div
           className="relative font-mono font-bold text-[10rem] md:text-[14rem] leading-none tracking-tighter select-none mb-[-2rem] md:mb-[-3rem]"
           initial={{ opacity: 0, filter: 'blur(20px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -178,10 +178,10 @@ export default function NotFound() {
           >
             404
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Narrative text — ocean metaphor */}
-        <motion.div
+        <m.div
           className="space-y-5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -195,10 +195,10 @@ export default function NotFound() {
             <br />
             The current can carry you back.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Navigation — emerge after text */}
-        <motion.div
+        <m.div
           className="mt-12 flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -224,10 +224,10 @@ export default function NotFound() {
               Explore Case Studies
             </TransitionLink>
           </Magnetic>
-        </motion.div>
+        </m.div>
 
         {/* Depth indicator — like a sonar reading */}
-        <motion.div
+        <m.div
           className="mt-20 flex flex-col items-center gap-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -240,12 +240,12 @@ export default function NotFound() {
             )}
             <span className="w-8 h-px bg-[var(--accent-teal)]/30" />
           </div>
-          <motion.div
+          <m.div
             className="w-1 h-8 rounded-full bg-gradient-to-b from-[var(--accent-teal)]/40 to-transparent"
             animate={{ scaleY: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           />
-        </motion.div>
+        </m.div>
 
       </div>
     </div>

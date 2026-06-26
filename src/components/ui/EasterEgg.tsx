@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 
 interface EasterEggProps {
@@ -64,14 +64,14 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
       {/* Easter Egg Modal */}
       <AnimatePresence>
         {showEasterEgg && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowEasterEgg(false)}
           >
-            <motion.div
+            <m.div
               className="bg-[var(--bg-dark)] rounded-2xl p-8 max-w-md mx-4 text-center border border-slate-700"
               initial={{ scale: 0.8, y: 20 }}
               animate={{ scale: 1, y: 0 }}
@@ -81,7 +81,7 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
             >
               {/* Spinning gears */}
               <div className="flex justify-center gap-2 mb-4">
-                <motion.div
+                <m.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                 >
@@ -92,8 +92,8 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
                     height={40}
                     className="invert opacity-60"
                   />
-                </motion.div>
-                <motion.div
+                </m.div>
+                <m.div
                   animate={{ rotate: -360 }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                 >
@@ -104,8 +104,8 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
                     height={32}
                     className="invert opacity-40"
                   />
-                </motion.div>
-                <motion.div
+                </m.div>
+                <m.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
                 >
@@ -116,7 +116,7 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
                     height={24}
                     className="invert opacity-30"
                   />
-                </motion.div>
+                </m.div>
               </div>
 
               <h3 className="text-white text-xl font-medium mb-2">
@@ -140,8 +140,8 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
               <p className="text-zinc-500 text-xs mt-4">
                 Click anywhere to close
               </p>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

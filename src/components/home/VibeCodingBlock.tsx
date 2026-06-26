@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat, ShieldCheck } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 import AppCaseStudyLightbox from './AppCaseStudyLightbox'
@@ -20,7 +20,7 @@ function WordULogoCover() {
 
             <svg viewBox="0 0 280 180" className="w-[75%] h-auto" fill="none">
                 {/* Game board outline */}
-                <motion.rect
+                <m.rect
                     x="40" y="20" width="200" height="140" rx="8"
                     stroke={accentColor}
                     strokeWidth="0.8"
@@ -33,7 +33,7 @@ function WordULogoCover() {
                 {/* Row 1 — active guess row with letters */}
                 {letters.map((letter, i) => (
                     <g key={`active-${i}`}>
-                        <motion.rect
+                        <m.rect
                             x={55 + i * 38} y="40" width="32" height="32" rx="4"
                             stroke={accentColor}
                             strokeWidth="0.8"
@@ -41,7 +41,7 @@ function WordULogoCover() {
                             animate={{ pathLength: 1, opacity: 0.5 }}
                             transition={{ duration: 0.8, delay: 0.8 + i * 0.15 }}
                         />
-                        <motion.text
+                        <m.text
                             x={71 + i * 38} y="62" textAnchor="middle"
                             fill={accentColor}
                             className="font-mono text-[14px] font-bold"
@@ -50,13 +50,13 @@ function WordULogoCover() {
                             transition={{ duration: 1, delay: 1.8 + i * 0.2, times: [0, 0.3, 1] }}
                         >
                             {letter}
-                        </motion.text>
+                        </m.text>
                     </g>
                 ))}
 
                 {/* Row 2 — empty guess row */}
                 {[0, 1, 2, 3, 4].map((i) => (
-                    <motion.rect
+                    <m.rect
                         key={`row2-${i}`}
                         x={55 + i * 38} y="80" width="32" height="32" rx="4"
                         stroke={accentColor}
@@ -69,7 +69,7 @@ function WordULogoCover() {
 
                 {/* Row 3 — empty guess row */}
                 {[0, 1, 2, 3, 4].map((i) => (
-                    <motion.rect
+                    <m.rect
                         key={`row3-${i}`}
                         x={55 + i * 38} y="120" width="32" height="32" rx="4"
                         stroke={accentColor}
@@ -81,7 +81,7 @@ function WordULogoCover() {
                 ))}
 
                 {/* Cursor blink in first empty cell of row 2 */}
-                <motion.rect
+                <m.rect
                     x="68" y="86" width="1.5" height="18" rx="0.5"
                     fill={accentColor}
                     animate={{ opacity: [0, 0.6, 0] }}
@@ -105,7 +105,7 @@ function BrowserWireframeCover() {
 
             <svg viewBox="0 0 320 200" className="w-[75%] h-auto" fill="none">
                 {/* Browser chrome outline */}
-                <motion.rect
+                <m.rect
                     x="10" y="10" width="300" height="180" rx="8"
                     stroke="var(--accent-teal)"
                     strokeWidth="0.8"
@@ -115,7 +115,7 @@ function BrowserWireframeCover() {
                     transition={{ duration: 2, ease: 'easeOut' }}
                 />
                 {/* Title bar */}
-                <motion.line
+                <m.line
                     x1="10" y1="35" x2="310" y2="35"
                     stroke="var(--accent-teal)"
                     strokeWidth="0.5"
@@ -125,49 +125,49 @@ function BrowserWireframeCover() {
                     opacity={0.25}
                 />
                 {/* Traffic lights */}
-                <motion.circle cx="25" cy="22" r="3" fill="var(--accent-teal)"
+                <m.circle cx="25" cy="22" r="3" fill="var(--accent-teal)"
                     initial={{ opacity: 0 }} animate={{ opacity: [0, 0.4, 0.4] }}
                     transition={{ duration: 0.5, delay: 0.8 }} />
-                <motion.circle cx="35" cy="22" r="3" fill="var(--accent-teal)"
+                <m.circle cx="35" cy="22" r="3" fill="var(--accent-teal)"
                     initial={{ opacity: 0 }} animate={{ opacity: [0, 0.3, 0.3] }}
                     transition={{ duration: 0.5, delay: 1 }} />
-                <motion.circle cx="45" cy="22" r="3" fill="var(--accent-teal)"
+                <m.circle cx="45" cy="22" r="3" fill="var(--accent-teal)"
                     initial={{ opacity: 0 }} animate={{ opacity: [0, 0.2, 0.2] }}
                     transition={{ duration: 0.5, delay: 1.2 }} />
                 {/* URL bar */}
-                <motion.rect x="60" y="17" width="180" height="10" rx="5"
+                <m.rect x="60" y="17" width="180" height="10" rx="5"
                     stroke="var(--accent-teal)" strokeWidth="0.4"
                     initial={{ opacity: 0 }} animate={{ opacity: 0.15 }}
                     transition={{ delay: 1 }} />
 
                 {/* Sidebar wireframe */}
-                <motion.rect x="20" y="45" width="60" height="135" rx="4"
+                <m.rect x="20" y="45" width="60" height="135" rx="4"
                     stroke="var(--accent-teal)" strokeWidth="0.4"
                     initial={{ opacity: 0 }} animate={{ opacity: 0.12 }}
                     transition={{ delay: 1.5 }} />
                 {/* Sidebar lines */}
                 {[55, 70, 85, 100, 115].map((cy, i) => (
-                    <motion.line key={cy} x1="28" y1={cy} x2="68" y2={cy}
+                    <m.line key={cy} x1="28" y1={cy} x2="68" y2={cy}
                         stroke="var(--accent-teal)" strokeWidth="0.4"
                         initial={{ opacity: 0 }} animate={{ opacity: 0.1 }}
                         transition={{ delay: 1.8 + i * 0.1 }} />
                 ))}
 
                 {/* Main content area */}
-                <motion.rect x="90" y="45" width="210" height="50" rx="4"
+                <m.rect x="90" y="45" width="210" height="50" rx="4"
                     stroke="var(--accent-teal)" strokeWidth="0.4"
                     initial={{ opacity: 0 }} animate={{ opacity: 0.12 }}
                     transition={{ delay: 1.6 }} />
                 {/* Content card rows */}
                 {[105, 125, 145].map((cy, i) => (
-                    <motion.rect key={cy} x="90" y={cy} width="210" height="18" rx="3"
+                    <m.rect key={cy} x="90" y={cy} width="210" height="18" rx="3"
                         stroke="var(--accent-teal)" strokeWidth="0.3"
                         initial={{ opacity: 0, x: 20 }} animate={{ opacity: 0.08, x: 0 }}
                         transition={{ delay: 2 + i * 0.15, duration: 0.5 }} />
                 ))}
 
                 {/* "Hi, I'm Anuja" text — types in */}
-                <motion.text
+                <m.text
                     x="160" y="75" textAnchor="middle"
                     fill="var(--accent-teal)"
                     className="font-sans text-[14px] font-bold"
@@ -176,10 +176,10 @@ function BrowserWireframeCover() {
                     transition={{ duration: 1.5, delay: 2.5, times: [0, 0.3, 1] }}
                 >
                     Hi, I&apos;m Anuja
-                </motion.text>
+                </m.text>
 
                 {/* Cursor blink */}
-                <motion.rect
+                <m.rect
                     x="205" y="65" width="1.5" height="14" rx="0.5"
                     fill="var(--accent-teal)"
                     animate={{ opacity: [0, 1, 0] }}
@@ -201,7 +201,7 @@ function GraduationCapCover() {
 
             <svg viewBox="0 0 120 100" className="w-[40%] h-auto" fill="none">
                 {/* Cap top (diamond) */}
-                <motion.polygon
+                <m.polygon
                     points="60,15 110,40 60,55 10,40"
                     stroke="var(--semantic-purple)"
                     strokeWidth="1.2"
@@ -211,7 +211,7 @@ function GraduationCapCover() {
                     transition={{ duration: 2, ease: 'easeOut' }}
                 />
                 {/* Cap brim fill glow */}
-                <motion.polygon
+                <m.polygon
                     points="60,15 110,40 60,55 10,40"
                     fill="var(--semantic-purple)"
                     initial={{ opacity: 0 }}
@@ -220,7 +220,7 @@ function GraduationCapCover() {
                 />
 
                 {/* Body of cap (left side) */}
-                <motion.path
+                <m.path
                     d="M 25,42 L 25,65 Q 25,78 60,80 Q 95,78 95,65 L 95,42"
                     stroke="var(--semantic-purple)"
                     strokeWidth="0.8"
@@ -230,7 +230,7 @@ function GraduationCapCover() {
                 />
 
                 {/* Tassel string */}
-                <motion.path
+                <m.path
                     d="M 60,40 L 60,50 Q 65,58 80,60"
                     stroke="var(--semantic-purple)"
                     strokeWidth="0.8"
@@ -241,7 +241,7 @@ function GraduationCapCover() {
                     opacity={0.4}
                 />
                 {/* Tassel bob */}
-                <motion.circle
+                <m.circle
                     cx="80" cy="60" r="3"
                     fill="var(--semantic-purple)"
                     initial={{ opacity: 0, scale: 0 }}
@@ -249,7 +249,7 @@ function GraduationCapCover() {
                     transition={{ delay: 2, type: 'spring', stiffness: 200 }}
                 />
                 {/* Gentle sway of tassel */}
-                <motion.circle
+                <m.circle
                     cx="80" cy="60" r="3"
                     fill="var(--semantic-purple)"
                     animate={{ cx: [80, 85, 78, 80] }}
@@ -259,7 +259,7 @@ function GraduationCapCover() {
 
                 {/* Floating sparkle dots */}
                 {[[30, 25], [90, 20], [45, 85], [85, 75]].map(([cx, cy], i) => (
-                    <motion.circle
+                    <m.circle
                         key={i}
                         cx={cx} cy={cy} r="1"
                         fill="var(--semantic-purple)"
@@ -287,7 +287,7 @@ function WealthEngineCover() {
 
             <svg viewBox="0 0 320 200" className="w-[78%] h-auto" fill="none">
                 {/* App frame */}
-                <motion.rect
+                <m.rect
                     x="10" y="10" width="300" height="180" rx="10"
                     stroke={accent}
                     strokeWidth="0.8"
@@ -297,26 +297,26 @@ function WealthEngineCover() {
                     transition={{ duration: 1.8, ease: 'easeOut' }}
                 />
                 {/* Top header bar */}
-                <motion.line x1="10" y1="32" x2="310" y2="32" stroke={accent} strokeWidth="0.5"
+                <m.line x1="10" y1="32" x2="310" y2="32" stroke={accent} strokeWidth="0.5"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
                     transition={{ duration: 1, delay: 0.3 }} opacity={0.2} />
                 {/* Title placeholder */}
-                <motion.rect x="20" y="18" width="80" height="6" rx="2" fill={accent}
+                <m.rect x="20" y="18" width="80" height="6" rx="2" fill={accent}
                     initial={{ opacity: 0 }} animate={{ opacity: 0.25 }} transition={{ delay: 0.8 }} />
                 {/* Currency indicator (top right) */}
-                <motion.text x="290" y="24" textAnchor="end" fill={accent}
+                <m.text x="290" y="24" textAnchor="end" fill={accent}
                     className="font-mono text-[7px]"
                     initial={{ opacity: 0 }} animate={{ opacity: 0.45 }} transition={{ delay: 1.2 }}>
                     ₹ · $
-                </motion.text>
+                </m.text>
 
                 {/* Chart axis baseline */}
-                <motion.line x1="30" y1="125" x2="290" y2="125" stroke={accent} strokeWidth="0.4"
+                <m.line x1="30" y1="125" x2="290" y2="125" stroke={accent} strokeWidth="0.4"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
                     transition={{ duration: 1.5, delay: 0.6 }} opacity={0.25} />
 
                 {/* Growth line — sweeps from low-left to high-right */}
-                <motion.path
+                <m.path
                     d="M 35,115 Q 75,108 100,98 T 165,75 T 230,55 T 285,42"
                     stroke={accent}
                     strokeWidth="1.6"
@@ -327,7 +327,7 @@ function WealthEngineCover() {
                 />
 
                 {/* Soft fill under the curve */}
-                <motion.path
+                <m.path
                     d="M 35,115 Q 75,108 100,98 T 165,75 T 230,55 T 285,42 L 285,125 L 35,125 Z"
                     fill={accent}
                     initial={{ opacity: 0 }}
@@ -342,7 +342,7 @@ function WealthEngineCover() {
                     { x: 230, y: 55, d: 3.2 },
                     { x: 285, y: 42, d: 3.5 },
                 ].map((p, i) => (
-                    <motion.circle key={i} cx={p.x} cy={p.y} r="3" fill={accent}
+                    <m.circle key={i} cx={p.x} cy={p.y} r="3" fill={accent}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 0.85, scale: 1 }}
                         transition={{ delay: p.d, type: 'spring', stiffness: 250 }} />
@@ -350,19 +350,19 @@ function WealthEngineCover() {
 
                 {/* Scenario tiles row — bottom */}
                 {[35, 115, 195].map((x, i) => (
-                    <motion.g key={x}>
-                        <motion.rect x={x} y="148" width="90" height="32" rx="4"
+                    <m.g key={x}>
+                        <m.rect x={x} y="148" width="90" height="32" rx="4"
                             stroke={accent} strokeWidth="0.5"
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 0.25, y: 0 }}
                             transition={{ duration: 0.6, delay: 3.6 + i * 0.18 }} />
-                        <motion.rect x={x + 8} y="156" width="40" height="4" rx="1.5" fill={accent}
+                        <m.rect x={x + 8} y="156" width="40" height="4" rx="1.5" fill={accent}
                             initial={{ opacity: 0 }} animate={{ opacity: 0.35 }}
                             transition={{ delay: 3.8 + i * 0.18 }} />
-                        <motion.rect x={x + 8} y="166" width="60" height="3" rx="1" fill={accent}
+                        <m.rect x={x + 8} y="166" width="60" height="3" rx="1" fill={accent}
                             initial={{ opacity: 0 }} animate={{ opacity: 0.18 }}
                             transition={{ delay: 4.0 + i * 0.18 }} />
-                    </motion.g>
+                    </m.g>
                 ))}
             </svg>
         </div>
@@ -386,7 +386,7 @@ function SousCookingCover() {
                 {[
                     { x: 115, delay: 1.6 }, { x: 140, delay: 2.0 }, { x: 165, delay: 2.4 },
                 ].map((s, i) => (
-                    <motion.path
+                    <m.path
                         key={i}
                         d={`M ${s.x},30 Q ${s.x - 6},22 ${s.x + 4},14 T ${s.x},0`}
                         stroke={accent}
@@ -399,7 +399,7 @@ function SousCookingCover() {
                 ))}
 
                 {/* iPhone frame — vertical, rounded */}
-                <motion.rect
+                <m.rect
                     x="90" y="35" width="100" height="160" rx="14"
                     stroke={accent}
                     strokeWidth="1.2"
@@ -409,31 +409,31 @@ function SousCookingCover() {
                     transition={{ duration: 1.8, ease: 'easeOut' }}
                 />
                 {/* Notch */}
-                <motion.rect x="118" y="40" width="44" height="6" rx="3" fill={accent}
+                <m.rect x="118" y="40" width="44" height="6" rx="3" fill={accent}
                     initial={{ opacity: 0 }} animate={{ opacity: 0.35 }}
                     transition={{ delay: 0.8 }} />
 
                 {/* Inner screen safe area */}
-                <motion.rect x="98" y="53" width="84" height="134" rx="8"
+                <m.rect x="98" y="53" width="84" height="134" rx="8"
                     stroke={accent} strokeWidth="0.4"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1, opacity: 0.2 }}
                     transition={{ duration: 1.2, delay: 0.5 }} />
 
                 {/* Mic icon — center top of screen */}
-                <motion.g initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+                <m.g initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 1.2, type: 'spring', stiffness: 200 }}>
                     <rect x="133" y="78" width="14" height="22" rx="7" fill={accent} opacity={0.4} />
                     <path d="M 128,98 Q 128,108 140,108 Q 152,108 152,98" stroke={accent}
                         strokeWidth="1" fill="none" opacity={0.5} />
                     <line x1="140" y1="108" x2="140" y2="114" stroke={accent} strokeWidth="1" opacity={0.5} />
-                </motion.g>
+                </m.g>
 
                 {/* Voice waveform — center bottom of screen, animated bars */}
                 {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
                     const heights = [10, 18, 14, 22, 16, 22, 12, 16]
                     const x = 105 + i * 9
                     return (
-                        <motion.rect
+                        <m.rect
                             key={i}
                             x={x}
                             y={145 - heights[i] / 2}
@@ -459,16 +459,16 @@ function SousCookingCover() {
                 })}
 
                 {/* Bottom hint: "Listening…" pill */}
-                <motion.rect x="108" y="172" width="64" height="9" rx="4.5"
+                <m.rect x="108" y="172" width="64" height="9" rx="4.5"
                     stroke={accent} strokeWidth="0.5"
                     initial={{ opacity: 0 }} animate={{ opacity: 0.3 }}
                     transition={{ delay: 2.8 }} />
-                <motion.text x="140" y="178.5" textAnchor="middle" fill={accent}
+                <m.text x="140" y="178.5" textAnchor="middle" fill={accent}
                     className="font-mono text-[5px]"
                     initial={{ opacity: 0 }} animate={{ opacity: 0.6 }}
                     transition={{ delay: 3.2 }}>
                     LISTENING…
-                </motion.text>
+                </m.text>
             </svg>
         </div>
     )
@@ -491,7 +491,7 @@ function WardenSecurityCover() {
 
             <svg viewBox="0 0 320 200" className="w-[78%] h-auto" fill="none">
                 {/* Shield outline — top-center */}
-                <motion.path
+                <m.path
                     d="M 160,18 L 198,30 L 198,68 Q 198,92 160,108 Q 122,92 122,68 L 122,30 Z"
                     stroke={accent}
                     strokeWidth="1.2"
@@ -501,7 +501,7 @@ function WardenSecurityCover() {
                     transition={{ duration: 1.8, ease: 'easeOut' }}
                 />
                 {/* Shield interior glow — slow breathing */}
-                <motion.path
+                <m.path
                     d="M 160,18 L 198,30 L 198,68 Q 198,92 160,108 Q 122,92 122,68 L 122,30 Z"
                     fill={accent}
                     initial={{ opacity: 0 }}
@@ -509,7 +509,7 @@ function WardenSecurityCover() {
                     transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', delay: 1 }}
                 />
                 {/* Checkmark inside shield */}
-                <motion.path
+                <m.path
                     d="M 145,60 L 156,72 L 178,48"
                     stroke={accent}
                     strokeWidth="2"
@@ -521,11 +521,11 @@ function WardenSecurityCover() {
                 />
 
                 {/* Scope matrix label */}
-                <motion.text x="20" y="130" fill={accent}
+                <m.text x="20" y="130" fill={accent}
                     className="font-mono text-[7px]"
                     initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: 2.0 }}>
                     SCOPE · DEFAULT DENY
-                </motion.text>
+                </m.text>
 
                 {/* 4×3 permission grid — each cell is a resource × action grant */}
                 {Array.from({ length: 12 }).map((_, i) => {
@@ -542,12 +542,12 @@ function WardenSecurityCover() {
                     if (BLOCKED_ATTEMPT) {
                         return (
                             <g key={i}>
-                                <motion.rect x={x} y={y} width="32" height="10" rx="2"
+                                <m.rect x={x} y={y} width="32" height="10" rx="2"
                                     stroke={accent} strokeWidth="0.5"
                                     initial={{ opacity: 0 }} animate={{ opacity: 0.25 }}
                                     transition={{ delay: 2.2 }} />
                                 {/* Pulsing red — blocked attempt */}
-                                <motion.rect x={x} y={y} width="32" height="10" rx="2"
+                                <m.rect x={x} y={y} width="32" height="10" rx="2"
                                     fill="var(--semantic-red, #ef4444)"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: [0, 0, 0.6, 0, 0.6, 0] }}
@@ -556,7 +556,7 @@ function WardenSecurityCover() {
                         )
                     }
                     return (
-                        <motion.rect
+                        <m.rect
                             key={i}
                             x={x} y={y} width="32" height="10" rx="2"
                             stroke={accent} strokeWidth="0.5"
@@ -570,13 +570,13 @@ function WardenSecurityCover() {
                 })}
 
                 {/* Audit-trail tick line at the bottom — sweeps across to feel "live" */}
-                <motion.line x1="20" y1="184" x2="300" y2="184"
+                <m.line x1="20" y1="184" x2="300" y2="184"
                     stroke={accent} strokeWidth="0.4"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
                     transition={{ duration: 1.2, delay: 3.0 }} opacity={0.2} />
                 {/* A few audit entries — ticks above the line */}
                 {[60, 110, 160, 210, 240].map((x, i) => (
-                    <motion.line key={x} x1={x} y1="178" x2={x} y2="184"
+                    <m.line key={x} x1={x} y1="178" x2={x} y2="184"
                         stroke={accent} strokeWidth="0.6"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: [0, 0.7, 0.4] }}
@@ -702,9 +702,9 @@ export default function VibeCodingBlock() {
 
     return (
         <>
-            <motion.section ref={ref} className="relative pt-10 pb-20 md:pt-16 md:pb-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+            <m.section ref={ref} className="relative pt-10 pb-20 md:pt-16 md:pb-32 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
                 {/* Era label — decorative, above content */}
-                <motion.div
+                <m.div
                     className="mb-6 md:mb-8 pointer-events-none select-none"
                     aria-hidden="true"
                     initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
@@ -715,10 +715,10 @@ export default function VibeCodingBlock() {
                     <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                         BUILD LAB
                     </span>
-                </motion.div>
+                </m.div>
 
                 {/* Header */}
-                <motion.div
+                <m.div
                     className="mb-12 md:mb-16"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -735,7 +735,7 @@ export default function VibeCodingBlock() {
                     <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
                         Not prototypes — products. End-to-end, with AI agents as my engineering team.
                     </p>
-                </motion.div>
+                </m.div>
 
                 {/* 5 tiles (Portfolio, WordU, Career Builder, WealthEngine, Sous) — grid stacks 1col mobile / 2col tablet / 3col desktop */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
@@ -745,7 +745,7 @@ export default function VibeCodingBlock() {
                         const rgb = `var(${tile.accentRgbVar})`
 
                         return (
-                            <motion.div
+                            <m.div
                                 key={tile.id}
                                 initial={{ opacity: 0, y: 70, scale: 0.9, filter: 'blur(16px)' }}
                                 whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
@@ -843,11 +843,11 @@ export default function VibeCodingBlock() {
                                         </div>
                                     </div>
                                 </button>
-                            </motion.div>
+                            </m.div>
                         )
                     })}
                 </div>
-            </motion.section>
+            </m.section>
 
             {/* Lightboxes */}
             <PortfolioLightbox isOpen={portfolioOpen} onClose={() => setPortfolioOpen(false)} />

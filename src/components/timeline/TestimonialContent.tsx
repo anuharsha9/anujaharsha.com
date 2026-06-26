@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import Link from 'next/link'
 import { Linkedin, Quote } from 'lucide-react'
-import { motion, useInView } from 'framer-motion'
+import { m, useInView } from 'framer-motion'
 import { CareerEra } from '@/data/career-data'
 
 interface TestimonialContentProps {
@@ -39,7 +39,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
     }
 
     return (
-        <motion.div
+        <m.div
             ref={containerRef}
             className="w-full max-w-5xl mx-auto"
             variants={containerVariants}
@@ -47,7 +47,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
             animate={isInView ? "visible" : "hidden"}
         >
             {/* Header */}
-            <motion.div variants={itemVariants} className="mb-12">
+            <m.div variants={itemVariants} className="mb-12">
                 <div className="flex items-center gap-3 mb-3">
                     <span className="font-mono text-zinc-600 text-xs tracking-[0.3em] uppercase">Era</span>
                     <div className="w-6 h-px bg-[var(--accent-teal)]" />
@@ -64,19 +64,19 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                     </p>
                     <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
                 </div>
-            </motion.div>
+            </m.div>
 
             {/* ── Hero Quote ── */}
-            <motion.div variants={itemVariants} className="relative mb-16">
+            <m.div variants={itemVariants} className="relative mb-16">
                 {/* Giant decorative quote mark - Animated */}
-                <motion.div
+                <m.div
                     className="absolute -top-8 -left-4 sm:-left-8 pointer-events-none select-none opacity-[0.03]"
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 0.04 } : {}}
                     transition={{ duration: 1.5, ease: "easeOut" }}
                 >
                     <Quote size={180} fill="currentColor" stroke="none" />
-                </motion.div>
+                </m.div>
 
                 <blockquote className="relative z-10 pl-2 sm:pl-6 border-l-2 border-[var(--accent-teal)]/30 py-2">
                     <p className="font-sans text-2xl sm:text-3xl md:text-4xl text-zinc-100 leading-[1.4] sm:leading-[1.35] font-light tracking-[-0.01em] max-w-3xl drop-shadow-lg">
@@ -108,17 +108,17 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                         </div>
                     </cite>
                 </blockquote>
-            </motion.div>
+            </m.div>
 
             {/* ── Secondary Quotes — flowing editorial grid ── */}
             {secondary.length > 0 && (
-                <motion.div
+                <m.div
                     variants={itemVariants}
                     className="border-t border-white/[0.06] pt-12"
                 >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
                         {secondary.map((testimonial, i) => (
-                            <motion.div
+                            <m.div
                                 key={testimonial.id}
                                 className="group/q relative p-6 -mx-6 rounded-2xl hover:bg-white/[0.03] transition-colors duration-500"
                                 variants={itemVariants}
@@ -144,12 +144,12 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                                 <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.1em] ml-[36px] block mt-1 group-hover/q:text-[var(--accent-teal)]/70 transition-colors duration-300">
                                     {testimonial.role}
                                 </span>
-                            </motion.div>
+                            </m.div>
                         ))}
                     </div>
-                </motion.div>
+                </m.div>
             )}
-        </motion.div>
+        </m.div>
     )
 }
 

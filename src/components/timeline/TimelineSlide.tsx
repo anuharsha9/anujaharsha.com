@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion, useTransform, MotionValue } from 'framer-motion'
+import { m, useTransform, MotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { Quote, Linkedin } from 'lucide-react'
 import { MotionWorkCard } from '@/components/work/MotionWorkCard'
@@ -190,7 +190,7 @@ export default function TimelineSlide({
     const isTestimonialSlide = hasTestimonials && !hasWorkItems && !hasFoundations
 
     return (
-        <motion.div
+        <m.div
             className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16"
             style={{
                 opacity,
@@ -420,7 +420,7 @@ export default function TimelineSlide({
                                                     strokeWidth="1"
                                                 />
                                                 {/* Animated cyan line — neon glow */}
-                                                <motion.line
+                                                <m.line
                                                     x1="1"
                                                     y1="0"
                                                     x2="1"
@@ -436,7 +436,7 @@ export default function TimelineSlide({
                                             {milestones.map((_, i) => {
                                                 const yPct = ((i + 0.5) / milestones.length) * 100
                                                 return (
-                                                    <motion.div
+                                                    <m.div
                                                         key={i}
                                                         className="absolute rounded-full bg-[var(--accent-teal)]"
                                                         style={{
@@ -460,7 +460,7 @@ export default function TimelineSlide({
                                             {milestones.map((milestone, i) => {
                                                 const IconComp = milestone.icon;
                                                 return (
-                                                    <motion.div
+                                                    <m.div
                                                         key={i}
                                                         className="space-y-1 flex items-start gap-3"
                                                         style={{ opacity: dotOpacities[i] }}
@@ -488,7 +488,7 @@ export default function TimelineSlide({
                                                                 </p>
                                                             )}
                                                         </div>
-                                                    </motion.div>
+                                                    </m.div>
                                                 )
                                             })}
                                         </div>
@@ -499,6 +499,6 @@ export default function TimelineSlide({
                     </div>
                 )}
             </div>
-        </motion.div >
+        </m.div >
     )
 }

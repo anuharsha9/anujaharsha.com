@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { TESTIMONIALS, type Testimonial } from '@/data/testimonials'
 
 const VISIBLE_COUNT = 3
@@ -17,7 +17,7 @@ function QuoteMark({ className = '' }: { className?: string }) {
 
 function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
     return (
-        <motion.figure
+        <m.figure
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             whileHover={{ y: -5 }}
@@ -49,7 +49,7 @@ function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
                     <p className="truncate text-[11px] font-mono text-zinc-500">{t.role}</p>
                 </div>
             </figcaption>
-        </motion.figure>
+        </m.figure>
     )
 }
 
@@ -66,7 +66,7 @@ export default function TestimonialsBlock() {
             <QuoteMark className="pointer-events-none absolute -top-4 right-2 h-24 w-24 select-none text-white/[0.025] md:right-6 md:h-32 md:w-32" />
 
             {/* Header */}
-            <motion.div
+            <m.div
                 className="relative mb-10 md:mb-14"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export default function TestimonialsBlock() {
                 <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
                     What leaders say
                 </h2>
-            </motion.div>
+            </m.div>
 
             {/* Masonry wall — organic, not a rigid grid */}
             <div className="columns-1 gap-5 md:columns-2 lg:columns-3">

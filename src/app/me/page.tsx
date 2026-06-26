@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { createPortal } from 'react-dom'
-import { motion, useScroll, useTransform, useMotionValue, AnimatePresence, animate as fmAnimate } from 'framer-motion'
+import { m, useScroll, useTransform, useMotionValue, AnimatePresence, animate as fmAnimate } from 'framer-motion'
 import { articleLinks } from '@/data/home'
 import ScrollGear from '@/components/ui/ScrollGear'
 import SystemLightbox from '@/components/ui/SystemLightbox'
@@ -123,14 +123,14 @@ function GlitchPortalHero() {
   }, [isWatching])
 
   return (
-    <motion.section
+    <m.section
       ref={ref}
       className="relative h-[200vh]"
       id="hero-glitch-portal"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Full-screen Video Background */}
-        <motion.div className="absolute inset-0 z-0" style={{ scale: videoScale }}>
+        <m.div className="absolute inset-0 z-0" style={{ scale: videoScale }}>
           <video
             ref={videoRef}
             autoPlay loop muted playsInline
@@ -139,16 +139,16 @@ function GlitchPortalHero() {
             className="absolute inset-0 w-full h-full object-cover"
             src={HERO_VIDEO}
           />
-        </motion.div>
+        </m.div>
 
         {/* Dark overlay that fades as you scroll */}
-        <motion.div
+        <m.div
           className="absolute inset-0 z-[1] bg-black"
           style={{ opacity: combinedOverlayOpacity }}
         />
 
         {/* DESKTOP: Text Mask — video visible through the letterforms */}
-        <motion.div
+        <m.div
           className="absolute inset-0 z-[2] hidden md:flex items-center justify-center will-change-transform"
           style={{ scale: textScale, opacity: combinedTextOpacity }}
         >
@@ -171,26 +171,26 @@ function GlitchPortalHero() {
               </span>
             ))}
           </h1>
-        </motion.div>
+        </m.div>
 
         {/* MOBILE: Shearing text rows */}
         <div className="absolute inset-0 z-[2] flex md:hidden flex-col items-center justify-center will-change-transform" aria-hidden="true">
-          <motion.span
+          <m.span
             className="block font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
             style={{ x: row1X, opacity: combinedTextOpacity, mixBlendMode: 'difference' }}
           >
             PRODUCT
-          </motion.span>
-          <motion.span
+          </m.span>
+          <m.span
             className="block font-black text-[18vw] leading-[0.9] tracking-tighter text-white select-none"
             style={{ x: row2X, opacity: combinedTextOpacity, mixBlendMode: 'difference' }}
           >
             DESIGNER
-          </motion.span>
+          </m.span>
         </div>
 
         {/* Bottom info bar */}
-        <motion.div
+        <m.div
           className="absolute bottom-0 left-0 right-0 z-[3] px-6 md:px-12 py-8"
           style={{ opacity: combinedTextOpacity }}
         >
@@ -231,22 +231,22 @@ function GlitchPortalHero() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Scroll indicator */}
-        <motion.div
+        <m.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[3]"
           style={{ opacity: combinedTextOpacity }}
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
           <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/40 to-white/0" />
-        </motion.div>
+        </m.div>
 
         {/* ── Watch-mode close button ── */}
         <AnimatePresence>
           {isWatching && (
-            <motion.button
+            <m.button
               className="absolute top-6 right-6 z-[10] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-colors cursor-pointer"
               onClick={exitWatchMode}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -258,13 +258,13 @@ function GlitchPortalHero() {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
-            </motion.button>
+            </m.button>
           )}
         </AnimatePresence>
       </div>
 
 
-    </motion.section>
+    </m.section>
   )
 }
 
@@ -310,7 +310,7 @@ function DualityWriting() {
       {/* ═══════ PREVIEW STATE ═══════ */}
       <AnimatePresence>
         {!isPoemExpanded && (
-          <motion.div
+          <m.div
             className="grid grid-cols-1 lg:grid-cols-2 min-h-screen"
             initial={false}
             animate={{ opacity: 1 }}
@@ -325,7 +325,7 @@ function DualityWriting() {
 
               {/* Content — vertically centered */}
               <div className="relative z-10 max-w-lg w-full">
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
@@ -346,10 +346,10 @@ function DualityWriting() {
                     Gifts from Life
                   </h2>
                   <p className="text-zinc-600 text-xs font-mono uppercase tracking-[0.25em]">— Anuja Harsha</p>
-                </motion.div>
+                </m.div>
 
                 {/* First stanza preview — Pull Quote scale with fade mask */}
-                <motion.div
+                <m.div
                   className="relative"
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -416,7 +416,7 @@ function DualityWriting() {
                       id="open-artifact-btn"
                     >
                       {/* Glow backdrop */}
-                      <motion.div
+                      <m.div
                         className="absolute -inset-4 rounded-xl pointer-events-none"
                         animate={{
                           opacity: isButtonHovered ? 0.2 : 0,
@@ -427,7 +427,7 @@ function DualityWriting() {
                       />
 
                       {/* Outline pill button */}
-                      <motion.div
+                      <m.div
                         className="relative inline-flex items-center gap-3 px-6 py-3 rounded-full border transition-colors duration-300"
                         animate={{
                           borderColor: isButtonHovered ? 'var(--accent-teal)' : 'var(--overlay-white-10)',
@@ -443,16 +443,16 @@ function DualityWriting() {
                         <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-600 group-hover:text-[var(--accent-teal)] transition-colors duration-300">
                           Open Artifact
                         </span>
-                      </motion.div>
+                      </m.div>
                     </button>
                   </div>
-                </motion.div>
+                </m.div>
               </div>
             </div>
 
             {/* ─── RIGHT: Articles — Clean & Spaced ─── */}
             <div className="relative bg-black/60 text-white flex flex-col justify-center px-6 md:px-12 lg:px-16 py-20 min-h-screen">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
@@ -469,12 +469,12 @@ function DualityWriting() {
                 >
                   Medium_Articles
                 </a>
-              </motion.div>
+              </m.div>
 
               {/* Show only first 4 articles for visual balance */}
               <div className="space-y-2">
                 {articleLinks.slice(0, 4).map((article, i) => (
-                  <motion.a
+                  <m.a
                     key={article.title}
                     href={article.href}
                     target="_blank"
@@ -507,13 +507,13 @@ function DualityWriting() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                       </svg>
                     </div>
-                  </motion.a>
+                  </m.a>
                 ))}
               </div>
 
               {/* View All link */}
               {articleLinks.length > 4 && (
-                <motion.a
+                <m.a
                   href="https://medium.com/@anu.anuja"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -527,10 +527,10 @@ function DualityWriting() {
                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
-                </motion.a>
+                </m.a>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -538,7 +538,7 @@ function DualityWriting() {
       {mounted && createPortal(
         <AnimatePresence>
           {isPoemExpanded && (
-            <motion.div
+            <m.div
               className="fixed inset-0 z-[9999] bg-black overflow-y-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -556,7 +556,7 @@ function DualityWriting() {
               </div>
 
               {/* Close button */}
-              <motion.button
+              <m.button
                 className="fixed top-6 right-6 z-[10000] w-10 h-10 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-zinc-600 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer"
                 onClick={() => setIsPoemExpanded(false)}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -568,12 +568,12 @@ function DualityWriting() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </motion.button>
+              </m.button>
 
               {/* Poem content — Two Column Layout */}
               <div className="relative z-10 min-h-screen flex flex-col items-center justify-start py-20 md:py-28 px-6 md:px-12">
                 {/* Title */}
-                <motion.div
+                <m.div
                   className="text-center mb-16 md:mb-20"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -592,12 +592,12 @@ function DualityWriting() {
                     Gifts from Life
                   </h2>
                   <p className="text-zinc-800 text-xs font-mono uppercase tracking-[0.3em]">— Anuja Harsha</p>
-                </motion.div>
+                </m.div>
 
                 {/* All Stanzas — Two Column Grid */}
                 <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-10 md:gap-y-14">
                   {POEM_STANZAS.map((stanza, si) => (
-                    <motion.div
+                    <m.div
                       key={si}
                       className="relative pl-8 md:pl-10"
                       initial={{ opacity: 0, y: 40 }}
@@ -609,17 +609,17 @@ function DualityWriting() {
                       }}
                     >
                       {/* Stanza number whisper */}
-                      <motion.span
+                      <m.span
                         className="absolute left-0 top-0 font-mono text-[9px] text-white/[0.08] select-none"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 + si * 0.08 }}
                       >
                         {String(si + 1).padStart(2, '0')}
-                      </motion.span>
+                      </m.span>
 
                       {stanza.lines.map((line, li) => (
-                        <motion.p
+                        <m.p
                           key={li}
                           className="leading-[2.2] md:leading-[2.4]"
                           initial={{ opacity: 0, x: -10 }}
@@ -641,14 +641,14 @@ function DualityWriting() {
                           }}
                         >
                           {line}
-                        </motion.p>
+                        </m.p>
                       ))}
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
                 {/* Bottom return link */}
-                <motion.button
+                <m.button
                   className="mt-20 md:mt-28 font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-800 hover:text-[var(--accent-teal)] transition-colors duration-300 cursor-pointer flex items-center gap-2"
                   onClick={() => setIsPoemExpanded(false)}
                   initial={{ opacity: 0 }}
@@ -659,9 +659,9 @@ function DualityWriting() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                   </svg>
                   Return to Terminal
-                </motion.button>
+                </m.button>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>,
         document.body
@@ -687,7 +687,7 @@ function LifeGallery() {
 
       {/* Section Header */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 mb-12 md:mb-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -701,7 +701,7 @@ function LifeGallery() {
           <p className="text-zinc-600 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
             Parent, baker, painter, poet. Systems thinking requires a life outside the terminal. This is where I build my capacity.
           </p>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* ─── Bento Grid Gallery ─── */}
@@ -718,7 +718,7 @@ function LifeGallery() {
             ][i]
 
             return (
-              <motion.div
+              <m.div
                 key={photo.label}
                 className={`relative group rounded-xl overflow-hidden ${spanClasses}`}
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -762,7 +762,7 @@ function LifeGallery() {
                     {photo.label}
                   </span>
                 </div>
-              </motion.div>
+              </m.div>
             )
           })}
         </div>
@@ -786,7 +786,7 @@ function ConnectionClose() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center">
         {/* Section label */}
-        <motion.div
+        <m.div
           className="flex items-center gap-4 mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -797,11 +797,11 @@ function ConnectionClose() {
           <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600">Say Hello</span>
           <div className="w-1.5 h-1.5 bg-[var(--accent-teal)] rotate-45 opacity-40" />
           <div className="flex-1 h-[1px] bg-white/[0.06]" />
-        </motion.div>
+        </m.div>
 
         {/* Heading */}
         <div className="overflow-hidden mb-6">
-          <motion.h2
+          <m.h2
             className="font-black text-5xl md:text-7xl lg:text-8xl text-white leading-[0.9] tracking-tight"
             initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
@@ -809,10 +809,10 @@ function ConnectionClose() {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             Let&apos;s connect.
-          </motion.h2>
+          </m.h2>
         </div>
 
-        <motion.p
+        <m.p
           className="text-zinc-500 text-base md:text-lg max-w-md mx-auto mb-14 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -820,10 +820,10 @@ function ConnectionClose() {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           Whether we are untangling a legacy enterprise system, discussing AI orchestration, or just talking about the perfect sourdough hydration&mdash;my inbox is open.
-        </motion.p>
+        </m.p>
 
         {/* Clean inline links */}
-        <motion.div
+        <m.div
           className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -853,10 +853,10 @@ function ConnectionClose() {
             </svg>
             <span className="font-mono text-xs tracking-wide">+1 781-354-7394</span>
           </a>
-        </motion.div>
+        </m.div>
 
         {/* Signature */}
-        <motion.p
+        <m.p
           className="text-zinc-800 text-[10px] font-mono uppercase tracking-widest mt-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -864,7 +864,7 @@ function ConnectionClose() {
           transition={{ duration: 1, delay: 0.8 }}
         >
            Designed by Anuja. Built with Cursor + Google Antigravity.
-        </motion.p>
+        </m.p>
       </div>
     </section>
   )
@@ -896,7 +896,7 @@ function GraphicDesign() {
 
       {/* Header */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 mb-10 md:mb-14">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -910,14 +910,14 @@ function GraphicDesign() {
           <p className="text-zinc-600 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
             Before product design, there was print — brand identities, posters, and visual systems. Still the craft I return to for fun.
           </p>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Thumbnail grid → lightbox */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
           {GRAPHIC_DESIGN.map((src, i) => (
-            <motion.button
+            <m.button
               key={src}
               onClick={() => setIndex(i)}
               className="group relative aspect-square overflow-hidden rounded-xl border border-white/[0.06] transition-colors duration-500 hover:border-[var(--accent-teal)]/30"
@@ -937,7 +937,7 @@ function GraphicDesign() {
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            </motion.button>
+            </m.button>
           ))}
         </div>
       </div>

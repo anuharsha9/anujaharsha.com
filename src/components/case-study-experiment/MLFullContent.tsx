@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
@@ -493,7 +493,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                             {data.reflection?.people && data.reflection.people.length > 0 && (
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                                     {data.reflection.people.map((person: { quote: string; name: string; role: string; initials?: string }, i: number) => (
-                                        <motion.div
+                                        <m.div
                                             key={i}
                                             initial={{ opacity: 0, y: 24 }}
                                             whileInView={{ opacity: 1, y: 0 }}
@@ -509,14 +509,14 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                                 <p className="text-zinc-200 italic font-light leading-relaxed text-lg mb-6">&ldquo;{person.quote}&rdquo;</p>
                                                 <p className="text-xs text-zinc-500 font-mono uppercase tracking-wider">— {person.name}, {person.role}</p>
                                             </div>
-                                        </motion.div>
+                                        </m.div>
                                     ))}
                                 </div>
                             )}
 
                             {data.reflection?.retrospective && (
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                                    <motion.div
+                                    <m.div
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
@@ -526,8 +526,8 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                         <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
                                         <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h3>
                                         <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.pushHarder.content }} />
-                                    </motion.div>
-                                    <motion.div
+                                    </m.div>
+                                    <m.div
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
@@ -537,7 +537,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                         <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>
                                         <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h3>
                                         <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
-                                    </motion.div>
+                                    </m.div>
                                 </div>
                             )}
                         </CinematicScene>

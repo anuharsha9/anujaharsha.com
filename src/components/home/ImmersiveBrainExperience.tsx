@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence, animate } from 'framer-motion'
+import { m, AnimatePresence, animate } from 'framer-motion'
 import { useEffect, useRef, useState, useMemo, memo, useCallback } from 'react'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import GearBottomSheet from '@/components/home/GearBottomSheet'
@@ -1263,7 +1263,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 {/* === QUIZ CARD OVERLAY === */}
                 <AnimatePresence>
                   {quizState === 'quiz' && (
-                    <motion.div
+                    <m.div
                       key={`question-${currentQuestionId}`}
                       className="absolute z-[9999] pointer-events-auto left-1/2 top-1/2"
                       style={{ x: "-50%", y: "-50%" }}
@@ -1277,7 +1277,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                         {/* Teal accent top border */}
                         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent opacity-60" />
 
-                        <motion.div
+                        <m.div
                           key={`statement-${currentQuestionId}`}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -1287,12 +1287,12 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                           <h3 className="text-lg md:text-xl font-light text-zinc-100 leading-snug tracking-tight">
                             {currentQuestion.question}
                           </h3>
-                        </motion.div>
+                        </m.div>
 
                         <div className="space-y-3">
                           <AnimatePresence mode="wait">
                             {!showReveal ? (
-                              <motion.div
+                              <m.div
                                 key={`options-${currentQuestionId}`}
                                 className={`grid grid-cols-1 md:grid-cols-2 gap-2.5 ${showReveal ? 'pointer-events-none' : ''}`}
                                 initial={{ opacity: 0, y: 10 }}
@@ -1313,9 +1313,9 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                     <ArrowRight className="w-3.5 h-3.5 ml-auto opacity-0 -translate-x-2 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-300 text-[var(--accent-teal)]" />
                                   </button>
                                 ))}
-                              </motion.div>
+                              </m.div>
                             ) : (
-                              <motion.div
+                              <m.div
                                 key="reveal"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -1336,16 +1336,16 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                   </div>
                                 </div>
                                 <div className="mt-5 flex items-center gap-4">
-                                  <motion.div
+                                  <m.div
                                     className="flex-1 h-1 bg-emerald-500/20 rounded-full overflow-hidden"
                                   >
-                                    <motion.div
+                                    <m.div
                                       className="h-full bg-emerald-500/80"
                                       initial={{ width: "0%" }}
                                       animate={{ width: "100%" }}
                                       transition={{ duration: 10, ease: "linear" }}
                                     />
-                                  </motion.div>
+                                  </m.div>
                                   <button
                                     onClick={handleContinue}
                                     aria-label="Continue to next question"
@@ -1355,19 +1355,19 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                                     <ArrowRight className="w-3.5 h-3.5" />
                                   </button>
                                 </div>
-                              </motion.div>
+                              </m.div>
                             )}
                           </AnimatePresence>
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
 
                 {/* Center CTA — "Explore My Mind" button positioned naturally below the brain */}
                 <AnimatePresence mode="wait">
                   {!activeGear && quizState !== 'quiz' && showStartPrompt && (
-                    <motion.div
+                    <m.div
                       className="relative flex flex-col items-center justify-center z-10 pointer-events-none mt-4 sm:mt-8 w-[320px]"
                       initial={{ opacity: 0, filter: 'blur(12px)' }}
                       animate={{
@@ -1398,7 +1398,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                           </p>
                         )}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
 
@@ -1406,7 +1406,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
 
               <AnimatePresence mode="wait">
                 {!activeGear && showImmersiveCompleteState && (
-                  <motion.div
+                  <m.div
                     key="immersive-hover-hint"
                     className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
                     initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
@@ -1425,7 +1425,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                         Tap the gears on mobile
                       </p>
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div> {/* END desktop wrapper */}
@@ -1433,7 +1433,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
             {/* GEAR INSPECTOR - Proximity Popover (Only when quiz complete) */}
             <AnimatePresence mode="wait">
               {activeGear && activeCoords && quizState === 'complete' && (
-                <motion.div
+                <m.div
                   key={activeGear.id}
                   className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"
                   initial={{ opacity: 0, scale: 0.92, y: 6 }}
@@ -1500,7 +1500,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
 
@@ -1513,14 +1513,14 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
       {!forceQuiz && !showImmersiveBrain && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2">
           <span className="text-zinc-600 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
-          <motion.div
+          <m.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           >
             <svg className="w-5 h-5 text-zinc-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />
             </svg>
-          </motion.div>
+          </m.div>
         </div>
       )}
 

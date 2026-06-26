@@ -1,4 +1,4 @@
-import { motion, useTransform, MotionValue } from 'framer-motion'
+import { m, useTransform, MotionValue } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
 
@@ -59,7 +59,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6 overflow-hidden">
       
-      <motion.div
+      <m.div
         className="text-center mb-16 z-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -70,15 +70,15 @@ export function Scene4Stitch({ progress }: { progress: number }) {
           My superpower is <span className="text-[var(--accent-teal-bright)] font-medium">Engineering Empathy.</span>
         </h2>
         
-        <motion.p
+        <m.p
           className="mt-6 text-sm sm:text-base md:text-lg text-zinc-400 font-light"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: isSnapping ? 1 : 0, y: isSnapping ? 0 : 10 }}
           transition={{ duration: 0.8, ease: easeCinematic }}
         >
           Stitching together a better, more efficient workflow by removing points of friction.
-        </motion.p>
-      </motion.div>
+        </m.p>
+      </m.div>
 
       <div className="relative flex items-center justify-center" style={{ width: COLS * CELL_STEP, height: ROWS * CELL_STEP }}>
         {/* Grid Nodes */}
@@ -107,7 +107,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
             }
 
             return (
-              <motion.div
+              <m.div
                 key={i}
                 className="w-14 h-14 border border-white/10 flex items-center justify-center relative"
                 style={{
@@ -135,13 +135,13 @@ export function Scene4Stitch({ progress }: { progress: number }) {
               >
                 {/* Node inner dot */}
                 <div className="w-2 h-2 rounded-full bg-white/20" />
-              </motion.div>
+              </m.div>
             )
           })}
         </div>
 
         {/* The Microscope Lens */}
-        <motion.div
+        <m.div
           className="absolute w-32 h-32 rounded-full border border-white/20 flex items-center justify-center z-20 pointer-events-none"
           style={{
             background: 'radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%)',
@@ -182,7 +182,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
             <div className="w-full h-[1px] bg-white/10" />
             <div className="h-full w-[1px] bg-white/10 absolute" />
           </div>
-        </motion.div>
+        </m.div>
         
       </div>
       

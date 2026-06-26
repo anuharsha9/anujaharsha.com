@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { motion, useMotionTemplate, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion'
+import { m, useMotionTemplate, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { ArrowRight, Lock, Play } from 'lucide-react'
 import { WorkItem } from '@/data/career-data'
@@ -54,7 +54,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
             >
                 {/* Spotlight Gradient Background (Border Glow) - ONLY for overlay variant or container/hover feedback */}
                 {variant === 'overlay' && (
-                    <motion.div
+                    <m.div
                         className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-300 group-hover:opacity-100"
                         style={{
                             background: useMotionTemplate`
@@ -73,7 +73,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                    - For 'overlay': contains everything including text
                    - For 'editorial': contains ONLY image
                 */}
-                <motion.div
+                <m.div
                     ref={ref}
                     layoutId={`project-cover-${work.id}`}
                     whileHover={{ y: -6, scale: 1.008 }}
@@ -82,7 +82,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                 >
                     {/* MEDIA */}
                     {work.video ? (
-                        <motion.div style={{ scale: imageScale, y: imageY, opacity: imageOpacity }} className="w-full h-full">
+                        <m.div style={{ scale: imageScale, y: imageY, opacity: imageOpacity }} className="w-full h-full">
                             <video
                                 src={work.video}
                                 autoPlay
@@ -93,9 +93,9 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                                 aria-label={`${work.title} — preview`}
                                 className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
                             />
-                        </motion.div>
+                        </m.div>
                     ) : work.image ? (
-                        <motion.div
+                        <m.div
                             style={{ scale: imageScale, y: imageY, opacity: imageOpacity }}
                             className="w-full h-full"
                         >
@@ -105,7 +105,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                                 fill
                                 className="object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
                             />
-                        </motion.div>
+                        </m.div>
                     ) : null}
 
                     {/* OVERLAY CONTENT (Only if variant === 'overlay') */}
@@ -189,7 +189,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                             </div>
                         </>
                     )}
-                </motion.div>
+                </m.div>
 
                 {/* EDITORIAL CONTENT (Below image) */}
                 {variant === 'editorial' && (

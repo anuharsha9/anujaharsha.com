@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface AnimatedSignatureLogoProps extends React.SVGProps<SVGSVGElement> {
   className?: string

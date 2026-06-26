@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import TransitionLink from '@/components/transitions/TransitionLink'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { FileText, MonitorPlay } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 import PresentationLightbox from '@/components/case-study/PresentationLightbox'
@@ -73,7 +73,7 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
     const gridColor = `hsl(${tile.wireframeHue}, 50%, 25%)`
 
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, y: 40, scale: 0.96, filter: 'blur(16px)' }}
             whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             viewport={{ once: true, amount: 0.2 }}
@@ -131,7 +131,7 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </m.div>
     )
 }
 
@@ -151,9 +151,9 @@ export default function CSGBlock() {
 
     return (
         <>
-            <motion.section ref={ref} className="relative pt-8 md:pt-16 pb-12 md:pb-20 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+            <m.section ref={ref} className="relative pt-8 md:pt-16 pb-12 md:pb-20 px-4 md:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
                 {/* Era label — decorative, above content */}
-                <motion.div
+                <m.div
                     className="mb-6 md:mb-8 pointer-events-none select-none"
                     aria-hidden="true"
                     initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
@@ -164,13 +164,13 @@ export default function CSGBlock() {
                     <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block breathe-slow" style={{ '--breathe-base': '0.03', '--breathe-peak': '0.05' } as React.CSSProperties}>
                         2022 — 2025
                     </span>
-                </motion.div>
+                </m.div>
 
                 {/* Section header — animate on mount (NOT whileInView). This block sits
                     inside a BlurZone pulled up by -50vh, so a viewport-gated reveal never
                     hit its trigger and the heading stayed stuck at opacity 0 (invisible).
                     Mount-based animation guarantees the heading is always present. */}
-                <motion.div
+                <m.div
                     className="mb-12 md:mb-16"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -186,7 +186,7 @@ export default function CSGBlock() {
                     <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
                         Architecting a $175M P&amp;L mission-critical data platform — named a Customer Experience Leader in Dresner Advisory Services&apos; 2025 Industry Excellence Awards, one of the BI industry&apos;s highest honors.
                     </p>
-                </motion.div>
+                </m.div>
 
 
                 {/* 3-column grid — one card per case study. 1-col on mobile,
@@ -196,7 +196,7 @@ export default function CSGBlock() {
                         <BentoTile key={tile.id} tile={tile} delay={0.15 + i * 0.12} onWatch={() => setPresentationId(tile.id)} />
                     ))}
                 </div>
-            </motion.section>
+            </m.section>
 
             {/* Presentation Lightboxes */}
             {presentationId === 'reportcaster' && (

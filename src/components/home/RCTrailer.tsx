@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
 import { Play, RotateCcw } from 'lucide-react'
 
@@ -28,7 +28,7 @@ function KineticLine({
                 const clean = word.replace(/[.,!?'"]/g, '').toLowerCase()
                 const isEmphasis = emphasisWords.some(w => clean === w.toLowerCase())
                 return (
-                    <motion.span
+                    <m.span
                         key={i}
                         initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
@@ -40,7 +40,7 @@ function KineticLine({
                         className={isEmphasis ? emphasisClass : ''}
                     >
                         {word}
-                    </motion.span>
+                    </m.span>
                 )
             })}
         </span>
@@ -53,7 +53,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
     return (
         <span className={className}>
             {chars.map((char, i) => (
-                <motion.span
+                <m.span
                     key={i}
                     initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
@@ -65,7 +65,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
                     className="inline-block"
                 >
                     {char}
-                </motion.span>
+                </m.span>
             ))}
         </span>
     )
@@ -148,7 +148,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
                 {/* ═══ LINE 0: "Customers were leaving." ═══ */}
                 {step === 0 && (
-                    <motion.div
+                    <m.div
                         key="s0"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -163,12 +163,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         >
                             A 40-year-old scheduling system.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 1: Scale — 15M+ Users | 5→1 Hub ═══ */}
                 {step === 1 && (
-                    <motion.div
+                    <m.div
                         key="s1-metrics"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -178,7 +178,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     >
                         <div className="flex items-center gap-6 sm:gap-10 md:gap-14">
                             {/* 15M+ Users */}
-                            <motion.div
+                            <m.div
                                 className="text-center"
                                 initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -190,10 +190,10 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                 <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-1.5">
                                     Automated Jobs
                                 </div>
-                            </motion.div>
+                            </m.div>
 
                             {/* Separator */}
-                            <motion.div
+                            <m.div
                                 className="w-px h-12 sm:h-16 md:h-20 bg-zinc-700/50"
                                 initial={{ scaleY: 0, opacity: 0 }}
                                 animate={{ scaleY: 1, opacity: 1 }}
@@ -201,7 +201,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             />
 
                             {/* 5→1 Hub */}
-                            <motion.div
+                            <m.div
                                 className="text-center"
                                 initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -213,14 +213,14 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                 <div className="text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-1.5">
                                     Hub
                                 </div>
-                            </motion.div>
+                            </m.div>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 2: "They wanted the product modernized." ═══ */}
                 {step === 2 && (
-                    <motion.div
+                    <m.div
                         key="s2"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -231,12 +231,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         <KineticLine className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-zinc-200 tracking-tight">
                             No documentation. 5 disconnected tools.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 3: "Competitors were closing in." ═══ */}
                 {step === 3 && (
-                    <motion.div
+                    <m.div
                         key="s3"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -251,12 +251,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         >
                             No one wanted to touch it.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 4: "Leadership said: it's time." ═══ */}
                 {step === 4 && (
-                    <motion.div
+                    <m.div
                         key="s4"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -271,12 +271,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         >
                             Customers threatened to leave unless we made it look pretty.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 5: "I had just joined the team." ═══ */}
                 {step === 5 && (
-                    <motion.div
+                    <m.div
                         key="s5"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0, scale: 0.96 }}
@@ -292,12 +292,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         >
                             But a fresh coat of paint wouldn&apos;t fix the broken engine. So I pushed back.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE B: Fragmentation + Unification (steps 5-8) ═══ */}
                 {step >= 6 && step <= 9 && (
-                    <motion.div
+                    <m.div
                         key="frag"
                         className="absolute inset-0 flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -306,7 +306,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         transition={{ duration: 0.6, ease }}
                     >
                         {/* Header text */}
-                        <motion.div
+                        <m.div
                             className="text-center mb-6 md:mb-10"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -319,7 +319,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                     <>...and rebuilt all 5 tools into <span className="text-[var(--semantic-emerald)] font-medium">one simple hub</span>.</>
                                 )}
                             </p>
-                        </motion.div>
+                        </m.div>
 
                         {/* Node visual */}
                         <div className="relative w-72 h-44 sm:w-80 sm:h-48 md:w-[28rem] md:h-60">
@@ -330,7 +330,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                     const n1 = NODES[a]
                                     const n2 = NODES[b]
                                     return (
-                                        <motion.line
+                                        <m.line
                                             key={idx}
                                             x1={scattered ? n1.sx : 50}
                                             y1={scattered ? n1.sy : 50}
@@ -351,7 +351,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             {NODES.map((node, i) => {
                                 const merged = step >= 9
                                 return (
-                                    <motion.div
+                                    <m.div
                                         key={i}
                                         className="absolute rounded-lg border"
                                         style={{
@@ -391,7 +391,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             {/* ✗ flash */}
                             <AnimatePresence>
                                 {(step === 7 || step === 8) && (
-                                    <motion.div
+                                    <m.div
                                         key={`x-${step}`}
                                         className="absolute inset-0 flex items-center justify-center z-10"
                                         initial={{ opacity: 0, scale: 0.3 }}
@@ -400,14 +400,14 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                         transition={{ duration: 0.35, type: 'spring', damping: 12 }}
                                     >
                                         <span className="text-5xl md:text-7xl font-black text-[var(--semantic-rose)] drop-shadow-[0_0_30px_var(--semantic-rose)]">✗</span>
-                                    </motion.div>
+                                    </m.div>
                                 )}
                             </AnimatePresence>
 
                             {/* ✓ glow */}
                             <AnimatePresence>
                                 {step === 9 && (
-                                    <motion.div
+                                    <m.div
                                         key="check"
                                         className="absolute inset-0 flex items-center justify-center z-10"
                                         initial={{ opacity: 0, scale: 0.3 }}
@@ -416,26 +416,26 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                         transition={{ duration: 0.5, type: 'spring', damping: 10 }}
                                     >
                                         <span className="text-5xl md:text-7xl font-black text-[var(--semantic-emerald)] drop-shadow-[0_0_40px_var(--semantic-emerald)]">✓</span>
-                                    </motion.div>
+                                    </m.div>
                                 )}
                             </AnimatePresence>
                         </div>
 
                         {/* Bottom label */}
-                        <motion.p
+                        <m.p
                             className="text-xs sm:text-sm font-mono text-[var(--semantic-cyan)] uppercase tracking-[0.25em] mt-6 md:mt-8"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2 }}
                         >
                             {step < 9 ? "5 disconnected modules" : "1 cohesive system"}
-                        </motion.p>
-                    </motion.div>
+                        </m.p>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE C: 250 Screen Cascade (step 9) ═══ */}
                 {step === 10 && (
-                    <motion.div
+                    <m.div
                         key="cascade"
                         className="absolute inset-0 flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -445,7 +445,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     >
                         <div className="relative w-72 h-40 sm:w-80 sm:h-48 md:w-[30rem] md:h-56 mb-6">
                             {Array.from({ length: 35 }).map((_, i) => (
-                                <motion.div
+                                <m.div
                                     key={i}
                                     className="absolute rounded-[3px] border border-[var(--semantic-cyan)]/50 bg-[var(--semantic-cyan)]/[0.18]"
                                     style={{
@@ -465,7 +465,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             ))}
                         </div>
 
-                        <motion.div
+                        <m.div
                             className="text-center"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -477,13 +477,13 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             <div className="text-[10px] sm:text-xs font-mono text-[var(--semantic-cyan)]/70 uppercase tracking-[0.3em] mt-2">
                                 screens simplified into 1 app
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </m.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE D: SHIPPED. (step 10) ═══ */}
                 {step === 11 && (
-                    <motion.div
+                    <m.div
                         key="shipped"
                         className="absolute inset-0 flex items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -494,12 +494,12 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         <SlamText className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter text-center leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                             20M JOBS PROTECTED.
                         </SlamText>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE E: Quote (step 11) ═══ */}
                 {step === 12 && (
-                    <motion.div
+                    <m.div
                         key="quote"
                         className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12"
                         initial={{ opacity: 0 }}
@@ -508,15 +508,15 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         transition={{ duration: 0.6, ease }}
                     >
                         {/* Faded SHIPPED behind */}
-                        <motion.div
+                        <m.div
                             className="absolute text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white/[0.04] tracking-tighter select-none pointer-events-none text-center leading-none"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                         >
                             20M JOBS PROTECTED.
-                        </motion.div>
+                        </m.div>
 
-                        <motion.blockquote
+                        <m.blockquote
                             className="relative z-10 max-w-2xl text-center"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -528,13 +528,13 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             <footer className="mt-4 font-mono text-[10px] sm:text-xs text-zinc-600 uppercase tracking-[0.2em]">
                                 — Yingchun Chen · Principal System Software Engineer
                             </footer>
-                        </motion.blockquote>
-                    </motion.div>
+                        </m.blockquote>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE F: CTA (step 12) ═══ */}
                 {step === 13 && showCTA && (
-                    <motion.div
+                    <m.div
                         key="cta"
                         className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6"
                         initial={{ opacity: 0, y: 20, filter: 'blur(12px)' }}
@@ -565,13 +565,13 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             {/* Center CTA overlay */}
                             <div className="absolute inset-0 z-20 flex items-center justify-center">
                                 <div className="flex flex-col items-center gap-4 max-w-md text-center px-6">
-                                    <motion.div
+                                    <m.div
                                         className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center"
                                         animate={{ scale: [1, 1.08, 1] }}
                                         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                                     >
                                         <Play className="w-6 h-6 text-white fill-white ml-0.5" />
-                                    </motion.div>
+                                    </m.div>
                                     <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400">
                                         Watch the full animated case study deck
                                     </span>
@@ -586,7 +586,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         </button>
 
                         {/* Replay button */}
-                        <motion.button
+                        <m.button
                             onClick={onReplay}
                             className="flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/[0.03] text-zinc-500 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:bg-white/10 hover:text-zinc-200 hover:border-white/30 transition-all cursor-pointer"
                             initial={{ opacity: 0 }}
@@ -597,8 +597,8 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         >
                             <RotateCcw className="w-3 h-3" />
                             Replay trailer
-                        </motion.button>
-                    </motion.div>
+                        </m.button>
+                    </m.div>
                 )}
             </AnimatePresence>
         </div>

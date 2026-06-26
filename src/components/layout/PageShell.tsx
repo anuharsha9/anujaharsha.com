@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { LazyMotion, domMax } from 'framer-motion'
 import SiteHeader from './SiteHeader'
 
 import SkipToContent from '@/components/accessibility/SkipToContent'
@@ -61,6 +62,13 @@ export default function PageShell({ children }: PageShellProps) {
 
   return (
     <ErrorBoundary>
+      {/* LazyMotion + the `m` component (used site-wide instead of `motion`)
+          ships only the animation features we actually use instead of the
+          full framer-motion bundle. domMax is required because we use layout
+          animations (layoutId) and drag (lightbox carousels). Loading it here
+          at the shell root covers the portaled cursor too (React context
+          crosses createPortal). */}
+      <LazyMotion features={domMax}>
       <SmoothScrollProvider>
         <TransitionProvider>
           {/* Custom cursor for desktop - instant movement, matches system speed */}
@@ -93,6 +101,7 @@ export default function PageShell({ children }: PageShellProps) {
           {!isManifesto && <BackToTop />}
         </TransitionProvider>
       </SmoothScrollProvider>
+      </LazyMotion>
     </ErrorBoundary>
   )
 }

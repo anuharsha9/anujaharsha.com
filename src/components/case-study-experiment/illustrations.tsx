@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 /* ─────────────────────────────────────────────────────────────
  PEOPLE DOT GRID
@@ -12,7 +12,7 @@ export function PeopleDotGrid({ total = 200, highlighted = 2 }: { total?: number
  const highlightedIndices = [Math.floor(total * 0.62), Math.floor(total * 0.89)]
 
  return (
- <motion.div
+ <m.div
  className="flex flex-wrap gap-[6px] max-w-[400px] mb-8"
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
@@ -28,7 +28,7 @@ export function PeopleDotGrid({ total = 200, highlighted = 2 }: { total?: number
  }`}
  />
  ))}
- </motion.div>
+ </m.div>
  )
 }
 
@@ -65,7 +65,7 @@ export function AvatarPair({
 
  {/* Connection line */}
  <div className="flex-1 max-w-[120px] h-[2px] bg-gradient-to-r from-white/10 via-white/20 to-white/10 relative mt-[-20px]">
- <motion.div
+ <m.div
  className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--accent-teal)]/50 to-transparent"
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
@@ -94,7 +94,7 @@ export function ScreenshotStack() {
  return (
  <div className="relative w-56 h-40 shrink-0 min-w-[14rem]">
  {[0, 1, 2, 3, 4].map((i) => (
- <motion.div
+ <m.div
  key={i}
  initial={{ opacity: 0, x: -20, rotate: 0 }}
  whileInView={{ opacity: 1, x: 0, rotate: (i - 2) * 4 }}
@@ -111,7 +111,7 @@ export function ScreenshotStack() {
  >
  <div className="w-[80%] h-[2px] bg-white/10 absolute top-3 left-3 rounded-full" />
  <div className="w-[60%] h-[2px] bg-white/5 absolute top-5 left-3 rounded-full" />
- </motion.div>
+ </m.div>
  ))}
  </div>
  )
@@ -132,7 +132,7 @@ export function FlowDiagram({
  <div className={`flex flex-wrap items-center gap-3 mb-8 ${className}`}>
  {steps.map((step, i) => (
  <React.Fragment key={i}>
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
@@ -146,9 +146,9 @@ export function FlowDiagram({
  {i === steps.length - 1 ? '✓' : '○'}
  </div>
  <span className="text-[10px] uppercase font-mono tracking-widest whitespace-nowrap">{step}</span>
- </motion.div>
+ </m.div>
  {i < steps.length - 1 && (
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
@@ -185,7 +185,7 @@ export function ScatterConverge() {
  {/* Connecting Data Lines - Marching Ants */}
  <svg className="absolute inset-0 w-full h-full pointer-events-none">
  {nodes.map((node, i) => (
- <motion.line
+ <m.line
  key={`line-bg-${i}`}
  x1={node.x} y1={node.y} x2="50%" y2="50%"
  stroke="currentColor"
@@ -195,7 +195,7 @@ export function ScatterConverge() {
  ))}
 
  {nodes.map((node, i) => (
- <motion.line
+ <m.line
  key={`data-${i}`}
  x1={node.x} y1={node.y} x2="50%" y2="50%"
  stroke="currentColor"
@@ -216,7 +216,7 @@ export function ScatterConverge() {
 
  {/* The 5 scattered nodes */}
  {nodes.map((node, i) => (
- <motion.div
+ <m.div
  key={`node-${i}`}
  className="absolute w-12 h-12 rounded-full border border-[var(--accent-teal)]/30 bg-[var(--bg-primary)] flex items-center justify-center shadow-[0_0_15px_rgba(45,212,191,0.2)] z-10"
  initial={{ left: node.x, top: node.y, scale: 0, opacity: 0 }}
@@ -234,11 +234,11 @@ export function ScatterConverge() {
  style={{ animationDelay: `${node.delay}s` }}
  />
  <span className="absolute -top-6 text-[10px] font-mono text-zinc-200 tracking-widest bg-black/80 px-2 py-0.5 rounded border border-white/10">{node.label}</span>
- </motion.div>
+ </m.div>
  ))}
 
  {/* The Center Hub */}
- <motion.div
+ <m.div
  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center z-20"
  initial={{ scale: 0.5, opacity: 0 }}
  whileInView={{ scale: 1, opacity: 1 }}
@@ -272,7 +272,7 @@ export function ScatterConverge() {
  <span className="text-[10px] font-mono tracking-[0.3em] text-zinc-100 mt-1 pl-1">HUB</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
 
  <style jsx>{`
  .scatter-rotate { animation: scatter-spin 8s linear infinite; }
@@ -294,7 +294,7 @@ export function ScatterConverge() {
  ───────────────────────────────────────────────────────────── */
 export function RejectionMark() {
  return (
- <motion.div
+ <m.div
  initial={{ opacity: 0, rotate: -20, scale: 0.5 }}
  whileInView={{ opacity: 1, rotate: -6, scale: 1 }}
  viewport={{ once: true }}
@@ -303,7 +303,7 @@ export function RejectionMark() {
  style={{ textShadow: '0 0 40px rgba(239, 68, 68, 0.2)' }}
  >
  ✕
- </motion.div>
+ </m.div>
  )
 }
 
@@ -319,7 +319,7 @@ export function PlusIconTree({
  return (
  <div className="flex flex-col items-center py-16">
  {/* Plus icon */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.8, y: 20 }}
  whileInView={{ opacity: 1, scale: 1, y: 0 }}
  viewport={{ once: true }}
@@ -329,10 +329,10 @@ export function PlusIconTree({
  <span className="text-[var(--accent-teal)] text-5xl font-light mb-1 relative z-10">+</span>
  {/* Pulse ring — CSS */}
  <div className="absolute inset-[-1px] rounded-2xl border border-[var(--accent-teal)]/30 plus-pulse" />
- </motion.div>
+ </m.div>
 
  {/* Vertical line */}
- <motion.div
+ <m.div
  initial={{ scaleY: 0 }}
  whileInView={{ scaleY: 1 }}
  viewport={{ once: true }}
@@ -341,7 +341,7 @@ export function PlusIconTree({
  />
 
  {/* Horizontal line for branches */}
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
@@ -352,7 +352,7 @@ export function PlusIconTree({
  {/* Branches */}
  <div className="flex items-start justify-between w-full max-w-sm px-4">
  {branches.map((label, i) => (
- <motion.div
+ <m.div
  key={i}
  initial={{ opacity: 0, y: 15 }}
  whileInView={{ opacity: 1, y: 0 }}
@@ -362,7 +362,7 @@ export function PlusIconTree({
  >
  <div className="w-[2px] h-6 bg-white/20" />
  <span className="text-[11px] font-mono text-zinc-400 text-center uppercase tracking-widest leading-relaxed max-w-[100px]">{label}</span>
- </motion.div>
+ </m.div>
  ))}
  </div>
 
@@ -389,7 +389,7 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
  <div className="flex flex-row items-start justify-center flex-wrap gap-2 w-full max-w-sm">
  {roles.map((role, i) => (
  <React.Fragment key={i}>
- <motion.div
+ <m.div
  className="flex flex-col items-center gap-2"
  initial={{ opacity: 0, scale: 0.8, y: 10 }}
  whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -406,9 +406,9 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
  <span className={`text-[9px] font-mono uppercase tracking-widest text-center leading-tight max-w-[60px] ${role.active ? 'text-[var(--accent-teal)]' : 'text-zinc-500'}`}>
  {role.name}
  </span>
- </motion.div>
+ </m.div>
  {i < roles.length - 1 && (
- <motion.div
+ <m.div
  className="h-12 flex items-center px-1"
  initial={{ opacity: 0, scale: 0 }}
  whileInView={{ opacity: 1, scale: 1 }}
@@ -416,7 +416,7 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
  transition={{ duration: 0.3, delay: i * 0.15 + 0.1 }}
  >
  <span className="text-zinc-800 font-light text-sm">→</span>
- </motion.div>
+ </m.div>
  )}
  </React.Fragment>
  ))}
@@ -432,21 +432,21 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
 export function KnowledgeTransfer() {
  return (
  <div className="flex items-center justify-center gap-4 my-8 h-20 w-full relative">
- <motion.div
+ <m.div
  className="w-14 h-14 rounded-full border border-[var(--accent-teal)] bg-[var(--accent-teal)]/20 flex items-center justify-center shadow-[0_0_20px_rgba(45,212,191,0.2)] z-10"
  initial={{ x: -20, opacity: 0 }}
  whileInView={{ x: 0, opacity: 1 }}
  viewport={{ once: true }}
  >
  <span className="font-mono text-xs text-[var(--accent-teal)]">Me</span>
- </motion.div>
+ </m.div>
 
  {/* Moving Pulses */}
  <div className="flex-1 max-w-[100px] h-[2px] bg-white/10 relative overflow-hidden">
  <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent kt-pulse" />
  </div>
 
- <motion.div
+ <m.div
  className="w-14 h-14 rounded-full border border-white/20 bg-white/5 flex items-center justify-center z-10"
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
@@ -454,14 +454,14 @@ export function KnowledgeTransfer() {
  transition={{ delay: 0.4 }}
  >
  <span className="font-mono text-xs text-zinc-200">Jr</span>
- </motion.div>
+ </m.div>
 
  <div className="flex-1 max-w-[100px] h-[2px] bg-white/10 relative overflow-hidden">
  <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent kt-pulse" style={{ animationDelay: '0.75s' }} />
  </div>
 
  <div className="flex flex-col gap-2 relative z-10">
- <motion.div
+ <m.div
  className="w-10 h-10 rounded-full border border-white/10 bg-[var(--bg-secondary)] flex items-center justify-center"
  initial={{ scale: 0 }}
  whileInView={{ scale: 1 }}
@@ -469,8 +469,8 @@ export function KnowledgeTransfer() {
  transition={{ delay: 0.6 }}
  >
  <span className="font-mono text-[9px] text-zinc-500">D1</span>
- </motion.div>
- <motion.div
+ </m.div>
+ <m.div
  className="w-10 h-10 rounded-full border border-white/10 bg-[var(--bg-secondary)] flex items-center justify-center"
  initial={{ scale: 0 }}
  whileInView={{ scale: 1 }}
@@ -478,7 +478,7 @@ export function KnowledgeTransfer() {
  transition={{ delay: 0.8 }}
  >
  <span className="font-mono text-[9px] text-zinc-500">D2</span>
- </motion.div>
+ </m.div>
  </div>
 
  <style jsx>{`
@@ -509,8 +509,8 @@ export function ImpactClimax() {
  return (
  <div className="w-full flex justify-center py-8">
  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-5xl">
- {metrics.map((m, i) => (
- <motion.div
+ {metrics.map((metric, i) => (
+ <m.div
  key={i}
  className="flex flex-col p-6 border border-white/5 bg-[var(--bg-primary)] rounded-xl relative group hover:bg-[var(--bg-ink-900)] transition-colors"
  initial={{ opacity: 0, scale: 0.98, y: 10 }}
@@ -523,23 +523,23 @@ export function ImpactClimax() {
 
  {/* Label */}
  <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest mb-6 block leading-tight">
- {m.label}
+ {metric.label}
  </span>
 
  {/* The Numbers */}
  <div className="flex flex-col mt-auto pt-4 border-t border-white/5">
  <div className="flex items-center gap-2 mb-2 opacity-70">
- <span className="text-zinc-600 text-xs font-mono line-through decoration-zinc-700/80">{m.before}</span>
+ <span className="text-zinc-600 text-xs font-mono line-through decoration-zinc-700/80">{metric.before}</span>
  <span className="text-zinc-600 text-[10px]">→</span>
  </div>
  <div className="flex items-baseline gap-2">
  <span className="text-white text-4xl md:text-5xl font-light tracking-tight transition-colors duration-500 group-hover:text-[var(--accent-teal)]">
- {m.after}
+ {metric.after}
  </span>
- <span className="text-[var(--accent-teal)]/70 font-mono text-[10px] uppercase tracking-widest">{m.unit}</span>
+ <span className="text-[var(--accent-teal)]/70 font-mono text-[10px] uppercase tracking-widest">{metric.unit}</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
  ))}
  </div>
  </div>
@@ -554,7 +554,7 @@ export function VideoGrid({ highlightIndex = 5 }: { highlightIndex?: number }) {
  return (
  <div className="grid grid-cols-3 gap-3 w-64 md:w-80 mb-8 max-w-full">
  {Array.from({ length: 6 }).map((_, i) => (
- <motion.div
+ <m.div
  key={i}
  initial={{ opacity: 0, scale: 0.9 }}
  whileInView={{ opacity: 1, scale: 1 }}
@@ -571,7 +571,7 @@ export function VideoGrid({ highlightIndex = 5 }: { highlightIndex?: number }) {
 
  {/* Avatar inner */}
  <div className={`w-8 h-8 rounded-full ${i === highlightIndex ? 'bg-[var(--accent-teal)]/60' : 'bg-white/20'}`} />
- </motion.div>
+ </m.div>
  ))}
  </div>
  )

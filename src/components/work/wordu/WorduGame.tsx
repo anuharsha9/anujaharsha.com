@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, FormEvent, useCallback } from "react"
-import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion"
+import { m, AnimatePresence, useSpring, useTransform } from "framer-motion"
 import {
     ArrowRight,
     Trophy,
@@ -105,7 +105,7 @@ const AnimatedCounter = ({ value }: { value: number }) => {
         spring.set(value);
     }, [value, spring]);
 
-    return <motion.span>{display}</motion.span>;
+    return <m.span>{display}</m.span>;
 };
 
 const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () => void }) => {
@@ -156,14 +156,14 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
 
     return (
         <>
-            <motion.div
+            <m.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={onClose}
                 className="absolute inset-0 bg-zinc-900/20 backdrop-blur-sm z-40 transition-all"
             />
-            <motion.div
+            <m.div
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}
@@ -250,7 +250,7 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                         </div>
                     )}
                 </div>
-            </motion.div>
+            </m.div>
         </>
     )
 }
@@ -555,7 +555,7 @@ export default function WorduGame() {
 
                 {/* === MENU STATE === */}
                 {gameState === "menu" && (
-                    <motion.div
+                    <m.div
                         key="menu"
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -564,7 +564,7 @@ export default function WorduGame() {
                     >
                         <div className="flex items-center mb-2 shrink-0">
                             {['W', 'O', 'R', 'D'].map((letter, i) => (
-                                <motion.div
+                                <m.div
                                     key={i}
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
@@ -572,16 +572,16 @@ export default function WorduGame() {
                                     className="w-11 h-11 bg-[var(--surface-wordu-input)] text-[var(--text-wordu-primary)] rounded-lg flex items-center justify-center text-xl font-black mx-0.5"
                                 >
                                     {letter}
-                                </motion.div>
+                                </m.div>
                             ))}
-                            <motion.div
+                            <m.div
                                 initial={{ y: 20, opacity: 0, rotate: -180 }}
                                 animate={{ y: 0, opacity: 1, rotate: 0 }}
                                 transition={{ delay: 0.5, type: "spring" }}
                                 className="w-11 h-11 bg-[var(--accent-wordu)] text-white rounded-lg flex items-center justify-center text-xl font-black mx-0.5 relative z-10"
                             >
                                 U
-                            </motion.div>
+                            </m.div>
                         </div>
 
                         <p className="text-[var(--text-wordu-dim)] mb-5 text-xs font-medium shrink-0">
@@ -596,7 +596,7 @@ export default function WorduGame() {
                                 </div>
                             ) : (
                                 MODES.map((mode, i) => (
-                                    <motion.button
+                                    <m.button
                                         key={mode.id}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -616,16 +616,16 @@ export default function WorduGame() {
                                                 <p className="text-xs text-[var(--text-wordu-dim)] leading-tight truncate">{mode.desc}</p>
                                             </div>
                                         </div>
-                                    </motion.button>
+                                    </m.button>
                                 ))
                             )}
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* === PLAYING STATE === */}
                 {gameState === "playing" && (
-                    <motion.div
+                    <m.div
                         key="playing"
                         className="w-full h-full flex flex-col bg-[var(--surface-wordu)] relative"
                         initial={{ scale: 0.95, opacity: 0 }}
@@ -695,7 +695,7 @@ export default function WorduGame() {
                                     const isUser = entry.player === "you"
 
                                     return (
-                                        <motion.div
+                                        <m.div
                                             key={entry.id}
                                             initial={{ opacity: 0, y: 20, scale: 0.8 }}
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -741,7 +741,7 @@ export default function WorduGame() {
                                                 )}
 
                                             </div>
-                                        </motion.div>
+                                        </m.div>
                                     )
                                 })}
                             </AnimatePresence>
@@ -749,7 +749,7 @@ export default function WorduGame() {
                             {/* Hint Bubble */}
                             <AnimatePresence>
                                 {hint && (
-                                    <motion.div
+                                    <m.div
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
@@ -766,13 +766,13 @@ export default function WorduGame() {
                                             <Lightbulb size={18} strokeWidth={3} />
                                             {hint}
                                         </button>
-                                    </motion.div>
+                                    </m.div>
                                 )}
                             </AnimatePresence>
 
                             {/* Opponent Thinking Indicator */}
                             {turn === 'opponent' && wordChain.length > 0 && (
-                                <motion.div
+                                <m.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     className="flex justify-start pl-8 mt-4"
@@ -782,7 +782,7 @@ export default function WorduGame() {
                                         <div className="w-1.5 h-1.5 bg-[var(--text-wordu-dim)] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                                         <div className="w-1.5 h-1.5 bg-[var(--text-wordu-dim)] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                                     </div>
-                                </motion.div>
+                                </m.div>
                             )}
 
                             <div ref={bottomRef} className="h-4" />
@@ -793,7 +793,7 @@ export default function WorduGame() {
                         {/* Points Preview Bubble - Floating above Input */}
                         <AnimatePresence>
                             {currentInput.length > 2 && dictionary.has(currentInput.toLowerCase()) && (
-                                <motion.div
+                                <m.div
                                     initial={{ opacity: 0, scale: 0.8, y: 10 }}
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
                                     exit={{ opacity: 0 }}
@@ -802,13 +802,13 @@ export default function WorduGame() {
                                     <div className="bg-[var(--accent-wordu)] text-white text-sm font-bold px-4 py-2 rounded-full animate-bounce">
                                         Excellent! +{currentInput.length * multiplier} pts
                                     </div>
-                                </motion.div>
+                                </m.div>
                             )}
                         </AnimatePresence>
 
                         <div className="absolute bottom-0 w-full bg-[var(--surface-wordu-raised)] px-4 py-6 border-t-2 border-[var(--border-wordu)] z-30">
                             {errorMsg && (
-                                <motion.div
+                                <m.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0 }}
@@ -816,7 +816,7 @@ export default function WorduGame() {
                                 >
                                     <X size={20} className="stroke-[4px]" />
                                     {errorMsg}
-                                </motion.div>
+                                </m.div>
                             )}
 
                             <form onSubmit={handleSubmit} className="flex gap-3 max-w-lg mx-auto relative cursor-text" onClick={() => inputRef.current?.focus()}>
@@ -849,18 +849,18 @@ export default function WorduGame() {
                                 </button>
                             </form>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* === GAME OVER STATE === */}
                 {gameState === "gameover" && (
-                    <motion.div
+                    <m.div
                         key="gameover"
                         className="absolute inset-0 z-50 bg-[var(--surface-wordu-raised)]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                     >
-                        <motion.div
+                        <m.div
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             className="mb-8"
@@ -877,7 +877,7 @@ export default function WorduGame() {
                             <p className="text-[var(--text-wordu-dim)] font-bold text-lg">
                                 You scored
                             </p>
-                        </motion.div>
+                        </m.div>
 
                         <div className="bg-[var(--surface-wordu-card)] border-2 border-[var(--border-wordu)] rounded-3xl p-8 w-full max-w-xs mb-8 flex flex-col items-center">
                             <div className="text-6xl font-black text-[var(--accent-wordu)] tracking-tighter mb-2">
@@ -903,7 +903,7 @@ export default function WorduGame() {
                                 Exit
                             </button>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* === DICTIONARY SHEET === */}

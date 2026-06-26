@@ -14,7 +14,7 @@
 
 import React, { useRef } from 'react'
 import {
-    motion,
+    m,
     useScroll,
     useTransform,
     useMotionTemplate,
@@ -99,7 +99,7 @@ export default function PerspectiveReveal({
             className={className}
             style={{ perspective: '1200px', position: 'relative' }}
         >
-            <motion.div
+            <m.div
                 style={{
                     scale,
                     rotateX,
@@ -109,7 +109,7 @@ export default function PerspectiveReveal({
                 }}
             >
                 {children}
-            </motion.div>
+            </m.div>
         </div>
     )
 }

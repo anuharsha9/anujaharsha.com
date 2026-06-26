@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
@@ -43,7 +43,7 @@ function DSMLNavigationDiagram() {
     const arrow = 'text-zinc-500/50 font-mono text-lg md:text-xl select-none flex-shrink-0'
 
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -51,7 +51,7 @@ function DSMLNavigationDiagram() {
             className="w-full"
         >
             {/* Header pill */}
-            <motion.div
+            <m.div
                 initial={{ opacity: 0 }}
                 animate={step >= 1 ? { opacity: 1 } : {}}
                 transition={{ duration: 0.4 }}
@@ -60,13 +60,13 @@ function DSMLNavigationDiagram() {
                 <span className="inline-block font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase text-rose-400/70 border border-rose-400/20 rounded-full px-4 py-1.5 bg-rose-400/[0.04]">
                     Two Paths — Zero Shared Context
                 </span>
-            </motion.div>
+            </m.div>
 
             {/* Two paths — side by side on desktop, stacked on mobile */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
 
                 {/* PATH 1: NLQ & Insights */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, ease }}
@@ -76,25 +76,25 @@ function DSMLNavigationDiagram() {
 
                     {/* Horizontal flow */}
                     <div className="flex flex-wrap items-center gap-2 md:gap-2.5">
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Hub</motion.div>
-                        <motion.span initial={{ opacity: 0 }} animate={step >= 2 ? { opacity: 1 } : {}} className={arrow}>→</motion.span>
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>+ Menu</motion.div>
-                        <motion.span initial={{ opacity: 0 }} animate={step >= 3 ? { opacity: 1 } : {}} className={arrow}>→</motion.span>
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Explore Data</motion.div>
-                        <motion.span initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} className={arrow}>→</motion.span>
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className="flex gap-1.5">
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Hub</m.div>
+                        <m.span initial={{ opacity: 0 }} animate={step >= 2 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>+ Menu</m.div>
+                        <m.span initial={{ opacity: 0 }} animate={step >= 3 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Explore Data</m.div>
+                        <m.span initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className="flex gap-1.5">
                             <div className={`${node} border-purple-500/30 bg-purple-500/[0.08] text-purple-300`}>NLQ</div>
                             <div className={`${node} border-teal-500/30 bg-teal-500/[0.08] text-teal-300`}>Insights</div>
-                        </motion.div>
+                        </m.div>
                     </div>
 
-                    <motion.p initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} transition={{ delay: 0.15 }} className="text-[10px] md:text-xs text-rose-400/40 font-mono mt-4">
+                    <m.p initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} transition={{ delay: 0.15 }} className="text-[10px] md:text-xs text-rose-400/40 font-mono mt-4">
                         4 clicks · buried in a popup · side-by-side tabs
-                    </motion.p>
-                </motion.div>
+                    </m.p>
+                </m.div>
 
                 {/* PATH 2: ML / Predict Data */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, ease, delay: 0.1 }}
@@ -104,23 +104,23 @@ function DSMLNavigationDiagram() {
 
                     {/* Horizontal flow */}
                     <div className="flex flex-wrap items-center gap-2 md:gap-2.5">
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Hub</motion.div>
-                        <motion.span initial={{ opacity: 0 }} animate={step >= 2 ? { opacity: 1 } : {}} className={arrow}>→</motion.span>
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>App Dirs</motion.div>
-                        <motion.span initial={{ opacity: 0 }} animate={step >= 3 ? { opacity: 1 } : {}} className={arrow}>→</motion.span>
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Right-click</motion.div>
-                        <motion.span initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} className={arrow}>→</motion.span>
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={`${node} border-amber-500/30 bg-amber-500/[0.08] text-amber-300`}>Predict Data</motion.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Hub</m.div>
+                        <m.span initial={{ opacity: 0 }} animate={step >= 2 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>App Dirs</m.div>
+                        <m.span initial={{ opacity: 0 }} animate={step >= 3 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Right-click</m.div>
+                        <m.span initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={`${node} border-amber-500/30 bg-amber-500/[0.08] text-amber-300`}>Predict Data</m.div>
                     </div>
 
-                    <motion.p initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} transition={{ delay: 0.15 }} className="text-[10px] md:text-xs text-rose-400/40 font-mono mt-4">
+                    <m.p initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} transition={{ delay: 0.15 }} className="text-[10px] md:text-xs text-rose-400/40 font-mono mt-4">
                         4 clicks · completely different path · different mental model
-                    </motion.p>
-                </motion.div>
+                    </m.p>
+                </m.div>
             </div>
 
             {/* Verdict */}
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={step >= 5 ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, ease }}
@@ -132,8 +132,8 @@ function DSMLNavigationDiagram() {
                 <p className="text-lg md:text-xl font-bold text-rose-400 mt-1">
                     No wonder nobody found them.
                 </p>
-            </motion.div>
-        </motion.div>
+            </m.div>
+        </m.div>
     )
 }
 
@@ -282,7 +282,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                         {/* After workflow — the elegant solution */}
                         <EyebrowLabel>The Solution — One Click</EyebrowLabel>
                         <BentoRow layout="full">
-                            <motion.div
+                            <m.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -308,7 +308,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     <div className="text-center"><div className="text-xl font-bold text-emerald-300 font-mono">3→1</div><div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Entry Points</div></div>
                                     <div className="text-center"><div className="text-xl font-bold text-emerald-300 font-mono">0</div><div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">New Infra</div></div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         </BentoRow>
 
                         {/* Flowchart + One Entry Point */}
@@ -562,7 +562,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                         {data.reflection?.people && data.reflection.people.length > 0 && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                                 {data.reflection.people.map((person: { quote: string; name: string; role: string; initials?: string }, i: number) => (
-                                    <motion.div
+                                    <m.div
                                         key={i}
                                         initial={{ opacity: 0, y: 24 }}
                                         whileInView={{ opacity: 1, y: 0 }}
@@ -578,13 +578,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                             <p className="text-zinc-200 italic font-light leading-relaxed text-lg mb-6">&ldquo;{person.quote}&rdquo;</p>
                                             <p className="text-xs text-zinc-500 font-mono uppercase tracking-wider">— {person.name}, {person.role}</p>
                                         </div>
-                                    </motion.div>
+                                    </m.div>
                                 ))}
                             </div>
                         )}
 
                         {/* Personal reflection — maternity leave */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -595,11 +595,11 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                             <p className="text-zinc-200 font-light leading-relaxed text-lg">
                                 When I returned from maternity leave, the engineering team shared that they valued the way I approached design &mdash; understanding the system, asking the right questions, making informed decisions. The experience reinforced something I already believed: <span className="text-[var(--cs-accent)] font-medium">context isn&apos;t transferable through documentation alone. It comes from genuine curiosity and investment in the problem.</span>
                             </p>
-                        </motion.div>
+                        </m.div>
 
                         {data.reflection?.retrospective && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                                <motion.div
+                                <m.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
@@ -609,8 +609,8 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
                                     <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.pushHarder.title}</h3>
                                     <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.pushHarder.content }} />
-                                </motion.div>
-                                <motion.div
+                                </m.div>
+                                <m.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
@@ -620,7 +620,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>
                                     <h3 className="text-white font-bold text-xl mb-3">{data.reflection.retrospective.doNext.title}</h3>
                                     <p className="text-zinc-400 font-light text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: data.reflection.retrospective.doNext.content }} />
-                                </motion.div>
+                                </m.div>
                             </div>
                         )}
                     </CinematicScene>

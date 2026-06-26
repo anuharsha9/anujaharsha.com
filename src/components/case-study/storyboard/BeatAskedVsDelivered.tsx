@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -63,7 +63,7 @@ export default function BeatAskedVsDelivered() {
 
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  The brief said{' '}
@@ -71,14 +71,14 @@ export default function BeatAskedVsDelivered() {
  But this needed a structural redesign, not a UI facelift.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── The Scale ───────────────────────────── */}
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -88,23 +88,23 @@ export default function BeatAskedVsDelivered() {
  <div className="flex justify-center mb-6">
  <svg viewBox="0 0 500 200" className="w-full max-w-xl" style={{ overflow: 'visible' }}>
  {/* Fulcrum */}
- <motion.g
+ <m.g
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.5 }}
  >
  <polygon points="250,200 235,170 265,170" fill="var(--overlay-white-05)" stroke="var(--overlay-white-10)" strokeWidth="1" />
  <circle cx="250" cy="165" r="4" fill="var(--overlay-white-15)" />
- </motion.g>
+ </m.g>
 
  {/* Beam — tilts! */}
- <motion.g
+ <m.g
  animate={{ rotate: tiltDeg }}
  transition={{ duration: 0.6, ease }}
  style={{ transformOrigin: '250px 165px' }}
  >
  {/* Beam bar */}
- <motion.rect
+ <m.rect
  x="60" y="162" width="380" height="6" rx="3"
  fill="var(--overlay-white-06)"
  stroke="var(--overlay-white-10)"
@@ -125,7 +125,7 @@ export default function BeatAskedVsDelivered() {
  {ASKED.map((_, i) => (
  <AnimatePresence key={`asked-block-${i}`}>
  {phase >= 2 + i && (
- <motion.rect
+ <m.rect
  x={85 + i * 5}
  y={118 - i * 12}
  width={50 - i * 10}
@@ -161,7 +161,7 @@ export default function BeatAskedVsDelivered() {
  {DELIVERED.map((_, i) => (
  <AnimatePresence key={`del-block-${i}`}>
  {phase >= 7 + i && (
- <motion.rect
+ <m.rect
  x={355}
  y={118 - i * 12}
  width={70}
@@ -187,7 +187,7 @@ export default function BeatAskedVsDelivered() {
  <text x="390" y="155" textAnchor="middle" className="text-[8px] font-mono uppercase" fill="color-mix(in srgb, var(--cs-accent) 35%, transparent)">
  Delivered
  </text>
- </motion.g>
+ </m.g>
  </svg>
  </div>
 
@@ -197,7 +197,7 @@ export default function BeatAskedVsDelivered() {
  <div>
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: phase >= 5 ? 0.3 : 1 }}
  transition={{ duration: 0.5, ease }}
@@ -207,7 +207,7 @@ export default function BeatAskedVsDelivered() {
  </div>
  <div className="space-y-3">
  {ASKED.map((item, i) => (
- <motion.div key={item}
+ <m.div key={item}
  initial={{ opacity: 0, x: -15 }}
  animate={phase >= 2 + i ? { opacity: 1, x: 0 } : { opacity: 0, x: -15 }}
  transition={{ duration: 0.4, ease }}
@@ -217,23 +217,23 @@ export default function BeatAskedVsDelivered() {
  <span className={`text-sm transition-all duration-500 ${phase >= 5 ? 'text-zinc-600 line-through decoration-zinc-500/30 decoration-2' : 'text-zinc-200'}`}>
  {item}
  </span>
- </motion.div>
+ </m.div>
  ))}
  </div>
  {/* "Is that all?" micro-text */}
  <AnimatePresence>
  {phase >= 5 && phase < 6 && (
- <motion.p
+ <m.p
  initial={{ opacity: 0 }}
  animate={{ opacity: 0.5 }}
  exit={{ opacity: 0 }}
  className="text-[10px] text-zinc-600 font-mono mt-3 italic"
  >
  ...is that all?
- </motion.p>
+ </m.p>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -242,19 +242,19 @@ export default function BeatAskedVsDelivered() {
  <div>
  <AnimatePresence>
  {phase >= 6 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease }}>
  <div className="font-mono text-[10px] tracking-[0.3em] uppercase mb-4" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>
  What I actually delivered
  </div>
  <div className="space-y-3">
  {DELIVERED.map((item, i) => (
- <motion.div key={item}
+ <m.div key={item}
  initial={{ opacity: 0, x: 20, scale: 0.95 }}
  animate={phase >= 7 + i ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 20, scale: 0.95 }}
  transition={{ duration: 0.5, ease }}
  className="flex items-start gap-3"
  >
- <motion.span
+ <m.span
  className="flex-shrink-0 mt-1.5"
  initial={{ scale: 0 }}
  animate={phase >= 7 + i ? { scale: 1 } : { scale: 0 }}
@@ -262,7 +262,7 @@ export default function BeatAskedVsDelivered() {
  >
  <svg width="12" height="12" viewBox="0 0 12 12">
  <circle cx="6" cy="6" r="5.5" fill="none" stroke="color-mix(in srgb, var(--cs-accent) 35%, transparent)" strokeWidth="1" />
- <motion.path
+ <m.path
  d="M3.5 6l2 2 3-3.5"
  fill="none"
  stroke="var(--cs-accent)"
@@ -274,12 +274,12 @@ export default function BeatAskedVsDelivered() {
  transition={{ duration: 0.3, delay: 0.15 }}
  />
  </svg>
- </motion.span>
+ </m.span>
  <span className="text-sm" style={{ color: 'var(--cs-accent)', opacity: 0.8 }}>{item}</span>
- </motion.div>
+ </m.div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -288,7 +288,7 @@ export default function BeatAskedVsDelivered() {
  {/* Score comparison */}
  <AnimatePresence>
  {phase >= 13 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scaleX: 0 }}
  animate={{ opacity: 1, scaleX: 1 }}
  transition={{ duration: 0.6, ease }}
@@ -300,7 +300,7 @@ export default function BeatAskedVsDelivered() {
  </div>
  <div className="text-zinc-600 text-lg font-light">vs</div>
  <div className="text-center">
- <motion.div
+ <m.div
  className="text-4xl font-bold font-mono"
  style={{ color: 'var(--cs-accent)' }}
  initial={{ scale: 0.5 }}
@@ -308,20 +308,20 @@ export default function BeatAskedVsDelivered() {
  transition={{ duration: 0.5, ease }}
  >
  6
- </motion.div>
+ </m.div>
  <div className="text-[9px] font-mono uppercase tracking-wider" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>delivered</div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Closing */}
  <AnimatePresence>
  {phase >= 13 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 1.2, ease }}
@@ -330,7 +330,7 @@ export default function BeatAskedVsDelivered() {
  <p className="text-white text-xl md:text-2xl font-semibold tracking-tight">
  They asked for a makeover. I delivered a brand new product.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

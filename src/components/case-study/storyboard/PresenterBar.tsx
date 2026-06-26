@@ -1,7 +1,7 @@
 'use client'
 
 import { type ReactNode, useState, useEffect, useRef, isValidElement, cloneElement, Fragment } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -83,7 +83,7 @@ function TypingDots() {
  return (
  <div className="flex items-center gap-1 px-1 py-1">
  {[0, 1, 2].map((i) => (
- <motion.div
+ <m.div
  key={i}
  className="w-1.5 h-1.5 rounded-full bg-zinc-500"
  animate={{ y: [0, -4, 0], opacity: [0.4, 0.9, 0.4] }}
@@ -161,14 +161,14 @@ export default function PresenterBar({
  }, [phase, typewriterSpeed, onTypingComplete, hideOnMobileAfterTyping])
 
  return (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={hiddenOnMobile ? { opacity: 0, height: 0, marginBottom: 0 } : { opacity: 1 }}
  transition={hiddenOnMobile ? { duration: 0.4, ease } : { duration: 0.6, delay, ease }}
  className="flex items-start gap-4 md:gap-5 mb-8 md:mb-10 overflow-hidden"
  >
  {showAvatar && (
- <motion.div
+ <m.div
  initial={{ scale: 0.8, opacity: 0 }}
  animate={{ scale: 1, opacity: 1 }}
  transition={{ duration: 0.5, delay: delay + 0.1, ease }}
@@ -183,10 +183,10 @@ export default function PresenterBar({
  priority
  className="w-full h-full object-cover"
  />
- </motion.div>
+ </m.div>
  )}
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -8, scale: 0.92 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
  transition={{ duration: 0.5, delay: delay + 0.15, ease: [0.34, 1.56, 0.64, 1] }}
@@ -207,7 +207,7 @@ export default function PresenterBar({
  {/* Shimmer sweep after typewriter completes */}
  <AnimatePresence>
  {phase === 'done' && (
- <motion.div
+ <m.div
  className="absolute inset-0 pointer-events-none"
  initial={{ x: '-100%' }}
  animate={{ x: '200%' }}
@@ -217,13 +217,13 @@ export default function PresenterBar({
  className="w-1/3 h-full"
  style={{ background: 'linear-gradient(90deg, transparent, var(--overlay-white-04), transparent)' }}
  />
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  <AnimatePresence mode="wait">
  {phase === 'typing' ? (
- <motion.div
+ <m.div
  key="typing"
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
@@ -231,9 +231,9 @@ export default function PresenterBar({
  transition={{ duration: 0.2 }}
  >
  <TypingDots />
- </motion.div>
+ </m.div>
  ) : (
- <motion.div
+ <m.div
  key="content"
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
@@ -243,10 +243,10 @@ export default function PresenterBar({
  ? content
  : applyTypewriter(content, visibleChars, { value: 0 })
  }
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  )
 }

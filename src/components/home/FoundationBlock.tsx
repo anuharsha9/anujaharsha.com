@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { m, useInView } from 'framer-motion'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
@@ -57,7 +57,7 @@ const TEXT_DURATION =
     TEXT_START_DELAY + (STANZAS.length - 1) * STANZA_GAP + TOTAL_WORDS * WORD_STAGGER + 0.6
 
 /* Linework chair — front-view, recognizable in two seconds.
- * Uses motion.path with pathLength (the framer-motion docs guarantee path
+ * Uses m.path with pathLength (the framer-motion docs guarantee path
  * support; line elements get a fragile keyframe-resolver race in dev mode).
  * Each stroke is geometry-as-path so the same draw API works for them all. */
 function ChairLineDrawing({ play }: { play: boolean }) {
@@ -81,22 +81,22 @@ function ChairLineDrawing({ play }: { play: boolean }) {
             aria-hidden="true"
         >
             {/* Back uprights */}
-            <motion.path d="M 70 20 L 70 120" {...strokeBase} {...drawAt(0)} />
-            <motion.path d="M 130 20 L 130 120" {...strokeBase} {...drawAt(0.15)} />
+            <m.path d="M 70 20 L 70 120" {...strokeBase} {...drawAt(0)} />
+            <m.path d="M 130 20 L 130 120" {...strokeBase} {...drawAt(0.15)} />
             {/* Top rail of back (gently curved) */}
-            <motion.path d="M 65 22 Q 100 12 135 22" {...strokeBase} {...drawAt(0.35)} />
+            <m.path d="M 65 22 Q 100 12 135 22" {...strokeBase} {...drawAt(0.35)} />
             {/* Back slats */}
-            <motion.path d="M 78 50 L 122 50" {...strokeBase} strokeWidth={0.9} opacity={0.7} {...drawAt(0.55)} />
-            <motion.path d="M 78 75 L 122 75" {...strokeBase} strokeWidth={0.9} opacity={0.5} {...drawAt(0.68)} />
+            <m.path d="M 78 50 L 122 50" {...strokeBase} strokeWidth={0.9} opacity={0.7} {...drawAt(0.55)} />
+            <m.path d="M 78 75 L 122 75" {...strokeBase} strokeWidth={0.9} opacity={0.5} {...drawAt(0.68)} />
             {/* Seat — top edge */}
-            <motion.path d="M 55 120 L 155 120" {...strokeBase} {...drawAt(0.85)} />
+            <m.path d="M 55 120 L 155 120" {...strokeBase} {...drawAt(0.85)} />
             {/* Seat — front edge (depth) */}
-            <motion.path d="M 55 127 L 155 127" {...strokeBase} strokeWidth={1} opacity={0.65} {...drawAt(1.0)} />
+            <m.path d="M 55 127 L 155 127" {...strokeBase} strokeWidth={1} opacity={0.65} {...drawAt(1.0)} />
             {/* Front legs */}
-            <motion.path d="M 60 127 L 60 200" {...strokeBase} {...drawAt(1.15)} />
-            <motion.path d="M 150 127 L 150 200" {...strokeBase} {...drawAt(1.28)} />
+            <m.path d="M 60 127 L 60 200" {...strokeBase} {...drawAt(1.15)} />
+            <m.path d="M 150 127 L 150 200" {...strokeBase} {...drawAt(1.28)} />
             {/* Soft floor line */}
-            <motion.path d="M 40 202 L 170 202" {...strokeBase} strokeWidth={0.8} opacity={0.4} {...drawAt(1.5)} />
+            <m.path d="M 40 202 L 170 202" {...strokeBase} strokeWidth={0.8} opacity={0.4} {...drawAt(1.5)} />
         </svg>
     )
 }
@@ -115,7 +115,7 @@ export default function FoundationBlock() {
 
             <div className="relative mx-auto flex max-w-4xl flex-col items-center px-4 text-center md:px-8 lg:px-12">
                 {/* Large decorative quote mark */}
-                <motion.span
+                <m.span
                     className="pointer-events-none mb-4 select-none font-serif text-7xl leading-none text-white/[0.05] md:text-8xl"
                     aria-hidden="true"
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -123,7 +123,7 @@ export default function FoundationBlock() {
                     transition={{ duration: 1, ease }}
                 >
                     &ldquo;
-                </motion.span>
+                </m.span>
 
                 {/* Stanzas — word-by-word reveal */}
                 <blockquote className="space-y-6 md:space-y-8">
@@ -133,7 +133,7 @@ export default function FoundationBlock() {
                             className="flex flex-wrap items-baseline justify-center gap-x-[0.35em] gap-y-1 font-sans text-2xl italic leading-[1.55] text-white md:text-3xl lg:text-4xl"
                         >
                             {stanza.map((word, wIdx) => (
-                                <motion.span
+                                <m.span
                                     key={`${sIdx}-${wIdx}`}
                                     className={word.emphasis ? 'text-[var(--accent-teal)]' : ''}
                                     initial={{ opacity: 0, y: 10, filter: 'blur(8px)' }}
@@ -149,31 +149,31 @@ export default function FoundationBlock() {
                                     }}
                                 >
                                     {word.text}
-                                </motion.span>
+                                </m.span>
                             ))}
                         </p>
                     ))}
                 </blockquote>
 
                 {/* Payoff — the chair appears after the philosophy lands */}
-                <motion.div
+                <m.div
                     className="mt-14 md:mt-16"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : {}}
                     transition={{ duration: 0.4, delay: TEXT_DURATION }}
                 >
                     <ChairLineDrawing play={isInView} />
-                </motion.div>
+                </m.div>
 
                 {/* Signature line */}
-                <motion.p
+                <m.p
                     className="mt-6 font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 md:text-xs"
                     initial={{ opacity: 0, y: 8 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: TEXT_DURATION + 1.8, ease }}
                 >
                     — How I design
-                </motion.p>
+                </m.p>
             </div>
         </section>
     )

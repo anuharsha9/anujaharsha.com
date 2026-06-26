@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
 
@@ -121,7 +121,7 @@ export default function BeatRecurrence() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  I was configuring a recurrence pattern and tried to read it out loud. I thought: why not just{' '}
@@ -129,7 +129,7 @@ export default function BeatRecurrence() {
  A natural language sentence that renders after selecting your settings — so you read your schedule like a sentence, not a settings panel.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -141,7 +141,7 @@ export default function BeatRecurrence() {
  return (
  <AnimatePresence key={ex.label}>
  {isVisible && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5, ease }}
@@ -166,7 +166,7 @@ export default function BeatRecurrence() {
 
  <div className="p-3 relative">
  {/* Before — cluttered settings UI */}
- <motion.div
+ <m.div
  animate={{
  opacity: isDecoded ? 0.2 : 1,
  y: isDecoded ? -2 : 0,
@@ -178,17 +178,17 @@ export default function BeatRecurrence() {
  {line}
  </div>
  ))}
- </motion.div>
+ </m.div>
 
  {/* Scan line sweep */}
  {isDecoded && (
- <motion.div
+ <m.div
  className="absolute inset-0 pointer-events-none"
  initial={{ opacity: 0 }}
  animate={{ opacity: [0, 1, 0] }}
  transition={{ duration: 0.7 }}
  >
- <motion.div
+ <m.div
  className="absolute top-0 h-full w-0.5"
  style={{
  background: `linear-gradient(180deg, transparent, ${ex.color}, transparent)`,
@@ -198,13 +198,13 @@ export default function BeatRecurrence() {
  animate={{ left: '100%' }}
  transition={{ duration: 0.5, ease: 'easeInOut' }}
  />
- </motion.div>
+ </m.div>
  )}
 
  {/* After — natural language with checkmark */}
  <AnimatePresence>
  {isDecoded && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, height: 0 }}
  animate={{ opacity: 1, height: 'auto' }}
  transition={{ duration: 0.5, delay: 0.25, ease }}
@@ -212,14 +212,14 @@ export default function BeatRecurrence() {
  style={{ borderColor: withHexAlpha(ex.color, '15') }}
  >
  <div className="flex items-center gap-1.5 mb-1.5">
- <motion.div
+ <m.div
  initial={{ scale: 0 }}
  animate={{ scale: 1 }}
  transition={{ duration: 0.3, delay: 0.3, type: 'spring' }}
  >
  <svg width="16" height="16" viewBox="0 0 16 16">
  <circle cx="8" cy="8" r="7" fill="none" stroke={withHexAlpha(ex.color, '40')} strokeWidth="1.5" />
- <motion.path
+ <m.path
  d="M5 8l2 2 4-4.5"
  fill="none"
  stroke={ex.color}
@@ -231,7 +231,7 @@ export default function BeatRecurrence() {
  transition={{ duration: 0.3, delay: 0.4 }}
  />
  </svg>
- </motion.div>
+ </m.div>
  <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: ex.color }}>
  Plain English
  </span>
@@ -243,11 +243,11 @@ export default function BeatRecurrence() {
  color={ex.color}
  />
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  )

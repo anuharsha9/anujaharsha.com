@@ -11,7 +11,7 @@ import TestimonialContent from './TestimonialContent'
 import FlagshipTheater from '@/components/FlagshipTheater'
 
 import { ERA_TAGS } from './constants'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Play, ArrowDown } from 'lucide-react'
 
 interface MobileTimelineProps {
@@ -51,7 +51,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
     // INTERSTITIAL — Life Context Only)
     if (isInterstitial) {
         return (
-            <motion.div
+            <m.div
                 className="py-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -85,14 +85,14 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                         })}
                     </div>
                 </div>
-            </motion.div>
+            </m.div>
         )
     }
 
     // TESTIMONIAL SLIDE
     if (isTestimonialSlide) {
         return (
-            <motion.div
+            <m.div
                 className="py-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -100,13 +100,13 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 transition={{ duration: 0.6 }}
             >
                 <TestimonialContent era={era} />
-            </motion.div>
+            </m.div>
         )
     }
 
     // DEFAULT ERA BLOCK (Work + Context)
     return (
-        <motion.div
+        <m.div
             className="space-y-10 relative"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -209,6 +209,6 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                     <FoundationsTerminal foundations={era.foundations} />
                 </div>
             )}
-        </motion.div>
+        </m.div>
     )
 }

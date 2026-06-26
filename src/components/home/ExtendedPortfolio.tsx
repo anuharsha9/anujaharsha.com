@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 
 /* ─── Archive image maps — generated from public/images/archive/ ─── */
@@ -77,7 +77,7 @@ export default function ExtendedPortfolio() {
         <section id="extended-portfolio" className="relative pt-10 pb-16 md:pt-12 md:pb-20">
             <div className="px-4 md:px-8 lg:px-12 max-w-[1200px] mx-auto">
                 {/* Quiet section label */}
-                <motion.div
+                <m.div
                     className="mb-6 md:mb-8"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -90,10 +90,10 @@ export default function ExtendedPortfolio() {
                     <p className="text-zinc-500 text-sm md:text-base font-light max-w-2xl">
                         Fractional and zero-to-one work for early-stage teams — across EdTech, consumer, B2B, and enterprise IoT.
                     </p>
-                </motion.div>
+                </m.div>
 
                 {/* Compact thumbnail grid */}
-                <motion.div
+                <m.div
                     className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function ExtendedPortfolio() {
                     {PROJECTS.map((item) => (
                         <ArchiveCard key={item.id} item={item} onOpen={openSlideshow} />
                     ))}
-                </motion.div>
+                </m.div>
             </div>
 
             {/* ── Archive slideshow lightbox ── */}

@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react'
 import {
-    motion,
+    m,
     useScroll,
     useTransform,
     useMotionValueEvent,
@@ -80,7 +80,7 @@ export default function CinematicTimeline() {
                         {/* ── Sticky Stage ── */}
                         <div className="sticky top-0 h-screen overflow-hidden">
                             {/* ── Cinematic transition flash (fires during crossfade) ── */}
-                            <motion.div
+                            <m.div
                                 className="absolute inset-0 pointer-events-none z-20"
                                 style={{
                                     opacity: transitionGlowOpacity,

@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Briefcase, Sparkles } from 'lucide-react'
 
 export type Tab = 'work' | 'life'
@@ -53,7 +53,7 @@ export default function TabSwitcher() {
                 aria-label="Work or Life view"
             >
                 {/* Animated active pill — slides between the two buttons */}
-                <motion.div
+                <m.div
                     className="absolute inset-y-1 w-[calc(50%-2px)] rounded-full bg-white/[0.10] ring-1 ring-white/[0.14]"
                     animate={{ left: active === 'work' ? '4px' : 'calc(50% - 2px)' }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}

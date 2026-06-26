@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { m, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
 
@@ -59,7 +59,7 @@ export default function BeatWeekOne() {
  <div className="px-6 md:px-10 py-8 md:py-12">
 
  {/* Speech bubble */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -72,7 +72,7 @@ export default function BeatWeekOne() {
  I raised my hand: &ldquo;I&apos;ll do it.&rdquo;
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* Motion-graphic gauge row */}
  <div className="flex items-center justify-center gap-2 md:gap-6 mt-10">
@@ -80,7 +80,7 @@ export default function BeatWeekOne() {
  const isVisible = step >= i + 1
  const dashOffset = RING_C * (1 - fact.ring)
  return (
- <motion.div
+ <m.div
  key={fact.label}
  className="flex flex-col items-center"
  initial={{ opacity: 0, scale: 0.5 }}
@@ -106,7 +106,7 @@ export default function BeatWeekOne() {
  strokeWidth="3"
  />
  {/* Animated arc */}
- <motion.circle
+ <m.circle
  cx="48" cy="48" r={RING_R}
  fill="none"
  stroke={fact.color}
@@ -131,7 +131,7 @@ export default function BeatWeekOne() {
  const x2 = +(48 + 36 * Math.cos(rad)).toFixed(3)
  const y2 = +(48 + 36 * Math.sin(rad)).toFixed(3)
  return (
- <motion.line
+ <m.line
  key={ti}
  x1={x1} y1={y1} x2={x2} y2={y2}
  stroke="var(--overlay-white-08)"
@@ -145,7 +145,7 @@ export default function BeatWeekOne() {
  </svg>
 
  {/* Center value */}
- <motion.div
+ <m.div
  className="absolute inset-0 flex items-center justify-center"
  initial={{ opacity: 0, scale: 0 }}
  animate={
@@ -161,11 +161,11 @@ export default function BeatWeekOne() {
  >
  {fact.value}
  </span>
- </motion.div>
+ </m.div>
 
  {/* Glow pulse */}
  {isVisible && (
- <motion.div
+ <m.div
  className="absolute inset-0 rounded-full pointer-events-none"
  initial={{ opacity: 0 }}
  animate={{ opacity: [0, 0.15, 0] }}
@@ -178,7 +178,7 @@ export default function BeatWeekOne() {
  </div>
 
  {/* Label below gauge */}
- <motion.div
+ <m.div
  className="text-center mt-3 max-w-[100px]"
  initial={{ opacity: 0, y: 8 }}
  animate={
@@ -191,20 +191,20 @@ export default function BeatWeekOne() {
  <div className="text-[11px] md:text-xs font-mono text-zinc-500 tracking-wider uppercase leading-snug">
  {fact.label}
  </div>
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  )
  })}
  </div>
 
  {/* Connecting scan line across gauges */}
- <motion.div
+ <m.div
  className="relative h-px mt-6 overflow-hidden"
  initial={{ opacity: 0 }}
  animate={step >= 4 ? { opacity: 1 } : { opacity: 0 }}
  transition={{ duration: 0.5 }}
  >
- <motion.div
+ <m.div
  className="absolute h-full w-24"
  initial={{ left: '-10%' }}
  animate={step >= 4 ? { left: '110%' } : { left: '-10%' }}
@@ -214,7 +214,7 @@ export default function BeatWeekOne() {
  }}
  />
  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-700/20 to-transparent" />
- </motion.div>
+ </m.div>
 
  </div>
  </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MODULE' }: { height?: string, text?: string }) {
   return (
@@ -22,7 +22,7 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
       />
       
       {/* Subtle scanning gradient to simulate data loading without layout shift */}
-      <motion.div 
+      <m.div 
         className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--semantic-cyan)]/5 to-transparent opacity-0"
         animate={{ 
           opacity: [0, 0.7, 0],
@@ -39,13 +39,13 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
       <div className="flex flex-col items-center gap-6 z-10 p-8 rounded-2xl bg-white/[0.01] border border-white/[0.05] backdrop-blur-sm">
         <div className="relative w-12 h-12 flex items-center justify-center">
           {/* Outer ring */}
-          <motion.div 
+          <m.div 
             className="absolute inset-0 rounded-full border border-[var(--semantic-cyan)]/20"
             animate={{ rotate: 360 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
           {/* Inner spinner */}
-          <motion.div 
+          <m.div 
             className="absolute inset-2 rounded-full border-t border-l border-[var(--semantic-cyan)]/60"
             animate={{ rotate: -360 }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -56,7 +56,7 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
         
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-mono tracking-[0.3em] text-white/40 uppercase">{text}</span>
-          <motion.div 
+          <m.div 
             className="flex gap-1"
             animate={{ opacity: [0.3, 1, 0.3] }}
             transition={{ duration: 1.5, repeat: Infinity }}
@@ -64,7 +64,7 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
             <div className="w-1 h-1 rounded-full bg-[var(--semantic-cyan)]/50" />
             <div className="w-1 h-1 rounded-full bg-[var(--semantic-cyan)]/50" />
             <div className="w-1 h-1 rounded-full bg-[var(--semantic-cyan)]/50" />
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </div>

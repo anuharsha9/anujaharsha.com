@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import { usePdf } from '@/contexts/PdfContext'
@@ -88,7 +88,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
       <div suppressHydrationWarning>
         <AnimatePresence>
           {!isOpen && (
-            <motion.button
+            <m.button
               onClick={toggleMenu}
               className="lg:hidden flex flex-col items-center justify-center w-10 h-10 gap-1.5 relative pointer-events-auto -mr-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:ring-offset-2 rounded-md"
               style={{ zIndex: 10003 }}
@@ -104,7 +104,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
               <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
               <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
               <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
-            </motion.button>
+            </m.button>
           )}
         </AnimatePresence>
       </div>
@@ -114,7 +114,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
         {isOpen && (
           <>
             {/* Backdrop */}
-            <motion.div
+            <m.div
               className="fixed inset-0 bg-black/80 backdrop-blur-sm lg:hidden"
               style={{
                 position: 'fixed',
@@ -133,7 +133,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
             />
 
             {/* Menu Panel - Full Screen Overlay - above header */}
-            <motion.div
+            <m.div
               id="mobile-nav-dialog"
               ref={panelRef}
               className={`fixed inset-0 lg:hidden flex flex-col ${t.bg} ${t.text}`}
@@ -266,7 +266,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                   © {new Date().getFullYear()}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

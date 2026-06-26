@@ -16,16 +16,16 @@
  * Structure:
  *   <outer div>  — tall container (containerHeight), creates scroll distance
  *     <sticky div>  — pinned to viewport top, h-screen (desktop only)
- *       <motion.div>  — blur + parallax applied here
+ *       <m.div>  — blur + parallax applied here
  *         {children}  — section content, renders naturally
- *       </motion.div>
+ *       </m.div>
  *     </sticky div>
  *   </outer div>
  */
 
 import React, { useRef, useState, useEffect } from 'react'
 import {
-    motion,
+    m,
     useScroll,
     useTransform,
     useMotionTemplate,
@@ -160,7 +160,7 @@ export default function BlurZone({
             >
                 {/* Watermark layer */}
                 {watermark && (
-                    <motion.div
+                    <m.div
                         className="absolute inset-0 z-[1] pointer-events-none"
                         style={{
                             filter: watermarkFilter,
@@ -168,11 +168,11 @@ export default function BlurZone({
                         }}
                     >
                         {watermark}
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* Main content — gentle blur reveal, no sticky, no clipping */}
-                <motion.div
+                <m.div
                     className={`relative z-[2] w-full ${className}`}
                     style={{
                         filter: contentFilter,
@@ -180,7 +180,7 @@ export default function BlurZone({
                     }}
                 >
                     {children}
-                </motion.div>
+                </m.div>
             </div>
         )
     }
@@ -200,7 +200,7 @@ export default function BlurZone({
             >
                 {/* Watermark layer — resolves faster than content */}
                 {watermark && (
-                    <motion.div
+                    <m.div
                         className="absolute inset-0 z-[1] pointer-events-none"
                         style={{
                             filter: watermarkFilter,
@@ -208,11 +208,11 @@ export default function BlurZone({
                         }}
                     >
                         {watermark}
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* Main content — blur morph + parallax + 3D tilt */}
-                <motion.div
+                <m.div
                     className="relative z-[2] w-full"
                     style={{
                         filter: contentFilter,
@@ -224,7 +224,7 @@ export default function BlurZone({
                     }}
                 >
                     {children}
-                </motion.div>
+                </m.div>
             </div>
         </div>
     )

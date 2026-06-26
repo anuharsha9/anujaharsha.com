@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { FileText, BrainCircuit, Search, ArrowLeft } from 'lucide-react'
@@ -68,7 +68,7 @@ export default function CaseStudyTabs() {
                 aria-label="Case study navigation"
             >
                 {/* Active highlight slider */}
-                <motion.div
+                <m.div
                     className="absolute inset-y-1 rounded-full bg-white/[0.10] ring-1 ring-white/[0.14]"
                     style={{ width: `calc(${100 / pillCount}% - 4px)` }}
                     animate={{ left: sliderLeft }}

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 
@@ -170,7 +170,7 @@ export default function ImageLightbox({
  shortcuts={shortcuts}
  className={isZoomed ? "max-w-none w-full h-full p-0" : ""}
  >
- <motion.div
+ <m.div
  drag={isZoomed ? "x" : false}
  dragConstraints={{ left: -100, right: 100 }} // Simple constraint for zoomed drag
  className={`relative flex flex-col items-center justify-center w-full h-full ${!isMobile && !isZoomed ? 'cursor-zoom-in' : ''} ${!isMobile && isZoomed ? 'cursor-zoom-out' : ''}`}
@@ -227,7 +227,7 @@ export default function ImageLightbox({
 
  {/* Caption */}
  {(imageCaption || (props.actionLink && props.actionLabel)) && !isZoomed && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  className="mt-4 text-center max-w-2xl px-4"
@@ -238,9 +238,9 @@ export default function ImageLightbox({
  {imageCaption}
  </p>
  )}
- </motion.div>
+ </m.div>
  )}
- </motion.div>
+ </m.div>
  </SystemLightbox>
  )
 }

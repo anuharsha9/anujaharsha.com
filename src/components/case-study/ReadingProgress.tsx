@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, useSpring } from 'framer-motion'
+import { m, useSpring } from 'framer-motion'
 
 export default function ReadingProgress() {
  const [progress, setProgress] = useState(0)
@@ -43,7 +43,7 @@ export default function ReadingProgress() {
  return (
  <div className="fixed top-0 left-0 right-0 h-[2px] z-[100] pointer-events-none mix-blend-screen">
  {/* Main progress bar with spring smoothing and aurora gradient */}
- <motion.div
+ <m.div
  className="absolute top-0 left-0 bottom-0 right-0 origin-left"
  style={{ 
  scaleX, 
@@ -54,7 +54,7 @@ export default function ReadingProgress() {
  {/* The glowing "playhead" tip to simulate a comet head */}
  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-4 h-4 rounded-full bg-white blur-[4px] opacity-90 mix-blend-overlay" />
  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[2px] h-[4px] rounded-full bg-white shadow-[0_0_8px_2px_#fff]" />
- </motion.div>
+ </m.div>
  </div>
  )
 }

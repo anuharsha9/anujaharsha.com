@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { m, useMotionValue, useSpring } from 'framer-motion'
 
 export default function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false)
@@ -112,7 +112,7 @@ export default function CustomCursor() {
   const cursorNodes = (
     <>
       {/* Main Cursor (Exact Position) - Small Teal Dot */}
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 z-[2147483647] pointer-events-none"
         style={{
           x: mouseX,
@@ -127,10 +127,10 @@ export default function CustomCursor() {
           className={`w-2 h-2 bg-[var(--accent-teal)] rounded-full transition-transform duration-300 ${isClicking ? 'scale-75' : isPointer ? 'scale-150' : 'scale-100'
             }`}
         />
-      </motion.div>
+      </m.div>
 
       {/* Trailing Gear (Smooth Follow) */}
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 z-[2147483646] pointer-events-none"
         style={{
           x: ringX,
@@ -141,7 +141,7 @@ export default function CustomCursor() {
         }}
         aria-hidden="true"
       >
-        <motion.div
+        <m.div
           className="relative flex items-center justify-center"
           animate={{
             scale: isClicking ? 0.8 : isPointer ? 1.2 : 1,
@@ -177,8 +177,8 @@ export default function CustomCursor() {
               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </>
   )
 

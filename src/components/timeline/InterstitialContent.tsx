@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, MotionValue } from 'framer-motion'
+import { m, MotionValue } from 'framer-motion'
 import { CareerEra } from '@/data/career-data'
 
 interface InterstitialContentProps {
@@ -37,7 +37,7 @@ export default function InterstitialContent({
 
                 {/* Animated cyan line */}
                 <div className="absolute left-6 sm:left-1/2 sm:-translate-x-[0.5px] top-0 bottom-0 w-px overflow-hidden neon-line-glow">
-                    <motion.div
+                    <m.div
                         className="w-full bg-gradient-to-b from-[var(--accent-teal)] to-[var(--accent-teal)]/30 origin-top"
                         style={{ height: '100%', scaleY: lineProgress }}
                     />
@@ -48,13 +48,13 @@ export default function InterstitialContent({
                     {milestones.map((milestone, i) => {
                         const IconComp = milestone.icon;
                         return (
-                            <motion.div
+                            <m.div
                                 key={i}
                                 className="relative pl-16 sm:pl-0 sm:flex sm:items-center sm:gap-8"
                                 style={{ opacity: dotOpacities[i] }}
                             >
                                 {/* Glowing dot */}
-                                <motion.div
+                                <m.div
                                     className="absolute left-[18px] sm:left-1/2 sm:-translate-x-1/2 w-4 h-4 rounded-full border-2 border-[var(--accent-teal)] bg-slate-950 z-10"
                                     style={{
                                         scale: dotScales[i],
@@ -62,7 +62,7 @@ export default function InterstitialContent({
                                     }}
                                 >
                                     <div className="absolute inset-[3px] rounded-full bg-[var(--accent-teal)]" />
-                                </motion.div>
+                                </m.div>
 
                                 {/* Year — left side on desktop */}
                                 <div className="hidden sm:block sm:w-1/2 sm:text-right sm:pr-10">
@@ -96,7 +96,7 @@ export default function InterstitialContent({
                                         </p>
                                     )}
                                 </div>
-                            </motion.div>
+                            </m.div>
                         )
                     })}
                 </div>

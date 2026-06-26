@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -98,7 +98,7 @@ export default function BeatScheduler() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  The scheduler hadn&apos;t been redesigned in{' '}
@@ -108,7 +108,7 @@ export default function BeatScheduler() {
  <span className="text-zinc-200 font-medium">Advanced</span> — doing the same thing, differently.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -119,7 +119,7 @@ export default function BeatScheduler() {
  <div>
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -130,7 +130,7 @@ export default function BeatScheduler() {
  </div>
 
  {/* Basic panel */}
- <motion.div
+ <m.div
  animate={phase >= 2 ? { opacity: 0.3, scale: 0.97 } : { opacity: 1, scale: 1 }}
  transition={{ duration: 0.8, ease }}
  className="relative"
@@ -149,17 +149,17 @@ export default function BeatScheduler() {
  </div>
  </WireframePanel>
  {phase >= 2 && (
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
  transition={{ duration: 0.4, ease }}
  className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-zinc-500/40 origin-left"
  />
  )}
- </motion.div>
+ </m.div>
 
  {/* Advanced panel */}
- <motion.div
+ <m.div
  animate={phase >= 2 ? { opacity: 0.3, scale: 0.97 } : { opacity: 1, scale: 1 }}
  transition={{ duration: 0.8, ease, delay: 0.1 }}
  className="relative"
@@ -180,15 +180,15 @@ export default function BeatScheduler() {
  </div>
  </WireframePanel>
  {phase >= 2 && (
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
  transition={{ duration: 0.4, ease, delay: 0.15 }}
  className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-zinc-500/40 origin-left"
  />
  )}
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -196,7 +196,7 @@ export default function BeatScheduler() {
  {/* ── Arrow / transformation ────────── */}
  <AnimatePresence>
  {phase >= 3 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ type: 'spring', damping: 15, stiffness: 200 }}
@@ -205,7 +205,7 @@ export default function BeatScheduler() {
  <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 20%, transparent)', background: 'color-mix(in srgb, var(--cs-accent) 5%, transparent)' }}>
  <span className="text-sm" style={{ color: 'var(--cs-accent)' }}>→</span>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -213,7 +213,7 @@ export default function BeatScheduler() {
  <div>
  <AnimatePresence>
  {phase >= 4 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20, scale: 0.95 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
  transition={{ duration: 0.7, ease }}
@@ -245,7 +245,7 @@ export default function BeatScheduler() {
  {/* Progressive disclosure layers */}
  <AnimatePresence>
  {phase >= 5 && (
- <motion.div
+ <m.div
  initial={{ height: 0, opacity: 0 }}
  animate={{ height: 'auto', opacity: 1 }}
  transition={{ duration: 0.6, ease }}
@@ -254,14 +254,14 @@ export default function BeatScheduler() {
  <div className="border-t pt-3 mt-1 space-y-2" style={{ borderColor: 'color-mix(in srgb, var(--cs-accent) 10%, transparent)' }}>
  <div className="flex items-center gap-2">
  <div className="w-3 h-3 rounded flex items-center justify-center" style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 30%, transparent)' }}>
- <motion.span
+ <m.span
  initial={{ scale: 0 }}
  animate={{ scale: 1 }}
  transition={{ delay: 0.3 }}
  className="text-[6px]" style={{ color: 'var(--cs-accent)' }}
  >
  ▾
- </motion.span>
+ </m.span>
  </div>
  <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>
  Advanced options
@@ -271,14 +271,14 @@ export default function BeatScheduler() {
  <SkeletonLine w="80%" className="bg-[color-mix(in_srgb,var(--cs-accent)_10%,transparent)]" />
  <SkeletonLine w="40%" className="bg-[color-mix(in_srgb,var(--cs-accent)_10%,transparent)]" />
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Contextual launch indicator */}
  <AnimatePresence>
  {phase >= 6 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5, ease }}
@@ -292,18 +292,18 @@ export default function BeatScheduler() {
  Launch from anywhere
  </span>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Subtle glow pulse */}
- <motion.div
+ <m.div
  animate={{ opacity: [0, 0.15, 0] }}
  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
  className="absolute inset-0 rounded-xl pointer-events-none" style={{ background: 'linear-gradient(to bottom right, color-mix(in srgb, var(--cs-accent) 5%, transparent), transparent)' }}
  />
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -312,7 +312,7 @@ export default function BeatScheduler() {
  {/* Closing */}
  <AnimatePresence>
  {phase >= 7 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 1, ease }}
@@ -321,7 +321,7 @@ export default function BeatScheduler() {
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
  One modal. Any complexity level.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useId, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 
 interface CaseStudiesDropdownProps {
@@ -163,7 +163,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             id={menuId}
             ref={menuRef}
             initial={{ opacity: 0, y: -8, scale: 0.95 }}
@@ -258,7 +258,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
                 → ABOUT ANUJA
               </TransitionLink>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

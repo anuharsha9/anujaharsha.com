@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, FolderOpen, Settings, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 
@@ -104,21 +104,21 @@ export default function BeatFragmentation() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  Not a feature.{' '}
  <span className="text-zinc-200 font-medium">A product inside a product</span> — 40+ years old, zero documentation, five independent subsystems. Customers running 13 million schedules a day on a tool nobody on the team truly understood.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Visual: Competitor vs RC ── */}
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -126,7 +126,7 @@ export default function BeatFragmentation() {
  >
  <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
  {/* Modern competitor (Power BI style) */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -20 }}
  animate={phase >= 1 ? { opacity: 1, x: 0 } : {}}
  transition={{ duration: 0.6, delay: 0.2, ease }}
@@ -142,7 +142,7 @@ export default function BeatFragmentation() {
  </div>
  <div className="h-16 rounded-lg border border-white/[0.06] flex items-end p-2 gap-1" style={{ background: 'color-mix(in srgb, var(--cs-accent) 5%, transparent)' }}>
  {[65, 45, 80, 55, 70, 90, 60, 75, 85].map((h, i) => (
- <motion.div
+ <m.div
  key={i}
  className="flex-1 rounded-sm"
  style={{ background: 'color-mix(in srgb, var(--cs-accent) 30%, transparent)' }}
@@ -158,7 +158,7 @@ export default function BeatFragmentation() {
  </div>
  </div>
  {/* Glow */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={phase >= 2 ? { opacity: 1 } : {}}
  transition={{ duration: 1 }}
@@ -166,10 +166,10 @@ export default function BeatFragmentation() {
  style={{ background: 'color-mix(in srgb, var(--cs-accent) 8%, transparent)' }}
  />
  <div className="mt-3 text-[11px] font-mono" style={{ color: 'var(--cs-accent)', opacity: 0.6 }}>✓ Unified · Modern · Intuitive</div>
- </motion.div>
+ </m.div>
 
  {/* ReportCaster (dated) */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: 20 }}
  animate={phase >= 2 ? { opacity: 1, x: 0 } : {}}
  transition={{ duration: 0.6, delay: 0.4, ease }}
@@ -200,25 +200,25 @@ export default function BeatFragmentation() {
  <div className="h-3 bg-zinc-800/50 rounded-sm border border-zinc-700/20" />
  </div>
  {/* Outdated stamp */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
  animate={phase >= 3 ? { opacity: 1, scale: 1, rotate: -5 } : {}}
  transition={{ duration: 0.4, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
  className="absolute top-3 right-3 px-2 py-0.5 rounded border border-zinc-500/30 bg-zinc-500/10"
  >
  <span className="text-[11px] font-mono text-zinc-400 tracking-wider uppercase">Outdated</span>
- </motion.div>
+ </m.div>
  <div className="mt-3 text-[11px] text-zinc-400 font-mono">✗ Fragmented · Dated · Buried</div>
- </motion.div>
+ </m.div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Fragmented systems row ── */}
  <AnimatePresence>
  {phase >= 4 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.5 }}
@@ -234,7 +234,7 @@ export default function BeatFragmentation() {
  const isVisible = phase >= 4 + i * 0.5
  const isChaos = phase >= 7
  return (
- <motion.div
+ <m.div
  key={sys.label}
  initial={{ opacity: 0, scale: 0.8 }}
  animate={isVisible ? { opacity: 1, scale: 1 } : {}}
@@ -251,14 +251,14 @@ export default function BeatFragmentation() {
  transition: 'color 0.6s',
  }} />
  <span className="text-xs text-zinc-200 font-medium">{sys.label}</span>
- </motion.div>
+ </m.div>
  )
  })}
  </div>
 
  {/* Chaos connections overlay */}
  {phase >= 6 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.6 }}
@@ -266,7 +266,7 @@ export default function BeatFragmentation() {
  >
  <svg className="w-full h-full absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
  {CHAOS_PATHS.map((d, i) => (
- <motion.path
+ <m.path
  key={i}
  d={d}
  fill="none"
@@ -279,17 +279,17 @@ export default function BeatFragmentation() {
  />
  ))}
  </svg>
- </motion.div>
+ </m.div>
  )}
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Divider */}
  <AnimatePresence>
  {phase >= 8 && (
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
  transition={{ duration: 0.6, ease }}
@@ -301,7 +301,7 @@ export default function BeatFragmentation() {
  {/* Pain point stats */}
  <AnimatePresence>
  {phase >= 8 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  >
@@ -310,7 +310,7 @@ export default function BeatFragmentation() {
  </div>
  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
  {PAIN_POINTS.map((pp, i) => (
- <motion.div
+ <m.div
  key={pp.label}
  initial={{ opacity: 0, y: 20, scale: 0.9 }}
  animate={
@@ -321,7 +321,7 @@ export default function BeatFragmentation() {
  transition={{ duration: 0.5, ease }}
  className="text-center"
  >
- <motion.div
+ <m.div
  className="text-3xl md:text-4xl font-bold font-mono mb-1"
  style={{ color: 'var(--cs-accent)' }}
  initial={{ scale: 1 }}
@@ -333,21 +333,21 @@ export default function BeatFragmentation() {
  transition={{ duration: 0.4, delay: 0.1 }}
  >
  {pp.stat}
- </motion.div>
+ </m.div>
  <div className="text-[11px] text-zinc-400 font-mono uppercase tracking-wider leading-snug">
  {pp.label}
  </div>
- </motion.div>
+ </m.div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Closing line */}
  <AnimatePresence>
  {phase >= 13 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 1, ease }}
@@ -359,7 +359,7 @@ export default function BeatFragmentation() {
  <p className="text-zinc-400 text-sm mt-2 font-mono">
  So I drew one.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

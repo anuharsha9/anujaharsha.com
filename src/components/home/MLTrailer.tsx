@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
@@ -27,7 +27,7 @@ function KineticLine({
                 const clean = word.replace(/[.,!?'"~]/g, '').toLowerCase()
                 const isEmphasis = emphasisWords.some(w => clean === w.toLowerCase())
                 return (
-                    <motion.span
+                    <m.span
                         key={i}
                         initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
@@ -39,7 +39,7 @@ function KineticLine({
                         className={isEmphasis ? emphasisClass : ''}
                     >
                         {word}
-                    </motion.span>
+                    </m.span>
                 )
             })}
         </span>
@@ -52,7 +52,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
     return (
         <span className={className}>
             {chars.map((char, i) => (
-                <motion.span
+                <m.span
                     key={i}
                     initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
@@ -64,7 +64,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
                     className="inline-block"
                 >
                     {char}
-                </motion.span>
+                </m.span>
             ))}
         </span>
     )
@@ -130,7 +130,7 @@ export default function MLTrailer() {
 
                 {/* ═══ LINE 0: "It was really shitty." ═══ */}
                 {step === 0 && (
-                    <motion.div
+                    <m.div
                         key="s0"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -145,12 +145,12 @@ export default function MLTrailer() {
                         >
                             It was really shitty.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 1: "~15 clicks to train a model." ═══ */}
                 {step === 1 && (
-                    <motion.div
+                    <m.div
                         key="s1"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -165,12 +165,12 @@ export default function MLTrailer() {
                         >
                             ~15 clicks to train a model.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 2: "Nobody used it." ═══ */}
                 {step === 2 && (
-                    <motion.div
+                    <m.div
                         key="s2"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -185,12 +185,12 @@ export default function MLTrailer() {
                         >
                             Nobody used it.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ LINE 3: "A side project earned me the whole thing." ═══ */}
                 {step === 3 && (
-                    <motion.div
+                    <m.div
                         key="s3"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0, scale: 0.96 }}
@@ -206,12 +206,12 @@ export default function MLTrailer() {
                         >
                             A side project earned me the whole thing.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE B: Old flow — scattered mess (step 4) ═══ */}
                 {step === 4 && (
-                    <motion.div
+                    <m.div
                         key="old-flow"
                         className="absolute inset-0 flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -219,19 +219,19 @@ export default function MLTrailer() {
                         exit={{ opacity: 0, scale: 1.05, filter: 'blur(14px)' }}
                         transition={{ duration: 0.5, ease }}
                     >
-                        <motion.p
+                        <m.p
                             className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 mb-8"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             Right-click. Drag. Context menus. <span className="text-[var(--semantic-rose)] font-medium">Pray.</span>
-                        </motion.p>
+                        </m.p>
 
                         {/* Scattered UI fragments */}
                         <div className="relative w-72 h-40 sm:w-80 sm:h-48 md:w-[28rem] md:h-56">
                             {['+ Menu', 'Data Flow', 'Drag Model', 'Right Click', 'Run', 'Results'].map((label, i) => (
-                                <motion.div
+                                <m.div
                                     key={label}
                                     className="absolute rounded-md border border-rose-400/40 bg-rose-400/[0.08] px-3 py-1.5"
                                     style={{
@@ -243,28 +243,28 @@ export default function MLTrailer() {
                                     transition={{ delay: i * 0.1, duration: 0.4, ease }}
                                 >
                                     <span className="text-[10px] sm:text-xs font-mono text-rose-300/80">{label}</span>
-                                </motion.div>
+                                </m.div>
                             ))}
                             {/* Tangled lines between */}
                             <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 100 100">
-                                <motion.path d="M15,20 Q60,5 80,25 T90,70 Q50,90 20,75 T15,20" fill="none" stroke="rgb(244,63,94)" strokeWidth="0.5" strokeDasharray="3 3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, ease }} />
+                                <m.path d="M15,20 Q60,5 80,25 T90,70 Q50,90 20,75 T15,20" fill="none" stroke="rgb(244,63,94)" strokeWidth="0.5" strokeDasharray="3 3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, ease }} />
                             </svg>
                         </div>
 
-                        <motion.p
+                        <m.p
                             className="text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-6"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1 }}
                         >
                             The old workflow · ~15 clicks minimum
-                        </motion.p>
-                    </motion.div>
+                        </m.p>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE C: New flow — wizard steps (step 5) ═══ */}
                 {step === 5 && (
-                    <motion.div
+                    <m.div
                         key="new-flow"
                         className="absolute inset-0 flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -272,19 +272,19 @@ export default function MLTrailer() {
                         exit={{ opacity: 0, filter: 'blur(14px)' }}
                         transition={{ duration: 0.5, ease }}
                     >
-                        <motion.p
+                        <m.p
                             className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 mb-8"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             One path. <span className="text-emerald-400 font-medium">Two clicks.</span>
-                        </motion.p>
+                        </m.p>
 
                         {/* Wizard step progression */}
                         <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 md:gap-4 px-4 sm:px-0">
                             {WIZARD_STEPS.map((ws, i) => (
-                                <motion.div
+                                <m.div
                                     key={ws.label}
                                     className="flex items-center gap-2 sm:gap-3"
                                     initial={{ opacity: 0, x: -20, scale: 0.8 }}
@@ -304,33 +304,33 @@ export default function MLTrailer() {
                                         </span>
                                     </div>
                                     {i < WIZARD_STEPS.length - 1 && (
-                                        <motion.span
+                                        <m.span
                                             className="text-zinc-600"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             transition={{ delay: 0.5 + i * 0.25 }}
                                         >
                                             →
-                                        </motion.span>
+                                        </m.span>
                                     )}
-                                </motion.div>
+                                </m.div>
                             ))}
                         </div>
 
-                        <motion.p
+                        <m.p
                             className="text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] mt-8"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.8 }}
                         >
                             Right-click → Predict Data → Done
-                        </motion.p>
-                    </motion.div>
+                        </m.p>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE D: Confusion matrix moment (step 6) ═══ */}
                 {step === 6 && (
-                    <motion.div
+                    <m.div
                         key="matrix"
                         className="absolute inset-0 flex flex-col items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -338,14 +338,14 @@ export default function MLTrailer() {
                         exit={{ opacity: 0, filter: 'blur(14px)' }}
                         transition={{ duration: 0.5, ease }}
                     >
-                        <motion.p
+                        <m.p
                             className="text-lg sm:text-xl md:text-2xl text-zinc-400 font-light mb-6"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
                         >
                             The <span className="text-white font-medium">most complex screen</span> I ever designed.
-                        </motion.p>
+                        </m.p>
 
                         {/* Mini confusion matrix grid */}
                         <div className="grid grid-cols-3 gap-1 sm:gap-1.5 mx-auto">
@@ -360,7 +360,7 @@ export default function MLTrailer() {
                                 { v: 'FP', c: '244, 63, 94' },
                                 { v: 'TN', c: '16, 185, 129' },
                             ].map((cell, i) => (
-                                <motion.div
+                                <m.div
                                     key={i}
                                     className="w-16 h-10 sm:w-20 sm:h-12 md:w-24 md:h-14 rounded-md flex items-center justify-center"
                                     style={{
@@ -376,24 +376,24 @@ export default function MLTrailer() {
                                     >
                                         {cell.v}
                                     </span>
-                                </motion.div>
+                                </m.div>
                             ))}
                         </div>
 
-                        <motion.p
+                        <m.p
                             className="text-xs font-mono text-zinc-600 mt-6"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2 }}
                         >
                             A dozen sessions with the data scientist. Paper and pen.
-                        </motion.p>
-                    </motion.div>
+                        </m.p>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE E: 4/4 SMEs (step 7) ═══ */}
                 {step === 7 && (
-                    <motion.div
+                    <m.div
                         key="smes"
                         className="absolute inset-0 flex items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -405,21 +405,21 @@ export default function MLTrailer() {
                             <SlamText className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter">
                                 4/4
                             </SlamText>
-                            <motion.p
+                            <m.p
                                 className="text-sm sm:text-base md:text-lg font-mono text-[var(--semantic-emerald)] uppercase tracking-[0.3em] mt-4"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5, duration: 0.4 }}
                             >
                                 SMEs Validated
-                            </motion.p>
+                            </m.p>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE F: "They just blazed through it." (step 8) ═══ */}
                 {step === 8 && (
-                    <motion.div
+                    <m.div
                         key="blazed"
                         className="absolute inset-0 flex items-center justify-center px-6"
                         initial={{ opacity: 0 }}
@@ -434,12 +434,12 @@ export default function MLTrailer() {
                         >
                             They just blazed through it.
                         </KineticLine>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ═══ PHASE G: Quote (step 9) ═══ */}
                 {step === 9 && (
-                    <motion.div
+                    <m.div
                         key="quote"
                         className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12"
                         initial={{ opacity: 0 }}
@@ -447,15 +447,15 @@ export default function MLTrailer() {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.6, ease }}
                     >
-                        <motion.div
+                        <m.div
                             className="absolute text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white/[0.04] tracking-tighter select-none pointer-events-none"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                         >
                             4/4
-                        </motion.div>
+                        </m.div>
 
-                        <motion.blockquote
+                        <m.blockquote
                             className="relative z-10 max-w-2xl text-center"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -467,8 +467,8 @@ export default function MLTrailer() {
                             <footer className="mt-4 font-mono text-[10px] sm:text-xs text-zinc-600 uppercase tracking-[0.2em]">
                                 — Marcus Horbach · Principal Data Scientist
                             </footer>
-                        </motion.blockquote>
-                    </motion.div>
+                        </m.blockquote>
+                    </m.div>
                 )}
 
             </AnimatePresence>

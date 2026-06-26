@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { m, useInView } from 'framer-motion'
 
 interface AnimatedCounterProps {
   value: string // e.g., "75%", "20M+", "50yr"
@@ -68,7 +68,7 @@ export default function AnimatedCounter({
   }, [isInView, value, duration])
 
   return (
-    <motion.span
+    <m.span
       ref={ref}
       className={className}
       initial={{ opacity: 0, y: 10 }}
@@ -76,7 +76,7 @@ export default function AnimatedCounter({
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
       {displayValue}
-    </motion.span>
+    </m.span>
   )
 }
 

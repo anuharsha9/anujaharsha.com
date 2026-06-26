@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useState, type ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Search, Users, Sparkles, Target, MousePointerClick } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
@@ -35,13 +35,13 @@ function AnimNumber({ value, suffix = '', delay = 0 }: { value: number; suffix?:
 function WireMorphBackdrop() {
  return (
  <div className="pointer-events-none absolute inset-0 overflow-hidden">
- <motion.svg
+ <m.svg
  className="absolute inset-0 h-full w-full"
  viewBox="0 0 100 100"
  preserveAspectRatio="none"
  aria-hidden="true"
  >
- <motion.path
+ <m.path
  d="M0,24 C18,18 34,31 50,24 C66,17 82,31 100,22"
  fill="none"
  stroke="var(--cs-accent)"
@@ -51,8 +51,8 @@ function WireMorphBackdrop() {
  animate={{ pathLength: 1, opacity: [0, 0.7, 0.25] }}
  transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
  />
- </motion.svg>
- <motion.div
+ </m.svg>
+ <m.div
  className="absolute -left-[25%] top-0 h-full w-[36%] bg-[linear-gradient(90deg,transparent,var(--overlay-teal-18),transparent)] blur-xl"
  initial={{ x: '-20%', opacity: 0 }}
  animate={{ x: '150%', opacity: [0, 0.6, 0] }}
@@ -72,7 +72,7 @@ function AbstractFlowBubbles({ active }: { active: boolean }) {
  return (
  <div className="pointer-events-none absolute inset-0 mx-auto">
  {nodes.map((node, index) => (
- <motion.span
+ <m.span
  key={node.id}
  className="absolute block rounded-full"
  style={{
@@ -127,7 +127,7 @@ export function MLBeatProblem() {
  <div className="px-6 md:px-10 py-8 md:py-12">
 
  {/* Speech bubble */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -137,12 +137,12 @@ export function MLBeatProblem() {
  ML lived inside the <span className="text-zinc-200 font-medium">data flow canvas</span>. New tab, drag data, drag a model pill, hit a hidden play button, then <span className="text-zinc-300 font-bold">right-click through cascading menus</span> to configure hyperparameters. Messy. Confusing. Too many clicks. <span className="text-zinc-200 font-medium">A powerful tool buried in a hostile workflow.</span>
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* ── Data Flow Canvas — the actual legacy workflow ── */}
  <AnimatePresence>
  {step >= 0 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, delay: 0.3, ease }}
@@ -155,7 +155,7 @@ export function MLBeatProblem() {
  <div className="w-2.5 h-2.5 rounded-full bg-[var(--terminal-green-alt)]" />
  <span className="ml-3 text-[9px] font-mono text-zinc-600">WebFOCUS — Data Flow Editor</span>
  {/* Play button — hidden, easy to miss */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={step >= 3 ? { opacity: 1 } : {}}
  transition={{ delay: 0.3 }}
@@ -165,7 +165,7 @@ export function MLBeatProblem() {
  <div className="w-0 h-0 border-l-[5px] border-l-zinc-500 border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent ml-0.5" />
  </div>
  <span className="text-[7px] font-mono text-zinc-600">Run</span>
- </motion.div>
+ </m.div>
  </div>
 
  {/* Data flow canvas area */}
@@ -177,7 +177,7 @@ export function MLBeatProblem() {
  }} />
 
  {/* Step 1: Data source pill */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={step >= 1 ? { opacity: 1, x: 0 } : {}}
  transition={{ duration: 0.4, ease }}
@@ -188,10 +188,10 @@ export function MLBeatProblem() {
  <span className="text-[9px] font-mono text-sky-300">Customer_Data.csv</span>
  </div>
  <span className="text-[7px] font-mono text-zinc-600 italic">← drag here</span>
- </motion.div>
+ </m.div>
 
  {/* Step 2: Train Model pill — dragged and connected */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: -10 }}
  animate={step >= 1 ? { opacity: 1, y: 0 } : {}}
  transition={{ duration: 0.4, delay: 0.5, ease }}
@@ -202,10 +202,10 @@ export function MLBeatProblem() {
  <div className="w-3 h-3 rounded-sm bg-amber-400/40" />
  <span className="text-[9px] font-mono text-amber-300">Train Model</span>
  </div>
- </motion.div>
+ </m.div>
 
  {/* Connector line between pills */}
- <motion.svg
+ <m.svg
  className="absolute top-[38px] left-[180px] w-[120px] h-[12px]"
  initial={{ opacity: 0 }}
  animate={step >= 1 ? { opacity: 0.3 } : {}}
@@ -213,10 +213,10 @@ export function MLBeatProblem() {
  >
  <line x1="0" y1="6" x2="120" y2="6" stroke="var(--overlay-white-15)" strokeWidth="1" strokeDasharray="4 3" />
  <circle cx="118" cy="6" r="2" fill="var(--overlay-white-15)" />
- </motion.svg>
+ </m.svg>
 
  {/* Step 3: Config popups — target & predictors */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={step >= 2 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.4, ease }}
@@ -235,10 +235,10 @@ export function MLBeatProblem() {
  <div className="h-4 flex-1 rounded bg-white/[0.04] border border-white/[0.06]" />
  </div>
  </div>
- </motion.div>
+ </m.div>
 
  {/* Step 4: Error-looking "results not generated" screen */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={step >= 3 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.5, ease }}
@@ -253,13 +253,13 @@ export function MLBeatProblem() {
  <div className="text-[7px] font-mono text-zinc-500 leading-tight">
  Click ▶ Run to execute...
  </div>
- </motion.div>
+ </m.div>
 
  {/* Step 5: Right-click cascading context menus for hyperparameters */}
  <AnimatePresence>
  {step >= 4 && (
  <>
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ duration: 0.3, ease }}
@@ -268,8 +268,8 @@ export function MLBeatProblem() {
  {['Properties', 'Hyperparams ▸', 'Delete'].map((item, i) => (
  <div key={item} className={`px-2.5 py-1 text-[8px] font-mono ${i === 1 ? 'bg-white/[0.06] text-zinc-200' : 'text-zinc-600'} border-b border-white/[0.03] last:border-0`}>{item}</div>
  ))}
- </motion.div>
- <motion.div
+ </m.div>
+ <m.div
  initial={{ opacity: 0, x: -5 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.2, duration: 0.3, ease }}
@@ -278,19 +278,19 @@ export function MLBeatProblem() {
  {['Learning Rate: 0.01', 'Max Depth: 6', 'N Estimators: 100', 'Min Samples: 2'].map(p => (
  <div key={p} className="px-2.5 py-1 text-[7px] font-mono text-zinc-500 border-b border-white/[0.03] last:border-0">{p}</div>
  ))}
- </motion.div>
+ </m.div>
  </>
  )}
  </AnimatePresence>
 
  {/* Click counter: 12+ interactions */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={step >= 2 ? { opacity: 1 } : {}}
  className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1"
  >
  {Array.from({ length: 12 }).map((_, n) => (
- <motion.div
+ <m.div
  key={n}
  initial={{ scale: 0 }}
  animate={
@@ -302,14 +302,14 @@ export function MLBeatProblem() {
  className={`w-2 h-2 rounded-full ${n >= 8 ? 'bg-[color-mix(in_srgb,var(--cs-accent),transparent_60%)]' : 'bg-white/[0.08]'}`}
  />
  ))}
- <motion.span
+ <m.span
  initial={{ opacity: 0 }}
  animate={step >= 4 ? { opacity: 1 } : {}}
  className="text-[8px] font-mono text-zinc-500 ml-1"
- >+</motion.span>
- </motion.div>
+ >+</m.span>
+ </m.div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -348,7 +348,7 @@ export function MLBeatGoal() {
  {/* ── Before / After dual screenshot comparison ── */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -356,7 +356,7 @@ export function MLBeatGoal() {
  >
  <div className="grid grid-cols-2 gap-3 md:gap-4">
  {/* Before: Chaotic data flow wireframe */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -369,7 +369,7 @@ export function MLBeatGoal() {
  <div className="relative p-3 min-h-[120px]">
  {/* Scattered pills */}
  {['Data', 'Model', 'Target', 'Params'].map((pill, i) => (
- <motion.div
+ <m.div
  key={pill}
  initial={{ opacity: 0 }}
  animate={{ opacity: 0.5 }}
@@ -379,7 +379,7 @@ export function MLBeatGoal() {
  left: `${12 + (i * 22) % 70}%`,
  top: `${15 + ((i * 37) % 60)}%`,
  }}
- >{pill}</motion.div>
+ >{pill}</m.div>
  ))}
  {/* Messy connection lines */}
  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -392,10 +392,10 @@ export function MLBeatGoal() {
  <span className="text-[6px] font-mono text-zinc-500">⚠ Results Not Generated</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
 
  {/* After: Clean 4-step wizard wireframe */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: 15 }}
  animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
  transition={{ duration: 0.6, ease }}
@@ -407,7 +407,7 @@ export function MLBeatGoal() {
  </div>
  <div className="p-3 space-y-1.5">
  {['Problem Type', 'Specify Target', 'Select Predictors', 'Configure'].map((label, i) => (
- <motion.div
+ <m.div
  key={label}
  initial={{ opacity: 0, x: 8 }}
  animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
@@ -420,10 +420,10 @@ export function MLBeatGoal() {
  <div className="flex-1 h-5 rounded bg-[color-mix(in_srgb,var(--cs-accent),transparent_94%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_90%)] flex items-center px-2">
  <span className="text-[7px] font-mono text-[var(--cs-accent)] opacity-50">{label}</span>
  </div>
- </motion.div>
+ </m.div>
  ))}
  {/* Submit button wireframe */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={step >= 2 ? { opacity: 1 } : {}}
  transition={{ delay: 0.5 }}
@@ -432,13 +432,13 @@ export function MLBeatGoal() {
  <div className="px-3 py-1 rounded bg-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)]">
  <span className="text-[7px] font-mono text-[var(--cs-accent)] opacity-70">Train Model →</span>
  </div>
- </motion.div>
+ </m.div>
  </div>
- </motion.div>
+ </m.div>
  </div>
 
  {/* Metric bar */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={step >= 3 ? { opacity: 1, y: 0 } : {}}
  transition={{ duration: 0.5 }}
@@ -453,8 +453,8 @@ export function MLBeatGoal() {
  <span className="text-2xl font-mono font-bold text-[var(--cs-accent)]">4</span>
  <span className="text-[9px] font-mono text-[var(--cs-accent)] opacity-60 uppercase">steps</span>
  </div>
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -491,7 +491,7 @@ export function MLBeatDiscovery() {
  <div className="flex flex-col md:flex-row items-center gap-8 w-full max-w-4xl">
  <AnimatePresence>
  {step >= 0 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, rotateY: -15, scale: 0.9 }}
  animate={{ opacity: 1, rotateY: 0, scale: 1 }}
  transition={{ duration: 0.8, ease }}
@@ -511,33 +511,33 @@ export function MLBeatDiscovery() {
  <div className="text-[11px] font-mono text-amber-300/70 tracking-wider">Product Design for AI & ML</div>
 
  {/* Gold seal */}
- <motion.div
+ <m.div
  initial={{ scale: 0, rotate: -180 }}
  animate={step >= 1 ? { scale: 1, rotate: 0 } : {}}
  transition={{ duration: 0.6, type: 'spring', damping: 15 }}
  className="mx-auto mt-4 w-16 h-16 rounded-full border-2 border-amber-400/60 bg-gradient-to-br from-amber-500/30 to-amber-700/20 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)]"
  >
  <Target className="w-7 h-7 text-amber-300" />
- </motion.div>
+ </m.div>
 
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={step >= 1 ? { opacity: 1 } : {}}
  transition={{ delay: 0.3 }}
  className="mt-3 text-[10px] font-mono text-amber-500/50"
  >
  Anuja Harsha · Boston, MA
- </motion.div>
+ </m.div>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* You + Data Scientist exchanging knowledge */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: 20 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -556,7 +556,7 @@ export function MLBeatDiscovery() {
  {/* Exchange arrows + knowledge bubbles */}
  <div className="flex flex-col items-center gap-2 pt-2">
  {/* DS → Anu: ML concepts */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: 10 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.2 }}
@@ -566,8 +566,8 @@ export function MLBeatDiscovery() {
  <div className="px-2 py-1 rounded bg-amber-500/10 border border-amber-500/15">
  <span className="text-[7px] font-mono text-amber-300/70">Confusion Matrix</span>
  </div>
- </motion.div>
- <motion.div
+ </m.div>
+ <m.div
  initial={{ opacity: 0, x: 10 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.4 }}
@@ -577,9 +577,9 @@ export function MLBeatDiscovery() {
  <div className="px-2 py-1 rounded bg-amber-500/10 border border-amber-500/15">
  <span className="text-[7px] font-mono text-amber-300/70">Hyperparameters</span>
  </div>
- </motion.div>
+ </m.div>
  {/* Anu → DS: Design insights */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.6 }}
@@ -589,8 +589,8 @@ export function MLBeatDiscovery() {
  <span className="text-[7px] font-mono text-[var(--cs-accent)] opacity-70">4-Step Wizard</span>
  </div>
  <span className="text-[7px] font-mono text-[var(--cs-accent)] opacity-60">→</span>
- </motion.div>
- <motion.div
+ </m.div>
+ <m.div
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.8 }}
@@ -600,7 +600,7 @@ export function MLBeatDiscovery() {
  <span className="text-[7px] font-mono text-[var(--cs-accent)] opacity-70">Visual Matrix</span>
  </div>
  <span className="text-[7px] font-mono text-[var(--cs-accent)] opacity-60">→</span>
- </motion.div>
+ </m.div>
  </div>
 
  {/* DS avatar */}
@@ -615,7 +615,7 @@ export function MLBeatDiscovery() {
  <span className="text-[8px] font-mono text-zinc-600">Months of weekly sessions</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -663,7 +663,7 @@ export function MLBeatEntryPoint() {
  {/* ── Full Data Browser Panel ── */}
  <AnimatePresence>
  {step >= 0 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 25, scale: 0.95 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
  transition={{ duration: 0.8, ease }}
@@ -700,7 +700,7 @@ export function MLBeatEntryPoint() {
  {/* Dataset rows */}
  <div className="relative">
  {datasets.map((ds, i) => (
- <motion.div
+ <m.div
  key={ds.name}
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
@@ -721,28 +721,28 @@ export function MLBeatEntryPoint() {
  <span className="w-16 text-right text-[9px] font-mono text-zinc-600">{ds.rows}</span>
  <span className="w-16 text-right text-[8px] font-mono text-zinc-600">{ds.type}</span>
  <div className="w-8 text-right text-zinc-600">⋯</div>
- </motion.div>
+ </m.div>
  ))}
  </div>
 
  {/* Animated cursor */}
  <AnimatePresence>
  {step >= 1 && step < 4 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: '80%', y: '60%' }}
  animate={step >= 2 ? { opacity: 1, x: '55%', y: '18%' } : { opacity: 1, x: '55%', y: '15%' }}
  transition={{ duration: 0.8, ease: 'easeInOut' }}
  className="absolute z-30 pointer-events-none"
  >
  <MousePointerClick className="w-5 h-5 text-white drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]" fill="white" />
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Context menu */}
  <AnimatePresence>
  {step >= 2 && step < 4 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.9, y: -5 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.95 }}
@@ -756,7 +756,7 @@ export function MLBeatEntryPoint() {
  { label: 'Export', icon: '📤' },
  { label: 'Delete', icon: '🗑️', danger: true },
  ].map((item, i) => (
- <motion.div
+ <m.div
  key={item.label}
  initial={{ opacity: 0, x: -8 }}
  animate={{ opacity: 1, x: 0 }}
@@ -769,17 +769,17 @@ export function MLBeatEntryPoint() {
  <span className="text-sm">{item.icon}</span>
  <span>{item.label}</span>
  {item.highlight && (
- <motion.div
+ <m.div
  animate={{ opacity: [0.4, 1, 0.4] }}
  transition={{ duration: 2, repeat: Infinity }}
  className="ml-auto"
  >
  <Sparkles className="w-3.5 h-3.5 text-[var(--cs-accent)]" />
- </motion.div>
+ </m.div>
  )}
- </motion.div>
+ </m.div>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -787,38 +787,38 @@ export function MLBeatEntryPoint() {
  <AnimatePresence>
  {step >= 4 && (
  <>
- <motion.div
+ <m.div
  initial={{ opacity: 0.8, scale: 0 }}
  animate={{ opacity: 0, scale: 3 }}
  transition={{ duration: 0.6 }}
  className="absolute top-[32%] left-[60%] w-8 h-8 rounded-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_70%)] z-30 pointer-events-none"
  />
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ delay: 0.3, duration: 0.5 }}
  className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--cs-accent),transparent_92%)] to-transparent z-10 flex flex-col items-center justify-center"
  >
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.5 }}
  className="px-6 py-3 rounded-xl bg-[color-mix(in_srgb,var(--cs-accent),transparent_90%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] "
  >
  <div className="flex items-center gap-3">
- <motion.div
+ <m.div
  animate={{ rotate: 360 }}
  transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
  className="w-5 h-5 border-2 border-[color-mix(in_srgb,var(--cs-accent),transparent_60%)] border-t-[var(--cs-accent)] rounded-full"
  />
  <span className="text-sm font-mono text-[var(--cs-accent)]">Loading Predict Data...</span>
  </div>
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  </>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -854,7 +854,7 @@ export function MLBeatPivot() {
  {/* Visual: Single unified wizard panel with expandable depth */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -882,7 +882,7 @@ export function MLBeatPivot() {
  {/* Expandable advanced section — progressive disclosure */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ height: 0, opacity: 0 }}
  animate={{ height: 'auto', opacity: 1 }}
  transition={{ duration: 0.6, ease }}
@@ -902,10 +902,10 @@ export function MLBeatPivot() {
  ))}
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -955,7 +955,7 @@ export function MLBeatBreakthrough() {
  {/* ── Animated Guided Wizard — wireframe recreation ── */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -973,7 +973,7 @@ export function MLBeatBreakthrough() {
  <div className="flex items-center justify-between px-5 py-3 border-b border-white/[0.04]">
  {stepLabels.map((label, i) => (
  <div key={label} className="flex items-center gap-1.5">
- <motion.div
+ <m.div
  animate={{
  backgroundColor: i <= activeStep ? 'rgba(59,130,246,0.5)' : 'rgba(255,255,255,0.06)',
  scale: i === activeStep ? 1.15 : 1,
@@ -982,7 +982,7 @@ export function MLBeatBreakthrough() {
  className="w-4 h-4 rounded-full flex items-center justify-center border border-white/[0.1]"
  >
  <span className="text-[7px] font-mono font-bold text-white">{i + 1}</span>
- </motion.div>
+ </m.div>
  <span className={`text-[7px] font-mono tracking-wider hidden md:inline ${i === activeStep ? 'text-zinc-200' : 'text-zinc-600'}`}>{label}</span>
  {i < 3 && <div className="w-4 md:w-8 h-px bg-white/[0.06] mx-1" />}
  </div>
@@ -993,11 +993,11 @@ export function MLBeatBreakthrough() {
  <div className="relative min-h-[320px] p-6">
  <AnimatePresence mode="wait">
  {activeStep === 0 && (
- <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
  {/* Step 1: Problem type cards */}
  <div className="grid grid-cols-3 gap-2">
  {['Binary\nClassification', 'Anomaly\nDetection', 'Multi-class', 'Regression', 'Clustering', 'Time-series'].map((type, i) => (
- <motion.div
+ <m.div
  key={type}
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
@@ -1007,30 +1007,30 @@ export function MLBeatBreakthrough() {
  >
  <div className="w-5 h-5 mx-auto mb-1.5 rounded-full bg-white/[0.06] border border-white/[0.08]" />
  <span className={`text-[8px] font-mono leading-tight ${i === 0 ? 'text-blue-300' : 'text-zinc-500'}`}>{type.replace('\n', ' ')}</span>
- </motion.div>
+ </m.div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  {activeStep === 1 && (
- <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
  {/* Step 2: Form fields */}
  <div className="space-y-3 max-w-sm mx-auto">
  {['Target*', 'Positive Class*', 'Scoring*'].map((field, i) => (
- <motion.div key={field} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+ <m.div key={field} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
  <div className="text-[8px] font-mono text-zinc-500 mb-1">{field}</div>
  <div className="h-7 rounded-md border border-white/[0.08] bg-white/[0.03] flex items-center px-2.5 justify-between">
  <span className="text-[8px] font-mono text-blue-400/60">{['Select Target', 'Select Positive Class', 'AUC'][i]}</span>
  <div className="w-2 h-2 border-b border-r border-zinc-600 rotate-45 -mt-0.5" />
  </div>
  <div className="mt-1 text-[7px] font-mono text-zinc-600 px-2">{['The variable to predict', 'Default: minority class', 'Objective metric'][i]}</div>
- </motion.div>
+ </m.div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  {activeStep === 2 && (
- <motion.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
  {/* Step 3: Data table with checkboxes */}
  <div className="rounded-lg border border-white/[0.06] overflow-hidden">
  <div className="flex px-3 py-1.5 border-b border-white/[0.06] bg-white/[0.02]">
@@ -1039,7 +1039,7 @@ export function MLBeatBreakthrough() {
  ))}
  </div>
  {['Date of Statement', 'Long Term Debt', 'Short Term Debt', 'Long Term Equity', 'Short Term Equity', 'CASH_QTR'].map((field, i) => (
- <motion.div
+ <m.div
  key={field}
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
@@ -1050,23 +1050,23 @@ export function MLBeatBreakthrough() {
  <span className="flex-1 text-[7px] font-mono text-zinc-400">{field}</span>
  <span className="flex-1 text-[7px] font-mono text-zinc-600">538</span>
  <span className="flex-1 text-[7px] font-mono text-zinc-600">0.00%</span>
- </motion.div>
+ </m.div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  {activeStep === 3 && (
- <motion.div key="s4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
  {/* Step 4: Algorithm chips + param fields */}
  <div className="flex flex-wrap gap-1.5 mb-4 justify-center">
  {['K-nearest', 'Logistic Regression', 'XGBoost', 'Random Forest', 'Neural Net'].map((algo, i) => (
- <motion.div
+ <m.div
  key={algo}
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: i * 0.06 }}
  className={`px-2.5 py-1 rounded-full text-[8px] font-mono border ${i === 1 ? 'bg-blue-500/20 border-blue-500/30 text-blue-300' : 'border-white/[0.08] text-zinc-500 bg-white/[0.02]'}`}
- >{algo}</motion.div>
+ >{algo}</m.div>
  ))}
  </div>
  <div className="grid grid-cols-2 gap-2">
@@ -1079,7 +1079,7 @@ export function MLBeatBreakthrough() {
  </div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -1093,7 +1093,7 @@ export function MLBeatBreakthrough() {
  <span className="text-[8px] font-mono text-blue-300">{activeStep === 3 ? 'Apply and Train →' : 'Next →'}</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -1135,7 +1135,7 @@ export function MLBeatOrigin() {
  {/* DS Challenge: External tool reference */}
  <AnimatePresence>
  {step >= 0 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -1155,7 +1155,7 @@ export function MLBeatOrigin() {
  </div>
  {/* Mini chart lines */}
  <svg viewBox="0 0 100 40" className="w-full h-20" fill="none">
- <motion.path
+ <m.path
  d="M5,30 Q25,5 50,20 T95,10"
  stroke="rgba(245,158,11,0.3)"
  strokeWidth="1.5"
@@ -1163,7 +1163,7 @@ export function MLBeatOrigin() {
  animate={{ pathLength: 1 }}
  transition={{ delay: 0.3, duration: 1 }}
  />
- <motion.path
+ <m.path
  d="M5,25 Q30,35 55,15 T95,20"
  stroke="rgba(245,158,11,0.15)"
  strokeWidth="1"
@@ -1179,14 +1179,14 @@ export function MLBeatOrigin() {
  </div>
  <div className="text-[10px] font-mono text-amber-400/40 text-center mt-1">&ldquo;Can you figure this out?&rdquo;</div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* My Solution: WebFOCUS native */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: 15, scale: 0.95 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
  transition={{ duration: 0.8, ease }}
@@ -1209,7 +1209,7 @@ export function MLBeatOrigin() {
  <div key={f.name} className="flex items-center gap-2">
  <span className="text-[8px] font-mono text-zinc-500 w-20 text-right shrink-0">{f.name}</span>
  <div className="flex-1 h-4 bg-white/[0.03] rounded-sm overflow-hidden">
- <motion.div
+ <m.div
  className="h-full bg-gradient-to-r from-[color-mix(in_srgb,var(--cs-accent),transparent_60%)] to-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: f.w }}
@@ -1219,16 +1219,16 @@ export function MLBeatOrigin() {
  </div>
  ))}
  {/* Prediction explanation line */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ delay: 0.8 }}
  className="mt-2 py-2 px-3 rounded bg-[color-mix(in_srgb,var(--cs-accent),transparent_94%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_90%)] text-center"
  >
  <span className="text-[9px] font-mono text-[var(--cs-accent)] opacity-70">Prediction: <span className="text-[var(--cs-accent)] font-bold">Approved</span> (87% confidence)</span>
- </motion.div>
+ </m.div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -1236,7 +1236,7 @@ export function MLBeatOrigin() {
  {/* DS Trust Quote */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5 }}
@@ -1246,14 +1246,14 @@ export function MLBeatOrigin() {
  &ldquo;The other designers just gave designs. You actually understood. That&apos;s why I trust you.&rdquo;
  </p>
  <p className="text-[10px] font-mono text-zinc-500 mt-1">&mdash; Marcus Horbach, Principal Data Scientist</p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Arrow: Trust → Full Revamp */}
  <AnimatePresence>
  {step >= 3 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ type: 'spring', damping: 15 }}
@@ -1264,7 +1264,7 @@ export function MLBeatOrigin() {
  <ArrowRight className="w-3 h-3 text-[var(--cs-accent)] opacity-60" />
  <span className="text-[9px] font-mono text-[var(--cs-accent)] uppercase font-bold">Full ML UX Revamp</span>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -1306,7 +1306,7 @@ export function MLBeatConfusionMatrix() {
  {/* BEFORE: Confusion matrix existed but no interaction affordance */}
  <AnimatePresence>
  {step >= 0 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={{ opacity: 0.6, x: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -1341,14 +1341,14 @@ export function MLBeatConfusionMatrix() {
  <span className="text-[5px] font-mono text-zinc-500">← Where do I click?</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* AFTER: Clear interactive layout with slider + responsive graphs */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: 15, scale: 0.95 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
  transition={{ duration: 0.8, ease }}
@@ -1361,21 +1361,21 @@ export function MLBeatConfusionMatrix() {
  <div className="p-3 space-y-2">
  {/* Confusion matrix — cleaner */}
  <div className="grid grid-cols-2 gap-1">
- <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring' }} className="h-8 rounded bg-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] flex items-center justify-center">
+ <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring' }} className="h-8 rounded bg-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] flex items-center justify-center">
  <span className="text-[8px] font-mono font-bold text-[var(--cs-accent)]">94%</span>
- </motion.div>
- <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring' }} className="h-8 rounded bg-white/[0.04] border border-white/[0.05] flex items-center justify-center">
+ </m.div>
+ <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring' }} className="h-8 rounded bg-white/[0.04] border border-white/[0.05] flex items-center justify-center">
  <span className="text-[8px] font-mono text-zinc-500">6%</span>
- </motion.div>
- <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.35, type: 'spring' }} className="h-8 rounded bg-white/[0.04] border border-white/[0.05] flex items-center justify-center">
+ </m.div>
+ <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.35, type: 'spring' }} className="h-8 rounded bg-white/[0.04] border border-white/[0.05] flex items-center justify-center">
  <span className="text-[8px] font-mono text-zinc-500">3%</span>
- </motion.div>
- <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.4, type: 'spring' }} className="h-8 rounded bg-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] flex items-center justify-center">
+ </m.div>
+ <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.4, type: 'spring' }} className="h-8 rounded bg-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] flex items-center justify-center">
  <span className="text-[8px] font-mono font-bold text-[var(--cs-accent)]">97%</span>
- </motion.div>
+ </m.div>
  </div>
  {/* Threshold slider — prominent affordance */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 5 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.5 }}
@@ -1386,27 +1386,27 @@ export function MLBeatConfusionMatrix() {
  <span className="text-[7px] font-mono font-bold text-[var(--cs-accent)]">0.65</span>
  </div>
  <div className="h-1.5 rounded-full bg-white/[0.06] relative">
- <motion.div
+ <m.div
  className="absolute inset-y-0 left-0 rounded-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_50%)]"
  initial={{ width: '50%' }}
  animate={{ width: ['50%', '65%', '45%', '65%'] }}
  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
  />
- <motion.div
+ <m.div
  className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[var(--cs-accent)] border-2 border-zinc-900 shadow-sm"
  initial={{ left: '50%' }}
  animate={{ left: ['50%', '65%', '45%', '65%'] }}
  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
  />
  </div>
- </motion.div>
+ </m.div>
  {/* Responsive bar graphs */}
  <div className="flex gap-1.5">
  {['Precision', 'Recall', 'F1'].map((metric, i) => (
  <div key={metric} className="flex-1">
  <span className="text-[5px] font-mono text-zinc-600 block mb-0.5">{metric}</span>
  <div className="h-6 bg-white/[0.02] rounded-sm overflow-hidden relative">
- <motion.div
+ <m.div
  className="absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--cs-accent),transparent_70%)] rounded-sm"
  animate={{ height: [`${60 + i * 8}%`, `${75 + i * 5}%`, `${55 + i * 10}%`, `${75 + i * 5}%`] }}
  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -1416,7 +1416,7 @@ export function MLBeatConfusionMatrix() {
  ))}
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -1424,7 +1424,7 @@ export function MLBeatConfusionMatrix() {
  {/* Quote callout */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5 }}
@@ -1434,7 +1434,7 @@ export function MLBeatConfusionMatrix() {
  &ldquo;The best screen in the entire UX revamp.&rdquo;
  </p>
  <p className="text-[10px] font-mono text-zinc-500 mt-1">— Principal Data Scientist, after 10+ iterations</p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -1485,7 +1485,7 @@ export function MLBeatExplainability() {
  {/* Explainability popup wireframe */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95, y: 15 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -1513,7 +1513,7 @@ export function MLBeatExplainability() {
  {/* Feature importance bars */}
  <div className="space-y-2">
  {features.map((feat, i) => (
- <motion.div
+ <m.div
  key={feat.name}
  initial={{ opacity: 0, x: -10 }}
  animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
@@ -1522,29 +1522,29 @@ export function MLBeatExplainability() {
  >
  <span className="text-[10px] font-mono text-zinc-500 w-28 text-right shrink-0">{feat.name}</span>
  <div className="flex-1 h-6 bg-white/[0.03] rounded-sm overflow-hidden relative">
- <motion.div
+ <m.div
  className={`absolute inset-y-0 left-0 ${feat.color} rounded-sm`}
  initial={{ width: 0 }}
  animate={step >= 2 ? { width: `${feat.importance * 100}%` } : {}}
  transition={{ delay: 0.3 + i * 0.08, duration: 0.6, ease }}
  />
  </div>
- <motion.span
+ <m.span
  className="text-[10px] font-mono text-zinc-400 w-10 text-right"
  initial={{ opacity: 0 }}
  animate={step >= 2 ? { opacity: 1 } : {}}
  transition={{ delay: 0.5 + i * 0.08 }}
  >
  {(feat.importance * 100).toFixed(0)}%
- </motion.span>
- </motion.div>
+ </m.span>
+ </m.div>
  ))}
  </div>
 
  {/* SHAP-style contribution row */}
  <AnimatePresence>
  {step >= 3 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5, ease }}
@@ -1557,31 +1557,31 @@ export function MLBeatExplainability() {
  <div className="flex items-center gap-1 h-6">
  {/* SHAP-style waterfall */}
  <div className="text-[8px] font-mono text-zinc-600 w-12">Base</div>
- <motion.div
+ <m.div
  className="h-full bg-zinc-700/30 rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '15%' }}
  transition={{ delay: 0.2, duration: 0.4 }}
  />
- <motion.div
+ <m.div
  className="h-full bg-emerald-500/40 rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '25%' }}
  transition={{ delay: 0.4, duration: 0.4 }}
  />
- <motion.div
+ <m.div
  className="h-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '15%' }}
  transition={{ delay: 0.5, duration: 0.4 }}
  />
- <motion.div
+ <m.div
  className="h-full bg-white/[0.06] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '8%' }}
  transition={{ delay: 0.6, duration: 0.4 }}
  />
- <motion.div
+ <m.div
  className="h-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_85%)] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '10%' }}
@@ -1599,11 +1599,11 @@ export function MLBeatExplainability() {
  <span className="text-[8px] font-mono text-zinc-600">Pushes down</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
@@ -1644,7 +1644,7 @@ export function MLBeatValidation() {
  {/* ── Zoom Testing Scene ── */}
  <AnimatePresence>
  {step >= 0 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -1672,7 +1672,7 @@ export function MLBeatValidation() {
  {/* 4 wizard steps animating through */}
  <div className="flex gap-1.5 mb-3">
  {['Type', 'Target', 'Predict', 'Params'].map((s, i) => (
- <motion.div
+ <m.div
  key={s}
  className="flex-1 h-8 rounded flex items-center justify-center border"
  animate={{
@@ -1686,7 +1686,7 @@ export function MLBeatValidation() {
  transition={{ duration: 0.4 }}
  >
  <span className="text-[10px] font-mono text-zinc-500">{s}</span>
- </motion.div>
+ </m.div>
  ))}
  </div>
  {/* Wireframe content area */}
@@ -1714,21 +1714,21 @@ export function MLBeatValidation() {
  </div>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── 5 Test Sessions Results ── */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.5 }}
  className="grid grid-cols-4 gap-2.5 mb-5"
  >
  {[1, 2, 3, 4].map((n, i) => (
- <motion.div
+ <m.div
  key={n}
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
@@ -1738,7 +1738,7 @@ export function MLBeatValidation() {
  <div className="text-[10px] font-mono text-zinc-500 mb-1.5">SME {n}</div>
  {/* Mini progress bar */}
  <div className="h-1 rounded-full bg-white/[0.04] overflow-hidden mb-2">
- <motion.div
+ <m.div
  className="h-full rounded-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_40%)]"
  initial={{ width: '0%' }}
  animate={{ width: '100%' }}
@@ -1746,7 +1746,7 @@ export function MLBeatValidation() {
  />
  </div>
  {/* Checkmark */}
- <motion.div
+ <m.div
  initial={{ scale: 0 }}
  animate={{ scale: 1 }}
  transition={{ delay: i * 0.25 + 0.6, type: 'spring', damping: 12 }}
@@ -1754,17 +1754,17 @@ export function MLBeatValidation() {
  <svg className="w-6 h-6 mx-auto text-[var(--cs-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
  </svg>
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Big 5/5 Counter ── */}
  <AnimatePresence>
  {step >= 4 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ type: 'spring', damping: 15 }}
@@ -1772,7 +1772,7 @@ export function MLBeatValidation() {
  >
  <span className="text-4xl font-mono font-bold text-[var(--cs-accent)]">4/4</span>
  <span className="text-sm font-mono text-[var(--cs-accent)] opacity-60">blazed through without help</span>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>

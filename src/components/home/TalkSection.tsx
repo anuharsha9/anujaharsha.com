@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { getTheme, spacing } from '@/lib/design-system'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
@@ -37,7 +37,7 @@ export default function TalkSection() {
       role="contentinfo"
     >
       <div className={`relative z-10 ${spacing.container} max-w-4xl mx-auto`}>
-        <motion.div
+        <m.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -150,7 +150,7 @@ export default function TalkSection() {
           </p>
 
           <div className="h-safe-area-inset-bottom" />
-        </motion.div>
+        </m.div>
       </div>
     </footer>
   )

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Search, AlertTriangle, Inbox } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 
@@ -47,7 +47,7 @@ function AnimatedCounter({ active }: { active: boolean }) {
  <div className="relative">
  {/* Glow behind number */}
  {finished && (
- <motion.div
+ <m.div
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
@@ -59,19 +59,19 @@ function AnimatedCounter({ active }: { active: boolean }) {
  background: 'radial-gradient(ellipse, var(--overlay-white-06) 0%, transparent 70%)',
  }}
  />
- </motion.div>
+ </m.div>
  )}
  <div className="relative text-center">
- <motion.div
+ <m.div
  className="text-7xl md:text-8xl font-bold text-white font-mono tabular-nums"
  animate={finished ? { scale: [1, 1.05, 1] } : {}}
  transition={{ duration: 0.4, ease }}
  >
  {count}<span style={{ color: 'var(--cs-accent)' }}>+</span>
- </motion.div>
+ </m.div>
  {/* Flash ring on finish */}
  {finished && (
- <motion.div
+ <m.div
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  initial={{ opacity: 0.8 }}
  animate={{ opacity: 0, scale: 2 }}
@@ -81,17 +81,17 @@ function AnimatedCounter({ active }: { active: boolean }) {
  className="w-32 h-32 rounded-full border"
  style={{ borderColor: 'var(--overlay-white-20)' }}
  />
- </motion.div>
+ </m.div>
  )}
  </div>
- <motion.div
+ <m.div
  className="text-xs text-zinc-400 font-mono uppercase tracking-[0.3em] text-center mt-2"
  initial={{ opacity: 0 }}
  animate={finished ? { opacity: 1 } : {}}
  transition={{ delay: 0.3 }}
  >
  Screens designed
- </motion.div>
+ </m.div>
  </div>
  )
 }
@@ -137,7 +137,7 @@ export default function Beat250Screens() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  Every interaction. Every loading state. Every error.
@@ -146,21 +146,21 @@ export default function Beat250Screens() {
  250+ screens. Nothing left to interpretation.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Screen cascade */}
  <AnimatePresence>
  {phase >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  className="relative h-48 md:h-56 overflow-hidden mb-6"
  >
  <div className="grid grid-cols-3 md:grid-cols-6 gap-2 absolute inset-0">
  {SCREEN_LABELS.map((label, i) => (
- <motion.div
+ <m.div
  key={label}
  initial={{ opacity: 0, y: 30, scale: 0.8 }}
  animate={{ opacity: 0.6, y: 0, scale: 1 }}
@@ -175,20 +175,20 @@ export default function Beat250Screens() {
  <div className="text-[11px] text-zinc-400 font-mono truncate">
  {label}
  </div>
- </motion.div>
+ </m.div>
  ))}
  </div>
 
  {/* Gradient fade at bottom */}
  <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-zinc-950/80 to-transparent pointer-events-none" />
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Counter + coverage stats — side by side */}
  <AnimatePresence>
  {phase >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ duration: 0.8, ease }}
@@ -204,7 +204,7 @@ export default function Beat250Screens() {
  {/* Coverage stats */}
  <AnimatePresence>
  {phase >= 3 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: 10 }}
  animate={{ opacity: 1, x: 0 }}
  transition={{ duration: 0.5 }}
@@ -215,7 +215,7 @@ export default function Beat250Screens() {
  { label: 'Error states', Icon: AlertTriangle },
  { label: 'Empty states', Icon: Inbox },
  ].map((item, i) => (
- <motion.div
+ <m.div
  key={item.label}
  initial={{ opacity: 0, x: 8 }}
  animate={{ opacity: 1, x: 0 }}
@@ -226,20 +226,20 @@ export default function Beat250Screens() {
  <span className="text-[11px] text-zinc-400 font-mono uppercase tracking-wider">
  {item.label}
  </span>
- </motion.div>
+ </m.div>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Closing — full width below */}
  <AnimatePresence>
  {phase >= 4 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 1, ease }}
@@ -248,7 +248,7 @@ export default function Beat250Screens() {
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
  Every. Single. Screen.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

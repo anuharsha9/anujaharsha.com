@@ -10,7 +10,7 @@ import { useScroll, useSpring, useTransform, useVelocity, MotionValue } from 'fr
  * 
  * Usage:
  *   const { scrollVelocity, skewY, scaleX } = useScrollVelocity()
- *   <motion.div style={{ skewY, scaleX }} />
+ *   <m.div style={{ skewY, scaleX }} />
  */
 export function useScrollVelocity(options?: {
     /**  Max skew in degrees (default: 3) */

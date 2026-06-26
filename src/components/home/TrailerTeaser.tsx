@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Play } from 'lucide-react'
 import { useTransition } from '@/components/transitions/TransitionContext'
 
@@ -20,7 +20,7 @@ export default function TrailerTeaser() {
             {/* ambient teal glow */}
             <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[360px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(var(--accent-teal-glow-rgb),0.05)] blur-[120px]" />
 
-            <motion.div
+            <m.div
                 className="relative flex flex-col items-center text-center"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export default function TrailerTeaser() {
                     How I think, what I&apos;ve shipped, and why hire me — in a minute.
                 </p>
 
-                <motion.button
+                <m.button
                     onClick={() => navigateTo('/manifesto')}
                     className="group relative mt-8 inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/[0.03] px-7 py-3.5 font-sans text-xs font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-500 hover:border-white/60 hover:bg-white hover:text-black sm:text-sm"
                     whileHover={{ scale: 1.02 }}
@@ -47,8 +47,8 @@ export default function TrailerTeaser() {
                         <Play className="h-3 w-3 fill-current" />
                     </span>
                     <span>Watch: Why Hire Me</span>
-                </motion.button>
-            </motion.div>
+                </m.button>
+            </m.div>
         </section>
     )
 }

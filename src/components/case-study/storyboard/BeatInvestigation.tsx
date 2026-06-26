@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Camera, Headphones, Network, User, Map, CheckCircle2, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
@@ -64,7 +64,7 @@ const EVENTS: TimelineEvent[] = [
 /* ── Animated evidence progress bar ── */
 function ProgressFill({ progress }: { progress: number }) {
  return (
- <motion.div
+ <m.div
  className="absolute left-0 top-0 w-full origin-top rounded-full"
  style={{ background: 'var(--cs-accent)' }}
  initial={{ height: '0%' }}
@@ -115,7 +115,7 @@ export default function BeatInvestigation() {
  <div className="px-6 md:px-10 py-8 md:py-12">
 
  {/* Presenter narration */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={isInView ? { opacity: 1 } : {}}
  transition={{ duration: 0.6 }}
@@ -125,12 +125,12 @@ export default function BeatInvestigation() {
  I interviewed everyone — support leads, customer reps, <span className="text-zinc-200 font-medium">the engineer who wrote the original code in the &apos;80s</span>. Mapped every workflow myself.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* ── Evidence Grid (compact) ── */}
  <div className="max-w-2xl mx-auto">
  {/* Board header with horizontal progress */}
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={step >= 0 ? { opacity: 1 } : { opacity: 0 }}
  transition={{ duration: 0.5 }}
@@ -147,7 +147,7 @@ export default function BeatInvestigation() {
  {completedCount}/{EVENTS.length}
  </span>
  <div className="w-16 h-1 bg-white/[0.04] rounded-full overflow-hidden">
- <motion.div
+ <m.div
  className="h-full rounded-full"
  style={{ background: 'var(--cs-accent)' }}
  initial={{ width: '0%' }}
@@ -156,7 +156,7 @@ export default function BeatInvestigation() {
  />
  </div>
  </div>
- </motion.div>
+ </m.div>
 
  {/* Compact evidence cards — icon + title only */}
  <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
@@ -164,7 +164,7 @@ export default function BeatInvestigation() {
  const Icon = event.icon
  const isActive = step >= i
  return (
- <motion.div
+ <m.div
  key={event.label}
  initial={{ opacity: 0, y: 12 }}
  animate={
@@ -179,7 +179,7 @@ export default function BeatInvestigation() {
  }}
  >
  {/* Top accent */}
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  animate={isActive ? { scaleX: 1 } : { scaleX: 0 }}
  transition={{ duration: 0.4, delay: 0.1, ease }}
@@ -204,7 +204,7 @@ export default function BeatInvestigation() {
  {event.label}
  </span>
  </div>
- </motion.div>
+ </m.div>
  )
  })}
  </div>
@@ -213,13 +213,13 @@ export default function BeatInvestigation() {
  {/* Outcome — compact */}
  <AnimatePresence>
  {step >= EVENTS.length && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
  className="mt-6 flex items-center gap-4 max-w-2xl mx-auto"
  >
- <motion.div
+ <m.div
  initial={{ scale: 0, rotate: -20 }}
  animate={{ scale: 1, rotate: 0 }}
  transition={{ duration: 0.5, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
@@ -229,7 +229,7 @@ export default function BeatInvestigation() {
  }}
  >
  <CheckCircle2 className="w-5 h-5 text-teal-400" strokeWidth={1.5} />
- </motion.div>
+ </m.div>
  <div className="flex-1">
  <p className="text-sm text-teal-300/90 leading-relaxed font-medium">
  {OUTCOME}
@@ -242,7 +242,7 @@ export default function BeatInvestigation() {
  <span>Every workflow mapped</span>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

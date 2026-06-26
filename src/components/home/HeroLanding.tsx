@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react'
 import {
-    motion,
+    m,
     useScroll,
     useTransform,
 } from 'framer-motion'
@@ -69,14 +69,14 @@ export default function HeroLanding() {
         <div ref={containerRef} className="relative w-full z-[2]" style={{ height: '100dvh' }}>
             {/* Bottom-edge cover — blocks CSG from peeking below hero,
                  transparent at top so fixed aurora waves show through */}
-            <motion.div
+            <m.div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     opacity: heroOpacity,
                     background: 'linear-gradient(to bottom, transparent 60%, #0a0a0f 95%)',
                 }}
             />
-            <motion.div
+            <m.div
                 className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center"
                 style={{ scale: heroScale, opacity: heroOpacity }}
             >
@@ -87,16 +87,16 @@ export default function HeroLanding() {
                 />
 
                 {/* ── HERO TEXT — cinematic blur-to-focus entrance ── */}
-                <motion.div
+                <m.div
                     className="absolute inset-0 z-[15] flex flex-col items-center justify-center pointer-events-none"
                 >
-                    <motion.div
+                    <m.div
                         className="flex flex-col items-center justify-center px-6"
                         style={{ y: bioY, opacity: bioOpacity }}
                     >
                         <div className="flex flex-col items-center text-center max-w-4xl">
                             {/* ANIMATED SIGNATURE — brandmark, draws itself on load. Centered above the eyebrow. */}
-                            <motion.div
+                            <m.div
                                 className="mb-5 h-16 w-[3.4rem] text-white/90 sm:mb-6 md:h-20 md:w-[4.25rem]"
                                 initial={{ opacity: 0, y: 8, filter: 'blur(8px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -108,20 +108,20 @@ export default function HeroLanding() {
                                     duration={3600}
                                     pauseDuration={3000}
                                 />
-                            </motion.div>
+                            </m.div>
 
                             {/* STAFF PRODUCT DESIGNER — label */}
-                            <motion.span
+                            <m.span
                                 className="text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
                                 initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                                 transition={{ duration: 1, delay: 0.15, ease }}
                             >
                                 Staff Product Designer · Enterprise Data Platforms
-                            </motion.span>
+                            </m.span>
 
                             {/* MAIN HEADLINE — slowest, most dramatic reveal */}
-                            <motion.h1
+                            <m.h1
                                 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-5"
                                 initial={{ opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }}
                                 animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
@@ -143,21 +143,21 @@ export default function HeroLanding() {
                                         <InterlockedGearGlyph size={28} />
                                     </span>
                                 </button>
-                            </motion.h1>
+                            </m.h1>
 
                             {/* SUBTITLE — positioning + credibility */}
-                            <motion.p
+                            <m.p
                                 className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
                                 initial={{ opacity: 0, y: 16, filter: 'blur(12px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                                 transition={{ duration: 1.2, delay: 0.2, ease }}
                             >
                                 I make the most powerful tool in the building — the one nobody likes to use — obvious. 13 years in product design, the last decade in enterprise systems — most recently leading the modernization of a 50-year-old BI platform that helped renew a multi-million-dollar contract.
-                            </motion.p>
+                            </m.p>
                         </div>
 
                         {/* CTAs — primary (work) + secondary (resume) */}
-                        <motion.div
+                        <m.div
                             className="mt-8 md:mt-10 flex flex-col items-center gap-4 pointer-events-auto sm:flex-row sm:justify-center sm:gap-5"
                             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
                             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -165,13 +165,13 @@ export default function HeroLanding() {
                         >
                             <div className="relative h-12 sm:h-14">
                                 {/* Outer glow ring — scales out as the hero exits */}
-                                <motion.div
+                                <m.div
                                     className="absolute inset-0 rounded-full border-2 border-white/60 pointer-events-none"
                                     style={{ scale: glowRingScale, opacity: glowRingOpacity }}
                                 />
                                 {/* Light sweep across the button on scroll-down */}
                                 <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                                    <motion.div
+                                    <m.div
                                         className="absolute inset-y-0 w-[60%] bg-gradient-to-r from-transparent via-white/30 to-transparent"
                                         style={{ left: lightSweepX }}
                                     />
@@ -194,11 +194,11 @@ export default function HeroLanding() {
                                 <FileText className="w-4 h-4" />
                                 <span>Resume</span>
                             </button>
-                        </motion.div>
+                        </m.div>
 
-                    </motion.div>
-                </motion.div>
-            </motion.div>
+                    </m.div>
+                </m.div>
+            </m.div>
         </div>
     )
 }

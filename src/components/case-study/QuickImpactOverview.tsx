@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import type { CaseStudyData, HighlightMetric } from '@/types/caseStudy'
 
 /**
@@ -38,7 +38,7 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
             aria-label="At a glance"
             className="relative z-10 mx-auto w-full max-w-[1200px] px-6 py-16 md:px-12 md:py-24"
         >
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
@@ -126,7 +126,7 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
                         )}
                     </div>
                 )}
-            </motion.div>
+            </m.div>
         </section>
     )
 }

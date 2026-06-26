@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { LayoutDashboard, Users, FileText, Settings, Layers } from 'lucide-react'
 
 // Easing for cinematic feel
@@ -23,7 +23,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6 overflow-hidden">
       {/* Header Text */}
-      <motion.div
+      <m.div
         className="text-center mb-24 z-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
           <span className="text-[var(--accent-teal-bright)] font-medium">Data-driven systems design.</span><br />
           Cruising through four complex tools, but it seamlessly feels like one.
         </h2>
-      </motion.div>
+      </m.div>
 
       {/* The Visual Metaphor */}
       <div className="relative w-full max-w-[600px] h-[300px] flex items-center justify-center">
@@ -53,7 +53,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
           const opacity = 1 - Math.pow(easeT, 4)
 
           return (
-            <motion.div
+            <m.div
               key={tool.id}
               className="absolute flex flex-col items-center justify-center gap-3 p-4 rounded-xl border"
               style={{
@@ -73,12 +73,12 @@ export function Scene3Unified({ progress }: { progress: number }) {
               <span className="text-xs font-mono tracking-widest text-zinc-400 uppercase">
                 {tool.label}
               </span>
-            </motion.div>
+            </m.div>
           )
         })}
 
         {/* The Unified Platform */}
-        <motion.div
+        <m.div
           className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border"
           style={{
             background: 'rgba(20, 184, 166, 0.05)',
@@ -124,7 +124,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   )

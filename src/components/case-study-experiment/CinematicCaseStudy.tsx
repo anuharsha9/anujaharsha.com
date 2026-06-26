@@ -15,7 +15,7 @@
  */
 
 import React, { useRef, type ReactNode } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { CaseStudyData } from '@/types/caseStudy'
 import { LightboxProvider } from './BentoGrid'
@@ -107,7 +107,7 @@ export default function CinematicCaseStudy({
 
  {/* ═══ HERO — Trailer + Metadata ═══ */}
  <div className="relative text-white" id="cs-trailer">
- <motion.section
+ <m.section
  ref={heroRef}
  className="relative z-10 min-h-[100dvh] flex flex-col justify-center px-6 md:px-16 pt-20"
  style={{ opacity: sectionOpacity, scale: sectionScale }}
@@ -117,7 +117,7 @@ export default function CinematicCaseStudy({
 
  {/* Trailer — Frame with Parallax Inner */}
  <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/5 aspect-video aurora-border bg-[#02080a]">
- <motion.div 
+ <m.div 
  className="w-full h-full transform-gpu"
  style={{ 
  y: parallaxY, 
@@ -135,7 +135,7 @@ export default function CinematicCaseStudy({
  className="w-full h-full object-cover mix-blend-screen"
  />
  )}
- </motion.div>
+ </m.div>
  </div>
 
  {/* Info bar — metadata centered, stacks on mobile */}
@@ -151,7 +151,7 @@ export default function CinematicCaseStudy({
  </div>
  </div>
  </div>
- </motion.section>
+ </m.section>
  </div>
 
  {/* ═══ FULL CASE STUDY CONTENT ═══ */}

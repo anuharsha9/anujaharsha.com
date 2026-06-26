@@ -10,7 +10,7 @@
  */
 
 import { useRef, useState, useCallback } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Play, X } from 'lucide-react'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import AutoPlayStory, { type MovieBeat } from './case-study/storyboard/AutoPlayStory'
@@ -144,7 +144,7 @@ function UpNextCard({
     onPlay: () => void
 }) {
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -152,7 +152,7 @@ function UpNextCard({
             className="relative z-20 flex flex-col items-center justify-center text-center px-4 md:px-8"
         >
             {/* Eyebrow */}
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5, ease }}
@@ -168,30 +168,30 @@ function UpNextCard({
                 >
                     {study.eyebrow}
                 </span>
-            </motion.div>
+            </m.div>
 
             {/* Title */}
-            <motion.h2
+            <m.h2
                 initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{ delay: 0.3, duration: 0.7, ease }}
                 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-4"
             >
                 {study.title}
-            </motion.h2>
+            </m.h2>
 
             {/* Subtitle */}
-            <motion.p
+            <m.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5, ease }}
                 className="text-base md:text-lg text-zinc-400 max-w-lg mx-auto font-light leading-relaxed mb-8"
             >
                 {study.subtitle}
-            </motion.p>
+            </m.p>
 
             {/* Play button */}
-            <motion.button
+            <m.button
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7, duration: 0.5, ease }}
@@ -210,10 +210,10 @@ function UpNextCard({
                 <span className="text-sm sm:text-base font-bold relative z-10">
                     Watch the Story
                 </span>
-            </motion.button>
+            </m.button>
 
             {/* Or skip to case study */}
-            <motion.div
+            <m.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
@@ -225,8 +225,8 @@ function UpNextCard({
                 >
                     or skip to full case study →
                 </TransitionLink>
-            </motion.div>
-        </motion.div>
+            </m.div>
+        </m.div>
     )
 }
 
@@ -287,7 +287,7 @@ export default function FlagshipTheater() {
             {/* ── X Close Button — always visible ── */}
             <AnimatePresence>
                 {(phase !== 'rc-playing') && (
-                    <motion.button
+                    <m.button
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
@@ -299,14 +299,14 @@ export default function FlagshipTheater() {
                         aria-label="Close and return to ReportCaster"
                     >
                         <X className="w-4 h-4 text-white" />
-                    </motion.button>
+                    </m.button>
                 )}
             </AnimatePresence>
 
             {/* ── Background movie (plays during playing phases) ── */}
             <AnimatePresence mode="wait">
                 {isPlaying && (
-                    <motion.div
+                    <m.div
                         key={phase}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -322,7 +322,7 @@ export default function FlagshipTheater() {
                             onComplete={currentComplete}
                             fullBleedBackground={true}
                         />
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
 
@@ -350,7 +350,7 @@ export default function FlagshipTheater() {
             <AnimatePresence mode="wait">
                 {/* RC Playing — show RC card */}
                 {phase === 'rc-playing' && (
-                    <motion.div
+                    <m.div
                         key="rc-foreground"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -390,19 +390,19 @@ export default function FlagshipTheater() {
                                 </span>
                             </TransitionLink>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ML Prompt */}
                 {phase === 'ml-prompt' && (
-                    <motion.div key="ml-prompt" className="relative z-20">
+                    <m.div key="ml-prompt" className="relative z-20">
                         <UpNextCard study={CASE_STUDIES.ml} onPlay={handleMLPlay} />
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* ML Playing — show ML title overlay */}
                 {phase === 'ml-playing' && (
-                    <motion.div
+                    <m.div
                         key="ml-foreground"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -422,19 +422,19 @@ export default function FlagshipTheater() {
                         <p className="text-base md:text-xl text-zinc-200 max-w-xl mx-auto font-light leading-relaxed">
                             {CASE_STUDIES.ml.subtitle}
                         </p>
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* IQ Prompt */}
                 {phase === 'iq-prompt' && (
-                    <motion.div key="iq-prompt" className="relative z-20">
+                    <m.div key="iq-prompt" className="relative z-20">
                         <UpNextCard study={CASE_STUDIES.iq} onPlay={handleIQPlay} />
-                    </motion.div>
+                    </m.div>
                 )}
 
                 {/* IQ Playing — show IQ title overlay */}
                 {phase === 'iq-playing' && (
-                    <motion.div
+                    <m.div
                         key="iq-foreground"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -454,13 +454,13 @@ export default function FlagshipTheater() {
                         <p className="text-base md:text-xl text-zinc-200 max-w-xl mx-auto font-light leading-relaxed">
                             {CASE_STUDIES.iq.subtitle}
                         </p>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
 
             {/* ── Accent glow border during non-RC movies ── */}
             {(phase === 'ml-playing' || phase === 'iq-playing') && (
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="absolute inset-0 z-0 pointer-events-none"

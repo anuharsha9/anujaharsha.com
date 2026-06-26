@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
@@ -68,7 +68,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
  return (
  <g>
  {/* Trail glow */}
- <motion.path
+ <m.path
  d={pathD}
  fill="none"
  stroke={color}
@@ -79,7 +79,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
  transition={{ duration: 0.8, delay, ease }}
  />
  {/* Animated dash flowing toward center */}
- <motion.path
+ <m.path
  d={pathD}
  fill="none"
  stroke={color}
@@ -92,7 +92,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
  />
  {/* Energy particle traveling along the path */}
  {active && (
- <motion.circle
+ <m.circle
  r={3}
  fill={color}
  initial={{ offsetDistance: '0%', opacity: 0 }}
@@ -101,7 +101,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
  style={{ offsetPath: `path("${pathD}")` }}
  >
  <animate attributeName="r" values="3;5;3" dur="0.6s" repeatCount="indefinite" />
- </motion.circle>
+ </m.circle>
  )}
  </g>
  )
@@ -145,7 +145,7 @@ export default function BeatBreakthrough() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  I stopped asking &ldquo;where should RC live?&rdquo; and started asking:{' '}
@@ -155,7 +155,7 @@ export default function BeatBreakthrough() {
  The Hub already had a <span className="text-zinc-200 font-medium">+ menu</span>. Every major workflow started there. If RC is a creation workflow — why isn&apos;t it initiated from there?
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -169,7 +169,7 @@ export default function BeatBreakthrough() {
  {/* Subtle orbit ring */}
  <AnimatePresence>
  {phase >= 1 && (
- <motion.circle
+ <m.circle
  cx={cx} cy={cy} r={radius}
  fill="none"
  stroke="var(--overlay-white-04)"
@@ -200,7 +200,7 @@ export default function BeatBreakthrough() {
  {phase >= 3 && (
  <>
  {[0, 1, 2].map(ring => (
- <motion.circle
+ <m.circle
  key={`shock-${ring}`}
  cx={cx} cy={cy}
  fill="none"
@@ -232,7 +232,7 @@ export default function BeatBreakthrough() {
  return (
  <AnimatePresence key={item.from}>
  {phase >= 1 && phase < 3 && (
- <motion.div
+ <m.div
  className="absolute flex items-center gap-2 pointer-events-none"
  initial={{
  opacity: 0,
@@ -262,14 +262,14 @@ export default function BeatBreakthrough() {
  {item.from}
  </span>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  )
  })}
 
  {/* Center "+" icon */}
- <motion.div
+ <m.div
  className="absolute flex items-center justify-center"
  initial={{ scale: 0, opacity: 0 }}
  animate={
@@ -284,7 +284,7 @@ export default function BeatBreakthrough() {
  {/* Glow layers */}
  {phase >= 3 && (
  <>
- <motion.div
+ <m.div
  className="absolute rounded-full"
  style={{
  width: 120, height: 120,
@@ -294,7 +294,7 @@ export default function BeatBreakthrough() {
  animate={{ scale: [0, 1.5, 1.2] }}
  transition={{ duration: 1, ease }}
  />
- <motion.div
+ <m.div
  className="absolute rounded-full"
  style={{
  width: 80, height: 80,
@@ -324,7 +324,7 @@ export default function BeatBreakthrough() {
  : 'none',
  }}
  >
- <motion.span
+ <m.span
  className="font-light"
  style={{
  fontSize: phase >= 3 ? 40 : 28,
@@ -340,7 +340,7 @@ export default function BeatBreakthrough() {
  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
  >
  +
- </motion.span>
+ </m.span>
  </div>
 
  {/* Labels orbiting the + after impact */}
@@ -352,7 +352,7 @@ export default function BeatBreakthrough() {
  const lx = labelR * Math.cos((labelAngle * Math.PI) / 180)
  const ly = labelR * Math.sin((labelAngle * Math.PI) / 180)
  return (
- <motion.div
+ <m.div
  key={`label-${item.from}`}
  className="absolute"
  initial={{ opacity: 0, scale: 0 }}
@@ -369,24 +369,24 @@ export default function BeatBreakthrough() {
  >
  {item.from.split(' ')[0]}
  </div>
- </motion.div>
+ </m.div>
  )
  })}
  </>
  )}
- </motion.div>
+ </m.div>
  </div>
 
  {/* ── Metrics ──────────────────────────────── */}
  <AnimatePresence>
  {phase >= 4 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
  >
  {/* Divider */}
- <motion.div
+ <m.div
  className="h-px mb-8 mx-auto max-w-sm"
  style={{
  background: 'linear-gradient(90deg, transparent, var(--overlay-emerald-30), transparent)',
@@ -397,9 +397,9 @@ export default function BeatBreakthrough() {
  />
 
  <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto">
- {METRICS.map((m, i) => (
- <motion.div
- key={m.label}
+ {METRICS.map((metric, i) => (
+ <m.div
+ key={metric.label}
  className="text-center"
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
@@ -408,7 +408,7 @@ export default function BeatBreakthrough() {
  {/* Before value — struck through */}
  <div className="flex items-center justify-center gap-1.5 mb-2">
  <span className="text-base font-mono text-zinc-600 line-through decoration-red-500/50 decoration-2">
- {m.before}
+ {metric.before}
  </span>
  <svg width="16" height="8" viewBox="0 0 16 8" className="text-zinc-600">
  <path d="M0 4h12M10 1l4 3-4 3" stroke="currentColor" strokeWidth="1.2" fill="none" />
@@ -417,41 +417,41 @@ export default function BeatBreakthrough() {
 
  {/* Animated counter */}
  <AnimatedCounter
- from={m.before}
- to={m.after}
+ from={metric.before}
+ to={metric.after}
  active={phase >= 5}
  color="var(--cs-accent)"
  />
 
  {/* Label */}
  <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-1.5">
- {m.label}
+ {metric.label}
  </div>
 
  {/* Progress bar draining */}
  <div className="mt-3 mx-auto max-w-[60px] h-1 rounded-full bg-white/[0.04] overflow-hidden">
- <motion.div
+ <m.div
  className="h-full rounded-full"
  style={{ background: 'var(--cs-accent)' }}
  initial={{ width: '100%' }}
  animate={phase >= 5
- ? { width: `${(m.after / m.before) * 100}%` }
+ ? { width: `${(metric.after / metric.before) * 100}%` }
  : { width: '100%' }
  }
  transition={{ duration: 1.5, delay: 0.5 + i * 0.15, ease }}
  />
  </div>
- </motion.div>
+ </m.div>
  ))}
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* ── Closing ──────────────────────────────── */}
  <AnimatePresence>
  {phase >= 6 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 1, ease }}
@@ -460,7 +460,7 @@ export default function BeatBreakthrough() {
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
  Users never leave the Hub.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

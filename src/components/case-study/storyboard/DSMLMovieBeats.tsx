@@ -9,7 +9,7 @@
  */
 
 import { useRef, useEffect, useState, type ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Search, Eye, EyeOff, Layers3, Sparkles, Users, Target, Zap, MessageSquare, BarChart3, BrainCircuit, LayoutDashboard, BookOpen, PanelLeft, Grid3X3, Code2, FlaskConical, Shield, Bug, UserCircle2 } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
@@ -61,7 +61,7 @@ function NLQIllustration() {
  <circle cx="58" cy="20" r="1.5" fill="var(--cs-accent)" opacity="0.5" />
  <circle cx="62" cy="24" r="1" fill="var(--cs-accent)" opacity="0.3" />
  {/* Strike-through line — hidden */}
- <motion.line x1="8" y1="70" x2="72" y2="70" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.15" strokeDasharray="3,5" animate={{ x2: [60, 72, 60] }} transition={{ duration: 3, repeat: Infinity }} />
+ <m.line x1="8" y1="70" x2="72" y2="70" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.15" strokeDasharray="3,5" animate={{ x2: [60, 72, 60] }} transition={{ duration: 3, repeat: Infinity }} />
  </svg>
  )
 }
@@ -75,7 +75,7 @@ function InsightsIllustration() {
  <rect x="42" y="28" width="10" height="40" rx="2" fill="var(--cs-accent)" opacity="0.45" />
  <rect x="56" y="20" width="10" height="48" rx="2" fill="var(--cs-accent)" opacity="0.55" />
  {/* Trend line */}
- <motion.path d="M19 48 L33 36 L47 26 L61 18" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.6" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, ease: 'easeOut' }} />
+ <m.path d="M19 48 L33 36 L47 26 L61 18" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.6" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, ease: 'easeOut' }} />
  {/* Eye icon at top */}
  <circle cx="40" cy="12" r="4" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.3" fill="none" />
  <circle cx="40" cy="12" r="1.5" fill="var(--cs-accent)" opacity="0.3" />
@@ -100,7 +100,7 @@ function MLIllustration() {
  <line x1="22" y1="45" x2="50" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
  <line x1="58" y1="45" x2="30" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
  {/* Pulse dot */}
- <motion.circle cx="40" cy="18" r={2} fill="var(--cs-accent)" opacity={0.6} initial={{ r: 2, opacity: 0.6 }} animate={{ r: [2, 3.5, 2], opacity: [0.6, 0.2, 0.6] }} transition={{ duration: 2, repeat: Infinity }} />
+ <m.circle cx="40" cy="18" r={2} fill="var(--cs-accent)" opacity={0.6} initial={{ r: 2, opacity: 0.6 }} animate={{ r: [2, 3.5, 2], opacity: [0.6, 0.2, 0.6] }} transition={{ duration: 2, repeat: Infinity }} />
  </svg>
  )
 }
@@ -130,7 +130,7 @@ export function DSMLBeatProblem() {
  <div className="px-6 md:px-10 py-8 md:py-12">
 
  {/* Speech bubble */}
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -140,19 +140,19 @@ export function DSMLBeatProblem() {
  Three AI features — <span className="text-zinc-200 font-medium">NLQ, Insights, ML</span> — buried in different menus. All shipping. None legacy. <span className="text-zinc-300 font-bold">Near-zero adoption.</span> The problem wasn&apos;t quality — it was discoverability.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* Three illustrated feature cards */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, ease }}
  className="flex flex-wrap items-stretch justify-center gap-4 md:gap-5 mt-8"
  >
  {features.map((feat, i) => (
- <motion.div
+ <m.div
  key={feat.name}
  initial={{ opacity: 0, y: 25, scale: 0.85 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -168,26 +168,26 @@ export function DSMLBeatProblem() {
  {feat.icon}
  </div>
  {/* Hidden eye overlay */}
- <motion.div
+ <m.div
  className="absolute inset-0 flex items-center justify-center bg-zinc-950/60 "
  initial={{ opacity: 0 }}
  animate={{ opacity: [0, 0.7, 0.5] }}
  transition={{ delay: 0.8 + i * 0.15, duration: 1, ease }}
  >
  <EyeOff className="h-6 w-6 text-zinc-400" strokeWidth={1.5} />
- </motion.div>
+ </m.div>
  <span className="font-mono text-sm font-bold block" style={{ color: feat.color }}>{feat.name}</span>
  <p className="text-[11px] text-zinc-400 leading-snug mt-1">{feat.label}</p>
- </motion.div>
+ </m.div>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Stats */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -203,7 +203,7 @@ export function DSMLBeatProblem() {
  <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider mt-1">{stat.label}</div>
  </div>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -234,7 +234,7 @@ function SceneTeamVision() {
  <circle cx="36" cy="16" r="3" fill="var(--cs-accent)" opacity="0.2" />
  <path d="M31 26 C31 22, 33 20, 36 20 C39 20, 41 22, 41 26" fill="var(--cs-accent)" opacity="0.15" />
  {/* Idea spark */}
- <motion.circle cx="24" cy="8" r={1.5} fill="var(--cs-accent)" opacity={0.5} initial={{ r: 1.5, opacity: 0.5 }} animate={{ opacity: [0.5, 0.15, 0.5], r: [1.5, 2.5, 1.5] }} transition={{ duration: 2, repeat: Infinity }} />
+ <m.circle cx="24" cy="8" r={1.5} fill="var(--cs-accent)" opacity={0.5} initial={{ r: 1.5, opacity: 0.5 }} animate={{ opacity: [0.5, 0.15, 0.5], r: [1.5, 2.5, 1.5] }} transition={{ duration: 2, repeat: Infinity }} />
  </svg>
  )
 }
@@ -253,7 +253,7 @@ function SceneDesignFit() {
  <rect x="20" y="24" width="8" height="10" rx="1.5" fill="var(--cs-accent)" opacity="0.1" />
  <rect x="30" y="24" width="8" height="10" rx="1.5" fill="var(--cs-accent)" opacity="0.1" />
  {/* Arrow pointing to the fitted panel */}
- <motion.path d="M42 17 L46 17" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.5" animate={{ x: [0, 2, 0] }} transition={{ duration: 1.5, repeat: Infinity }} />
+ <m.path d="M42 17 L46 17" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.5" animate={{ x: [0, 2, 0] }} transition={{ duration: 1.5, repeat: Infinity }} />
  </svg>
  )
 }
@@ -288,7 +288,7 @@ function SceneApproval() {
  <circle cx="24" cy="20" r="14" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.3" />
  <circle cx="24" cy="20" r="11" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.2" strokeDasharray="2,2" />
  {/* Checkmark */}
- <motion.path d="M17 20 L22 25 L31 15" stroke="var(--cs-accent)" strokeWidth="2" opacity="0.6" fill="none" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: 'easeOut' }} />
+ <m.path d="M17 20 L22 25 L31 15" stroke="var(--cs-accent)" strokeWidth="2" opacity="0.6" fill="none" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: 'easeOut' }} />
  {/* VP text */}
  <text x="24" y="35" textAnchor="middle" fill="var(--cs-accent)" fontSize="5" fontFamily="monospace" opacity="0.4">APPROVED</text>
  </svg>
@@ -321,7 +321,7 @@ export function DSMLBeatSpark() {
  <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 overflow-hidden">
  <div className="px-6 md:px-10 py-8 md:py-12">
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -331,14 +331,14 @@ export function DSMLBeatSpark() {
  The Hub was <span className="text-zinc-200 font-medium">co-created</span> — my PM, Director of Design, and Head PM. The <span className="text-[var(--cs-accent)] font-bold">entire IQ architecture was conceptualized by me</span> — how it fits the existing Hub, the interactions, the visual design. PM pitched. VP approved.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* Timeline with scene illustrations */}
  <div className="flex flex-col items-center gap-3 w-full max-w-md mx-auto mt-6">
  {timeline.map((item, i) => (
  <AnimatePresence key={item.label}>
  {step >= i + 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, x: -20, scale: 0.9 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
  transition={{ duration: 0.5, ease }}
@@ -353,16 +353,16 @@ export function DSMLBeatSpark() {
  </div>
  <span className="text-sm text-zinc-200 text-left">{item.label}</span>
  {i === timeline.length - 1 && (
- <motion.span
+ <m.span
  initial={{ scale: 0 }}
  animate={{ scale: 1 }}
  transition={{ delay: 0.3, type: 'spring', stiffness: 300 }}
  className="ml-auto text-[var(--cs-accent)] text-xs font-mono font-bold"
  >
  ✓ GO
- </motion.span>
+ </m.span>
  )}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  ))}
@@ -396,7 +396,7 @@ export function DSMLBeatModernize() {
  <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 overflow-hidden">
  <div className="px-6 md:px-10 py-8 md:py-12">
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -406,12 +406,12 @@ export function DSMLBeatModernize() {
  Before building the Hub, I modernized each feature. NLQ upgraded from simple SQL queries to <span className="text-[var(--cs-accent)] font-bold">Microsoft&apos;s Phi-3 SLM</span> — question suggestions, chart switching, ambiguity correction.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* Before → After transition */}
  <AnimatePresence mode="wait">
  {step < 2 ? (
- <motion.div
+ <m.div
  key="before"
  initial={{ opacity: 0, y: 18 }}
  animate={{ opacity: 1, y: 0 }}
@@ -425,19 +425,19 @@ export function DSMLBeatModernize() {
  <Search className="h-3.5 w-3.5 text-zinc-500" />
  <span className="font-mono text-[10px] text-zinc-500">Enter a question...</span>
  </div>
- <motion.div
+ <m.div
  animate={{ opacity: [0.4, 1, 0.4] }}
  transition={{ duration: 1.5, repeat: Infinity }}
  className="text-xs text-zinc-400 text-left space-y-2"
  >
  <div className="rounded bg-white/[0.03] px-3 py-2 font-mono text-[11px] text-zinc-500">show me sales data</div>
  <div className="text-zinc-500 text-[10px] px-1">No suggestions. No chart options. No ambiguity handling.</div>
- </motion.div>
+ </m.div>
  </div>
  <p className="mt-4 font-mono text-xs text-zinc-400">Basic SQL queries. No intelligence. Limited results.</p>
- </motion.div>
+ </m.div>
  ) : (
- <motion.div
+ <m.div
  key="after"
  initial={{ opacity: 0, y: 14, scale: 0.94 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -452,7 +452,7 @@ export function DSMLBeatModernize() {
  </div>
  <div className="space-y-2">
  {['What were last month\'s top products?', 'Show revenue by region', 'Compare Q1 vs Q2 sales'].map((q, i) => (
- <motion.div
+ <m.div
  key={q}
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
@@ -461,12 +461,12 @@ export function DSMLBeatModernize() {
  >
  <Sparkles className="h-3 w-3 text-[var(--cs-accent)] flex-shrink-0" />
  <span className="text-[11px] text-zinc-200">{q}</span>
- </motion.div>
+ </m.div>
  ))}
  </div>
  </div>
  <p className="mt-4 font-mono text-xs text-[var(--cs-accent)] opacity-70">Suggested queries. Conversational errors. Clear results.</p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -534,9 +534,9 @@ function HubDiagramSVG() {
  <rect x="100" y="65" width="3" height="9" rx="0.5" fill="var(--cs-accent)" opacity="0.35" />
  <circle cx="120" cy="70" r="2.5" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.35" fill="none" />
  {/* Connection lines from outside to hub */}
- <motion.line x1="20" y1="20" x2="65" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8 }} />
- <motion.line x1="180" y1="20" x2="135" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.15, duration: 0.8 }} />
- <motion.line x1="100" y1="110" x2="100" y2="85" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.8 }} />
+ <m.line x1="20" y1="20" x2="65" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8 }} />
+ <m.line x1="180" y1="20" x2="135" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.15, duration: 0.8 }} />
+ <m.line x1="100" y1="110" x2="100" y2="85" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.8 }} />
  {/* Source labels */}
  <text x="16" y="16" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">NLQ</text>
  <text x="184" y="16" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">Insights</text>
@@ -569,7 +569,7 @@ export function DSMLBeatArchitecture() {
  <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 overflow-hidden">
  <div className="px-6 md:px-10 py-8 md:py-12">
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -579,12 +579,12 @@ export function DSMLBeatArchitecture() {
  I defined the architecture <span className="text-zinc-200 font-medium">before any tickets existed</span>. PM wrote tickets after seeing my mockups. Three scattered tools became <span className="text-[var(--cs-accent)] font-bold">one unified DSML Hub</span> — no new infrastructure.
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* Scattered → Unified animation */}
  <AnimatePresence mode="wait">
  {step < 2 ? (
- <motion.div
+ <m.div
  key="scattered"
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
@@ -594,7 +594,7 @@ export function DSMLBeatArchitecture() {
  >
  <p className="absolute -top-1 left-0 right-0 font-mono text-xs text-zinc-400 uppercase tracking-wider text-center">3 scattered tools</p>
  {features.map((f, i) => (
- <motion.div
+ <m.div
  key={f.name}
  initial={{ opacity: 0, scale: 0 }}
  animate={step >= 1 ? { opacity: 1, scale: 1 } : {}}
@@ -610,12 +610,12 @@ export function DSMLBeatArchitecture() {
  >
  {f.icon}
  <span className="font-mono text-xs font-bold block" style={{ color: f.color }}>{f.name}</span>
- </motion.div>
+ </m.div>
  ))}
 
  <AnimatePresence>
  {step >= 1 && (
- <motion.svg
+ <m.svg
  initial={{ opacity: 0 }}
  animate={{ opacity: 0.15 }}
  className="absolute inset-0 w-full h-full"
@@ -623,7 +623,7 @@ export function DSMLBeatArchitecture() {
  preserveAspectRatio="none"
  >
  {[[10, 25, 75, 20], [75, 20, 42, 70], [10, 25, 42, 70]].map(([x1, y1, x2, y2], idx) => (
- <motion.line
+ <m.line
  key={idx}
  x1={x1} y1={y1} x2={x2} y2={y2}
  stroke="var(--cs-accent)"
@@ -634,12 +634,12 @@ export function DSMLBeatArchitecture() {
  transition={{ delay: idx * 0.1, duration: 0.5 }}
  />
  ))}
- </motion.svg>
+ </m.svg>
  )}
  </AnimatePresence>
- </motion.div>
+ </m.div>
  ) : (
- <motion.div
+ <m.div
  key="unified"
  initial={{ opacity: 0, scale: 0.86 }}
  animate={{ opacity: 1, scale: 1 }}
@@ -653,7 +653,7 @@ export function DSMLBeatArchitecture() {
  </div>
 
  {step >= 3 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 12 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5, ease }}
@@ -671,9 +671,9 @@ export function DSMLBeatArchitecture() {
  <div className="text-lg font-bold text-[var(--cs-accent)] font-mono">100%</div>
  <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">Responsive</div>
  </div>
- </motion.div>
+ </m.div>
  )}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -773,7 +773,7 @@ function WireframeV4() {
  <rect x="23" y="21" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.3" />
  <rect x="39" y="21" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.3" />
  {/* Checkmark */}
- <motion.path d="M40 30 L44 34 L52 26" stroke="currentColor" strokeWidth="1.5" opacity="0.7" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }} />
+ <m.path d="M40 30 L44 34 L52 26" stroke="currentColor" strokeWidth="1.5" opacity="0.7" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }} />
  </svg>
  )
 }
@@ -804,7 +804,7 @@ export function DSMLBeatIterations() {
  <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 overflow-hidden">
  <div className="px-6 md:px-10 py-8 md:py-12">
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -814,12 +814,12 @@ export function DSMLBeatIterations() {
  Four distinct iterations. V1 too dense. V2 too passive. V3 competed with Hub navigation. <span className="text-[var(--cs-accent)] font-bold">V4 — clean icon tiles — landed.</span>
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* Iteration cards with wireframe thumbnails */}
  <div className="flex items-center justify-center gap-2 md:gap-4 mt-6">
  {iterations.map((iter, i) => (
- <motion.div
+ <m.div
  key={iter.version}
  initial={{ opacity: 0, y: 30, scale: 0.9 }}
  animate={step >= i + 1 ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -850,15 +850,15 @@ export function DSMLBeatIterations() {
  </div>
 
  {i < iterations.length - 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={step >= i + 2 ? { opacity: 0.3 } : {}}
  className="absolute -right-1.5 md:-right-2.5 top-1/2 -translate-y-1/2"
  >
  <ArrowRight className="w-2.5 h-2.5 text-zinc-200" />
- </motion.div>
+ </m.div>
  )}
- </motion.div>
+ </m.div>
  ))}
  </div>
 
@@ -941,7 +941,7 @@ function TileViewWireframe() {
  {/* Subtitle */}
  <text x="80" y="100" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.3">Immediate context. Zero learning curve.</text>
  {/* Checkmark */}
- <motion.path d="M134 96 L140 102 L150 90" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.5" fill="none" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6 }} />
+ <m.path d="M134 96 L140 102 L150 90" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.5" fill="none" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6 }} />
  </svg>
  )
 }
@@ -964,7 +964,7 @@ export function DSMLBeatNavFight() {
  <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 overflow-hidden">
  <div className="px-6 md:px-10 py-8 md:py-12">
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -974,12 +974,12 @@ export function DSMLBeatNavFight() {
  <span className="text-zinc-200 font-medium">Icon tiles vs. list views.</span> Veteran architects wanted traditional lists. My argument: buried list items are exactly what caused poor adoption. <span className="text-[var(--cs-accent)] font-bold">Large tiles give immediate context. I won.</span>
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* List → Tiles transition with SVG wireframes */}
  <AnimatePresence mode="wait">
  {step < 2 ? (
- <motion.div
+ <m.div
  key="list-view"
  initial={{ opacity: 0, y: 18 }}
  animate={{ opacity: 1, y: 0 }}
@@ -988,17 +988,17 @@ export function DSMLBeatNavFight() {
  className="w-full max-w-lg mx-auto text-center mt-6"
  >
  <p className="mb-3 font-mono text-[10px] text-zinc-400 uppercase tracking-wider">Architects Wanted</p>
- <motion.div
+ <m.div
  initial={{ opacity: 0 }}
  animate={step >= 1 ? { opacity: 1 } : {}}
  transition={{ duration: 0.6, ease }}
  className="text-zinc-400"
  >
  <ListViewWireframe />
- </motion.div>
- </motion.div>
+ </m.div>
+ </m.div>
  ) : (
- <motion.div
+ <m.div
  key="tiles-view"
  initial={{ opacity: 0, y: 14, scale: 0.94 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -1009,16 +1009,16 @@ export function DSMLBeatNavFight() {
  <TileViewWireframe />
 
  {step >= 3 && (
- <motion.p
+ <m.p
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5, ease }}
  className="mt-4 text-xs text-[var(--cs-accent)] font-mono opacity-70"
  >
  Outcome-based labels. Immediate context. Zero learning curve.
- </motion.p>
+ </m.p>
  )}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -1074,7 +1074,7 @@ export function DSMLBeatVeterans() {
  <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 overflow-hidden">
  <div className="px-6 md:px-10 py-8 md:py-12">
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -1084,19 +1084,19 @@ export function DSMLBeatVeterans() {
  Director of Engineering. Principal Data Scientist. Head PM. Lead Architect. <span className="text-zinc-200 font-medium">All decades of tenure.</span> It hit me later — I was 2 years in, and <span className="text-[var(--cs-accent)] font-bold">I was driving the conversation.</span>
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* People grid with avatars */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, ease }}
  className="grid grid-cols-3 gap-3 max-w-md mx-auto mt-8"
  >
  {people.map((p, i) => (
- <motion.div
+ <m.div
  key={p.role}
  initial={{ opacity: 0, scale: 0.7, y: 15 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -1123,16 +1123,16 @@ export function DSMLBeatVeterans() {
  <div className={`text-[9px] font-bold font-mono ${p.veteran ? 'text-zinc-400' : 'text-[var(--cs-accent)]'}`}>
  {p.veteran ? '20-30+ yrs' : p.note}
  </div>
- </motion.div>
+ </m.div>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* "Me" card — with accent avatar */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.7, ease }}
@@ -1144,7 +1144,7 @@ export function DSMLBeatVeterans() {
  <circle cx="18" cy="12" r="6" fill="var(--cs-accent)" opacity="0.5" />
  <path d="M6 32 C6 24, 12 20, 18 20 C24 20, 30 24, 30 32" fill="var(--cs-accent)" opacity="0.35" />
  {/* Glow ring */}
- <motion.circle cx="18" cy="18" r={16} stroke="var(--cs-accent)" strokeWidth="0.8" fill="none" opacity={0.3} initial={{ r: 15, opacity: 0.3 }} animate={{ r: [15, 17, 15], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
+ <m.circle cx="18" cy="18" r={16} stroke="var(--cs-accent)" strokeWidth="0.8" fill="none" opacity={0.3} initial={{ r: 15, opacity: 0.3 }} animate={{ r: [15, 17, 15], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
  </svg>
  </div>
  <div>
@@ -1152,14 +1152,14 @@ export function DSMLBeatVeterans() {
  <div className="text-lg font-bold text-[var(--cs-accent)] font-mono">2 years in</div>
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Outcome text */}
  <AnimatePresence>
  {step >= 3 && (
- <motion.p
+ <m.p
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.7, ease }}
@@ -1167,7 +1167,7 @@ export function DSMLBeatVeterans() {
  >
  I wasn&apos;t just the designer in the room.<br />
  <span className="text-[var(--cs-accent)]">I was driving the conversation.</span>
- </motion.p>
+ </m.p>
  )}
  </AnimatePresence>
 
@@ -1197,7 +1197,7 @@ function AdoptionCurveSVG() {
  <line x1="80" y1="10" x2="80" y2="72" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.15" strokeDasharray="2,4" />
  <text x="80" y="78" textAnchor="middle" fill="var(--cs-accent)" fontSize="5" fontFamily="monospace" opacity="0.25">redesign</text>
  {/* Rising adoption curve */}
- <motion.path
+ <m.path
  d="M10 60 L40 60 L60 59 L80 58 L100 48 L120 38 L140 30 L160 24 L180 20 L190 18"
  stroke="var(--cs-accent)"
  strokeWidth="1.5"
@@ -1214,7 +1214,7 @@ function AdoptionCurveSVG() {
  opacity="0.06"
  />
  {/* +25% annotation at peak */}
- <motion.circle cx="190" cy="18" r="3" fill="var(--cs-accent)" opacity="0.4" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8, duration: 0.3, type: 'spring' }} />
+ <m.circle cx="190" cy="18" r="3" fill="var(--cs-accent)" opacity="0.4" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8, duration: 0.3, type: 'spring' }} />
  </svg>
  )
 }
@@ -1255,7 +1255,7 @@ function StatIconShip() {
  <path d="M9 10 L5 14 L9 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
  <path d="M15 10 L19 14 L15 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
  {/* Exhaust */}
- <motion.circle cx="12" cy="22" r={1} fill="var(--cs-accent)" opacity={0.3} initial={{ r: 1, opacity: 0.3 }} animate={{ r: [1, 2, 1], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }} />
+ <m.circle cx="12" cy="22" r={1} fill="var(--cs-accent)" opacity={0.3} initial={{ r: 1, opacity: 0.3 }} animate={{ r: [1, 2, 1], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }} />
  </svg>
  )
 }
@@ -1278,7 +1278,7 @@ export function DSMLBeatImpact() {
  <div className="rounded-2xl border border-white/[0.06] bg-zinc-950/80 overflow-hidden">
  <div className="px-6 md:px-10 py-8 md:py-12">
 
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
  transition={{ duration: 0.8, ease }}
@@ -1288,12 +1288,12 @@ export function DSMLBeatImpact() {
  NLQ redesign + Phi-3 model upgrade drove <span className="text-[var(--cs-accent)] font-bold">+25% adoption</span>. Customers looked forward to NLQ the most. <span className="text-zinc-200 font-medium">The Hub brings all of it front and center.</span>
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
 
  {/* Big stat with adoption curve behind */}
  <AnimatePresence>
  {step >= 1 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ duration: 0.8, ease }}
@@ -1316,14 +1316,14 @@ export function DSMLBeatImpact() {
  From discoverability alone — no feature changes.
  </div>
  </div>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Secondary stats with icons */}
  <AnimatePresence>
  {step >= 2 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.6, ease }}
@@ -1334,7 +1334,7 @@ export function DSMLBeatImpact() {
  { val: '100%', label: 'Responsive', icon: <StatIconResponsive /> },
  { val: '2027', label: 'Hub Ships', icon: <StatIconShip /> },
  ].map((stat, i) => (
- <motion.div
+ <m.div
  key={stat.label}
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
@@ -1344,23 +1344,23 @@ export function DSMLBeatImpact() {
  {stat.icon}
  <div className="text-lg md:text-xl font-bold text-white font-mono">{stat.val}</div>
  <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider mt-1">{stat.label}</div>
- </motion.div>
+ </m.div>
  ))}
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Closing line */}
  <AnimatePresence>
  {step >= 3 && (
- <motion.p
+ <m.p
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ duration: 0.7, ease }}
  className="text-sm text-zinc-200 mt-6 max-w-md leading-relaxed text-center mx-auto"
  >
  The features didn&apos;t change. The visibility did. That was enough.
- </motion.p>
+ </m.p>
  )}
  </AnimatePresence>
 

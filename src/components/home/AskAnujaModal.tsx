@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Send, Mail, Loader2 } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import { ASK_QA, CATEGORY_LABELS, type AskCategory } from '@/data/ask-anuja-qa'
@@ -154,7 +154,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                                     </button>
                                     <AnimatePresence initial={false}>
                                         {isExpanded && (
-                                            <motion.div
+                                            <m.div
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: 'auto', opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
@@ -178,7 +178,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                                                         </a>
                                                     )}
                                                 </div>
-                                            </motion.div>
+                                            </m.div>
                                         )}
                                     </AnimatePresence>
                                 </li>
@@ -188,7 +188,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
 
                     {/* Custom answer area */}
                     {customAnswer && (
-                        <motion.div
+                        <m.div
                             className="mt-8 rounded-2xl border border-[var(--accent-teal)]/25 bg-[var(--accent-teal)]/[0.06] p-5"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -206,7 +206,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                                     <Mail className="h-3.5 w-3.5" /> anujanimmagadda@gmail.com
                                 </a>
                             )}
-                        </motion.div>
+                        </m.div>
                     )}
                 </div>
 

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import WorduGame from '@/components/work/wordu/WorduGame'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import TransitionLink from '@/components/transitions/TransitionLink'
 
@@ -15,7 +15,7 @@ export default function WorduPage() {
     >
       <h1 className="sr-only">WordU — A Word Game by Anuja Harsha</h1>
       {/* ── Navigation ── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.5 }}
@@ -37,10 +37,10 @@ export default function WorduPage() {
 
         {/* Right: Placeholder for symmetry */}
         <div className="w-[140px]" />
-      </motion.div>
+      </m.div>
 
       {/* ── iPhone Mockup Container ── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'spring', stiffness: 200, damping: 25, delay: 0.15 }}
@@ -95,10 +95,10 @@ export default function WorduPage() {
           className="absolute top-[180px] -right-[10px] w-[3px] h-[80px] rounded-r-md"
           style={{ background: 'var(--surface-charcoal-800, #2a2a3e)' }}
         />
-      </motion.div>
+      </m.div>
 
       {/* ── Footer Shortcuts ── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.4 }}
@@ -120,7 +120,7 @@ export default function WorduPage() {
             </span>
           </div>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* ── Background ambient glow ── */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none"

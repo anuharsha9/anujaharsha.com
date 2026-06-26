@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence, PanInfo } from 'framer-motion'
+import { m, AnimatePresence, PanInfo } from 'framer-motion'
 import { Sparkles, ArrowLeft, ArrowRight } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
@@ -240,7 +240,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                         </p>
 
                         {/* Video — drag/swipe horizontally to advance */}
-                        <motion.div
+                        <m.div
                             className="relative mt-5 rounded-2xl border border-white/[0.08] bg-black overflow-hidden cursor-grab active:cursor-grabbing"
                             drag="x"
                             dragConstraints={{ left: 0, right: 0 }}
@@ -248,7 +248,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                             onDragEnd={handleDragEnd}
                         >
                             <AnimatePresence mode="wait">
-                                <motion.div
+                                <m.div
                                     key={current.id}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -263,9 +263,9 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                                         className="aspect-video w-full"
                                         videoClassName="object-contain"
                                     />
-                                </motion.div>
+                                </m.div>
                             </AnimatePresence>
-                        </motion.div>
+                        </m.div>
 
                         {/* Version meta + key learning */}
                         <div className="mt-5">

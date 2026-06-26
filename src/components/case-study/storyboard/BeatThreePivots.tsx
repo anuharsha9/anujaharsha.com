@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect, useState } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { X, Check } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 
@@ -81,7 +81,7 @@ export default function BeatThreePivots() {
  {/* Presenter narration */}
  <AnimatePresence>
  {phase >= 0 && (
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
  <span className="text-zinc-300 font-medium">V1 — rejected.</span>{' '}
@@ -92,7 +92,7 @@ export default function BeatThreePivots() {
  <span className="text-zinc-200 font-medium">I reframed the problem from scratch.</span>
  </p>
  </PresenterBar>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
@@ -107,7 +107,7 @@ export default function BeatThreePivots() {
  const isAccepted = pivot.verdict === 'accepted'
 
  return (
- <motion.div
+ <m.div
  key={pivot.version}
  initial={{ opacity: 0, y: 20, scale: 0.95 }}
  animate={
@@ -133,7 +133,7 @@ export default function BeatThreePivots() {
  }}
  >
  {/* Top accent bar */}
- <motion.div
+ <m.div
  initial={{ scaleX: 0 }}
  animate={isVisible ? { scaleX: 1 } : { scaleX: 0 }}
  transition={{ duration: 0.5, delay: 0.1, ease }}
@@ -151,7 +151,7 @@ export default function BeatThreePivots() {
  <div className="p-4">
  {/* Version badge + title */}
  <div className="flex items-center gap-2.5 mb-2">
- <motion.div
+ <m.div
  className="w-8 h-8 rounded-full flex items-center justify-center relative"
  style={{
  background: isJudged
@@ -176,7 +176,7 @@ export default function BeatThreePivots() {
  }}>
  {pivot.version}
  </span>
- </motion.div>
+ </m.div>
  <span className={`text-sm font-semibold tracking-tight ${isJudged && isRejected ? 'line-through decoration-zinc-500/50 text-zinc-400' : 'text-white'
  }`} style={{ transition: 'color 0.4s' }}>
  {pivot.title}
@@ -186,7 +186,7 @@ export default function BeatThreePivots() {
  {/* Verdict reason */}
  <AnimatePresence>
  {isJudged && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.4, ease }}
@@ -198,14 +198,14 @@ export default function BeatThreePivots() {
  }`} style={isAccepted ? { color: 'var(--cs-accent)' } : {}}>
  {pivot.reason}
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 
  {/* Stamp */}
  <AnimatePresence>
  {isJudged && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, scale: 2.5 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ duration: 0.2, ease: 'easeOut' }}
@@ -220,11 +220,11 @@ export default function BeatThreePivots() {
  }`} style={isAccepted ? { color: 'var(--cs-accent)' } : {}}>
  {isAccepted ? 'Approved' : 'Rejected'}
  </span>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
  </div>
- </motion.div>
+ </m.div>
  )
  })}
  </div>
@@ -232,7 +232,7 @@ export default function BeatThreePivots() {
  {/* Closing line */}
  <AnimatePresence>
  {phase >= 7 && (
- <motion.div
+ <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8, ease }}
@@ -242,7 +242,7 @@ export default function BeatThreePivots() {
  <p className="text-zinc-400 text-sm leading-relaxed">
  Two rejections. Zero bitterness. Each &ldquo;no&rdquo; sharpened the final solution.
  </p>
- </motion.div>
+ </m.div>
  )}
  </AnimatePresence>
 

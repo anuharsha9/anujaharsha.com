@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
@@ -18,7 +18,7 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 /* ─── Small reusable section header (mono label + h2 + rule) ─── */
 function RoomHeader({ label, title, subtitle }: { label: string; title: string; subtitle?: string }) {
     return (
-        <motion.div
+        <m.div
             className="mb-8 md:mb-10"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ function RoomHeader({ label, title, subtitle }: { label: string; title: string; 
                 </p>
             )}
             <div className="mt-6 h-px w-full bg-white/[0.06]" />
-        </motion.div>
+        </m.div>
     )
 }
 
@@ -47,7 +47,7 @@ function LifeHero() {
     return (
         <section className="relative mx-auto max-w-[1200px] px-4 pt-12 pb-12 md:px-8 md:pt-20 md:pb-16 lg:px-12">
             <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[rgba(var(--accent-teal-glow-rgb),0.06)] blur-[120px]" />
-            <motion.div
+            <m.div
                 className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8"
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ function LifeHero() {
                     ariaLabel="Anuja’s intro — outside the terminal"
                     className="aspect-[4/5] overflow-hidden rounded-2xl border border-white/[0.06] md:col-span-5 md:aspect-square"
                 />
-            </motion.div>
+            </m.div>
         </section>
     )
 }
@@ -112,7 +112,7 @@ function HoldingNow() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent" />
                 </div>
-                <motion.div
+                <m.div
                     className="flex flex-col justify-center md:col-span-2"
                     initial={{ opacity: 0, x: 16 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -125,7 +125,7 @@ function HoldingNow() {
                         Just finished a Master’s in English Literature & Critical Theory. Vibe-coding a few side projects —
                         WealthEngine, Sous, this site.
                     </p>
-                </motion.div>
+                </m.div>
             </div>
         </section>
     )
@@ -153,7 +153,7 @@ function SameTime() {
                         const CareerIcon = pair.career.icon
                         const LifeIcon = pair.life.icon
                         return (
-                            <motion.div
+                            <m.div
                                 key={pair.year}
                                 className="relative grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto_1fr] md:items-stretch md:gap-6"
                                 initial={{ opacity: 0, y: 28 }}
@@ -200,7 +200,7 @@ function SameTime() {
                                     <h3 className="text-base font-semibold text-zinc-100 md:text-lg">{pair.life.title}</h3>
                                     <p className="mt-2 text-sm leading-relaxed text-zinc-400">{pair.life.description}</p>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         )
                     })}
                 </div>
@@ -220,7 +220,7 @@ function SameTime() {
                 </div>
 
                 {expanded && (
-                    <motion.div
+                    <m.div
                         className="mt-8 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3"
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -245,7 +245,7 @@ function SameTime() {
                                 </div>
                             )
                         })}
-                    </motion.div>
+                    </m.div>
                 )}
             </div>
         </section>
@@ -274,7 +274,7 @@ function Makes() {
                 {MAKES_GALLERIES.map((g, i) => {
                     const Icon = g.icon
                     return (
-                        <motion.button
+                        <m.button
                             key={g.id}
                             onClick={() => open(g)}
                             className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-white/[0.07] transition-colors duration-500 hover:border-[var(--accent-teal)]/30"
@@ -303,7 +303,7 @@ function Makes() {
                                     {g.subtitle} · {g.images.length} {g.images.length === 1 ? 'piece' : 'pieces'}
                                 </p>
                             </div>
-                        </motion.button>
+                        </m.button>
                     )
                 })}
             </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { lazy, Suspense } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useActiveTab } from './TabSwitcher'
 
 const LifeTab = lazy(() => import('./LifeTab'))
@@ -19,7 +19,7 @@ export default function HomeTabsWrapper({ children }: { children: React.ReactNod
     return (
         <div>
             {active === 'life' ? (
-                <motion.div
+                <m.div
                     key="life"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -28,16 +28,16 @@ export default function HomeTabsWrapper({ children }: { children: React.ReactNod
                     <Suspense fallback={<div style={{ minHeight: '100vh' }} aria-hidden="true" />}>
                         <LifeTab />
                     </Suspense>
-                </motion.div>
+                </m.div>
             ) : (
-                <motion.div
+                <m.div
                     key="work"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.45, ease }}
                 >
                     {children}
-                </motion.div>
+                </m.div>
             )}
         </div>
     )

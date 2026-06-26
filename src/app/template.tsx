@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
 /**
@@ -15,7 +15,7 @@ import { usePathname } from 'next/navigation'
  * (opacity, transform) to avoid paint-per-frame jank.
  *
  * Hydration-safe: first client render always matches server HTML (plain div).
- * motion.div only activates after mount + on subsequent navigations.
+ * m.div only activates after mount + on subsequent navigations.
  */
 
 const cinematicEase = [0.05, 0.7, 0.1, 1] as const
@@ -41,7 +41,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <motion.div
+        <m.div
             className="min-h-screen w-full relative"
             initial={{
                 opacity: 0,
@@ -61,6 +61,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
             style={{ willChange: 'opacity, transform' }}
         >
             {children}
-        </motion.div>
+        </m.div>
     )
 }

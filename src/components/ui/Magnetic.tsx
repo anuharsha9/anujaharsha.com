@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface MagneticProps {
     children: React.ReactNode
@@ -45,7 +45,7 @@ export default function Magnetic({
             onMouseLeave={handleMouseLeave}
             style={{ padding: '30px', margin: '-30px' }} // Substantial hit area without affecting layout
         >
-            <motion.div
+            <m.div
                 animate={{ x, y }}
                 transition={{
                     type: "spring",
@@ -56,7 +56,7 @@ export default function Magnetic({
                 }}
             >
                 {children}
-            </motion.div>
+            </m.div>
         </div>
     )
 }
