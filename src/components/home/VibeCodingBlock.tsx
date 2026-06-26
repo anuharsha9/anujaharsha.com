@@ -601,11 +601,11 @@ export default function VibeCodingBlock() {
                         Nov 2025 — Present
                     </p>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                        AI-Native Prototyping
+                        AI-Native Product Building
                         <span className="text-zinc-600 font-normal"> & Technical Empathy</span>
                     </h2>
                     <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
-                        I leverage AI agents as a force multiplier. No static handoffs—I ship logic-tested React and Next.js prototypes to permanently eliminate architectural friction.
+                        Not prototypes — products. In 2025 I shipped 3 AI-native apps, a word game, and this portfolio by orchestrating AI agents end-to-end across React, Next.js, and React Native — designing, building, and pushing real code to production.
                     </p>
                 </motion.div>
 
