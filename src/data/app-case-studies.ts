@@ -40,6 +40,11 @@ export interface AppCaseStudy {
      * (videoSrc) if present, else a themed placeholder. */
     phoneFrame?: boolean
 
+    /* App Store listing. Set this once the app ships and a "Download on the
+     * App Store" button appears under the PhoneFrame automatically. Dormant
+     * (renders nothing) until set. */
+    appStoreUrl?: string
+
     /* Embedded live demo (for projects that render INSIDE the case study via
      * an iframe, instead of linking out). When `embed` is set, the
      * AppCaseStudyLightbox renders an iframe in the "See it run" section
