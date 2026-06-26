@@ -35,6 +35,11 @@ export interface AppCaseStudy {
     devFallbackUrl?: string
     videoSrc?: string
 
+    /* Native mobile app (can't run in a browser). When true, the "See it run"
+     * media renders inside an iPhone PhoneFrame — a portrait screen recording
+     * (videoSrc) if present, else a themed placeholder. */
+    phoneFrame?: boolean
+
     /* Embedded live demo (for projects that render INSIDE the case study via
      * an iframe, instead of linking out). When `embed` is set, the
      * AppCaseStudyLightbox renders an iframe in the "See it run" section
@@ -82,6 +87,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         ],
         stack: ['Next.js', 'Gemini 2.5 Flash', 'Supabase', 'TypeScript', 'Tailwind', 'Local-first JSON'],
         demoUrlEnvVar: 'NEXT_PUBLIC_CAREER_BUILDER_URL',
+        productionUrl: 'https://college-os-six.vercel.app',
         devFallbackUrl: 'http://localhost:3101',
         videoSrc: '/videos/lab/career-builder-demo.mp4',
         status: 'demo',
@@ -152,7 +158,11 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
             },
         ],
         stack: ['Expo + React Native', 'Claude Opus 4.8', 'Gemini Live', 'NativeWind', 'TypeScript (strict)', 'expo-file-system', 'Jest + Maestro'],
-        videoSrc: '/videos/lab/sous-demo.mp4',
+        /* Native iOS → presented in a PhoneFrame. No videoSrc yet (app is in
+         * dev); a portrait screen recording drops in here once TestFlight is
+         * live, and the frame plays it automatically. Until then, the frame
+         * shows a themed placeholder. */
+        phoneFrame: true,
         status: 'in-development',
         statusLabel: 'Native iOS · TestFlight Q3 2026',
     },

@@ -6,6 +6,7 @@ import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import LightboxCard from '@/components/ui/LightboxCard'
 import Button from '@/components/ui/Button'
+import PhoneFrame from '@/components/ui/PhoneFrame'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
 
 /**
@@ -162,12 +163,57 @@ export default function AppCaseStudyLightbox({
                         </ul>
                     </div>
 
-                    {/* ── Demo section ──
-                        Three modes (in priority order):
-                          A. `embed` resolves → render iframe inline (Warden)
-                          B. videoSrc OR demoUrl → video walkthrough + Open Live Demo CTA
-                          C. neither → no section */}
-                    {embedUrl ? (
+                    {/* ── Demo section ── (priority order)
+                          A. phoneFrame → native app inside an iPhone PhoneFrame (Sous)
+                          B. embed → iframe inline (Warden)
+                          C. videoSrc OR demoUrl → walkthrough + Open Live Demo CTA
+                          D. none → no section */}
+                    {study.phoneFrame ? (
+                        <div className="mt-12">
+                            <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
+                                See it run
+                            </p>
+                            <p className="mt-2 text-sm text-zinc-500">
+                                Native iOS — shown in-device.
+                            </p>
+                            <div className="mt-6 flex justify-center">
+                                <PhoneFrame>
+                                    {study.videoSrc ? (
+                                        <VideoPlayer
+                                            src={study.videoSrc}
+                                            autoPlay={false}
+                                            ariaLabel={`${study.title} — app walkthrough`}
+                                            className="h-full w-full"
+                                            videoClassName="object-cover"
+                                        />
+                                    ) : (
+                                        /* Themed placeholder until the screen recording lands. */
+                                        <div
+                                            className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center"
+                                            style={{ background: `linear-gradient(to bottom, rgba(${rgb}, 0.12), #08070a)` }}
+                                        >
+                                            <div
+                                                className="flex h-14 w-14 items-center justify-center rounded-2xl"
+                                                style={{ backgroundColor: `rgba(${rgb}, 0.14)`, color: study.accent }}
+                                            >
+                                                <Icon className="h-7 w-7" strokeWidth={1.5} />
+                                            </div>
+                                            <p className="font-sans text-base font-bold text-white">{study.title}</p>
+                                            <p className="font-mono text-[9px] uppercase tracking-[0.25em]" style={{ color: study.accent }}>
+                                                Listening…
+                                            </p>
+                                            <p className="mt-1 px-1 text-[11px] leading-relaxed text-zinc-500">
+                                                Full walkthrough lands with TestFlight.
+                                            </p>
+                                        </div>
+                                    )}
+                                </PhoneFrame>
+                            </div>
+                            <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                                {study.statusLabel}
+                            </p>
+                        </div>
+                    ) : embedUrl ? (
                         <div className="mt-12">
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.3em]"
