@@ -114,27 +114,41 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                         </div>
                     </div>
 
-                    {/* DESKTOP: Hover overlay — scrim + buttons + title */}
+                    {/* DESKTOP: Hover overlay — clean centered stack (matches Build Lab tiles) */}
                     <div
-                        className="absolute inset-0 z-20 hidden md:flex flex-col justify-between p-8 transition-all duration-500 pointer-events-none"
+                        className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500"
                         style={{
                             opacity: isHovered ? 1 : 0,
-                            backgroundColor: isHovered ? 'rgba(0,0,0,0.70)' : 'rgba(0,0,0,0)',
+                            backgroundColor: isHovered ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0)',
                         }}
                     >
-                        <div className="flex flex-col items-center justify-center h-full gap-6">
-                            <p className="text-zinc-100 text-lg md:text-xl font-semibold leading-snug text-center max-w-sm">
+                        {/* Whole-tile primary link → Read Case Study */}
+                        <TransitionLink
+                            href={tile.link}
+                            className="absolute inset-0 z-0"
+                            aria-label={`Read case study: ${tile.title}`}
+                        />
+
+                        <div className="relative z-10 flex flex-col items-center gap-3 max-w-xs text-center px-4 pointer-events-none">
+                            <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                                <FileText className="w-5 h-5 text-white" />
+                            </div>
+                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
+                                Read Case Study
+                            </span>
+                            <p className="text-zinc-100 text-base font-semibold leading-snug mt-1">
                                 {tile.title}
                             </p>
-                            
-                            <div className="flex flex-col gap-3 pointer-events-auto">
-                                <TransitionLink href={tile.link} className="flex items-center justify-center gap-3 py-3 px-6 rounded border border-white/20 bg-white/10 text-white text-xs md:text-sm font-mono tracking-[0.1em] uppercase hover:bg-white hover:text-black hover:border-white transition-all">
-                                    <FileText className="w-4 h-4" /> Read Case Study
-                                </TransitionLink>
-                                <button onClick={onWatch} className="flex items-center justify-center gap-3 py-3 px-6 rounded border border-white/10 bg-black/50 text-white/70 text-xs md:text-sm font-mono tracking-[0.1em] uppercase hover:bg-white/10 hover:text-white hover:border-white/30 transition-all">
-                                    <MonitorPlay className="w-4 h-4" /> Watch Presentation
-                                </button>
-                            </div>
+                            <p className="text-zinc-500 text-xs font-mono">
+                                {tile.domain}
+                            </p>
+                            {/* Secondary action — subtle, sits above the primary link */}
+                            <button
+                                onClick={onWatch}
+                                className="pointer-events-auto mt-2 inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-white transition-colors"
+                            >
+                                <MonitorPlay className="w-3.5 h-3.5" /> Watch Presentation
+                            </button>
                         </div>
                     </div>
                 </div>
