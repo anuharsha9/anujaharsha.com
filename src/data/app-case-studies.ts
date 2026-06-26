@@ -92,7 +92,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         ],
         stack: ['Next.js', 'Gemini 2.5 Flash', 'Supabase', 'TypeScript', 'Tailwind', 'Local-first JSON'],
         demoUrlEnvVar: 'NEXT_PUBLIC_CAREER_BUILDER_URL',
-        productionUrl: 'https://college-os-six.vercel.app',
+        productionUrl: 'https://pathwise.anujaharsha.com',
         devFallbackUrl: 'http://localhost:3101',
         videoSrc: '/videos/lab/career-builder-demo.mp4',
         status: 'demo',
@@ -128,7 +128,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         ],
         stack: ['Next.js', 'Claude Opus 4.8', 'Plaid', 'Live USD/INR FX', 'Local JSON', 'TypeScript', 'Vitest + Playwright'],
         demoUrlEnvVar: 'NEXT_PUBLIC_WEALTHENGINE_URL',
-        productionUrl: 'https://finance-app-omega-five.vercel.app',
+        productionUrl: 'https://wealthengine.anujaharsha.com',
         devFallbackUrl: 'http://localhost:3939',
         videoSrc: '/videos/lab/wealthengine-demo.mp4',
         status: 'demo',
@@ -202,6 +202,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind', 'Claude Opus 4.8', 'Vitest', 'Pure functional engine'],
         embed: {
             urlEnvVar: 'NEXT_PUBLIC_WARDEN_URL',
+            productionUrl: 'https://warden.anujaharsha.com',
             devFallbackUrl: 'http://localhost:3102',
             /* aspect-[4/3] gives the 5-screen console enough vertical room */
             aspectClass: 'aspect-[4/3]',
