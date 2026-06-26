@@ -53,16 +53,19 @@ const TILES = [
     },
 ]
 
-/* ─── Single unified feature-card tile.
+/* ─── Vertical case-study tile — 3-column grid.
  *
  * Per Anuja: 'Can't we just keep the title and the two buttons? Do we
- * really need all that extra content making it so busy?'
+ * really need all that extra content making it so busy?' — and later:
+ * 'make the CSG tiles back the 3 column layout. the vertical stack feels
+ * too long and too space consuming.'
  *
- * All 3 case studies use this same minimal horizontal layout, stacked
- * vertically (one below another). Wireframe LEFT, just title + 2 buttons
- * RIGHT. The role / domain / outcome content is preserved inside the
- * case study itself via QuickImpactOverview — no need to repeat it here. */
-function BentoTile({ tile, delay, onWatch, reverse = false }: { tile: typeof TILES[0]; delay: number; onWatch: () => void; reverse?: boolean }) {
+ * So: wireframe cover on top, then title + 2 buttons below. Three equal
+ * columns. Buttons pin to the bottom (mt-auto) so they align across all
+ * three tiles regardless of how many lines the title wraps to. The role /
+ * domain / outcome detail still lives inside the case study itself via
+ * QuickImpactOverview — not repeated here. */
+function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
     const WireframeComponent = tile.Wireframe
     const rgb = `var(${tile.accentVar})`
     const gridColor = `hsl(${tile.wireframeHue}, 50%, 25%)`
@@ -73,19 +76,21 @@ function BentoTile({ tile, delay, onWatch, reverse = false }: { tile: typeof TIL
             whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1.4, delay, ease }}
-            className="group"
+            className="group h-full"
         >
             <div
-                className="relative w-full overflow-hidden rounded-2xl transition-all duration-500"
+                className="relative flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-500 group-hover:-translate-y-1"
                 style={{
                     border: `1px solid rgba(${rgb}, 0.18)`,
                     background: `linear-gradient(135deg, rgba(${rgb}, 0.08), rgba(${rgb}, 0.03)), var(--bg-cinematic)`,
                     boxShadow: `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.08)`,
                 }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 18px 50px -20px rgba(${rgb}, 0.45), inset 0 0 0 1px rgba(${rgb}, 0.28)`; e.currentTarget.style.borderColor = `rgba(${rgb}, 0.35)` }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.08)`; e.currentTarget.style.borderColor = `rgba(${rgb}, 0.18)` }}
             >
                 {/* Dot pattern overlay */}
                 <div
-                    className="absolute inset-0 pointer-events-none"
+                    className="absolute inset-0 pointer-events-none z-[1]"
                     style={{
                         backgroundImage: `radial-gradient(circle, ${gridColor} 0.8px, transparent 0.8px)`,
                         backgroundSize: '24px 24px',
@@ -93,36 +98,35 @@ function BentoTile({ tile, delay, onWatch, reverse = false }: { tile: typeof TIL
                     }}
                 />
 
-                {/* Side-by-side — wireframe and content swap sides on `reverse` tiles
-                    for editorial rhythm (every-other card alternates layout). */}
-                <div className="relative grid grid-cols-1 md:grid-cols-12 md:items-stretch md:min-h-[360px]">
-                    {/* Wireframe — always crisp, no hover blur */}
-                    <div className={`relative md:col-span-7 ${reverse ? 'md:order-2' : 'md:order-1'} aspect-[16/10] md:aspect-auto overflow-hidden`}>
-                        <div className="absolute inset-0 pointer-events-none">
-                            <WireframeComponent />
-                        </div>
+                {/* Wireframe cover — top, always crisp */}
+                <div
+                    className="relative aspect-[16/10] overflow-hidden border-b"
+                    style={{ borderColor: `rgba(${rgb}, 0.12)` }}
+                >
+                    <div className="absolute inset-0 pointer-events-none">
+                        <WireframeComponent />
                     </div>
+                </div>
 
-                    {/* Content — just title + 2 buttons. Nothing else. */}
-                    <div className={`relative md:col-span-5 ${reverse ? 'md:order-1 md:border-r' : 'md:order-2 md:border-l'} flex flex-col justify-center gap-6 p-6 md:p-10 lg:p-12 border-t border-white/[0.04] md:border-t-0`}>
-                        <h3 className="text-xl md:text-2xl lg:text-[28px] font-bold text-zinc-100 leading-tight tracking-tight">
-                            {tile.title}
-                        </h3>
+                {/* Content — title + 2 buttons. Buttons pinned to the bottom. */}
+                <div className="relative z-[2] flex flex-1 flex-col gap-5 p-5 md:p-6">
+                    <h3 className="text-base md:text-lg lg:text-xl font-bold text-zinc-100 leading-snug tracking-tight">
+                        {tile.title}
+                    </h3>
 
-                        <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
-                            <TransitionLink
-                                href={tile.link}
-                                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)] active:scale-[0.98]"
-                            >
-                                <FileText className="w-4 h-4" /> Case Study
-                            </TransitionLink>
-                            <button
-                                onClick={onWatch}
-                                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-white/60 hover:bg-white/[0.10] active:scale-[0.98]"
-                            >
-                                <MonitorPlay className="w-4 h-4" /> Watch
-                            </button>
-                        </div>
+                    <div className="mt-auto flex flex-col gap-2.5">
+                        <TransitionLink
+                            href={tile.link}
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)] active:scale-[0.98]"
+                        >
+                            <FileText className="w-4 h-4" /> Case Study
+                        </TransitionLink>
+                        <button
+                            onClick={onWatch}
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:border-white/60 hover:bg-white/[0.10] active:scale-[0.98]"
+                        >
+                            <MonitorPlay className="w-4 h-4" /> Watch
+                        </button>
                     </div>
                 </div>
             </div>
@@ -184,11 +188,11 @@ export default function CSGBlock() {
                 </motion.div>
 
 
-                {/* Stacked — all 3 case studies one below another. Alternating layout:
-                    even tiles get wireframe LEFT + content RIGHT, odd tiles reverse it. */}
-                <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
+                {/* 3-column grid — one card per case study. 1-col on mobile,
+                    3-col from md up. items-stretch keeps all three equal height. */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-stretch">
                     {TILES.map((tile, i) => (
-                        <BentoTile key={tile.id} tile={tile} delay={0.2 + i * 0.15} onWatch={() => setPresentationId(tile.id)} reverse={i % 2 === 1} />
+                        <BentoTile key={tile.id} tile={tile} delay={0.15 + i * 0.12} onWatch={() => setPresentationId(tile.id)} />
                     ))}
                 </div>
             </motion.section>
