@@ -83,7 +83,7 @@ export default function AppCaseStudyLightbox({
                         <div className="min-w-0">
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                                style={{ color: `color-mix(in srgb, ${study.accent} 70%, transparent)` }}
+                                style={{ color: study.accent, opacity: 0.7 }}
                             >
                                 {study.statusLabel}
                             </p>
@@ -101,7 +101,7 @@ export default function AppCaseStudyLightbox({
                         <div>
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.25em]"
-                                style={{ color: `color-mix(in srgb, ${study.accent} 70%, transparent)` }}
+                                style={{ color: study.accent, opacity: 0.7 }}
                             >
                                 Why I built it
                             </p>
@@ -112,7 +112,7 @@ export default function AppCaseStudyLightbox({
                         <div>
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.25em]"
-                                style={{ color: `color-mix(in srgb, ${study.accent} 70%, transparent)` }}
+                                style={{ color: study.accent, opacity: 0.7 }}
                             >
                                 What it solves
                             </p>
@@ -126,7 +126,7 @@ export default function AppCaseStudyLightbox({
                     <div className="mt-12">
                         <p
                             className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                            style={{ color: `color-mix(in srgb, ${study.accent} 70%, transparent)` }}
+                            style={{ color: study.accent, opacity: 0.7 }}
                         >
                             What makes it unique
                         </p>
@@ -170,7 +170,7 @@ export default function AppCaseStudyLightbox({
                         <div className="mt-12">
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                                style={{ color: `color-mix(in srgb, ${study.accent} 70%, transparent)` }}
+                                style={{ color: study.accent, opacity: 0.7 }}
                             >
                                 Try it live — embedded here
                             </p>
@@ -209,7 +209,7 @@ export default function AppCaseStudyLightbox({
                         <div className="mt-12">
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                                style={{ color: `color-mix(in srgb, ${study.accent} 70%, transparent)` }}
+                                style={{ color: study.accent, opacity: 0.7 }}
                             >
                                 See it run
                             </p>

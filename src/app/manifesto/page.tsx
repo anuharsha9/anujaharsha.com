@@ -174,6 +174,7 @@ function Scene1Terminal({ progress }: { progress: number }) {
                   ? 'rgba(255,255,255,0.03)'
                   : 'rgba(0,0,0,0.8)',
                 backdropFilter: phase === 2 ? 'blur(20px)' : 'none',
+                WebkitBackdropFilter: phase === 2 ? 'blur(20px)' : 'none',
                 transition: 'all 1s cubic-bezier(0.22, 1, 0.36, 1)',
               }}
             >
@@ -346,6 +347,7 @@ function Scene2Philosophy({ progress }: { progress: number }) {
                   background: `rgba(${bgR}, ${bgG}, ${bgB}, ${bgA})`,
                   border: `1px solid rgba(${borderR}, ${borderG}, ${borderB}, ${borderA})`,
                   backdropFilter: easeT > 0.5 ? 'blur(12px)' : 'none',
+                  WebkitBackdropFilter: easeT > 0.5 ? 'blur(12px)' : 'none',
                 }}
               >
                 <span 
@@ -824,6 +826,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
           style={{
             background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
             backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             // The clip path creates the "wipe" effect from left to right.
             // As scanPercentage goes 0 -> 100, the clip-path shrinks from 100% width to 0%.
             clipPath: `inset(0 ${scanPercentage}% 0 0)`,
@@ -980,6 +983,7 @@ function PlaybackBar({
         style={{
           background: 'rgba(0, 0, 0, 0.6)',
           backdropFilter: 'blur(24px) saturate(1.4)',
+          WebkitBackdropFilter: 'blur(24px) saturate(1.4)',
           border: '1px solid rgba(255,255,255,0.08)',
           boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
         }}
@@ -1125,6 +1129,7 @@ export default function ManifestoPage() {
           style={{
             background: 'rgba(255,255,255,0.04)',
             backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
             border: '1px solid rgba(255,255,255,0.08)',
           }}
         >

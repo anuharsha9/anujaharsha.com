@@ -146,6 +146,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
           style={{
             background: 'radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%)',
             backdropFilter: 'blur(4px) brightness(1.2)',
+            WebkitBackdropFilter: 'blur(4px) brightness(1.2)',
             boxShadow: '0 0 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1)',
             x: lensX,
             y: lensY,

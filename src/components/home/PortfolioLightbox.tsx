@@ -149,7 +149,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                         <div className="min-w-0">
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                                style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                                style={{ color: accent, opacity: 0.7 }}
                             >
                                 Live · Five iterations · You&apos;re on it
                             </p>
@@ -167,7 +167,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                         <div>
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.25em]"
-                                style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                                style={{ color: accent, opacity: 0.7 }}
                             >
                                 Why I built it
                             </p>
@@ -178,7 +178,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                         <div>
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.25em]"
-                                style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                                style={{ color: accent, opacity: 0.7 }}
                             >
                                 What it solves
                             </p>
@@ -192,7 +192,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                     <div className="mt-12">
                         <p
                             className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                            style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                            style={{ color: accent, opacity: 0.7 }}
                         >
                             What makes it unique
                         </p>
@@ -231,7 +231,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                     <div className="mt-12">
                         <p
                             className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                            style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                            style={{ color: accent, opacity: 0.7 }}
                         >
                             See it evolve — five iterations
                         </p>

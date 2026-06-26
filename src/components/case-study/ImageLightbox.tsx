@@ -205,6 +205,8 @@ export default function ImageLightbox({
  controls
  autoPlay
  loop
+ muted
+ playsInline
  className={`block w-full h-full object-contain ${isZoomed ? '' : ''
  }`}
  onLoadedData={() => setImageLoaded(true)}

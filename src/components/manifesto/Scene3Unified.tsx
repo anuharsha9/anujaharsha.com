@@ -66,6 +66,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
                 borderColor: `color-mix(in srgb, ${tool.color} 30%, transparent)`,
                 boxShadow: `0 8px 32px color-mix(in srgb, ${tool.color} 10%, transparent)`,
                 backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
               }}
             >
               <tool.icon className="w-8 h-8" style={{ color: tool.color }} />
@@ -84,6 +85,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
             borderColor: 'rgba(20, 184, 166, 0.3)',
             boxShadow: '0 0 60px rgba(20, 184, 166, 0.15)',
             backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
           }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ 
