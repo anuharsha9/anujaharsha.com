@@ -86,19 +86,20 @@ export default function Home() {
       <HeroLanding />
 
       {/* ═══ ZONE 2: CSG BLOCK ═══
-           Negative margin pulls this zone UP into the hero zone, so the
-           first case-study tile starts revealing while the hero is still
-           on screen — cinematic crossfade without a sticky pin.
+           Flows directly below the hero — NO negative margin.
 
-           NO BlurZone here. CSG has grown to 3 stacked alternating tiles
-           (~1400px tall on desktop), which is taller than the sticky
-           viewport (h-screen + justify-center) — the third tile gets
-           clipped below the pinned area and only reappears in the exit-
-           blur keyframe. Each tile already has its own whileInView blur-
-           in reveal, so the cinematic effect is preserved without the
-           sticky-pin clipping. (Same fix that was applied to testimonials
-           below — read-heavy editorial content + sticky pin = bad.) */}
-      <div id="work-overview" className="relative z-[1] mt-0 md:-mt-[50vh]">
+           History: this used to be wrapped in a BlurZone with a -50vh pull-up.
+           The BlurZone blurred CSG to 40px at rest, so the pull-up read as an
+           ambient ghost crossfade behind the hero. When BlurZone was removed
+           (it clipped the 3rd stacked tile), the -50vh stayed — but with sharp,
+           mount-visible content it rendered the CSG heading + first tile right
+           on top of the fully-visible hero (z-1 behind a mostly-transparent
+           z-2 hero = bleed-through). Any negative margin overlaps here, because
+           at scroll 0 the hero fills the ENTIRE first viewport. So: zero margin.
+           CSG starts exactly at the fold and scrolls up cleanly as the hero
+           fades out above it. Predictable across browsers and viewport heights —
+           no dvh/sticky/transform math to break in Safari. */}
+      <div id="work-overview" className="relative z-[1]">
         <CSGBlock />
       </div>
 
