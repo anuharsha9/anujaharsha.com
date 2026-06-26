@@ -605,7 +605,7 @@ export default function VibeCodingBlock() {
                         <span className="text-zinc-600 font-normal"> & Technical Empathy</span>
                     </h2>
                     <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
-                        Not prototypes — products. In 2025 I shipped 3 AI-native apps, a word game, and this portfolio by orchestrating AI agents end-to-end across React, Next.js, and React Native — designing, building, and pushing real code to production.
+                        Not prototypes — products. In 2026 I shipped 3 AI-native apps, a word game, and this portfolio by orchestrating AI agents end-to-end across React, Next.js, and React Native — designing, building, and pushing real code to production.
                     </p>
                 </motion.div>
 
