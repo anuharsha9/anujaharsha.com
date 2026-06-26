@@ -150,6 +150,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                                 muted
                                 playsInline
                                 loop
+                                aria-label={`${current.title ?? 'Portfolio'} — demonstration video`}
                                 className="absolute inset-0 w-full h-full object-contain bg-black"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}

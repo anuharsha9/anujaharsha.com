@@ -59,7 +59,7 @@ export default function TalkSection() {
             >
               anujanimmagadda@gmail.com
             </a>
-            <span className="hidden sm:inline text-zinc-700">·</span>
+            <span className="hidden sm:inline text-zinc-700" aria-hidden="true">·</span>
             <a
               href="tel:+17813547394"
               className="font-mono text-sm text-zinc-400 hover:text-[var(--accent-teal)] transition-colors duration-500"

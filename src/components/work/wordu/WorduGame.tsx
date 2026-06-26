@@ -169,9 +169,14 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
                 className="absolute bottom-0 left-0 right-0 bg-[var(--surface-wordu-raised)] rounded-t-2xl shadow-2xl z-50 h-[85%] flex flex-col overflow-hidden border-t border-[var(--border-wordu)] ring-1 ring-black/5"
             >
-                <div className="w-full flex justify-center pt-3 pb-1 shrink-0" onClick={onClose}>
-                    <div className="w-12 h-1.5 bg-zinc-300 rounded-full" />
-                </div>
+                <button
+                    type="button"
+                    onClick={onClose}
+                    aria-label="Close"
+                    className="w-full flex justify-center pt-3 pb-1 shrink-0 cursor-pointer"
+                >
+                    <span className="w-12 h-1.5 bg-zinc-300 rounded-full" />
+                </button>
 
                 <div className="flex items-start justify-between px-8 py-6 shrink-0">
                     <div>

@@ -193,6 +193,21 @@ export function VideoTile({
  videoRef.current.currentTime = percentage * videoRef.current.duration
  }
 
+ // Keyboard seek — arrows ±5s, Home/End to ends. Makes the scrubber a real slider.
+ const handleScrubKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
+ if (!videoRef.current) return
+ const dur = videoRef.current.duration || 0
+ let t = videoRef.current.currentTime
+ if (e.key === 'ArrowRight') t = Math.min(dur, t + 5)
+ else if (e.key === 'ArrowLeft') t = Math.max(0, t - 5)
+ else if (e.key === 'Home') t = 0
+ else if (e.key === 'End') t = dur
+ else return
+ e.preventDefault()
+ e.stopPropagation()
+ videoRef.current.currentTime = t
+ }
+
  const containerRef = React.useRef<HTMLDivElement>(null)
  const { scrollYProgress } = useScroll({
  target: containerRef,
@@ -242,7 +257,17 @@ export function VideoTile({
  {/* Custom Control Bar (appears on hover or when playing) */}
  <div className={`absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-3 transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover/video:opacity-100' : 'opacity-100'}`}>
  {/* Scrub Bar */}
- <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer hover:h-2.5 transition-all group/scrub" onClick={handleScrub}>
+ <div
+ role="slider"
+ tabIndex={0}
+ aria-label="Seek video"
+ aria-valuemin={0}
+ aria-valuemax={100}
+ aria-valuenow={Math.round(progress)}
+ className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer hover:h-2.5 transition-all group/scrub focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+ onClick={handleScrub}
+ onKeyDown={handleScrubKey}
+ >
  <div className="h-full bg-[var(--accent-teal)] rounded-full transition-all duration-75 ease-linear relative" style={{ width: `${progress}%` }}>
  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover/scrub:opacity-100 shadow-[0_0_10px_rgba(45,212,191,1)]" />
  </div>

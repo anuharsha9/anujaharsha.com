@@ -95,21 +95,22 @@ export default function Home() {
         </BlurZone>
       </div>
 
-      {/* ═══ TRAILER TEASER — closer for warm visitors, sits right after the 3 case studies ═══ */}
+      {/* ═══ ZONE 3: BUILD LAB (Vibe Coding) ═══
+           Sits right under the CSG case studies: day-job work → what I build with AI. */}
+      <BlurZone id="vibe-coding-zone" containerHeight="200vh">
+        <VibeCodingBlock />
+      </BlurZone>
+
+      {/* ═══ TRAILER TEASER — closer for warm visitors ═══ */}
       <TrailerTeaser />
 
-      {/* ═══ ZONE 3: SOCIAL PROOF ═══
+      {/* ═══ ZONE 4: SOCIAL PROOF ═══
            No BlurZone here — testimonials are read-heavy and must stay sharp/fully readable
            (the blur-morph + sticky pin obscured and clipped them).
            Life milestone pills moved to the Life tab's "Same Time" room. */}
       <div id="social-proof-zone" className="relative w-full">
         <TestimonialsBlock />
       </div>
-
-      {/* ═══ ZONE 4: VIBE CODING ═══ */}
-      <BlurZone id="vibe-coding-zone" containerHeight="200vh">
-        <VibeCodingBlock />
-      </BlurZone>
 
       {/* ═══ ZONE 5: EXTENDED PORTFOLIO ═══ */}
       <BlurZone id="extended-portfolio-zone" containerHeight="130vh">

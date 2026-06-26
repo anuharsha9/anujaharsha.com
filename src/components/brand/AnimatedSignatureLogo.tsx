@@ -29,6 +29,13 @@ export default function AnimatedSignatureLogo({
   useEffect(() => {
     if (!pathRef.current || !isAnimating) return
 
+    // Respect prefers-reduced-motion: skip the rAF stroke-draw entirely and
+    // leave the signature statically drawn (its default fully-visible state).
+    // The global CSS kill-switch only catches CSS animations, not this rAF loop.
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
     const path = pathRef.current
     let pathLength = 0
     let isInitialized = false
