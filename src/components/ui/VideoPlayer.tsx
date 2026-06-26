@@ -125,8 +125,8 @@ export default function VideoPlayer({
 
             {!ambient && (
                 <>
-                    {/* "Tap for sound" pill — only while muted and visitor hasn't unmuted before */}
-                    {isMuted && !unmutedOnce && (
+                    {/* "Tap for sound" pill — only while playing + muted + visitor hasn't unmuted before */}
+                    {isPlaying && isMuted && !unmutedOnce && (
                         <button
                             onClick={toggleMute}
                             className="absolute right-4 top-4 z-20 inline-flex items-center gap-2 rounded-full bg-black/70 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white ring-1 ring-white/20 backdrop-blur-md transition-all duration-300 hover:bg-black/85 hover:ring-white/40"

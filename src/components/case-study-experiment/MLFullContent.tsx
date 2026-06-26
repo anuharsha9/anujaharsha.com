@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
+import VideoPlayer from '@/components/ui/VideoPlayer'
 import ImpactDiff from '@/components/case-study/ImpactDiff'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
@@ -348,25 +349,27 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                         <BentoRow layout="50/50">
                                             <div>
                                                 <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">Legacy Workflow</p>
-                                                <div className="rounded-xl overflow-hidden aspect-[16/10]">
-                                                    <video
-                                                        src={data.prototypeMedia.beforeAfter.before.videoUrl}
-                                                        poster={data.prototypeMedia.beforeAfter.before.videoPoster}
-                                                        controls playsInline preload="none"
-                                                        className="w-full h-full object-contain bg-black"
-                                                    />
-                                                </div>
+                                                <VideoPlayer
+                                                    src={data.prototypeMedia.beforeAfter.before.videoUrl}
+                                                    poster={data.prototypeMedia.beforeAfter.before.videoPoster}
+                                                    autoPlay={false}
+                                                    ariaLabel="ML Functions — legacy workflow"
+                                                    className="rounded-xl overflow-hidden aspect-[16/10] bg-black"
+                                                    videoClassName="object-contain"
+                                                />
                                             </div>
                                             <div>
                                                 <p className="text-[10px] font-mono text-[var(--cs-accent)] uppercase tracking-widest mb-3">Redesigned Workflow</p>
-                                                <div className="rounded-xl overflow-hidden aspect-[16/10] relative">
-                                                    <video
+                                                <div className="relative">
+                                                    <VideoPlayer
                                                         src={data.prototypeMedia.beforeAfter.after.videoUrl}
                                                         poster={data.prototypeMedia.beforeAfter.after.videoPoster}
-                                                        controls playsInline preload="none"
-                                                        className="w-full h-full object-contain bg-black"
+                                                        autoPlay={false}
+                                                        ariaLabel="ML Functions — redesigned workflow"
+                                                        className="rounded-xl overflow-hidden aspect-[16/10] bg-black"
+                                                        videoClassName="object-contain"
                                                     />
-                                                    <div className="absolute top-3 right-3 bg-[var(--cs-accent)] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Redesign</div>
+                                                    <div className="absolute top-3 right-3 bg-[var(--cs-accent)] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest z-30">Redesign</div>
                                                 </div>
                                             </div>
                                         </BentoRow>

@@ -10,6 +10,7 @@ import { motion } from 'framer-motion'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
+import VideoPlayer from '@/components/ui/VideoPlayer'
 import ImpactDiff from '@/components/case-study/ImpactDiff'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
@@ -490,25 +491,27 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             <BentoRow layout="50/50">
                                 <div>
                                     <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">Legacy Workflow</p>
-                                    <div className="rounded-xl overflow-hidden aspect-[16/10]">
-                                        <video
-                                            src={data.prototypeMedia.beforeAfter.before.videoUrl}
-                                            poster={data.prototypeMedia.beforeAfter.before.videoPoster}
-                                            controls playsInline preload="none"
-                                            className="w-full h-full object-contain bg-black"
-                                        />
-                                    </div>
+                                    <VideoPlayer
+                                        src={data.prototypeMedia.beforeAfter.before.videoUrl}
+                                        poster={data.prototypeMedia.beforeAfter.before.videoPoster}
+                                        autoPlay={false}
+                                        ariaLabel="ReportCaster — legacy workflow"
+                                        className="rounded-xl overflow-hidden aspect-[16/10] bg-black"
+                                        videoClassName="object-contain"
+                                    />
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-mono text-[var(--cs-accent)] uppercase tracking-widest mb-3">New Unified Workflow</p>
-                                    <div className="rounded-xl overflow-hidden aspect-[16/10] relative">
-                                        <video
+                                    <div className="relative">
+                                        <VideoPlayer
                                             src={data.prototypeMedia.beforeAfter.after.videoUrl}
                                             poster={data.prototypeMedia.beforeAfter.after.videoPoster}
-                                            controls playsInline preload="none"
-                                            className="w-full h-full object-contain bg-black"
+                                            autoPlay={false}
+                                            ariaLabel="ReportCaster — new unified workflow"
+                                            className="rounded-xl overflow-hidden aspect-[16/10] bg-black"
+                                            videoClassName="object-contain"
                                         />
-                                        <div className="absolute top-3 right-3 bg-[var(--cs-accent)] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Shipped</div>
+                                        <div className="absolute top-3 right-3 bg-[var(--cs-accent)] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest z-30">Shipped</div>
                                     </div>
                                 </div>
                             </BentoRow>
@@ -678,15 +681,13 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     </div>
 
                     <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm">
-                        <div className="aspect-video">
-                            <video
-                                src="/videos/figma-config-pitch.mp4"
-                                controls
-                                playsInline
-                                preload="none"
-                                className="w-full h-full object-contain bg-black"
-                            />
-                        </div>
+                        <VideoPlayer
+                            src="/videos/figma-config-pitch.mp4"
+                            autoPlay={false}
+                            ariaLabel="Figma Config pitch"
+                            className="aspect-video bg-black"
+                            videoClassName="object-contain"
+                        />
                     </div>
 
                     <motion.p

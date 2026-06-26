@@ -10,6 +10,7 @@ import { motion } from 'framer-motion'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
+import VideoPlayer from '@/components/ui/VideoPlayer'
 import SystemIndex from '@/components/case-study/SystemIndex'
 import {
     BentoGrid, BentoRow, ImageTile, TextTile, VideoTile,
@@ -204,11 +205,13 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                                         allowFullScreen
                                                     />
                                                 ) : (
-                                                    <video
+                                                    <VideoPlayer
                                                         src={v.videoUrl}
                                                         poster={v.videoPoster}
-                                                        controls playsInline preload="none"
-                                                        className="w-full h-full object-contain bg-black"
+                                                        autoPlay={false}
+                                                        ariaLabel={v.title || 'Case study video'}
+                                                        className="w-full h-full bg-black"
+                                                        videoClassName="object-contain"
                                                     />
                                                 )}
                                             </div>
@@ -444,14 +447,14 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                             <>
                                 <EyebrowLabel>IQ Walkthrough</EyebrowLabel>
                                 <BentoRow layout="full">
-                                    <div className="rounded-xl overflow-hidden aspect-[16/9]">
-                                        <video
-                                            src={data.prototypeMedia.multiBeforeAfter.after.videoUrl}
-                                            poster={data.prototypeMedia.multiBeforeAfter.after.videoPoster}
-                                            controls playsInline preload="none"
-                                            className="w-full h-full object-contain bg-black"
-                                        />
-                                    </div>
+                                    <VideoPlayer
+                                        src={data.prototypeMedia.multiBeforeAfter.after.videoUrl}
+                                        poster={data.prototypeMedia.multiBeforeAfter.after.videoPoster}
+                                        autoPlay={false}
+                                        ariaLabel="IQ Plugin — walkthrough"
+                                        className="rounded-xl overflow-hidden aspect-[16/9] bg-black"
+                                        videoClassName="object-contain"
+                                    />
                                 </BentoRow>
                             </>
                         )}
