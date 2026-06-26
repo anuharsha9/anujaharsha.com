@@ -114,15 +114,14 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                     >
                         <div className="flex w-full max-w-[18rem] flex-col items-center gap-5 px-6 text-center pointer-events-auto">
                             <div>
-                                {/* Role eyebrow — explicit ownership signal */}
-                                <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
+                                {/* Role eyebrow — explicit ownership signal. Domain mono
+                                    is intentionally NOT repeated here; the closed-state
+                                    proof line below the tile already carries that context. */}
+                                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
                                     {tile.role}
                                 </p>
                                 <p className="text-zinc-100 text-lg font-semibold leading-snug">
                                     {tile.title}
-                                </p>
-                                <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                                    {tile.domain}
                                 </p>
                             </div>
 
