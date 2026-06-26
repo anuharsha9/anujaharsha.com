@@ -11,16 +11,14 @@ import { RC_SLIDES, ML_SLIDES, DSML_SLIDES } from '@/data/presentation-slides'
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /* ─── tile data ───
- * Recruiter-readable 10-second triage (per Superhive UX-portfolio article):
- *  - leadSignal: the STAFF signal — scope of influence in a few words, shown
- *    as an eyebrow above the title (the thing that reads as "leader," not just
- *    "IC"). Condensed from each case study's authored leadershipSummary.
+ * Recruiter-readable 10-second triage: a single outcome line per tile,
+ * rendered in the accent-mono "eyebrow" treatment (mono · uppercase ·
+ * tracked · tile color). No separate eyebrow — the title carries it.
  *  - title: the outcome-framed headline. */
 const TILES = [
     {
         id: 'reportcaster',
-        leadSignal: 'Volunteered week 1 · aligned a 20-person team',
-        title: 'Modernized a 40-year-old engine — 20M+ jobs a week.',
+        title: 'Modernized a 40-year-old engine — 20M+ jobs a week',
         link: '/work/reportcaster',
         flagship: true,
         Wireframe: RCWireframe,
@@ -29,8 +27,7 @@ const TILES = [
     },
     {
         id: 'ml-functions',
-        leadSignal: 'Earned it via a side challenge · MIT-certified',
-        title: 'Made our ML engine usable for everyone.',
+        title: 'Made our ML engine usable for everyone',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
         accentVar: '--semantic-cyan-rgb',
@@ -38,8 +35,7 @@ const TILES = [
     },
     {
         id: 'iq-plugin',
-        leadSignal: 'Defined the architecture · defended vs. 20–35-yr veterans',
-        title: 'Made our AI impossible to miss.',
+        title: 'Made our AI impossible to miss',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
         accentVar: '--semantic-purple-rgb',
@@ -52,8 +48,8 @@ const TILES = [
  * Layout per Anuja: don't crowd the card. The animated wireframe fills the
  * card and is the default view; on hover (desktop) ONLY the two buttons
  * (Case Study / Watch) fade in over a bottom scrim. On mobile (no hover) the
- * buttons stay visible. The TEXT — a leadSignal eyebrow (the Staff signal)
- * and the title — sits BELOW the card, always visible, never crowding the
+ * buttons stay visible. The TEXT — a single outcome title in the accent-mono
+ * eyebrow treatment — sits BELOW the card, always visible, never crowding the
  * animation. Buttons use the shared <Button> primitive (dark-glass primary +
  * ghost-glass secondary). */
 function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
@@ -106,13 +102,11 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                 </div>
             </div>
 
-            {/* TEXT — below the card, always visible. leadSignal eyebrow (Staff
-                signal) + title. Never crowds the animation. */}
+            {/* TEXT — below the card, always visible. A single outcome title in
+                the accent-mono eyebrow treatment (mono · uppercase · tracked ·
+                tile color). One clean line; never crowds the animation. */}
             <div className="mt-4">
-                <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] leading-relaxed" style={{ color: `rgba(${rgb}, 0.9)` }}>
-                    {tile.leadSignal}
-                </p>
-                <h3 className="mt-1.5 font-sans text-sm md:text-base font-semibold leading-snug tracking-tight text-zinc-300">
+                <h3 className="font-mono text-[11px] md:text-xs uppercase tracking-[0.2em] leading-relaxed" style={{ color: `rgba(${rgb}, 0.9)` }}>
                     {tile.title}
                 </h3>
             </div>
