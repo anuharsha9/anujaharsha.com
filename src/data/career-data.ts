@@ -1,4 +1,4 @@
-import { Bot, Mountain, GraduationCap, Award, Baby, MapPin, Heart, Palette, Clapperboard, Home } from 'lucide-react';
+import { Bot, Mountain, GraduationCap, Award, Baby, MapPin, Heart, Palette, Clapperboard, Home, type LucideIcon } from 'lucide-react';
 
 export interface Testimonial {
     id: string;
@@ -39,7 +39,7 @@ export interface Milestone {
     title: string;
     subtitle?: string;
     year?: string;
-    icon?: any; // Lucide Icon Component or String
+    icon?: LucideIcon | string; // Lucide icon component or string key for icon registry
 }
 
 export interface SkillBadge {

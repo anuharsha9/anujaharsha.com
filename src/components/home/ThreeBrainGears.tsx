@@ -3,7 +3,9 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Center, Environment, Sparkles } from '@react-three/drei'
-import * as THREE from 'three'
+/* Named imports only — `import * as THREE` defeats tree-shaking and pulls
+ * the entire Three.js library into the client bundle. We only need 5 classes. */
+import { Box3, Vector3, Color, Group, Mesh } from 'three'
 import { SVGLoader } from 'three-stdlib'
 import { BRAIN_GEARS_SVG } from '@/data/brain-gears-svg'
 
@@ -63,7 +65,7 @@ function BrainMesh({
   litGearIds: string[]
   onGearClick?: (id: string) => void
 }) {
-  const groupRef = useRef<THREE.Group>(null)
+  const groupRef = useRef<Group>(null)
 
   // Floating Parallax / Idle rotation
   useFrame((state) => {
@@ -89,15 +91,15 @@ function BrainMesh({
       const shapeList = SVGLoader.createShapes(p)
       
       // Compute bounding box and point cloud density
-      let bb = new THREE.Box3()
+      let bb = new Box3()
       let totalPts = 0
       shapeList.forEach(s => {
           let pts = s.getPoints()
           totalPts += pts.length
-          pts.forEach(pt => bb.expandByPoint(new THREE.Vector3(pt.x, pt.y, 0)))
+          pts.forEach(pt => bb.expandByPoint(new Vector3(pt.x, pt.y, 0)))
       })
       
-      const size = new THREE.Vector3()
+      const size = new Vector3()
       bb.getSize(size)
       
       // Keep only reasonably complex shapes that are large enough to be gears but small enough not to be the canvas
@@ -140,7 +142,7 @@ function GearMesh({
   isLit: boolean
   onClick: () => void
 }) {
-  const meshRef = useRef<THREE.Mesh>(null)
+  const meshRef = useRef<Mesh>(null)
   const [hovered, setHovered] = useState(false)
 
   // Subtle rotation for each gear
@@ -155,7 +157,7 @@ function GearMesh({
 
   // Material properties
   const color = isActive ? '#2dd4bf' : (isLit ? '#14b8a6' : (hovered ? '#ffffff' : '#3f3f46'))
-  const emissive = isActive ? new THREE.Color('#2dd4bf') : (isLit ? new THREE.Color('#0d9488') : new THREE.Color('#000000'))
+  const emissive = isActive ? new Color('#2dd4bf') : (isLit ? new Color('#0d9488') : new Color('#000000'))
   const emissiveIntensity = isActive ? 0.8 : (isLit ? 0.4 : 0)
 
   return (

@@ -2,14 +2,14 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import { FileText, Video, PenTool, Ticket, StickyNote, Map, FolderOpen, Check, LucideIcon } from 'lucide-react'
+import { FileText, Video, PenTool, Ticket, StickyNote, Map, FolderOpen, Check, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 interface FolderItem {
- icon: any
+ icon: LucideIcon
  label: string
  count: number
  displayCount: string

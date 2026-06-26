@@ -20,7 +20,8 @@ import {
     X,
     CheckCircle2,
     AlertCircle,
-    Send
+    Send,
+    type LucideIcon,
 } from "lucide-react"
 
 // --- Helper for Class Names ---
@@ -50,7 +51,7 @@ type DefinitionData = {
 }
 
 // --- Constants ---
-const MODES: { id: GameMode; title: string; desc: string; icon: any; color: string; hover: string; accent: string; duration?: number; target?: number }[] = [
+const MODES: { id: GameMode; title: string; desc: string; icon: LucideIcon; color: string; hover: string; accent: string; duration?: number; target?: number }[] = [
     {
         id: "rapid_fire",
         title: "Rapid-Fire",
