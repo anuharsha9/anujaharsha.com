@@ -152,7 +152,7 @@ export default function HeroLanding() {
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                                 transition={{ duration: 1.2, delay: 0.2, ease }}
                             >
-                                I make the most powerful tool in the building — the one nobody can use — obvious. 13 years modernizing legacy enterprise systems; most recently a ~50-year-old BI platform, where the work helped renew a multi-year, multi-million-dollar contract.
+                                I make the most powerful tool in the building — the one nobody likes to use — obvious. 12 years of product design in enterprise systems, most recently leading the UX modernization of a 50-year-old BI platform, where the team&apos;s work helped renew a multi-year, multi-million-dollar contract.
                             </motion.p>
                         </div>
 

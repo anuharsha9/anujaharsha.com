@@ -179,7 +179,7 @@ export default function CSGBlock() {
                         <span className="text-zinc-600 font-normal"> at Cloud Software Group</span>
                     </h2>
                     <p className="mt-3 text-sm md:text-base text-zinc-500 font-light max-w-2xl">
-                        Architecting a $175M P&L mission-critical data platform.
+                        Architecting a $175M P&amp;L mission-critical data platform — named a Customer Experience Leader in Dresner Advisory Services&apos; 2025 Industry Excellence Awards, one of the BI industry&apos;s highest honors.
                     </p>
                 </motion.div>
 

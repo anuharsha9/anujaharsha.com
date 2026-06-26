@@ -50,9 +50,14 @@ interface PageShellProps {
 
 export default function PageShell({ children }: PageShellProps) {
   const pathname = usePathname()
-  const isManifesto = pathname === '/manifesto'
-  const isLandingPage = pathname === '/'
-  const isCaseStudyPage = pathname?.startsWith('/work/') && !pathname.startsWith('/work/wordu')
+  /* Normalize trailing slash before matching. `trailingSlash: true` makes
+     the real path `/manifesto/`, so a bare `=== '/manifesto'` check missed it
+     and the old SiteHeader nav leaked onto the manifesto "trailer" (which is
+     meant to show only its own Back-to-Portfolio exit button). */
+  const normalizedPath = (pathname || '/').replace(/\/+$/, '') || '/'
+  const isManifesto = normalizedPath === '/manifesto'
+  const isLandingPage = normalizedPath === '/'
+  const isCaseStudyPage = normalizedPath.startsWith('/work/') && !normalizedPath.startsWith('/work/wordu')
 
   return (
     <ErrorBoundary>
