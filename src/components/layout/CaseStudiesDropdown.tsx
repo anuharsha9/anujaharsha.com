@@ -250,12 +250,12 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
             {/* Footer */}
             <div className="px-4 py-2.5 border-t border-white/[0.06]">
               <TransitionLink
-                href="/#lets-talk"
+                href="/me"
                 onClick={handleClick}
                 className="font-mono text-[10px] text-zinc-600 hover:text-zinc-400 uppercase tracking-wider transition-colors"
                 role="menuitem"
               >
-                → LET&apos;S TALK
+                → ABOUT ANUJA
               </TransitionLink>
             </div>
           </motion.div>
