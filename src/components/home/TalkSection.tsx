@@ -44,11 +44,13 @@ export default function TalkSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1.4, ease }}
         >
-          {/* Portrait removed per Anuja's request — the mission quote leads now. */}
-
-          {/* Mission quote */}
-          <h2 className="font-sans font-light text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-snug sm:leading-relaxed tracking-wide text-zinc-300 mb-6 px-1">
-            &ldquo;I make complex enterprise software people can actually use&mdash;turning systems they avoid into ones they adopt.&rdquo;
+          {/* Closer — short invitation, NOT a third restatement of the thesis.
+              The hero opens with "make the powerful tool obvious" and the
+              FoundationBlock chair-philosophy animation IS that thesis in full,
+              so the old mission quote here was the same idea a third time.
+              This section just invites the conversation. */}
+          <h2 className="font-sans font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-white mb-6 px-1">
+            Let&rsquo;s talk.
           </h2>
 
           {/* Roles seeking */}
