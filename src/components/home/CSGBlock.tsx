@@ -140,7 +140,7 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                                 {/* Primary — Read Case Study (filled white) */}
                                 <TransitionLink
                                     href={tile.link}
-                                    className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-[var(--accent-teal)] hover:shadow-[0_0_30px_rgba(47,198,213,0.35)]"
+                                    className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-[var(--accent-teal)] hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)]"
                                 >
                                     <FileText className="w-4 h-4" /> Read Case Study
                                 </TransitionLink>

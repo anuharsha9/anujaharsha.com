@@ -46,7 +46,7 @@ function LifeHero() {
     const { navigateTo } = useTransition()
     return (
         <section className="relative mx-auto max-w-[1200px] px-4 pt-12 pb-12 md:px-8 md:pt-20 md:pb-16 lg:px-12">
-            <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[rgba(47,198,213,0.06)] blur-[120px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[rgba(var(--accent-teal-glow-rgb),0.06)] blur-[120px]" />
             <motion.div
                 className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8"
                 initial={{ opacity: 0, y: 28 }}
@@ -136,7 +136,7 @@ function SameTime() {
     const [expanded, setExpanded] = useState(false)
     return (
         <section className="relative mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-20 lg:px-12">
-            <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[460px] w-[820px] -translate-x-1/2 rounded-full bg-[rgba(47,198,213,0.04)] blur-[130px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[460px] w-[820px] -translate-x-1/2 rounded-full bg-[rgba(var(--accent-teal-glow-rgb),0.04)] blur-[130px]" />
             <RoomHeader
                 label="Same time"
                 title="Where the two lives ran together"
@@ -182,13 +182,13 @@ function SameTime() {
 
                                 {/* Year marker (center, desktop only) */}
                                 <div className="relative hidden flex-col items-center justify-center md:flex">
-                                    <div className="h-3 w-3 rounded-full bg-[var(--accent-teal)] shadow-[0_0_0_4px_rgba(47,198,213,0.15)]" />
+                                    <div className="h-3 w-3 rounded-full bg-[var(--accent-teal)] shadow-[0_0_0_4px_rgba(var(--accent-teal-glow-rgb),0.15)]" />
                                     <p className="mt-3 font-mono text-xs uppercase tracking-[0.25em] text-[var(--accent-teal)]">{pair.year}</p>
                                     <p className="mt-1 max-w-[160px] text-center text-[11px] leading-tight text-zinc-500">{pair.title}</p>
                                 </div>
 
                                 {/* Life card */}
-                                <div className="relative rounded-2xl border border-[var(--accent-teal)]/15 bg-gradient-to-b from-[rgba(47,198,213,0.05)] to-white/[0.01] p-5 transition-colors duration-500 hover:border-[var(--accent-teal)]/35 md:p-6">
+                                <div className="relative rounded-2xl border border-[var(--accent-teal)]/15 bg-gradient-to-b from-[rgba(var(--accent-teal-glow-rgb),0.05)] to-white/[0.01] p-5 transition-colors duration-500 hover:border-[var(--accent-teal)]/35 md:p-6">
                                     <div className="mb-3 flex items-center gap-2">
                                         <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-teal)]/15 text-[var(--accent-teal)]">
                                             <LifeIcon className="h-3.5 w-3.5" />

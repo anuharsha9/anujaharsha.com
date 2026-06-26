@@ -121,7 +121,7 @@ const CASE_STUDIES = {
         title: 'ML Functions',
         subtitle: 'Democratizing machine learning for non-technical users',
         accent: '#2fc6d5',
-        accentRgb: '47, 198, 213',
+        accentRgb: 'var(--accent-teal-glow-rgb)',
         link: '/work/ml-functions',
         eyebrow: 'Up Next',
     },
@@ -129,7 +129,7 @@ const CASE_STUDIES = {
         title: 'IQ Discovery Hub',
         subtitle: 'Making invisible AI features visible through a unified hub',
         accent: '#a855f7',
-        accentRgb: '168, 85, 247',
+        accentRgb: 'var(--semantic-purple-rgb)',
         link: '/work/iq-plugin',
         eyebrow: 'Up Next',
     },
@@ -275,8 +275,8 @@ export default function FlagshipTheater() {
             : handleRCComplete
 
     // Determine accent for active movie background glow
-    const activeAccent = phase === 'ml-playing' ? '47, 198, 213'
-        : phase === 'iq-playing' ? '168, 85, 247'
+    const activeAccent = phase === 'ml-playing' ? 'var(--accent-teal-glow-rgb)'
+        : phase === 'iq-playing' ? 'var(--semantic-purple-rgb)'
             : '245, 158, 11'
 
     return (

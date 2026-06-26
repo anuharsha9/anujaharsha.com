@@ -39,7 +39,7 @@ const PROJECTS: ProjectItem[] = [
 function ArchiveCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey: string, title: string) => void }) {
     return (
         <button onClick={() => onOpen(item.archiveKey, item.title)} className="text-left w-full group">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(47,198,213,0.05)]">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-white/[0.03] cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.05)]">
                 {/* Desaturated at rest — restores on hover */}
                 <div className="absolute inset-0 transition-[filter] duration-700 grayscale brightness-[0.7] group-hover:grayscale-0 group-hover:brightness-100">
                     <Image

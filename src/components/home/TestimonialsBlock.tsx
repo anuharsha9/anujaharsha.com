@@ -23,10 +23,10 @@ function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
             whileHover={{ y: -5 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.55, delay: Math.min(i, VISIBLE_COUNT) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative mb-5 break-inside-avoid overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.06] to-white/[0.015] p-6 md:p-7 transition-[border-color,box-shadow] duration-500 hover:border-[var(--accent-teal)]/30 hover:shadow-[0_12px_44px_-14px_rgba(47,198,213,0.28)]"
+            className="group relative mb-5 break-inside-avoid overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.06] to-white/[0.015] p-6 md:p-7 transition-[border-color,box-shadow] duration-500 hover:border-[var(--accent-teal)]/30 hover:shadow-[0_12px_44px_-14px_rgba(var(--accent-teal-glow-rgb),0.28)]"
         >
             {/* hover sheen */}
-            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(47,198,213,0.10),transparent_55%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(var(--accent-teal-glow-rgb),0.10),transparent_55%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             {/* big watermark quote mark */}
             <QuoteMark className="pointer-events-none absolute -right-3 -top-3 h-20 w-20 text-white/[0.03] transition-colors duration-500 group-hover:text-[var(--accent-teal)]/[0.06]" />
@@ -61,7 +61,7 @@ export default function TestimonialsBlock() {
     return (
         <section className="relative mx-auto max-w-[1280px] px-4 pt-12 pb-20 md:px-8 md:pt-20 md:pb-28 lg:px-12">
             {/* ambient teal glow */}
-            <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[rgba(47,198,213,0.05)] blur-[130px]" />
+            <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[rgba(var(--accent-teal-glow-rgb),0.05)] blur-[130px]" />
             {/* oversized ghost quote watermark */}
             <QuoteMark className="pointer-events-none absolute -top-4 right-2 h-24 w-24 select-none text-white/[0.025] md:right-6 md:h-32 md:w-32" />
 

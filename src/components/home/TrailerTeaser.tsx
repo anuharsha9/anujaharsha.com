@@ -18,7 +18,7 @@ export default function TrailerTeaser() {
             className="relative mx-auto max-w-[1100px] px-4 py-16 md:px-8 md:py-24 lg:px-12"
         >
             {/* ambient teal glow */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[360px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(47,198,213,0.05)] blur-[120px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[360px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(var(--accent-teal-glow-rgb),0.05)] blur-[120px]" />
 
             <motion.div
                 className="relative flex flex-col items-center text-center"

@@ -74,6 +74,11 @@
    --accent-teal-bright: #14b8a6;
    --accent-teal-dark: #077D8E;
    --accent-teal-rgb: 7, 139, 156;
+   /* Luminous teal — brighter than --accent-teal, reserved for ambient glows,
+      blur halos, and hover shadows (reads brighter when diffused). Codified
+      from the previously-hardcoded rgb(47,198,213) used across the site. */
+   --accent-teal-glow: #2fc6d5;
+   --accent-teal-glow-rgb: 47, 198, 213;
    --accent-amber: #f59e0b;
    --accent-amber-rgb: 245, 158, 11;
 
