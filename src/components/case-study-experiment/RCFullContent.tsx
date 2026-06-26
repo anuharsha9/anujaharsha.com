@@ -492,7 +492,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 <div>
                                     <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">Legacy Workflow</p>
                                     <VideoPlayer
-                                        src={data.prototypeMedia.beforeAfter.before.videoUrl}
+                                        src={data.prototypeMedia.beforeAfter.before.videoUrl ?? ''}
                                         poster={data.prototypeMedia.beforeAfter.before.videoPoster}
                                         autoPlay={false}
                                         ariaLabel="ReportCaster — legacy workflow"

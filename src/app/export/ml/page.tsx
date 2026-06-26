@@ -11,7 +11,7 @@ export default function MLExportPage() {
         <div className="max-w-[1440px] mx-auto px-8 py-20" data-cs-theme="ml">
             {/* HERO */}
             <div className="mb-20 text-center">
-                <h1 className="text-4xl font-bold mb-6 text-white">{data.title}</h1>
+                <h1 className="text-4xl font-bold mb-6 text-white">{data.heroTitle}</h1>
                 <div className="flex justify-center items-center gap-4 text-sm font-mono uppercase tracking-widest text-zinc-400">
                     <span className="text-[var(--cs-accent)] font-bold">{data.role}</span>
                     <span>•</span>

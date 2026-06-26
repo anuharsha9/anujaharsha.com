@@ -24,11 +24,12 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const nextConfig = {
   reactStrictMode: true,
-  // Skip TypeScript errors during builds — TODO(tier B): flip to false
-  // after auditing the surfaced errors. Keeping true unblocks deploys
-  // while the audit runs.
+  // TypeScript errors fail the build (was previously `true` — flipped after
+  // auditing all 26 surfaced errors and fixing them: broken StoryDeck import,
+  // missing `heroTitle` references, `string | undefined` narrowings, and the
+  // `article.url` typo. Keep this strict from here on.)
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   // Only enable static export for production builds (dev needs server routes
   // for HMR, the /screenshot dev-only target, etc.)

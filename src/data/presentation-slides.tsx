@@ -1,5 +1,17 @@
 import React from 'react'
-import { StorySlide } from '@/components/case-study/StoryDeck'
+
+/* ─── StorySlide shape ─── consumed by PresentationLightbox.
+ * Previously imported from a now-deleted StoryDeck module; the type
+ * lives here where the data lives. */
+export type StorySlideType = 'problem' | 'research' | 'decision' | 'execution' | 'lesson' | 'impact'
+
+export interface StorySlide {
+    type: StorySlideType
+    title: string
+    content: string[]
+    component: React.ReactNode
+    signal?: string
+}
 
 /* ─── RC Beat Imports ─── */
 import BeatWeekOne from '@/components/case-study/storyboard/BeatWeekOne'

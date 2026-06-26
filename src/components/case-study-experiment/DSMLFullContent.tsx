@@ -206,7 +206,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                                     />
                                                 ) : (
                                                     <VideoPlayer
-                                                        src={v.videoUrl}
+                                                        src={v.videoUrl ?? ''}
                                                         poster={v.videoPoster}
                                                         autoPlay={false}
                                                         ariaLabel={v.title || 'Case study video'}

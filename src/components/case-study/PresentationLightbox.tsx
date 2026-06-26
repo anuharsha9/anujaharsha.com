@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
-import { StorySlide } from '@/components/case-study/StoryDeck'
+import { type StorySlide } from '@/data/presentation-slides'
 import { motion, AnimatePresence } from 'framer-motion'
 import HeroAurora from '@/components/home/HeroAurora'
 
