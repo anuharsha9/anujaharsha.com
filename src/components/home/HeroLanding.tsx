@@ -110,19 +110,11 @@ export default function HeroLanding() {
                                 />
                             </m.div>
 
-                            {/* STAFF PRODUCT DESIGNER — label */}
-                            <m.span
-                                className="text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-                                initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 1, delay: 0.15, ease }}
-                            >
-                                Staff Product Designer · Enterprise Data Platforms
-                            </m.span>
-
-                            {/* MAIN HEADLINE — slowest, most dramatic reveal */}
+                            {/* MAIN HEADLINE — slowest, most dramatic reveal. The name
+                                leads; the role line sits directly under it (Anuja's call:
+                                "it fits better visually"). */}
                             <m.h1
-                                className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-5"
+                                className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-4"
                                 initial={{ opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }}
                                 animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                 transition={{ duration: 1.2, delay: 0.1, ease }}
@@ -144,6 +136,16 @@ export default function HeroLanding() {
                                     </span>
                                 </button>
                             </m.h1>
+
+                            {/* ROLE — title line, now sits directly under the name */}
+                            <m.span
+                                className="text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+                                initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
+                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                transition={{ duration: 1, delay: 0.18, ease }}
+                            >
+                                Staff Product Designer · Enterprise Data Platforms
+                            </m.span>
 
                             {/* SUBTITLE — positioning + credibility */}
                             <m.p
