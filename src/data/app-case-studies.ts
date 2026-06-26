@@ -65,13 +65,13 @@ export interface AppCaseStudy {
 export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
     'career-builder': {
         id: 'career-builder',
-        title: 'Career Builder',
+        title: 'Pathwise',
         tagline: 'An AI-native education-ROI and career-projection engine.',
         icon: Compass,
         accent: 'var(--semantic-purple)',
         accentRgbVar: '--semantic-purple-rgb',
         why: 'College applications happen blind. Families pick programs by reputation and gut, then find out four years and a hundred-thousand dollars later if it paid off. I wanted to make that decision quantitative — and honest about what AI can and cannot project.',
-        whatItSolves: 'For any program a student is considering, Career Builder estimates the realistic earnings trajectory, time-to-payoff, and career range — cited from public data, not vibes — so the choice rests on a number, not a brochure.',
+        whatItSolves: 'For any program a student is considering, Pathwise estimates the realistic earnings trajectory, time-to-payoff, and career range — cited from public data, not vibes — so the choice rests on a number, not a brochure.',
         highlights: [
             {
                 title: 'Two personas, one engine',

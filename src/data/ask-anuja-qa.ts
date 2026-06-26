@@ -153,14 +153,14 @@ export const ASK_QA: AskQA[] = [
         category: 'ai-code',
         question: 'When the model is wrong, what does your UI do?',
         answer:
-            'For ML Functions: confidence is shown on the model card by default — the user knows whether to trust it before they act. For Career Builder: every projection is labeled "projection," cites its source, and the runtime AI toggle is OFF by default. The deterministic planner answers the base case. The principle: never let the model assert. Let it propose, with provenance.',
+            'For ML Functions: confidence is shown on the model card by default — the user knows whether to trust it before they act. For Pathwise: every projection is labeled "projection," cites its source, and the runtime AI toggle is OFF by default. The deterministic planner answers the base case. The principle: never let the model assert. Let it propose, with provenance.',
     },
     {
         id: 'side-projects-not-build',
         category: 'ai-code',
         question: 'You shipped 3 AI apps in months solo. What did you intentionally NOT build?',
         answer:
-            'For WealthEngine: I refused to build a bank-account integration UI before testing whether Plaid\'s sandbox was reliable. For Career Builder: I refused to ship the AI runtime path until the deterministic planner could stand alone — credit-safe mode is the default. For Sous: I left preference-learning to Phase 3 because the cook-along had to feel magical first. Ship the spine. Then the muscle.',
+            'For WealthEngine: I refused to build a bank-account integration UI before testing whether Plaid\'s sandbox was reliable. For Pathwise: I refused to ship the AI runtime path until the deterministic planner could stand alone — credit-safe mode is the default. For Sous: I left preference-learning to Phase 3 because the cook-along had to feel magical first. Ship the spine. Then the muscle.',
     },
     {
         id: 'designer-who-codes',
@@ -183,7 +183,7 @@ export const ASK_QA: AskQA[] = [
         category: 'philosophy',
         question: 'When is the right answer "don\'t add an AI feature here"?',
         answer:
-            'When the deterministic answer is already correct. When the user needs trust more than they need novelty. When latency would break the flow. ReportCaster\'s scheduler doesn\'t need AI — it needs to be obvious. Career Builder\'s base projections don\'t need AI — citing public data is more honest. AI is a multiplier, not a feature.',
+            'When the deterministic answer is already correct. When the user needs trust more than they need novelty. When latency would break the flow. ReportCaster\'s scheduler doesn\'t need AI — it needs to be obvious. Pathwise\'s base projections don\'t need AI — citing public data is more honest. AI is a multiplier, not a feature.',
     },
     {
         id: 'not-design',

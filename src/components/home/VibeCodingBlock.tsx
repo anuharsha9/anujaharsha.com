@@ -612,7 +612,7 @@ const VIBE_TILES = [
     },
     {
         id: 'career-builder',
-        title: 'Career Builder',
+        title: 'Pathwise',
         subtitle: 'AI-native career navigator · Next.js + Claude',
         icon: Compass,
         cover: 'graduation' as const,
@@ -737,7 +737,7 @@ export default function VibeCodingBlock() {
                     </p>
                 </m.div>
 
-                {/* 5 tiles (Portfolio, WordU, Career Builder, WealthEngine, Sous) — grid stacks 1col mobile / 2col tablet / 3col desktop */}
+                {/* 5 tiles (Portfolio, WordU, Pathwise, WealthEngine, Sous) — grid stacks 1col mobile / 2col tablet / 3col desktop */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                     {VIBE_TILES.map((tile, i) => {
                         const Icon = tile.icon
