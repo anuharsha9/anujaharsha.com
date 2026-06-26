@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import DSMLCaseStudyView from '@/components/case-study-experiment/DSMLCaseStudyView'
 import { iqPluginCaseStudy } from '@/data/iq-plugin'
+import StructuredData from '@/components/structured-data/StructuredData'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -51,5 +52,10 @@ export const metadata: Metadata = {
 }
 
 export default function IQPluginPage() {
-  return <DSMLCaseStudyView data={iqPluginCaseStudy} />
+  return (
+    <>
+      <StructuredData type="caseStudy" data={iqPluginCaseStudy} />
+      <DSMLCaseStudyView data={iqPluginCaseStudy} />
+    </>
+  )
 }

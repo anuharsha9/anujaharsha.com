@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { reportcasterCaseStudy } from '@/data/reportcaster'
 import RCCaseStudyView from '@/components/case-study-experiment/RCCaseStudyView'
+import StructuredData from '@/components/structured-data/StructuredData'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
@@ -53,5 +54,13 @@ export const metadata: Metadata = {
 }
 
 export default function ReportCasterPage() {
-  return <RCCaseStudyView data={reportcasterCaseStudy} />
+  return (
+    <>
+      {/* Case-study JSON-LD (Article + CreativeWork) — prerendered into the
+          static HTML so AI crawlers + search engines read this as a structured
+          case study by Anuja, not just prose. */}
+      <StructuredData type="caseStudy" data={reportcasterCaseStudy} />
+      <RCCaseStudyView data={reportcasterCaseStudy} />
+    </>
+  )
 }
