@@ -222,10 +222,15 @@ export default function SystemLightbox({
                         </motion.div>
                     )}
 
-                    {/* 3. Main Content Area */}
+                    {/* 3. Main Content Area
+                        data-lenis-prevent — without this, Lenis (smooth-scroll)
+                        intercepts wheel events globally and the inner scroller
+                        never receives them, so case-study content can't scroll
+                        even though its scrollHeight > clientHeight. */}
                     <motion.div
                         ref={containerRef as React.RefObject<HTMLDivElement>}
-                        className={`relative z-10 flex-1 flex items-center justify-center p-4 md:p-8 w-full max-w-[1800px] mx-auto ${className}`}
+                        data-lenis-prevent
+                        className={`relative z-10 flex-1 min-h-0 flex items-center justify-center p-4 md:p-8 w-full max-w-[1800px] mx-auto ${className}`}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}

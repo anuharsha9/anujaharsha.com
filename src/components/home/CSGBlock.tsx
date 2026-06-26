@@ -114,7 +114,7 @@ function BentoTile({ tile, delay, onWatch, reverse = false }: { tile: typeof TIL
                                 href={tile.link}
                                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)] active:scale-[0.98]"
                             >
-                                <FileText className="w-4 h-4" /> Read Case Study
+                                <FileText className="w-4 h-4" /> Case Study
                             </TransitionLink>
                             <button
                                 onClick={onWatch}

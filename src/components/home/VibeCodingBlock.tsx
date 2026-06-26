@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat } from 'lucide-react'
+import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat, ShieldCheck } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 import AppCaseStudyLightbox from './AppCaseStudyLightbox'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
@@ -474,6 +474,119 @@ function SousCookingCover() {
     )
 }
 
+/* ─── Warden cover — shield + scope grid + denied-attempt pulse
+ * Agent-authz console. Shield outline at the top, a 4×3 "scope matrix"
+ * grid below where cells progressively light up amber (allowed), with
+ * one cell that briefly pulses red as a "blocked" attempt — visualizing
+ * the marquee scenario where the autonomy gate is never reached.
+ * Amber accent matches the Datadog visual register. */
+function WardenSecurityCover() {
+    const accent = 'var(--accent-amber)'
+    return (
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+            {/* Warm amber wash */}
+            <div className="absolute inset-0" style={{
+                background: 'radial-gradient(circle at 50% 45%, hsla(40,80%,50%,0.07), transparent 70%)',
+            }} />
+
+            <svg viewBox="0 0 320 200" className="w-[78%] h-auto" fill="none">
+                {/* Shield outline — top-center */}
+                <motion.path
+                    d="M 160,18 L 198,30 L 198,68 Q 198,92 160,108 Q 122,92 122,68 L 122,30 Z"
+                    stroke={accent}
+                    strokeWidth="1.2"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.55 }}
+                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                />
+                {/* Shield interior glow — slow breathing */}
+                <motion.path
+                    d="M 160,18 L 198,30 L 198,68 Q 198,92 160,108 Q 122,92 122,68 L 122,30 Z"
+                    fill={accent}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 0.06, 0.03] }}
+                    transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', delay: 1 }}
+                />
+                {/* Checkmark inside shield */}
+                <motion.path
+                    d="M 145,60 L 156,72 L 178,48"
+                    stroke={accent}
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.8, delay: 1.4, ease: 'easeOut' }}
+                />
+
+                {/* Scope matrix label */}
+                <motion.text x="20" y="130" fill={accent}
+                    className="font-mono text-[7px]"
+                    initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: 2.0 }}>
+                    SCOPE · DEFAULT DENY
+                </motion.text>
+
+                {/* 4×3 permission grid — each cell is a resource × action grant */}
+                {Array.from({ length: 12 }).map((_, i) => {
+                    const col = i % 4
+                    const row = Math.floor(i / 4)
+                    const x = 20 + col * 36
+                    const y = 138 + row * 14
+                    /* deterministic "allowed" pattern — half lit. Cell index 6 is
+                     * the marquee BLOCKED cell — it lights up then flashes red. */
+                    const ALLOWED = [0, 2, 5, 8, 10, 11]
+                    const BLOCKED_ATTEMPT = i === 6
+                    const isAllowed = ALLOWED.includes(i)
+
+                    if (BLOCKED_ATTEMPT) {
+                        return (
+                            <g key={i}>
+                                <motion.rect x={x} y={y} width="32" height="10" rx="2"
+                                    stroke={accent} strokeWidth="0.5"
+                                    initial={{ opacity: 0 }} animate={{ opacity: 0.25 }}
+                                    transition={{ delay: 2.2 }} />
+                                {/* Pulsing red — blocked attempt */}
+                                <motion.rect x={x} y={y} width="32" height="10" rx="2"
+                                    fill="var(--semantic-red, #ef4444)"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: [0, 0, 0.6, 0, 0.6, 0] }}
+                                    transition={{ duration: 5, delay: 3.2, repeat: Infinity, repeatDelay: 2 }} />
+                            </g>
+                        )
+                    }
+                    return (
+                        <motion.rect
+                            key={i}
+                            x={x} y={y} width="32" height="10" rx="2"
+                            stroke={accent} strokeWidth="0.5"
+                            fill={isAllowed ? accent : 'transparent'}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: isAllowed ? 0.35 : 0.18, scale: 1 }}
+                            transition={{ delay: 2.2 + i * 0.05, duration: 0.4 }}
+                            style={{ transformOrigin: `${x + 16}px ${y + 5}px` }}
+                        />
+                    )
+                })}
+
+                {/* Audit-trail tick line at the bottom — sweeps across to feel "live" */}
+                <motion.line x1="20" y1="184" x2="300" y2="184"
+                    stroke={accent} strokeWidth="0.4"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+                    transition={{ duration: 1.2, delay: 3.0 }} opacity={0.2} />
+                {/* A few audit entries — ticks above the line */}
+                {[60, 110, 160, 210, 240].map((x, i) => (
+                    <motion.line key={x} x1={x} y1="178" x2={x} y2="184"
+                        stroke={accent} strokeWidth="0.6"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 0.7, 0.4] }}
+                        transition={{ delay: 3.4 + i * 0.15, duration: 0.5 }} />
+                ))}
+            </svg>
+        </div>
+    )
+}
+
 const VIBE_TILES = [
     {
         id: 'portfolio',
@@ -530,6 +643,17 @@ const VIBE_TILES = [
         dotHue: 350,
         action: 'sous' as const,
     },
+    {
+        id: 'warden',
+        title: 'Warden',
+        subtitle: 'Agent authorization · embedded live',
+        icon: ShieldCheck,
+        cover: 'warden' as const,
+        accent: 'var(--accent-amber)',
+        accentRgbVar: '--accent-amber-rgb',
+        dotHue: 40,
+        action: 'warden' as const,
+    },
 ]
 
 export default function VibeCodingBlock() {
@@ -561,6 +685,7 @@ export default function VibeCodingBlock() {
         'career-builder': 'career-builder',
         'wealth-engine': 'wealth-engine',
         'sous': 'sous',
+        'warden': 'warden',
     }
     const isExternal = (action: string) => action in APP_CASE_STUDY_BY_ACTION
     const isComingSoon = (action: string) =>
@@ -664,6 +789,7 @@ export default function VibeCodingBlock() {
                                         {tile.cover === 'graduation' && <GraduationCapCover />}
                                         {tile.cover === 'wealth' && <WealthEngineCover />}
                                         {tile.cover === 'sous' && <SousCookingCover />}
+                                        {tile.cover === 'warden' && <WardenSecurityCover />}
                                     </div>
 
                                     {/* 'In Development' badge — only for external tiles without a live URL yet */}

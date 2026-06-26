@@ -7,9 +7,9 @@
  * numbers/goals stay private.
  */
 
-import { Compass, LineChart, ChefHat, type LucideIcon } from 'lucide-react'
+import { Compass, LineChart, ChefHat, ShieldCheck, type LucideIcon } from 'lucide-react'
 
-export type AppCaseStudyId = 'career-builder' | 'wealth-engine' | 'sous'
+export type AppCaseStudyId = 'career-builder' | 'wealth-engine' | 'sous' | 'warden'
 
 export interface AppCaseStudy {
     id: AppCaseStudyId
@@ -26,10 +26,28 @@ export interface AppCaseStudy {
     highlights: { title: string; description: string }[] // 3-4 standout features
     stack: string[]                                      // Tech pills
 
-    /* Demo + status. */
-    demoUrlEnvVar?: string  // Production URL via env var (NEXT_PUBLIC_*)
-    devFallbackUrl?: string // Localhost for dev mode only
-    videoSrc?: string       // optional demo walkthrough video
+    /* Demo + status. Resolution order in AppCaseStudyLightbox:
+     *   1. env var override (NEXT_PUBLIC_*) — set this to swap the URL without a code change
+     *   2. productionUrl — the source-of-truth public demo URL (baked in, no secret needed)
+     *   3. devFallbackUrl — localhost, used only in dev when the above are absent */
+    demoUrlEnvVar?: string
+    productionUrl?: string
+    devFallbackUrl?: string
+    videoSrc?: string
+
+    /* Embedded live demo (for projects that render INSIDE the case study via
+     * an iframe, instead of linking out). When `embed` is set, the
+     * AppCaseStudyLightbox renders an iframe in the "See it run" section
+     * INSTEAD OF the video + Open Live Demo CTA. Resolution mirrors the
+     * demo URL: envVar → productionUrl → devFallbackUrl. */
+    embed?: {
+        urlEnvVar?: string
+        productionUrl?: string
+        devFallbackUrl?: string
+        /* Aspect ratio class (tailwind). Defaults to aspect-[16/10]. */
+        aspectClass?: string
+    }
+
     status: 'live' | 'demo' | 'in-development'
     statusLabel: string     // small badge text
 }
@@ -99,6 +117,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         ],
         stack: ['Next.js', 'Claude Opus 4.8', 'Plaid', 'Live USD/INR FX', 'Local JSON', 'TypeScript', 'Vitest + Playwright'],
         demoUrlEnvVar: 'NEXT_PUBLIC_WEALTHENGINE_URL',
+        productionUrl: 'https://finance-app-omega-five.vercel.app',
         devFallbackUrl: 'http://localhost:3939',
         videoSrc: '/videos/lab/wealthengine-demo.mp4',
         status: 'demo',
@@ -136,5 +155,43 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         videoSrc: '/videos/lab/sous-demo.mp4',
         status: 'in-development',
         statusLabel: 'Native iOS · TestFlight Q3 2026',
+    },
+
+    'warden': {
+        id: 'warden',
+        title: 'Warden',
+        tagline: 'Authorization for AI agents — because an agent is not its deployer.',
+        icon: ShieldCheck,
+        accent: 'var(--accent-amber)',
+        accentRgbVar: '--accent-amber-rgb',
+        why: 'Classic RBAC governs humans and is solved. The unsolved problem is governing autonomous AI agents — actors that reason and act with no session to watch, and that must never inherit the permissions of whoever deployed them. Built for a Datadog "Triple-A" panel as proof I would ship this on day one.',
+        whatItSolves: 'An agent gets its own scoped identity, capped at least-privilege, governed by a trust gradient plus per-action guardrails and a first-class audit trail. Even when the deployer is a superadmin, the agent can never exceed what was explicitly granted. One pure permission engine, five screens, the full configure → simulate → approve → audit loop.',
+        highlights: [
+            {
+                title: 'Pure permission engine',
+                description: 'A single typed function — evaluate(agent, action, context) — walks an ordered ladder: liveness → owner authority → scope → guardrails → autonomy. First decisive gate wins. Unit-tested edge by edge; the trace IS the on-whose-authority receipt.',
+            },
+            {
+                title: 'Default deny, least privilege',
+                description: 'Scope is a grid. Every cell starts denied. Access exists only where you explicitly grant it. Even a superadmin\'s autonomous agent can\'t act outside its grant — the visual default makes this obvious on day one.',
+            },
+            {
+                title: 'Autonomy ≠ unlimited',
+                description: 'Marquee scenario: the autonomous Cost Sentinel attempts to modify payments in prod. Gates 1–3 pass. Guardrail prod_requires_approval trips. The autonomy gate is never reached. The full ladder is visible in the audit trail.',
+            },
+            {
+                title: 'NL adjudication, deterministic core',
+                description: 'Type "rotate the Plaid bank token" → Claude parses the intent (it never decides) → the local engine adjudicates → audit captures the full gate ladder. Falls back to a deterministic parser if Claude is unreachable, so a live demo never breaks.',
+            },
+        ],
+        stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind', 'Claude Opus 4.8', 'Vitest', 'Pure functional engine'],
+        embed: {
+            urlEnvVar: 'NEXT_PUBLIC_WARDEN_URL',
+            devFallbackUrl: 'http://localhost:3102',
+            /* aspect-[4/3] gives the 5-screen console enough vertical room */
+            aspectClass: 'aspect-[4/3]',
+        },
+        status: 'demo',
+        statusLabel: 'Live · Datadog Triple-A interview demo',
     },
 }

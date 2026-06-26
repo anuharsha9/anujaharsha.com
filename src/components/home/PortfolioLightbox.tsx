@@ -1,66 +1,89 @@
 'use client'
 
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
+import { Sparkles, ArrowLeft, ArrowRight } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
+import VideoPlayer from '@/components/ui/VideoPlayer'
 
-/* ─── Evolution log data ─── */
+/* ─── Portfolio case study — same shell + rhythm as AppCaseStudyLightbox,
+ * but the "See it run" section is the 5-iteration evolution carousel
+ * (multi-video) instead of a single demo video. The portfolio's unique
+ * asset is the proof-of-progression — five real shipped artifacts, not a
+ * single before/after — so the case study leads with the same hero/why-
+ * what/highlights/stack rhythm as the AI apps and then opens up the
+ * evolution videos as the closer. */
+
 const EVOLUTION_VERSIONS = [
     {
         id: 'v1', label: 'Jan 2025', title: 'The Baseline',
         desc: 'Panic-built after team layoffs. Juggling a newborn and manual HTML/CSS.',
-        tech: 'HTML • CSS • S3',
+        tech: 'HTML · CSS · S3',
         video: '/videos/evolution/v1_web.mp4',
         keyLearning: '"Manual coding is too slow for modern iteration."',
         accent: 'var(--accent-teal)',
     },
     {
         id: 'v2', label: 'Nov 10', title: 'The Upgrade',
-        desc: 'Post-layoff restart. "Black Pink" design. Fighting for traction.',
-        tech: 'HTML • CSS • ChatGPT',
+        desc: 'Post-layoff restart. Black/Pink design. Fighting for traction.',
+        tech: 'HTML · CSS · ChatGPT',
         video: '/videos/evolution/v2_web.mp4',
-        keyLearning: '"AI is an accelerator, but without Architecture, it\'s just noise."',
+        keyLearning: '"AI is an accelerator — but without architecture, it\'s just noise."',
         accent: 'var(--semantic-magenta-500)',
     },
     {
         id: 'v3', label: 'Nov 15', title: 'The Speedrun',
-        desc: 'White/Pink Redesign. Built in 24 hours. First glimpse of high velocity.',
-        tech: 'HTML • CSS • AIv1',
+        desc: 'White/Pink redesign. Built in 24 hours. First glimpse of high velocity.',
+        tech: 'HTML · CSS · AI v1',
         video: '/videos/evolution/v3_web.mp4',
-        keyLearning: '"Frameworks are not overhead; they are the scaffold for speed."',
+        keyLearning: '"Frameworks aren\'t overhead. They\'re the scaffold for speed."',
         accent: 'var(--semantic-orange)',
     },
     {
         id: 'v4', label: 'Dec 1', title: 'The Architecture',
-        desc: 'Next.js 14 + Git. Multi-agent orchestration for enterprise scalability.',
-        tech: 'Next.js • Agents • AWS',
+        desc: 'Next.js 14 + Git. Multi-agent orchestration for real scale.',
+        tech: 'Next.js · Agents · AWS',
         video: '/videos/evolution/v4_web.mp4',
-        keyLearning: '"Agents handle the build. The human focuses on Soul."',
+        keyLearning: '"Agents handle the build. The human focuses on soul."',
         accent: 'var(--semantic-cyan)',
     },
     {
         id: 'v5', label: 'Dec 8', title: 'The Polish',
         desc: 'Refining the interaction layer. Achieving portfolio-market fit.',
-        tech: 'Framer Motion • Vibe • UX',
+        tech: 'Framer Motion · Vibe · UX',
         video: '/videos/evolution/v5_web.mp4',
         keyLearning: '"The final 10% of polish takes 50% of the effort."',
         accent: 'var(--semantic-purple)',
     },
 ]
 
-const ORCHESTRATION_STACK = [
-    { name: 'ChatGPT', role: 'Strategy' },
-    { name: 'Claude', role: 'Architecture' },
-    { name: 'Gemini', role: 'Polish' },
-    { name: 'Cursor', role: 'Build' },
-    { name: 'Antigravity', role: 'Logic' },
-    { name: 'AWS', role: 'Scale' },
-    { name: 'Next.js 16', role: 'Framework' },
-    { name: 'Framer Motion', role: 'Animation' },
-    { name: 'Tailwind', role: 'Style' },
-    { name: 'Figma', role: 'Design' },
-    { name: 'Git', role: 'Version Control' },
-    { name: 'TypeScript', role: 'Safety' },
+const HIGHLIGHTS = [
+    {
+        title: 'Five iterations, each shipped',
+        description: 'Not drafts — each version was a real, live artifact at anujaharsha.com. The story is the progression, not a single before/after.',
+    },
+    {
+        title: 'One designer, six AI agents',
+        description: 'ChatGPT for strategy. Claude for architecture. Cursor + Agent for build. Gemini for polish. Antigravity for logic. AWS for scale. I made every product call.',
+    },
+    {
+        title: 'No template, no Webflow',
+        description: 'Every component, every transition, every hover state — designed, coded, and reviewed end-to-end. The Lenis scroll, dynamic-island UI, scroll-pinned hero, all hand-spec\'d.',
+    },
+    {
+        title: 'Built through the chaos',
+        description: 'Post-layoff. H-1B clock. Two kids. Final version uploaded at 2 AM. The process was the proof — I can ship the platform AND raise the human.',
+    },
+]
+
+const STACK = [
+    'Next.js 16',
+    'Framer Motion',
+    'Tailwind CSS',
+    'TypeScript',
+    'Claude Opus 4.8',
+    'Cursor + Agent',
+    'AWS S3 + CloudFront',
 ]
 
 interface PortfolioLightboxProps {
@@ -70,145 +93,242 @@ interface PortfolioLightboxProps {
 
 export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightboxProps) {
     const [currentIndex, setCurrentIndex] = useState(0)
-    const videoRef = useRef<HTMLVideoElement>(null)
 
     const goNext = useCallback(() => {
         setCurrentIndex(prev => Math.min(prev + 1, EVOLUTION_VERSIONS.length - 1))
     }, [])
-
     const goPrev = useCallback(() => {
         setCurrentIndex(prev => Math.max(prev - 1, 0))
     }, [])
 
-    // Reset index when opening
+    /* Reset to v1 on each open. */
     useEffect(() => {
         if (isOpen) setCurrentIndex(0)
     }, [isOpen])
 
     const current = EVOLUTION_VERSIONS[currentIndex]
 
-    // Swipe handler for mobile navigation
+    /* Swipe handler for the video carousel only — doesn't fight outer scroll. */
     const handleDragEnd = useCallback((_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
         const threshold = 50
-        if (info.offset.x < -threshold && currentIndex < EVOLUTION_VERSIONS.length - 1) {
-            goNext()
-        } else if (info.offset.x > threshold && currentIndex > 0) {
-            goPrev()
-        }
-    }, [currentIndex, goNext, goPrev])
+        if (info.offset.x < -threshold) goNext()
+        else if (info.offset.x > threshold) goPrev()
+    }, [goNext, goPrev])
+
+    /* Brand color for the case study chrome — matches the BrowserWireframeCover
+     * tile in Build Lab so the click-to-open transition stays visually coherent. */
+    const accent = 'var(--accent-teal)'
+    const rgb = '--accent-teal-rgb'
 
     return (
         <SystemLightbox
             isOpen={isOpen}
             onClose={onClose}
-            title="PORTFOLIO_EVOLUTION_LOG"
-            indexString={`[ ${String(currentIndex + 1).padStart(2, '0')} / ${String(EVOLUTION_VERSIONS.length).padStart(2, '0')} ]`}
-            onNext={currentIndex < EVOLUTION_VERSIONS.length - 1 ? goNext : undefined}
-            onPrev={currentIndex > 0 ? goPrev : undefined}
-            shortcuts={[
-                { key: "ESC", label: "CLOSE" },
-                { key: "← →", label: "NAVIGATE" },
-            ]}
-            showArrows={true}
-            className="flex items-center justify-center p-4 md:p-8"
+            title="LAB_CASE_STUDY: This Portfolio"
+            indexString="[ LIVE · 5 ITERATIONS ]"
+            showArrows={false}
+            shortcuts={[{ key: 'ESC', label: 'CLOSE' }]}
+            className="!p-0 !max-w-5xl"
         >
-            {/* Main layout: video left, sidebar right */}
-            <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 md:gap-8 h-full max-h-[80vh]">
+            <div className="h-full w-full overflow-y-auto">
+                <div className="mx-auto max-w-3xl px-6 py-10 md:px-10 md:py-14">
 
-                {/* Left: Video + version info — swipeable on mobile */}
-                <motion.div
-                    className="flex flex-col min-h-0"
-                    drag="x"
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.15}
-                    onDragEnd={handleDragEnd}
-                >
-                    {/* Version badge row */}
-                    <div className="flex items-center gap-4 mb-4 shrink-0">
-                        <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-zinc-600">
-                            {current.label}
-                        </span>
-                        <div className="flex-1 h-[1px] bg-white/10" />
-                        <span className="font-mono text-[11px] uppercase tracking-[0.3em]" style={{ color: current.accent }}>
-                            {current.tech}
-                        </span>
+                    {/* ── Hero ── */}
+                    <div className="flex items-start gap-5">
+                        <div
+                            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border md:h-16 md:w-16"
+                            style={{
+                                borderColor: `rgba(var(${rgb}), 0.35)`,
+                                backgroundColor: `rgba(var(${rgb}), 0.10)`,
+                                color: accent,
+                            }}
+                        >
+                            <Sparkles className="h-7 w-7 md:h-8 md:w-8" strokeWidth={1.5} />
+                        </div>
+                        <div className="min-w-0">
+                            <p
+                                className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                                style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                            >
+                                Live · Five iterations · You&apos;re on it
+                            </p>
+                            <h2 className="mt-1.5 text-2xl font-extrabold leading-tight tracking-tight text-white md:text-4xl">
+                                This Portfolio
+                            </h2>
+                            <p className="mt-2 text-base text-zinc-400 md:text-lg">
+                                Five iterations, six AI agents, one designer — proof that I can ship the platform around the work.
+                            </p>
+                        </div>
                     </div>
 
-                    <h3 className="font-extrabold text-3xl md:text-4xl text-white mb-2 tracking-tight shrink-0">
-                        {current.title}
-                    </h3>
-                    <p className="text-zinc-500 text-sm mb-4 shrink-0">{current.desc}</p>
-
-                    {/* Video — fills remaining space */}
-                    <div className="relative flex-1 rounded-xl overflow-hidden border border-white/10 min-h-0">
-                        <AnimatePresence mode="wait">
-                            <motion.video
-                                key={current.id}
-                                ref={videoRef}
-                                src={current.video}
-                                autoPlay
-                                muted
-                                playsInline
-                                loop
-                                aria-label={`${current.title ?? 'Portfolio'} — demonstration video`}
-                                className="absolute inset-0 w-full h-full object-contain bg-black"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                            />
-                        </AnimatePresence>
+                    {/* ── Why / What — two beats, side by side on desktop ── */}
+                    <div className="mt-10 grid grid-cols-1 gap-6 md:mt-12 md:grid-cols-2 md:gap-8">
+                        <div>
+                            <p
+                                className="font-mono text-[10px] uppercase tracking-[0.25em]"
+                                style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                            >
+                                Why I built it
+                            </p>
+                            <p className="mt-2 text-[15px] leading-relaxed text-zinc-200">
+                                I got laid off mid-sprint. H-1B clock started at 60 days. My portfolio was five years stale and I&apos;d never shipped anything in Next.js. So I taught myself — by orchestrating Claude as my engineering team instead of writing every line.
+                            </p>
+                        </div>
+                        <div>
+                            <p
+                                className="font-mono text-[10px] uppercase tracking-[0.25em]"
+                                style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                            >
+                                What it solves
+                            </p>
+                            <p className="mt-2 text-[15px] leading-relaxed text-zinc-200">
+                                A designer who orchestrates code scales differently than one who hand-writes every component. The case studies prove the work. This site is the proof I can ship the platform around the work — solo, fast, polished.
+                            </p>
+                        </div>
                     </div>
 
-                    {/* Key learning */}
-                    <div className="flex items-start gap-3 mt-4 shrink-0">
-                        <div className="w-[2px] h-6 shrink-0 rounded-full" style={{ backgroundColor: current.accent }} />
-                        <p className="text-zinc-600 text-xs italic">{current.keyLearning}</p>
+                    {/* ── Highlights ── */}
+                    <div className="mt-12">
+                        <p
+                            className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                            style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                        >
+                            What makes it unique
+                        </p>
+                        <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
+                            {HIGHLIGHTS.map(h => (
+                                <div
+                                    key={h.title}
+                                    className="rounded-2xl border bg-white/[0.02] p-5 transition-colors duration-300"
+                                    style={{ borderColor: `rgba(var(${rgb}), 0.18)` }}
+                                >
+                                    <h3 className="text-sm font-semibold text-zinc-100 md:text-base">
+                                        {h.title}
+                                    </h3>
+                                    <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
+                                        {h.description}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Dot navigation */}
-                    <div className="flex items-center justify-center gap-2.5 mt-4 shrink-0">
-                        {EVOLUTION_VERSIONS.map((v, i) => (
+                    {/* ── Stack pills ── */}
+                    <div className="mt-10">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
+                            Stack
+                        </p>
+                        <ul className="mt-3 flex flex-wrap gap-2">
+                            {STACK.map(item => (
+                                <li
+                                    key={item}
+                                    className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs text-zinc-300"
+                                >
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* ── See it run — the five-iteration evolution carousel ── */}
+                    <div className="mt-12">
+                        <p
+                            className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                            style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                        >
+                            See it evolve — five iterations
+                        </p>
+                        <p className="mt-2 text-sm text-zinc-500">
+                            Each version was a real shipped artifact. Swipe the video, click a dot, or use the arrows to flip through.
+                        </p>
+
+                        {/* Video — drag/swipe horizontally to advance */}
+                        <motion.div
+                            className="relative mt-5 rounded-2xl border border-white/[0.08] bg-black overflow-hidden cursor-grab active:cursor-grabbing"
+                            drag="x"
+                            dragConstraints={{ left: 0, right: 0 }}
+                            dragElastic={0.15}
+                            onDragEnd={handleDragEnd}
+                        >
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={current.id}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="pointer-events-none"
+                                >
+                                    <VideoPlayer
+                                        src={current.video}
+                                        autoPlay={true}
+                                        ariaLabel={`${current.title} — portfolio iteration ${currentIndex + 1}`}
+                                        className="aspect-video w-full"
+                                        videoClassName="object-contain"
+                                    />
+                                </motion.div>
+                            </AnimatePresence>
+                        </motion.div>
+
+                        {/* Version meta + key learning */}
+                        <div className="mt-5">
+                            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                                <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: current.accent }}>
+                                    {current.label}
+                                </span>
+                                <span className="text-xs text-zinc-600 font-mono tracking-wider">{current.tech}</span>
+                            </div>
+                            <h4 className="mt-1.5 text-lg md:text-xl font-bold text-white tracking-tight">
+                                {current.title}
+                            </h4>
+                            <p className="mt-1 text-sm text-zinc-400">{current.desc}</p>
+                            <p
+                                className="mt-3 text-sm italic text-zinc-500 border-l-2 pl-3"
+                                style={{ borderColor: current.accent }}
+                            >
+                                {current.keyLearning}
+                            </p>
+                        </div>
+
+                        {/* Navigation: prev arrow · dots · next arrow */}
+                        <div className="mt-5 flex items-center justify-center gap-2">
                             <button
-                                key={v.id}
-                                onClick={() => setCurrentIndex(i)}
-                                aria-label={`Go to version ${i + 1}: ${v.title}`}
-                                className="relative flex items-center justify-center min-w-[44px] min-h-[44px]"
+                                onClick={goPrev}
+                                disabled={currentIndex === 0}
+                                aria-label="Previous iteration"
+                                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-zinc-400 transition-colors duration-200 hover:border-white/25 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/[0.08] disabled:hover:text-zinc-400"
                             >
-                                <span
-                                    className="h-1.5 rounded-full transition-all duration-500 block"
-                                    style={{
-                                        width: i === currentIndex ? 24 : 8,
-                                        backgroundColor: i === currentIndex ? current.accent : 'rgba(255,255,255,0.15)',
-                                    }}
-                                />
+                                <ArrowLeft className="h-4 w-4" />
                             </button>
-                        ))}
-                    </div>
-                </motion.div>
-
-                {/* Right sidebar: Orchestration Stack */}
-                <div className="hidden lg:flex flex-col border-l border-white/8 pl-6 overflow-y-auto">
-                    <h4 className="font-mono text-[11px] uppercase tracking-[0.3em] text-zinc-600 mb-6 shrink-0">
-                        Orchestration Stack
-                    </h4>
-                    <p className="text-zinc-600 text-sm mb-6 leading-relaxed shrink-0">
-                        1 Architect. 6 AI Agents. A relentless design-engineering bridge.
-                    </p>
-                    <div className="flex flex-col gap-2">
-                        {ORCHESTRATION_STACK.map((tool, i) => (
-                            <motion.div
-                                key={tool.name}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.1 + i * 0.04, duration: 0.4 }}
-                                className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:border-white/15 transition-colors"
+                            <div className="flex items-center gap-1 px-2">
+                                {EVOLUTION_VERSIONS.map((v, i) => (
+                                    <button
+                                        key={v.id}
+                                        onClick={() => setCurrentIndex(i)}
+                                        aria-label={`Go to ${v.title}`}
+                                        className="relative flex items-center justify-center min-h-[36px] min-w-[24px]"
+                                    >
+                                        <span
+                                            className="h-1.5 rounded-full transition-all duration-500 block"
+                                            style={{
+                                                width: i === currentIndex ? 24 : 8,
+                                                backgroundColor: i === currentIndex ? current.accent : 'rgba(255,255,255,0.15)',
+                                            }}
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                            <button
+                                onClick={goNext}
+                                disabled={currentIndex === EVOLUTION_VERSIONS.length - 1}
+                                aria-label="Next iteration"
+                                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-zinc-400 transition-colors duration-200 hover:border-white/25 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-white/[0.08] disabled:hover:text-zinc-400"
                             >
-                                <span className="text-zinc-400 text-sm font-medium">{tool.name}</span>
-                                <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-800">{tool.role}</span>
-                            </motion.div>
-                        ))}
+                                <ArrowRight className="h-4 w-4" />
+                            </button>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </SystemLightbox>

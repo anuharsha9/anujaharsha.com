@@ -86,13 +86,20 @@ export default function Home() {
       <HeroLanding />
 
       {/* ═══ ZONE 2: CSG BLOCK ═══
-           Negative margin pulls this zone UP into the hero zone,
-           so the blur-to-sharp resolve starts while the hero is still visible.
-           This creates a cinematic crossfade — hero fading out as CSG fades in. */}
-      <div className="relative z-[1] mt-0 md:-mt-[50vh]">
-        <BlurZone id="work-overview" containerHeight="180vh">
-          <CSGBlock />
-        </BlurZone>
+           Negative margin pulls this zone UP into the hero zone, so the
+           first case-study tile starts revealing while the hero is still
+           on screen — cinematic crossfade without a sticky pin.
+
+           NO BlurZone here. CSG has grown to 3 stacked alternating tiles
+           (~1400px tall on desktop), which is taller than the sticky
+           viewport (h-screen + justify-center) — the third tile gets
+           clipped below the pinned area and only reappears in the exit-
+           blur keyframe. Each tile already has its own whileInView blur-
+           in reveal, so the cinematic effect is preserved without the
+           sticky-pin clipping. (Same fix that was applied to testimonials
+           below — read-heavy editorial content + sticky pin = bad.) */}
+      <div id="work-overview" className="relative z-[1] mt-0 md:-mt-[50vh]">
+        <CSGBlock />
       </div>
 
       {/* ═══ ZONE 3: BUILD LAB (Vibe Coding) ═══

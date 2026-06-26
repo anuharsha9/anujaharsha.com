@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export default function CustomCursor() {
@@ -103,12 +104,16 @@ export default function CustomCursor() {
 
   // Don't render anything until we know if cursor should be enabled
   if (!isEnabled) return null
+  if (typeof document === 'undefined') return null
 
-  return (
+  /* Portal to <body> so the cursor escapes any PageShell stacking context
+   * and reliably renders ON TOP of modals (SystemLightbox is z-[99999],
+   * also portaled to body). Cursor z values stay well above any modal. */
+  const cursorNodes = (
     <>
       {/* Main Cursor (Exact Position) - Small Teal Dot */}
       <motion.div
-        className="fixed top-0 left-0 z-[100000] pointer-events-none"
+        className="fixed top-0 left-0 z-[2147483647] pointer-events-none"
         style={{
           x: mouseX,
           y: mouseY,
@@ -126,7 +131,7 @@ export default function CustomCursor() {
 
       {/* Trailing Gear (Smooth Follow) */}
       <motion.div
-        className="fixed top-0 left-0 z-[99999] pointer-events-none"
+        className="fixed top-0 left-0 z-[2147483646] pointer-events-none"
         style={{
           x: ringX,
           y: ringY,
@@ -176,4 +181,6 @@ export default function CustomCursor() {
       </motion.div>
     </>
   )
+
+  return createPortal(cursorNodes, document.body)
 }

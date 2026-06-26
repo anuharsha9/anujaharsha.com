@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ExternalLink, Download } from 'lucide-react'
+import { ExternalLink, Download, ArrowUpRight } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
@@ -23,15 +23,29 @@ export default function AppCaseStudyLightbox({
 }) {
     const study = appId ? APP_CASE_STUDIES[appId] : null
 
-    /* Demo URL resolves at render time. In production we read the env var; in
-     * dev we fall back to the localhost URL so clicking through works while
-     * building locally. */
+    /* Demo URL resolution (in order):
+     *   1. env var override → lets us swap the URL without a code change
+     *   2. productionUrl → the source-of-truth public demo URL, baked into the data file
+     *   3. devFallbackUrl → localhost, dev mode only */
     const isProd = process.env.NODE_ENV === 'production'
     const demoUrl = useMemo(() => {
         if (!study) return ''
         const fromEnv = study.demoUrlEnvVar ? process.env[study.demoUrlEnvVar] : undefined
         if (fromEnv) return fromEnv
+        if (study.productionUrl) return study.productionUrl
         if (!isProd && study.devFallbackUrl) return study.devFallbackUrl
+        return ''
+    }, [study, isProd])
+
+    /* Embedded iframe URL — same resolution order, but lives under `embed`.
+     * When this resolves to a URL, the "See it run" section renders the live
+     * app inline in an iframe instead of the video + Open Live Demo CTA. */
+    const embedUrl = useMemo(() => {
+        if (!study?.embed) return ''
+        const fromEnv = study.embed.urlEnvVar ? process.env[study.embed.urlEnvVar] : undefined
+        if (fromEnv) return fromEnv
+        if (study.embed.productionUrl) return study.embed.productionUrl
+        if (!isProd && study.embed.devFallbackUrl) return study.embed.devFallbackUrl
         return ''
     }, [study, isProd])
 
@@ -150,8 +164,51 @@ export default function AppCaseStudyLightbox({
                         </ul>
                     </div>
 
-                    {/* ── Demo: video walkthrough + Open Live Demo CTA ── */}
-                    {(study.videoSrc || demoUrl) && (
+                    {/* ── Demo section ──
+                        Three modes (in priority order):
+                          A. `embed` resolves → render iframe inline (Warden)
+                          B. videoSrc OR demoUrl → video walkthrough + Open Live Demo CTA
+                          C. neither → no section */}
+                    {embedUrl ? (
+                        <div className="mt-12">
+                            <p
+                                className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                                style={{ color: `color-mix(in srgb, ${study.accent} 70%, transparent)` }}
+                            >
+                                Try it live — embedded here
+                            </p>
+                            <p className="mt-2 text-sm text-zinc-500">
+                                Running in an iframe. Interact with it the same way you would the standalone app.
+                            </p>
+
+                            <div
+                                className={`mt-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-black ${study.embed?.aspectClass ?? 'aspect-[16/10]'}`}
+                            >
+                                <iframe
+                                    src={embedUrl}
+                                    title={`${study.title} — embedded live demo`}
+                                    loading="lazy"
+                                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                                    referrerPolicy="no-referrer"
+                                    allow="clipboard-write"
+                                    className="block h-full w-full"
+                                />
+                            </div>
+
+                            {/* Subtle "open in new tab" fallback for users who want full screen. */}
+                            <div className="mt-3 flex items-center justify-end">
+                                <a
+                                    href={embedUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-xs text-zinc-500 transition-colors duration-200 hover:text-zinc-300"
+                                >
+                                    Open in a new tab
+                                    <ArrowUpRight className="h-3.5 w-3.5" />
+                                </a>
+                            </div>
+                        </div>
+                    ) : (study.videoSrc || demoUrl) && (
                         <div className="mt-12">
                             <p
                                 className="font-mono text-[10px] uppercase tracking-[0.3em]"
