@@ -96,12 +96,12 @@ export const SAME_TIME_PAIRS: SameTimePair[] = [
         title: 'Becoming a mother, becoming a senior IC',
         career: {
             title: 'HCI Certificate · Georgia Tech',
-            description: 'Formal training in HCI fundamentals alongside applied enterprise work — building toward the senior craft.',
+            description: 'Formal HCI training alongside applied enterprise work.',
             icon: Award,
         },
         life: {
             title: 'First child',
-            description: 'Becoming a mother for the first time. Two paths, both new.',
+            description: 'Becoming a mother for the first time. The world reorganizing itself around a new center.',
             icon: Baby,
         },
     },
@@ -121,16 +121,16 @@ export const SAME_TIME_PAIRS: SameTimePair[] = [
     },
     {
         year: '2025',
-        title: 'The AI year',
+        title: 'The year of both, at full intensity',
         career: {
             title: 'Shipped IQ Plugin · vibe-coded this portfolio',
             description: 'Unified BI insights with natural-language querying. Then built this site itself with AI orchestration (Nov 2025).',
             icon: Bot,
         },
         life: {
-            title: 'Building side projects · WealthEngine, Sous, this site',
-            description: 'AI orchestration as a personal practice. Side projects becoming a craft of their own.',
-            icon: Bot,
+            title: 'Two small kids · the quiet hours',
+            description: 'A second year of mothering two. Painting on Sunday afternoons. Reading literature at night. The quiet hours that fund the loud ones.',
+            icon: Heart,
         },
     },
 ]
