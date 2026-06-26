@@ -1,10 +1,18 @@
+import { notFound } from 'next/navigation'
 import JobLogRedesignViz from '@/components/case-study/JobLogRedesignViz'
 import BeatFragmentation from '@/components/case-study/storyboard/BeatFragmentation'
 import BeatBreakthrough from '@/components/case-study/storyboard/BeatBreakthrough'
 import BeatScheduler from '@/components/case-study/storyboard/BeatScheduler'
 import BeatRecurrence from '@/components/case-study/storyboard/BeatRecurrence'
 
+/* Internal-only target page for visual-regression screenshot tooling
+ * (see scripts/capture-storyboards.mjs). It must never ship to
+ * production — at build time NODE_ENV is 'production' for `next build`,
+ * so the route gets a 404 and is not generated into the static export. */
 export default function ScreenshotPage() {
+    if (process.env.NODE_ENV === 'production') {
+        notFound()
+    }
     return (
         <div className="bg-[#09090b] min-h-screen text-white pt-24 pb-24 font-sans antialiased">
             <h1 className="text-center text-4xl mb-24">Screenshot Target Page</h1>

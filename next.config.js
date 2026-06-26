@@ -1,23 +1,44 @@
 /** @type {import('next').NextConfig} */
 const isProduction = process.env.NODE_ENV === 'production'
 
+/* Static export (`output: 'export'`) means Next.js's `headers()` /
+ * `redirects()` runtime hooks are unavailable — the artifact is plain
+ * HTML/JS in `out/` and gets served by S3 + CloudFront. Security and
+ * cache headers belong at the CloudFront response-headers-policy +
+ * S3 metadata layer, NOT here.
+ *
+ * Headers to configure at CloudFront (recommended baseline):
+ *   - Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+ *   - X-Content-Type-Options: nosniff
+ *   - Referrer-Policy: strict-origin-when-cross-origin
+ *   - X-Frame-Options: SAMEORIGIN
+ *   - Permissions-Policy: camera=(), microphone=(), geolocation=()
+ *   - Cache-Control: public, max-age=31536000, immutable    (for /_next/static/**)
+ *   - Cache-Control: public, max-age=3600                   (for HTML)
+ *   - Cache-Control: public, max-age=31536000, immutable    (for /videos/**, /images/**)
+ *
+ * A CloudFront response-headers-policy + cache-policy pair handles all
+ * of this declaratively. See AWS docs: cloudfront/latest/DeveloperGuide
+ * /understanding-response-headers-policies.html
+ */
+
 const nextConfig = {
   reactStrictMode: true,
-  // Skip TypeScript errors during builds
+  // Skip TypeScript errors during builds — TODO(tier B): flip to false
+  // after auditing the surfaced errors. Keeping true unblocks deploys
+  // while the audit runs.
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Only enable static export for production builds
+  // Only enable static export for production builds (dev needs server routes
+  // for HMR, the /screenshot dev-only target, etc.)
   ...(isProduction ? { output: 'export' } : {}),
   images: {
-    unoptimized: true, // Required for static export
-    domains: [],
+    unoptimized: true, // Required for static export — S3 serves raw images.
   },
   trailingSlash: true, // Helps with S3 routing
-  // Performance optimizations
-  compress: true, // Enable gzip compression
-  poweredByHeader: false, // Remove X-Powered-By header
-  // Use Turbopack (default in Next.js 16)
+  compress: true,
+  poweredByHeader: false,
   turbopack: {
     // Silence multiple lockfile root inference by pinning the root
     root: __dirname,
@@ -25,4 +46,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
