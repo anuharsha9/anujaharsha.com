@@ -23,14 +23,22 @@ export function useActiveTab(): Tab {
 }
 
 /* True once the user has scrolled past the small threshold — used to morph the
- * tab switcher from a centered hero pill into a slim sticky nav bar. */
+ * tab switcher from a centered hero pill into a slim sticky nav bar.
+ * Polls scrollY on rAF because Lenis-managed smooth-scroll throttles 'scroll'. */
 function useIsScrolled(threshold = 80) {
     const [scrolled, setScrolled] = useState(false)
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > threshold)
-        onScroll()
-        window.addEventListener('scroll', onScroll, { passive: true })
-        return () => window.removeEventListener('scroll', onScroll)
+        const check = () => {
+            const next = window.scrollY > threshold
+            setScrolled(prev => (prev === next ? prev : next))
+        }
+        check()
+        const id = window.setInterval(check, 100)
+        window.addEventListener('scroll', check, { passive: true })
+        return () => {
+            clearInterval(id)
+            window.removeEventListener('scroll', check)
+        }
     }, [threshold])
     return scrolled
 }
@@ -58,14 +66,18 @@ export default function TabSwitcher() {
 
     return (
         <div
-            className={`sticky top-0 z-[55] flex justify-center transition-all duration-500 ${
-                scrolled
-                    ? 'py-2 md:py-2.5 bg-black/70 backdrop-blur-xl border-b border-white/[0.06]'
-                    : 'pt-6 md:pt-8 pb-2 bg-transparent border-b border-transparent'
-            }`}
+            className="fixed left-0 right-0 top-0 z-[10001] flex justify-center transition-all duration-500 pointer-events-none"
+            style={{
+                paddingTop: scrolled ? '8px' : '24px',
+                paddingBottom: scrolled ? '8px' : '8px',
+                backgroundColor: scrolled ? 'rgba(0,0,0,0.7)' : 'transparent',
+                backdropFilter: scrolled ? 'blur(24px)' : 'none',
+                WebkitBackdropFilter: scrolled ? 'blur(24px)' : 'none',
+                borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+            }}
         >
             <div
-                className={`relative inline-flex items-center gap-1 rounded-full border border-white/[0.08] bg-black/40 backdrop-blur-md transition-all duration-500 ${
+                className={`relative inline-flex items-center gap-1 rounded-full border border-white/[0.08] bg-black/40 backdrop-blur-md transition-all duration-500 pointer-events-auto ${
                     scrolled ? 'p-0.5 md:p-1 scale-90' : 'p-1 scale-100'
                 }`}
                 role="tablist"

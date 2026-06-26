@@ -13,6 +13,7 @@ import PageTransition from '@/components/transitions/PageTransition'
 import { TransitionProvider } from '@/components/transitions/TransitionContext'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
+import TabSwitcher from '@/components/home/TabSwitcher'
 
 /** Announces route changes to screen readers via aria-live */
 function RouteAnnouncer() {
@@ -47,6 +48,7 @@ interface PageShellProps {
 export default function PageShell({ children }: PageShellProps) {
   const pathname = usePathname()
   const isManifesto = pathname === '/manifesto'
+  const isLandingPage = pathname === '/'
 
   return (
     <ErrorBoundary>
@@ -63,6 +65,10 @@ export default function PageShell({ children }: PageShellProps) {
               <URLHashSync />
             </>
           )}
+          {/* Work/Life tab switcher — only on the landing page. Rendered here at
+              shell level (sibling to SiteHeader) so it escapes the smooth-scroll
+              wrapper's transform, which would otherwise break fixed positioning. */}
+          {isLandingPage && <TabSwitcher />}
           <PageTransition>
             <main id="main-content" role="main" className="relative z-[1]">
               {children}

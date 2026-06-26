@@ -2,7 +2,7 @@
 
 import { lazy, Suspense } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import TabSwitcher, { useActiveTab } from './TabSwitcher'
+import { useActiveTab } from './TabSwitcher'
 
 /**
  * Lazy-load the Life tab so it only ships when a visitor requests it.
@@ -22,7 +22,6 @@ export default function HomeTabsWrapper({ children }: { children: React.ReactNod
     const active = useActiveTab()
     return (
         <>
-            <TabSwitcher />
             <AnimatePresence mode="wait" initial={false}>
                 {active === 'life' ? (
                     <motion.div
