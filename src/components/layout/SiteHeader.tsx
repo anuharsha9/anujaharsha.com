@@ -33,13 +33,15 @@ export default function SiteHeader() {
     const updateVisibilityForViewport = () => {
       const isMobile = window.innerWidth < 1024 // lg breakpoint
       if (isMobile) {
-        // On mobile (ALL pages including landing): always show header for hamburger menu access
+        // On mobile (ALL pages including landing): always show header for hamburger menu access.
+        // Mobile SiteHeader uses logo-left + hamburger-right, so it coexists with the centered TabSwitcher.
         setIsVisible(true)
       } else if (!isLandingPage) {
         // On desktop non-landing pages: always visible
         setIsVisible(true)
       } else {
-        // On desktop landing page: start hidden, scroll manager handles reveal
+        // On desktop landing page: stay hidden — TabSwitcher is the persistent nav.
+        // Previously revealed on scroll, which caused a 'ghost' fade-in behind the tabs.
         setIsVisible(false)
       }
     }
@@ -72,10 +74,14 @@ export default function SiteHeader() {
       return
     }
 
-    // On desktop landing page: hide navbar until user scrolls past 0px 
-    const heroThreshold = 0
-    const hasScrolled = scrollY > heroThreshold
-    setIsVisible(hasScrolled)
+    // On desktop landing page: stay hidden — TabSwitcher is the nav. No scroll-reveal ghost.
+    if (isLandingPage) {
+      setIsVisible(false)
+      return
+    }
+
+    // On desktop non-landing pages: always visible.
+    setIsVisible(true)
   }, [isLandingPage])
 
   const t = getTheme(!isLandingPage)
