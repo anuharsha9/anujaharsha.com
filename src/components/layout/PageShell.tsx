@@ -14,6 +14,7 @@ import { TransitionProvider } from '@/components/transitions/TransitionContext'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
 import TabSwitcher from '@/components/home/TabSwitcher'
+import FloatingResume from '@/components/home/FloatingResume'
 
 /** Announces route changes to screen readers via aria-live */
 function RouteAnnouncer() {
@@ -68,7 +69,12 @@ export default function PageShell({ children }: PageShellProps) {
           {/* Work/Life tab switcher — only on the landing page. Rendered here at
               shell level (sibling to SiteHeader) so it escapes the smooth-scroll
               wrapper's transform, which would otherwise break fixed positioning. */}
-          {isLandingPage && <TabSwitcher />}
+          {isLandingPage && (
+            <>
+              <TabSwitcher />
+              <FloatingResume />
+            </>
+          )}
           <PageTransition>
             <main id="main-content" role="main" className="relative z-[1]">
               {children}
