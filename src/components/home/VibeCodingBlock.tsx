@@ -4,6 +4,8 @@ import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
+import AppCaseStudyLightbox from './AppCaseStudyLightbox'
+import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
 
 /* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
 function WordULogoCover() {
@@ -534,6 +536,7 @@ export default function VibeCodingBlock() {
     const ref = useRef<HTMLDivElement>(null)
     const [portfolioOpen, setPortfolioOpen] = useState(false)
     const [worduOpen, setWorduOpen] = useState(false)
+    const [appCaseStudyId, setAppCaseStudyId] = useState<AppCaseStudyId | null>(null)
 
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -546,29 +549,29 @@ export default function VibeCodingBlock() {
 
 
 
-    /* Public demo URLs for the external app tiles. Set these env vars when each
-     * app has a live deploy (e.g. NEXT_PUBLIC_WEALTHENGINE_URL=https://demo...).
-     * In local dev we fall back to localhost so the tiles are clickable while
-     * building; in production there is NO localhost fallback — a tile with no
-     * public URL renders an 'In Development' badge instead of a dead link.
-     * Sous is native iOS, so it has no web fallback at all. */
-    const isProd = process.env.NODE_ENV === 'production'
-    const EXTERNAL_URL: Record<string, string> = {
-        'career-builder': process.env.NEXT_PUBLIC_CAREER_BUILDER_URL || process.env.NEXT_PUBLIC_COLLEGE_OS_URL || (isProd ? '' : 'http://localhost:3101'),
-        'wealth-engine': process.env.NEXT_PUBLIC_WEALTHENGINE_URL || (isProd ? '' : 'http://localhost:3939'),
-        'sous': process.env.NEXT_PUBLIC_SOUS_URL || '',
+    /* The 3 AI-native app tiles open a short-snapshot case study lightbox
+     * (built from the actual app repos). The 'Open Live Demo' button INSIDE
+     * the lightbox is what links out to Vercel — set via env vars on the
+     * AppCaseStudy data. Sous shows 'Demo coming soon' until TestFlight.
+     *
+     * 'isComingSoon' is preserved for the tile UI to show its 'In Development'
+     * badge: a tile is in dev iff the case study data marks the app's status
+     * as 'in-development' (Sous). Portfolio + WordU are always live. */
+    const APP_CASE_STUDY_BY_ACTION: Record<string, AppCaseStudyId> = {
+        'career-builder': 'career-builder',
+        'wealth-engine': 'wealth-engine',
+        'sous': 'sous',
     }
-    const EXTERNAL_ACTIONS = ['career-builder', 'wealth-engine', 'sous']
-    const isExternal = (action: string) => EXTERNAL_ACTIONS.includes(action)
-    const isComingSoon = (action: string) => isExternal(action) && !EXTERNAL_URL[action]
+    const isExternal = (action: string) => action in APP_CASE_STUDY_BY_ACTION
+    const isComingSoon = (action: string) =>
+        isExternal(action) &&
+        APP_CASE_STUDIES[APP_CASE_STUDY_BY_ACTION[action]].status === 'in-development'
 
     const handleTileClick = (action: string) => {
         if (action === 'portfolio') return setPortfolioOpen(true)
         if (action === 'wordu') return setWorduOpen(true)
         if (isExternal(action)) {
-            const url = EXTERNAL_URL[action]
-            if (url) window.open(url, '_blank', 'noopener,noreferrer')
-            // No URL yet → coming soon, do nothing (tile shows the badge).
+            setAppCaseStudyId(APP_CASE_STUDY_BY_ACTION[action])
         }
     }
 
@@ -723,6 +726,11 @@ export default function VibeCodingBlock() {
             {/* Lightboxes */}
             <PortfolioLightbox isOpen={portfolioOpen} onClose={() => setPortfolioOpen(false)} />
             <WordGameLightbox isOpen={worduOpen} onClose={() => setWorduOpen(false)} />
+            <AppCaseStudyLightbox
+                appId={appCaseStudyId}
+                isOpen={appCaseStudyId !== null}
+                onClose={() => setAppCaseStudyId(null)}
+            />
         </>
     )
 }
