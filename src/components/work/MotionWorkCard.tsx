@@ -89,6 +89,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                                 muted
                                 loop
                                 playsInline
+                                preload="metadata"
                                 aria-label={`${work.title} — preview`}
                                 className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover/work:opacity-100 transition-opacity duration-500"
                             />

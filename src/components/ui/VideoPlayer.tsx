@@ -118,6 +118,7 @@ export default function VideoPlayer({
                 muted
                 loop={loop}
                 playsInline
+                preload="metadata"
                 onClick={ambient ? undefined : togglePlay}
                 className={`block h-full w-full object-cover ${ambient ? '' : 'cursor-pointer'} ${videoClassName}`}
                 aria-label={ariaLabel}

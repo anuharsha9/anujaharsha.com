@@ -134,6 +134,8 @@ function GlitchPortalHero() {
           <video
             ref={videoRef}
             autoPlay loop muted playsInline
+            preload="metadata"
+            aria-label="Anuja: a portrait in motion — career-spanning visual collage"
             className="absolute inset-0 w-full h-full object-cover"
             src={HERO_VIDEO}
           />
