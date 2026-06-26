@@ -6,7 +6,6 @@ import { getTheme, spacing } from '@/lib/design-system'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import Magnetic from '@/components/ui/Magnetic'
-import Image from 'next/image'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
 import { useTransition } from '@/components/transitions/TransitionContext'
 
@@ -45,16 +44,7 @@ export default function TalkSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1.4, ease }}
         >
-          {/* Portrait */}
-          <div className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-10 rounded-full overflow-hidden border border-white/10 shadow-[0_0_30px_-5px_var(--accent-teal)]">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none" />
-            <Image
-              src="/images/anuja-portrait.jpg"
-              alt="Anuja Harsha Nimmagadda"
-              fill
-              className="object-cover object-center transition-transform duration-700 hover:scale-105"
-            />
-          </div>
+          {/* Portrait removed per Anuja's request — the mission quote leads now. */}
 
           {/* Mission quote */}
           <h2 className="font-sans font-light text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-snug sm:leading-relaxed tracking-wide text-zinc-300 mb-6 px-1">
