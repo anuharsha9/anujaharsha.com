@@ -5,6 +5,7 @@ import { ExternalLink, Download, ArrowUpRight } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import LightboxCard from '@/components/ui/LightboxCard'
+import Button from '@/components/ui/Button'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
 
 /**
@@ -194,15 +195,10 @@ export default function AppCaseStudyLightbox({
 
                             {/* Subtle "open in new tab" fallback for users who want full screen. */}
                             <div className="mt-3 flex items-center justify-end">
-                                <a
-                                    href={embedUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 text-xs text-zinc-500 transition-colors duration-200 hover:text-zinc-300"
-                                >
+                                <Button variant="ghost" size="sm" href={embedUrl} external className="text-zinc-500 hover:text-zinc-300">
                                     Open in a new tab
                                     <ArrowUpRight className="h-3.5 w-3.5" />
-                                </a>
+                                </Button>
                             </div>
                         </div>
                     ) : (study.videoSrc || demoUrl) && (
@@ -230,19 +226,9 @@ export default function AppCaseStudyLightbox({
                             {/* CTAs */}
                             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                                 {demoUrl ? (
-                                    <a
-                                        href={demoUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-black transition-all duration-300 active:scale-[0.98]"
-                                        style={{
-                                            background: 'white',
-                                            boxShadow: `0 0 30px -10px rgba(${rgb}, 0.45)`,
-                                        }}
-                                    >
-                                        <ExternalLink className="h-4 w-4" />
+                                    <Button variant="primary" href={demoUrl} external icon={<ExternalLink className="h-4 w-4" />} className="flex-1">
                                         Open Live Demo
-                                    </a>
+                                    </Button>
                                 ) : (
                                     <span
                                         className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold"

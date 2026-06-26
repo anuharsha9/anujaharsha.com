@@ -57,6 +57,22 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
                     {overview.whatTheSystemWas}
                 </h2>
 
+                {/* How I led — the Staff signal. This `leadershipSummary` was
+                    authored in the data but never rendered; surfacing it here (right
+                    after the problem, before the role detail) makes the influence
+                    story read as headline, not subtext. Left accent border gives it
+                    weight without a whole new section. */}
+                {overview.leadershipSummary && (
+                    <div className="mt-8 max-w-3xl border-l-2 border-[var(--cs-accent)]/40 pl-5">
+                        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--cs-accent)]">
+                            How I led
+                        </p>
+                        <p className="text-[15px] leading-relaxed text-zinc-200 md:text-base">
+                            {overview.leadershipSummary}
+                        </p>
+                    </div>
+                )}
+
                 {/* 2 + 3. My role (left) + Metrics rail (right). Fixed grid so the
                     column widths don't shift based on content length. */}
                 <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-12">

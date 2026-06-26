@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import TransitionLink from '@/components/transitions/TransitionLink'
+import Button from '@/components/ui/Button'
 import { m, useScroll, useTransform } from 'framer-motion'
 import { FileText, MonitorPlay } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
@@ -12,17 +12,15 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /* ─── tile data ───
  * Recruiter-readable 10-second triage (per Superhive UX-portfolio article):
- *  - role: explicit ownership signal (failure #4: 'unclear role')
- *  - proof: OUTCOME-led, not description (failure #3: 'process without outcomes')
- *    Each proof line names a real change — contract retention, completion rate,
- *    discovery rate — using numbers from the case study hero data. */
+ *  - leadSignal: the STAFF signal — scope of influence in a few words, shown
+ *    as an eyebrow above the title (the thing that reads as "leader," not just
+ *    "IC"). Condensed from each case study's authored leadershipSummary.
+ *  - title: the outcome-framed headline. */
 const TILES = [
     {
         id: 'reportcaster',
-        role: 'UX Owner · Lead Designer · 2022—24',
-        domain: 'Legacy Modernization · Customer Retention',
+        leadSignal: 'Volunteered week 1 · aligned a 20-person team',
         title: 'Scale: Modernizing a 40-Year-Old Engine (20M+ Jobs/Week)',
-        proof: 'Helped renew a multi-year, multi-million-dollar enterprise contract',
         link: '/work/reportcaster',
         flagship: true,
         Wireframe: RCWireframe,
@@ -31,10 +29,8 @@ const TILES = [
     },
     {
         id: 'ml-functions',
-        role: 'Lead Designer & Researcher · End-to-End · 2023—24',
-        domain: 'AI Workflow Design · ML Accessibility',
+        leadSignal: 'Earned it via a side challenge · MIT-certified',
         title: 'AI/ML Strategy: Nobody Could Use Our ML Engine',
-        proof: '4/4 non-technical SMEs completed ML training unaided · ~6→2 clicks',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
         accentVar: '--semantic-cyan-rgb',
@@ -42,10 +38,8 @@ const TILES = [
     },
     {
         id: 'iq-plugin',
-        role: 'Lead Designer · Vision to Architecture · 2024—25',
-        domain: 'Platform Unification · AI-Powered Hub',
+        leadSignal: 'Defined the architecture · defended vs. 20–35-yr veterans',
         title: 'Growth: We Built the Intelligence. Nobody Knew It Existed.',
-        proof: '+25% AI feature discovery through unified platform UX',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
         accentVar: '--semantic-purple-rgb',
@@ -53,20 +47,15 @@ const TILES = [
     },
 ]
 
-/* ─── Case-study tile — 3-column grid, hover-reveal content.
+/* ─── Case-study tile — 3-column grid.
  *
- * Evolution per Anuja: keep just title + 2 buttons (no busy detail) → back
- * to a 3-column grid (the vertical stack was too long) → and finally:
- * "keep the title and 2 buttons on hover only … it's too white and opaque
- * and bold, just dim it … use the fonts from the AI tiles."
- *
- * So now: the animated wireframe fills the tile and is the default view.
- * On hover (desktop) a bottom gradient fades in with the title + the two
- * buttons (Case Study / Watch); on mobile (no hover) they stay visible.
- * Title is dimmed (zinc-300) and font-semibold to match the Build Lab
- * AI-app tiles. aspect-[4/3] also matches those tiles, so equal heights
- * come free in the grid. Role/domain/outcome detail lives in the case
- * study itself via QuickImpactOverview — not repeated here. */
+ * Layout per Anuja: don't crowd the card. The animated wireframe fills the
+ * card and is the default view; on hover (desktop) ONLY the two buttons
+ * (Case Study / Watch) fade in over a bottom scrim. On mobile (no hover) the
+ * buttons stay visible. The TEXT — a leadSignal eyebrow (the Staff signal)
+ * and the title — sits BELOW the card, always visible, never crowding the
+ * animation. Buttons use the shared <Button> primitive (dark-glass primary +
+ * ghost-glass secondary). */
 function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
     const WireframeComponent = tile.Wireframe
     const rgb = `var(${tile.accentVar})`
@@ -78,8 +67,9 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
             whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1.4, delay, ease }}
-            className="group"
+            className="group flex flex-col"
         >
+            {/* CARD — wireframe + hover-revealed buttons only (no text). */}
             <div
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl transition-all duration-500 group-hover:-translate-y-1"
                 style={{
@@ -100,36 +90,31 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                     }}
                 />
 
-                {/* Wireframe cover — fills the tile, always visible (the star). */}
+                {/* Wireframe cover — fills the card, always visible (the star). */}
                 <div className="absolute inset-0 z-[2] pointer-events-none">
                     <WireframeComponent />
                 </div>
 
-                {/* Title + 2 buttons — reveal on hover (desktop), always shown on
-                    mobile (no hover). Dimmed + font-semibold to match the Build Lab
-                    AI-app tiles. */}
-                <div
-                    className="absolute inset-0 z-[10] flex flex-col justify-end gap-3.5 p-5 bg-gradient-to-t from-black/85 via-black/40 to-transparent transition-opacity duration-500 opacity-100 pointer-events-auto md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto"
-                >
-                    <h3 className="font-sans text-sm md:text-base font-semibold leading-snug tracking-tight text-zinc-300">
-                        {tile.title}
-                    </h3>
-
-                    <div className="flex flex-col gap-2 sm:flex-row">
-                        <TransitionLink
-                            href={tile.link}
-                            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white active:scale-[0.98]"
-                        >
-                            <FileText className="w-3.5 h-3.5" /> Case Study
-                        </TransitionLink>
-                        <button
-                            onClick={onWatch}
-                            className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-white/20 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-zinc-200 transition-all duration-300 hover:border-white/50 hover:bg-white/[0.10] hover:text-white active:scale-[0.98]"
-                        >
-                            <MonitorPlay className="w-3.5 h-3.5" /> Watch
-                        </button>
-                    </div>
+                {/* Buttons only — reveal on hover (desktop), always on mobile. */}
+                <div className="absolute inset-x-0 bottom-0 z-[10] flex gap-2 p-4 bg-gradient-to-t from-black/85 via-black/45 to-transparent transition-opacity duration-500 opacity-100 pointer-events-auto md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto">
+                    <Button variant="primary" size="sm" href={tile.link} icon={<FileText className="w-3.5 h-3.5" />} className="flex-1">
+                        Case Study
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={onWatch} icon={<MonitorPlay className="w-3.5 h-3.5" />} className="flex-1">
+                        Watch
+                    </Button>
                 </div>
+            </div>
+
+            {/* TEXT — below the card, always visible. leadSignal eyebrow (Staff
+                signal) + title. Never crowds the animation. */}
+            <div className="mt-4">
+                <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] leading-relaxed" style={{ color: `rgba(${rgb}, 0.9)` }}>
+                    {tile.leadSignal}
+                </p>
+                <h3 className="mt-1.5 font-sans text-sm md:text-base font-semibold leading-snug tracking-tight text-zinc-300">
+                    {tile.title}
+                </h3>
             </div>
         </m.div>
     )
@@ -191,7 +176,7 @@ export default function CSGBlock() {
 
                 {/* 3-column grid — one card per case study. 1-col on mobile,
                     3-col from md up. items-stretch keeps all three equal height. */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-stretch">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-start">
                     {TILES.map((tile, i) => (
                         <BentoTile key={tile.id} tile={tile} delay={0.15 + i * 0.12} onWatch={() => setPresentationId(tile.id)} />
                     ))}
