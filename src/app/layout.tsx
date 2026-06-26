@@ -9,6 +9,7 @@ import FixedBackground from '@/components/ui/FixedBackground'
 import { LightboxProvider } from '@/contexts/LightboxContext'
 import { PdfProvider } from '@/contexts/PdfContext'
 import ReducedMotionProvider from '@/components/providers/ReducedMotionProvider'
+import MotionFeaturesProvider from '@/components/providers/MotionFeaturesProvider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -167,13 +168,15 @@ export default function RootLayout({
         <StructuredData type="person" />
         <StructuredData type="profilePage" />
         <StructuredData type="portfolio" />
-        <LightboxProvider>
-          <PdfProvider>
-            <ReducedMotionProvider>
+        <MotionFeaturesProvider>
+          <LightboxProvider>
+            <PdfProvider>
+              <ReducedMotionProvider>
                 <PageShell>{children}</PageShell>
-            </ReducedMotionProvider>
-          </PdfProvider>
-        </LightboxProvider>
+              </ReducedMotionProvider>
+            </PdfProvider>
+          </LightboxProvider>
+        </MotionFeaturesProvider>
       </body>
     </html>
   )
