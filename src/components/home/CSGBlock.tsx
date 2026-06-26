@@ -62,7 +62,7 @@ const TILES = [
  * vertically (one below another). Wireframe LEFT, just title + 2 buttons
  * RIGHT. The role / domain / outcome content is preserved inside the
  * case study itself via QuickImpactOverview — no need to repeat it here. */
-function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
+function BentoTile({ tile, delay, onWatch, reverse = false }: { tile: typeof TILES[0]; delay: number; onWatch: () => void; reverse?: boolean }) {
     const WireframeComponent = tile.Wireframe
     const rgb = `var(${tile.accentVar})`
     const gridColor = `hsl(${tile.wireframeHue}, 50%, 25%)`
@@ -93,17 +93,18 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                     }}
                 />
 
-                {/* Side-by-side — wireframe LEFT, title + buttons RIGHT */}
+                {/* Side-by-side — wireframe and content swap sides on `reverse` tiles
+                    for editorial rhythm (every-other card alternates layout). */}
                 <div className="relative grid grid-cols-1 md:grid-cols-12 md:items-stretch md:min-h-[360px]">
                     {/* Wireframe — always crisp, no hover blur */}
-                    <div className="relative md:col-span-7 md:order-1 aspect-[16/10] md:aspect-auto overflow-hidden">
+                    <div className={`relative md:col-span-7 ${reverse ? 'md:order-2' : 'md:order-1'} aspect-[16/10] md:aspect-auto overflow-hidden`}>
                         <div className="absolute inset-0 pointer-events-none">
                             <WireframeComponent />
                         </div>
                     </div>
 
                     {/* Content — just title + 2 buttons. Nothing else. */}
-                    <div className="relative md:col-span-5 md:order-2 flex flex-col justify-center gap-6 p-6 md:p-10 lg:p-12 border-t border-white/[0.04] md:border-t-0 md:border-l">
+                    <div className={`relative md:col-span-5 ${reverse ? 'md:order-1 md:border-r' : 'md:order-2 md:border-l'} flex flex-col justify-center gap-6 p-6 md:p-10 lg:p-12 border-t border-white/[0.04] md:border-t-0`}>
                         <h3 className="text-xl md:text-2xl lg:text-[28px] font-bold text-zinc-100 leading-tight tracking-tight">
                             {tile.title}
                         </h3>
@@ -183,11 +184,11 @@ export default function CSGBlock() {
                 </motion.div>
 
 
-                {/* Stacked — all 3 case studies one below another. Each tile is a
-                    full-width feature card (wireframe LEFT, title + 2 buttons RIGHT). */}
+                {/* Stacked — all 3 case studies one below another. Alternating layout:
+                    even tiles get wireframe LEFT + content RIGHT, odd tiles reverse it. */}
                 <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
                     {TILES.map((tile, i) => (
-                        <BentoTile key={tile.id} tile={tile} delay={0.2 + i * 0.15} onWatch={() => setPresentationId(tile.id)} />
+                        <BentoTile key={tile.id} tile={tile} delay={0.2 + i * 0.15} onWatch={() => setPresentationId(tile.id)} reverse={i % 2 === 1} />
                     ))}
                 </div>
             </motion.section>
