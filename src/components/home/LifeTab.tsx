@@ -335,6 +335,7 @@ function Makes() {
 function Writes() {
     const firstStanza = POEM_STANZAS[0]
     const featuredArticles = articleLinks.slice(0, 3)
+    const [poemOpen, setPoemOpen] = useState(false)
 
     return (
         <section className="relative mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-20 lg:px-12">
@@ -344,10 +345,12 @@ function Writes() {
                 subtitle="A poem and a set of essays. Expression, not chronology."
             />
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-                {/* Poem teaser */}
-                <Link
-                    href="/me/#writing-duality"
-                    className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.05] to-white/[0.01] p-7 transition-colors duration-500 hover:border-[var(--accent-teal)]/30"
+                {/* Poem teaser — opens an inline reader so visitors stay on the Life tab */}
+                <button
+                    type="button"
+                    onClick={() => setPoemOpen(true)}
+                    aria-label="Read the full poem — Gifts from Life"
+                    className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.05] to-white/[0.01] p-7 text-left transition-colors duration-500 hover:border-[var(--accent-teal)]/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60"
                 >
                     <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/70">
                         The poem · 12 stanzas
@@ -364,12 +367,57 @@ function Writes() {
                     <p className="mt-6 inline-flex items-center gap-2 text-sm text-[var(--accent-teal)] transition-transform duration-300 group-hover:translate-x-1">
                         Read all 12 stanzas <span aria-hidden="true">→</span>
                     </p>
-                </Link>
+                </button>
+
+                {/* Full-poem reader sheet — stays inside the Life tab, no bounce to /me */}
+                <SystemLightbox
+                    isOpen={poemOpen}
+                    onClose={() => setPoemOpen(false)}
+                    title="GIFTS_FROM_LIFE.poem"
+                    indexString={`[ 12 / 12 ]`}
+                    showArrows={false}
+                    shortcuts={[{ key: 'ESC', label: 'CLOSE' }]}
+                    className="!p-0 !max-w-3xl"
+                >
+                    <div className="h-full w-full overflow-y-auto px-6 py-8 md:px-10 md:py-12">
+                        <div className="mx-auto max-w-2xl">
+                            <p className="mb-2 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/70">
+                                A poem in 12 stanzas
+                            </p>
+                            <h2 className="text-center font-serif text-3xl font-light leading-tight tracking-tight text-white md:text-5xl">
+                                Gifts from Life
+                            </h2>
+                            <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500">— Anuja Harsha</p>
+
+                            <div className="mt-10 space-y-8 md:mt-14 md:space-y-10">
+                                {POEM_STANZAS.map((stanza, sIdx) => (
+                                    <div key={sIdx} className="space-y-1.5">
+                                        {stanza.lines.map((line, lIdx) => {
+                                            const isGift = lIdx === stanza.giftLine
+                                            return (
+                                                <p
+                                                    key={lIdx}
+                                                    className={`text-[15px] leading-relaxed md:text-lg ${isGift ? 'text-[var(--accent-teal)]' : 'text-zinc-300'}`}
+                                                >
+                                                    {line}
+                                                </p>
+                                            )
+                                        })}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <p className="mt-14 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-600">
+                                — End of poem —
+                            </p>
+                        </div>
+                    </div>
+                </SystemLightbox>
 
                 {/* Articles list */}
                 <div className="flex flex-col rounded-2xl border border-white/[0.07] bg-white/[0.02] p-7">
                     <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/70">
-                        Essays · Medium · {articleLinks.length} pieces
+                        Essays · @anu.anuja on Medium
                     </p>
                     <h3 className="text-xl font-extrabold leading-tight text-white md:text-2xl">Articles I’ve written</h3>
 
@@ -404,7 +452,7 @@ function Writes() {
                         rel="noopener noreferrer"
                         className="mt-6 inline-flex items-center gap-2 self-start text-sm text-[var(--accent-teal)] transition-transform duration-300 hover:translate-x-1"
                     >
-                        All {articleLinks.length} articles on Medium <span aria-hidden="true">→</span>
+                        Read more on Medium <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </div>

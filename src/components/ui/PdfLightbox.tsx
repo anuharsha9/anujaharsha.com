@@ -69,42 +69,35 @@ export default function PdfLightbox({
             showArrows={false}
         >
             {isMobile ? (
-                /* Mobile: reliable open/download card — no fragile iframe.
-                   Center stack fills the viewport; buttons hug the bottom with
-                   safe-area padding so they're always thumb-reachable. */
-                <div
-                    className="flex h-full w-full flex-col items-center justify-between px-6 py-8 text-center"
-                    style={{ paddingBottom: 'max(2rem, env(safe-area-inset-bottom))' }}
-                >
-                    {/* Centered icon + title */}
-                    <div className="flex flex-1 flex-col items-center justify-center gap-5">
-                        <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.04]">
-                            <FileText className="h-9 w-9 text-[var(--accent-teal)]" />
-                        </div>
-                        <div className="max-w-[20rem]">
-                            <p className="text-lg font-semibold leading-snug text-zinc-100">{title}</p>
-                            <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                                PDF Document
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Bottom-anchored actions — easy to thumb-reach */}
-                    <div className="flex w-full max-w-sm flex-col gap-3">
+                /* Mobile: inline HTML resume preview (scrollable, fully renders on phones,
+                   no fragile PDF-iframe issue). Bottom-fixed bar offers Download PDF for
+                   the print-ready version. */
+                <div className="flex h-full w-full flex-col">
+                    <iframe
+                        src="/tailored-resumes/resume-universal-2026.html"
+                        title="Resume preview"
+                        className="flex-1 w-full bg-white"
+                    />
+                    {/* Bottom action bar — sticky, safe-area-aware */}
+                    <div
+                        className="flex w-full items-center justify-center gap-3 border-t border-white/10 bg-black/85 backdrop-blur-md px-4 pt-3"
+                        style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+                    >
+                        <a
+                            href={pdfUrl}
+                            download
+                            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-[var(--accent-teal)] active:scale-[0.98]"
+                        >
+                            <Download className="h-4 w-4" /> Download PDF
+                        </a>
                         <a
                             href={pdfUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-colors hover:bg-[var(--accent-teal)] active:scale-[0.98]"
+                            aria-label="Open PDF in new tab"
+                            className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/[0.06] p-3 text-white transition-colors hover:border-white/70 hover:bg-white/[0.14] active:scale-[0.98]"
                         >
-                            <ExternalLink className="h-4 w-4" /> Open Resume
-                        </a>
-                        <a
-                            href={pdfUrl}
-                            download
-                            className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/35 bg-white/[0.06] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white/70 hover:bg-white/[0.14] active:scale-[0.98]"
-                        >
-                            <Download className="h-4 w-4" /> Download PDF
+                            <ExternalLink className="h-4 w-4" />
                         </a>
                     </div>
                 </div>

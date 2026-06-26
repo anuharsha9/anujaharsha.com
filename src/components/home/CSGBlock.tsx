@@ -60,6 +60,8 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
             transition={{ duration: 1.4, delay, ease }}
         >
             <div className="group block relative">
+                {/* TILE — wireframe animation lives here, always-visible, never covered.
+                    Hover just adds a subtle border + shadow accent. */}
                 <div
                     className="relative w-full overflow-hidden rounded-2xl transition-all duration-500"
                     onMouseEnter={() => setIsHovered(true)}
@@ -83,82 +85,41 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                         }}
                     />
 
-                    {/* Wireframe — always visible, blurs on hover (desktop only) */}
-                    <div
-                        className="absolute inset-0 transition-all duration-500 pointer-events-none"
-                        style={{
-                            filter: isHovered ? 'blur(8px)' : 'blur(0px)',
-                            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-                        }}
-                    >
+                    {/* Wireframe — always crisp, always visible, the star of the tile */}
+                    <div className="absolute inset-0 pointer-events-none">
                         <WireframeComponent />
-                    </div>
-
-                    {/* MOBILE: Always-visible bottom overlay with domain + title + CTA */}
-                    <div className="absolute inset-x-0 bottom-0 z-20 md:hidden pointer-events-none">
-                        <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-4 px-4">
-                            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-zinc-500 block mb-1">
-                                {tile.domain}
-                            </span>
-                            <p className="text-zinc-100 text-sm font-semibold leading-snug mb-3">
-                                {tile.title}
-                            </p>
-                            <div className="flex flex-col gap-2 pointer-events-auto">
-                                {/* Primary — filled white, obviously a button */}
-                                <TransitionLink href={tile.link} className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-full bg-white text-black text-xs font-semibold tracking-wide hover:bg-[var(--accent-teal)] transition-colors">
-                                    <FileText className="w-3.5 h-3.5" /> Read Case Study
-                                </TransitionLink>
-                                {/* Secondary — outlined, still obviously a button */}
-                                <button onClick={onWatch} className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-full border border-white/35 bg-white/[0.06] text-white text-xs font-semibold tracking-wide hover:border-white/70 hover:bg-white/[0.14] transition-colors">
-                                    <MonitorPlay className="w-3.5 h-3.5" /> Watch Presentation
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* DESKTOP: Hover overlay — title + TWO proper buttons (chair test:
-                        each must obviously read as clickable). Filled primary + outlined
-                        secondary, same pattern as the hero CTAs. */}
-                    <div
-                        className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500"
-                        style={{
-                            opacity: isHovered ? 1 : 0,
-                            backgroundColor: isHovered ? 'rgba(0,0,0,0.62)' : 'rgba(0,0,0,0)',
-                        }}
-                    >
-                        <div className="flex w-full max-w-[18rem] flex-col items-center gap-5 px-6 text-center pointer-events-auto">
-                            <div>
-                                <p className="text-zinc-100 text-lg font-semibold leading-snug">
-                                    {tile.title}
-                                </p>
-                                <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                                    {tile.domain}
-                                </p>
-                            </div>
-
-                            <div className="flex w-full flex-col gap-2.5">
-                                {/* Primary — Read Case Study (filled white) */}
-                                <TransitionLink
-                                    href={tile.link}
-                                    className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-[var(--accent-teal)] hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)]"
-                                >
-                                    <FileText className="w-4 h-4" /> Read Case Study
-                                </TransitionLink>
-                                {/* Secondary — Watch Presentation (outlined, still obviously a button) */}
-                                <button
-                                    onClick={onWatch}
-                                    className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/35 bg-white/[0.06] px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/[0.14]"
-                                >
-                                    <MonitorPlay className="w-4 h-4" /> Watch Presentation
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
+            {/* Title + Domain — sits below the tile, always-visible */}
+            <div className="mt-5">
+                <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                    {tile.domain}
+                </p>
+                <h3 className="mt-2 text-zinc-100 text-base md:text-lg font-semibold leading-snug">
+                    {tile.title}
+                </h3>
+            </div>
+
+            {/* CTA pair — permanent, side-by-side. Filled primary + outlined secondary. */}
+            <div className="mt-4 flex flex-col sm:flex-row gap-2.5">
+                <TransitionLink
+                    href={tile.link}
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)] active:scale-[0.98]"
+                >
+                    <FileText className="w-4 h-4" /> Read Case Study
+                </TransitionLink>
+                <button
+                    onClick={onWatch}
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-white/60 hover:bg-white/[0.10] active:scale-[0.98]"
+                >
+                    <MonitorPlay className="w-4 h-4" /> Watch Presentation
+                </button>
+            </div>
+
             {/* Proof line — attached to this tile */}
-            <p className="mt-3 flex items-center gap-2 text-zinc-600 text-[11px] md:text-xs font-mono tracking-wide">
+            <p className="mt-4 flex items-center gap-2 text-zinc-600 text-[11px] md:text-xs font-mono tracking-wide">
                 <span className="w-1 h-1 rounded-full bg-[var(--accent-teal)] opacity-40 shrink-0" />
                 {tile.proof}
             </p>
