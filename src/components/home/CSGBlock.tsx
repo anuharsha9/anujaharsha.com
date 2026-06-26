@@ -173,11 +173,24 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                 </div>
             </div>
 
-            {/* Proof line — attached to this tile */}
-            <p className="mt-3 flex items-center gap-2 text-zinc-600 text-[11px] md:text-xs font-mono tracking-wide">
-                <span className="w-1 h-1 rounded-full bg-[var(--accent-teal)] opacity-40 shrink-0" />
-                {tile.proof}
-            </p>
+            {/* OUTCOME line — promoted from footnote to real impact statement.
+                Article: 'outcomes matter more.' Sans-serif (not mono metadata),
+                readable size, accent-tinted with a labeled 'OUTCOME' eyebrow so
+                it reads as the most important sentence on the tile. */}
+            <div className="mt-4 flex items-start gap-3 md:mt-5">
+                <span
+                    className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--accent-teal)] shadow-[0_0_10px_rgba(var(--accent-teal-glow-rgb),0.6)]"
+                    aria-hidden="true"
+                />
+                <div className="min-w-0 flex-1">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/70">
+                        Outcome
+                    </p>
+                    <p className="mt-1 text-sm font-medium leading-snug text-zinc-200 md:text-base">
+                        {tile.proof}
+                    </p>
+                </div>
+            </div>
         </motion.div>
     )
 }
@@ -235,10 +248,15 @@ export default function CSGBlock() {
                 </motion.div>
 
 
-                {/* 3-column equal grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+                {/* Asymmetric 2-row grid — flagship RC spans 2 cols on top,
+                    ML + IQ share row 2. Gives each tile real breathing room
+                    (vs 3-across cramming to ~330px each) and elevates RC as the
+                    flagship — per the article's 'strongest signal first.' */}
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-7 lg:gap-8">
                     {TILES.map((tile, i) => (
-                        <BentoTile key={tile.id} tile={tile} delay={0.2 + i * 0.15} onWatch={() => setPresentationId(tile.id)} />
+                        <div key={tile.id} className={tile.flagship ? 'md:col-span-2' : ''}>
+                            <BentoTile tile={tile} delay={0.2 + i * 0.15} onWatch={() => setPresentationId(tile.id)} />
+                        </div>
                     ))}
                 </div>
             </motion.section>
