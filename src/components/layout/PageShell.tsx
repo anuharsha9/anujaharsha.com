@@ -15,6 +15,7 @@ import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
 import TabSwitcher from '@/components/home/TabSwitcher'
 import FloatingResume from '@/components/home/FloatingResume'
+import CaseStudyTabs from '@/components/work/CaseStudyTabs'
 
 /** Announces route changes to screen readers via aria-live */
 function RouteAnnouncer() {
@@ -50,6 +51,7 @@ export default function PageShell({ children }: PageShellProps) {
   const pathname = usePathname()
   const isManifesto = pathname === '/manifesto'
   const isLandingPage = pathname === '/'
+  const isCaseStudyPage = pathname?.startsWith('/work/') && !pathname.startsWith('/work/wordu')
 
   return (
     <ErrorBoundary>
@@ -75,6 +77,7 @@ export default function PageShell({ children }: PageShellProps) {
               <FloatingResume />
             </>
           )}
+          {isCaseStudyPage && <CaseStudyTabs />}
           <PageTransition>
             <main id="main-content" role="main" className="relative z-[1]">
               {children}
