@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import TransitionLink from '@/components/transitions/TransitionLink'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Play, FileText, MonitorPlay } from 'lucide-react'
+import { FileText, MonitorPlay } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 import PresentationLightbox from '@/components/case-study/PresentationLightbox'
 import { RC_SLIDES, ML_SLIDES, DSML_SLIDES } from '@/data/presentation-slides'
@@ -53,9 +53,16 @@ const TILES = [
     },
 ]
 
-/* ─── FLAGSHIP — horizontal feature card. Always-visible content fills the
-       width instead of being trapped in a centered hover column. ─── */
-function FlagshipBentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
+/* ─── Single unified feature-card tile.
+ *
+ * Per Anuja: 'Can't we just keep the title and the two buttons? Do we
+ * really need all that extra content making it so busy?'
+ *
+ * All 3 case studies use this same minimal horizontal layout, stacked
+ * vertically (one below another). Wireframe LEFT, just title + 2 buttons
+ * RIGHT. The role / domain / outcome content is preserved inside the
+ * case study itself via QuickImpactOverview — no need to repeat it here. */
+function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
     const WireframeComponent = tile.Wireframe
     const rgb = `var(${tile.accentVar})`
     const gridColor = `hsl(${tile.wireframeHue}, 50%, 25%)`
@@ -69,7 +76,7 @@ function FlagshipBentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; de
             className="group"
         >
             <div
-                className="relative w-full overflow-hidden rounded-2xl transition-all duration-500 hover:[--cs-border-opacity:0.3]"
+                className="relative w-full overflow-hidden rounded-2xl transition-all duration-500"
                 style={{
                     border: `1px solid rgba(${rgb}, 0.18)`,
                     background: `linear-gradient(135deg, rgba(${rgb}, 0.08), rgba(${rgb}, 0.03)), var(--bg-cinematic)`,
@@ -86,46 +93,21 @@ function FlagshipBentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; de
                     }}
                 />
 
-                {/* Side-by-side layout — wireframe LEFT, content RIGHT */}
-                <div className="relative grid grid-cols-1 md:grid-cols-12 md:items-stretch md:min-h-[400px]">
-                    {/* Wireframe (left 7/12 on desktop) — always crisp, no hover blur */}
+                {/* Side-by-side — wireframe LEFT, title + buttons RIGHT */}
+                <div className="relative grid grid-cols-1 md:grid-cols-12 md:items-stretch md:min-h-[360px]">
+                    {/* Wireframe — always crisp, no hover blur */}
                     <div className="relative md:col-span-7 md:order-1 aspect-[16/10] md:aspect-auto overflow-hidden">
                         <div className="absolute inset-0 pointer-events-none">
                             <WireframeComponent />
                         </div>
                     </div>
 
-                    {/* Content (right 5/12) — always visible, uses the space */}
-                    <div className="relative md:col-span-5 md:order-2 flex flex-col justify-center p-6 md:p-8 lg:p-10 gap-5 md:gap-6 border-t border-white/[0.04] md:border-t-0 md:border-l">
-                        <div>
-                            <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
-                                {tile.role}
-                            </p>
-                            <h3 className="mt-3 text-xl md:text-2xl lg:text-[26px] font-bold text-zinc-100 leading-tight tracking-tight">
-                                {tile.title}
-                            </h3>
-                            <p className="mt-2 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                                {tile.domain}
-                            </p>
-                        </div>
+                    {/* Content — just title + 2 buttons. Nothing else. */}
+                    <div className="relative md:col-span-5 md:order-2 flex flex-col justify-center gap-6 p-6 md:p-10 lg:p-12 border-t border-white/[0.04] md:border-t-0 md:border-l">
+                        <h3 className="text-xl md:text-2xl lg:text-[28px] font-bold text-zinc-100 leading-tight tracking-tight">
+                            {tile.title}
+                        </h3>
 
-                        {/* Outcome — inside the card now, no longer a footnote */}
-                        <div className="flex items-start gap-3">
-                            <span
-                                className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[var(--accent-teal)] shadow-[0_0_10px_rgba(var(--accent-teal-glow-rgb),0.6)]"
-                                aria-hidden="true"
-                            />
-                            <div>
-                                <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/70">
-                                    Outcome
-                                </p>
-                                <p className="mt-1 text-sm md:text-[15px] font-medium leading-snug text-zinc-200">
-                                    {tile.proof}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* CTAs — horizontal, fill the column */}
                         <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
                             <TransitionLink
                                 href={tile.link}
@@ -147,150 +129,6 @@ function FlagshipBentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; de
     )
 }
 
-/* ─── single tile (non-flagship — ML, IQ on row 2) ─── */
-function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
-    if (tile.flagship) {
-        return <FlagshipBentoTile tile={tile} delay={delay} onWatch={onWatch} />
-    }
-    const [isHovered, setIsHovered] = useState(false)
-    const WireframeComponent = tile.Wireframe
-    const rgb = `var(${tile.accentVar})`
-    const gridColor = `hsl(${tile.wireframeHue}, 50%, 25%)`
-
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.96, filter: 'blur(16px)' }}
-            whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1.4, delay, ease }}
-        >
-            <div className="group block relative">
-                <div
-                    className="relative w-full overflow-hidden rounded-2xl transition-all duration-500"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    style={{
-                        minHeight: '320px',
-                        border: `1px solid rgba(${rgb}, 0.12)`,
-                        background: `linear-gradient(135deg, rgba(${rgb}, 0.08), rgba(${rgb}, 0.03)), var(--bg-cinematic)`,
-                        boxShadow: isHovered
-                            ? `0 0 40px rgba(${rgb}, 0.10), inset 0 0 0 1px rgba(${rgb}, 0.20)`
-                            : `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.06)`,
-                    }}
-                >
-                    {/* Dot pattern overlay — AI neural net feel */}
-                    <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                            backgroundImage: `radial-gradient(circle, ${gridColor} 0.8px, transparent 0.8px)`,
-                            backgroundSize: '24px 24px',
-                            opacity: 0.12,
-                        }}
-                    />
-
-                    {/* Wireframe — always crisp on mobile (no hover); blurs on desktop hover */}
-                    <div
-                        className="absolute inset-0 pointer-events-none transition-all duration-500"
-                        style={{
-                            filter: isHovered ? 'blur(8px)' : 'blur(0px)',
-                            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-                        }}
-                    >
-                        <WireframeComponent />
-                    </div>
-
-                    {/* DESKTOP only: hover overlay — title + two proper buttons.
-                        Mobile relies on the content sitting BELOW the tile instead,
-                        so the wireframe animation isn't buried. */}
-                    <div
-                        className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500"
-                        style={{
-                            opacity: isHovered ? 1 : 0,
-                            backgroundColor: isHovered ? 'rgba(0,0,0,0.62)' : 'rgba(0,0,0,0)',
-                        }}
-                    >
-                        <div className="flex w-full max-w-[18rem] flex-col items-center gap-5 px-6 text-center pointer-events-auto">
-                            <div>
-                                {/* Role eyebrow — explicit ownership signal. Domain mono
-                                    is intentionally NOT repeated here; the closed-state
-                                    proof line below the tile already carries that context. */}
-                                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
-                                    {tile.role}
-                                </p>
-                                <p className="text-zinc-100 text-lg font-semibold leading-snug">
-                                    {tile.title}
-                                </p>
-                            </div>
-
-                            <div className="flex w-full flex-col gap-2.5">
-                                <TransitionLink
-                                    href={tile.link}
-                                    className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)]"
-                                >
-                                    <FileText className="w-4 h-4" /> Read Case Study
-                                </TransitionLink>
-                                <button
-                                    onClick={onWatch}
-                                    className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/35 bg-white/[0.06] px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/[0.14]"
-                                >
-                                    <MonitorPlay className="w-4 h-4" /> Watch Presentation
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* MOBILE-ONLY below-tile content. Simplified: title + one primary CTA +
-                the proof line. The mono domain eyebrow is dropped (redundant with the
-                title) so the tile reads as three elements, not five. Watch Presentation
-                is a quieter secondary text link. */}
-            <div className="mt-4 md:hidden">
-                {/* Role eyebrow — explicit ownership signal */}
-                <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent-teal)]/80">
-                    {tile.role}
-                </p>
-                <h3 className="text-zinc-100 text-base font-semibold leading-snug">
-                    {tile.title}
-                </h3>
-                <div className="mt-3 flex items-center gap-4">
-                    <TransitionLink
-                        href={tile.link}
-                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white active:scale-[0.98]"
-                    >
-                        <FileText className="w-4 h-4" /> Read Case Study
-                    </TransitionLink>
-                    <button
-                        onClick={onWatch}
-                        aria-label="Watch Presentation"
-                        className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-400 hover:text-white transition-colors shrink-0"
-                    >
-                        <MonitorPlay className="w-3.5 h-3.5" /> Watch
-                    </button>
-                </div>
-            </div>
-
-            {/* OUTCOME line — promoted from footnote to real impact statement.
-                Article: 'outcomes matter more.' Sans-serif (not mono metadata),
-                readable size, accent-tinted with a labeled 'OUTCOME' eyebrow so
-                it reads as the most important sentence on the tile. */}
-            <div className="mt-4 flex items-start gap-3 md:mt-5">
-                <span
-                    className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--accent-teal)] shadow-[0_0_10px_rgba(var(--accent-teal-glow-rgb),0.6)]"
-                    aria-hidden="true"
-                />
-                <div className="min-w-0 flex-1">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/70">
-                        Outcome
-                    </p>
-                    <p className="mt-1 text-sm font-medium leading-snug text-zinc-200 md:text-base">
-                        {tile.proof}
-                    </p>
-                </div>
-            </div>
-        </motion.div>
-    )
-}
 
 /* ─── main block ─── */
 export default function CSGBlock() {
@@ -345,15 +183,11 @@ export default function CSGBlock() {
                 </motion.div>
 
 
-                {/* Asymmetric 2-row grid — flagship RC spans 2 cols on top,
-                    ML + IQ share row 2. Gives each tile real breathing room
-                    (vs 3-across cramming to ~330px each) and elevates RC as the
-                    flagship — per the article's 'strongest signal first.' */}
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-7 lg:gap-8">
+                {/* Stacked — all 3 case studies one below another. Each tile is a
+                    full-width feature card (wireframe LEFT, title + 2 buttons RIGHT). */}
+                <div className="flex flex-col gap-6 md:gap-8 lg:gap-10">
                     {TILES.map((tile, i) => (
-                        <div key={tile.id} className={tile.flagship ? 'md:col-span-2' : ''}>
-                            <BentoTile tile={tile} delay={0.2 + i * 0.15} onWatch={() => setPresentationId(tile.id)} />
-                        </div>
+                        <BentoTile key={tile.id} tile={tile} delay={0.2 + i * 0.15} onWatch={() => setPresentationId(tile.id)} />
                     ))}
                 </div>
             </motion.section>
