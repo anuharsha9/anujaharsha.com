@@ -546,16 +546,30 @@ export default function VibeCodingBlock() {
 
 
 
-    const careerBuilderUrl = process.env.NEXT_PUBLIC_COLLEGE_OS_URL || process.env.NEXT_PUBLIC_CAREER_BUILDER_URL || 'http://localhost:3101'
-    const wealthEngineUrl = process.env.NEXT_PUBLIC_WEALTHENGINE_URL || 'http://localhost:3939'
-    const sousUrl = process.env.NEXT_PUBLIC_SOUS_URL || ''
+    /* Public demo URLs for the external app tiles. Set these env vars when each
+     * app has a live deploy (e.g. NEXT_PUBLIC_WEALTHENGINE_URL=https://demo...).
+     * In local dev we fall back to localhost so the tiles are clickable while
+     * building; in production there is NO localhost fallback — a tile with no
+     * public URL renders an 'In Development' badge instead of a dead link.
+     * Sous is native iOS, so it has no web fallback at all. */
+    const isProd = process.env.NODE_ENV === 'production'
+    const EXTERNAL_URL: Record<string, string> = {
+        'career-builder': process.env.NEXT_PUBLIC_CAREER_BUILDER_URL || process.env.NEXT_PUBLIC_COLLEGE_OS_URL || (isProd ? '' : 'http://localhost:3101'),
+        'wealth-engine': process.env.NEXT_PUBLIC_WEALTHENGINE_URL || (isProd ? '' : 'http://localhost:3939'),
+        'sous': process.env.NEXT_PUBLIC_SOUS_URL || '',
+    }
+    const EXTERNAL_ACTIONS = ['career-builder', 'wealth-engine', 'sous']
+    const isExternal = (action: string) => EXTERNAL_ACTIONS.includes(action)
+    const isComingSoon = (action: string) => isExternal(action) && !EXTERNAL_URL[action]
 
     const handleTileClick = (action: string) => {
-        if (action === 'portfolio') setPortfolioOpen(true)
-        if (action === 'wordu') setWorduOpen(true)
-        if (action === 'career-builder') window.open(careerBuilderUrl, '_blank', 'noopener,noreferrer')
-        if (action === 'wealth-engine') window.open(wealthEngineUrl, '_blank', 'noopener,noreferrer')
-        if (action === 'sous' && sousUrl) window.open(sousUrl, '_blank', 'noopener,noreferrer')
+        if (action === 'portfolio') return setPortfolioOpen(true)
+        if (action === 'wordu') return setWorduOpen(true)
+        if (isExternal(action)) {
+            const url = EXTERNAL_URL[action]
+            if (url) window.open(url, '_blank', 'noopener,noreferrer')
+            // No URL yet → coming soon, do nothing (tile shows the badge).
+        }
     }
 
     return (
@@ -599,7 +613,7 @@ export default function VibeCodingBlock() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                     {VIBE_TILES.map((tile, i) => {
                         const Icon = tile.icon
-                        const isShell = false  // all tiles are now live
+                        const comingSoon = isComingSoon(tile.action)
                         const rgb = `var(${tile.accentRgbVar})`
 
                         return (
@@ -612,10 +626,10 @@ export default function VibeCodingBlock() {
                             >
                                 <button
                                     onClick={() => handleTileClick(tile.action)}
-                                    disabled={isShell}
+                                    aria-label={comingSoon ? `${tile.title} — in development` : tile.title}
                                     /* iOS-native feel: large tap area (aspect-4/3), smooth active scale on tap, rounded-2xl card */
-                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl text-left transition-all duration-500 active:scale-[0.97] active:duration-100 touch-manipulation
-                                        ${isShell ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl text-left transition-all duration-500 touch-manipulation
+                                        ${comingSoon ? 'cursor-default' : 'cursor-pointer active:scale-[0.97] active:duration-100'}`}
                                     style={{
                                         border: `1px solid rgba(${rgb}, 0.18)`,
                                         backgroundColor: `rgba(${rgb}, 0.05)`,
@@ -649,6 +663,21 @@ export default function VibeCodingBlock() {
                                         {tile.cover === 'sous' && <SousCookingCover />}
                                     </div>
 
+                                    {/* 'In Development' badge — only for external tiles without a live URL yet */}
+                                    {comingSoon && (
+                                        <span
+                                            className="absolute right-3 top-3 z-[15] inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.15em] backdrop-blur-md"
+                                            style={{
+                                                borderColor: `rgba(${rgb}, 0.35)`,
+                                                backgroundColor: `rgba(${rgb}, 0.12)`,
+                                                color: tile.accent,
+                                            }}
+                                        >
+                                            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: tile.accent }} />
+                                            In Development
+                                        </span>
+                                    )}
+
                                     {/* Desktop hover overlay — hidden on mobile */}
                                     <div className="absolute inset-0 z-20 hidden md:flex items-center justify-center bg-black/0 group-hover:bg-black/55 transition-all duration-500 opacity-0 group-hover:opacity-100">
                                         <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
@@ -660,7 +689,7 @@ export default function VibeCodingBlock() {
                                                 )}
                                             </div>
                                             <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
-                                                {tile.action === 'wordu' ? 'Play Game' : 'Explore'}
+                                                {comingSoon ? 'Coming Soon' : tile.action === 'wordu' ? 'Play Game' : 'Explore'}
                                             </span>
                                             <p className="text-zinc-100 text-base font-semibold leading-snug mt-1">
                                                 {tile.title}
