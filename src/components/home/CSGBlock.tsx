@@ -20,7 +20,7 @@ const TILES = [
     {
         id: 'reportcaster',
         leadSignal: 'Volunteered week 1 · aligned a 20-person team',
-        title: 'Scale: Modernizing a 40-Year-Old Engine (20M+ Jobs/Week)',
+        title: 'Modernized a 40-year-old engine — 20M+ jobs a week.',
         link: '/work/reportcaster',
         flagship: true,
         Wireframe: RCWireframe,
@@ -30,7 +30,7 @@ const TILES = [
     {
         id: 'ml-functions',
         leadSignal: 'Earned it via a side challenge · MIT-certified',
-        title: 'AI/ML Strategy: Nobody Could Use Our ML Engine',
+        title: 'Made our ML engine usable for everyone.',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
         accentVar: '--semantic-cyan-rgb',
@@ -39,7 +39,7 @@ const TILES = [
     {
         id: 'iq-plugin',
         leadSignal: 'Defined the architecture · defended vs. 20–35-yr veterans',
-        title: 'Growth: We Built the Intelligence. Nobody Knew It Existed.',
+        title: 'Made our AI impossible to miss.',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
         accentVar: '--semantic-purple-rgb',
