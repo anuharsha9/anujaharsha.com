@@ -1,0 +1,13 @@
+name = "ask-anuja"
+main = "worker.ts"
+compatibility_date = "2025-09-01"
+
+# Allowed origins for CORS. Defaults are baked in if you don't override.
+[vars]
+ALLOWED_ORIGINS = "https://anujaharsha.com,https://www.anujaharsha.com,http://localhost:3110"
+
+# Rate-limit KV. Run `wrangler kv:namespace create RATE_LIMIT` once, then paste
+# the printed id here.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"

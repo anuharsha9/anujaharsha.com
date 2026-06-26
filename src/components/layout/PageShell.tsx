@@ -15,6 +15,7 @@ import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
 import TabSwitcher from '@/components/home/TabSwitcher'
 import FloatingResume from '@/components/home/FloatingResume'
+import AskAnujaTrigger from '@/components/home/AskAnujaTrigger'
 import CaseStudyTabs from '@/components/work/CaseStudyTabs'
 
 /** Announces route changes to screen readers via aria-live */
@@ -75,6 +76,7 @@ export default function PageShell({ children }: PageShellProps) {
             <>
               <TabSwitcher />
               <FloatingResume />
+              <AskAnujaTrigger />
             </>
           )}
           {isCaseStudyPage && <CaseStudyTabs />}
