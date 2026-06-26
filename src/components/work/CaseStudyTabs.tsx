@@ -14,9 +14,9 @@ import { FileText, BrainCircuit, Search, ArrowLeft } from 'lucide-react'
  * navigateTo() — same cinematic exit/enter the rest of the site uses.
  */
 const CASE_STUDIES = [
-    { id: 'reportcaster', label: 'ReportCaster', href: '/work/reportcaster', icon: FileText },
-    { id: 'ml-functions', label: 'ML Functions', href: '/work/ml-functions', icon: BrainCircuit },
-    { id: 'iq-plugin', label: 'IQ Plugin', href: '/work/iq-plugin', icon: Search },
+    { id: 'reportcaster', label: 'ReportCaster', short: 'RC', href: '/work/reportcaster', icon: FileText },
+    { id: 'ml-functions', label: 'ML Functions', short: 'ML', href: '/work/ml-functions', icon: BrainCircuit },
+    { id: 'iq-plugin', label: 'IQ Plugin', short: 'IQ', href: '/work/iq-plugin', icon: Search },
 ] as const
 
 type CaseStudyId = (typeof CASE_STUDIES)[number]['id']
@@ -47,13 +47,16 @@ export default function CaseStudyTabs() {
             : `calc(${(100 / pillCount) * activeIndex}% + 2px)`
 
     return (
-        <div className="pointer-events-none fixed left-0 right-0 top-0 z-[10001] flex items-start justify-center gap-3 pt-4 md:pt-5">
+        <div
+            className="pointer-events-none fixed left-0 right-0 top-0 z-[10001] flex items-start justify-center gap-3"
+            style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}
+        >
             {/* Home pill — left, smaller Dynamic Island */}
             <button
                 onClick={() => navigateTo('/')}
                 aria-label="Back to home"
                 title="Home"
-                className="pointer-events-auto absolute left-4 inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/55 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/75 hover:text-white md:left-6 md:text-[11px]"
+                className="pointer-events-auto absolute left-4 inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/75 hover:text-white md:left-6 md:px-4 md:text-[11px]"
             >
                 <ArrowLeft className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Home</span>
@@ -89,8 +92,8 @@ export default function CaseStudyTabs() {
                         >
                             <Icon className="h-3.5 w-3.5" />
                             <span className="hidden sm:inline">{cs.label}</span>
-                            {/* On very narrow viewports, show only icon — saves the pills from getting too wide */}
-                            <span className="sm:hidden">{cs.label.split(' ')[0].slice(0, 4)}</span>
+                            {/* On narrow viewports, use the clean 2-letter case-study code (RC/ML/IQ) */}
+                            <span className="sm:hidden">{cs.short}</span>
                         </button>
                     )
                 })}

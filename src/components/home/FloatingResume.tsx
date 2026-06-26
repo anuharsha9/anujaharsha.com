@@ -37,7 +37,10 @@ export default function FloatingResume() {
     }, [openPdf])
 
     return (
-        <div className="pointer-events-none fixed right-4 top-4 z-[10001] md:right-6 md:top-5">
+        <div
+            className="pointer-events-none fixed right-4 z-[10001] md:right-6"
+            style={{ top: 'max(1rem, env(safe-area-inset-top))' }}
+        >
             <button
                 onClick={open}
                 aria-label="View Resume PDF"

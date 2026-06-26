@@ -43,7 +43,10 @@ export default function TabSwitcher() {
     }, [active])
 
     return (
-        <div className="fixed left-0 right-0 top-0 z-[10001] flex justify-center pt-4 md:pt-5 pointer-events-none">
+        <div
+            className="fixed left-0 right-0 top-0 z-[10001] flex justify-center pointer-events-none"
+            style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}
+        >
             <div
                 className="relative inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-black/55 p-1 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-auto"
                 role="tablist"
