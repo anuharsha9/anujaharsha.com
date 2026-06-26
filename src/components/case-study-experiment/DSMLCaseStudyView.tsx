@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicCaseStudy, { type HeroStat, type ActSection } from '@/components/case-study-experiment/CinematicCaseStudy'
 import SectionSkeleton from '@/components/ui/SectionSkeleton'
+import QuickImpactOverview from '@/components/case-study/QuickImpactOverview'
 
 const DSMLSkeleton = () => <SectionSkeleton height="200vh" text="LOADING CASE STUDY CONTENT" />
 const DSMLFullContent = dynamic(() => import('@/components/case-study-experiment/DSMLFullContent'), { ssr: true, loading: DSMLSkeleton })
@@ -46,6 +47,7 @@ export default function DSMLCaseStudyView({ data }: { data: CaseStudyData }) {
  heroBackground={<DSMLTrailer />}
  actSections={DSML_ACT_SECTIONS}
  >
+ <QuickImpactOverview data={data} />
  <DSMLFullContent data={data} />
  </CinematicCaseStudy>
  )

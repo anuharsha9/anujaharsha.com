@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicCaseStudy, { type HeroStat, type ActSection } from '@/components/case-study-experiment/CinematicCaseStudy'
 import SectionSkeleton from '@/components/ui/SectionSkeleton'
+import QuickImpactOverview from '@/components/case-study/QuickImpactOverview'
 
 const RCSkeleton = () => <SectionSkeleton height="200vh" text="LOADING CASE STUDY CONTENT" />
 const RCFullContent = dynamic(() => import('@/components/case-study-experiment/RCFullContent'), { ssr: true, loading: RCSkeleton })
@@ -48,6 +49,7 @@ export default function RCCaseStudyView({ data }: { data: CaseStudyData }) {
  heroBackground={<RCTrailer />}
  actSections={RC_ACT_SECTIONS}
  >
+ <QuickImpactOverview data={data} />
  <RCFullContent data={data} />
  </CinematicCaseStudy>
  )

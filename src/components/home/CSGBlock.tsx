@@ -10,13 +10,19 @@ import { RC_SLIDES, ML_SLIDES, DSML_SLIDES } from '@/data/presentation-slides'
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
-/* ─── tile data ─── */
+/* ─── tile data ───
+ * Recruiter-readable 10-second triage (per Superhive UX-portfolio article):
+ *  - role: explicit ownership signal (failure #4: 'unclear role')
+ *  - proof: OUTCOME-led, not description (failure #3: 'process without outcomes')
+ *    Each proof line names a real change — contract retention, completion rate,
+ *    discovery rate — using numbers from the case study hero data. */
 const TILES = [
     {
         id: 'reportcaster',
+        role: 'UX Owner · Lead Designer · 2022—24',
         domain: 'Legacy Modernization · Customer Retention',
         title: 'Scale: Modernizing a 40-Year-Old Engine (20M+ Jobs/Week)',
-        proof: 'Reduced churn risk by modernizing a legacy enterprise platform',
+        proof: 'Helped renew a multi-year, multi-million-dollar enterprise contract',
         link: '/work/reportcaster',
         flagship: true,
         Wireframe: RCWireframe,
@@ -25,9 +31,10 @@ const TILES = [
     },
     {
         id: 'ml-functions',
+        role: 'Lead Designer & Researcher · End-to-End · 2023—24',
         domain: 'AI Workflow Design · ML Accessibility',
         title: 'AI/ML Strategy: Nobody Could Use Our ML Engine',
-        proof: 'Made ML accessible to non-technical users through workflow redesign',
+        proof: '4/4 non-technical SMEs completed ML training unaided · ~6→2 clicks',
         link: '/work/ml-functions',
         Wireframe: MLWireframe,
         accentVar: '--semantic-cyan-rgb',
@@ -35,9 +42,10 @@ const TILES = [
     },
     {
         id: 'iq-plugin',
+        role: 'Lead Designer · Vision to Architecture · 2024—25',
         domain: 'Platform Unification · AI-Powered Hub',
         title: 'Growth: We Built the Intelligence. Nobody Knew It Existed.',
-        proof: 'Boosted AI feature discovery 25% through UX redesign',
+        proof: '+25% AI feature discovery through unified platform UX',
         link: '/work/iq-plugin',
         Wireframe: IQWireframe,
         accentVar: '--semantic-purple-rgb',
@@ -106,6 +114,10 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                     >
                         <div className="flex w-full max-w-[18rem] flex-col items-center gap-5 px-6 text-center pointer-events-auto">
                             <div>
+                                {/* Role eyebrow — explicit ownership signal */}
+                                <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
+                                    {tile.role}
+                                </p>
                                 <p className="text-zinc-100 text-lg font-semibold leading-snug">
                                     {tile.title}
                                 </p>
@@ -138,6 +150,10 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                 title) so the tile reads as three elements, not five. Watch Presentation
                 is a quieter secondary text link. */}
             <div className="mt-4 md:hidden">
+                {/* Role eyebrow — explicit ownership signal */}
+                <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent-teal)]/80">
+                    {tile.role}
+                </p>
                 <h3 className="text-zinc-100 text-base font-semibold leading-snug">
                     {tile.title}
                 </h3>

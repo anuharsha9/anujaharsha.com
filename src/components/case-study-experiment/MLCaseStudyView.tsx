@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic'
 import { CaseStudyData } from '@/types/caseStudy'
 import CinematicCaseStudy, { type HeroStat, type ActSection } from '@/components/case-study-experiment/CinematicCaseStudy'
 import SectionSkeleton from '@/components/ui/SectionSkeleton'
+import QuickImpactOverview from '@/components/case-study/QuickImpactOverview'
 
 const MLSkeleton = () => <SectionSkeleton height="200vh" text="LOADING CASE STUDY CONTENT" />
 const MLFullContent = dynamic(() => import('@/components/case-study-experiment/MLFullContent'), { ssr: true, loading: MLSkeleton })
@@ -45,6 +46,7 @@ export default function MLCaseStudyView({ data }: { data: CaseStudyData }) {
  heroBackground={<MLTrailer />}
  actSections={ML_ACT_SECTIONS}
  >
+ <QuickImpactOverview data={data} />
  <MLFullContent data={data} />
  </CinematicCaseStudy>
  )
