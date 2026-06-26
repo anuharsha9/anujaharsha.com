@@ -157,7 +157,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
           }}
           transition={{ duration: 0.6, ease: easeCinematic }}
         >
-          <Search className="w-6 h-6 text-white/30 absolute top-3 right-3" />
+          <Search className="w-6 h-6 text-white/30 absolute top-3 right-3" aria-hidden="true" />
           
           {/* Action tags on the lens itself */}
           {activeAction === 'REMOVE' && (

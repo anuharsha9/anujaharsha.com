@@ -170,6 +170,9 @@ export default function ImageComparisonSlider({
                 variants={{}}
                 onMouseDown={handleStart}
                 onTouchStart={handleStart}
+                role="slider"
+                aria-label="Compare before and after — drag to reveal"
+                aria-orientation="horizontal"
             >
                 {/* Vertical Line */}
                 <div className="w-0.5 h-full bg-[var(--accent-teal)] shadow-lg shadow-[var(--accent-teal)]/50"></div>

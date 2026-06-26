@@ -198,9 +198,10 @@ const DictionarySheet = ({ word, onClose }: { word: string | null, onClose: () =
                     </div>
                     <button
                         onClick={onClose}
+                        aria-label="Close dictionary"
                         className="p-2 bg-[var(--surface-wordu-input)] text-[var(--text-wordu-muted)] rounded-full hover:bg-[var(--border-wordu)] transition-colors"
                     >
-                        <X size={24} />
+                        <X size={24} aria-hidden="true" />
                     </button>
                 </div>
 

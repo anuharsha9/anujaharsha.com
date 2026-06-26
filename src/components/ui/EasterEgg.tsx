@@ -38,9 +38,26 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
     }
   }, [clickCount, lastClickTime, clicksRequired])
 
+  /* Wrapping element stays a div (children can include their own
+   * interactive elements; nesting a real <button> would be invalid HTML).
+   * role="button" + tabIndex + keyboard handler makes the click trigger
+   * fully keyboard-accessible per WCAG 2.1.1. */
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleClick()
+    }
+  }, [handleClick])
+
   return (
     <>
-      <div onClick={handleClick}>
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="Trigger easter egg (click 5 times)"
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+      >
         {children}
       </div>
 
