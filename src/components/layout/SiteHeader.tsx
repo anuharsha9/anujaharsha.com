@@ -31,19 +31,17 @@ export default function SiteHeader() {
     if (typeof window === 'undefined') return
 
     const updateVisibilityForViewport = () => {
-      const isMobile = window.innerWidth < 1024 // lg breakpoint
-      if (isMobile) {
-        // On mobile (ALL pages including landing): always show header for hamburger menu access.
-        // Mobile SiteHeader uses logo-left + hamburger-right, so it coexists with the centered TabSwitcher.
-        setIsVisible(true)
-      } else if (!isLandingPage) {
-        // On desktop non-landing pages: always visible
-        setIsVisible(true)
-      } else {
-        // On desktop landing page: stay hidden — TabSwitcher is the persistent nav.
-        // Previously revealed on scroll, which caused a 'ghost' fade-in behind the tabs.
+      // Landing page (EVERY breakpoint): no SiteHeader. The Work/Life TabSwitcher
+      // is the nav; Resume is reached via the hero button + the floating Resume
+      // pill on scroll. This removes the mobile logo+hamburger bar that competed
+      // with the centered toggle.
+      if (isLandingPage) {
         setIsVisible(false)
+        return
       }
+      // Non-landing pages: header always visible (mobile gets logo + hamburger;
+      // desktop gets the full nav).
+      setIsVisible(true)
     }
 
     updateVisibilityForViewport()
@@ -67,20 +65,13 @@ export default function SiteHeader() {
   }, [])
 
   // Use centralized scroll manager
-  useScrollManager((scrollY) => {
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-      // On mobile (ALL pages): header stays visible.
-      setIsVisible(true)
-      return
-    }
-
-    // On desktop landing page: stay hidden — TabSwitcher is the nav. No scroll-reveal ghost.
+  useScrollManager(() => {
+    // Landing page (every breakpoint): TabSwitcher is the nav, no SiteHeader.
     if (isLandingPage) {
       setIsVisible(false)
       return
     }
-
-    // On desktop non-landing pages: always visible.
+    // Non-landing pages: always visible.
     setIsVisible(true)
   }, [isLandingPage])
 

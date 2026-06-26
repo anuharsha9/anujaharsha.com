@@ -44,12 +44,13 @@ export default function FloatingResume() {
             <button
                 onClick={open}
                 aria-label="View Resume PDF"
-                className={`pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/55 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-white shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-500 hover:border-white/30 hover:bg-black/75 md:text-[11px] ${
+                className={`pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/55 p-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-white shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-500 hover:border-white/30 hover:bg-black/75 sm:px-4 sm:py-2 md:text-[11px] ${
                     visible ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
                 }`}
             >
                 <FileText className="h-3.5 w-3.5" />
-                Resume
+                {/* Icon-only on mobile so it doesn't crowd the centered toggle */}
+                <span className="hidden sm:inline">Resume</span>
             </button>
         </div>
     )
