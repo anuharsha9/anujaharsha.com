@@ -129,8 +129,11 @@
 
    /* Semantic accent palette — ONE per hue (data viz / case study visuals) */
    --semantic-emerald: #10b981;
+   --semantic-emerald-rgb: 16, 185, 129;
    --semantic-blue: #3b82f6;
+   --semantic-blue-rgb: 59, 130, 246;
    --semantic-rose: #f43f5e;
+   --semantic-rose-rgb: 244, 63, 94;
    --semantic-orange: #f97316;
    --semantic-orange-rgb: 249, 115, 22;
    --semantic-purple: #a855f7;

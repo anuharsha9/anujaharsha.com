@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Play, Sparkles, Gamepad2 } from 'lucide-react'
+import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat, type LucideIcon } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 
 /* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
@@ -271,6 +271,57 @@ function GraduationCapCover() {
     )
 }
 
+/* ─── Generic logo cover for the AI-native apps (Career Builder, WealthEngine, Sous) ───
+ * Renders the tile's Lucide icon big and centered, with a colored glow + animated
+ * pulse ring, and the app title in mono caps below. Lets us add new tiles without
+ * hand-drawing a wireframe SVG for each. */
+function AppLogoCover({ icon: Icon, accent, label }: { icon: LucideIcon; accent: string; label: string }) {
+    return (
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+            {/* Radial color wash */}
+            <div className="absolute inset-0" style={{
+                background: `radial-gradient(circle at 50% 45%, ${accent.replace('var(', 'rgba(').replace(')', '')}, transparent 60%)`,
+            }} />
+            <div className="absolute inset-0" style={{
+                background: `radial-gradient(circle at 50% 45%, color-mix(in srgb, ${accent} 10%, transparent), transparent 65%)`,
+            }} />
+
+            {/* Centered icon stack */}
+            <div className="relative flex flex-col items-center gap-4">
+                <motion.div
+                    className="relative flex h-20 w-20 items-center justify-center rounded-2xl border"
+                    style={{
+                        borderColor: `color-mix(in srgb, ${accent} 35%, transparent)`,
+                        backgroundColor: `color-mix(in srgb, ${accent} 8%, transparent)`,
+                        color: accent,
+                    }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    {/* Animated pulse ring */}
+                    <motion.div
+                        className="absolute inset-0 rounded-2xl border"
+                        style={{ borderColor: `color-mix(in srgb, ${accent} 60%, transparent)` }}
+                        animate={{ scale: [1, 1.18, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                    <Icon className="h-9 w-9" strokeWidth={1.4} />
+                </motion.div>
+                <motion.span
+                    className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                    style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                    {label}
+                </motion.span>
+            </div>
+        </div>
+    )
+}
+
 const VIBE_TILES = [
     {
         id: 'portfolio',
@@ -294,18 +345,42 @@ const VIBE_TILES = [
         dotHue: 30,
         action: 'wordu' as const,
     },
-    // College OS tile — hidden until deployed
-    // {
-    //     id: 'college-os',
-    //     title: 'College OS',
-    //     subtitle: 'AI-powered college app tracker · Next.js + Gemini',
-    //     icon: GraduationCap,
-    //     cover: 'graduation' as const,
-    //     accent: 'var(--semantic-purple)',
-    //     accentRgbVar: '--semantic-purple-rgb',
-    //     dotHue: 270,
-    //     action: 'college-os' as const,
-    // },
+    {
+        id: 'career-builder',
+        title: 'Career Builder',
+        subtitle: 'AI-native career navigator · Next.js + Claude',
+        icon: Compass,
+        cover: 'app-logo' as const,
+        coverLabel: 'CAREER · BUILDER',
+        accent: 'var(--semantic-purple)',
+        accentRgbVar: '--semantic-purple-rgb',
+        dotHue: 270,
+        action: 'career-builder' as const,
+    },
+    {
+        id: 'wealth-engine',
+        title: 'WealthEngine',
+        subtitle: 'Local-first life-decision engine · AI scenarios',
+        icon: LineChart,
+        cover: 'app-logo' as const,
+        coverLabel: 'WEALTH · ENGINE',
+        accent: 'var(--semantic-emerald)',
+        accentRgbVar: '--semantic-emerald-rgb',
+        dotHue: 160,
+        action: 'wealth-engine' as const,
+    },
+    {
+        id: 'sous',
+        title: 'Sous',
+        subtitle: 'AI cooking companion · voice-first, native iOS',
+        icon: ChefHat,
+        cover: 'app-logo' as const,
+        coverLabel: 'SOUS · COOK',
+        accent: 'var(--semantic-rose)',
+        accentRgbVar: '--semantic-rose-rgb',
+        dotHue: 350,
+        action: 'sous' as const,
+    },
 ]
 
 export default function VibeCodingBlock() {
@@ -324,12 +399,16 @@ export default function VibeCodingBlock() {
 
 
 
-    const collegeOsUrl = process.env.NEXT_PUBLIC_COLLEGE_OS_URL || 'http://localhost:3005'
+    const careerBuilderUrl = process.env.NEXT_PUBLIC_COLLEGE_OS_URL || process.env.NEXT_PUBLIC_CAREER_BUILDER_URL || 'http://localhost:3101'
+    const wealthEngineUrl = process.env.NEXT_PUBLIC_WEALTHENGINE_URL || 'http://localhost:3939'
+    const sousUrl = process.env.NEXT_PUBLIC_SOUS_URL || ''
 
     const handleTileClick = (action: string) => {
         if (action === 'portfolio') setPortfolioOpen(true)
         if (action === 'wordu') setWorduOpen(true)
-        if (action === 'college-os') window.open(collegeOsUrl, '_blank', 'noopener,noreferrer')
+        if (action === 'career-builder') window.open(careerBuilderUrl, '_blank', 'noopener,noreferrer')
+        if (action === 'wealth-engine') window.open(wealthEngineUrl, '_blank', 'noopener,noreferrer')
+        if (action === 'sous' && sousUrl) window.open(sousUrl, '_blank', 'noopener,noreferrer')
     }
 
     return (
@@ -369,7 +448,7 @@ export default function VibeCodingBlock() {
                     </p>
                 </motion.div>
 
-                {/* 3 tiles */}
+                {/* 5 tiles (Portfolio, WordU, Career Builder, WealthEngine, Sous) — grid stacks 1col mobile / 2col tablet / 3col desktop */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                     {VIBE_TILES.map((tile, i) => {
                         const Icon = tile.icon
@@ -382,12 +461,13 @@ export default function VibeCodingBlock() {
                                 initial={{ opacity: 0, y: 70, scale: 0.9, filter: 'blur(16px)' }}
                                 whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                 viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 1.4, delay: i * 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                transition={{ duration: 1.4, delay: Math.min(i, 3) * 0.18, ease: [0.22, 1, 0.36, 1] }}
                             >
                                 <button
                                     onClick={() => handleTileClick(tile.action)}
                                     disabled={isShell}
-                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl text-left transition-all duration-500
+                                    /* iOS-native feel: large tap area (aspect-4/3), smooth active scale on tap, rounded-2xl card */
+                                    className={`group relative w-full aspect-[4/3] overflow-hidden rounded-2xl text-left transition-all duration-500 active:scale-[0.97] active:duration-100 touch-manipulation
                                         ${isShell ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
                                     style={{
                                         border: `1px solid rgba(${rgb}, 0.18)`,
@@ -417,6 +497,13 @@ export default function VibeCodingBlock() {
                                     <div className="absolute inset-0 transition-all duration-500 md:group-hover:blur-[8px] md:group-hover:scale-105">
                                         {tile.cover === 'browser' && <BrowserWireframeCover />}
                                         {tile.cover === 'wordu' && <WordULogoCover />}
+                                        {tile.cover === 'app-logo' && (
+                                            <AppLogoCover
+                                                icon={tile.icon}
+                                                accent={tile.accent}
+                                                label={'coverLabel' in tile ? tile.coverLabel : tile.title}
+                                            />
+                                        )}
                                     </div>
 
                                     {/* Desktop hover overlay — hidden on mobile */}
