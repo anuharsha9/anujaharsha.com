@@ -5,6 +5,7 @@ import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { Sparkles, ArrowLeft, ArrowRight } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
+import LightboxCard from '@/components/ui/LightboxCard'
 
 /* ─── Portfolio case study — same shell + rhythm as AppCaseStudyLightbox,
  * but the "See it run" section is the 5-iteration evolution carousel
@@ -197,18 +198,14 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                         </p>
                         <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
                             {HIGHLIGHTS.map(h => (
-                                <div
-                                    key={h.title}
-                                    className="rounded-2xl border bg-white/[0.02] p-5 transition-colors duration-300"
-                                    style={{ borderColor: `rgba(var(${rgb}), 0.18)` }}
-                                >
+                                <LightboxCard key={h.title} accentRgb={rgb}>
                                     <h3 className="text-sm font-semibold text-zinc-100 md:text-base">
                                         {h.title}
                                     </h3>
                                     <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
                                         {h.description}
                                     </p>
-                                </div>
+                                </LightboxCard>
                             ))}
                         </div>
                     </div>

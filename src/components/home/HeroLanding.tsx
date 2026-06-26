@@ -39,24 +39,30 @@ export default function HeroLanding() {
         )
     }
 
-    /* ─── Scroll choreography — viewport-based ─── 
-     * Use raw scrollY instead of container progress.
-     * This gives a predictable pixel range for the exit,
-     * regardless of container height.
-     */
+    /* ─── Scroll choreography — viewport-based ───
+     * Use raw scrollY instead of container progress so the exit timing
+     * stays predictable regardless of container height. All breakpoints
+     * named so the curves are legible side-by-side. */
     const { scrollY } = useScroll()
 
-    // Bio: opacity + drift on scroll exit (no blur — GPU-compositable only)
-    const bioY = useTransform(scrollY, [0, 100, 400], [0, 0, -30])
-    const bioOpacity = useTransform(scrollY, [0, 100, 400], [1, 1, 0])
+    // Bio: hold for 100px, then drift up + fade out by 400px scroll.
+    const BIO_HOLD_PX = 100
+    const BIO_EXIT_PX = 400
+    const bioY = useTransform(scrollY, [0, BIO_HOLD_PX, BIO_EXIT_PX], [0, 0, -30])
+    const bioOpacity = useTransform(scrollY, [0, BIO_HOLD_PX, BIO_EXIT_PX], [1, 1, 0])
 
-    // Hero container: fade + gentle scale on scroll exit
-    const heroScale = useTransform(scrollY, [150, 500], [1, 0.98])
-    const heroOpacity = useTransform(scrollY, [150, 500], [1, 0])
+    // Hero container: start exit at 150px, fully gone by 500px.
+    const HERO_EXIT_START_PX = 150
+    const HERO_EXIT_END_PX = 500
+    const heroScale = useTransform(scrollY, [HERO_EXIT_START_PX, HERO_EXIT_END_PX], [1, 0.98])
+    const heroOpacity = useTransform(scrollY, [HERO_EXIT_START_PX, HERO_EXIT_END_PX], [1, 0])
 
-    // CTA glow ring + sweep
-    const glowRingScale = useTransform(scrollY, [30, 80], [0.8, 1.6])
-    const glowRingOpacity = useTransform(scrollY, [30, 50, 80], [0, 0.6, 0])
+    // CTA glow ring + light sweep — short on-scroll flourish.
+    const CTA_GLOW_START_PX = 30
+    const CTA_GLOW_PEAK_PX = 50
+    const CTA_GLOW_END_PX = 80
+    const glowRingScale = useTransform(scrollY, [CTA_GLOW_START_PX, CTA_GLOW_END_PX], [0.8, 1.6])
+    const glowRingOpacity = useTransform(scrollY, [CTA_GLOW_START_PX, CTA_GLOW_PEAK_PX, CTA_GLOW_END_PX], [0, 0.6, 0])
     const lightSweepX = useTransform(scrollY, [50, 120], ['-120%', '120%'])
 
     return (
