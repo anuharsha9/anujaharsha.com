@@ -18,7 +18,6 @@ import React, { useRef, type ReactNode } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { CaseStudyData } from '@/types/caseStudy'
-import ViewModeToggle from '@/components/case-study/ViewModeToggle'
 import { LightboxProvider } from './BentoGrid'
 
 
@@ -96,8 +95,8 @@ export default function CinematicCaseStudy({
  return (
  <div data-cs-theme={theme}>
  <LightboxProvider>
- {/* ── Nav Bar (Home + Case Study Dropdown) ── */}
- <ViewModeToggle />
+ {/* Nav bar removed — replaced by CaseStudyTabs (Dynamic Island)
+     rendered at PageShell level, with its own Home button. */}
 
  {/* ── Single Scroll Experience ── */}
 

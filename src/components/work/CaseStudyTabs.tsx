@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { useTransition } from '@/components/transitions/TransitionContext'
-import { FileText, BrainCircuit, Search } from 'lucide-react'
+import { FileText, BrainCircuit, Search, ArrowLeft } from 'lucide-react'
 
 /**
  * One pill per major case study. Mirrors the Work/Life Dynamic Island visual
@@ -47,7 +47,18 @@ export default function CaseStudyTabs() {
             : `calc(${(100 / pillCount) * activeIndex}% + 2px)`
 
     return (
-        <div className="pointer-events-none fixed left-0 right-0 top-0 z-[10001] flex justify-center pt-4 md:pt-5">
+        <div className="pointer-events-none fixed left-0 right-0 top-0 z-[10001] flex items-start justify-center gap-3 pt-4 md:pt-5">
+            {/* Home pill — left, smaller Dynamic Island */}
+            <button
+                onClick={() => navigateTo('/')}
+                aria-label="Back to home"
+                title="Home"
+                className="pointer-events-auto absolute left-4 inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/55 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/75 hover:text-white md:left-6 md:text-[11px]"
+            >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">Home</span>
+            </button>
+
             <div
                 className="relative inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-black/55 p-1 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-auto"
                 role="tablist"
