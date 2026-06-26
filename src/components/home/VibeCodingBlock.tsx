@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat, type LucideIcon } from 'lucide-react'
+import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 
 /* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
@@ -271,53 +271,203 @@ function GraduationCapCover() {
     )
 }
 
-/* ─── Generic logo cover for the AI-native apps (Career Builder, WealthEngine, Sous) ───
- * Renders the tile's Lucide icon big and centered, with a colored glow + animated
- * pulse ring, and the app title in mono caps below. Lets us add new tiles without
- * hand-drawing a wireframe SVG for each. */
-function AppLogoCover({ icon: Icon, accent, label }: { icon: LucideIcon; accent: string; label: string }) {
+/* ─── WealthEngine cover — animated growth chart + scenario tiles
+ * Local-first life-decision engine: line chart curves upward with milestone
+ * dots, then a row of "scenario" cards fades in beneath. Emerald accent. */
+function WealthEngineCover() {
+    const accent = 'var(--semantic-emerald)'
     return (
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-            {/* Radial color wash */}
+            {/* Soft emerald wash */}
             <div className="absolute inset-0" style={{
-                background: `radial-gradient(circle at 50% 45%, ${accent.replace('var(', 'rgba(').replace(')', '')}, transparent 60%)`,
-            }} />
-            <div className="absolute inset-0" style={{
-                background: `radial-gradient(circle at 50% 45%, color-mix(in srgb, ${accent} 10%, transparent), transparent 65%)`,
+                background: 'radial-gradient(circle at 50% 50%, hsla(160,70%,40%,0.07), transparent 70%)',
             }} />
 
-            {/* Centered icon stack */}
-            <div className="relative flex flex-col items-center gap-4">
-                <motion.div
-                    className="relative flex h-20 w-20 items-center justify-center rounded-2xl border"
-                    style={{
-                        borderColor: `color-mix(in srgb, ${accent} 35%, transparent)`,
-                        backgroundColor: `color-mix(in srgb, ${accent} 8%, transparent)`,
-                        color: accent,
-                    }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                >
-                    {/* Animated pulse ring */}
-                    <motion.div
-                        className="absolute inset-0 rounded-2xl border"
-                        style={{ borderColor: `color-mix(in srgb, ${accent} 60%, transparent)` }}
-                        animate={{ scale: [1, 1.18, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            <svg viewBox="0 0 320 200" className="w-[78%] h-auto" fill="none">
+                {/* App frame */}
+                <motion.rect
+                    x="10" y="10" width="300" height="180" rx="10"
+                    stroke={accent}
+                    strokeWidth="0.8"
+                    strokeDasharray="4 6"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.4 }}
+                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                />
+                {/* Top header bar */}
+                <motion.line x1="10" y1="32" x2="310" y2="32" stroke={accent} strokeWidth="0.5"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+                    transition={{ duration: 1, delay: 0.3 }} opacity={0.2} />
+                {/* Title placeholder */}
+                <motion.rect x="20" y="18" width="80" height="6" rx="2" fill={accent}
+                    initial={{ opacity: 0 }} animate={{ opacity: 0.25 }} transition={{ delay: 0.8 }} />
+                {/* Currency indicator (top right) */}
+                <motion.text x="290" y="24" textAnchor="end" fill={accent}
+                    className="font-mono text-[7px]"
+                    initial={{ opacity: 0 }} animate={{ opacity: 0.45 }} transition={{ delay: 1.2 }}>
+                    ₹ · $
+                </motion.text>
+
+                {/* Chart axis baseline */}
+                <motion.line x1="30" y1="125" x2="290" y2="125" stroke={accent} strokeWidth="0.4"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+                    transition={{ duration: 1.5, delay: 0.6 }} opacity={0.25} />
+
+                {/* Growth line — sweeps from low-left to high-right */}
+                <motion.path
+                    d="M 35,115 Q 75,108 100,98 T 165,75 T 230,55 T 285,42"
+                    stroke={accent}
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 2.2, delay: 1, ease: 'easeInOut' }}
+                />
+
+                {/* Soft fill under the curve */}
+                <motion.path
+                    d="M 35,115 Q 75,108 100,98 T 165,75 T 230,55 T 285,42 L 285,125 L 35,125 Z"
+                    fill={accent}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.08 }}
+                    transition={{ duration: 1.2, delay: 2.4 }}
+                />
+
+                {/* Milestone dots along the curve */}
+                {[
+                    { x: 100, y: 98, d: 2.6 },
+                    { x: 165, y: 75, d: 2.9 },
+                    { x: 230, y: 55, d: 3.2 },
+                    { x: 285, y: 42, d: 3.5 },
+                ].map((p, i) => (
+                    <motion.circle key={i} cx={p.x} cy={p.y} r="3" fill={accent}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 0.85, scale: 1 }}
+                        transition={{ delay: p.d, type: 'spring', stiffness: 250 }} />
+                ))}
+
+                {/* Scenario tiles row — bottom */}
+                {[35, 115, 195].map((x, i) => (
+                    <motion.g key={x}>
+                        <motion.rect x={x} y="148" width="90" height="32" rx="4"
+                            stroke={accent} strokeWidth="0.5"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 0.25, y: 0 }}
+                            transition={{ duration: 0.6, delay: 3.6 + i * 0.18 }} />
+                        <motion.rect x={x + 8} y="156" width="40" height="4" rx="1.5" fill={accent}
+                            initial={{ opacity: 0 }} animate={{ opacity: 0.35 }}
+                            transition={{ delay: 3.8 + i * 0.18 }} />
+                        <motion.rect x={x + 8} y="166" width="60" height="3" rx="1" fill={accent}
+                            initial={{ opacity: 0 }} animate={{ opacity: 0.18 }}
+                            transition={{ delay: 4.0 + i * 0.18 }} />
+                    </motion.g>
+                ))}
+            </svg>
+        </div>
+    )
+}
+
+/* ─── Sous cooking-companion cover — iPhone frame + voice waveform + steam
+ * Voice-first native iOS app: phone outline, mic icon at center, animated
+ * voice waveform bars, soft rising steam particles at top. Rose accent. */
+function SousCookingCover() {
+    const accent = 'var(--semantic-rose)'
+    return (
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+            {/* Warm rose wash */}
+            <div className="absolute inset-0" style={{
+                background: 'radial-gradient(circle at 50% 60%, hsla(350,80%,50%,0.07), transparent 65%)',
+            }} />
+
+            <svg viewBox="0 0 280 200" className="w-[50%] h-auto" fill="none">
+                {/* Rising steam wisps — top */}
+                {[
+                    { x: 115, delay: 1.6 }, { x: 140, delay: 2.0 }, { x: 165, delay: 2.4 },
+                ].map((s, i) => (
+                    <motion.path
+                        key={i}
+                        d={`M ${s.x},30 Q ${s.x - 6},22 ${s.x + 4},14 T ${s.x},0`}
+                        stroke={accent}
+                        strokeWidth="1"
+                        strokeLinecap="round"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: [0, 0.4, 0], y: [-2, -8, -14] }}
+                        transition={{ duration: 2.4, delay: s.delay, repeat: Infinity, repeatDelay: 1.6 }}
                     />
-                    <Icon className="h-9 w-9" strokeWidth={1.4} />
-                </motion.div>
-                <motion.span
-                    className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                    style={{ color: `color-mix(in srgb, ${accent} 70%, transparent)` }}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                    {label}
-                </motion.span>
-            </div>
+                ))}
+
+                {/* iPhone frame — vertical, rounded */}
+                <motion.rect
+                    x="90" y="35" width="100" height="160" rx="14"
+                    stroke={accent}
+                    strokeWidth="1.2"
+                    strokeDasharray="4 6"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.5 }}
+                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                />
+                {/* Notch */}
+                <motion.rect x="118" y="40" width="44" height="6" rx="3" fill={accent}
+                    initial={{ opacity: 0 }} animate={{ opacity: 0.35 }}
+                    transition={{ delay: 0.8 }} />
+
+                {/* Inner screen safe area */}
+                <motion.rect x="98" y="53" width="84" height="134" rx="8"
+                    stroke={accent} strokeWidth="0.4"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1, opacity: 0.2 }}
+                    transition={{ duration: 1.2, delay: 0.5 }} />
+
+                {/* Mic icon — center top of screen */}
+                <motion.g initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.2, type: 'spring', stiffness: 200 }}>
+                    <rect x="133" y="78" width="14" height="22" rx="7" fill={accent} opacity={0.4} />
+                    <path d="M 128,98 Q 128,108 140,108 Q 152,108 152,98" stroke={accent}
+                        strokeWidth="1" fill="none" opacity={0.5} />
+                    <line x1="140" y1="108" x2="140" y2="114" stroke={accent} strokeWidth="1" opacity={0.5} />
+                </motion.g>
+
+                {/* Voice waveform — center bottom of screen, animated bars */}
+                {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+                    const heights = [10, 18, 14, 22, 16, 22, 12, 16]
+                    const x = 105 + i * 9
+                    return (
+                        <motion.rect
+                            key={i}
+                            x={x}
+                            y={145 - heights[i] / 2}
+                            width="3.5"
+                            height={heights[i]}
+                            rx="1.5"
+                            fill={accent}
+                            initial={{ opacity: 0, scaleY: 0 }}
+                            animate={{
+                                opacity: [0, 0.7, 0.4, 0.7, 0.4],
+                                scaleY: [0, 1.2, 0.6, 1.4, 1],
+                            }}
+                            transition={{
+                                duration: 2,
+                                delay: 1.6 + i * 0.08,
+                                repeat: Infinity,
+                                repeatType: 'reverse',
+                                repeatDelay: 0.4,
+                            }}
+                            style={{ transformOrigin: `${x + 1.75}px 145px` }}
+                        />
+                    )
+                })}
+
+                {/* Bottom hint: "Listening…" pill */}
+                <motion.rect x="108" y="172" width="64" height="9" rx="4.5"
+                    stroke={accent} strokeWidth="0.5"
+                    initial={{ opacity: 0 }} animate={{ opacity: 0.3 }}
+                    transition={{ delay: 2.8 }} />
+                <motion.text x="140" y="178.5" textAnchor="middle" fill={accent}
+                    className="font-mono text-[5px]"
+                    initial={{ opacity: 0 }} animate={{ opacity: 0.6 }}
+                    transition={{ delay: 3.2 }}>
+                    LISTENING…
+                </motion.text>
+            </svg>
         </div>
     )
 }
@@ -350,8 +500,7 @@ const VIBE_TILES = [
         title: 'Career Builder',
         subtitle: 'AI-native career navigator · Next.js + Claude',
         icon: Compass,
-        cover: 'app-logo' as const,
-        coverLabel: 'CAREER · BUILDER',
+        cover: 'graduation' as const,
         accent: 'var(--semantic-purple)',
         accentRgbVar: '--semantic-purple-rgb',
         dotHue: 270,
@@ -362,8 +511,7 @@ const VIBE_TILES = [
         title: 'WealthEngine',
         subtitle: 'Local-first life-decision engine · AI scenarios',
         icon: LineChart,
-        cover: 'app-logo' as const,
-        coverLabel: 'WEALTH · ENGINE',
+        cover: 'wealth' as const,
         accent: 'var(--semantic-emerald)',
         accentRgbVar: '--semantic-emerald-rgb',
         dotHue: 160,
@@ -374,8 +522,7 @@ const VIBE_TILES = [
         title: 'Sous',
         subtitle: 'AI cooking companion · voice-first, native iOS',
         icon: ChefHat,
-        cover: 'app-logo' as const,
-        coverLabel: 'SOUS · COOK',
+        cover: 'sous' as const,
         accent: 'var(--semantic-rose)',
         accentRgbVar: '--semantic-rose-rgb',
         dotHue: 350,
@@ -497,13 +644,9 @@ export default function VibeCodingBlock() {
                                     <div className="absolute inset-0 transition-all duration-500 md:group-hover:blur-[8px] md:group-hover:scale-105">
                                         {tile.cover === 'browser' && <BrowserWireframeCover />}
                                         {tile.cover === 'wordu' && <WordULogoCover />}
-                                        {tile.cover === 'app-logo' && (
-                                            <AppLogoCover
-                                                icon={tile.icon}
-                                                accent={tile.accent}
-                                                label={'coverLabel' in tile ? tile.coverLabel : tile.title}
-                                            />
-                                        )}
+                                        {tile.cover === 'graduation' && <GraduationCapCover />}
+                                        {tile.cover === 'wealth' && <WealthEngineCover />}
+                                        {tile.cover === 'sous' && <SousCookingCover />}
                                     </div>
 
                                     {/* Desktop hover overlay — hidden on mobile */}
