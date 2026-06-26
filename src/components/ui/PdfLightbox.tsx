@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Download, ExternalLink, FileText } from 'lucide-react'
+import { Download, ExternalLink, FileText, Loader2 } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
+import Button from '@/components/ui/Button'
 
 interface PdfLightboxProps {
     isOpen: boolean
@@ -11,18 +12,26 @@ interface PdfLightboxProps {
     title?: string
 }
 
+/**
+ * On-brand résumé viewer. Reuses the SystemLightbox shell (portal, scroll-lock,
+ * focus-trap, ESC) but renders a clean, framed document — not a bare terminal
+ * iframe:
+ *  - header actions use the shared <Button> primitive (teal-glass), not slate boxes
+ *  - the PDF sits in a rounded, bordered "paper" frame on the cinematic bg
+ *  - a loading spinner shows until the document paints
+ *  - <object> with a graceful fallback card, so a browser that can't render a
+ *    PDF inline never shows an empty grey void — it offers Open / Download
+ *  - mobile skips the fragile inline PDF for the print-ready HTML résumé
+ */
 export default function PdfLightbox({
     isOpen,
     onClose,
     pdfUrl,
-    title = 'Document Preview'
+    title = 'Résumé',
 }: PdfLightboxProps) {
-    /* Mobile browsers (iOS Safari, Android Chrome) frequently render a PDF in an
-     * <iframe> as a blank page — the classic "PDF not loading" bug. So on mobile
-     * we skip the inline viewer and offer a reliable Open/Download card instead;
-     * the device's native full-screen PDF viewer handles it perfectly. Desktop
-     * keeps the inline iframe preview. */
     const [isMobile, setIsMobile] = useState(false)
+    const [loaded, setLoaded] = useState(false)
+
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768)
         check()
@@ -30,30 +39,43 @@ export default function PdfLightbox({
         return () => window.removeEventListener('resize', check)
     }, [])
 
+    // reset the loading state each time a new doc opens; force-clear after a
+    // few seconds so the spinner never sticks if <object>'s onLoad doesn't fire.
+    useEffect(() => {
+        if (!isOpen) return
+        setLoaded(false)
+        const t = setTimeout(() => setLoaded(true), 2500)
+        return () => clearTimeout(t)
+    }, [isOpen, pdfUrl])
+
     if (!isOpen) return null
 
-    const shortcuts = [{ key: 'ESC', label: 'CLOSE' }]
-
-    // Header actions — open in new tab + download, available on every device
+    /* Header actions — on-brand buttons (Open in new tab + Download). */
     const headerActions = (
-        <div className="flex items-center gap-2">
-            <a
-                href={pdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-white/10 text-zinc-200 rounded-lg text-sm font-medium transition-colors duration-200 border border-slate-700 hover:border-white/30"
-            >
-                <ExternalLink className="w-4 h-4" />
-                <span className="hidden sm:inline">OPEN</span>
-            </a>
-            <a
-                href={pdfUrl}
-                download
-                className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-[var(--accent-teal)] text-zinc-200 hover:text-black rounded-lg text-sm font-medium transition-colors duration-200 border border-slate-700 hover:border-[var(--accent-teal)]"
-            >
-                <Download className="w-4 h-4" />
-                <span className="hidden sm:inline">DOWNLOAD</span>
-            </a>
+        <div className="flex items-center gap-2.5">
+            <Button variant="secondary" size="sm" href={pdfUrl} external icon={<ExternalLink className="h-3.5 w-3.5" />}>
+                <span className="hidden sm:inline">Open</span>
+            </Button>
+            <Button variant="primary" size="sm" href={pdfUrl} external icon={<Download className="h-3.5 w-3.5" />} className="!px-4">
+                <span className="hidden sm:inline">Download</span>
+            </Button>
+        </div>
+    )
+
+    /* Graceful fallback if a browser can't render the PDF inline. */
+    const fallbackCard = (
+        <div className="flex h-full w-full flex-col items-center justify-center gap-5 p-8 text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[rgba(var(--accent-teal-rgb),0.35)] bg-[rgba(var(--accent-teal-rgb),0.08)]">
+                <FileText className="h-7 w-7 text-[var(--accent-teal-bright)]" strokeWidth={1.5} />
+            </div>
+            <div>
+                <p className="text-base font-semibold text-zinc-100">{title}</p>
+                <p className="mt-1 text-sm text-zinc-500">Your browser can&rsquo;t preview PDFs inline.</p>
+            </div>
+            <div className="flex gap-3">
+                <Button variant="primary" href={pdfUrl} external icon={<ExternalLink className="h-4 w-4" />}>Open PDF</Button>
+                <Button variant="secondary" href={pdfUrl} external icon={<Download className="h-4 w-4" />}>Download</Button>
+            </div>
         </div>
     )
 
@@ -61,54 +83,53 @@ export default function PdfLightbox({
         <SystemLightbox
             isOpen={isOpen}
             onClose={onClose}
-            title={`SYSTEM_PREVIEW: ${title}`}
-            indexString="[ PDF_DOCUMENT ]"
-            shortcuts={shortcuts}
+            title="Résumé"
+            indexString="[ PDF ]"
+            shortcuts={[{ key: 'ESC', label: 'CLOSE' }]}
             headerActions={headerActions}
-            className="!p-0 !max-w-full overflow-hidden"
+            className="!p-0 !max-w-full"
             showArrows={false}
         >
             {isMobile ? (
-                /* Mobile: inline HTML resume preview (scrollable, fully renders on phones,
-                   no fragile PDF-iframe issue). Bottom-fixed bar offers Download PDF for
-                   the print-ready version. */
+                /* Mobile: print-ready HTML résumé (renders reliably on phones) +
+                   a sticky Download/Open bar. */
                 <div className="flex h-full w-full flex-col">
                     <iframe
                         src="/tailored-resumes/resume-universal-2026.html"
-                        title="Resume preview"
+                        title="Résumé preview"
                         className="flex-1 w-full bg-white"
                     />
-                    {/* Bottom action bar — sticky, safe-area-aware */}
                     <div
-                        className="flex w-full items-center justify-center gap-3 border-t border-white/10 bg-black/85 backdrop-blur-md px-4 pt-3"
+                        className="flex w-full items-center justify-center gap-3 border-t border-white/10 bg-black/85 px-4 pt-3 backdrop-blur-md"
                         style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
                     >
-                        <a
-                            href={pdfUrl}
-                            download
-                            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-[var(--accent-teal)] active:scale-[0.98]"
-                        >
-                            <Download className="h-4 w-4" /> Download PDF
-                        </a>
-                        <a
-                            href={pdfUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Open PDF in new tab"
-                            className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/[0.06] p-3 text-white transition-colors hover:border-white/70 hover:bg-white/[0.14] active:scale-[0.98]"
-                        >
-                            <ExternalLink className="h-4 w-4" />
-                        </a>
+                        <Button variant="primary" href={pdfUrl} external icon={<Download className="h-4 w-4" />} className="flex-1">
+                            Download PDF
+                        </Button>
+                        <Button variant="secondary" href={pdfUrl} external aria-label="Open PDF in new tab" icon={<ExternalLink className="h-4 w-4" />} className="!px-4" />
                     </div>
                 </div>
             ) : (
-                /* Desktop: inline iframe preview with explicit height so it never collapses */
-                <div className="flex h-[82vh] w-full items-center justify-center">
-                    <iframe
-                        src={`${pdfUrl}#toolbar=0&navpanes=0`}
-                        className="h-full w-full bg-slate-800"
-                        title="PDF Viewer"
-                    />
+                /* Desktop: clean framed document on the cinematic bg, centered,
+                   with a loading spinner until the PDF paints. */
+                <div className="flex h-[84vh] w-full items-center justify-center px-4 py-6 md:px-10">
+                    <div className="relative h-full w-full max-w-3xl overflow-hidden rounded-xl border border-white/10 bg-[var(--bg-cinematic)] shadow-[0_24px_80px_-24px_rgba(0,0,0,0.8)]">
+                        {/* Loading shimmer until the doc paints */}
+                        {!loaded && (
+                            <div className="absolute inset-0 z-[1] flex items-center justify-center bg-[var(--bg-cinematic)]">
+                                <Loader2 className="h-7 w-7 animate-spin text-[var(--accent-teal)]" />
+                            </div>
+                        )}
+                        <object
+                            data={`${pdfUrl}#view=FitH&toolbar=0&navpanes=0`}
+                            type="application/pdf"
+                            className="h-full w-full"
+                            onLoad={() => setLoaded(true)}
+                            aria-label={`${title} — PDF preview`}
+                        >
+                            {fallbackCard}
+                        </object>
+                    </div>
                 </div>
             )}
         </SystemLightbox>

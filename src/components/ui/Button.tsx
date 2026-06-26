@@ -28,7 +28,7 @@ interface BaseProps {
     size?: Size
     icon?: ReactNode
     className?: string
-    children: ReactNode
+    children?: ReactNode
     'aria-label'?: string
 }
 
