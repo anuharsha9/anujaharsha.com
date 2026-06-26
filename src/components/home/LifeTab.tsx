@@ -6,7 +6,9 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
+import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
 import TalkSection from '@/components/home/TalkSection'
+import { useTransition } from '@/components/transitions/TransitionContext'
 import { ALL_MILESTONES, FAMILY_PHOTO, MAKES_GALLERIES, SAME_TIME_PAIRS, type MakeGallery } from '@/data/life-content'
 import { POEM_STANZAS } from '@/data/poem'
 import { articleLinks } from '@/data/home'
@@ -41,6 +43,7 @@ function RoomHeader({ label, title, subtitle }: { label: string; title: string; 
 
 /* ─── Hero strip ─── */
 function LifeHero() {
+    const { navigateTo } = useTransition()
     return (
         <section className="relative mx-auto max-w-[1200px] px-4 pt-12 pb-12 md:px-8 md:pt-20 md:pb-16 lg:px-12">
             <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[rgba(47,198,213,0.06)] blur-[120px]" />
@@ -55,7 +58,22 @@ function LifeHero() {
                         Life · the other half
                     </p>
                     <h1 className="text-4xl font-extrabold leading-[1.05] tracking-[-0.02em] text-white md:text-5xl lg:text-6xl">
-                        Outside the terminal.
+                        Outside the{' '}
+                        {/* Easter-egg door — same hidden brain-experience hook as the Work hero's "Anuja." */}
+                        <button
+                            onClick={() => navigateTo('/quiz')}
+                            aria-label="Hidden — explore my mind"
+                            title="There is more here…"
+                            className="group relative inline-block pointer-events-auto cursor-pointer rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                        >
+                            <span className="transition-[filter] duration-500 group-hover:brightness-110">terminal.</span>
+                            <span
+                                aria-hidden="true"
+                                className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 opacity-0 scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-focus-visible:opacity-100 group-focus-visible:scale-100"
+                            >
+                                <InterlockedGearGlyph size={28} />
+                            </span>
+                        </button>
                     </h1>
                     <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-300 md:text-lg">
                         Parent. Baker. Painter. Poet. Reader. Migrant. The capacity behind the work — and where the work begins.
