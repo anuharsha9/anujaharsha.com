@@ -104,51 +104,54 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
                                 {tile.title}
                             </p>
                             <div className="flex flex-col gap-2 pointer-events-auto">
-                                <TransitionLink href={tile.link} className="flex items-center justify-center gap-2 py-2 px-4 rounded bg-white/10 text-white text-xs font-mono tracking-widest uppercase hover:bg-white/20 transition-colors">
+                                {/* Primary — filled white, obviously a button */}
+                                <TransitionLink href={tile.link} className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-full bg-white text-black text-xs font-semibold tracking-wide hover:bg-[var(--accent-teal)] transition-colors">
                                     <FileText className="w-3.5 h-3.5" /> Read Case Study
                                 </TransitionLink>
-                                <button onClick={onWatch} className="flex items-center justify-center gap-2 py-2 px-4 rounded bg-white/5 text-white/70 text-xs font-mono tracking-widest uppercase hover:bg-white/10 hover:text-white transition-colors">
+                                {/* Secondary — outlined, still obviously a button */}
+                                <button onClick={onWatch} className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-full border border-white/35 bg-white/[0.06] text-white text-xs font-semibold tracking-wide hover:border-white/70 hover:bg-white/[0.14] transition-colors">
                                     <MonitorPlay className="w-3.5 h-3.5" /> Watch Presentation
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    {/* DESKTOP: Hover overlay — clean centered stack (matches Build Lab tiles) */}
+                    {/* DESKTOP: Hover overlay — title + TWO proper buttons (chair test:
+                        each must obviously read as clickable). Filled primary + outlined
+                        secondary, same pattern as the hero CTAs. */}
                     <div
                         className="absolute inset-0 z-20 hidden md:flex items-center justify-center transition-all duration-500"
                         style={{
                             opacity: isHovered ? 1 : 0,
-                            backgroundColor: isHovered ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0)',
+                            backgroundColor: isHovered ? 'rgba(0,0,0,0.62)' : 'rgba(0,0,0,0)',
                         }}
                     >
-                        {/* Whole-tile primary link → Read Case Study */}
-                        <TransitionLink
-                            href={tile.link}
-                            className="absolute inset-0 z-0"
-                            aria-label={`Read case study: ${tile.title}`}
-                        />
-
-                        <div className="relative z-10 flex flex-col items-center gap-3 max-w-xs text-center px-4 pointer-events-none">
-                            <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                                <FileText className="w-5 h-5 text-white" />
+                        <div className="flex w-full max-w-[18rem] flex-col items-center gap-5 px-6 text-center pointer-events-auto">
+                            <div>
+                                <p className="text-zinc-100 text-lg font-semibold leading-snug">
+                                    {tile.title}
+                                </p>
+                                <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                                    {tile.domain}
+                                </p>
                             </div>
-                            <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
-                                Read Case Study
-                            </span>
-                            <p className="text-zinc-100 text-base font-semibold leading-snug mt-1">
-                                {tile.title}
-                            </p>
-                            <p className="text-zinc-500 text-xs font-mono">
-                                {tile.domain}
-                            </p>
-                            {/* Secondary action — subtle, sits above the primary link */}
-                            <button
-                                onClick={onWatch}
-                                className="pointer-events-auto mt-2 inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-white transition-colors"
-                            >
-                                <MonitorPlay className="w-3.5 h-3.5" /> Watch Presentation
-                            </button>
+
+                            <div className="flex w-full flex-col gap-2.5">
+                                {/* Primary — Read Case Study (filled white) */}
+                                <TransitionLink
+                                    href={tile.link}
+                                    className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-[var(--accent-teal)] hover:shadow-[0_0_30px_rgba(47,198,213,0.35)]"
+                                >
+                                    <FileText className="w-4 h-4" /> Read Case Study
+                                </TransitionLink>
+                                {/* Secondary — Watch Presentation (outlined, still obviously a button) */}
+                                <button
+                                    onClick={onWatch}
+                                    className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/35 bg-white/[0.06] px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/[0.14]"
+                                >
+                                    <MonitorPlay className="w-4 h-4" /> Watch Presentation
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -193,12 +196,14 @@ export default function CSGBlock() {
                     </span>
                 </motion.div>
 
-                {/* Section header */}
+                {/* Section header — animate on mount (NOT whileInView). This block sits
+                    inside a BlurZone pulled up by -50vh, so a viewport-gated reveal never
+                    hit its trigger and the heading stayed stuck at opacity 0 (invisible).
+                    Mount-based animation guarantees the heading is always present. */}
                 <motion.div
                     className="mb-12 md:mb-16"
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
