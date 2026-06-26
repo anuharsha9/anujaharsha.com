@@ -56,7 +56,7 @@ const FOCUS = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:rin
 
 const VARIANTS: Record<Variant, string> = {
     primary:
-        `btn-animated group relative inline-flex items-center justify-center gap-2 rounded-full ` +
+        `btn-animated btn-sweep-teal group relative inline-flex items-center justify-center gap-2 rounded-full ` +
         `border border-[rgba(var(--accent-teal-rgb),0.35)] bg-black/40 backdrop-blur-md ` +
         `font-semibold text-[var(--accent-teal-bright)] ` +
         `shadow-[0_0_30px_-8px_rgba(var(--accent-teal-glow-rgb),0.45)] ` +

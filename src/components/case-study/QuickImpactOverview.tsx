@@ -19,6 +19,12 @@ import type { CaseStudyData, HighlightMetric } from '@/types/caseStudy'
  * normalizes the visual rhythm so all three case studies read as the
  * same kind of block.
  */
+/* Unified band-label treatment — every section eyebrow uses the same mono
+   spec so the block reads as one structured sheet. Accent for the active
+   bands, muted for "out of scope". */
+const LABEL = 'font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--cs-accent)]'
+const LABEL_MUTED = 'font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500'
+
 export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
     const overview = data.quickOverview
     if (!overview) return null
@@ -49,64 +55,55 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
                     At a glance · 10-second read
                 </p>
 
-                {/* 1. Problem statement — context first.
-                    text-xl on mobile / text-2xl md / text-3xl lg + max-w-3xl keeps the
-                    longest content (ML: 8 lines) feeling like a paragraph, not a wall.
-                    The fragmented copy (IQ) still reads punchy at this size. */}
-                <h2 className="max-w-3xl text-xl font-extrabold leading-snug tracking-tight text-white md:text-2xl lg:text-3xl">
+                {/* 1. Problem statement — context first, the hero line. */}
+                <h2 className="max-w-4xl text-xl font-extrabold leading-snug tracking-tight text-white md:text-2xl lg:text-3xl">
                     {overview.whatTheSystemWas}
                 </h2>
 
-                {/* How I led — the Staff signal. This `leadershipSummary` was
-                    authored in the data but never rendered; surfacing it here (right
-                    after the problem, before the role detail) makes the influence
-                    story read as headline, not subtext. Left accent border gives it
-                    weight without a whole new section. */}
+                {/* The rest is organized into labelled BANDS separated by hairline
+                    dividers, so the three studies (very different content shapes) all
+                    read as the same structured spec sheet instead of floating blocks. */}
+
+                {/* BAND — How I led (the Staff signal; previously-hidden leadershipSummary) */}
                 {overview.leadershipSummary && (
-                    <div className="mt-8 max-w-3xl border-l-2 border-[var(--cs-accent)]/40 pl-5">
-                        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--cs-accent)]">
-                            How I led
-                        </p>
-                        <p className="text-[15px] leading-relaxed text-zinc-200 md:text-base">
+                    <div className="mt-10 border-t border-white/[0.06] pt-8">
+                        <p className={LABEL}>How I led</p>
+                        <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-zinc-200 md:text-base">
                             {overview.leadershipSummary}
                         </p>
                     </div>
                 )}
 
-                {/* 2 + 3. My role (left) + Metrics rail (right). Fixed grid so the
-                    column widths don't shift based on content length. */}
-                <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-12">
-                    {/* My role — fixed col span, small body text, max-w to prevent
-                        skinny columns when paragraph is long. */}
-                    <div className="md:col-span-6 lg:col-span-7">
-                        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500">
-                            My role
-                        </p>
-                        <p className="max-w-[44ch] text-[15px] leading-relaxed text-zinc-200 md:text-base">
+                {/* BAND — My role (left) + By the numbers (right, bordered grid) */}
+                <div className="mt-10 grid grid-cols-1 gap-y-10 border-t border-white/[0.06] pt-8 md:grid-cols-12 md:gap-x-12">
+                    <div className="md:col-span-5">
+                        <p className={LABEL}>My role</p>
+                        <p className="mt-3 max-w-[44ch] text-[15px] leading-relaxed text-zinc-200 md:text-base">
                             {overview.myRole}
                         </p>
                     </div>
 
-                    {/* Metrics — each value goes through a smart renderer so a
-                        long phrase doesn't masquerade as a big stat. */}
                     {metrics.length > 0 && (
-                        <dl className="grid grid-cols-2 gap-x-6 gap-y-5 md:col-span-6 md:grid-cols-2 md:gap-y-6 lg:col-span-5">
-                            {metrics.map(m => (
-                                <MetricCell key={m.label} metric={m} />
-                            ))}
-                        </dl>
+                        <div className="md:col-span-7">
+                            <p className={`${LABEL} mb-4`}>By the numbers</p>
+                            {/* Bordered 2×2 data grid — equal cells + hairline dividers
+                                keep the metrics aligned no matter the value shape. */}
+                            <dl className="grid grid-cols-2 overflow-hidden rounded-xl border border-white/[0.07]">
+                                {metrics.map((metric, i) => (
+                                    <MetricCell key={metric.label} metric={metric} index={i} />
+                                ))}
+                            </dl>
+                        </div>
                     )}
                 </div>
 
-                {/* 4. Trade-offs — owned vs. excluded */}
+                {/* BAND — Trade-offs: owned vs. excluded */}
                 {(ownedShown.length > 0 || excluded.length > 0) && (
-                    <div className="mt-12 grid grid-cols-1 gap-6 border-t border-white/[0.06] pt-8 md:grid-cols-2 md:gap-10">
+                    <div className="mt-10 grid grid-cols-1 gap-8 border-t border-white/[0.06] pt-8 md:grid-cols-2 md:gap-10">
                         {ownedShown.length > 0 && (
                             <div>
-                                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--cs-accent)]/80">
-                                    I owned
-                                </p>
-                                <ul className="flex flex-wrap gap-2">
+                                <p className={LABEL}>I owned</p>
+                                <ul className="mt-3 flex flex-wrap gap-2">
                                     {ownedShown.map(item => (
                                         <li
                                             key={item}
@@ -125,10 +122,8 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
                         )}
                         {excluded.length > 0 && (
                             <div>
-                                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500">
-                                    Out of scope
-                                </p>
-                                <ul className="flex flex-wrap gap-2">
+                                <p className={LABEL_MUTED}>Out of scope</p>
+                                <ul className="mt-3 flex flex-wrap gap-2">
                                     {excluded.map(item => (
                                         <li
                                             key={item}
@@ -158,20 +153,23 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
  * get the headline treatment; everything else falls back to readable body text
  * still tinted in the case-study accent so it visually belongs to the stat rail.
  */
-function MetricCell({ metric }: { metric: HighlightMetric }) {
+function MetricCell({ metric, index }: { metric: HighlightMetric; index: number }) {
     const value = metric.value?.trim() ?? ''
     const isCompactStat = value.length <= 14 && !/[a-z]{4,}/.test(value)
+    /* 2-col grid: left cells (even index) get a right divider; bottom row
+       (index ≥ 2) gets a top divider — yields clean internal hairlines. */
+    const border = `${index % 2 === 0 ? 'border-r ' : ''}${index >= 2 ? 'border-t ' : ''}border-white/[0.06]`
 
     return (
-        <div>
+        <div className={`min-h-[88px] p-4 md:p-5 ${border}`}>
             <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">
                 {metric.label}
             </dt>
             <dd
                 className={
                     isCompactStat
-                        ? 'mt-1 font-mono text-xl font-bold text-[var(--cs-accent)] md:text-3xl'
-                        : 'mt-1.5 text-sm leading-snug text-[var(--cs-accent)]/90 md:text-base'
+                        ? 'mt-1.5 font-mono text-2xl font-bold text-[var(--cs-accent)] md:text-3xl'
+                        : 'mt-1.5 text-sm font-semibold leading-snug text-[var(--cs-accent)]/90 md:text-base'
                 }
             >
                 {value}

@@ -829,6 +829,16 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
   clip-path: inset(0 0 0 0);
 }
 
+/* Teal-tinted sweep for the primary brand button (overrides the default white
+   fill above). Higher specificity (.btn-animated.btn-sweep-teal) so it wins
+   regardless of source order. Apply alongside .btn-animated. */
+.btn-animated.btn-sweep-teal::before {
+  background: linear-gradient(90deg,
+      rgba(var(--accent-teal-glow-rgb), 0.12) 0%,
+      rgba(var(--accent-teal-glow-rgb), 0.42) 50%,
+      rgba(var(--accent-teal-glow-rgb), 0.12) 100%);
+}
+
 /* Optional: Add a subtle scale effect on hover for extra polish */
 .btn-animated:hover {
   transform: scale(1.02);
