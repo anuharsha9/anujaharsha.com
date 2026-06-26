@@ -53,8 +53,105 @@ const TILES = [
     },
 ]
 
-/* ─── single tile ─── */
+/* ─── FLAGSHIP — horizontal feature card. Always-visible content fills the
+       width instead of being trapped in a centered hover column. ─── */
+function FlagshipBentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
+    const WireframeComponent = tile.Wireframe
+    const rgb = `var(${tile.accentVar})`
+    const gridColor = `hsl(${tile.wireframeHue}, 50%, 25%)`
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.96, filter: 'blur(16px)' }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1.4, delay, ease }}
+            className="group"
+        >
+            <div
+                className="relative w-full overflow-hidden rounded-2xl transition-all duration-500 hover:[--cs-border-opacity:0.3]"
+                style={{
+                    border: `1px solid rgba(${rgb}, 0.18)`,
+                    background: `linear-gradient(135deg, rgba(${rgb}, 0.08), rgba(${rgb}, 0.03)), var(--bg-cinematic)`,
+                    boxShadow: `0 0 0px transparent, inset 0 0 0 1px rgba(${rgb}, 0.08)`,
+                }}
+            >
+                {/* Dot pattern overlay */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: `radial-gradient(circle, ${gridColor} 0.8px, transparent 0.8px)`,
+                        backgroundSize: '24px 24px',
+                        opacity: 0.10,
+                    }}
+                />
+
+                {/* Side-by-side layout — wireframe LEFT, content RIGHT */}
+                <div className="relative grid grid-cols-1 md:grid-cols-12 md:items-stretch md:min-h-[400px]">
+                    {/* Wireframe (left 7/12 on desktop) — always crisp, no hover blur */}
+                    <div className="relative md:col-span-7 md:order-1 aspect-[16/10] md:aspect-auto overflow-hidden">
+                        <div className="absolute inset-0 pointer-events-none">
+                            <WireframeComponent />
+                        </div>
+                    </div>
+
+                    {/* Content (right 5/12) — always visible, uses the space */}
+                    <div className="relative md:col-span-5 md:order-2 flex flex-col justify-center p-6 md:p-8 lg:p-10 gap-5 md:gap-6 border-t border-white/[0.04] md:border-t-0 md:border-l">
+                        <div>
+                            <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
+                                {tile.role}
+                            </p>
+                            <h3 className="mt-3 text-xl md:text-2xl lg:text-[26px] font-bold text-zinc-100 leading-tight tracking-tight">
+                                {tile.title}
+                            </h3>
+                            <p className="mt-2 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                                {tile.domain}
+                            </p>
+                        </div>
+
+                        {/* Outcome — inside the card now, no longer a footnote */}
+                        <div className="flex items-start gap-3">
+                            <span
+                                className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[var(--accent-teal)] shadow-[0_0_10px_rgba(var(--accent-teal-glow-rgb),0.6)]"
+                                aria-hidden="true"
+                            />
+                            <div>
+                                <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/70">
+                                    Outcome
+                                </p>
+                                <p className="mt-1 text-sm md:text-[15px] font-medium leading-snug text-zinc-200">
+                                    {tile.proof}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* CTAs — horizontal, fill the column */}
+                        <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
+                            <TransitionLink
+                                href={tile.link}
+                                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:bg-[var(--accent-teal)] hover:text-white hover:shadow-[0_0_30px_rgba(var(--accent-teal-glow-rgb),0.35)] active:scale-[0.98]"
+                            >
+                                <FileText className="w-4 h-4" /> Read Case Study
+                            </TransitionLink>
+                            <button
+                                onClick={onWatch}
+                                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-white/60 hover:bg-white/[0.10] active:scale-[0.98]"
+                            >
+                                <MonitorPlay className="w-4 h-4" /> Watch
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    )
+}
+
+/* ─── single tile (non-flagship — ML, IQ on row 2) ─── */
 function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: number; onWatch: () => void }) {
+    if (tile.flagship) {
+        return <FlagshipBentoTile tile={tile} delay={delay} onWatch={onWatch} />
+    }
     const [isHovered, setIsHovered] = useState(false)
     const WireframeComponent = tile.Wireframe
     const rgb = `var(${tile.accentVar})`
