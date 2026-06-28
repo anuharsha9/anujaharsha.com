@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ExternalLink, Download, ArrowUpRight } from 'lucide-react'
+import { ExternalLink, Download, ArrowUpRight, Play } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import LightboxCard from '@/components/ui/LightboxCard'
@@ -264,6 +264,36 @@ export default function AppCaseStudyLightbox({
                                 <Button variant="ghost" size="sm" href={embedUrl} external className="text-zinc-500 hover:text-zinc-300">
                                     Open in a new tab
                                     <ArrowUpRight className="h-3.5 w-3.5" />
+                                </Button>
+                            </div>
+                        </div>
+                    ) : study.playRoute ? (
+                        <div className="mt-12">
+                            <p
+                                className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                                style={{ color: study.accent, opacity: 0.7 }}
+                            >
+                                See it run
+                            </p>
+                            <p className="mt-2 text-sm text-zinc-500">
+                                It&apos;s playable — jump straight in.
+                            </p>
+
+                            {study.coverImage && (
+                                <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-black">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={study.coverImage}
+                                        alt={`${study.title} — game preview`}
+                                        loading="lazy"
+                                        className="block w-full"
+                                    />
+                                </div>
+                            )}
+
+                            <div className="mt-5">
+                                <Button variant="primary" href={study.playRoute} icon={<Play className="h-4 w-4" />} className="w-full sm:w-auto">
+                                    Play {study.title}
                                 </Button>
                             </div>
                         </div>

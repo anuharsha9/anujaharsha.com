@@ -1,5 +1,5 @@
 /**
- * Short-snapshot case studies for the 3 AI-native apps shown in Build Lab.
+ * Short-snapshot case studies for the AI-native apps shown in Build Lab.
  *
  * Content is grounded in the actual app repos (README.md / PRD.md / package.json)
  * — no invented features. WealthEngine uses the public DEMO_MODE framing
@@ -7,9 +7,9 @@
  * numbers/goals stay private.
  */
 
-import { Compass, LineChart, ChefHat, ShieldCheck, type LucideIcon } from 'lucide-react'
+import { Compass, LineChart, ChefHat, ShieldCheck, NotebookPen, Gamepad2, type LucideIcon } from 'lucide-react'
 
-export type AppCaseStudyId = 'career-builder' | 'wealth-engine' | 'sous' | 'warden'
+export type AppCaseStudyId = 'career-builder' | 'wealth-engine' | 'sous' | 'warden' | 'inkwell' | 'wordu'
 
 export interface AppCaseStudy {
     id: AppCaseStudyId
@@ -34,6 +34,25 @@ export interface AppCaseStudy {
     productionUrl?: string
     devFallbackUrl?: string
     videoSrc?: string
+
+    /* Internal "play" route (WordU) — when set, the "See it run" section shows a
+     * cover still + a "Play <title>" button that opens the playable build at this
+     * route, instead of a video / embed / walkthrough. */
+    playRoute?: string
+    coverImage?: string
+
+    /* Workflow-led narrated walkthrough — the slide deck shown as the PRIMARY
+     * "See it run" surface when present. Each slide pairs ONE visual with ONE
+     * voice snippet (recorded separately, file named to match `id`). audioSrc /
+     * image may be absent during authoring; the player degrades to captions +
+     * manual advance until the assets land. */
+    walkthrough?: {
+        id: string          // 'problem' | 'workflow' | 'feature-a' | 'feature-b' | 'outcome'
+        label: string       // 'The problem'
+        caption: string     // narration text — shown as caption (a11y + when muted)
+        audioSrc?: string   // '/audio/walkthroughs/pathwise-01-problem.m4a'
+        image?: string      // '/images/walkthroughs/pathwise-01.png'
+    }[]
 
     /* Native mobile app (can't run in a browser). When true, the "See it run"
      * media renders inside an iPhone PhoneFrame — a portrait screen recording
@@ -209,5 +228,73 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         },
         status: 'demo',
         statusLabel: 'Live · Datadog Triple-A interview demo',
+    },
+
+    'inkwell': {
+        id: 'inkwell',
+        title: 'Inkwell',
+        tagline: 'A local-first writing studio — archive, publishing queue, and a craft coach in your own voice.',
+        icon: NotebookPen,
+        accent: 'var(--semantic-blue)',
+        accentRgbVar: '--semantic-blue-rgb',
+        why: 'I write in bursts — long fallow stretches, then five essays in a sitting. Every publishing tool assumes a steady cadence and adds in-the-moment pressure that kills the burst. I wanted the opposite: somewhere to write ahead into an archive, then publish from inventory on a whim.',
+        whatItSolves: 'Inkwell decouples writing from publishing. You draft into a local archive during a burst, track each piece from idea → drafting → ready → published, answer "what can I post right now?" in one glance, and copy a finished article out to Substack, LinkedIn, or Medium in a single action. A 50-article roadmap ships seeded on first run.',
+        highlights: [
+            {
+                title: 'Decoupled write / publish',
+                description: 'Write ahead into inventory during high-energy bursts; publish from the queue with zero pressure. Status moves idea → drafting → ready → published, so the dashboard answers "what can I ship today?" at a glance.',
+            },
+            {
+                title: 'Local-first, no backend, no accounts',
+                description: 'Everything lives in your browser via IndexedDB — articles, images, settings. Debounced autosave, exactly one write path, edits survive a full reload. Your drafts never leave your machine.',
+            },
+            {
+                title: 'One-action copy-out',
+                description: 'The workhorse: copy a finished piece — formatted, with its images downscaled-on-store — ready to paste into any platform. Plus JSON + Markdown-zip export/import for real, portable backups.',
+            },
+            {
+                title: 'Architected to become a coach',
+                description: 'Clean seams throughout — the AI provider is a one-file adapter — for the committed next phase: a writing partner in your voice that rewrites, reviews, and teaches the craft principle behind every fix.',
+            },
+        ],
+        stack: ['React 18', 'Vite', 'TypeScript', 'Zustand', 'IndexedDB (idb)', 'Claude SDK', 'react-markdown', 'Local-first'],
+        demoUrlEnvVar: 'NEXT_PUBLIC_INKWELL_URL',
+        devFallbackUrl: 'http://localhost:3120',
+        status: 'in-development',
+        statusLabel: 'Local-first · public demo soon',
+    },
+
+    'wordu': {
+        id: 'wordu',
+        title: 'WordU',
+        tagline: 'A fast word-chain game — shipped solo with agentic AI, dictionary and all.',
+        icon: Gamepad2,
+        accent: 'var(--semantic-orange)',
+        accentRgbVar: '--semantic-orange-rgb',
+        why: 'I wanted to prove a designer could ship a complete, polished interactive game end-to-end with agentic AI — not a toy, but something with real game feel: timing, scoring, an opponent, and a payoff loop. A word game was the perfect crucible.',
+        whatItSolves: 'WordU is a real-time word-chain game. Build the longest, highest-scoring chains against the clock or a computer opponent — every word validated against a real dictionary, with multipliers, hints, and tap-to-define on any word you play.',
+        highlights: [
+            {
+                title: 'Two modes, real game feel',
+                description: 'Rapid Fire — a 60-second sprint — and a head-to-head Versus battle against a computer opponent. Scoring with multipliers, hints, and genuine time / move pressure.',
+            },
+            {
+                title: 'Real dictionary, instantly',
+                description: 'Every word is validated against a bundled word list (lazy-loaded so play stays snappy). Tap any played word for its real definition + phonetics, pulled live from a dictionary API.',
+            },
+            {
+                title: 'Shipped solo with agentic AI',
+                description: 'Game loop, state machine, opponent logic, and a custom design system — all designed and coded end-to-end with agentic AI. Proof that one designer can ship a complete interactive product.',
+            },
+            {
+                title: 'Tactile, distraction-free UI',
+                description: 'A focused play surface with smooth transitions and a custom theme — no emoji, no clutter. Just the chain and the clock.',
+            },
+        ],
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Dictionary API', 'Agentic AI build'],
+        playRoute: '/work/wordu',
+        coverImage: '/images/wordu-cover.png',
+        status: 'live',
+        statusLabel: 'Live · playable now',
     },
 }

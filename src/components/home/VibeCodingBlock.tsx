@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { m, useScroll, useTransform } from 'framer-motion'
-import { Play, Sparkles, Gamepad2, Compass, LineChart, ChefHat, ShieldCheck } from 'lucide-react'
+import { Sparkles, Gamepad2, Compass, LineChart, ChefHat, ShieldCheck, NotebookPen } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 import AppCaseStudyLightbox from './AppCaseStudyLightbox'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
@@ -91,7 +91,6 @@ function WordULogoCover() {
         </div>
     )
 }
-import WordGameLightbox from '@/components/work/wordu/WordGameLightbox'
 
 /* ─── Animated browser wireframe (Portfolio tile cover) ─── */
 function BrowserWireframeCover() {
@@ -587,6 +586,76 @@ function WardenSecurityCover() {
     )
 }
 
+/* ─── Animated Inkwell cover — a page being written (Moleskine motif) ─── */
+function InkwellCover() {
+    const accentColor = 'var(--semantic-blue)'
+    const lines = [
+        { y: 58, w: 150 },
+        { y: 76, w: 168 },
+        { y: 94, w: 128 },
+        { y: 112, w: 162 },
+        { y: 130, w: 88 },
+    ]
+    return (
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+            {/* Subtle ink-blue radial bg */}
+            <div className="absolute inset-0" style={{
+                background: 'radial-gradient(circle at 50% 45%, hsla(215,70%,55%,0.07), transparent 70%)',
+            }} />
+
+            <svg viewBox="0 0 280 180" className="w-[75%] h-auto" fill="none">
+                {/* Page card */}
+                <m.rect
+                    x="50" y="22" width="180" height="136" rx="10"
+                    stroke={accentColor}
+                    strokeWidth="0.8"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.35 }}
+                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                />
+
+                {/* Title line — bolder */}
+                <m.rect
+                    x="66" y="38" height="4" rx="2"
+                    fill={accentColor}
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: 72, opacity: 0.55 }}
+                    transition={{ duration: 0.6, delay: 0.9 }}
+                />
+
+                {/* Body lines — drawn in like writing */}
+                {lines.map((ln, i) => (
+                    <m.rect
+                        key={`line-${i}`}
+                        x="66" y={ln.y} height="2.4" rx="1.2"
+                        fill={accentColor}
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: ln.w, opacity: 0.22 }}
+                        transition={{ duration: 0.7, delay: 1.3 + i * 0.22, ease: 'easeOut' }}
+                    />
+                ))}
+
+                {/* Blinking write cursor at the end of the last line */}
+                <m.rect
+                    x="158" y="126" width="1.6" height="10" rx="0.8"
+                    fill={accentColor}
+                    animate={{ opacity: [0, 0.7, 0] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: 2.6 }}
+                />
+
+                {/* The signature ink dot — Moleskine accent motif */}
+                <m.circle
+                    cx="214" cy="142" r="5"
+                    fill={accentColor}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 0.85, 0.45] }}
+                    transition={{ duration: 1.1, delay: 2.2, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1.2 }}
+                />
+            </svg>
+        </div>
+    )
+}
+
 const VIBE_TILES = [
     {
         id: 'portfolio',
@@ -654,12 +723,22 @@ const VIBE_TILES = [
         dotHue: 40,
         action: 'warden' as const,
     },
+    {
+        id: 'inkwell',
+        title: 'Inkwell',
+        subtitle: 'Local-first writing studio · archive + AI coach',
+        icon: NotebookPen,
+        cover: 'inkwell' as const,
+        accent: 'var(--semantic-blue)',
+        accentRgbVar: '--semantic-blue-rgb',
+        dotHue: 215,
+        action: 'inkwell' as const,
+    },
 ]
 
 export default function VibeCodingBlock() {
     const ref = useRef<HTMLDivElement>(null)
     const [portfolioOpen, setPortfolioOpen] = useState(false)
-    const [worduOpen, setWorduOpen] = useState(false)
     const [appCaseStudyId, setAppCaseStudyId] = useState<AppCaseStudyId | null>(null)
 
     const { scrollYProgress } = useScroll({
@@ -673,19 +752,22 @@ export default function VibeCodingBlock() {
 
 
 
-    /* The 3 AI-native app tiles open a short-snapshot case study lightbox
-     * (built from the actual app repos). The 'Open Live Demo' button INSIDE
-     * the lightbox is what links out to Vercel — set via env vars on the
-     * AppCaseStudy data. Sous shows 'Demo coming soon' until TestFlight.
+    /* Every app tile opens a short-snapshot case study lightbox (built from the
+     * actual app repos). The CTA INSIDE the lightbox is what links out / plays:
+     * 'Open Live Demo' → Vercel (env-var URL), an embedded iframe (Warden), or
+     * 'Play WordU' → the playable build. WordU is now a full case-study peer.
+     * Only the 'This Portfolio' tile is special (it opens its own lightbox).
      *
-     * 'isComingSoon' is preserved for the tile UI to show its 'In Development'
-     * badge: a tile is in dev iff the case study data marks the app's status
-     * as 'in-development' (Sous). Portfolio + WordU are always live. */
+     * 'isComingSoon' drives the tile's 'In Development' badge: a tile is in dev
+     * iff the case study data marks the app's status as 'in-development' (Sous,
+     * Inkwell). */
     const APP_CASE_STUDY_BY_ACTION: Record<string, AppCaseStudyId> = {
         'career-builder': 'career-builder',
         'wealth-engine': 'wealth-engine',
         'sous': 'sous',
         'warden': 'warden',
+        'inkwell': 'inkwell',
+        'wordu': 'wordu',
     }
     const isExternal = (action: string) => action in APP_CASE_STUDY_BY_ACTION
     const isComingSoon = (action: string) =>
@@ -694,7 +776,6 @@ export default function VibeCodingBlock() {
 
     const handleTileClick = (action: string) => {
         if (action === 'portfolio') return setPortfolioOpen(true)
-        if (action === 'wordu') return setWorduOpen(true)
         if (isExternal(action)) {
             setAppCaseStudyId(APP_CASE_STUDY_BY_ACTION[action])
         }
@@ -790,6 +871,7 @@ export default function VibeCodingBlock() {
                                         {tile.cover === 'wealth' && <WealthEngineCover />}
                                         {tile.cover === 'sous' && <SousCookingCover />}
                                         {tile.cover === 'warden' && <WardenSecurityCover />}
+                                        {tile.cover === 'inkwell' && <InkwellCover />}
                                     </div>
 
                                     {/* 'In Development' badge — only for external tiles without a live URL yet */}
@@ -811,14 +893,10 @@ export default function VibeCodingBlock() {
                                     <div className="absolute inset-0 z-20 hidden md:flex items-center justify-center bg-black/0 group-hover:bg-black/55 transition-all duration-500 opacity-0 group-hover:opacity-100">
                                         <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
                                             <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                                                {tile.action === 'wordu' ? (
-                                                    <Play className="w-5 h-5 text-white fill-white ml-0.5" />
-                                                ) : (
-                                                    <Icon className="w-5 h-5 text-white" />
-                                                )}
+                                                <Icon className="w-5 h-5 text-white" />
                                             </div>
                                             <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-400">
-                                                {comingSoon ? 'Coming Soon' : tile.action === 'wordu' ? 'Play Game' : 'Explore'}
+                                                {comingSoon ? 'Coming Soon' : 'Explore'}
                                             </span>
                                             <p className="text-zinc-100 text-base font-semibold leading-snug mt-1">
                                                 {tile.title}
@@ -851,7 +929,6 @@ export default function VibeCodingBlock() {
 
             {/* Lightboxes */}
             <PortfolioLightbox isOpen={portfolioOpen} onClose={() => setPortfolioOpen(false)} />
-            <WordGameLightbox isOpen={worduOpen} onClose={() => setWorduOpen(false)} />
             <AppCaseStudyLightbox
                 appId={appCaseStudyId}
                 isOpen={appCaseStudyId !== null}
