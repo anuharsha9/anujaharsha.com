@@ -233,13 +233,9 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
             },
         ],
         stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind', 'Claude Opus 4.8', 'Vitest', 'Pure functional engine'],
-        embed: {
-            urlEnvVar: 'NEXT_PUBLIC_WARDEN_URL',
-            productionUrl: 'https://warden.anujaharsha.com',
-            devFallbackUrl: 'http://localhost:3102',
-            /* aspect-[4/3] gives the 5-screen console enough vertical room */
-            aspectClass: 'aspect-[4/3]',
-        },
+        demoUrlEnvVar: 'NEXT_PUBLIC_WARDEN_URL',
+        productionUrl: 'https://warden.anujaharsha.com',
+        devFallbackUrl: 'http://localhost:3102',
         status: 'demo',
         statusLabel: 'Live · Datadog Triple-A interview demo',
         walkthrough: [
