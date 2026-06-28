@@ -91,11 +91,11 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         accent: 'var(--semantic-purple)',
         accentRgbVar: '--semantic-purple-rgb',
         why: 'College applications happen blind. Families pick programs by reputation and gut, then find out four years and a hundred-thousand dollars later if it paid off. I wanted to make that decision quantitative — and honest about what AI can and cannot project.',
-        whatItSolves: 'For any program a student is considering, Pathwise estimates the realistic earnings trajectory, time-to-payoff, and career range — cited from public data, not vibes — so the choice rests on a number, not a brochure.',
+        whatItSolves: 'For any program or path you\'re weighing, Pathwise estimates the realistic earnings trajectory, time-to-payoff, and career range — cited from public data, not vibes — so the choice rests on a number, not a brochure.',
         highlights: [
             {
-                title: 'Two personas, one engine',
-                description: 'A high-school senior view and a working-professional view, each with its own application tracker + projection state. Switch instantly; data stays local per profile.',
+                title: 'Built for the working professional',
+                description: 'The demo features the professional persona — weighing a degree, a career switch, or a certification by its real career ROI. Each profile keeps its own tracker + projection state, local to the profile; the engine is built to host more.',
             },
             {
                 title: 'AI = projections only',
@@ -119,7 +119,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         walkthrough: [
             { id: 'problem', label: 'The problem', caption: 'College applications happen blind. Families pick programs by reputation and gut, then find out four years and a hundred-thousand dollars later whether it paid off. I wanted to make that decision quantitative — and honest about what AI can and cannot project.' },
             { id: 'workflow', label: 'How I built it', caption: 'I built Pathwise the way I build everything now: agentic. I describe the decision model to Claude Code in plain language, it scaffolds the Next.js and Supabase layers, and I steer — tighten the schema here, make the planner deterministic there. Designer in the driver\'s seat, AI doing the typing.' },
-            { id: 'feature-a', label: 'Two personas, one engine', caption: 'It runs two minds off one engine — a high-school senior and a working professional — each with its own tracker and projection state. You switch instantly, and the data stays local to that profile. One architecture, two completely different journeys.' },
+            { id: 'feature-a', label: 'Built for the professional', caption: 'The demo features the working-professional persona — someone weighing a degree, a career switch, or a certification, scored by its real career ROI. Each profile keeps its own tracker and projection state, local to the profile. The engine\'s built to host more than one.' },
             { id: 'feature-b', label: 'AI = projections only', caption: 'Here\'s the honest part. AI only does projections, and every number cites its source and is labeled a projection, not a fact. The AI runtime is off by default — a deterministic local planner handles the base case. Build, lint, and test never touch the API.' },
             { id: 'outcome', label: 'The outcome', caption: 'Pathwise turns a hundred-thousand-dollar gut call into a number you can actually defend. It\'s live, it\'s local-first, and it proves the thing I care about most — that AI in a product can be powerful and honest at the same time.' },
         ],

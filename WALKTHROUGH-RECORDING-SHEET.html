@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Build Lab — Walkthrough Voice Recordings</title>
+<style>
+  :root {
+    --bg: #07080a;
+    --bg-card: #101216;
+    --bg-raised: #0c0e11;
+    --border: rgba(255,255,255,0.08);
+    --text: #ECEFF4;
+    --text-dim: #A3AAB6;
+    --text-mute: #6B7280;
+    --teal: #2DD4BF;
+    --teal-soft: rgba(45,212,191,0.10);
+    --teal-line: rgba(45,212,191,0.30);
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.5;
+    padding: max(20px, env(safe-area-inset-top)) 18px 90px; max-width: 780px; margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--teal); opacity: 0.9; }
+  h1 { font-size: clamp(25px, 6.5vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 10px 0 6px; }
+  .sub { color: var(--text-dim); font-size: 15px; max-width: 60ch; }
+
+  .how { margin: 20px 0 8px; padding: 14px 16px; border-radius: 14px; background: var(--teal-soft); border: 1px solid var(--teal-line); font-size: 13.5px; }
+  .how b { color: var(--teal); }
+  .how ul { list-style: none; margin-top: 8px; }
+  .how li { position: relative; padding: 4px 0 4px 18px; color: var(--text); }
+  .how li::before { content: ""; position: absolute; left: 2px; top: 12px; width: 5px; height: 5px; border-radius: 50%; background: var(--teal); }
+  .how code { font-family: var(--mono); font-size: 12px; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 5px; }
+
+  .app-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-mute); margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .app-label b { color: var(--text); }
+
+  .clip { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 15px 16px 17px; margin-bottom: 11px; }
+  .clip-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .file { font-family: var(--mono); font-size: 12.5px; color: var(--teal); background: var(--teal-soft); border: 1px solid var(--teal-line); border-radius: 7px; padding: 3px 9px; }
+  .beat { font-size: 13px; font-weight: 700; color: var(--text); }
+  .len { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mute); margin-left: auto; }
+  .script { font-size: 17px; line-height: 1.62; color: var(--text); }
+
+  .count { font-family: var(--mono); font-size: 11px; color: var(--text-mute); margin-top: 6px; }
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mute); }
+
+  @media print {
+    body { background: #fff; color: #111; }
+    .clip, .how { border-color: #ddd; background: #fff; -webkit-print-color-adjust: exact; }
+    .kicker, .file, .how b, .how li::before { color: #0d9488; }
+    .clip { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="kicker">Build Lab · Voice Walkthroughs</div>
+  <h1>Walkthrough Recording Sheet</h1>
+  <p class="sub">20 short clips — 4 apps × 5 beats, workflow-led, in your voice. Each one is read straight off this page. They auto-play in the case-study walkthrough player; the on-screen caption matches the script word-for-word.</p>
+
+  <div class="how">
+    <b>How to record</b>
+    <ul>
+      <li>One beat = one file. Aim <b>20–30 seconds</b> each; speak at a natural pace, don't rush.</li>
+      <li>Quiet room, consistent mic distance. Leave a ~0.5s breath at the start and end so clips don't clip.</li>
+      <li>Export as <code>.m4a</code> (or <code>.mp3</code>) and name each file <b>exactly</b> as shown.</li>
+      <li>Drop them all into <code>public/audio/walkthroughs/</code> and tell me — I wire each to its slide (auto-advance + progress bar light up automatically).</li>
+      <li>These double as LinkedIn captions — feel free to post the audio + screen as a clip.</li>
+    </ul>
+  </div>
+
+  <!-- PATHWISE -->
+  <div class="app-label"><b>Pathwise</b> — AI-native education-ROI engine</div>
+
+  <div class="clip"><div class="clip-top"><span class="file">pathwise-01-problem.m4a</span><span class="beat">The problem</span><span class="len">~25s</span></div>
+    <p class="script">College applications happen blind. Families pick programs by reputation and gut, then find out four years and a hundred-thousand dollars later whether it paid off. I wanted to make that decision quantitative — and honest about what AI can and cannot project.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">pathwise-02-workflow.m4a</span><span class="beat">How I built it</span><span class="len">~25s</span></div>
+    <p class="script">I built Pathwise the way I build everything now: agentic. I describe the decision model to Claude Code in plain language, it scaffolds the Next.js and Supabase layers, and I steer — tighten the schema here, make the planner deterministic there. Designer in the driver's seat, AI doing the typing.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">pathwise-03-feature-a.m4a</span><span class="beat">Built for the professional</span><span class="len">~25s</span></div>
+    <p class="script">The demo features the working-professional persona — someone weighing a degree, a career switch, or a certification, scored by its real career ROI. Each profile keeps its own tracker and projection state, local to the profile. The engine's built to host more than one.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">pathwise-04-feature-b.m4a</span><span class="beat">AI = projections only</span><span class="len">~25s</span></div>
+    <p class="script">Here's the honest part. AI only does projections, and every number cites its source and is labeled a projection, not a fact. The AI runtime is off by default — a deterministic local planner handles the base case. Build, lint, and test never touch the API.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">pathwise-05-outcome.m4a</span><span class="beat">The outcome</span><span class="len">~20s</span></div>
+    <p class="script">Pathwise turns a hundred-thousand-dollar gut call into a number you can actually defend. It's live, it's local-first, and it proves the thing I care about most — that AI in a product can be powerful and honest at the same time.</p></div>
+
+  <!-- WEALTHENGINE -->
+  <div class="app-label"><b>WealthEngine</b> — local-first life-decision engine</div>
+
+  <div class="clip"><div class="clip-top"><span class="file">wealthengine-01-problem.m4a</span><span class="beat">The problem</span><span class="len">~25s</span></div>
+    <p class="script">Every budgeting app looks backward — last month's coffee spend. None of them help you decide whether moving cities, taking a remote role, or holding off on a house is the right call for the next fifteen years. I wanted a tool that scores the actual life paths I'm weighing.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">wealthengine-02-workflow.m4a</span><span class="beat">How I built it</span><span class="len">~25s</span></div>
+    <p class="script">I vibe-coded the whole thing with agentic AI — but the hard part was the math, not the UI. I'd reason through the savings model out loud with Claude, have it generate the projection engine and the tests, then pressure-test the numbers myself. AI moves fast; I make sure it's right.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">wealthengine-03-feature-a.m4a</span><span class="beat">Three life paths, ranked</span><span class="len">~20s</span></div>
+    <p class="script">It ranks three life paths by savings power, runway, and goal-fit — and back-solves the annual savings each one actually needs. There's a dual-runway gauge too: your runway today versus an all-income-lost stress test. Decisions, not dashboards.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">wealthengine-04-feature-b.m4a</span><span class="beat">Ask bar + God Mode</span><span class="len">~25s</span></div>
+    <p class="script">Two power moves. A Claude-backed Ask bar answers what-ifs grounded in your real numbers. And a Bloomberg-style God Mode — hit Command-K — drops you into the raw positions, scenario matrix, and year-by-year grid. For when you want the math, not the chart.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">wealthengine-05-outcome.m4a</span><span class="beat">The outcome</span><span class="len">~20s</span></div>
+    <p class="script">WealthEngine is my financial chief of staff — local-first, my numbers never leave my machine. It's the clearest proof that a designer can own a genuinely quantitative product end to end, modeling and all.</p></div>
+
+  <!-- WARDEN -->
+  <div class="app-label"><b>Warden</b> — authorization for AI agents</div>
+
+  <div class="clip"><div class="clip-top"><span class="file">warden-01-problem.m4a</span><span class="beat">The problem</span><span class="len">~25s</span></div>
+    <p class="script">Classic role-based access governs humans, and that's solved. The unsolved problem is governing autonomous AI agents — things that reason and act with no human in the loop, and that must never inherit the permissions of whoever deployed them. I built Warden to prove I'd ship that on day one.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">warden-02-workflow.m4a</span><span class="beat">How I built it</span><span class="len">~25s</span></div>
+    <p class="script">I designed Warden as a pure permission engine first — one typed function, evaluate of agent, action, context — and built it test-first with Claude. Every gate unit-tested edge by edge before a single screen existed. Agentic AI let me move at the speed of thinking; the core stays deterministic.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">warden-03-feature-a.m4a</span><span class="beat">Default deny, least privilege</span><span class="len">~20s</span></div>
+    <p class="script">Scope is a grid, and every cell starts denied. Access exists only where you explicitly grant it. Even a superadmin's autonomous agent can't act outside its grant — and the visual default makes that obvious the moment you look at it.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">warden-04-feature-b.m4a</span><span class="beat">The marquee scenario</span><span class="len">~25s</span></div>
+    <p class="script">Here's the moment it clicks: an autonomous cost-sentinel agent tries to modify payments in production. The first gates pass — then a guardrail trips, and the autonomy gate is never even reached. The whole ladder is right there in the audit trail. The trace is the receipt.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">warden-05-outcome.m4a</span><span class="beat">The outcome</span><span class="len">~20s</span></div>
+    <p class="script">I built Warden for a Datadog interview panel, but it stands on its own — and it's embedded live, right here in this portfolio. It's how I show I don't just design for AI systems; I can architect the thing that governs them.</p></div>
+
+  <!-- INKWELL -->
+  <div class="app-label"><b>Inkwell</b> — local-first writing studio</div>
+
+  <div class="clip"><div class="clip-top"><span class="file">inkwell-01-problem.m4a</span><span class="beat">The problem</span><span class="len">~25s</span></div>
+    <p class="script">I write in bursts — long quiet stretches, then five essays in a single sitting. Every publishing tool assumes a steady cadence and adds this in-the-moment pressure that kills the burst. I wanted the opposite: somewhere to write ahead, then publish on a whim.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">inkwell-02-workflow.m4a</span><span class="beat">How I built it</span><span class="len">~30s</span></div>
+    <p class="script">Inkwell is the most "just me and Claude Code" build of the set. I gave it the architecture I wanted — clean seams, one write path, the AI provider as a swappable adapter — and let the agent fill it in while I kept the structure honest. Code clarity over feature count, because I'll extend this myself.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">inkwell-03-feature-a.m4a</span><span class="beat">Decoupled write / publish</span><span class="len">~20s</span></div>
+    <p class="script">It splits writing from publishing completely. You draft into a local archive during a burst, and every piece moves through idea, drafting, ready, published. So the dashboard answers the only question that matters in the moment — what can I actually ship right now?</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">inkwell-04-feature-b.m4a</span><span class="beat">Local-first + copy-out</span><span class="len">~25s</span></div>
+    <p class="script">Everything lives in your browser — IndexedDB, debounced autosave, one write path, edits survive a reload. And the workhorse: copy a finished piece out, formatted with its images, ready to paste into Substack or LinkedIn in one action. No backend, no accounts, no lock-in.</p></div>
+
+  <div class="clip"><div class="clip-top"><span class="file">inkwell-05-outcome.m4a</span><span class="beat">The outcome</span><span class="len">~20s</span></div>
+    <p class="script">Inkwell's live, and it's the seed of something bigger — it's architected to grow into a writing coach in my own voice. It's the clearest example of how I build now: design the seams, let AI do the volume, keep my hand on the wheel.</p></div>
+
+  <p class="count">20 clips total · ~8 minutes of speaking · save to public/audio/walkthroughs/</p>
+  <footer>Build Lab · Walkthrough Recording Sheet · for Anuja Harsha</footer>
+
+</body>
+</html>
