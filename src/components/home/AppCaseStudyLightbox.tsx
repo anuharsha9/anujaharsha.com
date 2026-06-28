@@ -1,12 +1,12 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ExternalLink, Download, ArrowUpRight, Play } from 'lucide-react'
+import { ExternalLink, ArrowUpRight, Play, Smartphone } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import LightboxCard from '@/components/ui/LightboxCard'
 import Button from '@/components/ui/Button'
-import PhoneFrame from '@/components/ui/PhoneFrame'
+import WalkthroughPlayer from '@/components/ui/WalkthroughPlayer'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
 
 /**
@@ -56,6 +56,36 @@ export default function AppCaseStudyLightbox({
 
     const Icon = study.icon
     const rgb = `var(${study.accentRgbVar})`
+
+    /* Reusable live surfaces (shared between the walkthrough's "below" slot and
+       the standalone branches) so the markup stays DRY. */
+    const embedSurface = embedUrl ? (
+        <>
+            <div className={`mt-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-black ${study.embed?.aspectClass ?? 'aspect-[16/10]'}`}>
+                <iframe
+                    src={embedUrl}
+                    title={`${study.title} — embedded live demo`}
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                    referrerPolicy="no-referrer"
+                    allow="clipboard-write"
+                    className="block h-full w-full"
+                />
+            </div>
+            <div className="mt-3 flex items-center justify-end">
+                <Button variant="ghost" size="sm" href={embedUrl} external className="text-zinc-500 hover:text-zinc-300">
+                    Open in a new tab
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                </Button>
+            </div>
+        </>
+    ) : null
+
+    const openLiveDemoBtn = demoUrl ? (
+        <Button variant="primary" href={demoUrl} external icon={<ExternalLink className="h-4 w-4" />} className="w-full sm:w-auto">
+            Open Live Demo
+        </Button>
+    ) : null
 
     return (
         <SystemLightbox
@@ -163,116 +193,100 @@ export default function AppCaseStudyLightbox({
                         </ul>
                     </div>
 
-                    {/* ── Demo section ── (priority order)
-                          A. phoneFrame → native app inside an iPhone PhoneFrame (Sous)
-                          B. embed → iframe inline (Warden)
-                          C. videoSrc OR demoUrl → walkthrough + Open Live Demo CTA
-                          D. none → no section */}
-                    {study.phoneFrame ? (
+                    {/* ── See it run ── (priority order)
+                          A. walkthrough → narrated WalkthroughPlayer (primary) + live surface below
+                          B. requestDemo → demo reel (or "reel soon") + Request-demo CTA (Sous)
+                          C. embed → live iframe (no walkthrough)
+                          D. playRoute → cover + Play button (WordU)
+                          E. demoUrl → Open Live Demo button
+                          F. none → no section */}
+                    {study.walkthrough?.length ? (
                         <div className="mt-12">
                             <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
                                 See it run
                             </p>
                             <p className="mt-2 text-sm text-zinc-500">
-                                Native iOS — shown in-device.
+                                A short, workflow-led walkthrough — how I built it, in my words.
                             </p>
-                            <div className="mt-6 flex justify-center">
-                                <PhoneFrame>
-                                    {study.videoSrc ? (
-                                        <VideoPlayer
-                                            src={study.videoSrc}
-                                            autoPlay={false}
-                                            ariaLabel={`${study.title} — app walkthrough`}
-                                            className="h-full w-full"
-                                            videoClassName="object-cover"
-                                        />
-                                    ) : (
-                                        /* Themed placeholder until the screen recording lands. */
-                                        <div
-                                            className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center"
-                                            style={{ background: `linear-gradient(to bottom, rgba(${rgb}, 0.12), #08070a)` }}
-                                        >
-                                            <div
-                                                className="flex h-14 w-14 items-center justify-center rounded-2xl"
-                                                style={{ backgroundColor: `rgba(${rgb}, 0.14)`, color: study.accent }}
-                                            >
-                                                <Icon className="h-7 w-7" strokeWidth={1.5} />
-                                            </div>
-                                            <p className="font-sans text-base font-bold text-white">{study.title}</p>
-                                            <p className="font-mono text-[9px] uppercase tracking-[0.25em]" style={{ color: study.accent }}>
-                                                Listening…
-                                            </p>
-                                            <p className="mt-1 px-1 text-[11px] leading-relaxed text-zinc-500">
-                                                Full walkthrough lands with TestFlight.
-                                            </p>
-                                        </div>
-                                    )}
-                                </PhoneFrame>
+                            <div className="mt-5">
+                                <WalkthroughPlayer
+                                    slides={study.walkthrough}
+                                    title={study.title}
+                                    accent={study.accent}
+                                    accentRgbVar={study.accentRgbVar}
+                                    Icon={Icon}
+                                />
                             </div>
 
-                            {/* App Store CTA — appears automatically once appStoreUrl
-                                is set (dormant until the app ships). */}
-                            {study.appStoreUrl && (
-                                <div className="mt-6 flex justify-center">
-                                    <Button
-                                        variant="primary"
-                                        href={study.appStoreUrl}
-                                        external
-                                        icon={
-                                            <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
-                                                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25" />
-                                            </svg>
-                                        }
-                                    >
-                                        Download on the App Store
-                                    </Button>
+                            {/* Live surface beneath the walkthrough */}
+                            {embedUrl ? (
+                                <div className="mt-8">
+                                    <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
+                                        Try it live — embedded here
+                                    </p>
+                                    {embedSurface}
+                                </div>
+                            ) : openLiveDemoBtn ? (
+                                <div className="mt-5">{openLiveDemoBtn}</div>
+                            ) : null}
+                        </div>
+                    ) : study.requestDemo ? (
+                        <div className="mt-12">
+                            <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
+                                See it run
+                            </p>
+
+                            {study.videoSrc ? (
+                                <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-black">
+                                    <VideoPlayer
+                                        src={study.videoSrc}
+                                        autoPlay={false}
+                                        ariaLabel={`${study.title} — demo reel`}
+                                        className="aspect-video w-full"
+                                        videoClassName="object-cover"
+                                    />
+                                </div>
+                            ) : (
+                                <div
+                                    className="mt-4 flex aspect-video w-full flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-white/[0.08] text-center"
+                                    style={{ background: `radial-gradient(circle at 50% 40%, rgba(${rgb}, 0.14), #08070a 72%)` }}
+                                >
+                                    <Icon className="h-12 w-12" style={{ color: study.accent, opacity: 0.5 }} strokeWidth={1.25} />
+                                    <p className="font-mono text-[10px] uppercase tracking-[0.25em]" style={{ color: study.accent }}>
+                                        Demo reel dropping soon
+                                    </p>
                                 </div>
                             )}
 
-                            <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-                                {study.statusLabel}
-                            </p>
+                            {study.requestDemo.note && (
+                                <p className="mt-3 text-sm text-zinc-500">{study.requestDemo.note}</p>
+                            )}
+
+                            <div className="mt-5">
+                                <Button
+                                    variant="primary"
+                                    href={study.requestDemo.testflightUrl || 'mailto:anu.anuja@outlook.com?subject=Sous%20TestFlight%20access'}
+                                    external
+                                    icon={<Smartphone className="h-4 w-4" />}
+                                    className="w-full sm:w-auto"
+                                >
+                                    {study.requestDemo.testflightUrl ? 'Get it on TestFlight' : 'Request a demo'}
+                                </Button>
+                            </div>
                         </div>
                     ) : embedUrl ? (
                         <div className="mt-12">
-                            <p
-                                className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                                style={{ color: study.accent, opacity: 0.7 }}
-                            >
+                            <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
                                 Try it live — embedded here
                             </p>
                             <p className="mt-2 text-sm text-zinc-500">
                                 Running in an iframe. Interact with it the same way you would the standalone app.
                             </p>
-
-                            <div
-                                className={`mt-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-black ${study.embed?.aspectClass ?? 'aspect-[16/10]'}`}
-                            >
-                                <iframe
-                                    src={embedUrl}
-                                    title={`${study.title} — embedded live demo`}
-                                    loading="lazy"
-                                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                                    referrerPolicy="no-referrer"
-                                    allow="clipboard-write"
-                                    className="block h-full w-full"
-                                />
-                            </div>
-
-                            {/* Subtle "open in new tab" fallback for users who want full screen. */}
-                            <div className="mt-3 flex items-center justify-end">
-                                <Button variant="ghost" size="sm" href={embedUrl} external className="text-zinc-500 hover:text-zinc-300">
-                                    Open in a new tab
-                                    <ArrowUpRight className="h-3.5 w-3.5" />
-                                </Button>
-                            </div>
+                            {embedSurface}
                         </div>
                     ) : study.playRoute ? (
                         <div className="mt-12">
-                            <p
-                                className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                                style={{ color: study.accent, opacity: 0.7 }}
-                            >
+                            <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
                                 See it run
                             </p>
                             <p className="mt-2 text-sm text-zinc-500">
@@ -297,49 +311,14 @@ export default function AppCaseStudyLightbox({
                                 </Button>
                             </div>
                         </div>
-                    ) : (study.videoSrc || demoUrl) && (
+                    ) : demoUrl ? (
                         <div className="mt-12">
-                            <p
-                                className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                                style={{ color: study.accent, opacity: 0.7 }}
-                            >
+                            <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
                                 See it run
                             </p>
-
-                            {/* Optional video. Falls back gracefully if the file isn't there yet. */}
-                            {study.videoSrc && (
-                                <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-black">
-                                    <VideoPlayer
-                                        src={study.videoSrc}
-                                        autoPlay={false}
-                                        ariaLabel={`${study.title} demo walkthrough`}
-                                        className="aspect-video w-full"
-                                        videoClassName="object-contain"
-                                    />
-                                </div>
-                            )}
-
-                            {/* CTAs */}
-                            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                                {demoUrl ? (
-                                    <Button variant="primary" href={demoUrl} external icon={<ExternalLink className="h-4 w-4" />} className="flex-1">
-                                        Open Live Demo
-                                    </Button>
-                                ) : (
-                                    <span
-                                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold"
-                                        style={{
-                                            borderColor: `rgba(${rgb}, 0.35)`,
-                                            backgroundColor: `rgba(${rgb}, 0.06)`,
-                                            color: study.accent,
-                                        }}
-                                    >
-                                        <Download className="h-4 w-4" /> Demo coming soon
-                                    </span>
-                                )}
-                            </div>
+                            <div className="mt-5">{openLiveDemoBtn}</div>
                         </div>
-                    )}
+                    ) : null}
 
                 </div>
             </div>

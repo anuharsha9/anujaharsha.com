@@ -54,15 +54,16 @@ export interface AppCaseStudy {
         image?: string      // '/images/walkthroughs/pathwise-01.png'
     }[]
 
-    /* Native mobile app (can't run in a browser). When true, the "See it run"
-     * media renders inside an iPhone PhoneFrame — a portrait screen recording
-     * (videoSrc) if present, else a themed placeholder. */
-    phoneFrame?: boolean
-
-    /* App Store listing. Set this once the app ships and a "Download on the
-     * App Store" button appears under the PhoneFrame automatically. Dormant
-     * (renders nothing) until set. */
-    appStoreUrl?: string
+    /* "Request a demo" CTA (Sous) — a native app you can't just open in a
+     * browser. When set, the "See it run" section shows the demo reel (videoSrc,
+     * landscape) or a "reel coming" placeholder, plus a request button:
+     *   testflightUrl present → "Get it on TestFlight" (external)
+     *   else                  → "Request a demo" (mailto)
+     * `note` explains the bring-your-own-API-key model. */
+    requestDemo?: {
+        testflightUrl?: string
+        note?: string
+    }
 
     /* Embedded live demo (for projects that render INSIDE the case study via
      * an iframe, instead of linking out). When `embed` is set, the
@@ -113,9 +114,15 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         demoUrlEnvVar: 'NEXT_PUBLIC_CAREER_BUILDER_URL',
         productionUrl: 'https://pathwise.anujaharsha.com',
         devFallbackUrl: 'http://localhost:3101',
-        videoSrc: '/videos/lab/career-builder-demo.mp4',
         status: 'demo',
         statusLabel: 'Live demo on Vercel',
+        walkthrough: [
+            { id: 'problem', label: 'The problem', caption: 'College applications happen blind. Families pick programs by reputation and gut, then find out four years and a hundred-thousand dollars later whether it paid off. I wanted to make that decision quantitative — and honest about what AI can and cannot project.' },
+            { id: 'workflow', label: 'How I built it', caption: 'I built Pathwise the way I build everything now: agentic. I describe the decision model to Claude Code in plain language, it scaffolds the Next.js and Supabase layers, and I steer — tighten the schema here, make the planner deterministic there. Designer in the driver\'s seat, AI doing the typing.' },
+            { id: 'feature-a', label: 'Two personas, one engine', caption: 'It runs two minds off one engine — a high-school senior and a working professional — each with its own tracker and projection state. You switch instantly, and the data stays local to that profile. One architecture, two completely different journeys.' },
+            { id: 'feature-b', label: 'AI = projections only', caption: 'Here\'s the honest part. AI only does projections, and every number cites its source and is labeled a projection, not a fact. The AI runtime is off by default — a deterministic local planner handles the base case. Build, lint, and test never touch the API.' },
+            { id: 'outcome', label: 'The outcome', caption: 'Pathwise turns a hundred-thousand-dollar gut call into a number you can actually defend. It\'s live, it\'s local-first, and it proves the thing I care about most — that AI in a product can be powerful and honest at the same time.' },
+        ],
     },
 
     'wealth-engine': {
@@ -149,9 +156,15 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         demoUrlEnvVar: 'NEXT_PUBLIC_WEALTHENGINE_URL',
         productionUrl: 'https://wealthengine.anujaharsha.com',
         devFallbackUrl: 'http://localhost:3939',
-        videoSrc: '/videos/lab/wealthengine-demo.mp4',
         status: 'demo',
         statusLabel: 'Live demo on Vercel (Rao persona)',
+        walkthrough: [
+            { id: 'problem', label: 'The problem', caption: 'Every budgeting app looks backward — last month\'s coffee spend. None of them help you decide whether moving cities, taking a remote role, or holding off on a house is the right call for the next fifteen years. I wanted a tool that scores the actual life paths I\'m weighing.' },
+            { id: 'workflow', label: 'How I built it', caption: 'I vibe-coded the whole thing with agentic AI — but the hard part was the math, not the UI. I\'d reason through the savings model out loud with Claude, have it generate the projection engine and the tests, then pressure-test the numbers myself. AI moves fast; I make sure it\'s right.' },
+            { id: 'feature-a', label: 'Three life paths, ranked', caption: 'It ranks three life paths by savings power, runway, and goal-fit — and back-solves the annual savings each one actually needs. There\'s a dual-runway gauge too: your runway today versus an all-income-lost stress test. Decisions, not dashboards.' },
+            { id: 'feature-b', label: 'Ask bar + God Mode', caption: 'Two power moves. A Claude-backed Ask bar answers what-ifs grounded in your real numbers. And a Bloomberg-style God Mode — hit Command-K — drops you into the raw positions, scenario matrix, and year-by-year grid. For when you want the math, not the chart.' },
+            { id: 'outcome', label: 'The outcome', caption: 'WealthEngine is my financial chief of staff — local-first, my numbers never leave my machine. It\'s the clearest proof that a designer can own a genuinely quantitative product end to end, modeling and all.' },
+        ],
     },
 
     'sous': {
@@ -182,13 +195,16 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
             },
         ],
         stack: ['Expo + React Native', 'Claude Opus 4.8', 'Gemini Live', 'NativeWind', 'TypeScript (strict)', 'expo-file-system', 'Jest + Maestro'],
-        /* Native iOS → presented in a PhoneFrame. No videoSrc yet (app is in
-         * dev); a portrait screen recording drops in here once TestFlight is
-         * live, and the frame plays it automatically. Until then, the frame
-         * shows a themed placeholder. */
-        phoneFrame: true,
+        /* Native iOS — can't run in a browser. "See it run" shows the on-camera
+         * demo reel (videoSrc, landscape) once recorded; until then a themed
+         * "reel coming" placeholder. Plus a request-demo CTA — you get it on
+         * TestFlight and bring your own API key. (Add videoSrc when the reel
+         * lands; add requestDemo.testflightUrl when the build is invitable.) */
+        requestDemo: {
+            note: 'Native iOS. Download it on your iPhone via TestFlight and bring your own API key to run it.',
+        },
         status: 'in-development',
-        statusLabel: 'Native iOS · TestFlight Q3 2026',
+        statusLabel: 'Native iOS · demo reel + TestFlight',
     },
 
     'warden': {
@@ -228,6 +244,13 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         },
         status: 'demo',
         statusLabel: 'Live · Datadog Triple-A interview demo',
+        walkthrough: [
+            { id: 'problem', label: 'The problem', caption: 'Classic role-based access governs humans, and that\'s solved. The unsolved problem is governing autonomous AI agents — things that reason and act with no human in the loop, and that must never inherit the permissions of whoever deployed them. I built Warden to prove I\'d ship that on day one.' },
+            { id: 'workflow', label: 'How I built it', caption: 'I designed Warden as a pure permission engine first — one typed function, evaluate of agent, action, context — and built it test-first with Claude. Every gate unit-tested edge by edge before a single screen existed. Agentic AI let me move at the speed of thinking; the core stays deterministic.' },
+            { id: 'feature-a', label: 'Default deny, least privilege', caption: 'Scope is a grid, and every cell starts denied. Access exists only where you explicitly grant it. Even a superadmin\'s autonomous agent can\'t act outside its grant — and the visual default makes that obvious the moment you look at it.' },
+            { id: 'feature-b', label: 'The marquee scenario', caption: 'Here\'s the moment it clicks: an autonomous cost-sentinel agent tries to modify payments in production. The first gates pass — then a guardrail trips, and the autonomy gate is never even reached. The whole ladder is right there in the audit trail. The trace is the receipt.' },
+            { id: 'outcome', label: 'The outcome', caption: 'I built Warden for a Datadog interview panel, but it stands on its own — and it\'s embedded live, right here in this portfolio. It\'s how I show I don\'t just design for AI systems; I can architect the thing that governs them.' },
+        ],
     },
 
     'inkwell': {
@@ -263,6 +286,13 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         devFallbackUrl: 'http://localhost:3120',
         status: 'demo',
         statusLabel: 'Live demo on Vercel',
+        walkthrough: [
+            { id: 'problem', label: 'The problem', caption: 'I write in bursts — long quiet stretches, then five essays in a single sitting. Every publishing tool assumes a steady cadence and adds this in-the-moment pressure that kills the burst. I wanted the opposite: somewhere to write ahead, then publish on a whim.' },
+            { id: 'workflow', label: 'How I built it', caption: 'Inkwell is the most "just me and Claude Code" build of the set. I gave it the architecture I wanted — clean seams, one write path, the AI provider as a swappable adapter — and let the agent fill it in while I kept the structure honest. Code clarity over feature count, because I\'ll extend this myself.' },
+            { id: 'feature-a', label: 'Decoupled write / publish', caption: 'It splits writing from publishing completely. You draft into a local archive during a burst, and every piece moves through idea, drafting, ready, published. So the dashboard answers the only question that matters in the moment — what can I actually ship right now?' },
+            { id: 'feature-b', label: 'Local-first + copy-out', caption: 'Everything lives in your browser — IndexedDB, debounced autosave, one write path, edits survive a reload. And the workhorse: copy a finished piece out, formatted with its images, ready to paste into Substack or LinkedIn in one action. No backend, no accounts, no lock-in.' },
+            { id: 'outcome', label: 'The outcome', caption: 'Inkwell\'s live, and it\'s the seed of something bigger — it\'s architected to grow into a writing coach in my own voice. It\'s the clearest example of how I build now: design the seams, let AI do the volume, keep my hand on the wheel.' },
+        ],
     },
 
     'wordu': {
