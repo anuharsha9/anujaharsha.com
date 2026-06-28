@@ -87,11 +87,11 @@ export default function FloatingActions() {
                 {/* Ask Anuja — always visible, owns the corner (signature feature + ⌘K) */}
                 <button
                     onClick={() => setAskOpen(true)}
-                    aria-label="Ask Anuja a question (Cmd+K)"
+                    aria-label="Ask Anu a question (Cmd+K)"
                     className="pointer-events-auto inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/[0.12] bg-black/55 p-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-300 hover:border-[var(--accent-teal)]/40 hover:bg-black/75 active:scale-[0.98] sm:px-4 sm:py-2 md:text-[11px]"
                 >
                     <MessageSquare className="h-3.5 w-3.5 text-[var(--accent-teal)]" />
-                    <span className="hidden sm:inline">Ask Anuja</span>
+                    <span className="hidden sm:inline">Ask Anu</span>
                     <kbd className="hidden items-center rounded-md border border-white/[0.14] bg-white/[0.06] px-1.5 py-0.5 font-mono text-[9px] tracking-tight text-zinc-400 md:inline-flex">
                         ⌘K
                     </kbd>

@@ -87,7 +87,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
         <SystemLightbox
             isOpen={isOpen}
             onClose={onClose}
-            title="ASK_ANUJA"
+            title="ASK_ANU"
             indexString="[ HIRING_MODE ]"
             showArrows={false}
             shortcuts={[{ key: 'ESC', label: 'CLOSE' }]}
@@ -195,7 +195,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                             transition={{ duration: 0.4, ease }}
                         >
                             <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
-                                {customStatus === 'error' ? 'Heads up' : "Anuja’s reply"}
+                                {customStatus === 'error' ? 'Heads up' : "Anu’s reply"}
                             </p>
                             <p className="text-[15px] leading-relaxed text-zinc-200">{customAnswer}</p>
                             {customStatus === 'error' && (
