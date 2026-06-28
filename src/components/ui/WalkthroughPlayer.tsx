@@ -1,25 +1,24 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { m, useReducedMotion } from 'framer-motion'
 import { Play, Pause, ChevronLeft, ChevronRight, type LucideIcon } from 'lucide-react'
 
 /**
- * Narrated, workflow-led walkthrough player — the primary "See it run" surface
- * for Build Lab apps. Each slide pairs ONE visual with ONE voice snippet
- * (recorded separately by Anuja). It degrades gracefully:
- *   - no `image`  → a branded gradient slide (app icon + beat label)
- *   - no `audioSrc` → caption-only manual slideshow ("voice-over soon")
- *   - with audio  → play/pause, a progress bar, and auto-advance when a clip
- *     ends (the next clip autoplays, since the first Play was a user gesture)
- * The caption is always visible text — accessible + readable when muted.
+ * Workflow-led walkthrough player — the primary "See it run" surface for Build
+ * Lab apps. A self-advancing, captioned tour (no audio): each slide pairs ONE
+ * visual with ONE caption, and Play tours through them on a timer.
+ *
+ * Motion: feature beats play a looping action clip (`video`); other screenshots
+ * get a Ken Burns pan (`image`); branded beats (no asset) get a gentle drift.
+ * Controls: Play/Pause auto-advance, prev/next, jump-to dots. All motion +
+ * auto-advance respect prefers-reduced-motion (manual nav only).
  */
 
 export interface WalkthroughSlide {
     id: string
     label: string
     caption: string
-    audioSrc?: string
     image?: string
     video?: string
 }
@@ -32,54 +31,41 @@ interface WalkthroughPlayerProps {
     Icon: LucideIcon
 }
 
+const SLIDE_MS = 7000 // dwell per slide when auto-playing the tour
+
 export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar, Icon }: WalkthroughPlayerProps) {
     const [index, setIndex] = useState(0)
     const [playing, setPlaying] = useState(false)
-    const [progress, setProgress] = useState(0) // 0..1 of the current clip
-    const audioRef = useRef<HTMLAudioElement | null>(null)
     const reduce = useReducedMotion()
 
     const rgb = `var(${accentRgbVar})`
     const slide = slides[index]
     const isLast = index === slides.length - 1
-    const hasAudio = slides.some(s => !!s.audioSrc)
 
     const go = useCallback((next: number) => {
         setIndex(Math.max(0, Math.min(slides.length - 1, next)))
-        setProgress(0)
     }, [slides.length])
 
-    /* On slide change: if we're in autoplay mode and this slide has a clip,
-       play it from the top. (Allowed because the session began with a click.) */
+    /* Auto-advance while "playing": one timeout per slide flips to the next at
+       SLIDE_MS. The dwell bar is a pure-CSS animation (below), so there's no
+       per-tick state and nothing for background-tab interval throttling to
+       starve. Restarts when the slide changes; off under reduced-motion. */
     useEffect(() => {
-        const a = audioRef.current
-        if (!a) return
-        setProgress(0)
-        if (playing && slide.audioSrc) {
-            a.currentTime = 0
-            a.play().catch(() => setPlaying(false))
-        }
+        if (!playing || reduce) return
+        const id = setTimeout(() => {
+            if (!isLast) setIndex(i => i + 1)
+            else setPlaying(false)
+        }, SLIDE_MS)
+        return () => clearTimeout(id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [index])
+    }, [playing, index, reduce])
 
     const onPlayPause = () => {
-        const a = audioRef.current
-        if (!a || !slide.audioSrc) return
-        if (playing) { a.pause(); setPlaying(false) }
-        else { a.play().then(() => setPlaying(true)).catch(() => {}) }
+        if (!playing && isLast) { go(0); setPlaying(true); return } // replay from the top
+        setPlaying(p => !p)
     }
 
-    const onEnded = () => {
-        if (!isLast) go(index + 1)   // stays "playing" → effect autoplays the next clip
-        else setPlaying(false)
-    }
-
-    const onTimeUpdate = () => {
-        const a = audioRef.current
-        if (a && a.duration) setProgress(a.currentTime / a.duration)
-    }
-
-    const btn = 'inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-zinc-300 transition-colors hover:border-white/40 hover:text-white disabled:opacity-30 disabled:hover:border-white/15 disabled:hover:text-zinc-300'
+    const navBtn = 'inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-zinc-300 transition-colors hover:border-white/40 hover:text-white disabled:opacity-30 disabled:hover:border-white/15 disabled:hover:text-zinc-300'
 
     return (
         <div>
@@ -141,30 +127,36 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                 </m.p>
             </div>
 
-            {/* ── Audio progress ── */}
-            {slide.audioSrc && (
-                <div className="mt-4 h-1 w-full overflow-hidden rounded-full bg-white/10" aria-hidden="true">
-                    <div className="h-full rounded-full transition-[width] duration-150" style={{ width: `${progress * 100}%`, backgroundColor: accent }} />
-                </div>
-            )}
+            {/* ── Dwell bar — CSS-animated fill while touring (restarts per slide) ── */}
+            <div className="mt-4 h-1 w-full overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+                <div
+                    key={`${index}-${playing}`}
+                    className="h-full rounded-full"
+                    style={{
+                        backgroundColor: accent,
+                        width: playing && !reduce ? '100%' : '0%',
+                        animation: playing && !reduce ? `dwell ${SLIDE_MS}ms linear forwards` : 'none',
+                    }}
+                />
+            </div>
 
             {/* ── Controls ── */}
             <div className="mt-4 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                    <button onClick={() => go(index - 1)} disabled={index === 0} aria-label="Previous slide" className={btn}>
+                    <button onClick={() => { setPlaying(false); go(index - 1) }} disabled={index === 0} aria-label="Previous slide" className={navBtn}>
                         <ChevronLeft className="h-4 w-4" />
                     </button>
-                    <button onClick={() => go(index + 1)} disabled={isLast} aria-label="Next slide" className={btn}>
+                    <button onClick={() => { setPlaying(false); go(index + 1) }} disabled={isLast} aria-label="Next slide" className={navBtn}>
                         <ChevronRight className="h-4 w-4" />
                     </button>
                 </div>
 
-                {/* progress dots */}
+                {/* jump-to dots */}
                 <div className="flex items-center gap-1.5">
                     {slides.map((s, i) => (
                         <button
                             key={s.id}
-                            onClick={() => go(i)}
+                            onClick={() => { setPlaying(false); go(i) }}
                             aria-label={`Go to ${s.label}`}
                             aria-current={i === index}
                             className="h-1.5 rounded-full transition-all"
@@ -176,29 +168,20 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                     ))}
                 </div>
 
-                {hasAudio ? (
+                {/* Tour auto-play — hidden under reduced-motion (manual nav only) */}
+                {!reduce ? (
                     <button
                         onClick={onPlayPause}
-                        disabled={!slide.audioSrc}
-                        className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition-colors disabled:opacity-40"
+                        className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition-colors"
                         style={{ borderColor: `rgba(${rgb},0.4)`, color: accent, backgroundColor: `rgba(${rgb},0.08)` }}
                     >
                         {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
-                        {playing ? 'Pause' : 'Play'}
+                        {playing ? 'Pause' : isLast ? 'Replay' : 'Play tour'}
                     </button>
                 ) : (
-                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-600">Voice-over soon</span>
+                    <span className="w-9" />
                 )}
             </div>
-
-            {/* one audio element, src swaps per slide */}
-            <audio
-                ref={audioRef}
-                src={slide.audioSrc || undefined}
-                onEnded={onEnded}
-                onTimeUpdate={onTimeUpdate}
-                preload="none"
-            />
         </div>
     )
 }

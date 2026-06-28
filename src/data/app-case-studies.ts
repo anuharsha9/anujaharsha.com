@@ -41,16 +41,13 @@ export interface AppCaseStudy {
     playRoute?: string
     coverImage?: string
 
-    /* Workflow-led narrated walkthrough — the slide deck shown as the PRIMARY
-     * "See it run" surface when present. Each slide pairs ONE visual with ONE
-     * voice snippet (recorded separately, file named to match `id`). audioSrc /
-     * image may be absent during authoring; the player degrades to captions +
-     * manual advance until the assets land. */
+    /* Workflow-led walkthrough — the self-advancing captioned tour shown as the
+     * PRIMARY "See it run" surface when present. Each slide pairs ONE visual
+     * with ONE caption (no audio — the captions + motion carry it). */
     walkthrough?: {
         id: string          // 'problem' | 'workflow' | 'feature-a' | 'feature-b' | 'outcome'
         label: string       // 'The problem'
-        caption: string     // narration text — shown as caption (a11y + when muted)
-        audioSrc?: string   // '/audio/walkthroughs/pathwise-01-problem.m4a'
+        caption: string     // on-screen caption for the beat
         image?: string      // '/images/walkthroughs/pathwise-feature-a.jpg' (still; gets a Ken Burns pan)
         video?: string      // '/videos/walkthroughs/pathwise-feature-a.mp4' (loops; image is the poster)
     }[]

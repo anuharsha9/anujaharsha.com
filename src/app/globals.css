@@ -1848,3 +1848,9 @@ motion.div[data-visible="true"] {
     animation: none;
   }
 }
+
+/* ── Dwell bar — fills 0→100% over a slide's auto-advance interval (tour) ── */
+@keyframes dwell {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
