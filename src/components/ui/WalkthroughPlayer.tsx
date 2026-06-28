@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { m } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import { Play, Pause, ChevronLeft, ChevronRight, type LucideIcon } from 'lucide-react'
 
 /**
@@ -21,6 +21,7 @@ export interface WalkthroughSlide {
     caption: string
     audioSrc?: string
     image?: string
+    video?: string
 }
 
 interface WalkthroughPlayerProps {
@@ -36,6 +37,7 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
     const [playing, setPlaying] = useState(false)
     const [progress, setProgress] = useState(0) // 0..1 of the current clip
     const audioRef = useRef<HTMLAudioElement | null>(null)
+    const reduce = useReducedMotion()
 
     const rgb = `var(${accentRgbVar})`
     const slide = slides[index]
@@ -90,12 +92,28 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                     transition={{ duration: 0.4 }}
                     className="absolute inset-0"
                 >
-                    {slide.image ? (
+                    {slide.video ? (
+                        <video
+                            src={slide.video}
+                            poster={slide.image}
+                            muted
+                            loop
+                            playsInline
+                            autoPlay={!reduce}
+                            preload="metadata"
+                            aria-label={`${title} — ${slide.label}`}
+                            className="h-full w-full object-cover"
+                        />
+                    ) : slide.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={slide.image} alt={`${title} — ${slide.label}`} className="h-full w-full object-cover" />
+                        <img
+                            src={slide.image}
+                            alt={`${title} — ${slide.label}`}
+                            className={`h-full w-full object-cover ${reduce ? '' : 'kenburns'}`}
+                        />
                     ) : (
                         <div
-                            className="flex h-full w-full flex-col items-center justify-center gap-4 px-6 text-center"
+                            className={`flex h-full w-full flex-col items-center justify-center gap-4 px-6 text-center ${reduce ? '' : 'drift-slow'}`}
                             style={{ background: `radial-gradient(circle at 50% 38%, rgba(${rgb},0.16), #08070a 72%)` }}
                         >
                             <Icon className="h-14 w-14" style={{ color: accent, opacity: 0.5 }} strokeWidth={1.25} />
