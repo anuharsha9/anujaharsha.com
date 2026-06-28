@@ -259,9 +259,10 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         ],
         stack: ['React 18', 'Vite', 'TypeScript', 'Zustand', 'IndexedDB (idb)', 'Claude SDK', 'react-markdown', 'Local-first'],
         demoUrlEnvVar: 'NEXT_PUBLIC_INKWELL_URL',
+        productionUrl: 'https://inkwell.anujaharsha.com',
         devFallbackUrl: 'http://localhost:3120',
-        status: 'in-development',
-        statusLabel: 'Local-first · public demo soon',
+        status: 'demo',
+        statusLabel: 'Live demo on Vercel',
     },
 
     'wordu': {
