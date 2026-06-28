@@ -162,73 +162,8 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                         </div>
                     </div>
 
-                    {/* ── Why / What — two beats, side by side on desktop ── */}
-                    <div className="mt-10 grid grid-cols-1 gap-6 md:mt-12 md:grid-cols-2 md:gap-8">
-                        <div>
-                            <p
-                                className="font-mono text-[10px] uppercase tracking-[0.25em]"
-                                style={{ color: accent, opacity: 0.7 }}
-                            >
-                                Why I built it
-                            </p>
-                            <p className="mt-2 text-[15px] leading-relaxed text-zinc-200">
-                                I got laid off mid-sprint. H-1B clock started at 60 days. My portfolio was five years stale and I&apos;d never shipped anything in Next.js. So I taught myself — by orchestrating Claude as my engineering team instead of writing every line.
-                            </p>
-                        </div>
-                        <div>
-                            <p
-                                className="font-mono text-[10px] uppercase tracking-[0.25em]"
-                                style={{ color: accent, opacity: 0.7 }}
-                            >
-                                What it solves
-                            </p>
-                            <p className="mt-2 text-[15px] leading-relaxed text-zinc-200">
-                                A designer who orchestrates code scales differently than one who hand-writes every component. The case studies prove the work. This site is the proof I can ship the platform around the work — solo, fast, polished.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* ── Highlights ── */}
-                    <div className="mt-12">
-                        <p
-                            className="font-mono text-[10px] uppercase tracking-[0.3em]"
-                            style={{ color: accent, opacity: 0.7 }}
-                        >
-                            What makes it unique
-                        </p>
-                        <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
-                            {HIGHLIGHTS.map(h => (
-                                <LightboxCard key={h.title} accentRgb={rgb}>
-                                    <h3 className="text-sm font-semibold text-zinc-100 md:text-base">
-                                        {h.title}
-                                    </h3>
-                                    <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
-                                        {h.description}
-                                    </p>
-                                </LightboxCard>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* ── Stack pills ── */}
-                    <div className="mt-10">
-                        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
-                            Stack
-                        </p>
-                        <ul className="mt-3 flex flex-wrap gap-2">
-                            {STACK.map(item => (
-                                <li
-                                    key={item}
-                                    className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs text-zinc-300"
-                                >
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* ── See it run — the five-iteration evolution carousel ── */}
-                    <div className="mt-12">
+                    {/* ── See it evolve — UP TOP (demo first), detail below ── */}
+                    <div className="mt-10 md:mt-12">
                         <p
                             className="font-mono text-[10px] uppercase tracking-[0.3em]"
                             style={{ color: accent, opacity: 0.7 }}
@@ -324,6 +259,71 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                                 <ArrowRight className="h-4 w-4" />
                             </button>
                         </div>
+                    </div>
+
+                    {/* ── Why / What — two beats, side by side on desktop ── */}
+                    <div className="mt-10 grid grid-cols-1 gap-6 md:mt-12 md:grid-cols-2 md:gap-8">
+                        <div>
+                            <p
+                                className="font-mono text-[10px] uppercase tracking-[0.25em]"
+                                style={{ color: accent, opacity: 0.7 }}
+                            >
+                                Why I built it
+                            </p>
+                            <p className="mt-2 text-[15px] leading-relaxed text-zinc-200">
+                                I got laid off mid-sprint. H-1B clock started at 60 days. My portfolio was five years stale and I&apos;d never shipped anything in Next.js. So I taught myself — by orchestrating Claude as my engineering team instead of writing every line.
+                            </p>
+                        </div>
+                        <div>
+                            <p
+                                className="font-mono text-[10px] uppercase tracking-[0.25em]"
+                                style={{ color: accent, opacity: 0.7 }}
+                            >
+                                What it solves
+                            </p>
+                            <p className="mt-2 text-[15px] leading-relaxed text-zinc-200">
+                                A designer who orchestrates code scales differently than one who hand-writes every component. The case studies prove the work. This site is the proof I can ship the platform around the work — solo, fast, polished.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* ── Highlights ── */}
+                    <div className="mt-12">
+                        <p
+                            className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                            style={{ color: accent, opacity: 0.7 }}
+                        >
+                            What makes it unique
+                        </p>
+                        <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
+                            {HIGHLIGHTS.map(h => (
+                                <LightboxCard key={h.title} accentRgb={rgb}>
+                                    <h3 className="text-sm font-semibold text-zinc-100 md:text-base">
+                                        {h.title}
+                                    </h3>
+                                    <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
+                                        {h.description}
+                                    </p>
+                                </LightboxCard>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* ── Stack pills ── */}
+                    <div className="mt-10">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
+                            Stack
+                        </p>
+                        <ul className="mt-3 flex flex-wrap gap-2">
+                            {STACK.map(item => (
+                                <li
+                                    key={item}
+                                    className="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs text-zinc-300"
+                                >
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
 
                 </div>
