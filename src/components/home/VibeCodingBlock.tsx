@@ -6,7 +6,7 @@ import { Sparkles, Gamepad2, Compass, LineChart, ChefHat, ShieldCheck, NotebookP
 import PortfolioLightbox from './PortfolioLightbox'
 import AppCaseStudyLightbox from './AppCaseStudyLightbox'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 /* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
 function WordULogoCover() {
@@ -28,7 +28,7 @@ function WordULogoCover() {
                     strokeDasharray="4 6"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.3 }}
-                    transition={{ duration: 2, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
                 />
 
                 {/* Row 1 — active guess row with letters */}
@@ -40,7 +40,7 @@ function WordULogoCover() {
                             strokeWidth="0.8"
                             initial={{ pathLength: 0, opacity: 0 }}
                             animate={{ pathLength: 1, opacity: 0.5 }}
-                            transition={{ duration: 0.8, delay: 0.8 + i * 0.15 }}
+                            transition={{ duration: DURATION.deliberate, delay: 0.8 + i * 0.15 }}
                         />
                         <m.text
                             x={71 + i * 38} y="62" textAnchor="middle"
@@ -48,7 +48,7 @@ function WordULogoCover() {
                             className="font-mono text-[14px] font-bold"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: [0, 0, 0.7] }}
-                            transition={{ duration: 1, delay: 1.8 + i * 0.2, times: [0, 0.3, 1] }}
+                            transition={{ duration: DURATION.drift, delay: 1.8 + i * 0.2, times: [0, 0.3, 1] }}
                         >
                             {letter}
                         </m.text>
@@ -86,7 +86,7 @@ function WordULogoCover() {
                     x="68" y="86" width="1.5" height="18" rx="0.5"
                     fill={accentColor}
                     animate={{ opacity: [0, 0.6, 0] }}
-                    transition={{ duration: 1, repeat: Infinity, delay: 2.8 }}
+                    transition={{ duration: DURATION.drift, repeat: Infinity, delay: 2.8 }}
                 />
             </svg>
         </div>
@@ -112,7 +112,7 @@ function BrowserWireframeCover() {
                     strokeDasharray="4 6"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.4 }}
-                    transition={{ duration: 2, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
                 />
                 {/* Title bar */}
                 <m.line
@@ -121,19 +121,19 @@ function BrowserWireframeCover() {
                     strokeWidth="0.5"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, delay: 0.3 }}
+                    transition={{ duration: DURATION.reveal, delay: 0.3 }}
                     opacity={0.25}
                 />
                 {/* Traffic lights */}
                 <m.circle cx="25" cy="22" r="3" fill="var(--accent-teal)"
                     initial={{ opacity: 0 }} animate={{ opacity: [0, 0.4, 0.4] }}
-                    transition={{ duration: 0.5, delay: 0.8 }} />
+                    transition={{ duration: DURATION.slow, delay: 0.8 }} />
                 <m.circle cx="35" cy="22" r="3" fill="var(--accent-teal)"
                     initial={{ opacity: 0 }} animate={{ opacity: [0, 0.3, 0.3] }}
-                    transition={{ duration: 0.5, delay: 1 }} />
+                    transition={{ duration: DURATION.slow, delay: 1 }} />
                 <m.circle cx="45" cy="22" r="3" fill="var(--accent-teal)"
                     initial={{ opacity: 0 }} animate={{ opacity: [0, 0.2, 0.2] }}
-                    transition={{ duration: 0.5, delay: 1.2 }} />
+                    transition={{ duration: DURATION.slow, delay: 1.2 }} />
                 {/* URL bar */}
                 <m.rect x="60" y="17" width="180" height="10" rx="5"
                     stroke="var(--accent-teal)" strokeWidth="0.4"
@@ -163,7 +163,7 @@ function BrowserWireframeCover() {
                     <m.rect key={cy} x="90" y={cy} width="210" height="18" rx="3"
                         stroke="var(--accent-teal)" strokeWidth="0.3"
                         initial={{ opacity: 0, x: 20 }} animate={{ opacity: 0.08, x: 0 }}
-                        transition={{ delay: 2 + i * 0.15, duration: 0.5 }} />
+                        transition={{ delay: 2 + i * 0.15, duration: DURATION.slow }} />
                 ))}
 
                 {/* "Hi, I'm Anuja" text — types in */}
@@ -173,7 +173,7 @@ function BrowserWireframeCover() {
                     className="font-sans text-[14px] font-bold"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 0, 0.7] }}
-                    transition={{ duration: 1.5, delay: 2.5, times: [0, 0.3, 1] }}
+                    transition={{ duration: DURATION.reveal, delay: 2.5, times: [0, 0.3, 1] }}
                 >
                     Hi, I&apos;m Anuja
                 </m.text>
@@ -183,7 +183,7 @@ function BrowserWireframeCover() {
                     x="205" y="65" width="1.5" height="14" rx="0.5"
                     fill="var(--accent-teal)"
                     animate={{ opacity: [0, 1, 0] }}
-                    transition={{ duration: 1, repeat: Infinity, delay: 2.5 }}
+                    transition={{ duration: DURATION.drift, repeat: Infinity, delay: 2.5 }}
                 />
             </svg>
         </div>
@@ -208,7 +208,7 @@ function GraduationCapCover() {
                     strokeLinejoin="round"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.5 }}
-                    transition={{ duration: 2, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
                 />
                 {/* Cap brim fill glow */}
                 <m.polygon
@@ -216,7 +216,7 @@ function GraduationCapCover() {
                     fill="var(--semantic-purple)"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 0.08, 0.04] }}
-                    transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
+                    transition={{ duration: DURATION.vast, repeat: Infinity, repeatType: 'reverse' }}
                 />
 
                 {/* Body of cap (left side) */}
@@ -226,7 +226,7 @@ function GraduationCapCover() {
                     strokeWidth="0.8"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.35 }}
-                    transition={{ duration: 1.5, delay: 0.8 }}
+                    transition={{ duration: DURATION.reveal, delay: 0.8 }}
                 />
 
                 {/* Tassel string */}
@@ -237,7 +237,7 @@ function GraduationCapCover() {
                     strokeLinecap="round"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 1.5 }}
+                    transition={{ duration: DURATION.drift, delay: 1.5 }}
                     opacity={0.4}
                 />
                 {/* Tassel bob */}
@@ -253,7 +253,7 @@ function GraduationCapCover() {
                     cx="80" cy="60" r="3"
                     fill="var(--semantic-purple)"
                     animate={{ cx: [80, 85, 78, 80] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
+                    transition={{ duration: DURATION.max, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
                     opacity={0.4}
                 />
 
@@ -265,7 +265,7 @@ function GraduationCapCover() {
                         fill="var(--semantic-purple)"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1.5, 0.5] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: i * 0.7 }}
+                        transition={{ duration: DURATION.vast, repeat: Infinity, delay: i * 0.7 }}
                     />
                 ))}
             </svg>
@@ -294,12 +294,12 @@ function WealthEngineCover() {
                     strokeDasharray="4 6"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.4 }}
-                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
                 />
                 {/* Top header bar */}
                 <m.line x1="10" y1="32" x2="310" y2="32" stroke={accent} strokeWidth="0.5"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 0.3 }} opacity={0.2} />
+                    transition={{ duration: DURATION.drift, delay: 0.3 }} opacity={0.2} />
                 {/* Title placeholder */}
                 <m.rect x="20" y="18" width="80" height="6" rx="2" fill={accent}
                     initial={{ opacity: 0 }} animate={{ opacity: 0.25 }} transition={{ delay: 0.8 }} />
@@ -313,7 +313,7 @@ function WealthEngineCover() {
                 {/* Chart axis baseline */}
                 <m.line x1="30" y1="125" x2="290" y2="125" stroke={accent} strokeWidth="0.4"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, delay: 0.6 }} opacity={0.25} />
+                    transition={{ duration: DURATION.reveal, delay: 0.6 }} opacity={0.25} />
 
                 {/* Growth line — sweeps from low-left to high-right */}
                 <m.path
@@ -323,7 +323,7 @@ function WealthEngineCover() {
                     strokeLinecap="round"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 2.2, delay: 1, ease: 'easeInOut' }}
+                    transition={{ duration: DURATION.epic, delay: 1, ease: 'easeInOut' }}
                 />
 
                 {/* Soft fill under the curve */}
@@ -332,7 +332,7 @@ function WealthEngineCover() {
                     fill={accent}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 0.08 }}
-                    transition={{ duration: 1.2, delay: 2.4 }}
+                    transition={{ duration: DURATION.cinematic, delay: 2.4 }}
                 />
 
                 {/* Milestone dots along the curve */}
@@ -355,7 +355,7 @@ function WealthEngineCover() {
                             stroke={accent} strokeWidth="0.5"
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 0.25, y: 0 }}
-                            transition={{ duration: 0.6, delay: 3.6 + i * 0.18 }} />
+                            transition={{ duration: DURATION.slower, delay: 3.6 + i * 0.18 }} />
                         <m.rect x={x + 8} y="156" width="40" height="4" rx="1.5" fill={accent}
                             initial={{ opacity: 0 }} animate={{ opacity: 0.35 }}
                             transition={{ delay: 3.8 + i * 0.18 }} />
@@ -394,7 +394,7 @@ function SousCookingCover() {
                         strokeLinecap="round"
                         initial={{ pathLength: 0, opacity: 0 }}
                         animate={{ pathLength: 1, opacity: [0, 0.4, 0], y: [-2, -8, -14] }}
-                        transition={{ duration: 2.4, delay: s.delay, repeat: Infinity, repeatDelay: 1.6 }}
+                        transition={{ duration: DURATION.grand, delay: s.delay, repeat: Infinity, repeatDelay: 1.6 }}
                     />
                 ))}
 
@@ -406,7 +406,7 @@ function SousCookingCover() {
                     strokeDasharray="4 6"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.5 }}
-                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
                 />
                 {/* Notch */}
                 <m.rect x="118" y="40" width="44" height="6" rx="3" fill={accent}
@@ -417,7 +417,7 @@ function SousCookingCover() {
                 <m.rect x="98" y="53" width="84" height="134" rx="8"
                     stroke={accent} strokeWidth="0.4"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1, opacity: 0.2 }}
-                    transition={{ duration: 1.2, delay: 0.5 }} />
+                    transition={{ duration: DURATION.cinematic, delay: 0.5 }} />
 
                 {/* Mic icon — center top of screen */}
                 <m.g initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
@@ -447,7 +447,7 @@ function SousCookingCover() {
                                 scaleY: [0, 1.2, 0.6, 1.4, 1],
                             }}
                             transition={{
-                                duration: 2,
+                                duration: DURATION.epic,
                                 delay: 1.6 + i * 0.08,
                                 repeat: Infinity,
                                 repeatType: 'reverse',
@@ -498,7 +498,7 @@ function WardenSecurityCover() {
                     strokeLinejoin="round"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.55 }}
-                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
                 />
                 {/* Shield interior glow — slow breathing */}
                 <m.path
@@ -506,7 +506,7 @@ function WardenSecurityCover() {
                     fill={accent}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 0.06, 0.03] }}
-                    transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', delay: 1 }}
+                    transition={{ duration: DURATION.max, repeat: Infinity, repeatType: 'reverse', delay: 1 }}
                 />
                 {/* Checkmark inside shield */}
                 <m.path
@@ -517,7 +517,7 @@ function WardenSecurityCover() {
                     strokeLinejoin="round"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.8, delay: 1.4, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.deliberate, delay: 1.4, ease: 'easeOut' }}
                 />
 
                 {/* Scope matrix label */}
@@ -563,7 +563,7 @@ function WardenSecurityCover() {
                             fill={isAllowed ? accent : 'transparent'}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: isAllowed ? 0.35 : 0.18, scale: 1 }}
-                            transition={{ delay: 2.2 + i * 0.05, duration: 0.4 }}
+                            transition={{ delay: 2.2 + i * 0.05, duration: DURATION.medium }}
                             style={{ transformOrigin: `${x + 16}px ${y + 5}px` }}
                         />
                     )
@@ -573,14 +573,14 @@ function WardenSecurityCover() {
                 <m.line x1="20" y1="184" x2="300" y2="184"
                     stroke={accent} strokeWidth="0.4"
                     initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.2, delay: 3.0 }} opacity={0.2} />
+                    transition={{ duration: DURATION.cinematic, delay: 3.0 }} opacity={0.2} />
                 {/* A few audit entries — ticks above the line */}
                 {[60, 110, 160, 210, 240].map((x, i) => (
                     <m.line key={x} x1={x} y1="178" x2={x} y2="184"
                         stroke={accent} strokeWidth="0.6"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: [0, 0.7, 0.4] }}
-                        transition={{ delay: 3.4 + i * 0.15, duration: 0.5 }} />
+                        transition={{ delay: 3.4 + i * 0.15, duration: DURATION.slow }} />
                 ))}
             </svg>
         </div>
@@ -612,7 +612,7 @@ function InkwellCover() {
                     strokeWidth="0.8"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 0.35 }}
-                    transition={{ duration: 1.8, ease: 'easeOut' }}
+                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
                 />
 
                 {/* Title line — bolder */}
@@ -621,7 +621,7 @@ function InkwellCover() {
                     fill={accentColor}
                     initial={{ width: 0, opacity: 0 }}
                     animate={{ width: 72, opacity: 0.55 }}
-                    transition={{ duration: 0.6, delay: 0.9 }}
+                    transition={{ duration: DURATION.slower, delay: 0.9 }}
                 />
 
                 {/* Body lines — drawn in like writing */}
@@ -632,7 +632,7 @@ function InkwellCover() {
                         fill={accentColor}
                         initial={{ width: 0, opacity: 0 }}
                         animate={{ width: ln.w, opacity: 0.22 }}
-                        transition={{ duration: 0.7, delay: 1.3 + i * 0.22, ease: 'easeOut' }}
+                        transition={{ duration: DURATION.gentle, delay: 1.3 + i * 0.22, ease: 'easeOut' }}
                     />
                 ))}
 
@@ -641,7 +641,7 @@ function InkwellCover() {
                     x="158" y="126" width="1.6" height="10" rx="0.8"
                     fill={accentColor}
                     animate={{ opacity: [0, 0.7, 0] }}
-                    transition={{ duration: 1, repeat: Infinity, delay: 2.6 }}
+                    transition={{ duration: DURATION.drift, repeat: Infinity, delay: 2.6 }}
                 />
 
                 {/* The signature ink dot — Moleskine accent motif */}
@@ -650,7 +650,7 @@ function InkwellCover() {
                     fill={accentColor}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 0.85, 0.45] }}
-                    transition={{ duration: 1.1, delay: 2.2, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1.2 }}
+                    transition={{ duration: DURATION.drift, delay: 2.2, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1.2 }}
                 />
             </svg>
         </div>
@@ -792,7 +792,7 @@ export default function VibeCodingBlock() {
                     initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
                     whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.6, ease: EASE_CINEMATIC }}
+                    transition={{ duration: DURATION.reveal, ease: EASE_CINEMATIC }}
                 >
                     <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                         BUILD LAB
@@ -805,7 +805,7 @@ export default function VibeCodingBlock() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
+                    transition={{ duration: DURATION.cinematic, ease: EASE_CINEMATIC }}
                 >
                     <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                         Nov 2025 — Present
@@ -832,7 +832,7 @@ export default function VibeCodingBlock() {
                                 initial={{ opacity: 0, y: 70, scale: 0.9, filter: 'blur(16px)' }}
                                 whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                 viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 1.4, delay: Math.min(i, 3) * 0.18, ease: EASE_CINEMATIC }}
+                                transition={{ duration: DURATION.reveal, delay: Math.min(i, 3) * 0.18, ease: EASE_CINEMATIC }}
                             >
                                 <button
                                     onClick={() => handleTileClick(tile.action)}

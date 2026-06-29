@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { m } from 'framer-motion'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 export interface CinematicSceneProps {
  eyebrow?: string
@@ -37,7 +37,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  whileInView={{ opacity: 1, scale: 1, y: 0 }}
  viewport={{ once: true, margin: "-10%" }}
- transition={{ duration: 1.0, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  >
  {eyebrow && (
  <span className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
@@ -66,7 +66,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  initial={{ opacity: 0, x: -20 }}
  whileInView={{ opacity: 1, x: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay: 0.2 + (i * 0.1), ease }}
+ transition={{ duration: DURATION.slower, delay: 0.2 + (i * 0.1), ease }}
  className="flex items-start gap-4"
  >
  <span className="text-[var(--accent-teal)] font-mono text-xl leading-none mt-1">0{i + 1}</span>
@@ -86,7 +86,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, margin: "-5%" }}
- transition={{ duration: 1.2, delay: 0.15, ease }}
+ transition={{ duration: DURATION.cinematic, delay: 0.15, ease }}
  >
  {children}
  </m.div>

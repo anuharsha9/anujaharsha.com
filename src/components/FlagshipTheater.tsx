@@ -26,7 +26,7 @@ import {
 } from './case-study/storyboard/RCMovieBeats'
 import { ML_MOVIE_BEATS } from './case-study/storyboard/MLMovieBeats'
 import { DSML_MOVIE_BEATS } from './case-study/storyboard/DSMLMovieBeats'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 const MOVIE_PACE = 1.72
 const d = (ms: number) => Math.round(ms * MOVIE_PACE)
@@ -148,14 +148,14 @@ function UpNextCard({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.6, ease }}
+            transition={{ duration: DURATION.slower, ease }}
             className="relative z-20 flex flex-col items-center justify-center text-center px-4 md:px-8"
         >
             {/* Eyebrow */}
             <m.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5, ease }}
+                transition={{ delay: 0.2, duration: DURATION.slow, ease }}
                 className="flex items-center justify-center gap-2 mb-6"
             >
                 <div
@@ -174,7 +174,7 @@ function UpNextCard({
             <m.h2
                 initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ delay: 0.3, duration: 0.7, ease }}
+                transition={{ delay: 0.3, duration: DURATION.gentle, ease }}
                 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-4"
             >
                 {study.title}
@@ -184,7 +184,7 @@ function UpNextCard({
             <m.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5, ease }}
+                transition={{ delay: 0.5, duration: DURATION.slow, ease }}
                 className="text-base md:text-lg text-zinc-400 max-w-lg mx-auto font-light leading-relaxed mb-8"
             >
                 {study.subtitle}
@@ -194,7 +194,7 @@ function UpNextCard({
             <m.button
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.7, duration: 0.5, ease }}
+                transition={{ delay: 0.7, duration: DURATION.slow, ease }}
                 onClick={onPlay}
                 className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full overflow-hidden
                            hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -216,7 +216,7 @@ function UpNextCard({
             <m.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
+                transition={{ delay: 1, duration: DURATION.slow }}
                 className="mt-4"
             >
                 <TransitionLink
@@ -291,7 +291,7 @@ export default function FlagshipTheater() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.3, ease }}
+                        transition={{ duration: DURATION.base, ease }}
                         onClick={handleClose}
                         className="absolute top-6 right-6 z-50 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md
                                    flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer
@@ -311,7 +311,7 @@ export default function FlagshipTheater() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: DURATION.slow }}
                         className="absolute inset-0 z-0"
                     >
                         <AutoPlayStory
@@ -355,7 +355,7 @@ export default function FlagshipTheater() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                         className="relative z-20 flex flex-col items-center justify-center px-4 md:px-8 text-center mt-32"
                     >
                         <div className="mb-8">
@@ -407,7 +407,7 @@ export default function FlagshipTheater() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                         className="relative z-20 flex flex-col items-center justify-center px-4 md:px-8 text-center mt-32"
                     >
                         <div className="flex items-center justify-center gap-2 mb-4">
@@ -439,7 +439,7 @@ export default function FlagshipTheater() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                         className="relative z-20 flex flex-col items-center justify-center px-4 md:px-8 text-center mt-32"
                     >
                         <div className="flex items-center justify-center gap-2 mb-4">

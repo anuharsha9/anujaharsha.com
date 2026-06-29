@@ -5,6 +5,7 @@ import SystemLightbox from '@/components/ui/SystemLightbox'
 import { type StorySlide } from '@/data/presentation-slides'
 import { m, AnimatePresence } from 'framer-motion'
 import HeroAurora from '@/components/home/HeroAurora'
+import { DURATION } from '@/lib/motion'
 
 interface PresentationLightboxProps {
  isOpen: boolean
@@ -57,7 +58,7 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -20 }}
- transition={{ duration: 0.4, ease: "easeOut" }}
+ transition={{ duration: DURATION.medium, ease: "easeOut" }}
  className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center"
  >
  {/* Text Column */}

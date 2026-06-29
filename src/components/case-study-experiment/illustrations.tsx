@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { m } from 'framer-motion'
+import { DURATION } from '@/lib/motion'
 
 /* ─────────────────────────────────────────────────────────────
  PEOPLE DOT GRID
@@ -17,7 +18,7 @@ export function PeopleDotGrid({ total = 200, highlighted = 2 }: { total?: number
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.8 }}
+ transition={{ duration: DURATION.deliberate }}
  >
  {dots.map((_, i) => (
  <span
@@ -70,7 +71,7 @@ export function AvatarPair({
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 1, delay: 0.3 }}
+ transition={{ duration: DURATION.drift, delay: 0.3 }}
  />
  </div>
 
@@ -99,7 +100,7 @@ export function ScreenshotStack() {
  initial={{ opacity: 0, x: -20, rotate: 0 }}
  whileInView={{ opacity: 1, x: 0, rotate: (i - 2) * 4 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
+ transition={{ duration: DURATION.slower, delay: i * 0.1, ease: "easeOut" }}
  className="absolute border border-white/20 rounded-md bg-[var(--bg-secondary)] shadow-2xl flex items-center justify-center"
  style={{
  width: `${160 - i * 8}px`,
@@ -136,7 +137,7 @@ export function FlowDiagram({
  initial={{ opacity: 0, y: 10 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.4, delay: i * 0.2 }}
+ transition={{ duration: DURATION.medium, delay: i * 0.2 }}
  className={`flex flex-col items-center gap-2 ${i === steps.length - 1 ? 'text-[var(--accent-teal)]' : 'text-zinc-500'}`}
  >
  <div className={`w-12 h-12 rounded-full border flex items-center justify-center text-lg font-mono relative ${i === steps.length - 1
@@ -152,7 +153,7 @@ export function FlowDiagram({
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.4, delay: i * 0.2 + 0.1 }}
+ transition={{ duration: DURATION.medium, delay: i * 0.2 + 0.1 }}
  className="w-8 md:w-12 h-[2px] bg-gradient-to-r from-white/10 to-white/30 origin-left mb-6"
  />
  )}
@@ -207,8 +208,8 @@ export function ScatterConverge() {
  animate={{ strokeDashoffset: 0 }}
  viewport={{ once: true, margin: "-10%" }}
  transition={{
- opacity: { duration: 1, delay: node.delay },
- strokeDashoffset: { repeat: Infinity, duration: 1.5, ease: "linear" }
+ opacity: { duration: DURATION.drift, delay: node.delay },
+ strokeDashoffset: { repeat: Infinity, duration: DURATION.reveal, ease: "linear" }
  }}
  />
  ))}
@@ -223,7 +224,7 @@ export function ScatterConverge() {
  whileInView={{ scale: 1, opacity: 1 }}
  viewport={{ once: true, margin: "-10%" }}
  transition={{
- duration: 1,
+ duration: DURATION.drift,
  delay: node.delay,
  ease: "easeOut"
  }}
@@ -244,7 +245,7 @@ export function ScatterConverge() {
  whileInView={{ scale: 1, opacity: 1 }}
  viewport={{ once: true, margin: "-10%" }}
  transition={{
- duration: 1,
+ duration: DURATION.drift,
  delay: 0.8,
  ease: "easeOut"
  }}
@@ -298,7 +299,7 @@ export function RejectionMark() {
  initial={{ opacity: 0, rotate: -20, scale: 0.5 }}
  whileInView={{ opacity: 1, rotate: -6, scale: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.8, delay: 0.2, type: 'spring', bounce: 0.4 }}
+ transition={{ duration: DURATION.deliberate, delay: 0.2, type: 'spring', bounce: 0.4 }}
  className="text-red-500/30 text-[120px] leading-none font-light my-6 select-none pl-4"
  style={{ textShadow: '0 0 40px rgba(239, 68, 68, 0.2)' }}
  >
@@ -323,7 +324,7 @@ export function PlusIconTree({
  initial={{ opacity: 0, scale: 0.8, y: 20 }}
  whileInView={{ opacity: 1, scale: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.8, type: 'spring' }}
+ transition={{ duration: DURATION.deliberate, type: 'spring' }}
  className="w-24 h-24 rounded-2xl border border-[var(--accent-teal)]/40 bg-[var(--accent-teal)]/10 flex items-center justify-center mb-6 relative shadow-[0_0_30px_rgba(45,212,191,0.15)]"
  >
  <span className="text-[var(--accent-teal)] text-5xl font-light mb-1 relative z-10">+</span>
@@ -336,7 +337,7 @@ export function PlusIconTree({
  initial={{ scaleY: 0 }}
  whileInView={{ scaleY: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay: 0.4 }}
+ transition={{ duration: DURATION.slower, delay: 0.4 }}
  className="w-[2px] h-12 bg-gradient-to-b from-[var(--accent-teal)]/50 to-white/20 origin-top"
  />
 
@@ -345,7 +346,7 @@ export function PlusIconTree({
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay: 1 }}
+ transition={{ duration: DURATION.slower, delay: 1 }}
  className="h-[2px] w-full max-w-sm bg-white/20"
  />
 
@@ -357,7 +358,7 @@ export function PlusIconTree({
  initial={{ opacity: 0, y: 15 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.5, delay: 1.2 + i * 0.15 }}
+ transition={{ duration: DURATION.slow, delay: 1.2 + i * 0.15 }}
  className="flex flex-col items-center gap-3"
  >
  <div className="w-[2px] h-6 bg-white/20" />
@@ -394,7 +395,7 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
  initial={{ opacity: 0, scale: 0.8, y: 10 }}
  whileInView={{ opacity: 1, scale: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.4, delay: i * 0.15 }}
+ transition={{ duration: DURATION.medium, delay: i * 0.15 }}
  >
  <div className={`w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300
  ${role.active
@@ -413,7 +414,7 @@ export function OnboardingPath({ roles }: { roles: { name: string, abbr: string,
  initial={{ opacity: 0, scale: 0 }}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.3, delay: i * 0.15 + 0.1 }}
+ transition={{ duration: DURATION.base, delay: i * 0.15 + 0.1 }}
  >
  <span className="text-zinc-800 font-light text-sm">→</span>
  </m.div>
@@ -516,7 +517,7 @@ export function ImpactClimax() {
  initial={{ opacity: 0, scale: 0.98, y: 10 }}
  whileInView={{ opacity: 1, scale: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+ transition={{ duration: DURATION.slow, delay: i * 0.1, ease: "easeOut" }}
  >
  {/* Shimmer line */}
  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-teal)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -559,7 +560,7 @@ export function VideoGrid({ highlightIndex = 5 }: { highlightIndex?: number }) {
  initial={{ opacity: 0, scale: 0.9 }}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.5, delay: i * 0.1 }}
+ transition={{ duration: DURATION.slow, delay: i * 0.1 }}
  className={`aspect-square rounded-xl border flex items-center justify-center overflow-hidden relative ${i === highlightIndex
  ? 'border-[var(--accent-teal)]/40 bg-[var(--accent-teal)]/10 shadow-[0_0_20px_rgba(45,212,191,0.15)]'
  : 'border-white/10 bg-white/5'

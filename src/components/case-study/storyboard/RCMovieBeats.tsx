@@ -11,7 +11,7 @@ import { useRef, useEffect, useState } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Layers3, Sparkles } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION } from '@/lib/motion'
 
 const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
@@ -59,7 +59,7 @@ function WireMorphBackdrop() {
  strokeDasharray="2 2"
  initial={{ pathLength: 0, opacity: 0 }}
  animate={{ pathLength: 1, opacity: [0, 0.7, 0.25] }}
- transition={{ duration: 2.4, ease }}
+ transition={{ duration: DURATION.grand, ease }}
  />
  <m.path
  d="M0,74 C20,67 34,82 52,72 C67,64 82,79 100,70"
@@ -69,14 +69,14 @@ function WireMorphBackdrop() {
  strokeDasharray="2 3"
  initial={{ pathLength: 0, opacity: 0 }}
  animate={{ pathLength: 1, opacity: [0, 0.56, 0.2] }}
- transition={{ duration: 2.5, delay: 0.1, ease }}
+ transition={{ duration: DURATION.grand, delay: 0.1, ease }}
  />
  </m.svg>
  <m.div
  className="absolute -left-[25%] top-0 h-full w-[36%] bg-[linear-gradient(90deg,transparent,var(--overlay-teal-18),transparent)] blur-xl"
  initial={{ x: '-20%', opacity: 0 }}
  animate={{ x: '150%', opacity: [0, 0.6, 0] }}
- transition={{ duration: 2.3, ease: EASE_EXPO }}
+ transition={{ duration: DURATION.epic, ease: EASE_EXPO }}
  />
  </div>
  )
@@ -116,7 +116,7 @@ function AbstractFlowBubbles({ active }: { active: boolean }) {
  }
  : {}}
  transition={{
- duration: 3.2 + index * 0.22,
+ duration: DURATION.vast + index * 0.22,
  delay: index * 0.07,
  repeat: Infinity,
  ease: 'easeInOut',
@@ -154,7 +154,7 @@ export function MovieBeatAssignment() {
  <m.div
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="font-mono text-xs tracking-[0.3em] text-[var(--cs-accent)] uppercase mb-6"
  >
  The Business Problem
@@ -167,7 +167,7 @@ export function MovieBeatAssignment() {
  <m.h2
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-4 px-4"
  >
  Customers were leaving.<br />
@@ -183,7 +183,7 @@ export function MovieBeatAssignment() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="flex gap-8 mt-8"
  >
  {[
@@ -227,7 +227,7 @@ export function MovieBeatDiscovery() {
  <m.p
  initial={{ opacity: 0, y: 12 }}
  animate={step >= 0 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cs-accent)]"
  >
  Discovery Arc
@@ -245,7 +245,7 @@ export function MovieBeatDiscovery() {
  className="w-full md:w-52 rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] px-5 py-4 text-center "
  initial={{ opacity: 0, y: 20, scale: 0.9 }}
  animate={step >= 1 ? { opacity: 1, y: 0, scale: 1 } : {}}
- transition={{ duration: 0.55, delay: card.delay, ease }}
+ transition={{ duration: DURATION.slow, delay: card.delay, ease }}
  >
  <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--cs-accent)] mb-1.5">{card.title}</div>
  <p className="text-sm text-zinc-200 leading-snug">{card.meta}</p>
@@ -259,7 +259,7 @@ export function MovieBeatDiscovery() {
  <m.div
  initial={{ scaleX: 0, opacity: 0 }}
  animate={{ scaleX: 1, opacity: 0.3 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="hidden md:block w-full max-w-lg h-px bg-gradient-to-r from-transparent via-[var(--cs-accent)] to-transparent mt-4 origin-center"
  />
  )}
@@ -270,7 +270,7 @@ export function MovieBeatDiscovery() {
  <m.p
  initial={{ opacity: 0, y: 12 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="mt-6 max-w-md text-center text-sm text-zinc-200 leading-relaxed px-4"
  >
  4 months of research that nobody expected — and nobody had ever done.
@@ -322,7 +322,7 @@ export function MovieBeatChaos() {
  key={sys.name}
  initial={{ opacity: 0, scale: 0 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ delay: i * 0.12, duration: 0.5, ease, type: 'spring', stiffness: 200 }}
+ transition={{ delay: i * 0.12, duration: DURATION.slow, ease, type: 'spring', stiffness: 200 }}
  className="absolute -translate-x-1/2 -translate-y-1/2"
  style={{ left: `${x}%`, top: `${y}%` }}
  >
@@ -367,7 +367,7 @@ export function MovieBeatChaos() {
  strokeDasharray="2,2"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ delay: (i + j) * 0.08, duration: 0.6 }}
+ transition={{ delay: (i + j) * 0.08, duration: DURATION.slower }}
  />
  )
  })
@@ -383,7 +383,7 @@ export function MovieBeatChaos() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="flex gap-8 md:gap-12 mt-4"
  >
  <div className="text-center">
@@ -435,7 +435,7 @@ export function MovieBeatPivots() {
  <m.p
  initial={{ opacity: 0 }}
  animate={step >= 0 ? { opacity: 1 } : {}}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="font-mono text-xs tracking-[0.3em] text-zinc-200 uppercase mb-8"
  >
  Three Pivots to Clarity
@@ -447,7 +447,7 @@ export function MovieBeatPivots() {
  key={pivot.version}
  initial={{ opacity: 0, y: 30, scale: 0.9 }}
  animate={step >= i + 1 ? { opacity: 1, y: 0, scale: 1 } : {}}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="relative"
  >
  <div
@@ -510,7 +510,7 @@ export function MovieBeatBreakthrough() {
  <m.p
  initial={{ opacity: 0 }}
  animate={step >= 0 ? { opacity: 1 } : {}}
- transition={{ duration: 0.45 }}
+ transition={{ duration: DURATION.medium }}
  className="mb-8 font-mono text-xs tracking-[0.3em] text-zinc-200 uppercase"
  >
  The Solution
@@ -524,7 +524,7 @@ export function MovieBeatBreakthrough() {
  initial={{ opacity: 0, y: 18 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -14, scale: 0.96 }}
- transition={{ duration: 0.62, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="w-full max-w-lg text-center"
  >
  <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-zinc-400 uppercase">Before</p>
@@ -534,7 +534,7 @@ export function MovieBeatBreakthrough() {
  key={title}
  initial={{ opacity: 0, y: 12 }}
  animate={step >= 1 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5, delay: idx * 0.1, ease }}
+ transition={{ duration: DURATION.slow, delay: idx * 0.1, ease }}
  className="px-4 py-3 rounded-lg border border-white/[0.08] bg-white/[0.03] text-center"
  >
  <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-zinc-300">{title}</span>
@@ -549,7 +549,7 @@ export function MovieBeatBreakthrough() {
  key="after"
  initial={{ opacity: 0, y: 14, scale: 0.94 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ duration: 0.75, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="w-full max-w-lg text-center"
  >
  <p className="mb-5 font-mono text-[11px] tracking-[0.3em] text-[var(--cs-accent)] uppercase">After</p>
@@ -571,7 +571,7 @@ export function MovieBeatBreakthrough() {
  key={name}
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.4, delay: 0.15 + idx * 0.08, ease }}
+ transition={{ duration: DURATION.medium, delay: 0.15 + idx * 0.08, ease }}
  className="rounded-md border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] px-2 py-2 text-center"
  >
  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-200">{name}</span>
@@ -617,7 +617,7 @@ export function MovieBeatExecution() {
  <m.p
  initial={{ opacity: 0 }}
  animate={step >= 0 ? { opacity: 1 } : {}}
- transition={{ duration: 0.45 }}
+ transition={{ duration: DURATION.medium }}
  className="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cs-accent)]"
  >
  Execution: Recurrence Engine
@@ -631,7 +631,7 @@ export function MovieBeatExecution() {
  initial={{ opacity: 0, y: 14 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.94 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="w-full max-w-sm mx-auto"
  >
  <p className="font-mono text-[11px] tracking-[0.2em] text-zinc-400 uppercase mb-4">Before</p>
@@ -649,7 +649,7 @@ export function MovieBeatExecution() {
  key={field.label}
  initial={{ opacity: 0, x: -8 }}
  animate={step >= 1 ? { opacity: 1, x: 0 } : {}}
- transition={{ delay: i * 0.1, duration: 0.3 }}
+ transition={{ delay: i * 0.1, duration: DURATION.base }}
  className="flex items-center justify-between"
  >
  <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">{field.label}</span>
@@ -663,7 +663,7 @@ export function MovieBeatExecution() {
  <m.p
  initial={{ opacity: 0 }}
  animate={step >= 1 ? { opacity: 1 } : {}}
- transition={{ delay: 0.5, duration: 0.4 }}
+ transition={{ delay: 0.5, duration: DURATION.medium }}
  className="text-[11px] text-zinc-400 font-mono text-center pt-2 border-t border-white/[0.04]"
  >
  Outdated. Confusing. Too many steps.
@@ -676,7 +676,7 @@ export function MovieBeatExecution() {
  key="after"
  initial={{ opacity: 0, y: 14, scale: 0.94 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ duration: 0.7, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="w-full max-w-sm mx-auto"
  >
  <p className="font-mono text-[11px] tracking-[0.2em] text-[var(--cs-accent)] uppercase mb-4">After</p>
@@ -685,7 +685,7 @@ export function MovieBeatExecution() {
  <m.p
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ delay: 0.2, duration: 0.5, ease }}
+ transition={{ delay: 0.2, duration: DURATION.slow, ease }}
  className="text-lg md:text-xl text-white font-medium leading-relaxed"
  >
  Every <span className="text-[var(--cs-accent)]">Mon, Wed, Fri</span>
@@ -693,7 +693,7 @@ export function MovieBeatExecution() {
  <m.p
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ delay: 0.4, duration: 0.4 }}
+ transition={{ delay: 0.4, duration: DURATION.medium }}
  className="text-[11px] text-[var(--cs-accent)] font-mono mt-3 uppercase tracking-wider opacity-70"
  >
  Natural language. One sentence. Pure UX.
@@ -704,7 +704,7 @@ export function MovieBeatExecution() {
  <m.p
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="text-sm text-zinc-400 mt-4 font-mono"
  >
  Select settings → see a clear sentence.
@@ -748,7 +748,7 @@ export function MovieBeatScale() {
  key={i}
  initial={{ opacity: 0, scale: 0 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ delay: s.delay, duration: 0.3, ease }}
+ transition={{ delay: s.delay, duration: DURATION.base, ease }}
  className="absolute w-[13%] h-[16%] rounded-sm border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_92%)]"
  style={{ left: `${s.x}%`, top: `${s.y}%` }}
  />
@@ -761,7 +761,7 @@ export function MovieBeatScale() {
  <m.div
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="text-center"
  >
  <div className="text-5xl md:text-7xl font-bold text-white font-mono">
@@ -802,7 +802,7 @@ export function MovieBeatShipped() {
  <m.div
  initial={{ opacity: 0, scale: 0.5 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  className="text-center mb-10"
  >
  <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
@@ -821,7 +821,7 @@ export function MovieBeatShipped() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="max-w-md text-center px-4"
  >
  <p className="text-sm text-zinc-200 italic leading-relaxed">

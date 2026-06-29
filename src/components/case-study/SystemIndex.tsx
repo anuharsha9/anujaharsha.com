@@ -6,7 +6,7 @@ import { ArrowRight, Home, User } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from './CaseStudyWireframes'
 import { type ReactNode } from 'react'
 import { useTransition } from '@/components/transitions/TransitionContext'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 interface ProjectMeta {
  id: string
@@ -85,7 +85,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  initial={{ opacity: 0, y: 40 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, amount: 0.2 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <div className="max-w-[1440px] mx-auto px-4 xs:px-5 sm:px-6 md:px-8 lg:px-12 xl:px-16">
  {/* Header */}
@@ -94,7 +94,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  >
  <span className="inline-block font-mono text-[10px] tracking-[0.25em] uppercase text-zinc-600 mb-3">
  {isEndOfJourney ? 'Explore More' : 'Up Next'}
@@ -114,7 +114,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  >
  <TransitionLink
  href="/#extended-portfolio"
@@ -134,7 +134,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay: 0.1, ease }}
+ transition={{ duration: DURATION.slower, delay: 0.1, ease }}
  >
  <TransitionLink
  href="/me"
@@ -161,7 +161,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  initial={{ opacity: 0, y: 30 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay: idx * 0.1, ease }}
+ transition={{ duration: DURATION.slower, delay: idx * 0.1, ease }}
  >
  <TransitionLink
  href={project.link}

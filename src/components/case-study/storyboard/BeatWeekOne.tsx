@@ -4,7 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 interface Fact {
  label: string
@@ -61,7 +61,7 @@ export default function BeatWeekOne() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -88,7 +88,7 @@ export default function BeatWeekOne() {
  ? { opacity: 1, scale: 1 }
  : { opacity: 0, scale: 0.5 }
  }
- transition={{ duration: 0.7, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  >
  {/* SVG ring gauge */}
  <div className="relative w-20 h-20 md:w-24 md:h-24">
@@ -118,7 +118,7 @@ export default function BeatWeekOne() {
  ? { strokeDashoffset: dashOffset }
  : { strokeDashoffset: RING_C }
  }
- transition={{ duration: 1.2, delay: 0.3, ease }}
+ transition={{ duration: DURATION.cinematic, delay: 0.3, ease }}
  style={{ filter: `drop-shadow(0 0 6px ${fact.color})` }}
  />
  {/* Tick marks */}
@@ -137,7 +137,7 @@ export default function BeatWeekOne() {
  strokeWidth="1"
  initial={{ opacity: 0 }}
  animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
- transition={{ duration: 0.2, delay: 0.1 + ti * 0.04 }}
+ transition={{ duration: DURATION.fast, delay: 0.1 + ti * 0.04 }}
  />
  )
  })}
@@ -152,7 +152,7 @@ export default function BeatWeekOne() {
  ? { opacity: 1, scale: 1 }
  : { opacity: 0, scale: 0 }
  }
- transition={{ duration: 0.5, delay: 0.5, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.5, ease }}
  >
  <span
  className="text-xl md:text-2xl font-bold font-mono"
@@ -168,7 +168,7 @@ export default function BeatWeekOne() {
  className="absolute inset-0 rounded-full pointer-events-none"
  initial={{ opacity: 0 }}
  animate={{ opacity: [0, 0.15, 0] }}
- transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.grand, repeat: Infinity, ease: 'easeInOut' }}
  style={{
  background: `radial-gradient(circle, ${withHexAlpha(fact.color, '22')} 0%, transparent 60%)`,
  }}
@@ -185,7 +185,7 @@ export default function BeatWeekOne() {
  ? { opacity: 1, y: 0 }
  : { opacity: 0, y: 8 }
  }
- transition={{ duration: 0.4, delay: 0.7, ease }}
+ transition={{ duration: DURATION.medium, delay: 0.7, ease }}
  >
  <div className="text-[11px] md:text-xs font-mono text-zinc-500 tracking-wider uppercase leading-snug">
  {fact.label}
@@ -201,13 +201,13 @@ export default function BeatWeekOne() {
  className="relative h-px mt-6 overflow-hidden"
  initial={{ opacity: 0 }}
  animate={step >= 4 ? { opacity: 1 } : { opacity: 0 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  >
  <m.div
  className="absolute h-full w-24"
  initial={{ left: '-10%' }}
  animate={step >= 4 ? { left: '110%' } : { left: '-10%' }}
- transition={{ duration: 1.5, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.reveal, ease: 'easeInOut' }}
  style={{
  background: 'linear-gradient(90deg, transparent, var(--overlay-white-15), transparent)',
  }}

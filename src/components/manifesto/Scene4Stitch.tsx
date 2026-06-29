@@ -1,6 +1,7 @@
 import { m, useTransform, MotionValue } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
+import { DURATION } from '@/lib/motion'
 
 const easeCinematic = [0.16, 1, 0.3, 1]
 
@@ -63,7 +64,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
         className="text-center mb-16 z-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: easeCinematic }}
+        transition={{ duration: DURATION.deliberate, ease: easeCinematic }}
       >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-zinc-300 tracking-tight leading-tight max-w-3xl">
           <span className="text-zinc-500">UI is muscle memory.</span><br />
@@ -74,7 +75,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
           className="mt-6 text-sm sm:text-base md:text-lg text-zinc-400 font-light"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: isSnapping ? 1 : 0, y: isSnapping ? 0 : 10 }}
-          transition={{ duration: 0.8, ease: easeCinematic }}
+          transition={{ duration: DURATION.deliberate, ease: easeCinematic }}
         >
           Stitching together a better, more efficient workflow by removing points of friction.
         </m.p>
@@ -156,7 +157,7 @@ export function Scene4Stitch({ progress }: { progress: number }) {
             opacity: isInspecting ? 1 : 0, 
             scale: isInspecting ? 1 : (isSnapping ? 0 : 2) 
           }}
-          transition={{ duration: 0.6, ease: easeCinematic }}
+          transition={{ duration: DURATION.slower, ease: easeCinematic }}
         >
           <Search className="w-6 h-6 text-white/30 absolute top-3 right-3" aria-hidden="true" />
           

@@ -2,7 +2,7 @@
 
 import { m } from 'framer-motion'
 import type { CaseStudyData, HighlightMetric } from '@/types/caseStudy'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /**
  * 10-second case-study triage block. Renders RIGHT AFTER the cinematic hero
@@ -47,7 +47,7 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 1, ease }}
+                transition={{ duration: DURATION.drift, ease }}
             >
                 {/* Section eyebrow — consistent across all 3 studies */}
                 <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--cs-accent)]">

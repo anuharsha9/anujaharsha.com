@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { m, useReducedMotion } from 'framer-motion'
 import { Play, Pause, ChevronLeft, ChevronRight, type LucideIcon } from 'lucide-react'
+import { DURATION } from '@/lib/motion'
 
 /**
  * Workflow-led walkthrough player — the primary "See it run" surface for Build
@@ -75,7 +76,7 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                     key={slide.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4 }}
+                    transition={{ duration: DURATION.medium }}
                     className="absolute inset-0"
                 >
                     {slide.video ? (
@@ -120,7 +121,7 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                     key={slide.id + '-cap'}
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
+                    transition={{ duration: DURATION.medium }}
                     className="mt-2 text-[15px] leading-relaxed text-zinc-200"
                 >
                     {slide.caption}

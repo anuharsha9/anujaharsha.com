@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { m, useScroll, useTransform, useSpring, useVelocity } from 'framer-motion'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 /**
  * ScrollGear — Physics-driven scroll progress indicator
@@ -69,7 +69,7 @@ export default function ScrollGear() {
         opacity: isVisible ? 1 : 0,
         scale: isVisible ? 1 : 0.8,
       }}
-      transition={{ duration: 0.3, ease: EASE_CINEMATIC }}
+      transition={{ duration: DURATION.base, ease: EASE_CINEMATIC }}
     >
       <m.div
         style={{ rotate: finalRotate, scale: smoothScale }}

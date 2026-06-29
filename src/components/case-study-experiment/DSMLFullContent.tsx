@@ -12,7 +12,7 @@ import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import SystemIndex from '@/components/case-study/SystemIndex'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 import {
     BentoGrid, BentoRow, ImageTile, TextTile, VideoTile,
     PullQuote, EyebrowLabel, CarouselTile,
@@ -46,14 +46,14 @@ function DSMLNavigationDiagram() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6, ease }}
+            transition={{ duration: DURATION.slower, ease }}
             className="w-full"
         >
             {/* Header pill */}
             <m.div
                 initial={{ opacity: 0 }}
                 animate={step >= 1 ? { opacity: 1 } : {}}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: DURATION.medium }}
                 className="text-center mb-8"
             >
                 <span className="inline-block font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase text-rose-400/70 border border-rose-400/20 rounded-full px-4 py-1.5 bg-rose-400/[0.04]">
@@ -68,20 +68,20 @@ function DSMLNavigationDiagram() {
                 <m.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, ease }}
+                    transition={{ duration: DURATION.slow, ease }}
                     className="rounded-2xl border border-rose-400/15 bg-rose-400/[0.03] p-5 md:p-6"
                 >
                     <p className="font-mono text-[10px] text-rose-400/50 uppercase tracking-[0.2em] mb-4">Path 1 — Finding NLQ or Insights</p>
 
                     {/* Horizontal flow */}
                     <div className="flex flex-wrap items-center gap-2 md:gap-2.5">
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Hub</m.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className={nodeGray}>Hub</m.div>
                         <m.span initial={{ opacity: 0 }} animate={step >= 2 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>+ Menu</m.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className={nodeGray}>+ Menu</m.div>
                         <m.span initial={{ opacity: 0 }} animate={step >= 3 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Explore Data</m.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className={nodeGray}>Explore Data</m.div>
                         <m.span initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className="flex gap-1.5">
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className="flex gap-1.5">
                             <div className={`${node} border-purple-500/30 bg-purple-500/[0.08] text-purple-300`}>NLQ</div>
                             <div className={`${node} border-teal-500/30 bg-teal-500/[0.08] text-teal-300`}>Insights</div>
                         </m.div>
@@ -96,20 +96,20 @@ function DSMLNavigationDiagram() {
                 <m.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, ease, delay: 0.1 }}
+                    transition={{ duration: DURATION.slow, ease, delay: 0.1 }}
                     className="rounded-2xl border border-rose-400/15 bg-rose-400/[0.03] p-5 md:p-6"
                 >
                     <p className="font-mono text-[10px] text-rose-400/50 uppercase tracking-[0.2em] mb-4">Path 2 — Finding Predict Data (ML)</p>
 
                     {/* Horizontal flow */}
                     <div className="flex flex-wrap items-center gap-2 md:gap-2.5">
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Hub</m.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 2 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className={nodeGray}>Hub</m.div>
                         <m.span initial={{ opacity: 0 }} animate={step >= 2 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>App Dirs</m.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className={nodeGray}>App Dirs</m.div>
                         <m.span initial={{ opacity: 0 }} animate={step >= 3 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={nodeGray}>Right-click</m.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 3 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className={nodeGray}>Right-click</m.div>
                         <m.span initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} className={arrow}>→</m.span>
-                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.3 }} className={`${node} border-amber-500/30 bg-amber-500/[0.08] text-amber-300`}>Predict Data</m.div>
+                        <m.div initial={{ opacity: 0, scale: 0.8 }} animate={step >= 4 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: DURATION.base }} className={`${node} border-amber-500/30 bg-amber-500/[0.08] text-amber-300`}>Predict Data</m.div>
                     </div>
 
                     <m.p initial={{ opacity: 0 }} animate={step >= 4 ? { opacity: 1 } : {}} transition={{ delay: 0.15 }} className="text-[10px] md:text-xs text-rose-400/40 font-mono mt-4">
@@ -122,7 +122,7 @@ function DSMLNavigationDiagram() {
             <m.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={step >= 5 ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, ease }}
+                transition={{ duration: DURATION.slow, ease }}
                 className="text-center mt-8"
             >
                 <p className="text-base md:text-lg text-rose-300/70 leading-relaxed">
@@ -285,7 +285,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6, ease }}
+                                transition={{ duration: DURATION.slower, ease }}
                                 className="rounded-2xl border border-emerald-400/15 bg-emerald-400/[0.03] p-5 md:p-6"
                             >
                                 <p className="font-mono text-[10px] text-emerald-400/50 uppercase tracking-[0.2em] mb-4 text-center">After — Everything Under One Roof</p>
@@ -566,7 +566,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                         initial={{ opacity: 0, y: 24 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ duration: 0.6, delay: i * 0.15, ease }}
+                                        transition={{ duration: DURATION.slower, delay: i * 0.15, ease }}
                                         className="relative p-8 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden group hover:border-[var(--cs-accent)]/20 transition-colors duration-500"
                                     >
                                         <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[var(--cs-accent)]/5 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -587,7 +587,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={{ duration: DURATION.slower }}
                             className="p-8 rounded-2xl border border-white/10 bg-white/[0.02] mb-16"
                         >
                             <span className="text-[10px] font-mono text-[var(--cs-accent)]/70 uppercase tracking-widest mb-4 block">What Came Back With Me</span>
@@ -602,7 +602,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.6 }}
+                                    transition={{ duration: DURATION.slower }}
                                     className="p-6 rounded-xl border-l-2 border-amber-500/40 bg-white/[0.02]"
                                 >
                                     <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
@@ -613,7 +613,7 @@ export default function DSMLFullContent({ data }: { data: CaseStudyData }) {
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: 0.1 }}
+                                    transition={{ duration: DURATION.slower, delay: 0.1 }}
                                     className="p-6 rounded-xl border-l-2 border-[var(--cs-accent)]/40 bg-white/[0.02]"
                                 >
                                     <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>

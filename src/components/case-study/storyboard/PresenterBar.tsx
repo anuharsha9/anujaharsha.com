@@ -3,7 +3,7 @@
 import { type ReactNode, useState, useEffect, useRef, isValidElement, cloneElement, Fragment } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
 
 interface PresenterBarProps {
  /** Plain narration string — used when no children are passed */
@@ -86,7 +86,7 @@ function TypingDots() {
  key={i}
  className="w-1.5 h-1.5 rounded-full bg-zinc-500"
  animate={{ y: [0, -4, 0], opacity: [0.4, 0.9, 0.4] }}
- transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.15, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.slow, repeat: Infinity, delay: i * 0.15, ease: 'easeInOut' }}
  />
  ))}
  </div>
@@ -163,14 +163,14 @@ export default function PresenterBar({
  <m.div
  initial={{ opacity: 0 }}
  animate={hiddenOnMobile ? { opacity: 0, height: 0, marginBottom: 0 } : { opacity: 1 }}
- transition={hiddenOnMobile ? { duration: 0.4, ease } : { duration: 0.6, delay, ease }}
+ transition={hiddenOnMobile ? { duration: DURATION.medium, ease } : { duration: DURATION.slower, delay, ease }}
  className="flex items-start gap-4 md:gap-5 mb-8 md:mb-10 overflow-hidden"
  >
  {showAvatar && (
  <m.div
  initial={{ scale: 0.8, opacity: 0 }}
  animate={{ scale: 1, opacity: 1 }}
- transition={{ duration: 0.5, delay: delay + 0.1, ease }}
+ transition={{ duration: DURATION.slow, delay: delay + 0.1, ease }}
  className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden shadow-lg shadow-black/20"
  style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 20%, transparent)' }}
  >
@@ -188,7 +188,7 @@ export default function PresenterBar({
  <m.div
  initial={{ opacity: 0, x: -8, scale: 0.92 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
- transition={{ duration: 0.5, delay: delay + 0.15, ease: EASE_SPRING }}
+ transition={{ duration: DURATION.slow, delay: delay + 0.15, ease: EASE_SPRING }}
  className={`relative flex-1 bg-white/[0.04] rounded-2xl ${showAvatar ? 'rounded-tl-md' : ''} px-5 py-4 md:px-6 md:py-5 overflow-hidden`}
  style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 12%, transparent)' }}
  >
@@ -210,7 +210,7 @@ export default function PresenterBar({
  className="absolute inset-0 pointer-events-none"
  initial={{ x: '-100%' }}
  animate={{ x: '200%' }}
- transition={{ duration: 1.2, delay: 0.2, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.cinematic, delay: 0.2, ease: 'easeInOut' }}
  >
  <div
  className="w-1/3 h-full"
@@ -227,7 +227,7 @@ export default function PresenterBar({
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  exit={{ opacity: 0, scale: 0.95 }}
- transition={{ duration: 0.2 }}
+ transition={{ duration: DURATION.fast }}
  >
  <TypingDots />
  </m.div>
@@ -236,7 +236,7 @@ export default function PresenterBar({
  key="content"
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  >
  {phase === 'done'
  ? content

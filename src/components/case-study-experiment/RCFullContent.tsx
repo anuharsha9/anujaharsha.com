@@ -13,7 +13,7 @@ import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import ImpactDiff from '@/components/case-study/ImpactDiff'
 import SystemIndex from '@/components/case-study/SystemIndex'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 import {
     BentoGrid, BentoRow, ImageTile, TextTile, VideoTile,
     PullQuote, EyebrowLabel, CarouselTile,
@@ -304,7 +304,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            transition={{ duration: DURATION.deliberate, delay: 0.2 }}
                             className="text-center max-w-2xl mx-auto mb-16"
                         >
                             <p className="text-white font-bold text-lg">There it was — the final workflow of ReportCaster.</p>
@@ -574,7 +574,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                     initial={{ opacity: 0, y: 24 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: i * 0.15, ease: EASE_CINEMATIC }}
+                                    transition={{ duration: DURATION.slower, delay: i * 0.15, ease: EASE_CINEMATIC }}
                                     className="relative p-8 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden group hover:border-[var(--cs-accent)]/20 transition-colors duration-500"
                                 >
                                     <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[var(--cs-accent)]/5 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -597,7 +597,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6 }}
+                                transition={{ duration: DURATION.slower }}
                                 className="p-6 rounded-xl border-l-2 border-amber-500/40 bg-white/[0.02]"
                             >
                                 <span className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest mb-3 block">What I&apos;d Push Harder For</span>
@@ -608,7 +608,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: 0.1 }}
+                                transition={{ duration: DURATION.slower, delay: 0.1 }}
                                 className="p-6 rounded-xl border-l-2 border-[var(--cs-accent)]/40 bg-white/[0.02]"
                             >
                                 <span className="text-[10px] text-[var(--cs-accent)]/80 font-mono uppercase tracking-widest mb-3 block">Future Plans</span>
@@ -624,7 +624,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
+                    transition={{ duration: DURATION.cinematic, ease: EASE_CINEMATIC }}
                     className="relative w-full min-h-[50vh] flex flex-col items-center justify-center px-6 md:px-16 py-24 md:py-40"
                 >
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -640,7 +640,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 1, delay: 0.4 }}
+                            transition={{ duration: DURATION.drift, delay: 0.4 }}
                             className="text-xl md:text-2xl text-[var(--cs-accent)] font-bold"
                         >
                             I had never felt so proud of myself.
@@ -650,14 +650,14 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                             initial={{ scaleX: 0 }}
                             whileInView={{ scaleX: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 1.5, delay: 0.6, ease: "easeInOut" }}
+                            transition={{ duration: DURATION.reveal, delay: 0.6, ease: "easeInOut" }}
                             className="mt-16 w-24 h-[1px] mx-auto bg-gradient-to-r from-transparent via-white/20 to-transparent"
                         />
                         <m.p
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.8 }}
+                            transition={{ duration: DURATION.deliberate, delay: 0.8 }}
                             className="mt-8 text-sm text-zinc-500 font-mono tracking-widest uppercase"
                         >
                             RC made me the design leader I am today.

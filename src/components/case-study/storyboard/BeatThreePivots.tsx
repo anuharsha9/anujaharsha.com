@@ -4,7 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import { X, Check } from 'lucide-react'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 interface Pivot {
  version: string
@@ -114,7 +114,7 @@ export default function BeatThreePivots() {
  ? { opacity: isJudged && isRejected ? 0.65 : 1, y: 0, scale: 1 }
  : { opacity: 0, y: 20, scale: 0.95 }
  }
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="relative rounded-xl border overflow-hidden"
  style={{
  borderColor: isJudged
@@ -135,7 +135,7 @@ export default function BeatThreePivots() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={isVisible ? { scaleX: 1 } : { scaleX: 0 }}
- transition={{ duration: 0.5, delay: 0.1, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.1, ease }}
  className="h-[2px] origin-left"
  style={{
  background: isJudged
@@ -188,7 +188,7 @@ export default function BeatThreePivots() {
  <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="flex items-start gap-2 mt-2"
  >
  <div className={`w-0.5 min-h-[20px] rounded-full flex-shrink-0 mt-0.5 ${isAccepted ? 'bg-[color-mix(in_srgb,var(--cs-accent)_40%,transparent)]' : 'bg-zinc-600/30'
@@ -207,7 +207,7 @@ export default function BeatThreePivots() {
  <m.div
  initial={{ opacity: 0, scale: 2.5 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 0.2, ease: 'easeOut' }}
+ transition={{ duration: DURATION.fast, ease: 'easeOut' }}
  className="mt-3 flex items-center gap-1.5"
  >
  {isAccepted ? (
@@ -234,7 +234,7 @@ export default function BeatThreePivots() {
  <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="text-center mt-6"
  >
  <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent mb-4" />

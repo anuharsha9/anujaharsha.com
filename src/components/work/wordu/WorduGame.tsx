@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, FormEvent, useCallback } from "react"
 import { m, AnimatePresence, useSpring, useTransform } from "framer-motion"
+import { DURATION } from '@/lib/motion'
 import {
     ArrowRight,
     Trophy,
@@ -70,7 +71,7 @@ const MODES: { id: GameMode; title: string; desc: string; icon: LucideIcon; colo
         color: "bg-blue-500",
         hover: "hover:bg-blue-600",
         accent: "text-blue-500",
-        duration: 0
+        duration: DURATION.none
     },
     {
         id: "target",
@@ -80,7 +81,7 @@ const MODES: { id: GameMode; title: string; desc: string; icon: LucideIcon; colo
         color: "bg-emerald-500",
         hover: "hover:bg-emerald-600",
         accent: "text-emerald-500",
-        duration: 0,
+        duration: DURATION.none,
         target: 500
     },
     {

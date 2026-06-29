@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
 
 /* ── 8 constellation nodes ── */
 const ACCENT = 'var(--cs-accent)'
@@ -88,7 +88,7 @@ export default function BeatTeamBuilding() {
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="relative w-full aspect-[16/10] md:aspect-[16/8] max-w-2xl mx-auto"
  >
  <svg
@@ -110,7 +110,7 @@ export default function BeatTeamBuilding() {
  ? { pathLength: 1, opacity: 1 }
  : { pathLength: 0, opacity: 0 }
  }
- transition={{ duration: 0.5, delay: i * 0.04, ease }}
+ transition={{ duration: DURATION.slow, delay: i * 0.04, ease }}
  />
  ))}
 
@@ -132,7 +132,7 @@ export default function BeatTeamBuilding() {
  strokeWidth="0.3"
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: [0, 0.4, 0], scale: [0.8, 1.5, 1.8] }}
- transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+ transition={{ duration: DURATION.epic, repeat: Infinity, delay: i * 0.2 }}
  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
  />
  )}
@@ -148,7 +148,7 @@ export default function BeatTeamBuilding() {
  : { opacity: 0, scale: 0 }
  }
  transition={{
- duration: 0.5,
+ duration: DURATION.slow,
  ease: EASE_SPRING,
  }}
  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
@@ -161,7 +161,7 @@ export default function BeatTeamBuilding() {
  fill="white"
  initial={{ opacity: 0 }}
  animate={isVisible ? { opacity: 0.6 } : { opacity: 0 }}
- transition={{ duration: 0.3, delay: 0.2 }}
+ transition={{ duration: DURATION.base, delay: 0.2 }}
  />
 
  {/* Label */}
@@ -177,7 +177,7 @@ export default function BeatTeamBuilding() {
  ? { opacity: 0.9, y: 0 }
  : { opacity: 0 }
  }
- transition={{ duration: 0.4, delay: 0.15 }}
+ transition={{ duration: DURATION.medium, delay: 0.15 }}
  >
  {node.label}
  </m.text>
@@ -195,7 +195,7 @@ export default function BeatTeamBuilding() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  className="text-center mt-2"
  >
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">

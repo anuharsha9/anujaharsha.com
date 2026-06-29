@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
-import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION } from '@/lib/motion'
 
 /* ─── Word-by-word kinetic text ─── */
 function KineticLine({
@@ -31,7 +31,7 @@ function KineticLine({
                         initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
                         transition={{
-                            duration: 0.55,
+                            duration: DURATION.slow,
                             delay: delay + i * 0.07,
                             ease,
                         }}
@@ -56,7 +56,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
                     initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                     transition={{
-                        duration: 0.35,
+                        duration: DURATION.base,
                         delay: i * 0.035,
                         ease: EASE_EXPO,
                     }}
@@ -120,7 +120,7 @@ export default function DSMLTrailer() {
     }, [step])
 
     const textExit = { opacity: 0, y: -25, filter: 'blur(14px)' }
-    const textExitT = { duration: 0.45, ease }
+    const textExitT = { duration: DURATION.medium, ease }
 
     return (
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
@@ -194,13 +194,13 @@ export default function DSMLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, scale: 1.05, filter: 'blur(14px)' }}
-                        transition={{ duration: 0.5, ease }}
+                        transition={{ duration: DURATION.slow, ease }}
                     >
                         <m.p
                             className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 mb-8"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: DURATION.slow, delay: 0.2 }}
                         >
                             <span className="text-white font-medium">Millions</span> invested. <span className="text-[var(--semantic-rose)]">Near-zero</span> adoption.
                         </m.p>
@@ -225,7 +225,7 @@ export default function DSMLTrailer() {
                                         }}
                                         initial={{ opacity: 0, scale: 0 }}
                                         animate={{ opacity: 0.8, scale: 1 }}
-                                        transition={{ delay: 0.2 + i * 0.2, duration: 0.5, ease }}
+                                        transition={{ delay: 0.2 + i * 0.2, duration: DURATION.slow, ease }}
                                     >
                                         <span className="text-sm sm:text-base font-bold tracking-wide" style={{ color: `rgba(${feat.color}, 0.9)` }}>
                                             {feat.label}
@@ -273,7 +273,7 @@ export default function DSMLTrailer() {
                         initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                     >
                         <KineticLine
                             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-tight"
@@ -294,7 +294,7 @@ export default function DSMLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, filter: 'blur(14px)' }}
-                        transition={{ duration: 0.5, ease }}
+                        transition={{ duration: DURATION.slow, ease }}
                     >
                         {/* Three features merging into one */}
                         <div className="relative w-full max-w-[16rem] h-48 sm:max-w-sm sm:h-56 md:max-w-lg md:h-64 mb-6">
@@ -323,7 +323,7 @@ export default function DSMLTrailer() {
                                         scale: 0.85,
                                     }}
                                     transition={{
-                                        duration: 1.2,
+                                        duration: DURATION.cinematic,
                                         delay: i * 0.15,
                                         ease,
                                     }}
@@ -339,7 +339,7 @@ export default function DSMLTrailer() {
                                 className="absolute left-1/2 top-1/2 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl border-2 border-[var(--accent-teal)]/50 bg-[var(--accent-teal)]/[0.06]"
                                 initial={{ opacity: 0, scale: 0, x: '-50%', y: '-50%' }}
                                 animate={{ opacity: 1, scale: 1, x: '-50%', y: '-50%' }}
-                                transition={{ delay: 1.0, duration: 0.8, ease }}
+                                transition={{ delay: 1.0, duration: DURATION.deliberate, ease }}
                                 style={{ boxShadow: '0 0 60px rgba(0, 210, 211, 0.2)' }}
                             />
                         </div>
@@ -348,7 +348,7 @@ export default function DSMLTrailer() {
                             className="text-center"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.5, duration: 0.5 }}
+                            transition={{ delay: 1.5, duration: DURATION.slow }}
                         >
                             <div className="text-4xl md:text-5xl font-bold text-white tracking-tighter">
                                 3 <span className="text-zinc-500 font-light">→</span> <span className="text-[var(--accent-teal)]">1</span>
@@ -368,7 +368,7 @@ export default function DSMLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: DURATION.base }}
                     >
                         <div className="text-center">
                             <SlamText className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-[var(--accent-teal)] tracking-tighter">
@@ -378,7 +378,7 @@ export default function DSMLTrailer() {
                                 className="text-sm sm:text-base md:text-lg font-mono text-zinc-400 uppercase tracking-[0.3em] mt-4"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5, duration: 0.4 }}
+                                transition={{ delay: 0.5, duration: DURATION.medium }}
                             >
                                 NLQ Adoption
                             </m.p>
@@ -432,7 +432,7 @@ export default function DSMLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                     >
                         <m.div
                             className="absolute text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white/[0.04] tracking-tighter select-none pointer-events-none"
@@ -446,7 +446,7 @@ export default function DSMLTrailer() {
                             className="relative z-10 max-w-2xl text-center"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.6, ease }}
+                            transition={{ delay: 0.2, duration: DURATION.slower, ease }}
                         >
                             <p className="text-sm sm:text-base md:text-lg text-zinc-200 italic leading-relaxed">
                                 &ldquo;Anu is bold and fearless in her design pursuits. She pushes boundaries and explores new design territory without hesitation.&rdquo;

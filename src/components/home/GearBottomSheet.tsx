@@ -6,6 +6,7 @@ import TransitionLink from '@/components/transitions/TransitionLink'
 import { X, ArrowRight } from 'lucide-react'
 import { GearInspectorItem } from '@/data/gear-inspector'
 import { getTheme, spacing } from '@/lib/design-system'
+import { DURATION } from '@/lib/motion'
 
 interface GearBottomSheetProps {
   gear: GearInspectorItem | null
@@ -30,7 +31,7 @@ export default function GearBottomSheet({ gear, isOpen, onClose }: GearBottomShe
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: DURATION.fast }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]"
             onClick={onClose}
           />

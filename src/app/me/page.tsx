@@ -7,7 +7,7 @@ import { m, useScroll, useTransform, useMotionValue, AnimatePresence, animate as
 import { articleLinks } from '@/data/home'
 import ScrollGear from '@/components/ui/ScrollGear'
 import SystemLightbox from '@/components/ui/SystemLightbox'
-import { EASE_CINEMATIC, EASE_SMOOTH } from '@/lib/motion'
+import { EASE_CINEMATIC, EASE_SMOOTH, DURATION } from '@/lib/motion'
 
 
 /* ═══════════════════════════════════════════════════════════════════════════════
@@ -86,7 +86,7 @@ function GlitchPortalHero() {
   // Enter / exit watch mode
   const enterWatchMode = useCallback(() => {
     setIsWatching(true)
-    fmAnimate(watchMode, 1, { duration: 0.6, ease: EASE_SMOOTH })
+    fmAnimate(watchMode, 1, { duration: DURATION.slower, ease: EASE_SMOOTH })
     if (videoRef.current) {
       videoRef.current.muted = false
       videoRef.current.controls = true
@@ -97,7 +97,7 @@ function GlitchPortalHero() {
 
   const exitWatchMode = useCallback(() => {
     setIsWatching(false)
-    fmAnimate(watchMode, 0, { duration: 0.6, ease: EASE_SMOOTH })
+    fmAnimate(watchMode, 0, { duration: DURATION.slower, ease: EASE_SMOOTH })
     if (videoRef.current) {
       videoRef.current.muted = true
       videoRef.current.controls = false
@@ -239,7 +239,7 @@ function GlitchPortalHero() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[3]"
           style={{ opacity: combinedTextOpacity }}
           animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+          transition={{ repeat: Infinity, duration: DURATION.epic, ease: 'easeInOut' }}
         >
           <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/40 to-white/0" />
         </m.div>
@@ -316,7 +316,7 @@ function DualityWriting() {
             initial={false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: DURATION.slow }}
           >
             {/* ─── LEFT: The Poem as Graphic Art ─── */}
             <div className="relative bg-black/80 text-white overflow-hidden flex flex-col justify-center items-center min-h-screen px-8 md:px-16 lg:px-20 py-20">
@@ -330,7 +330,7 @@ function DualityWriting() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.8 }}
+                  transition={{ duration: DURATION.deliberate }}
                   className="mb-10 md:mb-14"
                 >
                   <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600 block mb-4">Poetry</span>
@@ -355,7 +355,7 @@ function DualityWriting() {
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 1, delay: 0.2 }}
+                  transition={{ duration: DURATION.drift, delay: 0.2 }}
                 >
                   <div
                     className="relative"
@@ -423,7 +423,7 @@ function DualityWriting() {
                           opacity: isButtonHovered ? 0.2 : 0,
                           scale: isButtonHovered ? 1.05 : 1,
                         }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: DURATION.medium }}
                         style={{ background: 'radial-gradient(circle, var(--accent-teal) 0%, transparent 70%)' }}
                       />
 
@@ -436,7 +436,7 @@ function DualityWriting() {
                             ? '0 0 30px var(--overlay-accent-20), inset 0 0 20px var(--overlay-accent-05)'
                             : '0 0 0px transparent',
                         }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: DURATION.base }}
                       >
                         <svg className="w-3.5 h-3.5 text-zinc-600 group-hover:text-[var(--accent-teal)] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
@@ -457,7 +457,7 @@ function DualityWriting() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{ duration: DURATION.deliberate, delay: 0.2 }}
                 className="mb-14"
               >
                 <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/40 block mb-2">Thought Leadership</span>
@@ -483,7 +483,7 @@ function DualityWriting() {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    transition={{ duration: DURATION.slow, delay: i * 0.08 }}
                     className="group flex items-start gap-4 py-5 border-b border-white/[0.06] last:border-b-0 hover:bg-white/[0.02] -mx-4 px-4 rounded-lg transition-colors"
                   >
                     <span className="flex-shrink-0 font-mono text-[11px] text-zinc-800 mt-1.5 group-hover:text-[var(--accent-teal)] transition-colors">
@@ -544,7 +544,7 @@ function DualityWriting() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: EASE_CINEMATIC }}
+              transition={{ duration: DURATION.slower, ease: EASE_CINEMATIC }}
             >
               {/* Ambient glow */}
               <div className="fixed inset-0 pointer-events-none z-0">
@@ -578,7 +578,7 @@ function DualityWriting() {
                   className="text-center mb-16 md:mb-20"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  transition={{ duration: DURATION.deliberate, delay: 0.2 }}
                 >
                   <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--accent-teal)]/40 block mb-3">The Artifact</span>
                   <h2
@@ -604,7 +604,7 @@ function DualityWriting() {
                       initial={{ opacity: 0, y: 40 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
-                        duration: 0.9,
+                        duration: DURATION.drift,
                         delay: 0.4 + si * 0.08,
                         ease: EASE_CINEMATIC,
                       }}
@@ -626,7 +626,7 @@ function DualityWriting() {
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{
-                            duration: 0.7,
+                            duration: DURATION.gentle,
                             delay: 0.5 + si * 0.08 + li * 0.05,
                             ease: EASE_CINEMATIC,
                           }}
@@ -692,7 +692,7 @@ function LifeGallery() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: DURATION.deliberate }}
         >
           <div className="flex items-center gap-4 mb-4">
             <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600">Beyond Work</span>
@@ -725,7 +725,7 @@ function LifeGallery() {
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, delay: i * 0.1, ease: EASE_CINEMATIC }}
+                transition={{ duration: DURATION.gentle, delay: i * 0.1, ease: EASE_CINEMATIC }}
               >
                 {/* Image with cinematic treatment */}
                 <div className="absolute inset-0 transition-all duration-700 ease-out"
@@ -792,7 +792,7 @@ function ConnectionClose() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: DURATION.deliberate }}
         >
           <div className="flex-1 h-[1px] bg-white/[0.06]" />
           <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600">Say Hello</span>
@@ -807,7 +807,7 @@ function ConnectionClose() {
             initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
+            transition={{ duration: DURATION.cinematic, ease: EASE_CINEMATIC }}
           >
             Let&apos;s connect.
           </m.h2>
@@ -818,7 +818,7 @@ function ConnectionClose() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: DURATION.deliberate, delay: 0.3 }}
         >
           Whether we are untangling a legacy enterprise system, discussing AI orchestration, or just talking about the perfect sourdough hydration&mdash;my inbox is open.
         </m.p>
@@ -829,7 +829,7 @@ function ConnectionClose() {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: DURATION.deliberate, delay: 0.5 }}
         >
           <a href="mailto:anujanimmagadda@gmail.com"
             className="group inline-flex items-center gap-2.5 text-zinc-600 hover:text-[var(--accent-teal)] transition-colors duration-300">
@@ -862,7 +862,7 @@ function ConnectionClose() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.8 }}
+          transition={{ duration: DURATION.drift, delay: 0.8 }}
         >
            Designed by Anuja. Built with Cursor + Google Antigravity.
         </m.p>
@@ -901,7 +901,7 @@ function GraphicDesign() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: DURATION.deliberate }}
         >
           <div className="flex items-center gap-4 mb-4">
             <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-zinc-600">A Hobby · Where It Started</span>
@@ -925,7 +925,7 @@ function GraphicDesign() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: EASE_CINEMATIC }}
+              transition={{ duration: DURATION.slow, delay: (i % 4) * 0.06, ease: EASE_CINEMATIC }}
               aria-label={`View graphic design piece ${i + 1}`}
             >
               <div className="absolute inset-0 grayscale brightness-[0.75] transition-[filter] duration-700 group-hover:grayscale-0 group-hover:brightness-100">

@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useRef, ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
+import { DURATION } from '@/lib/motion'
 
 // Context to expose Lenis instance for programmatic scrollTo
 const LenisContext = createContext<Lenis | null>(null)
@@ -34,7 +35,7 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
         if (isTouchDevice) return
 
         const lenis = new Lenis({
-            duration: 1.6,           // Slower = heavier, more deliberate scroll weight
+            duration: DURATION.reveal,           // Slower = heavier, more deliberate scroll weight
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
             orientation: 'vertical',
             gestureOrientation: 'vertical',

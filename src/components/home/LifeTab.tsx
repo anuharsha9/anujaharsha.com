@@ -12,7 +12,7 @@ import { useTransition } from '@/components/transitions/TransitionContext'
 import { ALL_MILESTONES, FAMILY_PHOTO, MAKES_GALLERIES, SAME_TIME_PAIRS, type MakeGallery } from '@/data/life-content'
 import { POEM_STANZAS } from '@/data/poem'
 import { articleLinks } from '@/data/home'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /* ─── Small reusable section header (mono label + h2 + rule) ─── */
 function RoomHeader({ label, title, subtitle }: { label: string; title: string; subtitle?: string }) {
@@ -22,7 +22,7 @@ function RoomHeader({ label, title, subtitle }: { label: string; title: string; 
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease }}
+            transition={{ duration: DURATION.gentle, ease }}
         >
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 md:text-xs">
                 {label}
@@ -50,7 +50,7 @@ function LifeHero() {
                 className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8"
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease }}
+                transition={{ duration: DURATION.drift, ease }}
             >
                 <div className="md:col-span-7">
                     <p className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 md:text-sm">
@@ -116,7 +116,7 @@ function HoldingNow() {
                     initial={{ opacity: 0, x: 16 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7, ease, delay: 0.15 }}
+                    transition={{ duration: DURATION.gentle, ease, delay: 0.15 }}
                 >
                     <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500">2026 — Now</p>
                     <p className="mt-4 text-base leading-relaxed text-zinc-300 md:text-lg">
@@ -158,7 +158,7 @@ function SameTime() {
                                 initial={{ opacity: 0, y: 28 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.25 }}
-                                transition={{ duration: 0.7, ease, delay: i * 0.05 }}
+                                transition={{ duration: DURATION.gentle, ease, delay: i * 0.05 }}
                             >
                                 {/* Mobile year label (above) */}
                                 <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/80 md:hidden">
@@ -223,7 +223,7 @@ function SameTime() {
                         className="mt-8 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3"
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, ease }}
+                        transition={{ duration: DURATION.slow, ease }}
                     >
                         {ALL_MILESTONES.map((m) => {
                             const Icon = m.icon
@@ -280,7 +280,7 @@ function Makes() {
                             initial={{ opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.6, delay: i * 0.07, ease }}
+                            transition={{ duration: DURATION.slower, delay: i * 0.07, ease }}
                             aria-label={`Open ${g.label} gallery — ${g.images.length} image${g.images.length === 1 ? '' : 's'}`}
                         >
                             <div className="absolute inset-0 grayscale-[0.5] brightness-[0.7] transition-[filter] duration-700 group-hover:grayscale-0 group-hover:brightness-100">

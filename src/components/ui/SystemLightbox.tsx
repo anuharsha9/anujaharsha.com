@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import { m, AnimatePresence } from 'framer-motion'
 import { X, Play, Pause, ZoomIn, ZoomOut, ArrowRight, ArrowLeft } from 'lucide-react'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
+import { DURATION } from '@/lib/motion'
 
 interface SystemLightboxProps {
     isOpen: boolean
@@ -154,7 +155,7 @@ export default function SystemLightbox({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: DURATION.base }}
                         className="absolute inset-0 bg-black"
                         onClick={onClose}
                     />
@@ -168,7 +169,7 @@ export default function SystemLightbox({
                             initial={{ opacity: 0, y: -12 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -12 }}
-                            transition={{ duration: 0.25, delay: 0.1 }}
+                            transition={{ duration: DURATION.fast, delay: 0.1 }}
                             className="relative z-20 flex justify-end pointer-events-none"
                             style={{
                                 paddingTop: 'max(0.75rem, env(safe-area-inset-top))',
@@ -189,7 +190,7 @@ export default function SystemLightbox({
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3, delay: 0.1 }}
+                            transition={{ duration: DURATION.base, delay: 0.1 }}
                             className="relative z-20 flex items-center justify-between px-8 py-6 w-full pointer-events-none"
                         >
                             {/* Left: Title + Index */}
@@ -265,7 +266,7 @@ export default function SystemLightbox({
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
-                            transition={{ duration: 0.3, delay: 0.1 }}
+                            transition={{ duration: DURATION.base, delay: 0.1 }}
                             className="relative z-20 w-full py-8 flex items-center justify-center gap-10 md:gap-12 pointer-events-none"
                         >
                             {shortcuts.map((shortcut, i) => (

@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { m, useInView } from 'framer-motion'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /**
  * Design philosophy section. The text is structured as STANZAS so the reveal
@@ -70,7 +70,7 @@ function ChairLineDrawing({ play }: { play: boolean }) {
     const drawAt = (delay: number) => ({
         initial: { pathLength: 0, opacity: 0 },
         animate: play ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 },
-        transition: { duration: 1.4, delay, ease },
+        transition: { duration: DURATION.reveal, delay, ease },
     })
 
     return (
@@ -119,7 +119,7 @@ export default function FoundationBlock() {
                     aria-hidden="true"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 1, ease }}
+                    transition={{ duration: DURATION.drift, ease }}
                 >
                     &ldquo;
                 </m.span>
@@ -142,7 +142,7 @@ export default function FoundationBlock() {
                                             : {}
                                     }
                                     transition={{
-                                        duration: 0.7,
+                                        duration: DURATION.gentle,
                                         delay: delayForWord(sIdx, wIdx),
                                         ease,
                                     }}
@@ -159,7 +159,7 @@ export default function FoundationBlock() {
                     className="mt-14 md:mt-16"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.4, delay: TEXT_DURATION }}
+                    transition={{ duration: DURATION.medium, delay: TEXT_DURATION }}
                 >
                     <ChairLineDrawing play={isInView} />
                 </m.div>
@@ -169,7 +169,7 @@ export default function FoundationBlock() {
                     className="mt-6 font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 md:text-xs"
                     initial={{ opacity: 0, y: 8 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, delay: TEXT_DURATION + 1.8, ease }}
+                    transition={{ duration: DURATION.deliberate, delay: TEXT_DURATION + 1.8, ease }}
                 >
                     — How I design
                 </m.p>

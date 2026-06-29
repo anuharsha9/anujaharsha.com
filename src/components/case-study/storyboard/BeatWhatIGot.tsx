@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Monitor, FileText, Play, X, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
 
 interface Item {
  icon: LucideIcon
@@ -109,7 +109,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="relative"
  >
  {/* "What I received" header + counter */}
@@ -142,7 +142,7 @@ export default function BeatWhatIGot() {
  : { opacity: 0, y: -60, scale: 0.7 }
  }
  transition={{
- duration: 0.7,
+ duration: DURATION.gentle,
  ease: EASE_SPRING, // spring-like
  }}
  className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 md:p-6 text-center overflow-hidden"
@@ -151,7 +151,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={isVisible ? { scaleX: 1 } : { scaleX: 0 }}
- transition={{ duration: 0.6, delay: 0.3, ease }}
+ transition={{ duration: DURATION.slower, delay: 0.3, ease }}
  className="absolute top-0 left-0 right-0 h-[2px] origin-left"
  style={{ background: item.color }}
  />
@@ -160,7 +160,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ opacity: 0, scale: 0 }}
  animate={isVisible ? { opacity: 0.6, scale: 1 } : { opacity: 0, scale: 0 }}
- transition={{ duration: 0.8, delay: 0.2, ease }}
+ transition={{ duration: DURATION.deliberate, delay: 0.2, ease }}
  className="absolute left-1/2 top-8 -translate-x-1/2 w-16 h-16 rounded-full"
  style={{
  background: `radial-gradient(circle, ${withHexAlpha(item.color, '40')} 0%, transparent 70%)`,
@@ -176,7 +176,7 @@ export default function BeatWhatIGot() {
  : { opacity: 0, y: -30, scale: 0 }
  }
  transition={{
- duration: 0.5,
+ duration: DURATION.slow,
  delay: 0.15,
  ease: EASE_SPRING,
  }}
@@ -197,7 +197,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ opacity: 0, y: 8 }}
  animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
- transition={{ duration: 0.5, delay: 0.35, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.35, ease }}
  className="text-sm font-medium text-white mb-1"
  >
  {item.label}
@@ -207,7 +207,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ opacity: 0 }}
  animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
- transition={{ duration: 0.5, delay: 0.5, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.5, ease }}
  className="text-[11px] text-zinc-500 font-mono leading-snug"
  >
  {item.detail}
@@ -218,7 +218,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ opacity: 0.5, scale: 0.5 }}
  animate={{ opacity: 0, scale: 2 }}
- transition={{ duration: 0.8, ease: 'easeOut' }}
+ transition={{ duration: DURATION.deliberate, ease: 'easeOut' }}
  className="absolute inset-0 rounded-xl pointer-events-none"
  style={{ border: `1px solid ${withHexAlpha(item.color, '40')}` }}
  />
@@ -234,7 +234,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  >
  <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent mb-6" />
  <div className="text-center mb-4">
@@ -253,7 +253,7 @@ export default function BeatWhatIGot() {
  : { opacity: 0, scale: 0.8 }
  }
  transition={{
- duration: 0.4,
+ duration: DURATION.medium,
  ease: EASE_SPRING,
  }}
  className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5"
@@ -278,7 +278,7 @@ export default function BeatWhatIGot() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1.2, ease }}
+ transition={{ duration: DURATION.cinematic, ease }}
  className="text-center mt-10"
  >
  <div className="h-px bg-gradient-to-r from-transparent via-zinc-700/30 to-transparent mb-8" />

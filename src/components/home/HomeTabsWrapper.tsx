@@ -3,7 +3,7 @@
 import { lazy, Suspense } from 'react'
 import { m } from 'framer-motion'
 import { useActiveTab } from './TabSwitcher'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 const LifeTab = lazy(() => import('./LifeTab'))
 
@@ -22,7 +22,7 @@ export default function HomeTabsWrapper({ children }: { children: React.ReactNod
                     key="life"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.45, ease }}
+                    transition={{ duration: DURATION.medium, ease }}
                 >
                     <Suspense fallback={<div style={{ minHeight: '100vh' }} aria-hidden="true" />}>
                         <LifeTab />

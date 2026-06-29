@@ -5,7 +5,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import { Send, Mail, Loader2 } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import { ASK_QA, CATEGORY_LABELS, type AskCategory } from '@/data/ask-anuja-qa'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /**
  * The "Ask Anuja" experience.
@@ -152,7 +152,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: 'auto', opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.35, ease }}
+                                                transition={{ duration: DURATION.base, ease }}
                                             >
                                                 <div className="border-t border-white/[0.06] px-5 py-4">
                                                     <p className="text-[15px] leading-relaxed text-zinc-300">
@@ -186,7 +186,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                             className="mt-8 rounded-2xl border border-[var(--accent-teal)]/25 bg-[var(--accent-teal)]/[0.06] p-5"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, ease }}
+                            transition={{ duration: DURATION.medium, ease }}
                         >
                             <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
                                 {customStatus === 'error' ? 'Heads up' : "Anu’s reply"}

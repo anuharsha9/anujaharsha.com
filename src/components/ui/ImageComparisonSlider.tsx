@@ -5,6 +5,7 @@ import { m, useInView, useMotionValue, useTransform, animate } from 'framer-moti
 import Image from 'next/image'
 import { GripVertical } from 'lucide-react'
 import { getTheme } from '@/lib/design-system'
+import { DURATION } from '@/lib/motion'
 
 interface ImageComparisonSliderProps {
     beforeImage: string
@@ -61,7 +62,7 @@ export default function ImageComparisonSlider({
         if (!isInView || !isHovered || hasInteracted || isDragging) return
 
         const controls = animate(sliderPosition, [50, 80, 20, 50], {
-            duration: 3,
+            duration: DURATION.vast,
             ease: "easeInOut",
             onComplete: () => setHasInteracted(true)
         })

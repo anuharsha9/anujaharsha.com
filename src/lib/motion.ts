@@ -51,20 +51,29 @@ export const EASE = {
 } as const
 
 /* ── Durations (SECONDS) ─────────────────────────────────────────────────────
-   Semantic speed steps + the discrete extra values the codebase actually uses,
-   so every existing `duration:` literal maps to a token of the IDENTICAL value
-   (no visual change on migration). */
+   A tight semantic speed scale. Reveal/transition durations snap to the nearest
+   step (one-offs shift ≤0.2s, almost always imperceptible). `none` (0) and
+   ambient loop durations (≥5s, e.g. slow infinite rotations) are intentionally
+   NOT on this scale and are left untouched so instant stays instant and a 60s
+   loop never collapses to a reveal. The common values (0.3–1.2s) are exact, so
+   the overwhelming majority of animations don't change at all. */
 export const DURATION = {
+  none: 0,
   instant: 0.15,
-  fast: 0.2, //    === --duration-fast (200ms)
-  base: 0.3, //    === --duration-normal (300ms)
+  fast: 0.2, //       === --duration-fast (200ms)
+  base: 0.3, //       === --duration-normal (300ms)
   medium: 0.4,
-  slow: 0.5, //    === --duration-slow (500ms)
+  slow: 0.5, //       === --duration-slow (500ms)
   slower: 0.6,
   gentle: 0.7,
   deliberate: 0.8,
   drift: 1.0,
   cinematic: 1.2,
+  reveal: 1.5,
+  epic: 2.0,
+  grand: 2.5,
+  vast: 3.0,
+  max: 4.0,
 } as const
 
 /* ── Transition presets ─────────────────────────────────────────────────────

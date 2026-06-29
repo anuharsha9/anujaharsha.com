@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Camera, Headphones, Network, User, Map, CheckCircle2, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
 
 interface TimelineEvent {
  month: string
@@ -68,7 +68,7 @@ function ProgressFill({ progress }: { progress: number }) {
  style={{ background: 'var(--cs-accent)' }}
  initial={{ height: '0%' }}
  animate={{ height: `${progress}%` }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  />
  )
 }
@@ -117,7 +117,7 @@ export default function BeatInvestigation() {
  <m.div
  initial={{ opacity: 0 }}
  animate={isInView ? { opacity: 1 } : {}}
- transition={{ duration: 0.6 }}
+ transition={{ duration: DURATION.slower }}
  >
  <PresenterBar onTypingComplete={startVisuals}>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -132,7 +132,7 @@ export default function BeatInvestigation() {
  <m.div
  initial={{ opacity: 0 }}
  animate={step >= 0 ? { opacity: 1 } : { opacity: 0 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="flex items-center justify-between mb-4"
  >
  <div className="flex items-center gap-2">
@@ -151,7 +151,7 @@ export default function BeatInvestigation() {
  style={{ background: 'var(--cs-accent)' }}
  initial={{ width: '0%' }}
  animate={{ width: `${progressPct}%` }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  />
  </div>
  </div>
@@ -171,7 +171,7 @@ export default function BeatInvestigation() {
  ? { opacity: 1, y: 0 }
  : { opacity: 0, y: 12 }
  }
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="rounded-lg border bg-white/[0.02] p-3 relative overflow-hidden"
  style={{
  borderColor: isActive ? withHexAlpha(event.color, '15') : 'var(--overlay-white-04)',
@@ -181,7 +181,7 @@ export default function BeatInvestigation() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={isActive ? { scaleX: 1 } : { scaleX: 0 }}
- transition={{ duration: 0.4, delay: 0.1, ease }}
+ transition={{ duration: DURATION.medium, delay: 0.1, ease }}
  className="absolute top-0 left-0 right-0 h-[1px] origin-left"
  style={{ background: withHexAlpha(event.color, '40') }}
  />
@@ -215,13 +215,13 @@ export default function BeatInvestigation() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="mt-6 flex items-center gap-4 max-w-2xl mx-auto"
  >
  <m.div
  initial={{ scale: 0, rotate: -20 }}
  animate={{ scale: 1, rotate: 0 }}
- transition={{ duration: 0.5, delay: 0.2, ease: EASE_SPRING }}
+ transition={{ duration: DURATION.slow, delay: 0.2, ease: EASE_SPRING }}
  className="w-10 h-10 rounded-full border border-teal-500/30 flex items-center justify-center flex-shrink-0"
  style={{
  background: 'radial-gradient(circle, var(--overlay-teal-bright-15) 0%, transparent 70%)',

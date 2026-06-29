@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
+import { DURATION } from '@/lib/motion'
 
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false)
@@ -32,7 +33,7 @@ export default function BackToTop() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: DURATION.fast }}
           onClick={scrollToTop}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {

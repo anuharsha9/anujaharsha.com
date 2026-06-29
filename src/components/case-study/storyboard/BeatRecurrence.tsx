@@ -4,7 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 interface RecurrenceExample {
  label: string
@@ -143,7 +143,7 @@ export default function BeatRecurrence() {
  <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="rounded-xl border overflow-hidden relative"
  style={{
  borderColor: isDecoded ? withHexAlpha(ex.color, '25') : 'var(--overlay-white-06)',
@@ -170,7 +170,7 @@ export default function BeatRecurrence() {
  opacity: isDecoded ? 0.2 : 1,
  y: isDecoded ? -2 : 0,
  }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  >
  {ex.beforeUI.map((line, li) => (
  <div key={li} className="text-[11px] font-mono text-zinc-400 leading-relaxed">
@@ -185,7 +185,7 @@ export default function BeatRecurrence() {
  className="absolute inset-0 pointer-events-none"
  initial={{ opacity: 0 }}
  animate={{ opacity: [0, 1, 0] }}
- transition={{ duration: 0.7 }}
+ transition={{ duration: DURATION.gentle }}
  >
  <m.div
  className="absolute top-0 h-full w-0.5"
@@ -195,7 +195,7 @@ export default function BeatRecurrence() {
  }}
  initial={{ left: '0%' }}
  animate={{ left: '100%' }}
- transition={{ duration: 0.5, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.slow, ease: 'easeInOut' }}
  />
  </m.div>
  )}
@@ -206,7 +206,7 @@ export default function BeatRecurrence() {
  <m.div
  initial={{ opacity: 0, height: 0 }}
  animate={{ opacity: 1, height: 'auto' }}
- transition={{ duration: 0.5, delay: 0.25, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.25, ease }}
  className="mt-2 pt-2 border-t"
  style={{ borderColor: withHexAlpha(ex.color, '15') }}
  >
@@ -214,7 +214,7 @@ export default function BeatRecurrence() {
  <m.div
  initial={{ scale: 0 }}
  animate={{ scale: 1 }}
- transition={{ duration: 0.3, delay: 0.3, type: 'spring' }}
+ transition={{ duration: DURATION.base, delay: 0.3, type: 'spring' }}
  >
  <svg width="16" height="16" viewBox="0 0 16 16">
  <circle cx="8" cy="8" r="7" fill="none" stroke={withHexAlpha(ex.color, '40')} strokeWidth="1.5" />
@@ -227,7 +227,7 @@ export default function BeatRecurrence() {
  strokeLinejoin="round"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ duration: 0.3, delay: 0.4 }}
+ transition={{ duration: DURATION.base, delay: 0.4 }}
  />
  </svg>
  </m.div>

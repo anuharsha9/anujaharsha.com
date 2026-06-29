@@ -12,6 +12,7 @@ import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { getCaseStudyData } from '@/lib/getCaseStudyData'
 
 import { getTheme, spacing } from '@/lib/design-system'
+import { DURATION } from '@/lib/motion'
 
 interface MobileMenuProps {
   isLightBackground?: boolean
@@ -99,7 +100,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
               type="button"
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: DURATION.fast }}
             >
               <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
               <span className={`w-6 h-[2.5px] rounded-full ${isLightBackground ? 'bg-slate-900' : 'bg-white'}`} />
@@ -128,7 +129,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: DURATION.fast }}
               onClick={closeMenu}
             />
 
@@ -156,7 +157,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: DURATION.fast }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header - Centered */}

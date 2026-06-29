@@ -4,7 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, FolderOpen, Settings, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
 
 interface SystemNode {
  icon: LucideIcon
@@ -120,7 +120,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="mt-6 mb-8"
  >
  <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
@@ -128,7 +128,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0, x: -20 }}
  animate={phase >= 1 ? { opacity: 1, x: 0 } : {}}
- transition={{ duration: 0.6, delay: 0.2, ease }}
+ transition={{ duration: DURATION.slower, delay: 0.2, ease }}
  className="rounded-xl border bg-gradient-to-br from-zinc-900/40 to-zinc-950/60 p-4 relative overflow-hidden"
  style={{ borderColor: 'color-mix(in srgb, var(--cs-accent) 15%, transparent)' }}
  >
@@ -147,7 +147,7 @@ export default function BeatFragmentation() {
  style={{ background: 'color-mix(in srgb, var(--cs-accent) 30%, transparent)' }}
  initial={{ height: 0 }}
  animate={phase >= 2 ? { height: `${h}%` } : { height: 0 }}
- transition={{ duration: 0.5, delay: 0.3 + i * 0.05, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.3 + i * 0.05, ease }}
  />
  ))}
  </div>
@@ -160,7 +160,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0 }}
  animate={phase >= 2 ? { opacity: 1 } : {}}
- transition={{ duration: 1 }}
+ transition={{ duration: DURATION.drift }}
  className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full blur-2xl pointer-events-none"
  style={{ background: 'color-mix(in srgb, var(--cs-accent) 8%, transparent)' }}
  />
@@ -171,7 +171,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0, x: 20 }}
  animate={phase >= 2 ? { opacity: 1, x: 0 } : {}}
- transition={{ duration: 0.6, delay: 0.4, ease }}
+ transition={{ duration: DURATION.slower, delay: 0.4, ease }}
  className="rounded-xl border border-zinc-700/40 bg-zinc-900/60 p-4 relative overflow-hidden"
  >
  <div className="text-[11px] font-mono text-zinc-400 tracking-widest uppercase mb-3">ReportCaster</div>
@@ -202,7 +202,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
  animate={phase >= 3 ? { opacity: 1, scale: 1, rotate: -5 } : {}}
- transition={{ duration: 0.4, delay: 0.2, ease: EASE_SPRING }}
+ transition={{ duration: DURATION.medium, delay: 0.2, ease: EASE_SPRING }}
  className="absolute top-3 right-3 px-2 py-0.5 rounded border border-zinc-500/30 bg-zinc-500/10"
  >
  <span className="text-[11px] font-mono text-zinc-400 tracking-wider uppercase">Outdated</span>
@@ -220,7 +220,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="mb-6"
  >
  <div className="text-[11px] font-mono text-zinc-400 tracking-widest uppercase text-center mb-3">
@@ -237,7 +237,7 @@ export default function BeatFragmentation() {
  key={sys.label}
  initial={{ opacity: 0, scale: 0.8 }}
  animate={isVisible ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.4, delay: i * 0.15, ease }}
+ transition={{ duration: DURATION.medium, delay: i * 0.15, ease }}
  className="flex items-center gap-2 px-3 py-2 rounded-lg border"
  style={{
  borderColor: isChaos ? 'var(--overlay-white-08)' : 'var(--overlay-white-08)',
@@ -260,7 +260,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.6 }}
+ transition={{ duration: DURATION.slower }}
  className="absolute inset-0 pointer-events-none"
  >
  <svg className="w-full h-full absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -274,7 +274,7 @@ export default function BeatFragmentation() {
  strokeDasharray="2 2"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ duration: 0.8, delay: i * 0.1, ease }}
+ transition={{ duration: DURATION.deliberate, delay: i * 0.1, ease }}
  />
  ))}
  </svg>
@@ -291,7 +291,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent my-8 origin-left"
  />
  )}
@@ -317,7 +317,7 @@ export default function BeatFragmentation() {
  ? { opacity: 1, y: 0, scale: 1 }
  : { opacity: 0, y: 20, scale: 0.9 }
  }
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="text-center"
  >
  <m.div
@@ -329,7 +329,7 @@ export default function BeatFragmentation() {
  ? { scale: [1, 1.2, 1] }
  : { scale: 1 }
  }
- transition={{ duration: 0.4, delay: 0.1 }}
+ transition={{ duration: DURATION.medium, delay: 0.1 }}
  >
  {pp.stat}
  </m.div>
@@ -349,7 +349,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  className="text-center mt-10"
  >
  <p className="text-white text-xl md:text-2xl font-semibold tracking-tight">

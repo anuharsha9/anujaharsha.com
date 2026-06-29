@@ -5,7 +5,7 @@ import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 import ImageLightbox from '@/components/case-study/ImageLightbox'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 /* ─── Lightbox Context ─── */
 interface LightboxState {
@@ -113,7 +113,7 @@ export function ImageTile({
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay, ease: EASE_CINEMATIC }}
+ transition={{ duration: DURATION.slower, delay, ease: EASE_CINEMATIC }}
  className={`group relative overflow-hidden rounded-xl cursor-pointer ${fullWidth ? 'col-span-full' : ''} ${className}`}
  style={aspectRatio ? { aspectRatio } : undefined}
  onClick={() => lightbox?.open([{ src, alt, caption }], 0)}
@@ -224,7 +224,7 @@ export function VideoTile({
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, margin: "-10%" }}
- transition={{ duration: 0.6, delay, ease: EASE_CINEMATIC }}
+ transition={{ duration: DURATION.slower, delay, ease: EASE_CINEMATIC }}
  className={`relative flex flex-col gap-3 group/video ${className}`}
  >
  {title && (
@@ -312,7 +312,7 @@ export function TextTile({
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay, ease: EASE_CINEMATIC }}
+ transition={{ duration: DURATION.slower, delay, ease: EASE_CINEMATIC }}
  className={`flex flex-col justify-center ${borderStyle} ${className}`}
  >
  {children}
@@ -337,7 +337,7 @@ export function StatTile({
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay, ease: EASE_CINEMATIC }}
+ transition={{ duration: DURATION.slower, delay, ease: EASE_CINEMATIC }}
  className="flex flex-col items-center text-center py-4"
  >
  {icon && <div className="mb-3 text-zinc-500">{icon}</div>}
@@ -360,7 +360,7 @@ export function PullQuote({
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
  viewport={{ once: true, margin: "-10%" }}
- transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
+ transition={{ duration: DURATION.cinematic, ease: EASE_CINEMATIC }}
  className={`w-full relative py-28 md:py-48 flex flex-col items-center justify-center overflow-hidden bg-black/40 ${className}`}
  >
  {/* Background glowing orb to give it a cinematic back-light */}
@@ -371,7 +371,7 @@ export function PullQuote({
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 1.5, ease: "easeInOut" }}
+ transition={{ duration: DURATION.reveal, ease: "easeInOut" }}
  className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"
  />
 
@@ -382,7 +382,7 @@ export function PullQuote({
  initial={{ opacity: 0, y: 10 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay: 0.2 }}
+ transition={{ duration: DURATION.slower, delay: 0.2 }}
  className="flex flex-col items-center mb-10 md:mb-16"
  >
  <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-[var(--accent-teal)]/50 mb-6" />
@@ -394,7 +394,7 @@ export function PullQuote({
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 1, delay: 0.4, ease: EASE_CINEMATIC }}
+ transition={{ duration: DURATION.drift, delay: 0.4, ease: EASE_CINEMATIC }}
  className="relative max-w-4xl"
  >
  <div className="absolute -top-12 -left-8 md:-top-16 md:-left-16 text-[100px] md:text-[160px] leading-none font-serif text-[var(--accent-teal)]/10 select-none pointer-events-none drop-shadow-[0_0_30px_rgba(45,212,191,0.2)]">&ldquo;</div>
@@ -411,7 +411,7 @@ export function PullQuote({
  initial={{ opacity: 0, scale: 0 }}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 0.8, delay: 0.8, type: "spring" }}
+ transition={{ duration: DURATION.deliberate, delay: 0.8, type: "spring" }}
  className="mt-20 md:mt-32 w-2 h-2 rounded-full bg-[var(--accent-teal)]/60 shadow-[0_0_15px_rgba(45,212,191,0.8)]"
  />
  </div>
@@ -421,7 +421,7 @@ export function PullQuote({
  initial={{ scaleX: 0 }}
  whileInView={{ scaleX: 1 }}
  viewport={{ once: true }}
- transition={{ duration: 1.5, ease: "easeInOut" }}
+ transition={{ duration: DURATION.reveal, ease: "easeInOut" }}
  className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"
  />
  </m.div>
@@ -463,7 +463,7 @@ export function CarouselTile({
  initial={{ opacity: 0, y: 24 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, delay, ease: EASE_CINEMATIC }}
+ transition={{ duration: DURATION.slower, delay, ease: EASE_CINEMATIC }}
  className="relative overflow-hidden rounded-xl group print:overflow-visible print:rounded-none"
  >
  {/* Images */}

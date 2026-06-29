@@ -9,7 +9,7 @@ import { spacing } from '@/lib/design-system'
 import { BRAIN_GEARS_SVG } from '@/data/brain-gears-svg'
 import { ArrowRight, Sparkles, Brain, Check } from 'lucide-react'
 import dynamic from 'next/dynamic'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 const ThreeBrainGears = dynamic(() => import('./ThreeBrainGears'), { ssr: false })
 
@@ -1271,7 +1271,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       initial={{ opacity: 0, scale: 0.9, y: "-40%" }}
                       animate={{ opacity: 1, scale: 1, y: "-50%" }}
                       exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
-                      transition={{ duration: 0.5, ease: EASE_CINEMATIC }}
+                      transition={{ duration: DURATION.slow, ease: EASE_CINEMATIC }}
                     >
                       <div className="text-white bg-black/50 backdrop-blur-xl border border-white/15 p-5 md:p-6 rounded-2xl shadow-[0_8px_60px_rgba(0,0,0,0.5),0_0_1px_rgba(255,255,255,0.1)] max-w-[420px] w-[90vw] relative overflow-hidden">
 
@@ -1375,8 +1375,8 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                         opacity: cinematicPhase === 'complete' || shouldSkipEntrance ? 1 : 0,
                         filter: cinematicPhase === 'complete' || shouldSkipEntrance ? 'blur(0px)' : 'blur(12px)',
                       }}
-                      transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
-                      exit={{ opacity: 0, transition: { duration: 0.2, delay: 0 } }}
+                      transition={{ duration: DURATION.cinematic, ease: EASE_CINEMATIC }}
+                      exit={{ opacity: 0, transition: { duration: DURATION.fast, delay: 0 } }}
                     >
                       <div className="text-center px-4 w-full">
                         <button
@@ -1413,7 +1413,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                     initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
-                    transition={{ duration: 0.6, ease: EASE_CINEMATIC }}
+                    transition={{ duration: DURATION.slower, ease: EASE_CINEMATIC }}
                   >
                     <div className="mx-auto w-[min(94vw,38rem)] px-4 text-center">
                       <p className="font-mono text-[10px] uppercase tracking-[0.36em] text-cyan-300/80 sm:text-xs">
@@ -1440,7 +1440,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                   initial={{ opacity: 0, scale: 0.92, y: 6 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.92, y: 6 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  transition={{ duration: DURATION.fast, ease: "easeOut" }}
                 >
                   {/* The Cinematic Popover Card */}
                   <div
@@ -1516,7 +1516,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
           <span className="text-zinc-600 text-[11px] font-mono uppercase tracking-[0.2em]">Scroll</span>
           <m.div
             animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: DURATION.epic, repeat: Infinity, ease: "easeInOut" }}
           >
             <svg className="w-5 h-5 text-zinc-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7-7-7" />

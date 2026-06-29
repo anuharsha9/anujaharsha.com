@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
-import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION } from '@/lib/motion'
 
 /* ─── Word-by-word kinetic text ─── */
 function KineticLine({
@@ -31,7 +31,7 @@ function KineticLine({
                         initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
                         transition={{
-                            duration: 0.55,
+                            duration: DURATION.slow,
                             delay: delay + i * 0.07,
                             ease,
                         }}
@@ -56,7 +56,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
                     initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                     transition={{
-                        duration: 0.35,
+                        duration: DURATION.base,
                         delay: i * 0.035,
                         ease: EASE_EXPO,
                     }}
@@ -121,7 +121,7 @@ export default function MLTrailer() {
     }, [step])
 
     const textExit = { opacity: 0, y: -25, filter: 'blur(14px)' }
-    const textExitT = { duration: 0.45, ease }
+    const textExitT = { duration: DURATION.medium, ease }
 
     return (
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
@@ -195,7 +195,7 @@ export default function MLTrailer() {
                         initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                     >
                         <KineticLine
                             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-tight"
@@ -216,13 +216,13 @@ export default function MLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, scale: 1.05, filter: 'blur(14px)' }}
-                        transition={{ duration: 0.5, ease }}
+                        transition={{ duration: DURATION.slow, ease }}
                     >
                         <m.p
                             className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 mb-8"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: DURATION.slow, delay: 0.2 }}
                         >
                             Right-click. Drag. Context menus. <span className="text-[var(--semantic-rose)] font-medium">Pray.</span>
                         </m.p>
@@ -239,14 +239,14 @@ export default function MLTrailer() {
                                     }}
                                     initial={{ opacity: 0, scale: 0, rotate: -10 + Math.random() * 20 }}
                                     animate={{ opacity: 0.7, scale: 1, rotate: -5 + Math.random() * 10 }}
-                                    transition={{ delay: i * 0.1, duration: 0.4, ease }}
+                                    transition={{ delay: i * 0.1, duration: DURATION.medium, ease }}
                                 >
                                     <span className="text-[10px] sm:text-xs font-mono text-rose-300/80">{label}</span>
                                 </m.div>
                             ))}
                             {/* Tangled lines between */}
                             <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 100 100">
-                                <m.path d="M15,20 Q60,5 80,25 T90,70 Q50,90 20,75 T15,20" fill="none" stroke="rgb(244,63,94)" strokeWidth="0.5" strokeDasharray="3 3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, ease }} />
+                                <m.path d="M15,20 Q60,5 80,25 T90,70 Q50,90 20,75 T15,20" fill="none" stroke="rgb(244,63,94)" strokeWidth="0.5" strokeDasharray="3 3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: DURATION.epic, ease }} />
                             </svg>
                         </div>
 
@@ -269,13 +269,13 @@ export default function MLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, filter: 'blur(14px)' }}
-                        transition={{ duration: 0.5, ease }}
+                        transition={{ duration: DURATION.slow, ease }}
                     >
                         <m.p
                             className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 mb-8"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: DURATION.slow, delay: 0.2 }}
                         >
                             One path. <span className="text-emerald-400 font-medium">Two clicks.</span>
                         </m.p>
@@ -288,7 +288,7 @@ export default function MLTrailer() {
                                     className="flex items-center gap-2 sm:gap-3"
                                     initial={{ opacity: 0, x: -20, scale: 0.8 }}
                                     animate={{ opacity: 1, x: 0, scale: 1 }}
-                                    transition={{ delay: 0.3 + i * 0.25, duration: 0.5, ease }}
+                                    transition={{ delay: 0.3 + i * 0.25, duration: DURATION.slow, ease }}
                                 >
                                     <div
                                         className="rounded-lg border px-3 py-2 sm:px-4 sm:py-3 md:px-5 md:py-4"
@@ -335,7 +335,7 @@ export default function MLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, filter: 'blur(14px)' }}
-                        transition={{ duration: 0.5, ease }}
+                        transition={{ duration: DURATION.slow, ease }}
                     >
                         <m.p
                             className="text-lg sm:text-xl md:text-2xl text-zinc-400 font-light mb-6"
@@ -368,7 +368,7 @@ export default function MLTrailer() {
                                     }}
                                     initial={{ opacity: 0, scale: 0.8 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 0.3 + i * 0.06, duration: 0.3 }}
+                                    transition={{ delay: 0.3 + i * 0.06, duration: DURATION.base }}
                                 >
                                     <span className={`text-[9px] sm:text-[10px] md:text-xs font-mono ${cell.c !== 'transparent' ? 'font-bold' : 'text-zinc-500'}`}
                                         style={cell.c !== 'transparent' ? { color: `rgba(${cell.c}, 0.9)` } : undefined}
@@ -398,7 +398,7 @@ export default function MLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: DURATION.base }}
                     >
                         <div className="text-center">
                             <SlamText className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter">
@@ -408,7 +408,7 @@ export default function MLTrailer() {
                                 className="text-sm sm:text-base md:text-lg font-mono text-[var(--semantic-emerald)] uppercase tracking-[0.3em] mt-4"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5, duration: 0.4 }}
+                                transition={{ delay: 0.5, duration: DURATION.medium }}
                             >
                                 SMEs Validated
                             </m.p>
@@ -444,7 +444,7 @@ export default function MLTrailer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                     >
                         <m.div
                             className="absolute text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white/[0.04] tracking-tighter select-none pointer-events-none"
@@ -458,7 +458,7 @@ export default function MLTrailer() {
                             className="relative z-10 max-w-2xl text-center"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.6, ease }}
+                            transition={{ delay: 0.2, duration: DURATION.slower, ease }}
                         >
                             <p className="text-sm sm:text-base md:text-lg text-zinc-200 italic leading-relaxed">
                                 &ldquo;The clarity of her designs, in spite of the underlying data science and machine learning complexity, is impressive and has greatly contributed to the success of our products.&rdquo;

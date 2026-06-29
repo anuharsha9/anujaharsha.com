@@ -8,7 +8,7 @@ import { useManifestoTimeline, SCENES, TOTAL_DURATION } from '@/hooks/useManifes
 import { useManifestoAudio } from '@/hooks/useManifestoAudio'
 import { Scene3Unified } from '@/components/manifesto/Scene3Unified'
 import { Scene4Stitch } from '@/components/manifesto/Scene4Stitch'
-import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION } from '@/lib/motion'
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Shared easing — matches RCTrailer & HeroLanding
@@ -45,7 +45,7 @@ function KineticLine({
             initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
             transition={{
-              duration: 0.55,
+              duration: DURATION.slow,
               delay: delay + i * 0.07,
               ease,
             }}
@@ -73,7 +73,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
           initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           transition={{
-            duration: 0.35,
+            duration: DURATION.base,
             delay: i * 0.035,
             ease: EASE_EXPO,
           }}
@@ -164,7 +164,7 @@ function Scene1Terminal({ progress }: { progress: number }) {
               y: phase === 2 ? -40 : 0,
             }}
             exit={{ opacity: 0, scale: 0.7, filter: 'blur(20px)' }}
-            transition={{ duration: 0.8, ease }}
+            transition={{ duration: DURATION.deliberate, ease }}
           >
             <div
               className="rounded-xl border overflow-hidden"
@@ -214,13 +214,13 @@ function Scene1Terminal({ progress }: { progress: number }) {
             className="text-center px-6 max-w-4xl"
             initial={{ opacity: 0, y: 30, filter: 'blur(14px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1.2, ease: easeCinematic }}
+            transition={{ duration: DURATION.cinematic, ease: easeCinematic }}
           >
             <m.span
               className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 block"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.0, delay: 0.05, ease: easeCinematic }}
+              transition={{ duration: DURATION.drift, delay: 0.05, ease: easeCinematic }}
             >
               Staff Product Designer
             </m.span>
@@ -228,7 +228,7 @@ function Scene1Terminal({ progress }: { progress: number }) {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-[-0.02em] mb-6"
               initial={{ opacity: 0, y: 24, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.15, ease: easeCinematic }}
+              transition={{ duration: DURATION.cinematic, delay: 0.15, ease: easeCinematic }}
             >
               <span className="text-[var(--text-heading)]">Hi, I&apos;m </span>
               <span className="bg-[linear-gradient(118deg,var(--text-heading)_0%,var(--accent-teal-bright)_45%,var(--accent-teal)_100%)] bg-clip-text text-transparent">
@@ -239,7 +239,7 @@ function Scene1Terminal({ progress }: { progress: number }) {
               className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.25, ease: easeCinematic }}
+              transition={{ duration: DURATION.cinematic, delay: 0.25, ease: easeCinematic }}
             >
               Enterprise UX Expert · 13 Years · Legacy Modernization & AI-Native Design
             </m.p>
@@ -284,7 +284,7 @@ function Scene2Philosophy({ progress }: { progress: number }) {
         className="text-center mb-12 md:mb-16 z-10"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease }}
+        transition={{ duration: DURATION.deliberate, ease }}
       >
         <KineticLine emphasisWords={['compartmentalizing', 'reorganizing', 'friction.']} emphasisClass="text-[var(--accent-teal-bright)] font-medium">
           From 50-year monoliths to AI-powered plugins.
@@ -293,7 +293,7 @@ function Scene2Philosophy({ progress }: { progress: number }) {
           className="mt-6 text-sm sm:text-base md:text-lg text-zinc-400 font-light max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: progress > 0.15 ? 1 : 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: DURATION.deliberate }}
         >
           I don&apos;t just redesign. My specialty is compartmentalizing and reorganizing systems to make your workflow feel effortless. Not everything needs a redesign. The goal is always to solve the problem with the least friction.
         </m.p>
@@ -407,7 +407,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.6, ease }}
+        transition={{ duration: DURATION.slower, ease }}
       >
         <KineticLine
           className="text-xl sm:text-2xl md:text-3xl font-light text-zinc-300 tracking-tight"
@@ -427,7 +427,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: DURATION.deliberate }}
               >
                 {TANGLED_EDGES.map(([a, b], i) => (
                   <m.path
@@ -439,7 +439,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                     strokeDasharray="2 2"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, delay: i * 0.1 }}
+                    transition={{ duration: DURATION.reveal, delay: i * 0.1 }}
                   />
                 ))}
                 {TANGLED_NODES.map((n, i) => (
@@ -452,7 +452,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: DURATION.deliberate }}
               >
                 {CLEAN_EDGES.map(([a, b], i) => (
                   <m.line
@@ -465,7 +465,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
                     strokeWidth="1"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: i * 0.3 }}
+                    transition={{ duration: DURATION.drift, delay: i * 0.3 }}
                   />
                 ))}
               </m.g>
@@ -596,7 +596,7 @@ function Scene4Archaeology({
         className="text-center mb-6 md:mb-8 max-w-2xl"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2, ease }}
+        transition={{ duration: DURATION.slower, delay: 0.2, ease }}
       >
         <KineticLine
           className="text-xl sm:text-2xl md:text-3xl font-light text-zinc-300 tracking-tight leading-snug"
@@ -630,7 +630,7 @@ function Scene4Archaeology({
                 stroke={`rgba(${DATA_NODES[a].rgb}, ${0.3 + untangle * 0.4})`}
                 strokeWidth={0.4 + untangle * 0.3}
                 strokeDasharray={untangle > 0.9 ? 'none' : '2 2'}
-                transition={{ duration: 0.1 }}
+                transition={{ duration: DURATION.instant }}
               />
             )
           })}
@@ -656,7 +656,7 @@ function Scene4Archaeology({
               }}
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6 + DATA_NODES.indexOf(node) * 0.1, duration: 0.5, ease }}
+              transition={{ delay: 0.6 + DATA_NODES.indexOf(node) * 0.1, duration: DURATION.slow, ease }}
             >
               {node.id}
             </m.div>
@@ -669,7 +669,7 @@ function Scene4Archaeology({
         className="w-full max-w-md relative"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6, ease }}
+        transition={{ delay: 1.2, duration: DURATION.slower, ease }}
       >
         <AnimatePresence>
           {!sliderCompleted && (
@@ -679,8 +679,8 @@ function Scene4Archaeology({
               animate={{ opacity: 1, y: [0, -5, 0] }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{
-                opacity: { duration: 0.4 },
-                y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
+                opacity: { duration: DURATION.medium },
+                y: { repeat: Infinity, duration: DURATION.reveal, ease: "easeInOut" }
               }}
             >
               <span className="text-xs font-mono text-[var(--accent-teal-bright)] tracking-widest uppercase bg-[var(--accent-teal)]/20 px-3 py-1 rounded-full border border-[var(--accent-teal)]/40 shadow-[0_0_15px_rgba(0,210,211,0.2)]">
@@ -719,7 +719,7 @@ function Scene4Archaeology({
             className="flex items-center gap-8 sm:gap-12 mt-8"
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.6, ease }}
+            transition={{ duration: DURATION.slower, ease }}
           >
             <div className="text-center">
               <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white font-mono">
@@ -781,7 +781,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
         className="text-center mb-10 md:mb-12"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease }}
+        transition={{ duration: DURATION.deliberate, ease }}
       >
         <KineticLine
           className="text-xl sm:text-2xl md:text-3xl font-light text-zinc-300 tracking-tight"
@@ -882,7 +882,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
         style={{ color: phase >= 2 ? 'var(--accent-teal-bright)' : 'var(--text-dim)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
+        transition={{ delay: 0.5, duration: DURATION.slow }}
       >
         {phase < 2 ? 'The Design' : 'The Code'}
       </m.p>
@@ -903,7 +903,7 @@ function Scene6Closer({ progress }: { progress: number }) {
         className="text-center max-w-3xl flex flex-col items-center"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5, ease: easeCinematic }}
+        transition={{ duration: DURATION.reveal, ease: easeCinematic }}
       >
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6">
           <span
@@ -921,7 +921,7 @@ function Scene6Closer({ progress }: { progress: number }) {
           className="text-lg sm:text-xl md:text-2xl text-zinc-300 font-light mb-12"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 1, ease: easeCinematic }}
+          transition={{ delay: 0.5, duration: DURATION.drift, ease: easeCinematic }}
         >
           Let&apos;s untangle the architecture.
         </m.p>
@@ -930,7 +930,7 @@ function Scene6Closer({ progress }: { progress: number }) {
           className="flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 1, ease: easeCinematic }}
+          transition={{ delay: 1, duration: DURATION.drift, ease: easeCinematic }}
         >
           <Link
             href="/work/reportcaster"
@@ -989,7 +989,7 @@ function PlaybackBar({
         }}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.8, ease }}
+        transition={{ delay: 1, duration: DURATION.deliberate, ease }}
       >
       {/* Play / Pause (Left aligned) */}
       <button
@@ -1121,7 +1121,7 @@ export default function ManifestoPage() {
         className="fixed top-6 left-6 z-50"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2, duration: 0.8, ease }}
+        transition={{ delay: 2, duration: DURATION.deliberate, ease }}
       >
         <Link
           href="/"
@@ -1148,7 +1148,7 @@ export default function ManifestoPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, filter: 'blur(12px)' }}
-              transition={{ duration: 0.8, ease }}
+              transition={{ duration: DURATION.deliberate, ease }}
             >
               <Scene1Terminal progress={timeline.sceneProgress} />
             </m.div>
@@ -1161,7 +1161,7 @@ export default function ManifestoPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, filter: 'blur(12px)' }}
-              transition={{ duration: 0.8, ease }}
+              transition={{ duration: DURATION.deliberate, ease }}
             >
               <Scene4Archaeology
                 progress={timeline.sceneProgress}
@@ -1177,7 +1177,7 @@ export default function ManifestoPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, filter: 'blur(12px)' }}
-              transition={{ duration: 0.8, ease }}
+              transition={{ duration: DURATION.deliberate, ease }}
             >
               <Scene3Unified progress={timeline.sceneProgress} />
             </m.div>
@@ -1190,7 +1190,7 @@ export default function ManifestoPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, filter: 'blur(12px)' }}
-              transition={{ duration: 0.8, ease }}
+              transition={{ duration: DURATION.deliberate, ease }}
             >
               <Scene4Stitch progress={timeline.sceneProgress} />
             </m.div>
@@ -1203,7 +1203,7 @@ export default function ManifestoPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, filter: 'blur(12px)' }}
-              transition={{ duration: 0.8, ease }}
+              transition={{ duration: DURATION.deliberate, ease }}
             >
               <Scene2Philosophy progress={timeline.sceneProgress} />
             </m.div>
@@ -1216,7 +1216,7 @@ export default function ManifestoPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.2, ease: easeCinematic }}
+              transition={{ duration: DURATION.cinematic, ease: easeCinematic }}
             >
               <Scene6Closer progress={timeline.sceneProgress} />
             </m.div>

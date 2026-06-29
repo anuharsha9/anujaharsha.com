@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { m } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import { DURATION } from '@/lib/motion'
 
 /**
  * Page transition: Cinematic slow-born reveal.
@@ -54,7 +55,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
                 scale: 1,
             }}
             transition={{
-                duration: 1.4,
+                duration: DURATION.reveal,
                 delay: 0.05,
                 ease: cinematicEase,
             }}

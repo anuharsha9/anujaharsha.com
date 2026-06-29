@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './storyboard/PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /* ── Pill badge ── */
 const Pill = ({ children, color = 'rose' }: { children: React.ReactNode; color?: string }) => (
@@ -94,7 +94,7 @@ export default function JobLogRedesignViz() {
  initial={{ opacity: 0, y: 16 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, x: -30 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="relative mb-4"
  >
  <div className="flex items-center gap-2 mb-3">
@@ -112,7 +112,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ delay: 0.2, duration: 0.4, ease }}
+ transition={{ delay: 0.2, duration: DURATION.medium, ease }}
  className="flex gap-2 flex-wrap"
  >
  {['Q1 Report', 'Sales Dash', 'Weekly KPI'].map((n) => (
@@ -131,7 +131,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ delay: 0.5, duration: 0.3, ease }}
+ transition={{ delay: 0.5, duration: DURATION.base, ease }}
  className="rounded-lg border border-white/[0.08] bg-zinc-800 shadow-xl min-w-[140px]"
  >
  {['✏️ Edit', '▶ Run', '📋 View log', '— Disable'].map((item, i) => (
@@ -146,7 +146,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ delay: 1.2, duration: 0.4, ease }}
+ transition={{ delay: 1.2, duration: DURATION.medium, ease }}
  className="mt-4 flex items-center gap-3"
  >
  <span className="text-zinc-400 text-xs">→</span>
@@ -186,7 +186,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="flex flex-wrap gap-2 mt-3"
  >
  {['4 clicks to view a log', 'Opens in new browser tab', 'Loses all context'].map((t, i) => (
@@ -209,7 +209,7 @@ export default function JobLogRedesignViz() {
  initial={{ opacity: 0, x: 30 }}
  animate={{ opacity: 1, x: 0 }}
  exit={{ opacity: 0, x: -30 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="relative mb-4"
  >
  <div className="flex items-center gap-2 mb-3">
@@ -257,7 +257,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="flex flex-wrap gap-2 mt-3"
  >
  {['Raw text dump', 'Truncated messages', 'No copy, no search'].map((t, i) => (
@@ -280,7 +280,7 @@ export default function JobLogRedesignViz() {
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.95 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="text-center py-8"
  >
  <p className="text-lg md:text-xl text-rose-400 font-bold tracking-tight">
@@ -300,7 +300,7 @@ export default function JobLogRedesignViz() {
  key="after-section"
  initial={{ opacity: 0, y: 24 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.7, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  >
  <div className="text-center mb-5">
  <Pill color="emerald">After — One Unified Experience</Pill>
@@ -311,7 +311,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, y: 12, scale: 0.98 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="relative rounded-xl border border-emerald-500/10 bg-zinc-900/60 overflow-hidden"
  >
  {/* Dialog header */}
@@ -325,7 +325,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, x: -8 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ delay: 0.1, duration: 0.4, ease }}
+ transition={{ delay: 0.1, duration: DURATION.medium, ease }}
  className="w-20 md:w-24 border-r border-white/[0.04] py-3 flex flex-col items-center gap-3"
  >
  {[
@@ -351,7 +351,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0, y: 6 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ delay: 0.2, duration: 0.4, ease }}
+ transition={{ delay: 0.2, duration: DURATION.medium, ease }}
  className="flex items-center justify-between mb-3 flex-wrap gap-2"
  >
  <div className="flex items-center gap-3 text-[11px] font-mono text-zinc-400">
@@ -388,7 +388,7 @@ export default function JobLogRedesignViz() {
  <m.div key={i} initial={{ opacity: 0, x: -6 }} animate={{
  opacity: 1, x: 0,
  backgroundColor: showModal && i === 2 ? 'var(--overlay-indigo-10)' : 'rgba(0,0,0,0)'
- }} transition={{ delay: 0.2 + i * 0.06, duration: 0.25, ease }}
+ }} transition={{ delay: 0.2 + i * 0.06, duration: DURATION.fast, ease }}
  className="grid grid-cols-[28px_1fr_90px_90px_56px] text-[11px] font-mono px-0 py-1.5 border-b border-white/[0.03] items-center">
  <span className="text-zinc-400">{r.n}</span>
  <span className={`truncate ${i === 2 ? 'text-blue-300' : 'text-zinc-400'}`}>{r.job}</span>
@@ -419,7 +419,7 @@ export default function JobLogRedesignViz() {
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.3 }}
+ transition={{ duration: DURATION.base }}
  className="absolute inset-0 z-20 flex items-center justify-center"
  >
  {/* Backdrop */}
@@ -474,7 +474,7 @@ export default function JobLogRedesignViz() {
  const text = isErr ? line.text : line
  return (
  <m.div key={i} initial={{ opacity: 0, x: -3 }} animate={{ opacity: 1, x: 0 }}
- transition={{ delay: 0.4 + i * 0.04, duration: 0.2 }}
+ transition={{ delay: 0.4 + i * 0.04, duration: DURATION.fast }}
  className={`text-[11px] font-mono leading-relaxed ${isErr ? 'text-rose-400 font-medium' : 'text-zinc-400'}`}>
  {text}
  </m.div>
@@ -496,7 +496,7 @@ export default function JobLogRedesignViz() {
  {/* Solution badges */}
  <AnimatePresence>
  {showBadges && (
- <m.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}
+ <m.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: DURATION.medium, ease }}
  className="flex flex-wrap gap-2 mt-5 justify-center">
  {['Sidebar navigation', 'Inline filters', 'Sortable columns', 'Full log in modal', 'Action toolbar', 'Zero context-switching'].map((l, i) => (
  <m.span key={l} initial={{ opacity: 0, scale: 0.7, y: 4 }} animate={{ opacity: 1, scale: 1, y: 0 }}

@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { FileText, Video, PenTool, Ticket, StickyNote, Map, FolderOpen, Check, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
 
 interface FolderItem {
  icon: LucideIcon
@@ -135,14 +135,14 @@ export default function BeatHandoff() {
  <m.div
  initial={{ opacity: 0, y: -10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="relative mb-5"
  >
  <div className="flex items-center gap-3 pb-4 border-b border-white/[0.06]">
  <m.div
  initial={{ scale: 0, rotate: -20 }}
  animate={{ scale: 1, rotate: 0 }}
- transition={{ duration: 0.5, ease: EASE_SPRING }}
+ transition={{ duration: DURATION.slow, ease: EASE_SPRING }}
  className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20 flex items-center justify-center"
  >
  <FolderOpen className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
@@ -167,7 +167,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ width: '0%' }}
  animate={{ width: phase >= 8 ? '100%' : `${((phase - 1) / 7) * 100}%` }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="h-full rounded-full"
  style={{
  background: 'linear-gradient(90deg, var(--cs-accent), var(--cs-accent))',
@@ -193,7 +193,7 @@ export default function BeatHandoff() {
  : { opacity: 0, y: 30, scale: 0.8 }
  }
  transition={{
- duration: 0.5,
+ duration: DURATION.slow,
  ease: EASE_SPRING,
  }}
  className="relative rounded-xl border bg-white/[0.02] p-4 overflow-hidden group"
@@ -205,7 +205,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={isVisible ? { scaleX: 1 } : { scaleX: 0 }}
- transition={{ duration: 0.5, delay: 0.2, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.2, ease }}
  className="absolute top-0 left-0 right-0 h-[2px] origin-left"
  style={{ background: item.color }}
  />
@@ -215,7 +215,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ scale: 0 }}
  animate={isVisible ? { scale: 1 } : { scale: 0 }}
- transition={{ duration: 0.4, delay: 0.1, ease: EASE_SPRING }}
+ transition={{ duration: DURATION.medium, delay: 0.1, ease: EASE_SPRING }}
  className="w-9 h-9 rounded-lg flex items-center justify-center"
  style={{
  background: withHexAlpha(item.color, '15'),
@@ -231,7 +231,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ opacity: 0 }}
  animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
- transition={{ duration: 0.4, delay: 0.3 }}
+ transition={{ duration: DURATION.medium, delay: 0.3 }}
  className="text-[11px] text-zinc-400 leading-snug"
  >
  {item.label}
@@ -242,7 +242,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ x: '-100%' }}
  animate={{ x: '200%' }}
- transition={{ duration: 1, delay: 0.1, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.drift, delay: 0.1, ease: 'easeInOut' }}
  className="absolute inset-0 pointer-events-none"
  style={{
  background: 'linear-gradient(90deg, transparent 0%, var(--overlay-white-04) 50%, transparent 100%)',
@@ -263,7 +263,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  className="text-center mt-8"
  >
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">

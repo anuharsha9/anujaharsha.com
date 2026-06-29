@@ -8,7 +8,7 @@ import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import Magnetic from '@/components/ui/Magnetic'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
 import { useTransition } from '@/components/transitions/TransitionContext'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 export default function TalkSection() {
   const t = getTheme(false)
@@ -41,7 +41,7 @@ export default function TalkSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 1.4, ease }}
+          transition={{ duration: DURATION.reveal, ease }}
         >
           {/* Closer — short invitation, NOT a third restatement of the thesis.
               The hero opens with "make the powerful tool obvious" and the

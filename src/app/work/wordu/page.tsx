@@ -5,6 +5,7 @@ import WorduGame from '@/components/work/wordu/WorduGame'
 import { m } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import TransitionLink from '@/components/transitions/TransitionLink'
+import { DURATION } from '@/lib/motion'
 
 export default function WorduPage() {
   return (
@@ -18,7 +19,7 @@ export default function WorduPage() {
       <m.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
+        transition={{ delay: 0.3, duration: DURATION.slow }}
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5"
       >
         {/* Left: Back to portfolio */}
@@ -101,7 +102,7 @@ export default function WorduPage() {
       <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.4 }}
+        transition={{ delay: 0.5, duration: DURATION.medium }}
         className="mt-10 flex items-center gap-10 md:gap-12"
       >
         {[

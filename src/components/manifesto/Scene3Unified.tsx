@@ -1,5 +1,6 @@
 import { m } from 'framer-motion'
 import { LayoutDashboard, Users, FileText, Settings, Layers } from 'lucide-react'
+import { DURATION } from '@/lib/motion'
 
 // Easing for cinematic feel
 const easeCinematic = [0.16, 1, 0.3, 1]
@@ -27,7 +28,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
         className="text-center mb-24 z-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: easeCinematic }}
+        transition={{ duration: DURATION.deliberate, ease: easeCinematic }}
       >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-zinc-300 tracking-tight leading-tight max-w-3xl">
           <span className="text-[var(--accent-teal-bright)] font-medium">Data-driven systems design.</span><br />
@@ -92,7 +93,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
             opacity: isUnified ? 1 : 0, 
             scale: isUnified ? 1 : 0.8,
           }}
-          transition={{ duration: 0.8, ease: easeCinematic }}
+          transition={{ duration: DURATION.deliberate, ease: easeCinematic }}
         >
           <div className="w-full h-full flex flex-col p-6 gap-6 relative overflow-hidden">
             {/* Unified UI Mockup */}

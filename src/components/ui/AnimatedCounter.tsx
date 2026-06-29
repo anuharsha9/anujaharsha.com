@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { m, useInView } from 'framer-motion'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 interface AnimatedCounterProps {
   value: string // e.g., "75%", "20M+", "50yr"
@@ -74,7 +74,7 @@ export default function AnimatedCounter({
       className={className}
       initial={{ opacity: 0, y: 10 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-      transition={{ duration: 0.4, ease: EASE_CINEMATIC }}
+      transition={{ duration: DURATION.medium, ease: EASE_CINEMATIC }}
     >
       {displayValue}
     </m.span>

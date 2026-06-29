@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { m, useMotionValue, useSpring } from 'framer-motion'
+import { DURATION } from '@/lib/motion'
 
 export default function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false)
@@ -147,7 +148,7 @@ export default function CustomCursor() {
             scale: isClicking ? 0.8 : isPointer ? 1.2 : 1,
           }}
           transition={{
-            scale: { duration: 0.2 }
+            scale: { duration: DURATION.fast }
           }}
           style={{
             animation: isPointer

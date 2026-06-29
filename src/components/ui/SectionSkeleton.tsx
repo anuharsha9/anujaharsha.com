@@ -1,6 +1,7 @@
 'use client'
 
 import { m } from 'framer-motion'
+import { DURATION } from '@/lib/motion'
 
 export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MODULE' }: { height?: string, text?: string }) {
   return (
@@ -29,7 +30,7 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
           y: ['-100%', '100%']
         }}
         transition={{
-          duration: 3,
+          duration: DURATION.vast,
           repeat: Infinity,
           ease: "linear"
         }}
@@ -48,7 +49,7 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
           <m.div 
             className="absolute inset-2 rounded-full border-t border-l border-[var(--semantic-cyan)]/60"
             animate={{ rotate: -360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: DURATION.epic, repeat: Infinity, ease: "linear" }}
           />
           {/* Core dot */}
           <div className="w-1.5 h-1.5 rounded-full bg-[var(--semantic-cyan)]/80 animate-pulse" />
@@ -59,7 +60,7 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
           <m.div 
             className="flex gap-1"
             animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            transition={{ duration: DURATION.reveal, repeat: Infinity }}
           >
             <div className="w-1 h-1 rounded-full bg-[var(--semantic-cyan)]/50" />
             <div className="w-1 h-1 rounded-full bg-[var(--semantic-cyan)]/50" />

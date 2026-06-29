@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Linkedin, Quote } from 'lucide-react'
 import { m, useInView } from 'framer-motion'
 import { CareerEra } from '@/data/career-data'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 interface TestimonialContentProps {
     era: CareerEra
@@ -35,7 +35,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: EASE_CINEMATIC }
+            transition: { duration: DURATION.slower, ease: EASE_CINEMATIC }
         }
     }
 
@@ -74,7 +74,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                     className="absolute -top-8 -left-4 sm:-left-8 pointer-events-none select-none opacity-[0.03]"
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 0.04 } : {}}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    transition={{ duration: DURATION.reveal, ease: "easeOut" }}
                 >
                     <Quote size={180} fill="currentColor" stroke="none" />
                 </m.div>
@@ -123,7 +123,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
                                 key={testimonial.id}
                                 className="group/q relative p-6 -mx-6 rounded-2xl hover:bg-white/[0.03] transition-colors duration-500"
                                 variants={itemVariants}
-                                whileHover={{ x: 10, transition: { duration: 0.3 } }}
+                                whileHover={{ x: 10, transition: { duration: DURATION.base } }}
                             >
                                 <div className="absolute top-6 left-0 opacity-0 group-hover/q:opacity-100 transition-opacity duration-500 text-[var(--accent-teal)]">
                                     <Quote size={16} fill="currentColor" stroke="none" className="rotate-180" />

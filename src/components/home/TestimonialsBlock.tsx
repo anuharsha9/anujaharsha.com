@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { m } from 'framer-motion'
 import { TESTIMONIALS, type Testimonial } from '@/data/testimonials'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 const VISIBLE_COUNT = 3
 
@@ -23,7 +23,7 @@ function QuoteCard({ t, i }: { t: Testimonial; i: number }) {
             whileInView={{ opacity: 1, y: 0 }}
             whileHover={{ y: -5 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, delay: Math.min(i, VISIBLE_COUNT) * 0.08, ease: EASE_CINEMATIC }}
+            transition={{ duration: DURATION.slow, delay: Math.min(i, VISIBLE_COUNT) * 0.08, ease: EASE_CINEMATIC }}
             className="group relative mb-5 break-inside-avoid overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.06] to-white/[0.015] p-6 md:p-7 transition-[border-color,box-shadow] duration-500 hover:border-[var(--accent-teal)]/30 hover:shadow-[0_12px_44px_-14px_rgba(var(--accent-teal-glow-rgb),0.28)]"
         >
             {/* hover sheen */}
@@ -72,7 +72,7 @@ export default function TestimonialsBlock() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.9, ease: EASE_CINEMATIC }}
+                transition={{ duration: DURATION.drift, ease: EASE_CINEMATIC }}
             >
                 <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 md:text-sm">
                     Social Proof · {TESTIMONIALS.length} endorsements

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { m } from 'framer-motion'
-import { EASE_STANDARD } from '@/lib/motion'
+import { EASE_STANDARD, DURATION } from '@/lib/motion'
 
 interface FoundationsTerminalProps {
  foundations?: string[]
@@ -16,7 +16,7 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, ease: EASE_STANDARD }}
+ transition={{ duration: DURATION.slower, ease: EASE_STANDARD }}
  className="rounded-xl bg-[var(--surface-obsidian-900)] border border-white/[0.08] overflow-hidden shadow-2xl"
  >
  {/* Title Bar */}
@@ -46,7 +46,7 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
  viewport={{ once: true }}
  transition={{
  delay: 0.3 + i * 0.1,
- duration: 0.4,
+ duration: DURATION.medium,
  ease: 'easeOut'
  }}
  className="px-3.5 py-1.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-zinc-200 text-[13px] tracking-wide hover:bg-[var(--accent-teal)]/10 hover:border-[var(--accent-teal)]/20 hover:text-[var(--accent-teal)] transition-all duration-300 cursor-default"

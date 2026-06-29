@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { DURATION } from '@/lib/motion'
 
 interface EasterEggProps {
   children: React.ReactNode
@@ -83,7 +84,7 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
               <div className="flex justify-center gap-2 mb-4">
                 <m.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: DURATION.vast, repeat: Infinity, ease: 'linear' }}
                 >
                   <Image
                     src="/assets/gear-contact.svg"
@@ -95,7 +96,7 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
                 </m.div>
                 <m.div
                   animate={{ rotate: -360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: DURATION.epic, repeat: Infinity, ease: 'linear' }}
                 >
                   <Image
                     src="/assets/gear-contact.svg"
@@ -107,7 +108,7 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
                 </m.div>
                 <m.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: DURATION.max, repeat: Infinity, ease: 'linear' }}
                 >
                   <Image
                     src="/assets/gear-contact.svg"

@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 const ASKED = [
  'A visual refresh',
@@ -80,7 +80,7 @@ export default function BeatAskedVsDelivered() {
  <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="relative my-6"
  >
  {/* SVG Scale */}
@@ -90,7 +90,7 @@ export default function BeatAskedVsDelivered() {
  <m.g
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  >
  <polygon points="250,200 235,170 265,170" fill="var(--overlay-white-05)" stroke="var(--overlay-white-10)" strokeWidth="1" />
  <circle cx="250" cy="165" r="4" fill="var(--overlay-white-15)" />
@@ -99,7 +99,7 @@ export default function BeatAskedVsDelivered() {
  {/* Beam — tilts! */}
  <m.g
  animate={{ rotate: tiltDeg }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  style={{ transformOrigin: '250px 165px' }}
  >
  {/* Beam bar */}
@@ -110,7 +110,7 @@ export default function BeatAskedVsDelivered() {
  strokeWidth="0.5"
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  style={{ transformOrigin: '250px 165px' }}
  />
 
@@ -136,7 +136,7 @@ export default function BeatAskedVsDelivered() {
  initial={{ opacity: 0, y: -30 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{
- duration: 0.5,
+ duration: DURATION.slow,
  type: 'spring',
  stiffness: 200,
  damping: 15,
@@ -172,7 +172,7 @@ export default function BeatAskedVsDelivered() {
  initial={{ opacity: 0, y: -40 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{
- duration: 0.4,
+ duration: DURATION.medium,
  type: 'spring',
  stiffness: 250,
  damping: 12,
@@ -199,7 +199,7 @@ export default function BeatAskedVsDelivered() {
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: phase >= 5 ? 0.3 : 1 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  >
  <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase mb-4">
  What they asked for
@@ -209,7 +209,7 @@ export default function BeatAskedVsDelivered() {
  <m.div key={item}
  initial={{ opacity: 0, x: -15 }}
  animate={phase >= 2 + i ? { opacity: 1, x: 0 } : { opacity: 0, x: -15 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="flex items-center gap-3"
  >
  <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 flex-shrink-0" />
@@ -241,7 +241,7 @@ export default function BeatAskedVsDelivered() {
  <div>
  <AnimatePresence>
  {phase >= 6 && (
- <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease }}>
+ <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: DURATION.slow, ease }}>
  <div className="font-mono text-[10px] tracking-[0.3em] uppercase mb-4" style={{ color: 'var(--cs-accent)', opacity: 0.5 }}>
  What I actually delivered
  </div>
@@ -250,7 +250,7 @@ export default function BeatAskedVsDelivered() {
  <m.div key={item}
  initial={{ opacity: 0, x: 20, scale: 0.95 }}
  animate={phase >= 7 + i ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 20, scale: 0.95 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="flex items-start gap-3"
  >
  <m.span
@@ -270,7 +270,7 @@ export default function BeatAskedVsDelivered() {
  strokeLinejoin="round"
  initial={{ pathLength: 0 }}
  animate={phase >= 7 + i ? { pathLength: 1 } : { pathLength: 0 }}
- transition={{ duration: 0.3, delay: 0.15 }}
+ transition={{ duration: DURATION.base, delay: 0.15 }}
  />
  </svg>
  </m.span>
@@ -290,7 +290,7 @@ export default function BeatAskedVsDelivered() {
  <m.div
  initial={{ opacity: 0, scaleX: 0 }}
  animate={{ opacity: 1, scaleX: 1 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="mt-8 flex items-center justify-center gap-6"
  >
  <div className="text-center">
@@ -304,7 +304,7 @@ export default function BeatAskedVsDelivered() {
  style={{ color: 'var(--cs-accent)' }}
  initial={{ scale: 0.5 }}
  animate={{ scale: [0.5, 1.15, 1] }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  >
  6
  </m.div>
@@ -323,7 +323,7 @@ export default function BeatAskedVsDelivered() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1.2, ease }}
+ transition={{ duration: DURATION.cinematic, ease }}
  className="text-center mt-8"
  >
  <p className="text-white text-xl md:text-2xl font-semibold tracking-tight">

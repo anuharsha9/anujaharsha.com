@@ -5,7 +5,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Search, Users, Sparkles, Target, MousePointerClick } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION } from '@/lib/motion'
 
 const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
@@ -49,14 +49,14 @@ function WireMorphBackdrop() {
  strokeDasharray="2 2"
  initial={{ pathLength: 0, opacity: 0 }}
  animate={{ pathLength: 1, opacity: [0, 0.7, 0.25] }}
- transition={{ duration: 2.4, ease }}
+ transition={{ duration: DURATION.grand, ease }}
  />
  </m.svg>
  <m.div
  className="absolute -left-[25%] top-0 h-full w-[36%] bg-[linear-gradient(90deg,transparent,var(--overlay-teal-18),transparent)] blur-xl"
  initial={{ x: '-20%', opacity: 0 }}
  animate={{ x: '150%', opacity: [0, 0.6, 0] }}
- transition={{ duration: 2.3, ease: EASE_EXPO }}
+ transition={{ duration: DURATION.epic, ease: EASE_EXPO }}
  />
  </div>
  )
@@ -93,7 +93,7 @@ function AbstractFlowBubbles({ active }: { active: boolean }) {
  }
  : {}}
  transition={{
- duration: 4.0 + index * 0.3,
+ duration: DURATION.max + index * 0.3,
  delay: index * 0.1,
  repeat: Infinity,
  ease: 'easeInOut',
@@ -130,7 +130,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -145,7 +145,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, delay: 0.3, ease }}
+ transition={{ duration: DURATION.slower, delay: 0.3, ease }}
  className="mt-8 rounded-xl border border-white/[0.08] bg-black/30 overflow-hidden shadow-xl"
  >
  {/* Window chrome */}
@@ -180,7 +180,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={step >= 1 ? { opacity: 1, x: 0 } : {}}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="absolute top-6 left-6 flex items-center gap-2"
  >
  <div className="px-3 py-2 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center gap-2">
@@ -194,7 +194,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, y: -10 }}
  animate={step >= 1 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.4, delay: 0.5, ease }}
+ transition={{ duration: DURATION.medium, delay: 0.5, ease }}
  className="absolute top-6 right-6 flex items-center gap-2"
  >
  <span className="text-[7px] font-mono text-zinc-600 italic">drag model →</span>
@@ -219,7 +219,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={step >= 2 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="absolute top-[72px] left-[30%] -translate-x-1/2 w-[140px] rounded-lg border border-white/[0.08] bg-zinc-900/95 shadow-xl overflow-hidden"
  >
  <div className="px-2.5 py-1 border-b border-white/[0.04] bg-white/[0.02]">
@@ -241,7 +241,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={step >= 3 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="absolute top-[72px] right-4 w-[160px] rounded-lg border border-white/[0.08] bg-white/[0.03] p-2.5 shadow-none"
  >
  <div className="flex items-center gap-1.5 mb-1.5">
@@ -262,7 +262,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 0.3, ease }}
+ transition={{ duration: DURATION.base, ease }}
  className="absolute bottom-[52px] left-[25%] w-[100px] rounded-md border border-white/[0.1] bg-zinc-900/95 shadow-xl overflow-hidden z-10"
  >
  {['Properties', 'Hyperparams ▸', 'Delete'].map((item, i) => (
@@ -272,7 +272,7 @@ export function MLBeatProblem() {
  <m.div
  initial={{ opacity: 0, x: -5 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ delay: 0.2, duration: 0.3, ease }}
+ transition={{ delay: 0.2, duration: DURATION.base, ease }}
  className="absolute bottom-[40px] left-[calc(25%+104px)] w-[120px] rounded-md border border-white/[0.1] bg-zinc-900/95 shadow-xl overflow-hidden z-20"
  >
  {['Learning Rate: 0.01', 'Max Depth: 6', 'N Estimators: 100', 'Min Samples: 2'].map(p => (
@@ -298,7 +298,7 @@ export function MLBeatProblem() {
  ? { scale: 1 }
  : {}
  }
- transition={{ duration: 0.2, delay: (n % 4) * 0.08 }}
+ transition={{ duration: DURATION.fast, delay: (n % 4) * 0.08 }}
  className={`w-2 h-2 rounded-full ${n >= 8 ? 'bg-[color-mix(in_srgb,var(--cs-accent),transparent_60%)]' : 'bg-white/[0.08]'}`}
  />
  ))}
@@ -351,7 +351,7 @@ export function MLBeatGoal() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="w-full max-w-4xl"
  >
  <div className="grid grid-cols-2 gap-3 md:gap-4">
@@ -359,7 +359,7 @@ export function MLBeatGoal() {
  <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden"
  >
  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.02] border-b border-white/[0.05]">
@@ -398,7 +398,7 @@ export function MLBeatGoal() {
  <m.div
  initial={{ opacity: 0, x: 15 }}
  animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] overflow-hidden"
  >
  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] border-b border-[color-mix(in_srgb,var(--cs-accent),transparent_90%)]">
@@ -411,7 +411,7 @@ export function MLBeatGoal() {
  key={label}
  initial={{ opacity: 0, x: 8 }}
  animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
- transition={{ delay: i * 0.1, duration: 0.4 }}
+ transition={{ delay: i * 0.1, duration: DURATION.medium }}
  className="flex items-center gap-2"
  >
  <div className="w-4 h-4 rounded-full border border-[color-mix(in_srgb,var(--cs-accent),transparent_70%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_90%)] flex items-center justify-center flex-shrink-0">
@@ -441,7 +441,7 @@ export function MLBeatGoal() {
  <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={step >= 3 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="flex items-center justify-center gap-6 mt-4 py-3 rounded-lg bg-white/[0.02] border border-white/[0.04]"
  >
  <div className="flex items-center gap-2">
@@ -494,7 +494,7 @@ export function MLBeatDiscovery() {
  <m.div
  initial={{ opacity: 0, rotateY: -15, scale: 0.9 }}
  animate={{ opacity: 1, rotateY: 0, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="flex-1 relative"
  >
  {/* Certificate frame */}
@@ -514,7 +514,7 @@ export function MLBeatDiscovery() {
  <m.div
  initial={{ scale: 0, rotate: -180 }}
  animate={step >= 1 ? { scale: 1, rotate: 0 } : {}}
- transition={{ duration: 0.6, type: 'spring', damping: 15 }}
+ transition={{ duration: DURATION.slower, type: 'spring', damping: 15 }}
  className="mx-auto mt-4 w-16 h-16 rounded-full border-2 border-amber-400/60 bg-gradient-to-br from-amber-500/30 to-amber-700/20 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)]"
  >
  <Target className="w-7 h-7 text-amber-300" />
@@ -540,7 +540,7 @@ export function MLBeatDiscovery() {
  <m.div
  initial={{ opacity: 0, x: 20 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="flex-1"
  >
  <div className="rounded-xl border border-white/[0.08] bg-zinc-950/80 overflow-hidden p-5">
@@ -666,7 +666,7 @@ export function MLBeatEntryPoint() {
  <m.div
  initial={{ opacity: 0, y: 25, scale: 0.95 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="relative w-full max-w-3xl rounded-2xl border border-white/[0.08] bg-zinc-950/90 overflow-hidden shadow-2xl shadow-black/50 mt-4"
  >
  {/* Window chrome */}
@@ -731,7 +731,7 @@ export function MLBeatEntryPoint() {
  <m.div
  initial={{ opacity: 0, x: '80%', y: '60%' }}
  animate={step >= 2 ? { opacity: 1, x: '55%', y: '18%' } : { opacity: 1, x: '55%', y: '15%' }}
- transition={{ duration: 0.8, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.deliberate, ease: 'easeInOut' }}
  className="absolute z-30 pointer-events-none"
  >
  <MousePointerClick className="w-5 h-5 text-white drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]" fill="white" />
@@ -746,7 +746,7 @@ export function MLBeatEntryPoint() {
  initial={{ opacity: 0, scale: 0.9, y: -5 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.95 }}
- transition={{ duration: 0.25, ease: 'easeOut' }}
+ transition={{ duration: DURATION.fast, ease: 'easeOut' }}
  className="absolute top-[28%] left-[48%] w-48 rounded-lg border border-zinc-700 bg-zinc-900/98 shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden z-20 "
  >
  {[
@@ -771,7 +771,7 @@ export function MLBeatEntryPoint() {
  {item.highlight && (
  <m.div
  animate={{ opacity: [0.4, 1, 0.4] }}
- transition={{ duration: 2, repeat: Infinity }}
+ transition={{ duration: DURATION.epic, repeat: Infinity }}
  className="ml-auto"
  >
  <Sparkles className="w-3.5 h-3.5 text-[var(--cs-accent)]" />
@@ -790,13 +790,13 @@ export function MLBeatEntryPoint() {
  <m.div
  initial={{ opacity: 0.8, scale: 0 }}
  animate={{ opacity: 0, scale: 3 }}
- transition={{ duration: 0.6 }}
+ transition={{ duration: DURATION.slower }}
  className="absolute top-[32%] left-[60%] w-8 h-8 rounded-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_70%)] z-30 pointer-events-none"
  />
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ delay: 0.3, duration: 0.5 }}
+ transition={{ delay: 0.3, duration: DURATION.slow }}
  className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--cs-accent),transparent_92%)] to-transparent z-10 flex flex-col items-center justify-center"
  >
  <m.div
@@ -808,7 +808,7 @@ export function MLBeatEntryPoint() {
  <div className="flex items-center gap-3">
  <m.div
  animate={{ rotate: 360 }}
- transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+ transition={{ duration: DURATION.reveal, repeat: Infinity, ease: 'linear' }}
  className="w-5 h-5 border-2 border-[color-mix(in_srgb,var(--cs-accent),transparent_60%)] border-t-[var(--cs-accent)] rounded-full"
  />
  <span className="text-sm font-mono text-[var(--cs-accent)]">Loading Predict Data...</span>
@@ -857,7 +857,7 @@ export function MLBeatPivot() {
  <m.div
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="w-full max-w-3xl rounded-2xl border border-white/[0.08] bg-zinc-950/80 overflow-hidden shadow-2xl shadow-black/40"
  >
  {/* Wizard step header */}
@@ -885,7 +885,7 @@ export function MLBeatPivot() {
  <m.div
  initial={{ height: 0, opacity: 0 }}
  animate={{ height: 'auto', opacity: 1 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="border-t border-dashed border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] overflow-hidden"
  >
  <div className="px-5 py-3 bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)]">
@@ -958,7 +958,7 @@ export function MLBeatBreakthrough() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="w-full max-w-3xl rounded-2xl border border-white/[0.08] bg-zinc-950/80 overflow-hidden shadow-2xl shadow-black/40"
  >
  {/* Window chrome */}
@@ -978,7 +978,7 @@ export function MLBeatBreakthrough() {
  backgroundColor: i <= activeStep ? 'rgba(59,130,246,0.5)' : 'rgba(255,255,255,0.06)',
  scale: i === activeStep ? 1.15 : 1,
  }}
- transition={{ duration: 0.3 }}
+ transition={{ duration: DURATION.base }}
  className="w-4 h-4 rounded-full flex items-center justify-center border border-white/[0.1]"
  >
  <span className="text-[7px] font-mono font-bold text-white">{i + 1}</span>
@@ -993,7 +993,7 @@ export function MLBeatBreakthrough() {
  <div className="relative min-h-[320px] p-6">
  <AnimatePresence mode="wait">
  {activeStep === 0 && (
- <m.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: DURATION.base }}>
  {/* Step 1: Problem type cards */}
  <div className="grid grid-cols-3 gap-2">
  {['Binary\nClassification', 'Anomaly\nDetection', 'Multi-class', 'Regression', 'Clustering', 'Time-series'].map((type, i) => (
@@ -1013,7 +1013,7 @@ export function MLBeatBreakthrough() {
  </m.div>
  )}
  {activeStep === 1 && (
- <m.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: DURATION.base }}>
  {/* Step 2: Form fields */}
  <div className="space-y-3 max-w-sm mx-auto">
  {['Target*', 'Positive Class*', 'Scoring*'].map((field, i) => (
@@ -1030,7 +1030,7 @@ export function MLBeatBreakthrough() {
  </m.div>
  )}
  {activeStep === 2 && (
- <m.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: DURATION.base }}>
  {/* Step 3: Data table with checkboxes */}
  <div className="rounded-lg border border-white/[0.06] overflow-hidden">
  <div className="flex px-3 py-1.5 border-b border-white/[0.06] bg-white/[0.02]">
@@ -1056,7 +1056,7 @@ export function MLBeatBreakthrough() {
  </m.div>
  )}
  {activeStep === 3 && (
- <m.div key="s4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+ <m.div key="s4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: DURATION.base }}>
  {/* Step 4: Algorithm chips + param fields */}
  <div className="flex flex-wrap gap-1.5 mb-4 justify-center">
  {['K-nearest', 'Logistic Regression', 'XGBoost', 'Random Forest', 'Neural Net'].map((algo, i) => (
@@ -1138,7 +1138,7 @@ export function MLBeatOrigin() {
  <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="rounded-xl border border-amber-500/20 bg-amber-500/[0.03] overflow-hidden"
  >
  <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/[0.05] border-b border-amber-500/10">
@@ -1161,7 +1161,7 @@ export function MLBeatOrigin() {
  strokeWidth="1.5"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ delay: 0.3, duration: 1 }}
+ transition={{ delay: 0.3, duration: DURATION.drift }}
  />
  <m.path
  d="M5,25 Q30,35 55,15 T95,20"
@@ -1169,7 +1169,7 @@ export function MLBeatOrigin() {
  strokeWidth="1"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ delay: 0.5, duration: 1 }}
+ transition={{ delay: 0.5, duration: DURATION.drift }}
  />
  </svg>
  <div className="flex gap-1 mt-1">
@@ -1189,7 +1189,7 @@ export function MLBeatOrigin() {
  <m.div
  initial={{ opacity: 0, x: 15, scale: 0.95 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.08)]"
  >
  <div className="flex items-center gap-2 px-4 py-2 bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] border-b border-[color-mix(in_srgb,var(--cs-accent),transparent_90%)]">
@@ -1213,7 +1213,7 @@ export function MLBeatOrigin() {
  className="h-full bg-gradient-to-r from-[color-mix(in_srgb,var(--cs-accent),transparent_60%)] to-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: f.w }}
- transition={{ delay: f.delay, duration: 0.6, ease: 'easeOut' }}
+ transition={{ delay: f.delay, duration: DURATION.slower, ease: 'easeOut' }}
  />
  </div>
  </div>
@@ -1239,7 +1239,7 @@ export function MLBeatOrigin() {
  <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="mt-4 py-3 px-4 rounded-lg bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] text-center"
  >
  <p className="text-sm md:text-base text-zinc-200 italic">
@@ -1309,7 +1309,7 @@ export function MLBeatConfusionMatrix() {
  <m.div
  initial={{ opacity: 0, x: -15 }}
  animate={{ opacity: 0.6, x: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden"
  >
  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.02] border-b border-white/[0.05]">
@@ -1351,7 +1351,7 @@ export function MLBeatConfusionMatrix() {
  <m.div
  initial={{ opacity: 0, x: 15, scale: 0.95 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.1)]"
  >
  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] border-b border-[color-mix(in_srgb,var(--cs-accent),transparent_90%)]">
@@ -1390,13 +1390,13 @@ export function MLBeatConfusionMatrix() {
  className="absolute inset-y-0 left-0 rounded-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_50%)]"
  initial={{ width: '50%' }}
  animate={{ width: ['50%', '65%', '45%', '65%'] }}
- transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.max, repeat: Infinity, ease: 'easeInOut' }}
  />
  <m.div
  className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[var(--cs-accent)] border-2 border-zinc-900 shadow-sm"
  initial={{ left: '50%' }}
  animate={{ left: ['50%', '65%', '45%', '65%'] }}
- transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.max, repeat: Infinity, ease: 'easeInOut' }}
  />
  </div>
  </m.div>
@@ -1409,7 +1409,7 @@ export function MLBeatConfusionMatrix() {
  <m.div
  className="absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--cs-accent),transparent_70%)] rounded-sm"
  animate={{ height: [`${60 + i * 8}%`, `${75 + i * 5}%`, `${55 + i * 10}%`, `${75 + i * 5}%`] }}
- transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.max, repeat: Infinity, ease: 'easeInOut' }}
  />
  </div>
  </div>
@@ -1427,7 +1427,7 @@ export function MLBeatConfusionMatrix() {
  <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="mt-4 py-3 px-4 rounded-lg bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] text-center"
  >
  <p className="text-sm md:text-base text-zinc-200 italic">
@@ -1488,7 +1488,7 @@ export function MLBeatExplainability() {
  <m.div
  initial={{ opacity: 0, scale: 0.95, y: 15 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="rounded-2xl border border-white/[0.08] bg-zinc-950/80 overflow-hidden shadow-2xl shadow-black/40"
  >
  {/* Window chrome */}
@@ -1517,7 +1517,7 @@ export function MLBeatExplainability() {
  key={feat.name}
  initial={{ opacity: 0, x: -10 }}
  animate={step >= 2 ? { opacity: 1, x: 0 } : {}}
- transition={{ delay: i * 0.08, duration: 0.4, ease }}
+ transition={{ delay: i * 0.08, duration: DURATION.medium, ease }}
  className="flex items-center gap-3"
  >
  <span className="text-[10px] font-mono text-zinc-500 w-28 text-right shrink-0">{feat.name}</span>
@@ -1526,7 +1526,7 @@ export function MLBeatExplainability() {
  className={`absolute inset-y-0 left-0 ${feat.color} rounded-sm`}
  initial={{ width: 0 }}
  animate={step >= 2 ? { width: `${feat.importance * 100}%` } : {}}
- transition={{ delay: 0.3 + i * 0.08, duration: 0.6, ease }}
+ transition={{ delay: 0.3 + i * 0.08, duration: DURATION.slower, ease }}
  />
  </div>
  <m.span
@@ -1547,7 +1547,7 @@ export function MLBeatExplainability() {
  <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] p-4"
  >
  <div className="flex items-center gap-2 mb-3">
@@ -1561,31 +1561,31 @@ export function MLBeatExplainability() {
  className="h-full bg-zinc-700/30 rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '15%' }}
- transition={{ delay: 0.2, duration: 0.4 }}
+ transition={{ delay: 0.2, duration: DURATION.medium }}
  />
  <m.div
  className="h-full bg-emerald-500/40 rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '25%' }}
- transition={{ delay: 0.4, duration: 0.4 }}
+ transition={{ delay: 0.4, duration: DURATION.medium }}
  />
  <m.div
  className="h-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '15%' }}
- transition={{ delay: 0.5, duration: 0.4 }}
+ transition={{ delay: 0.5, duration: DURATION.medium }}
  />
  <m.div
  className="h-full bg-white/[0.06] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '8%' }}
- transition={{ delay: 0.6, duration: 0.4 }}
+ transition={{ delay: 0.6, duration: DURATION.medium }}
  />
  <m.div
  className="h-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_85%)] rounded-sm"
  initial={{ width: 0 }}
  animate={{ width: '10%' }}
- transition={{ delay: 0.7, duration: 0.4 }}
+ transition={{ delay: 0.7, duration: DURATION.medium }}
  />
  <div className="text-[8px] font-mono text-emerald-400 w-16 text-right font-bold">→ 87.3%</div>
  </div>
@@ -1647,7 +1647,7 @@ export function MLBeatValidation() {
  <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="rounded-xl border border-white/[0.08] bg-white/[0.02] overflow-hidden mb-4"
  >
  {/* Zoom toolbar */}
@@ -1683,7 +1683,7 @@ export function MLBeatValidation() {
  ? 'rgba(16,185,129,0.3)'
  : 'rgba(255,255,255,0.06)',
  }}
- transition={{ duration: 0.4 }}
+ transition={{ duration: DURATION.medium }}
  >
  <span className="text-[10px] font-mono text-zinc-500">{s}</span>
  </m.div>
@@ -1724,7 +1724,7 @@ export function MLBeatValidation() {
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="grid grid-cols-4 gap-2.5 mb-5"
  >
  {[1, 2, 3, 4].map((n, i) => (
@@ -1732,7 +1732,7 @@ export function MLBeatValidation() {
  key={n}
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ delay: i * 0.25, duration: 0.4 }}
+ transition={{ delay: i * 0.25, duration: DURATION.medium }}
  className="rounded-lg border border-[color-mix(in_srgb,var(--cs-accent),transparent_75%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] p-3 text-center"
  >
  <div className="text-[10px] font-mono text-zinc-500 mb-1.5">SME {n}</div>
@@ -1742,7 +1742,7 @@ export function MLBeatValidation() {
  className="h-full rounded-full bg-[color-mix(in_srgb,var(--cs-accent),transparent_40%)]"
  initial={{ width: '0%' }}
  animate={{ width: '100%' }}
- transition={{ delay: i * 0.25 + 0.2, duration: 0.6, ease: 'easeOut' }}
+ transition={{ delay: i * 0.25 + 0.2, duration: DURATION.slower, ease: 'easeOut' }}
  />
  </div>
  {/* Checkmark */}

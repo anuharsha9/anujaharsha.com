@@ -13,7 +13,7 @@ import FlagshipTheater from '@/components/FlagshipTheater'
 import { ERA_TAGS } from './constants'
 import { m } from 'framer-motion'
 import { Play, ArrowDown } from 'lucide-react'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 interface MobileTimelineProps {
     onOpenLightbox: (id: string) => void
@@ -57,7 +57,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: DURATION.slower }}
             >
                 {/* Re-using InterstitialContent but ensuring it fits mobile */}
                 <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/[0.07] rounded-2xl p-6 overflow-hidden">
@@ -98,7 +98,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: DURATION.slower }}
             >
                 <TestimonialContent era={era} />
             </m.div>
@@ -112,7 +112,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: EASE_CINEMATIC }}
+            transition={{ duration: DURATION.gentle, ease: EASE_CINEMATIC }}
         >
             {/* Watermark Year (Removed to reduce text clutter) */}
 

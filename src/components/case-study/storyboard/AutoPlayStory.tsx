@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease, EASE_EXPO, EASE_GLIDE } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, EASE_GLIDE, DURATION } from '@/lib/motion'
 
 /* ─── types ─────────────────────────────────────────── */
 export interface MovieBeat {
@@ -157,13 +157,13 @@ export default function AutoPlayStory({
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  exit={{ opacity: 0 }}
- transition={{ duration: 0.55, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  >
  <m.div
  className="absolute -left-[18%] top-0 h-full w-[40%] bg-[linear-gradient(90deg,transparent,var(--overlay-cyan-electric-15),transparent)] blur-2xl"
  initial={{ x: '-18%', opacity: 0 }}
  animate={{ x: '138%', opacity: [0, 0.75, 0] }}
- transition={{ duration: 0.9, ease: EASE_EXPO, times: [0, 0.48, 1] }}
+ transition={{ duration: DURATION.drift, ease: EASE_EXPO, times: [0, 0.48, 1] }}
  />
  <m.svg
  className="absolute inset-0 h-full w-full"
@@ -171,7 +171,7 @@ export default function AutoPlayStory({
  preserveAspectRatio="none"
  initial={{ opacity: 0 }}
  animate={{ opacity: [0, 0.22, 0] }}
- transition={{ duration: 0.9, ease, times: [0, 0.45, 1] }}
+ transition={{ duration: DURATION.drift, ease, times: [0, 0.45, 1] }}
  aria-hidden="true"
  >
  <m.path
@@ -182,7 +182,7 @@ export default function AutoPlayStory({
  strokeDasharray="2 2"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ duration: 0.78, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  />
  <m.path
  d="M0,66 C22,58 37,74 52,67 C70,59 82,70 100,63"
@@ -192,7 +192,7 @@ export default function AutoPlayStory({
  strokeDasharray="2 2"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ duration: 0.82, delay: 0.06, ease }}
+ transition={{ duration: DURATION.deliberate, delay: 0.06, ease }}
  />
  </m.svg>
  </m.div>
@@ -210,7 +210,7 @@ export default function AutoPlayStory({
  initial={{ opacity: 0, y: -10 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -10 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  >
  <span className="font-mono text-[11px] tracking-[0.2em] text-teal-300/90 uppercase bg-teal-500/10 px-2.5 py-1 rounded-full border border-teal-500/20">
  {currentBeatData.signal}
@@ -229,7 +229,7 @@ export default function AutoPlayStory({
  initial={{ opacity: 0, y: 14 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -8 }}
- transition={{ duration: 0.45, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  >
  <PresenterBar
  narration={currentBeatData.narration}
@@ -264,7 +264,7 @@ export default function AutoPlayStory({
  scale: 0.985,
  clipPath: 'inset(4% 2% 3% 2% round 16px)',
  }}
- transition={{ duration: 1.02, ease: EASE_GLIDE }}
+ transition={{ duration: DURATION.drift, ease: EASE_GLIDE }}
  className="absolute inset-0 flex h-full w-full items-center justify-center p-2 md:p-3 scale-[1.35] origin-center"
  >
  {currentBeatData?.component}
@@ -309,7 +309,7 @@ export default function AutoPlayStory({
  initial={{ opacity: 0, y: -10 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -10 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="absolute top-4 left-4 md:top-6 md:left-6 z-20"
  >
  <span className="font-mono text-[11px] tracking-[0.2em] text-teal-300/90 uppercase bg-teal-500/10 px-2.5 py-1 rounded-full border border-teal-500/20">
@@ -342,7 +342,7 @@ export default function AutoPlayStory({
  scale: 0.985,
  clipPath: 'inset(4% 2% 3% 2% round 16px)',
  }}
- transition={{ duration: 1.02, ease: EASE_GLIDE }}
+ transition={{ duration: DURATION.drift, ease: EASE_GLIDE }}
  className="absolute inset-0 flex h-full w-full items-center justify-center p-4 md:p-8"
  >
  {currentBeatData?.component}
@@ -383,7 +383,7 @@ export default function AutoPlayStory({
  <m.div
  className="absolute inset-0 bg-teal-500/70 rounded-sm origin-left"
  style={{ scaleX: beatFill }}
- transition={{ duration: 0.1 }}
+ transition={{ duration: DURATION.instant }}
  />
  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-white/10 rounded-sm transition-opacity" />
  </button>

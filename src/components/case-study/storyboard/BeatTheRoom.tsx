@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
 import { Mic, MicOff, Video, Monitor, MessageSquare, User, PhoneOff } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 interface ZoomParticipant {
  name: string
@@ -101,7 +101,7 @@ export default function BeatTheRoom() {
  <m.div
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="relative"
  >
  {/* Window chrome */}
@@ -138,7 +138,7 @@ export default function BeatTheRoom() {
  ? { opacity: 1, scale: 1 }
  : { opacity: 0, scale: 0.9 }
  }
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="relative aspect-video rounded-lg overflow-hidden"
  style={{ background: p.bg }}
  >
@@ -150,7 +150,7 @@ export default function BeatTheRoom() {
  ? { scale: [1, 1.05, 1], borderColor: p.accent }
  : {}
  }
- transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
+ transition={{ duration: DURATION.epic, repeat: Infinity, repeatType: 'reverse' }}
  className="w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center border-2"
  style={{
  borderColor: isHighlight
@@ -210,7 +210,7 @@ export default function BeatTheRoom() {
  <m.div
  initial={{ opacity: 0 }}
  animate={{ opacity: [0.3, 0.6, 0.3] }}
- transition={{ duration: 2, repeat: Infinity }}
+ transition={{ duration: DURATION.epic, repeat: Infinity }}
  className="absolute inset-0 rounded-lg border-2"
  style={{ borderColor: p.accent }}
  />
@@ -243,7 +243,7 @@ export default function BeatTheRoom() {
  initial={{ opacity: 0, scale: 0.8, y: 10 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.9, y: -8 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="flex justify-center my-6"
  >
  <div className="relative">
@@ -251,18 +251,18 @@ export default function BeatTheRoom() {
  <m.div
  className="absolute -bottom-3 left-8 w-3 h-3 rounded-full bg-white/[0.06] border border-white/[0.08]"
  animate={{ scale: [0.8, 1, 0.8], opacity: [0.3, 0.6, 0.3] }}
- transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.epic, repeat: Infinity, ease: 'easeInOut' }}
  />
  <m.div
  className="absolute -bottom-5 left-4 w-2 h-2 rounded-full bg-white/[0.04] border border-white/[0.06]"
  animate={{ scale: [0.6, 1, 0.6], opacity: [0.2, 0.4, 0.2] }}
- transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.grand, repeat: Infinity, ease: 'easeInOut' }}
  />
  {/* Main bubble */}
  <m.div
  className="relative rounded-2xl border border-white/[0.08] bg-white/[0.03] px-6 py-4 "
  animate={{ y: [0, -3, 0] }}
- transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.vast, repeat: Infinity, ease: 'easeInOut' }}
  >
  <p className="text-lg md:text-xl text-zinc-200/80 italic font-light tracking-tight text-center">
  &ldquo;What am I doing here?&rdquo;
@@ -271,7 +271,7 @@ export default function BeatTheRoom() {
  className="w-8 h-px mx-auto mt-2"
  style={{ background: 'linear-gradient(90deg, transparent, var(--overlay-white-10), transparent)' }}
  animate={{ opacity: [0.3, 0.7, 0.3] }}
- transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.epic, repeat: Infinity, ease: 'easeInOut' }}
  />
  </m.div>
  </div>
@@ -295,7 +295,7 @@ export default function BeatTheRoom() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 11 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="text-center"
  >
  <span className="text-xl md:text-2xl font-bold" style={{ color: 'var(--cs-accent)' }}>40+ years old.</span>
@@ -306,7 +306,7 @@ export default function BeatTheRoom() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 12 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="text-center"
  >
  <span className="text-xl md:text-2xl font-bold" style={{ color: 'var(--cs-accent)' }}>20 million</span>
@@ -317,7 +317,7 @@ export default function BeatTheRoom() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 13 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="text-center"
  >
  <span className="text-lg md:text-xl font-semibold text-zinc-300">Zero documentation.</span>
@@ -327,7 +327,7 @@ export default function BeatTheRoom() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 14 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="text-center"
  >
  <span className="text-base md:text-lg text-zinc-400">Last redesign attempt?</span>
@@ -338,7 +338,7 @@ export default function BeatTheRoom() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={phase >= 15 ? { opacity: 1, y: 0 } : {}}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="text-center"
  >
  <span className="text-base md:text-lg text-zinc-400">Only </span>

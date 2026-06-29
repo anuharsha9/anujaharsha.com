@@ -7,7 +7,7 @@ import { FileText, MonitorPlay } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 import PresentationLightbox from '@/components/case-study/PresentationLightbox'
 import { RC_SLIDES, ML_SLIDES, DSML_SLIDES } from '@/data/presentation-slides'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /* ─── tile data ───
  * Recruiter-readable 10-second triage: a single outcome line per tile,
@@ -61,7 +61,7 @@ function BentoTile({ tile, delay, onWatch }: { tile: typeof TILES[0]; delay: num
             initial={{ opacity: 0, y: 40, scale: 0.96, filter: 'blur(16px)' }}
             whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1.4, delay, ease }}
+            transition={{ duration: DURATION.reveal, delay, ease }}
             className="group flex flex-col"
         >
             {/* CARD — wireframe + hover-revealed buttons only (no text). */}
@@ -137,7 +137,7 @@ export default function CSGBlock() {
                     initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
                     whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.6, ease }}
+                    transition={{ duration: DURATION.reveal, ease }}
                 >
                     <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block breathe-slow" style={{ '--breathe-base': '0.03', '--breathe-peak': '0.05' } as React.CSSProperties}>
                         2022 — 2025
@@ -152,7 +152,7 @@ export default function CSGBlock() {
                     className="mb-12 md:mb-16"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2, ease }}
+                    transition={{ duration: DURATION.cinematic, ease }}
                 >
                     <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                         2022 — 2025

@@ -4,7 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Search, AlertTriangle, Inbox } from 'lucide-react'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 // Simulated screen labels that cascade across the viewport
 const SCREEN_LABELS = [
@@ -50,7 +50,7 @@ function AnimatedCounter({ active }: { active: boolean }) {
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  >
  <div
  className="w-48 h-32 rounded-full"
@@ -64,7 +64,7 @@ function AnimatedCounter({ active }: { active: boolean }) {
  <m.div
  className="text-7xl md:text-8xl font-bold text-white font-mono tabular-nums"
  animate={finished ? { scale: [1, 1.05, 1] } : {}}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  >
  {count}<span style={{ color: 'var(--cs-accent)' }}>+</span>
  </m.div>
@@ -74,7 +74,7 @@ function AnimatedCounter({ active }: { active: boolean }) {
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  initial={{ opacity: 0.8 }}
  animate={{ opacity: 0, scale: 2 }}
- transition={{ duration: 0.8, ease: 'easeOut' }}
+ transition={{ duration: DURATION.deliberate, ease: 'easeOut' }}
  >
  <div
  className="w-32 h-32 rounded-full border"
@@ -164,7 +164,7 @@ export default function Beat250Screens() {
  initial={{ opacity: 0, y: 30, scale: 0.8 }}
  animate={{ opacity: 0.6, y: 0, scale: 1 }}
  transition={{
- duration: 0.3,
+ duration: DURATION.base,
  delay: i * 0.08,
  ease,
  }}
@@ -190,7 +190,7 @@ export default function Beat250Screens() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="mb-6"
  >
  <div className="flex items-center justify-center gap-8 md:gap-12">
@@ -206,7 +206,7 @@ export default function Beat250Screens() {
  <m.div
  initial={{ opacity: 0, x: 10 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.5 }}
+ transition={{ duration: DURATION.slow }}
  className="flex flex-col gap-4"
  >
  {[
@@ -218,7 +218,7 @@ export default function Beat250Screens() {
  key={item.label}
  initial={{ opacity: 0, x: 8 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.4, delay: i * 0.15, ease }}
+ transition={{ duration: DURATION.medium, delay: i * 0.15, ease }}
  className="flex items-center gap-2.5"
  >
  <item.Icon className="w-4 h-4 text-zinc-400" strokeWidth={1.5} />
@@ -241,7 +241,7 @@ export default function Beat250Screens() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  className="text-center"
  >
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">

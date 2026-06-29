@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, CheckCircle2, Shield, Rocket, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
 
 interface MetricItem {
  value: string
@@ -55,7 +55,7 @@ function MetricCounter({ item, active }: { item: MetricItem; active: boolean }) 
  <m.span
  initial={{ opacity: 0 }}
  animate={active ? { opacity: 1 } : { opacity: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="text-2xl md:text-3xl font-bold font-mono tabular-nums"
  style={{ color: item.color }}
  >
@@ -69,7 +69,7 @@ function MetricCounter({ item, active }: { item: MetricItem; active: boolean }) 
  className="text-2xl md:text-3xl font-bold font-mono tabular-nums"
  style={{ color: item.color }}
  animate={done ? { scale: [1, 1.15, 1] } : {}}
- transition={{ duration: 0.3, ease }}
+ transition={{ duration: DURATION.base, ease }}
  >
  {val}{item.suffix || ''}
  </m.span>
@@ -136,14 +136,14 @@ export default function BeatImpact() {
  <m.div
  initial={{ opacity: 0, scale: 3 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 1.2, ease }}
+ transition={{ duration: DURATION.cinematic, ease }}
  className="text-center mb-10 relative"
  >
  {/* Shockwave rings */}
  <m.div
  initial={{ opacity: 0.6, scale: 0.5 }}
  animate={{ opacity: 0, scale: 3 }}
- transition={{ duration: 1.5, ease: 'easeOut' }}
+ transition={{ duration: DURATION.reveal, ease: 'easeOut' }}
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  >
  <div className="w-40 h-40 rounded-full border" style={{ borderColor: 'var(--cs-accent)', opacity: 0.2 }} />
@@ -151,7 +151,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ opacity: 0.4, scale: 0.5 }}
  animate={{ opacity: 0, scale: 4 }}
- transition={{ duration: 2, delay: 0.2, ease: 'easeOut' }}
+ transition={{ duration: DURATION.epic, delay: 0.2, ease: 'easeOut' }}
  className="absolute inset-0 flex items-center justify-center pointer-events-none"
  >
  <div className="w-32 h-32 rounded-full border" style={{ borderColor: 'var(--cs-accent)', opacity: 0.15 }} />
@@ -179,14 +179,14 @@ export default function BeatImpact() {
  `0 0 20px color-mix(in srgb, var(--cs-accent) 20%, transparent)`,
  ],
  }}
- transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.vast, repeat: Infinity, ease: 'easeInOut' }}
  >
  SHIPPED.
  </m.div>
  <m.div
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, delay: 0.5, ease }}
+ transition={{ duration: DURATION.slower, delay: 0.5, ease }}
  className="text-sm text-zinc-500 font-mono"
  >
  Customers retained · Mission-critical · Zero regressions
@@ -210,7 +210,7 @@ export default function BeatImpact() {
  : { opacity: 0, y: 30, scale: 0.85 }
  }
  transition={{
- duration: 0.6,
+ duration: DURATION.slower,
  ease: EASE_SPRING,
  }}
  className="relative rounded-xl border bg-white/[0.02] p-4 md:p-5 text-center overflow-hidden"
@@ -222,7 +222,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={isActive ? { scaleX: 1 } : { scaleX: 0 }}
- transition={{ duration: 0.5, delay: 0.2, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.2, ease }}
  className="absolute top-0 left-0 right-0 h-[2px] origin-left"
  style={{ background: metric.color }}
  />
@@ -231,7 +231,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ scale: 0 }}
  animate={isActive ? { scale: 1 } : { scale: 0 }}
- transition={{ duration: 0.4, delay: 0.1, ease: EASE_SPRING }}
+ transition={{ duration: DURATION.medium, delay: 0.1, ease: EASE_SPRING }}
  className="flex items-center justify-center mb-3"
  >
  <div
@@ -254,7 +254,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ opacity: 0 }}
  animate={isActive ? { opacity: 1 } : { opacity: 0 }}
- transition={{ duration: 0.4, delay: 0.3 }}
+ transition={{ duration: DURATION.medium, delay: 0.3 }}
  className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider"
  >
  {metric.label}
@@ -265,7 +265,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ x: '-100%' }}
  animate={{ x: '200%' }}
- transition={{ duration: 1, delay: 0.2, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.drift, delay: 0.2, ease: 'easeInOut' }}
  className="absolute inset-0 pointer-events-none"
  style={{
  background: 'linear-gradient(90deg, transparent 0%, var(--overlay-white-04) 50%, transparent 100%)',
@@ -283,7 +283,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="max-w-xl mx-auto"
  >
  <div className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 md:p-8 overflow-hidden">
@@ -299,7 +299,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="flex items-center gap-3 mt-5 pl-2"
  >
  <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center" style={{ background: `color-mix(in srgb, var(--cs-accent) 15%, transparent)` }}>
@@ -327,7 +327,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 2, ease }}
+ transition={{ duration: DURATION.epic, ease }}
  className="mt-14 md:mt-16 text-center max-w-2xl mx-auto"
  >
  <div className="border-t border-white/[0.06] pt-10">

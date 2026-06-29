@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import { m } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
-import { EASE_CINEMATIC } from '@/lib/motion'
+import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 /* ─── Archive image maps — generated from public/images/archive/ ─── */
 const ARCHIVE_IMAGES: Record<string, string[]> = {
@@ -83,7 +83,7 @@ export default function ExtendedPortfolio() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.8, ease: EASE_CINEMATIC }}
+                    transition={{ duration: DURATION.deliberate, ease: EASE_CINEMATIC }}
                 >
                     <p className="font-mono text-[11px] md:text-xs uppercase tracking-[0.3em] text-zinc-600 mb-2">
                         Earlier Work · 2012 — 2022
@@ -99,7 +99,7 @@ export default function ExtendedPortfolio() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
-                    transition={{ duration: 0.9, ease: EASE_CINEMATIC }}
+                    transition={{ duration: DURATION.drift, ease: EASE_CINEMATIC }}
                 >
                     {PROJECTS.map((item) => (
                         <ArchiveCard key={item.id} item={item} onOpen={openSlideshow} />

@@ -13,7 +13,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Search, Eye, EyeOff, Layers3, Sparkles, Users, Target, Zap, MessageSquare, BarChart3, BrainCircuit, LayoutDashboard, BookOpen, PanelLeft, Grid3X3, Code2, FlaskConical, Shield, Bug, UserCircle2 } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
@@ -61,7 +61,7 @@ function NLQIllustration() {
  <circle cx="58" cy="20" r="1.5" fill="var(--cs-accent)" opacity="0.5" />
  <circle cx="62" cy="24" r="1" fill="var(--cs-accent)" opacity="0.3" />
  {/* Strike-through line — hidden */}
- <m.line x1="8" y1="70" x2="72" y2="70" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.15" strokeDasharray="3,5" animate={{ x2: [60, 72, 60] }} transition={{ duration: 3, repeat: Infinity }} />
+ <m.line x1="8" y1="70" x2="72" y2="70" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.15" strokeDasharray="3,5" animate={{ x2: [60, 72, 60] }} transition={{ duration: DURATION.vast, repeat: Infinity }} />
  </svg>
  )
 }
@@ -75,7 +75,7 @@ function InsightsIllustration() {
  <rect x="42" y="28" width="10" height="40" rx="2" fill="var(--cs-accent)" opacity="0.45" />
  <rect x="56" y="20" width="10" height="48" rx="2" fill="var(--cs-accent)" opacity="0.55" />
  {/* Trend line */}
- <m.path d="M19 48 L33 36 L47 26 L61 18" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.6" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, ease: 'easeOut' }} />
+ <m.path d="M19 48 L33 36 L47 26 L61 18" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.6" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: DURATION.reveal, ease: 'easeOut' }} />
  {/* Eye icon at top */}
  <circle cx="40" cy="12" r="4" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.3" fill="none" />
  <circle cx="40" cy="12" r="1.5" fill="var(--cs-accent)" opacity="0.3" />
@@ -100,7 +100,7 @@ function MLIllustration() {
  <line x1="22" y1="45" x2="50" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
  <line x1="58" y1="45" x2="30" y2="57" stroke="var(--cs-accent)" strokeWidth="0.8" opacity="0.15" />
  {/* Pulse dot */}
- <m.circle cx="40" cy="18" r={2} fill="var(--cs-accent)" opacity={0.6} initial={{ r: 2, opacity: 0.6 }} animate={{ r: [2, 3.5, 2], opacity: [0.6, 0.2, 0.6] }} transition={{ duration: 2, repeat: Infinity }} />
+ <m.circle cx="40" cy="18" r={2} fill="var(--cs-accent)" opacity={0.6} initial={{ r: 2, opacity: 0.6 }} animate={{ r: [2, 3.5, 2], opacity: [0.6, 0.2, 0.6] }} transition={{ duration: DURATION.epic, repeat: Infinity }} />
  </svg>
  )
 }
@@ -133,7 +133,7 @@ export function DSMLBeatProblem() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -148,7 +148,7 @@ export function DSMLBeatProblem() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="flex flex-wrap items-stretch justify-center gap-4 md:gap-5 mt-8"
  >
  {features.map((feat, i) => (
@@ -156,7 +156,7 @@ export function DSMLBeatProblem() {
  key={feat.name}
  initial={{ opacity: 0, y: 25, scale: 0.85 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ delay: i * 0.15, duration: 0.6, ease }}
+ transition={{ delay: i * 0.15, duration: DURATION.slower, ease }}
  className="w-44 md:w-56 rounded-xl border p-4 text-center relative overflow-hidden group"
  style={{
  borderColor: withHexAlpha(feat.color, '25'),
@@ -172,7 +172,7 @@ export function DSMLBeatProblem() {
  className="absolute inset-0 flex items-center justify-center bg-zinc-950/60 "
  initial={{ opacity: 0 }}
  animate={{ opacity: [0, 0.7, 0.5] }}
- transition={{ delay: 0.8 + i * 0.15, duration: 1, ease }}
+ transition={{ delay: 0.8 + i * 0.15, duration: DURATION.drift, ease }}
  >
  <EyeOff className="h-6 w-6 text-zinc-400" strokeWidth={1.5} />
  </m.div>
@@ -190,7 +190,7 @@ export function DSMLBeatProblem() {
  <m.div
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="flex justify-center gap-8 mt-8"
  >
  {[
@@ -234,7 +234,7 @@ function SceneTeamVision() {
  <circle cx="36" cy="16" r="3" fill="var(--cs-accent)" opacity="0.2" />
  <path d="M31 26 C31 22, 33 20, 36 20 C39 20, 41 22, 41 26" fill="var(--cs-accent)" opacity="0.15" />
  {/* Idea spark */}
- <m.circle cx="24" cy="8" r={1.5} fill="var(--cs-accent)" opacity={0.5} initial={{ r: 1.5, opacity: 0.5 }} animate={{ opacity: [0.5, 0.15, 0.5], r: [1.5, 2.5, 1.5] }} transition={{ duration: 2, repeat: Infinity }} />
+ <m.circle cx="24" cy="8" r={1.5} fill="var(--cs-accent)" opacity={0.5} initial={{ r: 1.5, opacity: 0.5 }} animate={{ opacity: [0.5, 0.15, 0.5], r: [1.5, 2.5, 1.5] }} transition={{ duration: DURATION.epic, repeat: Infinity }} />
  </svg>
  )
 }
@@ -253,7 +253,7 @@ function SceneDesignFit() {
  <rect x="20" y="24" width="8" height="10" rx="1.5" fill="var(--cs-accent)" opacity="0.1" />
  <rect x="30" y="24" width="8" height="10" rx="1.5" fill="var(--cs-accent)" opacity="0.1" />
  {/* Arrow pointing to the fitted panel */}
- <m.path d="M42 17 L46 17" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.5" animate={{ x: [0, 2, 0] }} transition={{ duration: 1.5, repeat: Infinity }} />
+ <m.path d="M42 17 L46 17" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.5" animate={{ x: [0, 2, 0] }} transition={{ duration: DURATION.reveal, repeat: Infinity }} />
  </svg>
  )
 }
@@ -288,7 +288,7 @@ function SceneApproval() {
  <circle cx="24" cy="20" r="14" stroke="var(--cs-accent)" strokeWidth="1" opacity="0.3" />
  <circle cx="24" cy="20" r="11" stroke="var(--cs-accent)" strokeWidth="0.5" opacity="0.2" strokeDasharray="2,2" />
  {/* Checkmark */}
- <m.path d="M17 20 L22 25 L31 15" stroke="var(--cs-accent)" strokeWidth="2" opacity="0.6" fill="none" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: 'easeOut' }} />
+ <m.path d="M17 20 L22 25 L31 15" stroke="var(--cs-accent)" strokeWidth="2" opacity="0.6" fill="none" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: DURATION.slower, ease: 'easeOut' }} />
  {/* VP text */}
  <text x="24" y="35" textAnchor="middle" fill="var(--cs-accent)" fontSize="5" fontFamily="monospace" opacity="0.4">APPROVED</text>
  </svg>
@@ -324,7 +324,7 @@ export function DSMLBeatSpark() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -341,7 +341,7 @@ export function DSMLBeatSpark() {
  <m.div
  initial={{ opacity: 0, x: -20, scale: 0.9 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="w-full flex items-center gap-3 rounded-xl border px-4 py-3"
  style={{
  borderColor: withHexAlpha(item.color, '30'),
@@ -399,7 +399,7 @@ export function DSMLBeatModernize() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -416,7 +416,7 @@ export function DSMLBeatModernize() {
  initial={{ opacity: 0, y: 18 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -14, scale: 0.96 }}
- transition={{ duration: 0.62, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="w-full max-w-lg mx-auto text-center mt-6"
  >
  <p className="mb-4 font-mono text-xs tracking-[0.3em] text-zinc-400 uppercase">Before — Simple SQL Queries</p>
@@ -427,7 +427,7 @@ export function DSMLBeatModernize() {
  </div>
  <m.div
  animate={{ opacity: [0.4, 1, 0.4] }}
- transition={{ duration: 1.5, repeat: Infinity }}
+ transition={{ duration: DURATION.reveal, repeat: Infinity }}
  className="text-xs text-zinc-400 text-left space-y-2"
  >
  <div className="rounded bg-white/[0.03] px-3 py-2 font-mono text-[11px] text-zinc-500">show me sales data</div>
@@ -441,7 +441,7 @@ export function DSMLBeatModernize() {
  key="after"
  initial={{ opacity: 0, y: 14, scale: 0.94 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ duration: 0.75, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="w-full max-w-lg mx-auto text-center mt-6"
  >
  <p className="mb-4 font-mono text-xs tracking-[0.3em] text-[var(--cs-accent)] uppercase">After — Phi-3 SLM Powered</p>
@@ -456,7 +456,7 @@ export function DSMLBeatModernize() {
  key={q}
  initial={{ opacity: 0, x: -10 }}
  animate={{ opacity: 1, x: 0 }}
- transition={{ delay: 0.2 + i * 0.12, duration: 0.4, ease }}
+ transition={{ delay: 0.2 + i * 0.12, duration: DURATION.medium, ease }}
  className="flex items-center gap-2 rounded-lg bg-[color-mix(in_srgb,var(--cs-accent),transparent_94%)] px-3 py-2 text-left"
  >
  <Sparkles className="h-3 w-3 text-[var(--cs-accent)] flex-shrink-0" />
@@ -534,9 +534,9 @@ function HubDiagramSVG() {
  <rect x="100" y="65" width="3" height="9" rx="0.5" fill="var(--cs-accent)" opacity="0.35" />
  <circle cx="120" cy="70" r="2.5" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.35" fill="none" />
  {/* Connection lines from outside to hub */}
- <m.line x1="20" y1="20" x2="65" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8 }} />
- <m.line x1="180" y1="20" x2="135" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.15, duration: 0.8 }} />
- <m.line x1="100" y1="110" x2="100" y2="85" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.8 }} />
+ <m.line x1="20" y1="20" x2="65" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: DURATION.deliberate }} />
+ <m.line x1="180" y1="20" x2="135" y2="45" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.15, duration: DURATION.deliberate }} />
+ <m.line x1="100" y1="110" x2="100" y2="85" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.2" strokeDasharray="3,3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: DURATION.deliberate }} />
  {/* Source labels */}
  <text x="16" y="16" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">NLQ</text>
  <text x="184" y="16" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.35">Insights</text>
@@ -572,7 +572,7 @@ export function DSMLBeatArchitecture() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -589,7 +589,7 @@ export function DSMLBeatArchitecture() {
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  exit={{ opacity: 0, scale: 0.9 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="relative w-full max-w-md mx-auto h-44 mt-6"
  >
  <p className="absolute -top-1 left-0 right-0 font-mono text-xs text-zinc-400 uppercase tracking-wider text-center">3 scattered tools</p>
@@ -598,7 +598,7 @@ export function DSMLBeatArchitecture() {
  key={f.name}
  initial={{ opacity: 0, scale: 0 }}
  animate={step >= 1 ? { opacity: 1, scale: 1 } : {}}
- transition={{ delay: i * 0.15, duration: 0.5, type: 'spring', stiffness: 200 }}
+ transition={{ delay: i * 0.15, duration: DURATION.slow, type: 'spring', stiffness: 200 }}
  className="absolute rounded-xl border text-center p-2"
  style={{
  left: `${f.x}%`,
@@ -631,7 +631,7 @@ export function DSMLBeatArchitecture() {
  strokeDasharray="2,2"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ delay: idx * 0.1, duration: 0.5 }}
+ transition={{ delay: idx * 0.1, duration: DURATION.slow }}
  />
  ))}
  </m.svg>
@@ -643,7 +643,7 @@ export function DSMLBeatArchitecture() {
  key="unified"
  initial={{ opacity: 0, scale: 0.86 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 0.75, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="w-full max-w-md mx-auto text-center mt-6"
  >
  <p className="mb-4 font-mono text-xs text-[var(--cs-accent)] uppercase tracking-wider">1 unified Hub</p>
@@ -656,7 +656,7 @@ export function DSMLBeatArchitecture() {
  <m.div
  initial={{ opacity: 0, y: 12 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="flex justify-center gap-8 mt-2"
  >
  <div className="text-center">
@@ -773,7 +773,7 @@ function WireframeV4() {
  <rect x="23" y="21" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.3" />
  <rect x="39" y="21" width="10" height="2" rx="0.5" fill="currentColor" opacity="0.3" />
  {/* Checkmark */}
- <m.path d="M40 30 L44 34 L52 26" stroke="currentColor" strokeWidth="1.5" opacity="0.7" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }} />
+ <m.path d="M40 30 L44 34 L52 26" stroke="currentColor" strokeWidth="1.5" opacity="0.7" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: DURATION.slower, ease: 'easeOut' }} />
  </svg>
  )
 }
@@ -807,7 +807,7 @@ export function DSMLBeatIterations() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -823,7 +823,7 @@ export function DSMLBeatIterations() {
  key={iter.version}
  initial={{ opacity: 0, y: 30, scale: 0.9 }}
  animate={step >= i + 1 ? { opacity: 1, y: 0, scale: 1 } : {}}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="relative"
  >
  <div
@@ -941,7 +941,7 @@ function TileViewWireframe() {
  {/* Subtitle */}
  <text x="80" y="100" textAnchor="middle" fill="var(--cs-accent)" fontSize="6" fontFamily="monospace" opacity="0.3">Immediate context. Zero learning curve.</text>
  {/* Checkmark */}
- <m.path d="M134 96 L140 102 L150 90" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.5" fill="none" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: 0.6 }} />
+ <m.path d="M134 96 L140 102 L150 90" stroke="var(--cs-accent)" strokeWidth="1.5" opacity="0.5" fill="none" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.3, duration: DURATION.slower }} />
  </svg>
  )
 }
@@ -967,7 +967,7 @@ export function DSMLBeatNavFight() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -984,14 +984,14 @@ export function DSMLBeatNavFight() {
  initial={{ opacity: 0, y: 18 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.96 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="w-full max-w-lg mx-auto text-center mt-6"
  >
  <p className="mb-3 font-mono text-[10px] text-zinc-400 uppercase tracking-wider">Architects Wanted</p>
  <m.div
  initial={{ opacity: 0 }}
  animate={step >= 1 ? { opacity: 1 } : {}}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="text-zinc-400"
  >
  <ListViewWireframe />
@@ -1002,7 +1002,7 @@ export function DSMLBeatNavFight() {
  key="tiles-view"
  initial={{ opacity: 0, y: 14, scale: 0.94 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ duration: 0.75, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="w-full max-w-lg mx-auto text-center mt-6"
  >
  <p className="mb-3 font-mono text-[10px] text-[var(--cs-accent)] uppercase tracking-wider">What I Designed — &amp; Won</p>
@@ -1012,7 +1012,7 @@ export function DSMLBeatNavFight() {
  <m.p
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="mt-4 text-xs text-[var(--cs-accent)] font-mono opacity-70"
  >
  Outcome-based labels. Immediate context. Zero learning curve.
@@ -1077,7 +1077,7 @@ export function DSMLBeatVeterans() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -1092,7 +1092,7 @@ export function DSMLBeatVeterans() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="grid grid-cols-3 gap-3 max-w-md mx-auto mt-8"
  >
  {people.map((p, i) => (
@@ -1100,7 +1100,7 @@ export function DSMLBeatVeterans() {
  key={p.role}
  initial={{ opacity: 0, scale: 0.7, y: 15 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
- transition={{ delay: i * 0.12, duration: 0.5, ease }}
+ transition={{ delay: i * 0.12, duration: DURATION.slow, ease }}
  className="rounded-xl border px-3 py-3 text-center flex flex-col items-center gap-1.5"
  style={{
  borderColor: p.veteran
@@ -1135,7 +1135,7 @@ export function DSMLBeatVeterans() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.7, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="mt-6 flex justify-center"
  >
  <div className="rounded-xl border border-[var(--cs-accent)]/30 bg-[var(--cs-accent)]/[0.08] px-6 py-4 flex items-center gap-4">
@@ -1144,7 +1144,7 @@ export function DSMLBeatVeterans() {
  <circle cx="18" cy="12" r="6" fill="var(--cs-accent)" opacity="0.5" />
  <path d="M6 32 C6 24, 12 20, 18 20 C24 20, 30 24, 30 32" fill="var(--cs-accent)" opacity="0.35" />
  {/* Glow ring */}
- <m.circle cx="18" cy="18" r={16} stroke="var(--cs-accent)" strokeWidth="0.8" fill="none" opacity={0.3} initial={{ r: 15, opacity: 0.3 }} animate={{ r: [15, 17, 15], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 3, repeat: Infinity }} />
+ <m.circle cx="18" cy="18" r={16} stroke="var(--cs-accent)" strokeWidth="0.8" fill="none" opacity={0.3} initial={{ r: 15, opacity: 0.3 }} animate={{ r: [15, 17, 15], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: DURATION.vast, repeat: Infinity }} />
  </svg>
  </div>
  <div>
@@ -1162,7 +1162,7 @@ export function DSMLBeatVeterans() {
  <m.p
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.7, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="text-sm text-zinc-200 mt-6 font-mono max-w-sm mx-auto text-center"
  >
  I wasn&apos;t just the designer in the room.<br />
@@ -1205,7 +1205,7 @@ function AdoptionCurveSVG() {
  fill="none"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ duration: 2, ease: 'easeOut' }}
+ transition={{ duration: DURATION.epic, ease: 'easeOut' }}
  />
  {/* Shaded area under curve */}
  <path
@@ -1214,7 +1214,7 @@ function AdoptionCurveSVG() {
  opacity="0.06"
  />
  {/* +25% annotation at peak */}
- <m.circle cx="190" cy="18" r="3" fill="var(--cs-accent)" opacity="0.4" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8, duration: 0.3, type: 'spring' }} />
+ <m.circle cx="190" cy="18" r="3" fill="var(--cs-accent)" opacity="0.4" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8, duration: DURATION.base, type: 'spring' }} />
  </svg>
  )
 }
@@ -1255,7 +1255,7 @@ function StatIconShip() {
  <path d="M9 10 L5 14 L9 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
  <path d="M15 10 L19 14 L15 14" stroke="var(--cs-accent)" strokeWidth="0.6" opacity="0.25" />
  {/* Exhaust */}
- <m.circle cx="12" cy="22" r={1} fill="var(--cs-accent)" opacity={0.3} initial={{ r: 1, opacity: 0.3 }} animate={{ r: [1, 2, 1], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }} />
+ <m.circle cx="12" cy="22" r={1} fill="var(--cs-accent)" opacity={0.3} initial={{ r: 1, opacity: 0.3 }} animate={{ r: [1, 2, 1], opacity: [0.3, 0.1, 0.3] }} transition={{ duration: DURATION.reveal, repeat: Infinity }} />
  </svg>
  )
 }
@@ -1281,7 +1281,7 @@ export function DSMLBeatImpact() {
  <m.div
  initial={{ opacity: 0, scale: 0.95 }}
  animate={step >= 0 ? { opacity: 1, scale: 1 } : {}}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  <PresenterBar>
  <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
@@ -1296,7 +1296,7 @@ export function DSMLBeatImpact() {
  <m.div
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="relative text-center mt-6 mb-6"
  >
  {/* SVG curve behind the number */}
@@ -1326,7 +1326,7 @@ export function DSMLBeatImpact() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="flex justify-center gap-6 md:gap-10"
  >
  {[
@@ -1338,7 +1338,7 @@ export function DSMLBeatImpact() {
  key={stat.label}
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ delay: i * 0.1, duration: 0.4, ease }}
+ transition={{ delay: i * 0.1, duration: DURATION.medium, ease }}
  className="text-center"
  >
  {stat.icon}
@@ -1356,7 +1356,7 @@ export function DSMLBeatImpact() {
  <m.p
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
- transition={{ duration: 0.7, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  className="text-sm text-zinc-200 mt-6 max-w-md leading-relaxed text-center mx-auto"
  >
  The features didn&apos;t change. The visibility did. That was enough.

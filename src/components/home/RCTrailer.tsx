@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
 import { Play, RotateCcw } from 'lucide-react'
-import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION } from '@/lib/motion'
 
 /* ─── Word-by-word kinetic text ─── */
 function KineticLine({
@@ -32,7 +32,7 @@ function KineticLine({
                         initial={{ opacity: 0, y: 32, filter: 'blur(10px)', scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
                         transition={{
-                            duration: 0.55,
+                            duration: DURATION.slow,
                             delay: delay + i * 0.07,
                             ease,
                         }}
@@ -57,7 +57,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
                     initial={{ opacity: 0, y: 80, scale: 1.6, filter: 'blur(16px)' }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                     transition={{
-                        duration: 0.35,
+                        duration: DURATION.base,
                         delay: i * 0.035,
                         ease: EASE_EXPO,
                     }}
@@ -138,7 +138,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
     /* shared exit transition */
     const textExit = { opacity: 0, y: -25, filter: 'blur(14px)' }
-    const textExitT = { duration: 0.45, ease }
+    const textExitT = { duration: DURATION.medium, ease }
 
     return (
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
@@ -181,7 +181,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                 className="text-center"
                                 initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 0.6, delay: 0.15, ease }}
+                                transition={{ duration: DURATION.slower, delay: 0.15, ease }}
                             >
                                 <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
                                     20M<span className="text-[var(--semantic-cyan)]">+</span>
@@ -196,7 +196,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                 className="w-px h-12 sm:h-16 md:h-20 bg-zinc-700/50"
                                 initial={{ scaleY: 0, opacity: 0 }}
                                 animate={{ scaleY: 1, opacity: 1 }}
-                                transition={{ duration: 0.4, delay: 0.4, ease }}
+                                transition={{ duration: DURATION.medium, delay: 0.4, ease }}
                             />
 
                             {/* 5→1 Hub */}
@@ -204,7 +204,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                 className="text-center"
                                 initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
                                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 0.6, delay: 0.35, ease }}
+                                transition={{ duration: DURATION.slower, delay: 0.35, ease }}
                             >
                                 <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
                                     5<span className="text-[var(--semantic-cyan)]">&thinsp;→&thinsp;</span>1
@@ -281,7 +281,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                     >
                         <KineticLine
                             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-zinc-300 tracking-tight italic"
@@ -302,14 +302,14 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, scale: 1.08, filter: 'blur(18px)' }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                     >
                         {/* Header text */}
                         <m.div
                             className="text-center mb-6 md:mb-10"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: DURATION.slow, delay: 0.2 }}
                         >
                             <p className="text-lg sm:text-xl md:text-2xl font-light text-zinc-400 max-w-lg mx-auto leading-snug">
                                 {step < 9 ? (
@@ -340,7 +340,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                             strokeDasharray="2 2"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: scattered ? 0.35 : 0 }}
-                                            transition={{ duration: 0.8 }}
+                                            transition={{ duration: DURATION.deliberate }}
                                         />
                                     )
                                 })}
@@ -396,7 +396,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                         initial={{ opacity: 0, scale: 0.3 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 1.3 }}
-                                        transition={{ duration: 0.35, type: 'spring', damping: 12 }}
+                                        transition={{ duration: DURATION.base, type: 'spring', damping: 12 }}
                                     >
                                         <span className="text-5xl md:text-7xl font-black text-[var(--semantic-rose)] drop-shadow-[0_0_30px_var(--semantic-rose)]">✗</span>
                                     </m.div>
@@ -412,7 +412,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                         initial={{ opacity: 0, scale: 0.3 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.5, type: 'spring', damping: 10 }}
+                                        transition={{ duration: DURATION.slow, type: 'spring', damping: 10 }}
                                     >
                                         <span className="text-5xl md:text-7xl font-black text-[var(--semantic-emerald)] drop-shadow-[0_0_40px_var(--semantic-emerald)]">✓</span>
                                     </m.div>
@@ -440,7 +440,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, filter: 'blur(14px)' }}
-                        transition={{ duration: 0.5, ease }}
+                        transition={{ duration: DURATION.slow, ease }}
                     >
                         <div className="relative w-72 h-40 sm:w-80 sm:h-48 md:w-[30rem] md:h-56 mb-6">
                             {Array.from({ length: 35 }).map((_, i) => (
@@ -457,7 +457,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{
                                         delay: i * 0.018,
-                                        duration: 0.25,
+                                        duration: DURATION.fast,
                                         ease: EASE_EXPO,
                                     }}
                                 />
@@ -468,7 +468,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             className="text-center"
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.7, duration: 0.5 }}
+                            transition={{ delay: 0.7, duration: DURATION.slow }}
                         >
                             <div className="text-5xl md:text-7xl font-bold text-white font-mono tracking-tighter">
                                 250<span className="text-[var(--semantic-cyan)]">+</span>
@@ -488,7 +488,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: DURATION.base }}
                     >
                         <SlamText className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter text-center leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                             20M JOBS PROTECTED.
@@ -504,7 +504,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.6, ease }}
+                        transition={{ duration: DURATION.slower, ease }}
                     >
                         {/* Faded SHIPPED behind */}
                         <m.div
@@ -519,7 +519,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             className="relative z-10 max-w-2xl text-center"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.6, ease }}
+                            transition={{ delay: 0.2, duration: DURATION.slower, ease }}
                         >
                             <p className="text-sm sm:text-base md:text-lg text-zinc-200 italic leading-relaxed">
                                 &ldquo;She impressed everyone with how quickly she grasped all aspects of a highly intricate system and translated that understanding into a clear, modern, and user-centered design.&rdquo;
@@ -538,7 +538,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6"
                         initial={{ opacity: 0, y: 20, filter: 'blur(12px)' }}
                         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                        transition={{ duration: 0.8, ease }}
+                        transition={{ duration: DURATION.deliberate, ease }}
                     >
                         {/* RC Case Study Tile */}
                         <button
@@ -567,7 +567,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                                     <m.div
                                         className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center"
                                         animate={{ scale: [1, 1.08, 1] }}
-                                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                        transition={{ duration: DURATION.epic, repeat: Infinity, ease: 'easeInOut' }}
                                     >
                                         <Play className="w-6 h-6 text-white fill-white ml-0.5" />
                                     </m.div>
@@ -590,7 +590,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             className="flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/[0.03] text-zinc-500 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:bg-white/10 hover:text-zinc-200 hover:border-white/30 transition-all cursor-pointer"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5, duration: 0.5 }}
+                            transition={{ delay: 0.5, duration: DURATION.slow }}
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                         >

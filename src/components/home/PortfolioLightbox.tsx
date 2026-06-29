@@ -6,6 +6,7 @@ import { Sparkles, ArrowLeft, ArrowRight } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import LightboxCard from '@/components/ui/LightboxCard'
+import { DURATION } from '@/lib/motion'
 
 /* ─── Portfolio case study — same shell + rhythm as AppCaseStudyLightbox,
  * but the "See it run" section is the 5-iteration evolution carousel
@@ -188,7 +189,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.3 }}
+                                    transition={{ duration: DURATION.base }}
                                     className="pointer-events-none"
                                 >
                                     <VideoPlayer

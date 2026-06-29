@@ -4,7 +4,7 @@ import TransitionLink from '@/components/transitions/TransitionLink'
 import { m } from 'framer-motion'
 import Magnetic from '@/components/ui/Magnetic'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { EASE_EXPO } from '@/lib/motion'
+import { EASE_EXPO, DURATION } from '@/lib/motion'
 
 /**
  * 404 — "Lost at Sea"
@@ -168,7 +168,7 @@ export default function NotFound() {
           className="relative font-mono font-bold text-[10rem] md:text-[14rem] leading-none tracking-tighter select-none mb-[-2rem] md:mb-[-3rem]"
           initial={{ opacity: 0, filter: 'blur(20px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 2, ease: EASE_EXPO }}
+          transition={{ duration: DURATION.epic, ease: EASE_EXPO }}
         >
           <span
             className="bg-clip-text text-transparent"
@@ -186,7 +186,7 @@ export default function NotFound() {
           className="space-y-5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: EASE_EXPO }}
+          transition={{ duration: DURATION.cinematic, delay: 0.4, ease: EASE_EXPO }}
         >
           <h1 className="font-sans text-3xl md:text-4xl text-white font-light tracking-tight">
             You&apos;ve drifted off course.
@@ -203,7 +203,7 @@ export default function NotFound() {
           className="mt-12 flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8, ease: EASE_EXPO }}
+          transition={{ duration: DURATION.drift, delay: 0.8, ease: EASE_EXPO }}
         >
           <Magnetic strength={0.3}>
             <TransitionLink
@@ -232,7 +232,7 @@ export default function NotFound() {
           className="mt-20 flex flex-col items-center gap-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 1.2 }}
+          transition={{ duration: DURATION.reveal, delay: 1.2 }}
         >
           <div className="flex items-center gap-2 text-[10px] font-mono text-[var(--text-tertiary)] uppercase tracking-[0.2em]">
             <span className="w-8 h-px bg-[var(--accent-teal)]/30" />
@@ -244,7 +244,7 @@ export default function NotFound() {
           <m.div
             className="w-1 h-8 rounded-full bg-gradient-to-b from-[var(--accent-teal)]/40 to-transparent"
             animate={{ scaleY: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: DURATION.epic, repeat: Infinity, ease: 'easeInOut' }}
           />
         </m.div>
 

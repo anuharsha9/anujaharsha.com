@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /* ── Wireframe skeleton line ────────────────────── */
 function SkeletonLine({ w = '100%', h = 6, className = '' }: { w?: string | number; h?: number; className?: string }) {
@@ -121,7 +121,7 @@ export default function BeatScheduler() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="space-y-3"
  >
  <div className="font-mono text-[10px] tracking-[0.25em] text-zinc-500 uppercase mb-3">
@@ -131,7 +131,7 @@ export default function BeatScheduler() {
  {/* Basic panel */}
  <m.div
  animate={phase >= 2 ? { opacity: 0.3, scale: 0.97 } : { opacity: 1, scale: 1 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  className="relative"
  >
  <WireframePanel
@@ -151,7 +151,7 @@ export default function BeatScheduler() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
- transition={{ duration: 0.4, ease }}
+ transition={{ duration: DURATION.medium, ease }}
  className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-zinc-500/40 origin-left"
  />
  )}
@@ -160,7 +160,7 @@ export default function BeatScheduler() {
  {/* Advanced panel */}
  <m.div
  animate={phase >= 2 ? { opacity: 0.3, scale: 0.97 } : { opacity: 1, scale: 1 }}
- transition={{ duration: 0.8, ease, delay: 0.1 }}
+ transition={{ duration: DURATION.deliberate, ease, delay: 0.1 }}
  className="relative"
  >
  <WireframePanel
@@ -182,7 +182,7 @@ export default function BeatScheduler() {
  <m.div
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
- transition={{ duration: 0.4, ease, delay: 0.15 }}
+ transition={{ duration: DURATION.medium, ease, delay: 0.15 }}
  className="absolute top-1/2 left-[10%] right-[10%] h-[1px] bg-zinc-500/40 origin-left"
  />
  )}
@@ -215,7 +215,7 @@ export default function BeatScheduler() {
  <m.div
  initial={{ opacity: 0, y: 20, scale: 0.95 }}
  animate={{ opacity: 1, y: 0, scale: 1 }}
- transition={{ duration: 0.7, ease }}
+ transition={{ duration: DURATION.gentle, ease }}
  >
  <div className="font-mono text-[10px] tracking-[0.25em] uppercase mb-3" style={{ color: 'var(--cs-accent)', opacity: 0.6 }}>
  After
@@ -247,7 +247,7 @@ export default function BeatScheduler() {
  <m.div
  initial={{ height: 0, opacity: 0 }}
  animate={{ height: 'auto', opacity: 1 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  className="overflow-hidden"
  >
  <div className="border-t pt-3 mt-1 space-y-2" style={{ borderColor: 'color-mix(in srgb, var(--cs-accent) 10%, transparent)' }}>
@@ -280,7 +280,7 @@ export default function BeatScheduler() {
  <m.div
  initial={{ opacity: 0, y: 8 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5, ease }}
+ transition={{ duration: DURATION.slow, ease }}
  className="mt-3 pt-3" style={{ borderTop: '1px solid color-mix(in srgb, var(--cs-accent) 10%, transparent)' }}
  >
  <div className="flex items-center gap-2">
@@ -298,7 +298,7 @@ export default function BeatScheduler() {
  {/* Subtle glow pulse */}
  <m.div
  animate={{ opacity: [0, 0.15, 0] }}
- transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.vast, repeat: Infinity, ease: 'easeInOut' }}
  className="absolute inset-0 rounded-xl pointer-events-none" style={{ background: 'linear-gradient(to bottom right, color-mix(in srgb, var(--cs-accent) 5%, transparent), transparent)' }}
  />
  </div>
@@ -314,7 +314,7 @@ export default function BeatScheduler() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  className="text-center mt-8"
  >
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">

@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 interface ConsolidationItem {
  from: string
@@ -75,7 +75,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
  strokeOpacity={0.15}
  initial={{ pathLength: 0 }}
  animate={active ? { pathLength: 1 } : { pathLength: 0 }}
- transition={{ duration: 0.8, delay, ease }}
+ transition={{ duration: DURATION.deliberate, delay, ease }}
  />
  {/* Animated dash flowing toward center */}
  <m.path
@@ -87,7 +87,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
  strokeDasharray="8 16"
  initial={{ pathLength: 0, opacity: 0 }}
  animate={active ? { pathLength: 1, opacity: [0, 1, 1, 0.3] } : { pathLength: 0, opacity: 0 }}
- transition={{ duration: 1.2, delay, ease }}
+ transition={{ duration: DURATION.cinematic, delay, ease }}
  />
  {/* Energy particle traveling along the path */}
  {active && (
@@ -96,7 +96,7 @@ function ConvergencePath({ angle, color, active, delay }: { angle: number; color
  fill={color}
  initial={{ offsetDistance: '0%', opacity: 0 }}
  animate={{ offsetDistance: '100%', opacity: [0, 1, 1, 0] }}
- transition={{ duration: 1, delay: delay + 0.2, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.drift, delay: delay + 0.2, ease: 'easeInOut' }}
  style={{ offsetPath: `path("${pathD}")` }}
  >
  <animate attributeName="r" values="3;5;3" dur="0.6s" repeatCount="indefinite" />
@@ -177,7 +177,7 @@ export default function BeatBreakthrough() {
  initial={{ opacity: 0, scale: 0.5 }}
  animate={{ opacity: 1, scale: 1 }}
  exit={{ opacity: 0 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  style={{ transformOrigin: `${cx}px ${cy}px` }}
  />
  )}
@@ -208,7 +208,7 @@ export default function BeatBreakthrough() {
  initial={{ r: 20, opacity: 0.6 }}
  animate={{ r: 120 + ring * 30, opacity: 0 }}
  transition={{
- duration: 1.2,
+ duration: DURATION.cinematic,
  delay: ring * 0.2,
  ease: 'easeOut',
  }}
@@ -245,8 +245,8 @@ export default function BeatBreakthrough() {
  }
  exit={{ opacity: 0, scale: 0 }}
  transition={phase >= 2
- ? { duration: 1.2, delay: i * 0.25, ease }
- : { duration: 0.6, delay: i * 0.15, ease }
+ ? { duration: DURATION.cinematic, delay: i * 0.25, ease }
+ : { duration: DURATION.slower, delay: i * 0.15, ease }
  }
  >
  <div
@@ -291,7 +291,7 @@ export default function BeatBreakthrough() {
  }}
  initial={{ scale: 0 }}
  animate={{ scale: [0, 1.5, 1.2] }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  />
  <m.div
  className="absolute rounded-full"
@@ -304,7 +304,7 @@ export default function BeatBreakthrough() {
  opacity: [0.6, 1, 0.6],
  }}
  transition={{
- duration: 2,
+ duration: DURATION.epic,
  repeat: Infinity,
  ease: 'easeInOut',
  }}
@@ -336,7 +336,7 @@ export default function BeatBreakthrough() {
  '0 0 10px var(--overlay-emerald-light-50)',
  ],
  } : {}}
- transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+ transition={{ duration: DURATION.epic, repeat: Infinity, ease: 'easeInOut' }}
  >
  +
  </m.span>
@@ -356,7 +356,7 @@ export default function BeatBreakthrough() {
  className="absolute"
  initial={{ opacity: 0, scale: 0 }}
  animate={{ opacity: 1, scale: 1, x: lx, y: ly }}
- transition={{ duration: 0.5, delay: 0.3 + i * 0.15, ease }}
+ transition={{ duration: DURATION.slow, delay: 0.3 + i * 0.15, ease }}
  >
  <div
  className="rounded-full px-2.5 py-1 text-[9px] font-mono font-bold tracking-wide whitespace-nowrap border"
@@ -382,7 +382,7 @@ export default function BeatBreakthrough() {
  <m.div
  initial={{ opacity: 0, y: 30 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease }}
+ transition={{ duration: DURATION.deliberate, ease }}
  >
  {/* Divider */}
  <m.div
@@ -392,7 +392,7 @@ export default function BeatBreakthrough() {
  }}
  initial={{ scaleX: 0 }}
  animate={{ scaleX: 1 }}
- transition={{ duration: 0.6, ease }}
+ transition={{ duration: DURATION.slower, ease }}
  />
 
  <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto">
@@ -402,7 +402,7 @@ export default function BeatBreakthrough() {
  className="text-center"
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.5, delay: i * 0.15, ease }}
+ transition={{ duration: DURATION.slow, delay: i * 0.15, ease }}
  >
  {/* Before value — struck through */}
  <div className="flex items-center justify-center gap-1.5 mb-2">
@@ -437,7 +437,7 @@ export default function BeatBreakthrough() {
  ? { width: `${(metric.after / metric.before) * 100}%` }
  : { width: '100%' }
  }
- transition={{ duration: 1.5, delay: 0.5 + i * 0.15, ease }}
+ transition={{ duration: DURATION.reveal, delay: 0.5 + i * 0.15, ease }}
  />
  </div>
  </m.div>
@@ -453,7 +453,7 @@ export default function BeatBreakthrough() {
  <m.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 1, ease }}
+ transition={{ duration: DURATION.drift, ease }}
  className="text-center mt-10"
  >
  <p className="text-white text-lg md:text-xl font-semibold tracking-tight">
