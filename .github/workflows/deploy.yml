@@ -64,6 +64,20 @@ jobs:
               --cache-control "public, max-age=3600"
           fi
 
+      - name: Fix Content-Type for OG/social images
+        run: |
+          # Next.js emits these as extensionless PNG files, so `aws s3 sync`
+          # can't guess the MIME type and defaults to binary/octet-stream —
+          # which some social scrapers refuse to render. Re-upload with an
+          # explicit image/png so LinkedIn/X/Slack/iMessage previews always work.
+          for img in opengraph-image twitter-image; do
+            if [ -f "out/$img" ]; then
+              aws s3 cp "out/$img" "s3://anujaharsha.com/$img" \
+                --content-type "image/png" \
+                --cache-control "public, max-age=31536000, immutable"
+            fi
+          done
+
       - name: Invalidate CloudFront
         run: |
           aws cloudfront create-invalidation --distribution-id E1RKSKYEABLX6E --paths "/*"
