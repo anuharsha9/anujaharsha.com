@@ -11,8 +11,8 @@ import { useRef, useEffect, useState } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Layers3, Sparkles } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
 

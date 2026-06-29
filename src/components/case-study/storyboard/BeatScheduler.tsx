@@ -3,8 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /* ── Wireframe skeleton line ────────────────────── */
 function SkeletonLine({ w = '100%', h = 6, className = '' }: { w?: string | number; h?: number; className?: string }) {

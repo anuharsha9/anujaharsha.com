@@ -145,7 +145,7 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
      the first frame instead of waiting for the JS bundle to hydrate — a real
      win on slow devices. Opacity stays 1 (LCP-eligible); only transform + filter
      animate, so CLS stays 0. */
-  animation: heroEnter 1.1s cubic-bezier(0.05, 0.7, 0.1, 1) both;
+  animation: heroEnter 1.1s var(--ease-hero) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

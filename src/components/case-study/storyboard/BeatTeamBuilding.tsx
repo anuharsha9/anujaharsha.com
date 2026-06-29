@@ -3,8 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /* ── 8 constellation nodes ── */
 const ACCENT = 'var(--cs-accent)'

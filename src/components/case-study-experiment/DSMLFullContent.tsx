@@ -12,12 +12,11 @@ import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import SystemIndex from '@/components/case-study/SystemIndex'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 import {
     BentoGrid, BentoRow, ImageTile, TextTile, VideoTile,
     PullQuote, EyebrowLabel, CarouselTile,
 } from './BentoGrid'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /* ─────────────────────────────────────────────────
    BEFORE-STATE NAVIGATION DIAGRAM

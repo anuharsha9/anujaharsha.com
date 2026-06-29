@@ -2,8 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /* ═══════════════════════════════════════════════════════════════
  SHARED PRIMITIVES & ANIMATION HARNESS

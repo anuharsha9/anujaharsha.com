@@ -5,8 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 interface ConsolidationItem {
  from: string

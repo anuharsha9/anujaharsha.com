@@ -8,8 +8,7 @@ import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import Magnetic from '@/components/ui/Magnetic'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
 import { useTransition } from '@/components/transitions/TransitionContext'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 export default function TalkSection() {
   const t = getTheme(false)

@@ -3,8 +3,7 @@
 import { type ReactNode, useState, useEffect, useRef, isValidElement, cloneElement, Fragment } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 interface PresenterBarProps {
  /** Plain narration string — used when no children are passed */

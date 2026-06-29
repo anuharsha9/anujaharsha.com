@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import PresenterBar from './PresenterBar'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /* ─── types ─────────────────────────────────────────── */
 export interface MovieBeat {
@@ -41,8 +42,6 @@ interface AutoPlayStoryProps {
 }
 
 /* ─── easing ────────────────────────────────────────── */
-const ease = [0.22, 1, 0.36, 1] as const
-
 /* ─── main component ─────────────────────────────────── */
 export default function AutoPlayStory({
  beats,

@@ -2,6 +2,7 @@
 
 import { m } from 'framer-motion'
 import type { CaseStudyData, HighlightMetric } from '@/types/caseStudy'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /**
  * 10-second case-study triage block. Renders RIGHT AFTER the cinematic hero
@@ -35,8 +36,6 @@ export default function QuickImpactOverview({ data }: { data: CaseStudyData }) {
     const OWNED_VISIBLE = 5
     const ownedShown = ownedAll.slice(0, OWNED_VISIBLE)
     const ownedExtra = Math.max(0, ownedAll.length - OWNED_VISIBLE)
-
-    const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
     return (
         <section

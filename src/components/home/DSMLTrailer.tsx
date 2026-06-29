@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /* ─── Word-by-word kinetic text ─── */
 function KineticLine({

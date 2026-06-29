@@ -8,12 +8,12 @@ import { useManifestoTimeline, SCENES, TOTAL_DURATION } from '@/hooks/useManifes
 import { useManifestoAudio } from '@/hooks/useManifestoAudio'
 import { Scene3Unified } from '@/components/manifesto/Scene3Unified'
 import { Scene4Stitch } from '@/components/manifesto/Scene4Stitch'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Shared easing — matches RCTrailer & HeroLanding
 // ═══════════════════════════════════════════════════════════════════════════
 
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 const easeCinematic = [0.05, 0.7, 0.1, 1] as [number, number, number, number]
 
 // ═══════════════════════════════════════════════════════════════════════════

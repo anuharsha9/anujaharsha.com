@@ -6,6 +6,7 @@ import { ArrowRight, Home, User } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from './CaseStudyWireframes'
 import { type ReactNode } from 'react'
 import { useTransition } from '@/components/transitions/TransitionContext'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 interface ProjectMeta {
  id: string
@@ -61,8 +62,6 @@ const nextStepMap: Record<string, string[]> = {
  ML_FUNCTIONS: ['IQ_PLUGIN'],
  IQ_PLUGIN: ['REPORTCASTER', 'ML_FUNCTIONS'],
 }
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 export default function SystemIndex({ currentId }: SystemIndexProps) {
  const { navigateTo } = useTransition()

@@ -26,8 +26,8 @@ import {
 } from './case-study/storyboard/RCMovieBeats'
 import { ML_MOVIE_BEATS } from './case-study/storyboard/MLMovieBeats'
 import { DSML_MOVIE_BEATS } from './case-study/storyboard/DSMLMovieBeats'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
-const ease = [0.22, 1, 0.36, 1] as const
 const MOVIE_PACE = 1.72
 const d = (ms: number) => Math.round(ms * MOVIE_PACE)
 

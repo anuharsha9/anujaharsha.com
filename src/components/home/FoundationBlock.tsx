@@ -2,8 +2,7 @@
 
 import { useRef } from 'react'
 import { m, useInView } from 'framer-motion'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /**
  * Design philosophy section. The text is structured as STANZAS so the reveal

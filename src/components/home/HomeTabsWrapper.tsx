@@ -3,10 +3,9 @@
 import { lazy, Suspense } from 'react'
 import { m } from 'framer-motion'
 import { useActiveTab } from './TabSwitcher'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 const LifeTab = lazy(() => import('./LifeTab'))
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 /**
  * Tab content wrapper. Simple conditional render (no AnimatePresence with mode='wait'

@@ -5,6 +5,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import { Send, Mail, Loader2 } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import { ASK_QA, CATEGORY_LABELS, type AskCategory } from '@/data/ask-anuja-qa'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /**
  * The "Ask Anuja" experience.
@@ -20,8 +21,6 @@ import { ASK_QA, CATEGORY_LABELS, type AskCategory } from '@/data/ask-anuja-qa'
  * The modal uses SystemLightbox so the mobile-native chrome we already built
  * (compact close button, safe-area, no terminal cruft) works for free.
  */
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
-
 interface AskAnujaModalProps {
     isOpen: boolean
     onClose: () => void

@@ -13,8 +13,8 @@ import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Search, Eye, EyeOff, Layers3, Sparkles, Users, Target, Zap, MessageSquare, BarChart3, BrainCircuit, LayoutDashboard, BookOpen, PanelLeft, Grid3X3, Code2, FlaskConical, Shield, Bug, UserCircle2 } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
 

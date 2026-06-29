@@ -7,8 +7,7 @@ import { FileText, MonitorPlay } from 'lucide-react'
 import { RCWireframe, MLWireframe, IQWireframe } from '@/components/case-study/CaseStudyWireframes'
 import PresentationLightbox from '@/components/case-study/PresentationLightbox'
 import { RC_SLIDES, ML_SLIDES, DSML_SLIDES } from '@/data/presentation-slides'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /* ─── tile data ───
  * Recruiter-readable 10-second triage: a single outcome line per tile,

@@ -12,8 +12,7 @@ import { useTransition } from '@/components/transitions/TransitionContext'
 import { ALL_MILESTONES, FAMILY_PHOTO, MAKES_GALLERIES, SAME_TIME_PAIRS, type MakeGallery } from '@/data/life-content'
 import { POEM_STANZAS } from '@/data/poem'
 import { articleLinks } from '@/data/home'
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+import { EASE_CINEMATIC as ease } from '@/lib/motion'
 
 /* ─── Small reusable section header (mono label + h2 + rule) ─── */
 function RoomHeader({ label, title, subtitle }: { label: string; title: string; subtitle?: string }) {
