@@ -152,6 +152,28 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
   .hero-enter { animation: none; }
 }
 
+/* ── Testimonial marquee — two slow, opposing rows ──
+   Ambient continuous motion (not a reveal), so it uses a bespoke long duration
+   rather than the reveal DURATION tokens. Pauses on hover/focus; under
+   reduced-motion the animation stops and the row becomes manually scrollable. */
+@keyframes marqueeLeft  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+@keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-track--left  { animation: marqueeLeft 64s linear infinite; }
+.marquee-track--right { animation: marqueeRight 78s linear infinite; }
+
+.marquee-row:hover .marquee-track,
+.marquee-row:focus-within .marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track--left, .marquee-track--right { animation: none; }
+}
+
 /* Floating animation for laptop/hero images - combined with scale */
 /* Scale is applied via CSS variable to combine with translateY */
 @keyframes float {
