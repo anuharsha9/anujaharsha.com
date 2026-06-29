@@ -28,21 +28,17 @@ function Card({ t, onOpen }: { t: Testimonial; onOpen: (t: Testimonial) => void 
         <button
             onClick={() => onOpen(t)}
             aria-label={`Read ${t.name}'s full endorsement`}
-            className="group/card mx-2.5 flex w-[280px] shrink-0 flex-col justify-between rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.06] to-white/[0.015] p-5 text-left transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-0.5 hover:border-[var(--accent-teal)]/30 hover:shadow-[0_12px_44px_-14px_rgba(var(--accent-teal-glow-rgb),0.28)] sm:w-[320px]"
+            className="group/card mx-6 flex max-w-md shrink-0 items-start gap-3 text-left sm:mx-9"
         >
-            <div className="flex items-start gap-2.5">
-                <QuoteMark className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent-teal)]/45 transition-colors duration-500 group-hover/card:text-[var(--accent-teal)]/80" />
-                <p className="text-[15px] font-light leading-snug text-zinc-100">{t.pull}</p>
-            </div>
-            <div className="mt-5 flex items-center gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent-teal)] to-[var(--accent-teal-bright)] text-xs font-bold text-[#0b0b11]">
-                    {t.name.charAt(0)}
-                </div>
-                <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-zinc-100">{t.name}</p>
-                    <p className="truncate font-mono text-[11px] text-zinc-500">{t.role}</p>
-                </div>
-            </div>
+            <QuoteMark className="mt-1 h-4 w-4 shrink-0 text-[var(--accent-teal)]/40 transition-colors duration-500 group-hover/card:text-[var(--accent-teal)]/75" />
+            <span className="leading-snug">
+                <span className="text-base font-light text-zinc-300 transition-colors duration-500 group-hover/card:text-white md:text-lg">
+                    {t.pull}
+                </span>
+                <span className="mt-1 block font-mono text-[11px] uppercase tracking-wide text-[var(--accent-teal)]/70">
+                    {t.name} · {t.role}
+                </span>
+            </span>
         </button>
     )
 }
@@ -55,7 +51,7 @@ function MarqueeRow({ items, direction, onOpen }: { items: Testimonial[]; direct
             style={{ maskImage: EDGE_MASK, WebkitMaskImage: EDGE_MASK }}
         >
             {/* Cards rendered twice for a seamless -50% loop. */}
-            <div className={`marquee-track ${direction === 'left' ? 'marquee-track--left' : 'marquee-track--right'}`}>
+            <div className={`marquee-track items-center ${direction === 'left' ? 'marquee-track--left' : 'marquee-track--right'}`}>
                 {[...items, ...items].map((t, i) => (
                     <Card key={`${t.id}-${i}`} t={t} onOpen={onOpen} />
                 ))}
@@ -95,7 +91,7 @@ export default function TestimonialsBlock() {
             </div>
 
             <p className="mt-6 px-4 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-600">
-                Hover to pause · tap a card to read the full note
+                Hover to pause · tap a quote to read the full note
             </p>
 
             {/* Full endorsement */}
