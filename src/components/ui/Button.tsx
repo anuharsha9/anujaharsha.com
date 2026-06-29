@@ -103,7 +103,7 @@ export default function Button(props: ButtonProps) {
             )
         }
         return (
-            <TransitionLink href={props.href} className={cls} aria-label={props['aria-label']}>
+            <TransitionLink href={props.href} className={cls} aria-label={props['aria-label']} onClick={props.onClick}>
                 {inner}
             </TransitionLink>
         )

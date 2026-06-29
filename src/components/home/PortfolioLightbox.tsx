@@ -2,10 +2,11 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import { m, AnimatePresence, PanInfo } from 'framer-motion'
-import { Sparkles, ArrowLeft, ArrowRight } from 'lucide-react'
+import { Sparkles, ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import LightboxCard from '@/components/ui/LightboxCard'
+import Button from '@/components/ui/Button'
 import { DURATION } from '@/lib/motion'
 
 /* ─── Portfolio case study — same shell + rhythm as AppCaseStudyLightbox,
@@ -325,6 +326,46 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                                 </li>
                             ))}
                         </ul>
+                    </div>
+
+                    {/* ── Design system CTA — the closer. The system that holds the
+                        whole site together, opened as its own living spec page.
+                        onClose first so the overlay dismisses, then TransitionLink
+                        wave-navigates to /design-system. */}
+                    <div
+                        className="mt-12 rounded-2xl border p-6 md:p-8"
+                        style={{
+                            borderColor: `rgba(var(${rgb}), 0.25)`,
+                            backgroundColor: `rgba(var(${rgb}), 0.06)`,
+                        }}
+                    >
+                        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                            <div className="min-w-0">
+                                <p
+                                    className="font-mono text-[10px] uppercase tracking-[0.3em]"
+                                    style={{ color: accent, opacity: 0.7 }}
+                                >
+                                    Under the hood
+                                </p>
+                                <h3 className="mt-2 text-lg font-bold tracking-tight text-white md:text-xl">
+                                    The design system that holds it together
+                                </h3>
+                                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                                    One set of tokens, one canonical component per job, states standardized
+                                    everywhere. Explore the living spec — color, type, the buttons, the nav
+                                    island and this very lightbox.
+                                </p>
+                            </div>
+                            <Button
+                                variant="primary"
+                                href="/design-system"
+                                onClick={onClose}
+                                icon={<ArrowUpRight className="h-4 w-4" />}
+                                className="shrink-0"
+                            >
+                                Open the design system
+                            </Button>
+                        </div>
                     </div>
 
                 </div>

@@ -353,7 +353,7 @@ export default function PhilosophyPage() {
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                         <a
-                            href="mailto:anujanimmagadda@gmail.com"
+                            href="mailto:hello@anujaharsha.com"
                             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-500 hover:border-white/50"
                         >
                             Let&rsquo;s talk

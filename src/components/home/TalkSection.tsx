@@ -61,10 +61,10 @@ export default function TalkSection() {
           {/* Contact — email only; phone kept off the public site for privacy. */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-8 md:mb-10">
             <a
-              href="mailto:anujanimmagadda@gmail.com"
+              href="mailto:hello@anujaharsha.com"
               className="font-mono text-sm text-zinc-400 hover:text-[var(--accent-teal)] transition-colors duration-500"
             >
-              anujanimmagadda@gmail.com
+              hello@anujaharsha.com
             </a>
           </div>
 
