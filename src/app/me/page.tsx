@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 /**
  * /me is retired. The personal surface is now the Life tab on the home page
@@ -17,7 +18,7 @@ export default function MeRedirect() {
         <main className="flex min-h-screen items-center justify-center bg-[var(--bg-cinematic)] px-6 text-center">
             <p className="font-mono text-sm uppercase tracking-[0.2em] text-zinc-400">
                 Taking you to the Life tab&hellip;{' '}
-                <a href="/?tab=life" className="text-[var(--accent-teal)] underline">continue</a>
+                <Link href="/?tab=life" className="text-[var(--accent-teal)] underline">continue</Link>
             </p>
         </main>
     )
