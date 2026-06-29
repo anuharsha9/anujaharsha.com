@@ -82,13 +82,9 @@ Beyond her technical excellence, Anuja is a collaborative, thoughtful, and inspi
         role: 'Sr. Product Manager',
         pull: 'Her workshops became the basis for key product decisions.',
         quote: 'Her design thinking workshops and prototype walkthroughs often became the foundation for key product decisions, driving clarity and alignment across cross-functional teams.',
-        full: `I had the pleasure of working with Anuja Nimmagadda at Cloud Software Group, where she led UX design initiatives with remarkable creativity, empathy, and precision. As a Senior UX Designer, Anuja consistently demonstrated a deep understanding of user-centered design and the ability to translate complex product requirements into intuitive and visually engaging experiences.
+        full: `I had the pleasure of working with Anuja at Cloud Software Group, where she led UX design initiatives with remarkable creativity, empathy, and precision — consistently translating complex product requirements into intuitive, visually engaging experiences.
 
-What truly stands out about Anuja is her collaborative spirit and problem-solving mindset. She approaches every challenge with curiosity and openness — balancing user needs with business goals seamlessly. Her design thinking workshops and prototype walkthroughs often became the foundation for key product decisions, driving clarity and alignment across cross-functional teams.
-
-Anuja's work has had a lasting impact on the usability and aesthetic quality of our products. Beyond her design skills, she brings an infectious positivity and professionalism that elevates every team she's part of.
-
-I would highly recommend Anuja to any organization looking for a strategic, detail-oriented, and passionate UX leader who can shape exceptional digital experiences.`,
+Her design thinking workshops and prototype walkthroughs often became the foundation for key product decisions, driving clarity and alignment across cross-functional teams. I'd highly recommend her to any organization looking for a strategic, detail-oriented, and passionate UX leader who can shape exceptional digital experiences.`,
         source: 'csg',
     },
     {
@@ -97,13 +93,9 @@ I would highly recommend Anuja to any organization looking for a strategic, deta
         role: 'Principal Account Technology Strategist',
         pull: 'Anticipating the user’s next move — next-level UI.',
         quote: 'Anticipating the next move of the user, that is next level UI! Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels.',
-        full: `I have interacted with Anuja on several occasions. They have all been a positive experience.
+        full: `I first worked with Anuja during a User Acceptance Test of a prototype for model building and testing within our enterprise BI platform. She observed me navigating the screen, asking targeted questions about my workflow and tracking my visual focus.
 
-Our first interaction involved a User Acceptance Test (UAT) of a prototype designed to support the workflow for model building and testing within our enterprise Business Intelligence (BI) platform. During the session, Anuja observed me navigating the screen, asking targeted questions about my workflow choices and tracking my visual focus.
-
-I was highly impressed with Anuja's approach. A strong UI/UX is critical for user acceptance of product features, and her design was clean, intuitive, and clearly addressed the needs of users across different skill levels. Our sessions were very productive.
-
-Anuja has a remarkable ability to utilize practical design principles to effectively bridge the gap between core product features and an enhanced user experience. Anticipating the next move of the user, that is next level UI!`,
+I was highly impressed. Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels. Anuja has a remarkable ability to bridge the gap between core product features and an enhanced user experience. Anticipating the next move of the user — that is next level UI!`,
         source: 'csg',
     },
     {
@@ -131,13 +123,9 @@ Anuja has a remarkable ability to utilize practical design principles to effecti
         quote: "She joined us at 18, fresh off learning Photoshop — she didn't know what 'UX' was yet, but she had intensity, discipline, and raw talent you can't teach. By the time she left, she was thinking in systems, trusted with high-stakes decisions, operating far beyond her years — ready for a much bigger stage.",
         full: `Anuja joined us as an 18-year-old intern who had just learned Photoshop. She didn't know what 'UX' was yet — but she had intensity, discipline, and raw talent you can't teach.
 
-We ran a scrappy, fast-paced startup. No layers, no managers. Within months, she became the designer we relied on for everything — UI, wireframes, branding, game design, motion graphics, client presentations. If it needed design, Anuja owned it.
+We ran a scrappy startup with no layers and no managers. Within months she became the designer we relied on for everything — UI, wireframes, branding, game design, motion graphics, client presentations. If it needed design, Anuja owned it.
 
-She attended college in the mornings, came straight to the studio, and worked late nights with our engineers to ship. That wasn't asked of her — that was just who she was.
-
-Over four and a half years, she built dozens of apps, games, and MVPs with us. She learned to collaborate with senior engineers, work directly with co-founders, handle clients, and deliver at startup speed.
-
-By the time she left, she wasn't junior anymore. She was thinking in systems, trusted with high-stakes decisions, operating far beyond her years. 9P Studio was her training ground — but she'd already outgrown it. She was ready for a much bigger stage.`,
+By the time she left, she wasn't junior anymore. She was thinking in systems, trusted with high-stakes decisions, operating far beyond her years — ready for a much bigger stage.`,
         source: 'early-career',
     },
 ]
