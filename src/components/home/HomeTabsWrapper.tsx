@@ -2,7 +2,7 @@
 
 import { lazy, Suspense } from 'react'
 import { m } from 'framer-motion'
-import { useActiveTab } from './TabSwitcher'
+import { useActiveTab } from '@/hooks/useActiveTab'
 import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 const LifeTab = lazy(() => import('./LifeTab'))

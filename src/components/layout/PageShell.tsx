@@ -1,8 +1,7 @@
 'use client'
 
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import SiteHeader from './SiteHeader'
 
 import SkipToContent from '@/components/accessibility/SkipToContent'
 import ReadingProgress from '@/components/case-study/ReadingProgress'
@@ -13,9 +12,8 @@ import PageTransition from '@/components/transitions/PageTransition'
 import { TransitionProvider } from '@/components/transitions/TransitionContext'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
-import TabSwitcher from '@/components/home/TabSwitcher'
+import SiteNav from '@/components/layout/SiteNav'
 import FloatingActions from '@/components/home/FloatingActions'
-import CaseStudyTabs from '@/components/work/CaseStudyTabs'
 
 /** Announces route changes to screen readers via aria-live */
 function RouteAnnouncer() {
@@ -49,6 +47,16 @@ interface PageShellProps {
 
 export default function PageShell({ children }: PageShellProps) {
   const pathname = usePathname()
+
+  // Mark that a real in-app navigation has happened, so detour "back" buttons
+  // (BackToOrigin) can safely router.back() to the user's origin + scroll. On a
+  // cold deep-link there's no in-app history, so back falls back to home instead.
+  const firstRender = useRef(true)
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return }
+    try { sessionStorage.setItem('pf_inapp', '1') } catch { /* no-op */ }
+  }, [pathname])
+
   /* Normalize trailing slash before matching. `trailingSlash: true` makes
      the real path `/manifesto/`, so a bare `=== '/manifesto'` check missed it
      and the old SiteHeader nav leaked onto the manifesto "trailer" (which is
@@ -56,7 +64,6 @@ export default function PageShell({ children }: PageShellProps) {
   const normalizedPath = (pathname || '/').replace(/\/+$/, '') || '/'
   const isManifesto = normalizedPath === '/manifesto'
   const isLandingPage = normalizedPath === '/'
-  const isCaseStudyPage = normalizedPath.startsWith('/work/')
 
   return (
     <ErrorBoundary>
@@ -75,20 +82,15 @@ export default function PageShell({ children }: PageShellProps) {
             <>
               <SkipToContent />
               <ReadingProgress />
-              <SiteHeader />
               <URLHashSync />
             </>
           )}
-          {/* Work/Life tab switcher — only on the landing page. Rendered here at
-              shell level (sibling to SiteHeader) so it escapes the smooth-scroll
-              wrapper's transform, which would otherwise break fixed positioning. */}
-          {isLandingPage && (
-            <>
-              <TabSwitcher />
-              <FloatingActions />
-            </>
-          )}
-          {isCaseStudyPage && <CaseStudyTabs />}
+          {/* THE nav — one route-aware Dynamic Island (Work/Life · RC/ML/IQ · Back).
+              Rendered at shell level so it escapes the smooth-scroll transform,
+              which would otherwise break its fixed positioning. */}
+          <SiteNav />
+          {/* Résumé · Ask Anu actions — landing only. */}
+          {isLandingPage && <FloatingActions />}
           <PageTransition>
             <main id="main-content" role="main" className="relative z-[1]">
               {children}

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import {
     ChairMark,
     OriginTimeline,
@@ -53,6 +53,7 @@ const BELIEFS = [
     'Design that engineering can’t build isn’t good design. Feasibility is part of the craft.',
     'A small, surgical fix that cuts real cognitive load is worth as much as a big redesign.',
     'You earn the right to a strong opinion by understanding the system better than anyone expected you to.',
+    'Never a loose end. Every path must resolve into a conclusive, satisfying, actionable next step — never a dangling question with no way forward.',
 ]
 
 const HOW_I_WORK = [
@@ -67,15 +68,6 @@ export default function PhilosophyPage() {
     return (
         <main className="relative min-h-screen">
             <article className="relative z-10 mx-auto w-full max-w-2xl px-5 pb-24 pt-28 md:px-6 md:pt-32">
-
-                {/* Back */}
-                <Link
-                    href="/"
-                    className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 transition-colors duration-500 hover:text-[var(--accent-teal)]"
-                >
-                    <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-500 group-hover:-translate-x-1" />
-                    Back to portfolio
-                </Link>
 
                 {/* Title block */}
                 <header className="mt-10 md:mt-14">

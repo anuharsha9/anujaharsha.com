@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, Play, Pause, Volume2, VolumeX, RotateCcw } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, RotateCcw } from 'lucide-react'
 import { useManifestoTimeline, SCENES, TOTAL_DURATION } from '@/hooks/useManifestoTimeline'
 import { useManifestoAudio } from '@/hooks/useManifestoAudio'
 import { Scene3Unified } from '@/components/manifesto/Scene3Unified'
@@ -1116,27 +1116,6 @@ export default function ManifestoPage() {
         }}
       />
 
-      {/* Back to Portfolio */}
-      <m.div
-        className="fixed top-6 left-6 z-50"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2, duration: DURATION.deliberate, ease }}
-      >
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono text-zinc-400 uppercase tracking-widest transition-all duration-300 hover:text-white hover:bg-white/10"
-          style={{
-            background: 'rgba(var(--white-rgb),0.04)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            border: '1px solid rgba(var(--white-rgb),0.08)',
-          }}
-        >
-          <ArrowLeft className="w-3 h-3" />
-          Portfolio
-        </Link>
-      </m.div>
 
       {/* ── Scene Renderer ─────────────────────────────────────────── */}
       <div className="absolute inset-0 z-[2]">

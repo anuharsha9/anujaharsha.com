@@ -259,6 +259,12 @@
    --overlay-white-15: rgba(var(--white-rgb), 0.15);
    --overlay-white-20: rgba(var(--white-rgb), 0.2);
    --overlay-teal-core-12: rgba(0, 162, 183, 0.12);
+
+   /* Dark "glass" for floating chrome — the nav island + lightbox surfaces.
+      Defined once so every glass surface is identical (no repeated bg-black/55). */
+   --overlay-ink-55: rgba(var(--black-rgb), 0.55);
+   --overlay-ink-75: rgba(var(--black-rgb), 0.75);
+   --overlay-ink-90: rgba(var(--black-rgb), 0.9);
 }
 
 
