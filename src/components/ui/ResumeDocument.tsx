@@ -83,7 +83,7 @@ const AI_BULLETS: Bullet[] = [
     { lead: 'Pathwise — AI career & education navigator (2026, live):', rest: 'A decision engine that projects education ROI and career paths from real, cited data. Built in Next.js with Claude — live at pathwise.anujaharsha.com.' },
     { lead: 'WealthEngine — life-decision engine (2026):', rest: 'A local-first planning tool for modeling long-horizon "what-if" life and financial scenarios on real numbers.' },
     { lead: 'Warden — AI-agent authorization console (2026):', rest: 'An access & guardrails console governing what autonomous AI agents are allowed to do — a permission engine for the agentic era.' },
-    { lead: 'Also:', rest: 'Inkwell, a local-first writing studio with an AI coach; and WordU, a logic-driven word game for iOS and web.' },
+    { lead: 'Also:', rest: 'Inkwell, a local-first writing studio with an AI coach.' },
 ]
 
 const COMMUNITY = [

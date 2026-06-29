@@ -2,96 +2,11 @@
 
 import { useRef, useState } from 'react'
 import { m, useScroll, useTransform } from 'framer-motion'
-import { Sparkles, Gamepad2, Compass, LineChart, ChefHat, ShieldCheck, NotebookPen } from 'lucide-react'
+import { Sparkles, Compass, LineChart, ChefHat, ShieldCheck, NotebookPen } from 'lucide-react'
 import PortfolioLightbox from './PortfolioLightbox'
 import AppCaseStudyLightbox from './AppCaseStudyLightbox'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
 import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
-
-/* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
-function WordULogoCover() {
-    const letters = ['W', 'O', 'R', 'D', 'U']
-    const accentColor = 'var(--semantic-orange)'
-    return (
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-            {/* Subtle warm radial bg */}
-            <div className="absolute inset-0" style={{
-                background: 'radial-gradient(circle at 50% 50%, hsla(30,80%,50%,0.06), transparent 70%)',
-            }} />
-
-            <svg viewBox="0 0 280 180" className="w-[75%] h-auto" fill="none">
-                {/* Game board outline */}
-                <m.rect
-                    x="40" y="20" width="200" height="140" rx="8"
-                    stroke={accentColor}
-                    strokeWidth="0.8"
-                    strokeDasharray="4 6"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 0.3 }}
-                    transition={{ duration: DURATION.epic, ease: 'easeOut' }}
-                />
-
-                {/* Row 1 — active guess row with letters */}
-                {letters.map((letter, i) => (
-                    <g key={`active-${i}`}>
-                        <m.rect
-                            x={55 + i * 38} y="40" width="32" height="32" rx="4"
-                            stroke={accentColor}
-                            strokeWidth="0.8"
-                            initial={{ pathLength: 0, opacity: 0 }}
-                            animate={{ pathLength: 1, opacity: 0.5 }}
-                            transition={{ duration: DURATION.deliberate, delay: 0.8 + i * 0.15 }}
-                        />
-                        <m.text
-                            x={71 + i * 38} y="62" textAnchor="middle"
-                            fill={accentColor}
-                            className="font-mono text-[14px] font-bold"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: [0, 0, 0.7] }}
-                            transition={{ duration: DURATION.drift, delay: 1.8 + i * 0.2, times: [0, 0.3, 1] }}
-                        >
-                            {letter}
-                        </m.text>
-                    </g>
-                ))}
-
-                {/* Row 2 — empty guess row */}
-                {[0, 1, 2, 3, 4].map((i) => (
-                    <m.rect
-                        key={`row2-${i}`}
-                        x={55 + i * 38} y="80" width="32" height="32" rx="4"
-                        stroke={accentColor}
-                        strokeWidth="0.4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.15 }}
-                        transition={{ delay: 2.2 + i * 0.08 }}
-                    />
-                ))}
-
-                {/* Row 3 — empty guess row */}
-                {[0, 1, 2, 3, 4].map((i) => (
-                    <m.rect
-                        key={`row3-${i}`}
-                        x={55 + i * 38} y="120" width="32" height="32" rx="4"
-                        stroke={accentColor}
-                        strokeWidth="0.3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.08 }}
-                        transition={{ delay: 2.5 + i * 0.08 }}
-                    />
-                ))}
-
-                {/* Cursor blink in first empty cell of row 2 */}
-                <m.rect
-                    x="68" y="86" width="1.5" height="18" rx="0.5"
-                    fill={accentColor}
-                    animate={{ opacity: [0, 0.6, 0] }}
-                    transition={{ duration: DURATION.drift, repeat: Infinity, delay: 2.8 }}
-                />
-            </svg>
-        </div>
-    )
-}
 
 /* ─── Animated browser wireframe (Portfolio tile cover) ─── */
 function BrowserWireframeCover() {
@@ -670,17 +585,6 @@ const VIBE_TILES = [
         action: 'portfolio' as const,
     },
     {
-        id: 'wordu',
-        title: 'WordU',
-        subtitle: 'A word game created with agentic AI',
-        icon: Gamepad2,
-        cover: 'wordu' as const,
-        accent: 'var(--semantic-orange)',
-        accentRgbVar: '--semantic-orange-rgb',
-        dotHue: 30,
-        action: 'wordu' as const,
-    },
-    {
         id: 'career-builder',
         title: 'Pathwise',
         subtitle: 'AI-native career navigator · Next.js + Claude',
@@ -754,9 +658,8 @@ export default function VibeCodingBlock() {
 
 
     /* Every app tile opens a short-snapshot case study lightbox (built from the
-     * actual app repos). The CTA INSIDE the lightbox is what links out / plays:
-     * 'Open Live Demo' → Vercel (env-var or productionUrl), or
-     * 'Play WordU' → the playable build. WordU is now a full case-study peer.
+     * actual app repos). The CTA INSIDE the lightbox links out:
+     * 'Open Live Demo' → Vercel (env-var or productionUrl).
      * Only the 'This Portfolio' tile is special (it opens its own lightbox).
      *
      * 'isComingSoon' drives the tile's 'In Development' badge: a tile is in dev
@@ -768,7 +671,6 @@ export default function VibeCodingBlock() {
         'sous': 'sous',
         'warden': 'warden',
         'inkwell': 'inkwell',
-        'wordu': 'wordu',
     }
     const isExternal = (action: string) => action in APP_CASE_STUDY_BY_ACTION
     const isComingSoon = (action: string) =>
@@ -819,7 +721,7 @@ export default function VibeCodingBlock() {
                     </p>
                 </m.div>
 
-                {/* 5 tiles (Portfolio, WordU, Pathwise, WealthEngine, Sous) — grid stacks 1col mobile / 2col tablet / 3col desktop */}
+                {/* 6 tiles (Portfolio, Pathwise, WealthEngine, Sous, Warden, Inkwell) — grid stacks 1col mobile / 2col tablet / 3col desktop */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                     {VIBE_TILES.map((tile, i) => {
                         const Icon = tile.icon
@@ -867,7 +769,6 @@ export default function VibeCodingBlock() {
                                     {/* Cover: animated SVG — blurs on desktop hover */}
                                     <div className="absolute inset-0 transition-all duration-500 md:group-hover:blur-[8px] md:group-hover:scale-105">
                                         {tile.cover === 'browser' && <BrowserWireframeCover />}
-                                        {tile.cover === 'wordu' && <WordULogoCover />}
                                         {tile.cover === 'graduation' && <GraduationCapCover />}
                                         {tile.cover === 'wealth' && <WealthEngineCover />}
                                         {tile.cover === 'sous' && <SousCookingCover />}
