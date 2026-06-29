@@ -12,7 +12,7 @@
  */
 
 const CONTACT = [
-    { label: 'anujanimmagadda@gmail.com', href: 'mailto:anujanimmagadda@gmail.com', accent: false },
+    { label: 'hello@anujaharsha.com', href: 'mailto:hello@anujaharsha.com', accent: false },
     { label: '+1 781-354-7394', href: 'tel:+17813547394', accent: false },
     { label: 'anujaharsha.com', href: 'https://www.anujaharsha.com', accent: true },
     { label: 'linkedin.com/in/anu159', href: 'https://www.linkedin.com/in/anu159', accent: true },

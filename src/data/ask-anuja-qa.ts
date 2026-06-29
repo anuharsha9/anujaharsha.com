@@ -216,7 +216,7 @@ export const ASK_QA: AskQA[] = [
         question: 'Where are you based, and remote/hybrid/on-site?',
         answer:
             'Based in the US since 2017. Open to remote, hybrid, and on-site for the right team. I\'ve done productive remote work and productive in-office work — what matters is the team\'s rhythm, not the zip code. Let\'s talk about the role and I\'ll be direct about logistics.',
-        cta: { label: 'Email me', href: 'mailto:anujanimmagadda@gmail.com?subject=Role%20at%20your%20company', external: true },
+        cta: { label: 'Email me', href: 'mailto:hello@anujaharsha.com?subject=Role%20at%20your%20company', external: true },
     },
     {
         id: 'why-not-anthropic',
@@ -224,7 +224,7 @@ export const ASK_QA: AskQA[] = [
         question: 'Why this company over Anthropic / OpenAI / Stripe?',
         answer:
             'I\'m looking for a team where the work compounds — enterprise depth plus AI-native ambition. The frontier labs are exciting, but I\'ve spent 13 years modernizing systems people actually depend on, and that\'s the work I want to keep doing. Tell me what you\'re building and I\'ll tell you honestly whether it\'s a fit.',
-        cta: { label: 'Email me', href: 'mailto:anujanimmagadda@gmail.com?subject=Why%20us', external: true },
+        cta: { label: 'Email me', href: 'mailto:hello@anujaharsha.com?subject=Why%20us', external: true },
     },
 
     /* ─── (f) Meta / about the site itself ─── */
@@ -324,7 +324,7 @@ export const ASK_QA: AskQA[] = [
         question: 'Why hire a designer who orchestrates AI over a traditional one?',
         answer:
             'Because the deliverable changes. A traditional PD hands off a Figma file and waits two sprints for the translation. I hand off an interactive, runtime-feasible prototype engineering can read AS the spec — and I can pressure-test the AI parts myself. Same design rigor, half the translation loss. In an AI-native org that\'s not a nice-to-have.',
-        cta: { label: 'Email me', href: 'mailto:anujanimmagadda@gmail.com?subject=Role%20at%20your%20company', external: true },
+        cta: { label: 'Email me', href: 'mailto:hello@anujaharsha.com?subject=Role%20at%20your%20company', external: true },
     },
     {
         id: 'work-with-eng',

@@ -67,11 +67,11 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
             })
             if (!res.ok) throw new Error(`HTTP ${res.status}`)
             const data = await res.json()
-            setCustomAnswer(data.answer ?? "I got the question but couldn't form a reply. Try emailing me — anujanimmagadda@gmail.com.")
+            setCustomAnswer(data.answer ?? "I got the question but couldn't form a reply. Try emailing me — hello@anujaharsha.com.")
             setCustomStatus('idle')
         } catch {
             setCustomAnswer(
-                "Couldn't reach the AI right now. Email me directly at anujanimmagadda@gmail.com — I'd be glad to answer this in person."
+                "Couldn't reach the AI right now. Email me directly at hello@anujaharsha.com — I'd be glad to answer this in person."
             )
             setCustomStatus('error')
         }
@@ -194,10 +194,10 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                             <p className="text-[15px] leading-relaxed text-zinc-200">{customAnswer}</p>
                             {customStatus === 'error' && (
                                 <a
-                                    href="mailto:anujanimmagadda@gmail.com"
+                                    href="mailto:hello@anujaharsha.com"
                                     className="mt-3 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--accent-teal)] hover:translate-x-1 transition-transform"
                                 >
-                                    <Mail className="h-3.5 w-3.5" /> anujanimmagadda@gmail.com
+                                    <Mail className="h-3.5 w-3.5" /> hello@anujaharsha.com
                                 </a>
                             )}
                         </m.div>

@@ -53,7 +53,7 @@ const MAX_QUESTION_LEN = 500
 
 const SYSTEM_PROMPT = `You are Anuja Harsha Nimmagadda (she goes by "Anu"), a Staff / Senior Product Designer with 13 years of experience modernizing legacy enterprise systems. You are answering a question on your portfolio site from a recruiter, hiring manager, or design leader.
 
-This prompt is your COMPLETE knowledge base — it mirrors everything on the site. Answer only from what is here. If a visitor asks something not covered, do not guess or invent: say it is not something you can speak to here and point them to anujanimmagadda@gmail.com.
+This prompt is your COMPLETE knowledge base — it mirrors everything on the site. Answer only from what is here. If a visitor asks something not covered, do not guess or invent: say it is not something you can speak to here and point them to hello@anujaharsha.com.
 
 ═══ YOUR PROFILE ═══
 • 13 years in product design; the last decade in enterprise systems. You work as a designer-engineer hybrid — you ship React / Next.js / Tailwind by orchestrating agentic AI (Cursor, Claude Code, Google Antigravity) as your engineering team.
@@ -62,7 +62,7 @@ This prompt is your COMPLETE knowledge base — it mirrors everything on the sit
 • Earlier: Fractional Product Design Leader / Principal Consultant (Apr 2017 – Jul 2022; OneView, Kedazzle); Enterprise Product Designer at f1Studioz (Nov 2016 – Mar 2017); Founding Product Designer at 9P Studioz (Aug 2012 – Nov 2016, 35+ products across iOS/Android).
 • You present at the Staff level (your capability and target); your last held title was Senior.
 • In the US since March 2017 (Boston, then Denver, then Salt Lake City — home base since Aug 2019). Married Aug 2016. Two kids (first in 2021, second Sep 2024).
-• Open to Senior + Staff Product Designer roles — remote, hybrid, or on-site. Email: anujanimmagadda@gmail.com.
+• Open to Senior + Staff Product Designer roles — remote, hybrid, or on-site. Email: hello@anujaharsha.com.
 
 ═══ ENTERPRISE CASE STUDIES (Cloud Software Group / WebFOCUS) ═══
 
@@ -135,7 +135,7 @@ Her actual cadence (real excerpts from the articles above — match this rhythm)
 • Brief: 2–4 sentences typically — 5 max if the question genuinely needs it. Skip the throat-clearing.
 • Cite specifics from the knowledge above: a case study, a number, a real decision, a project. If you don't have a real specific for it, say so honestly — don't manufacture one.
 • Ground EVERY claim in the context above. Never invent metrics, employers, roles, dates, titles, or features. If it isn't in this prompt, you don't know it — say so plainly and offer the email.
-• For hiring / availability / comp questions, deflect warmly to email: "Let's talk — anujanimmagadda@gmail.com."
+• For hiring / availability / comp questions, deflect warmly to email: "Let's talk — hello@anujaharsha.com."
 • If the question is outside this knowledge base (politics, other people, harmful content, anything not about Anuja or her work), reply briefly that it's not something you can answer here, and offer the email.
 
 The visitor asked you a question. Reply in Anuja's voice.`
@@ -163,7 +163,7 @@ export default {
         const countStr = await env.RATE_LIMIT.get(key)
         const count = countStr ? parseInt(countStr, 10) : 0
         if (count >= RATE_LIMIT_MAX) {
-            return json({ answer: "I've hit my rate limit for this IP — give it 5 minutes, or email me directly at anujanimmagadda@gmail.com." }, 429, corsHeaders)
+            return json({ answer: "I've hit my rate limit for this IP — give it 5 minutes, or email me directly at hello@anujaharsha.com." }, 429, corsHeaders)
         }
         await env.RATE_LIMIT.put(key, String(count + 1), { expirationTtl: RATE_LIMIT_WINDOW_SEC })
 
@@ -201,15 +201,15 @@ export default {
             if (!upstream.ok) {
                 const txt = await upstream.text()
                 console.error('Claude API error:', upstream.status, txt)
-                return json({ answer: "Couldn't reach the model right now. Email me at anujanimmagadda@gmail.com — I'd love to answer this directly." }, 502, corsHeaders)
+                return json({ answer: "Couldn't reach the model right now. Email me at hello@anujaharsha.com — I'd love to answer this directly." }, 502, corsHeaders)
             }
             const data = await upstream.json() as { content?: Array<{ type: string; text?: string }> }
             const text = data.content?.find(c => c.type === 'text')?.text?.trim()
-                ?? "I got the question but couldn't form a reply. Email me at anujanimmagadda@gmail.com."
+                ?? "I got the question but couldn't form a reply. Email me at hello@anujaharsha.com."
             return json({ answer: text }, 200, corsHeaders)
         } catch (err) {
             console.error('Worker error:', err)
-            return json({ answer: "Something went sideways on my end. Email me directly: anujanimmagadda@gmail.com." }, 500, corsHeaders)
+            return json({ answer: "Something went sideways on my end. Email me directly: hello@anujaharsha.com." }, 500, corsHeaders)
         }
     },
 }
