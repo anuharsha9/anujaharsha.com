@@ -42,22 +42,22 @@ type QuizQuestion = {
 const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   'start': {
     id: 'start',
-    statement: "Let's align our neural networks.",
-    question: "Are you hiring, or just browsing?",
+    statement: "Two ways in.",
+    question: "Are you hiring, or just here to look?",
     activeGear: 'gear-scattered-workflows',
     options: [
       {
         id: 'hiring', label: 'I\'m hiring a designer', val: 'hiring', emoji: '🤝', nextId: 'hire_1',
         reveal: {
-          title: "Let's Talk Business.",
-          content: "Great — I've spent 13 years solving enterprise problems. Let me show you how I think."
+          title: "Good.",
+          content: "Thirteen years turning systems people dread into ones they rely on. What follows isn't a portfolio tour — it's how I actually think. Answer honestly; the machine lights up either way."
         }
       },
       {
-        id: 'browsing', label: 'Just browsing for inspiration', val: 'browsing', emoji: '🔭', nextId: 'explore_1',
+        id: 'browsing', label: 'Just here to look', val: 'browsing', emoji: '🔭', nextId: 'explore_1',
         reveal: {
-          title: "Welcome, Explorer.",
-          content: "Pull up a chair. Let me show you what 13 years of obsessive craft looks like under the hood."
+          title: "Then look close.",
+          content: "One idea runs through all of it: the complex thing should be as obvious as knowing to sit in a chair. Let me show you how I get there."
         }
       }
     ],
@@ -69,22 +69,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   // --- HIRING TRACK ---
   'hire_1': {
     id: 'hire_1',
-    statement: "Thriving in ambiguity.",
-    question: "I just got dropped into a project — no brief, conflicting priorities, 6 weeks. What do you think I'm supposed to do first?",
+    statement: "Dropped in the deep end.",
+    question: "New project. No brief, no docs, six weeks, three people who each want something different. Where do I start?",
     activeGear: 'gear-conflicting-teams',
     options: [
       {
-        id: 'listen', label: 'Talk to everyone involved', val: 'listen', emoji: '🎧', nextId: 'hire_2',
+        id: 'listen', label: 'Listen before I draw', val: 'listen', emoji: '🎧', nextId: 'hire_2',
         reveal: {
-          title: "Listen First, Always.",
-          content: "13 years taught me that the brief is never the real problem. I spend the first week just listening — to stakeholders, to customers, to the engineers who've been living with the system. The real priorities surface when people feel heard."
+          title: "Listen first, always.",
+          content: "The brief is never the real problem. First week I don't design — I listen. Support calls, the one engineer who still remembers how it works, the customer nobody asked. The real priority surfaces once people feel heard."
         }
       },
       {
-        id: 'define', label: 'Define the problem myself', val: 'define', emoji: '✏️', nextId: 'hire_2',
+        id: 'define', label: 'Write the map nobody wrote', val: 'define', emoji: '✏️', nextId: 'hire_2',
         reveal: {
-          title: "Create Clarity, Don't Wait For It.",
-          content: "Ambiguity is where senior designers earn their keep. I write the brief nobody wrote, circulate it, and let people react. It's easier to align a team around something tangible — even if it's wrong — than to wait for perfect clarity that never comes."
+          title: "Build the map.",
+          content: "No brief? I write the one that's missing and put it in front of everyone. A team aligns faster around a tangible wrong answer than a perfect one that never comes. (At one job my PM started writing the tickets after my mockups.)"
         }
       }
     ],
@@ -95,22 +95,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'hire_2': {
     id: 'hire_2',
-    statement: "Reader of rooms.",
-    question: "A key stakeholder keeps changing direction and my team is frustrated. What do you think I should do?",
+    statement: "Reading the room.",
+    question: "A stakeholder keeps changing direction and the team's losing faith. What's actually going on?",
     activeGear: 'gear-motherhood',
     options: [
       {
-        id: 'empathy', label: 'Understand what\'s driving it', val: 'empathy', emoji: '💬', nextId: 'hire_3',
+        id: 'empathy', label: 'Find what\'s really driving it', val: 'empathy', emoji: '💬', nextId: 'hire_3',
         reveal: {
-          title: "Empathy Before Confrontation.",
-          content: "They're not indecisive — they're scared. After 13 years I've learned that changing direction usually means someone's under pressure they can't articulate. I go private, ask what's really driving the shifts, and help them find their actual constraint."
+          title: "Empathy before confrontation.",
+          content: "They're not difficult — they're cornered. Shifting direction usually means pressure someone can't say out loud. I find the real constraint in private, then hand the team one stable target."
         }
       },
       {
-        id: 'shield', label: 'Protect the team from the noise', val: 'shield', emoji: '🛡️', nextId: 'hire_3',
+        id: 'shield', label: 'Absorb it so the team can build', val: 'shield', emoji: '🛡️', nextId: 'hire_3',
         reveal: {
-          title: "The Human Shield.",
-          content: "Absolutely. I absorb the chaos so the team can build. But I don't just shield — I translate. I take the shifting signals, find the pattern, and give the team a stable target. That's the job nobody writes in the job description, but it's the one that ships products."
+          title: "Shield, then translate.",
+          content: "I stand between the noise and the work — but I don't just block it, I translate it. I turn the shifting signals into one clear direction. It's the job nobody writes down, and it's the one that ships products."
         }
       }
     ],
@@ -121,22 +121,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'hire_3': {
     id: 'hire_3',
-    statement: "Measuring what matters.",
-    question: "My VP asks: 'How do we know design is actually working?' What do you think I'm expected to say?",
+    statement: "Proving it worked.",
+    question: "Your VP asks: \"How do we know design is actually working?\" What do I say?",
     activeGear: 'gear-life',
     options: [
       {
-        id: 'outcomes', label: 'Customer outcomes, not output', val: 'outcomes', emoji: '📈', nextId: 'end',
+        id: 'outcomes', label: 'Outcomes, not output', val: 'outcomes', emoji: '📈', nextId: 'end',
         reveal: {
-          title: "Impact Over Artifacts.",
-          content: "I stopped counting screens years ago. I track: Are customers staying? Are support costs dropping? Are engineers shipping faster because the specs are clearer? Design's value is measured by the problems that stop happening."
+          title: "The problems that stop happening.",
+          content: "I stopped counting screens years ago. Are customers staying? Are support tickets dropping? Are engineers shipping faster because the spec is clear? Design's value is the problems that quietly stop happening."
         }
       },
       {
-        id: 'contrast', label: 'Show them the before and after', val: 'contrast', emoji: '🪞', nextId: 'end',
+        id: 'contrast', label: 'Show the before and after', val: 'contrast', emoji: '🪞', nextId: 'end',
         reveal: {
-          title: "Make the Invisible Visible.",
-          content: "Leadership can't feel the difference — you have to show them. I document the chaos we inherited and the clarity we created. Not in a pitch deck — in side-by-side comparisons that make it undeniable. The story sells itself when the contrast is real."
+          title: "Make the contrast undeniable.",
+          content: "Leadership can't feel the difference — so I show it. The chaos we inherited beside the clarity we built, side by side. When the contrast is real, the story sells itself. (It's part of how WebFOCUS landed a Dresner CX award.)"
         }
       }
     ],
@@ -148,22 +148,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   // --- EXPLORER TRACK ---
   'explore_1': {
     id: 'explore_1',
-    statement: "Curiosity & depth.",
-    question: "I'm handed a brief that says 'redesign the settings page.' What do you think I'm supposed to do with that?",
+    statement: "The task is never the task.",
+    question: "A brief lands: \"redesign the settings page.\" What do I actually do with that?",
     activeGear: 'gear-conflicting-teams',
     options: [
       {
         id: 'dig', label: 'Question the task itself', val: 'dig', emoji: '🔍', nextId: 'explore_2',
         reveal: {
-          title: "The Task is Never the Task.",
-          content: "Why are people in the settings page? What broke that sent them there? Most 'redesign X' requests are symptoms. The real problem is three levels deeper — and solving it usually means the settings page becomes unnecessary."
+          title: "Three levels deeper.",
+          content: "Most \"redesign X\" is a symptom. Why are people in settings at all? What broke upstream that sent them there? The real problem is usually three levels deeper — and solving it often makes the settings page unnecessary."
         }
       },
       {
-        id: 'ship', label: 'Ship it and move on', val: 'ship', emoji: '⚡', nextId: 'explore_2',
+        id: 'ship', label: 'Ship it, then learn', val: 'ship', emoji: '⚡', nextId: 'explore_2',
         reveal: {
-          title: "Sometimes, Yes. But Rarely.",
-          content: "I can ship fast when speed matters. But I'll always do a 30-minute investigation first. In 13 years, that small investment has saved me from building the wrong thing more times than I can count. Curiosity isn't slow — it's efficient."
+          title: "Curiosity is efficient.",
+          content: "I can move fast when speed is the point — but I spend thirty minutes understanding why first. In thirteen years that small tax has saved me from building the wrong thing more times than I can count. Curiosity is efficient, not slow."
         }
       }
     ],
@@ -174,22 +174,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'explore_2': {
     id: 'explore_2',
-    statement: "The obsession.",
-    question: "We shipped. It works. But I'm still thinking about it at 11pm. Why do you think that is?",
+    statement: "Still thinking about it at 11pm.",
+    question: "We shipped. It works. I can't stop thinking about it. Why?",
     activeGear: 'gear-motherhood',
     options: [
       {
-        id: 'feel', label: 'Because something feels off', val: 'feel', emoji: '🌙', nextId: 'explore_3',
+        id: 'feel', label: 'Something still feels off', val: 'feel', emoji: '🌙', nextId: 'explore_3',
         reveal: {
-          title: "I Can't Unsee It.",
-          content: "There's a gap between 'works' and 'feels inevitable.' I live in that gap. It's the animation that's 100ms too slow. The label that makes you think for half a second. Users feel it even when they can't name it — and so do I."
+          title: "Works isn't inevitable.",
+          content: "I live in the gap between \"works\" and \"inevitable.\" It's the animation 100ms too slow, the label that makes you think for half a second. Users feel it even when they can't name it — and I can't unsee it."
         }
       },
       {
-        id: 'great', label: 'Because you want it to be great', val: 'great', emoji: '✨', nextId: 'explore_3',
+        id: 'great', label: 'Because it could be great', val: 'great', emoji: '✨', nextId: 'explore_3',
         reveal: {
-          title: "Good Enough Never Was.",
-          content: "My bar isn't perfection — it's 'would I be proud to show this to someone I respect?' After 13 years, I've learned that this obsession compounds. 50 tiny improvements become the reason someone says 'this product just feels different.'"
+          title: "Fifty tiny improvements.",
+          content: "My bar isn't perfection — it's \"would I be proud to show this to someone I respect?\" Fifty tiny improvements compound into the reason someone says \"this just feels different.\""
         }
       }
     ],
@@ -200,22 +200,22 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
   },
   'explore_3': {
     id: 'explore_3',
-    statement: "Collaboration under tension.",
-    question: "An engineer tells me my design will take 3 sprints. I have 1. What do you think I'm supposed to do?",
+    statement: "Design meets the deadline.",
+    question: "An engineer says my design is three sprints. I have one. What now?",
     activeGear: 'gear-life',
     options: [
       {
         id: 'together', label: 'Find the 80/20 together', val: 'together', emoji: '🤝', nextId: 'end',
         reveal: {
-          title: "We're on the Same Team.",
-          content: "I sit with them, not across from them. I ask 'what's expensive?' and we usually find that 80% of the experience can ship in 20% of the effort. The remaining 20% goes to v2. That conversation builds trust that lasts beyond the sprint."
+          title: "Sit with engineering, not across.",
+          content: "I ask \"what's expensive?\" and we almost always find 80% of the experience ships in 20% of the effort. The rest goes to v2. That conversation builds trust that outlasts the sprint."
         }
       },
       {
-        id: 'prototype', label: 'Prototype it to prove it\'s possible', val: 'prototype', emoji: '🛠️', nextId: 'end',
+        id: 'prototype', label: 'Prototype it to kill the doubt', val: 'prototype', emoji: '🛠️', nextId: 'end',
         reveal: {
-          title: "Bridge the Gap.",
-          content: "Sometimes the best argument is a working thing. I've built functional prototypes to show engineers that the 'complex' interaction is actually 40 lines of code. Not to prove them wrong — to remove the uncertainty."
+          title: "Build the thing.",
+          content: "The best argument is a working thing. I've built the \"complex\" interaction myself to show it's forty lines of code — not to prove anyone wrong, to remove the uncertainty. I prototype in real code because the risk is never the visuals, it's the logic."
         }
       }
     ],

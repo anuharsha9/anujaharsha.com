@@ -28,7 +28,7 @@ export interface GearInspectorItem {
 export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-scattered-workflows": {
     id: "gear-scattered-workflows",
-    thought: "I bridged the gap. I stopped waiting for developer handoffs and built this site to prove I can ship production code.",
+    thought: "I stopped waiting for the dev handoff and learned to ship the production code myself. This whole site is the proof.",
     link: "/?tab=life",
     linkLabel: "See My Tech Stack",
     accentColor: "#0BA2B5",
@@ -48,7 +48,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-legacy-systems": {
     id: "gear-legacy-systems",
-    thought: "Digital Native. I mastered Pixel Logic (MS Paint) in Grade 2 and Vector Logic (CorelDRAW) in Grade 5. Design is my native language.",
+    thought: "Design is my first language — CorelDRAW in 5th grade, my first logo prize at 16. I didn't pivot into this; I grew up in it.",
     link: "/?tab=life",
     linkLabel: "See My Origin",
     accentColor: "#22D3EE",
@@ -68,7 +68,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-hidden-features": {
     id: "gear-hidden-features",
-    thought: "The Polymath. Violin taught me rhythm. Logic taught me structure. Design organizes the chaos.",
+    thought: "Violin taught me rhythm, logic taught me structure, art taught me to see. Design is where all three meet.",
     link: "/?tab=life",
     linkLabel: "See My Story",
     accentColor: "#8B5CF6", // Violet
@@ -88,7 +88,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-fragmented-ui": {
     id: "gear-fragmented-ui",
-    thought: "System Archaeologist. I map fragmented, undocumented legacy subsystems and unify them into coherent platforms.",
+    thought: "I run at the 40-year black box nobody will touch — map it, befriend the one engineer who remembers, rebuild it from scratch — until I understand it better than people who never read the code.",
     link: "/work/reportcaster#act-iv",
     linkLabel: "See the Unification",
     accentColor: "#0BA2B5",
@@ -108,7 +108,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-missing-briefs": {
     id: "gear-missing-briefs",
-    thought: "Fearless Adapter. Drop me in. I didn't know Machine Learning, so I embedded with Data Scientists and got MIT Certified.",
+    thought: "I didn't know machine learning, so I embedded with the data scientists and took an MIT course on my own dime. You earn a strong opinion by understanding the system better than anyone expected.",
     link: "/work/ml-functions#act-2-investigation",
     linkLabel: "See the Certification",
     accentColor: "#0BA2B5",
@@ -128,7 +128,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-conflicting-teams": {
     id: "gear-conflicting-teams",
-    thought: "Alignment Architect. I use high-fidelity prototypes to bridge the gap between Product, Engineering, and Design.",
+    thought: "When a team won't align, I stop arguing and build the thing. A working prototype is the source of truth no meeting can be.",
     link: "/work/ml-functions#act-5-team",
     linkLabel: "See the Alignment",
     accentColor: "#0BA2B5",
@@ -148,7 +148,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-shifting-priorities": {
     id: "gear-shifting-priorities",
-    thought: "Strategic Debt. I know when to ship a 'hack' to unblock revenue and when to fight for a refactor. Speed matters.",
+    thought: "I know when to ship the hack that unblocks revenue and when to fight for the refactor. Speed is a design decision too.",
     link: "/work/reportcaster#act-iv",
     linkLabel: "See the Strategy",
     accentColor: "#0EA5E9",
@@ -168,7 +168,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-motherhood": {
     id: "gear-motherhood",
-    thought: "Elite Focus. Managing a household and career taught me to respect time. I don't grind; I orbit efficiently.",
+    thought: "Two kids and a career taught me to respect time. I don't grind — I orbit. Elite focus over long hours.",
     link: "/?tab=life",
     linkLabel: "See My Philosophy",
     accentColor: "#06B6D4",
@@ -188,7 +188,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-career-ambition": {
     id: "gear-career-ambition",
-    thought: "Consistency at scale. I ensure one component deployed everywhere behaves identically across 50+ squads.",
+    thought: "Consistency at scale isn't a PDF guideline — it's one component behaving identically across 50 squads. Build it into the primitive and obviousness is inherited for free.",
     link: "/work/iq-plugin#act-3-architecture",
     linkLabel: "See the System",
     accentColor: "#8B5CF6", // Violet
@@ -208,7 +208,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-life": {
     id: "gear-life",
-    thought: "The Human Algorithm. I design for the neural networks of the users who use my tools, not just for screens.",
+    thought: "I design for the person, not the screen — their cognitive load, their workflow. Make the complex thing as obvious as sitting in a chair.",
     link: "/?tab=life",
     linkLabel: "See My Core",
     accentColor: "#67E8F9",
