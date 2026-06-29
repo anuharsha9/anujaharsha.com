@@ -144,7 +144,7 @@ for JS easings/durations; `--ease-*` / `--duration-*` in `tokens.css`) — never
   No duplicates.
 - **Main-site palette:** black, white, shades of zinc grey, **teal accent.** Semantic colors are for
   **animation and data-viz only** — not UI chrome.
-- **Case-study theming** is scoped via `data-cs-theme` (rc=teal, ml=cyan, dsml=violet, wordu=blue).
+- **Case-study theming** is scoped via `data-cs-theme` (rc=teal, ml=cyan, dsml=violet).
 - **Accessibility is built in:** text tokens carry their WCAG ratio; focus ring is a token
   (`--focus-ring`, teal, 3px) applied globally via `*:focus-visible`; `prefers-reduced-motion` kills
   animation globally. Dark sites need an opaque `html` background or contrast tooling false-positives.

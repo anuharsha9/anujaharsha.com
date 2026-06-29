@@ -3,14 +3,14 @@
 **Product:** Anuja Harsha Nimmagadda — personal portfolio & proof-of-work platform
 **Owner:** Anuja Harsha Nimmagadda (Staff / Senior Product Designer)
 **Live:** https://anujaharsha.com
-**Status:** ✅ Shipped (launched 2026-06-28) · actively iterated
+**Status:** ✅ Shipped (launched 2026-06-28) · actively iterated (latest: WordU retired to its own project, `/me` merged into the Life tab, testimonials → moving marquee with full letters, Build Lab added to the résumé)
 **Stack:** Next.js 16 (static export) · React 19 · TypeScript · framer-motion · Tailwind (CSS-variable tokens) · Three.js/R3F · Cloudflare Worker (Ask Anu) · AWS S3 + CloudFront · GA4
 
 ---
 
 ## 1. TL;DR
 
-A portfolio that doesn't *describe* the work — it **is** the work. A cinematic, AI-native site that argues a single thesis: *Anuja makes the most powerful, most-avoided tool in the building obvious — and she ships it herself by orchestrating AI as her engineering team.* It pairs deep enterprise case studies (a $175M platform, a 40-year-old engine modernized) with six self-built AI products, a **live AI ("Ask Anu") that answers recruiters in her voice**, and a design system so disciplined that color, type, spacing **and motion** all flow from tokens. Lighthouse on the live CDN: **82 mobile / 90 desktop, accessibility 100, CLS 0.**
+A portfolio that doesn't *describe* the work — it **is** the work. A cinematic, AI-native site that argues a single thesis: *Anuja makes the most powerful, most-avoided tool in the building obvious — and she ships it herself by orchestrating AI as her engineering team.* It pairs deep enterprise case studies (a $175M platform, a 40-year-old engine modernized) with five self-built AI products, a **live AI ("Ask Anu") that answers recruiters in her voice**, and a design system so disciplined that color, type, spacing **and motion** all flow from tokens. Lighthouse on the live CDN: **82 mobile / 90 desktop, accessibility 100, CLS 0.**
 
 ---
 
@@ -42,8 +42,8 @@ Senior/Staff design portfolios mostly look the same: tidy Figma shots, "I increa
 |---|---|---|
 | **Recruiter (30-sec skim)** | "Is this person worth a call?" | Hero thesis, outcome-led case-study tiles, one-click résumé, "Ask Anu" |
 | **Hiring manager / design lead** | Judgment, leadership, depth | Problem-first cinematic case studies, "how I led," scope ownership, real metrics |
-| **Eng / cross-functional partner** | Can she think in systems & ship? | 6 working AI apps, a token-driven design system, clean live performance |
-| **The curious** | Who is she beyond the résumé? | Life tab, the immersive poem, manifesto, hidden brain-experience easter egg |
+| **Eng / cross-functional partner** | Can she think in systems & ship? | 5 working AI apps, a token-driven design system, clean live performance |
+| **The curious** | Who is she beyond the résumé? | Life tab (poem, makings, "same time" stories), manifesto, hidden brain-experience easter egg |
 
 ## 6. Success metrics
 - Recruiter → contact / résumé-open rate; Ask-Anu engagement (questions asked).
@@ -57,10 +57,10 @@ Senior/Staff design portfolios mostly look the same: tidy Figma shots, "I increa
 
 A single domain, two narrative modes, plus deep-dive routes.
 
-- **`/` — Work tab (default):** Hero → CSG enterprise case studies → **Build Lab** (AI apps) → trailer teaser → testimonials → extended portfolio → foundation → contact.
-- **`/` — Life tab:** the human behind the work (family, makings, "same time" simultaneity stories, poem).
-- **Case studies:** `/work/reportcaster`, `/work/ml-functions`, `/work/iq-plugin`, `/work/wordu` — each a cinematic, scrollytelling page.
-- **Depth:** `/me` (immersive deep-dive + 12-stanza poem), `/manifesto` (the operating philosophy, scene-by-scene), `/quiz` (the hidden 3D "brain experience").
+- **`/` — Work tab (default):** Hero → CSG enterprise case studies → **Build Lab** (AI apps) → Foundation (the chair-philosophy thesis) → testimonials (moving two-row marquee) → contact. Earlier work is a quiet "Earlier work →" drawer in the footer; the "Why hire me · 60 sec" intro is a hero CTA.
+- **`/` — Life tab (the single personal surface):** the human behind the work (family, makings, "same time" simultaneity stories, the 12-stanza poem). Deep-link: `/?tab=life`.
+- **Case studies:** `/work/reportcaster`, `/work/ml-functions`, `/work/iq-plugin` — each a cinematic, scrollytelling page.
+- **Depth:** `/manifesto` (the operating philosophy, scene-by-scene), `/quiz` (the hidden 3D "brain experience").
 - **Utility:** dynamic OG/Twitter images, sitemap, robots, résumé PDF.
 
 ---
@@ -69,7 +69,8 @@ A single domain, two narrative modes, plus deep-dive routes.
 
 ### 8.1 The hero
 - Blur-to-focus cinematic entrance, **CSS-driven so it paints on the first frame** (not gated on JS hydration); teal-gradient name; signature brandmark that draws itself.
-- A single positioning line — *"I make the most powerful tool in the building — the one nobody likes to use — obvious."* — plus credibility (13 years; modernized a 50-year-old BI platform that helped renew a multi-million-dollar contract).
+- A single positioning line — *"I make the most powerful tool in the building — the one nobody can figure out — obvious."* — plus credibility (13 years; modernized a 50-year-old BI platform that helped renew a multi-million-dollar contract).
+- Two CTAs: **"See the Work"** (primary) and **"60-sec intro"** (the manifesto/"why hire me" trailer). Résumé lives in the floating chip + footer.
 - **Easter egg:** clicking the name opens the immersive brain experience.
 
 ### 8.2 CSG enterprise case studies (the depth)
@@ -79,14 +80,15 @@ Three flagship, problem-first, cinematic case studies — each opens with a *rea
 - **IQ Hub / Plugin** — made the AI *impossible to miss*; defined the architecture.
 - Each renders explicit **role ownership, "how I led," scope tags, and outcome-led proof** — not just screens. Backed by a **$175M P&L** platform and a **Dresner Advisory 2025 Customer Experience Leader** award.
 
-### 8.3 Build Lab — six self-built AI products
+### 8.3 Build Lab — five self-built AI products
 Proof of 0→1 range, each a real, (mostly) live product with a **narrated, workflow-led walkthrough player** + "Open Live Demo":
 - **Pathwise** — AI-native career/education-ROI navigator → `pathwise.anujaharsha.com`
-- **WealthEngine** — local-first life-decision & scenario engine → `wealthengine.anujaharsha.com`
-- **Warden** — AI-agent authorization & guardrails console → `warden.anujaharsha.com`
-- **Inkwell** — local-first writing studio (archive + AI coach) → `inkwell.anujaharsha.com`
-- **WordU** — a word game built with agentic AI (playable in-site)
+- **WealthEngine** — local-first life-decision & scenario engine
+- **Warden** — AI-agent authorization & guardrails console
+- **Inkwell** — local-first writing studio (archive + AI coach)
 - **Sous** — voice-first AI cooking companion (native iOS; shipping free on the App Store, **bring-your-own-key**)
+
+A sixth Build Lab tile, **This Portfolio**, frames the site itself as an artifact (5 iterations · 6 AI agents · 1 architect). *(WordU, an earlier word game, was retired to its own standalone project — it didn't carry the enterprise story.)*
 
 ### 8.4 Ask Anu — a live AI that speaks in her voice ⭐
 - A chat surface (⌘K) with ~39 hand-curated, voice-matched Q&A **plus free-form questions** answered live.
@@ -94,13 +96,13 @@ Proof of 0→1 range, each a real, (mostly) live product with a **narrated, work
 - It's the portfolio's thesis made interactive: an AI-native designer whose site can *answer for her*.
 
 ### 8.5 The Life dimension
-- **Life tab** + **`/me`**: parent, baker, painter, poet, migrant — the capacity behind the work, with a 12-stanza immersive poem and a "same time" room pairing career and life milestones.
+- **Life tab** (the single personal surface; `/me` retired): parent, baker, painter, poet, migrant — the capacity behind the work, with a 12-stanza immersive poem, a "things I make" gallery (graphic design, paintings, baking), and a "same time" room pairing career and life milestones.
 - **`/manifesto`**: the operating philosophy as a scene-by-scene cinematic.
 - **`/quiz` — the brain experience:** a hidden, interactive **Three.js** sequence (the curiosity reward).
 
 ### 8.6 Social proof & conversion
-- **10 leader testimonials** (VP Product, Director of Design, Ph.D. data science).
-- One-click **résumé** (PDF, in-site lightbox + download), persistent floating actions, a "60-second trailer" teaser.
+- **10 named peer testimonials** in a moving two-row marquee (VP Product, Director of Design, Ph.D. data science…) — tap any quote to read the full, unedited letter.
+- One-click **résumé** (PDF, in-site lightbox + download — now with a **Build Lab** section), persistent floating actions, and a **"Why hire me · 60 sec"** intro CTA in the hero that opens the manifesto.
 
 ---
 
@@ -137,7 +139,7 @@ The site's craft signal *and* its maintainability story.
 
 ## 12. The AI-native story (the meta-differentiator)
 
-The portfolio is itself the headline proof: a designer who **architects and ships production software by orchestrating AI agents as her engineering team** — six apps, a live AI, a token-driven system, all built solo. The medium *is* the message.
+The portfolio is itself the headline proof: a designer who **architects and ships production software by orchestrating AI agents as her engineering team** — five apps, a live AI, a token-driven system, all built solo. The medium *is* the message.
 
 ## 13. SEO & shareability
 - Dynamic, on-brand **OG / Twitter cards** (Satori) — dark cinematic, teal-gradient name, tagline, skills, served as proper `image/png`.
@@ -145,7 +147,7 @@ The portfolio is itself the headline proof: a designer who **architects and ship
 
 ## 14. What makes it stand out (differentiators)
 1. **A live AI that answers in your voice** — almost no portfolio does this.
-2. **Six real, (mostly) live AI products** — not concepts; demos you can open.
+2. **Five real, (mostly) live AI products** — not concepts; demos you can open.
 3. **Enterprise depth + 0→1 range** in one place, both told cinematically.
 4. **Token-driven design system incl. motion** — rare engineering discipline for a *designer's* site.
 5. **The site as proof of the AI-native operating model.**
