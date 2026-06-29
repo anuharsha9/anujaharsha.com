@@ -7,6 +7,7 @@ import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import Magnetic from '@/components/ui/Magnetic'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
+import ExtendedPortfolio from '@/components/home/ExtendedPortfolio'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
@@ -133,6 +134,11 @@ export default function TalkSection() {
                 ADPList
               </a>
             ))}
+          </div>
+
+          {/* Earlier work — a quiet link that opens the 2012–2022 archive in a lightbox. */}
+          <div className="mb-10 flex justify-center">
+            <ExtendedPortfolio />
           </div>
 
           {/* Sign-off — with a small Easter-egg gear for thorough visitors who made it to the bottom. */}

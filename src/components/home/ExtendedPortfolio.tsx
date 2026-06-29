@@ -2,9 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import Image from 'next/image'
-import { m, AnimatePresence } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
-import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
 /* ─── Archive image maps — generated from public/images/archive/ ─── */
 const ARCHIVE_IMAGES: Record<string, string[]> = {
@@ -61,81 +59,70 @@ function ArchiveCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey:
     )
 }
 
-/* ─── Main component — quiet "earlier work" band ─── */
+/* ─── Quiet "earlier work" link — lives in the footer, opens a lightbox drawer ───
+   Earlier work no longer occupies its own scroll zone. A single quiet link reveals
+   the project grid in a lightbox; clicking a project opens its slideshow. Closing the
+   slideshow returns to the grid. Keeps id="extended-portfolio" so the case-study
+   SystemIndex anchor (/#extended-portfolio) still lands here. */
 export default function ExtendedPortfolio() {
-    const [lightbox, setLightbox] = useState<{ images: string[]; title: string; index: number } | null>(null)
-    const [expanded, setExpanded] = useState(false)
+    const [gridOpen, setGridOpen] = useState(false)
+    const [slideshow, setSlideshow] = useState<{ images: string[]; title: string; index: number } | null>(null)
 
     const openSlideshow = useCallback((archiveKey: string, title: string) => {
         const images = ARCHIVE_IMAGES[archiveKey]
-        if (images) setLightbox({ images, title, index: 0 })
+        if (images) setSlideshow({ images, title, index: 0 })
     }, [])
 
-    const closeLightbox = useCallback(() => setLightbox(null), [])
-    const goNext = useCallback(() => setLightbox(prev => prev ? { ...prev, index: Math.min(prev.index + 1, prev.images.length - 1) } : null), [])
-    const goPrev = useCallback(() => setLightbox(prev => prev ? { ...prev, index: Math.max(prev.index - 1, 0) } : null), [])
+    const closeSlideshow = useCallback(() => setSlideshow(null), []) // back to the grid
+    const goNext = useCallback(() => setSlideshow(prev => prev ? { ...prev, index: Math.min(prev.index + 1, prev.images.length - 1) } : null), [])
+    const goPrev = useCallback(() => setSlideshow(prev => prev ? { ...prev, index: Math.max(prev.index - 1, 0) } : null), [])
 
     return (
-        <section id="extended-portfolio" className="relative pt-10 pb-16 md:pt-12 md:pb-20">
-            <div className="px-4 md:px-8 lg:px-12 max-w-[1200px] mx-auto">
-                {/* Quiet section label */}
-                <m.div
-                    className="mb-6 md:mb-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: DURATION.deliberate, ease: EASE_CINEMATIC }}
-                >
-                    <p className="font-mono text-[11px] md:text-xs uppercase tracking-[0.3em] text-zinc-600 mb-2">
-                        Earlier Work · 2012 — 2022
-                    </p>
-                    <p className="text-zinc-500 text-sm md:text-base font-light max-w-2xl">
-                        Fractional and zero-to-one work for early-stage teams — across EdTech, consumer, B2B, and enterprise IoT.
-                    </p>
-                </m.div>
+        <>
+            {/* The quiet footer trigger */}
+            <button
+                id="extended-portfolio"
+                onClick={() => setGridOpen(true)}
+                className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-600 transition-colors duration-500 hover:text-zinc-300"
+            >
+                Earlier work · 2012 — 2022
+                <span aria-hidden="true" className="transition-transform duration-500 group-hover:translate-x-1">→</span>
+            </button>
 
-                {/* Collapsed by default — a quiet toggle; the curious can browse. */}
-                <button
-                    onClick={() => setExpanded(v => !v)}
-                    aria-expanded={expanded}
-                    className="group inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.02] px-5 py-2.5 text-sm text-zinc-400 transition-colors hover:border-white/20 hover:text-zinc-200"
+            {/* ── Project grid (lightbox drawer) — hidden while a slideshow is open ── */}
+            {gridOpen && !slideshow && (
+                <SystemLightbox
+                    isOpen
+                    onClose={() => setGridOpen(false)}
+                    title="Earlier Work · 2012 — 2022"
+                    showArrows={false}
                 >
-                    {expanded ? 'Hide earlier work' : `Browse ${PROJECTS.length} earlier projects`}
-                    <span className={`transition-transform duration-300 ${expanded ? 'rotate-180' : 'group-hover:translate-y-0.5'}`} aria-hidden="true">↓</span>
-                </button>
-
-                {/* Compact thumbnail grid — revealed on expand */}
-                <AnimatePresence initial={false}>
-                    {expanded && (
-                        <m.div
-                            key="earlier-grid"
-                            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-6"
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 8 }}
-                            transition={{ duration: DURATION.base, ease: EASE_CINEMATIC }}
-                        >
+                    <div className="mx-auto max-w-5xl px-5 py-12 md:px-10 md:py-16">
+                        <p className="mb-8 max-w-2xl font-light text-zinc-400 md:text-lg">
+                            Fractional and zero-to-one work for early-stage teams — across EdTech, consumer, B2B, and enterprise IoT.
+                        </p>
+                        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
                             {PROJECTS.map((item) => (
                                 <ArchiveCard key={item.id} item={item} onOpen={openSlideshow} />
                             ))}
-                        </m.div>
-                    )}
-                </AnimatePresence>
-            </div>
+                        </div>
+                    </div>
+                </SystemLightbox>
+            )}
 
             {/* ── Archive slideshow lightbox ── */}
-            {lightbox && (
+            {slideshow && (
                 <SystemLightbox
-                    isOpen={true}
-                    onClose={closeLightbox}
-                    title={`${lightbox.title} — ${lightbox.index + 1} / ${lightbox.images.length}`}
-                    onNext={lightbox.index < lightbox.images.length - 1 ? goNext : undefined}
-                    onPrev={lightbox.index > 0 ? goPrev : undefined}
+                    isOpen
+                    onClose={closeSlideshow}
+                    title={`${slideshow.title} — ${slideshow.index + 1} / ${slideshow.images.length}`}
+                    onNext={slideshow.index < slideshow.images.length - 1 ? goNext : undefined}
+                    onPrev={slideshow.index > 0 ? goPrev : undefined}
                 >
                     <div className="flex items-center justify-center w-full h-full min-h-[50vh]">
                         <Image
-                            src={lightbox.images[lightbox.index]}
-                            alt={`${lightbox.title} — slide ${lightbox.index + 1}`}
+                            src={slideshow.images[slideshow.index]}
+                            alt={`${slideshow.title} — slide ${slideshow.index + 1}`}
                             width={1200}
                             height={800}
                             className="max-w-full max-h-[75vh] object-contain rounded-lg"
@@ -143,6 +130,6 @@ export default function ExtendedPortfolio() {
                     </div>
                 </SystemLightbox>
             )}
-        </section>
+        </>
     )
 }

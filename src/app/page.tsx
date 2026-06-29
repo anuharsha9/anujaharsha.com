@@ -14,9 +14,6 @@ const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBl
 const VibeCodingLoading = () => <SectionSkeleton height="200vh" text="LOADING SKILLS MODULE" />
 const VibeCodingBlock = dynamic(() => import('@/components/home/VibeCodingBlock'), { ssr: true, loading: VibeCodingLoading })
 
-const ExtendedPortfolioLoading = () => <SectionSkeleton height="200vh" text="LOADING GALLERY MODULE" />
-const ExtendedPortfolio = dynamic(() => import('@/components/home/ExtendedPortfolio'), { ssr: true, loading: ExtendedPortfolioLoading })
-
 const FoundationLoading = () => <SectionSkeleton height="120vh" text="LOADING FOUNDATION MODULE" />
 const FoundationBlock = dynamic(() => import('@/components/home/FoundationBlock'), { ssr: true, loading: FoundationLoading })
 
@@ -107,25 +104,23 @@ export default function Home() {
         <VibeCodingBlock />
       </BlurZone>
 
-      {/* ═══ ZONE 4: EARLIER WORK — collapsed by default (browse on demand) ═══
-           Quiet, secondary band. No BlurZone: the collapsed height stays tight and
-           the expand can't get clipped by a fixed container. */}
-      <div id="extended-portfolio-zone" className="relative">
-        <ExtendedPortfolio />
-      </div>
+      {/* Earlier Work (2012–2022) no longer has its own zone — it's a quiet
+          "Earlier work →" link in the footer that opens a lightbox drawer.
+          See ExtendedPortfolio rendered inside TalkSection. */}
 
-      {/* ═══ ZONE 5: FOUNDATION ═══ */}
+      {/* ═══ ZONE 4: FOUNDATION ═══ */}
       <BlurZone id="foundation-zone" containerHeight="120vh">
         <FoundationBlock />
       </BlurZone>
 
-      {/* ═══ ZONE 6: SOCIAL PROOF ═══
-           No BlurZone — testimonials are read-heavy and must stay sharp/fully readable. */}
+      {/* ═══ ZONE 5: SOCIAL PROOF ═══
+           No BlurZone — testimonials are read-heavy and must stay sharp/fully readable.
+           Includes the "Why hire me — in 60 seconds" echo CTA under the marquee. */}
       <div id="social-proof-zone" className="relative w-full">
         <TestimonialsBlock />
       </div>
 
-      {/* ═══ ZONE 7: FOOTER / LET'S TALK — includes the 60-sec "Why Hire Me" CTA ═══ */}
+      {/* ═══ ZONE 6: FOOTER / LET'S TALK — includes the quiet "Earlier work →" link ═══ */}
       <BlurZone id="footer-zone" containerHeight="100dvh">
         <TalkSection />
       </BlurZone>

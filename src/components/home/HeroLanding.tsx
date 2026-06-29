@@ -7,30 +7,19 @@ import {
     useTransform,
 } from 'framer-motion'
 import { useTransition } from '@/components/transitions/TransitionContext'
-import { ArrowDown, FileText } from 'lucide-react'
+import { ArrowDown, Play } from 'lucide-react'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
 import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
-import { usePdf } from '@/contexts/PdfContext'
-import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { navigateTo } = useTransition()
-    const { openPdf } = usePdf()
     const [isReady, setIsReady] = useState(true)
 
     /* Smooth-scroll to the case studies section just below the hero. */
     const scrollToWork = () => {
         const target = document.getElementById('work-overview')
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-
-    const openResume = () => {
-        trackResumeDownload()
-        openPdf(
-            '/assets/Anuja%20Harsha%20Nimmagadda%20-%20Staff%20Product%20Designer.pdf',
-            'Anuja Harsha Nimmagadda - Staff Product Designer',
-        )
     }
 
     /* ─── Scroll choreography — viewport-based ───
@@ -172,14 +161,18 @@ export default function HeroLanding() {
                                 </button>
                             </div>
 
-                            {/* Resume — secondary outline button */}
+                            {/* 60-second intro — the fast pitch for time-pressed recruiters.
+                                Just a button: the name still loads instantly; the video lives on /manifesto.
+                                Résumé stays one tap away via the floating chip + footer. */}
                             <button
-                                onClick={openResume}
-                                aria-label="View Resume PDF"
+                                onClick={() => navigateTo('/manifesto')}
+                                aria-label="Watch the 60-second intro"
                                 className="group inline-flex h-12 sm:h-14 items-center justify-center gap-2.5 rounded-full border border-white/40 bg-white/[0.04] px-7 sm:px-8 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-500 hover:border-white/80 hover:bg-white/[0.08]"
                             >
-                                <FileText className="w-4 h-4" />
-                                <span>Resume</span>
+                                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-colors duration-500 group-hover:bg-white/20">
+                                    <Play className="h-3 w-3 fill-current" />
+                                </span>
+                                <span>60-sec intro</span>
                             </button>
                         </div>
 

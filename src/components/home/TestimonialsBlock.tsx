@@ -108,7 +108,7 @@ export default function TestimonialsBlock() {
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-teal)]/15 transition-colors duration-500 group-hover:bg-[var(--accent-teal)]/25">
                         <Play className="h-3 w-3 fill-current" />
                     </span>
-                    Why Hire Me · 60 sec
+                    Why hire me — in 60 seconds
                 </button>
             </div>
 
