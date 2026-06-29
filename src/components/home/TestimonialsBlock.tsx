@@ -124,8 +124,8 @@ export default function TestimonialsBlock() {
                         <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-teal)]/80">
                             {active.role}
                         </p>
-                        <blockquote className="text-lg font-light leading-relaxed text-zinc-100 md:text-2xl">
-                            “{active.quote}”
+                        <blockquote className="whitespace-pre-line text-lg font-light leading-relaxed text-zinc-100 md:text-2xl">
+                            “{active.full ?? active.quote}”
                         </blockquote>
                         <p className="mt-6 text-sm font-semibold text-zinc-300">— {active.name}</p>
                     </div>
