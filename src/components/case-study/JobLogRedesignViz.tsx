@@ -387,7 +387,7 @@ export default function JobLogRedesignViz() {
  ].map((r, i) => (
  <m.div key={i} initial={{ opacity: 0, x: -6 }} animate={{
  opacity: 1, x: 0,
- backgroundColor: showModal && i === 2 ? 'var(--overlay-indigo-10)' : 'rgba(0,0,0,0)'
+ backgroundColor: showModal && i === 2 ? 'var(--overlay-indigo-10)' : 'rgba(var(--black-rgb),0)'
  }} transition={{ delay: 0.2 + i * 0.06, duration: DURATION.fast, ease }}
  className="grid grid-cols-[28px_1fr_90px_90px_56px] text-[11px] font-mono px-0 py-1.5 border-b border-white/[0.03] items-center">
  <span className="text-zinc-400">{r.n}</span>

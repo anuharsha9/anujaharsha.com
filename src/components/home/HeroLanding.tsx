@@ -130,7 +130,7 @@ export default function HeroLanding() {
 
                             {/* ROLE — title line, now sits directly under the name */}
                             <span
-                                className="hero-enter block text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+                                className="hero-enter block text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-6 drop-shadow-[0_1px_2px_rgba(var(--black-rgb),0.8)]"
                                 style={{ animationDelay: '0.18s' }}
                             >
                                 Staff Product Designer · Enterprise Data Platforms
@@ -165,7 +165,7 @@ export default function HeroLanding() {
                                 </div>
                                 <button
                                     onClick={scrollToWork}
-                                    className="group relative z-10 inline-flex h-full items-center justify-center gap-3 rounded-full border border-white bg-white px-8 sm:px-10 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
+                                    className="group relative z-10 inline-flex h-full items-center justify-center gap-3 rounded-full border border-white bg-white px-8 sm:px-10 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(var(--white-rgb),0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(var(--white-rgb),0.3)]"
                                 >
                                     <span>See the Work</span>
                                     <ArrowDown className="w-4 h-4 transition-transform duration-500 group-hover:translate-y-1" />

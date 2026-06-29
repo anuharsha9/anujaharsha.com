@@ -40,7 +40,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  transition={{ duration: DURATION.drift, ease }}
  >
  {eyebrow && (
- <span className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+ <span className="text-[var(--accent-teal)] font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.4em] mb-6 drop-shadow-[0_1px_2px_rgba(var(--black-rgb),0.8)]">
  {eyebrow}
  </span>
  )}

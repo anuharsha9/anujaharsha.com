@@ -490,7 +490,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         exit={{ opacity: 0 }}
                         transition={{ duration: DURATION.base }}
                     >
-                        <SlamText className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter text-center leading-none drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                        <SlamText className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter text-center leading-none drop-shadow-[0_0_20px_rgba(var(--white-rgb),0.2)]">
                             20M JOBS PROTECTED.
                         </SlamText>
                     </m.div>

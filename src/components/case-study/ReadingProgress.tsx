@@ -47,8 +47,8 @@ export default function ReadingProgress() {
  className="absolute top-0 left-0 bottom-0 right-0 origin-left"
  style={{ 
  scaleX, 
- background: 'linear-gradient(90deg, transparent 0%, rgba(6,182,212,0.5) 40%, rgba(139,92,246,0.9) 80%, rgba(255,255,255,1) 100%)',
- boxShadow: '0 0 12px rgba(139,92,246,0.6), 0 0 4px rgba(255,255,255,0.8)' 
+ background: 'linear-gradient(90deg, transparent 0%, rgba(6,182,212,0.5) 40%, rgba(139,92,246,0.9) 80%, rgba(var(--white-rgb),1) 100%)',
+ boxShadow: '0 0 12px rgba(139,92,246,0.6), 0 0 4px rgba(var(--white-rgb),0.8)' 
  }}
  >
  {/* The glowing "playhead" tip to simulate a comet head */}

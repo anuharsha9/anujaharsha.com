@@ -163,7 +163,7 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                             className="h-1.5 rounded-full transition-all"
                             style={{
                                 width: i === index ? 20 : 6,
-                                backgroundColor: i === index ? accent : 'rgba(255,255,255,0.2)',
+                                backgroundColor: i === index ? accent : 'rgba(var(--white-rgb),0.2)',
                             }}
                         />
                     ))}

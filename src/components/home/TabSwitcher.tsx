@@ -48,7 +48,7 @@ export default function TabSwitcher() {
             style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}
         >
             <div
-                className="relative inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-black/55 p-1 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-auto"
+                className="relative inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-black/55 p-1 shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl pointer-events-auto"
                 role="tablist"
                 aria-label="Work or Life view"
             >

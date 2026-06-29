@@ -113,8 +113,8 @@ export function Scene4Stitch({ progress }: { progress: number }) {
                 className="w-14 h-14 border border-white/10 flex items-center justify-center relative"
                 style={{
                   borderRadius: isReplaced ? '50%' : '8px',
-                  background: isEnhanced ? 'var(--accent-teal)' : 'rgba(255,255,255,0.02)',
-                  borderColor: isEnhanced ? 'var(--accent-teal-bright)' : 'rgba(255,255,255,0.1)',
+                  background: isEnhanced ? 'var(--accent-teal)' : 'rgba(var(--white-rgb),0.02)',
+                  borderColor: isEnhanced ? 'var(--accent-teal-bright)' : 'rgba(var(--white-rgb),0.1)',
                   boxShadow: isEnhanced ? '0 0 20px var(--accent-teal)' : 'none',
                   zIndex: (activeAction === 'REMOVE' && i === ACTIONS.REMOVE) || 
                           (activeAction === 'ENHANCE' && i === ACTIONS.ENHANCE) || 
@@ -145,10 +145,10 @@ export function Scene4Stitch({ progress }: { progress: number }) {
         <m.div
           className="absolute w-32 h-32 rounded-full border border-white/20 flex items-center justify-center z-20 pointer-events-none"
           style={{
-            background: 'radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at center, rgba(var(--white-rgb),0.1) 0%, transparent 70%)',
             backdropFilter: 'blur(4px) brightness(1.2)',
             WebkitBackdropFilter: 'blur(4px) brightness(1.2)',
-            boxShadow: '0 0 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1)',
+            boxShadow: '0 0 40px rgba(var(--black-rgb),0.5), inset 0 0 20px rgba(var(--white-rgb),0.1)',
             x: lensX,
             y: lensY,
           }}

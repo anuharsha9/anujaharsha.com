@@ -152,8 +152,8 @@
 
    /* ── BORDERS ───────────────────────────────── */
 
-   --border-primary: rgba(255, 255, 255, 0.08);
-   --border-subtle: rgba(255, 255, 255, 0.04);
+   --border-primary: rgba(var(--white-rgb), 0.08);
+   --border-subtle: rgba(var(--white-rgb), 0.04);
    --border-monitor: #333333;
 
 
@@ -166,10 +166,10 @@
 
    /* ── ELEVATION (SHADOWS) ───────────────────── */
 
-   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-   --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.4);
-   --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.5);
-   --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.6);
+   --shadow-sm: 0 2px 8px rgba(var(--black-rgb), 0.4);
+   --shadow-md: 0 8px 16px rgba(var(--black-rgb), 0.4);
+   --shadow-lg: 0 16px 32px rgba(var(--black-rgb), 0.5);
+   --shadow-xl: 0 24px 48px rgba(var(--black-rgb), 0.6);
 
 
 
@@ -270,13 +270,18 @@
 
    /* ── OVERLAYS (only actively used) ─────────── */
 
-   --overlay-white-02: rgba(255, 255, 255, 0.02);
-   --overlay-white-03: rgba(255, 255, 255, 0.03);
-   --overlay-white-05: rgba(255, 255, 255, 0.05);
-   --overlay-white-08: rgba(255, 255, 255, 0.08);
-   --overlay-white-10: rgba(255, 255, 255, 0.1);
-   --overlay-white-15: rgba(255, 255, 255, 0.15);
-   --overlay-white-20: rgba(255, 255, 255, 0.2);
+   /* Base channels for arbitrary-alpha white/black overlays (rgba(var(--white-rgb), α)).
+      The pre-baked --overlay-* below cover the common alphas. */
+   --white-rgb: 255, 255, 255;
+   --black-rgb: 0, 0, 0;
+
+   --overlay-white-02: rgba(var(--white-rgb), 0.02);
+   --overlay-white-03: rgba(var(--white-rgb), 0.03);
+   --overlay-white-05: rgba(var(--white-rgb), 0.05);
+   --overlay-white-08: rgba(var(--white-rgb), 0.08);
+   --overlay-white-10: rgba(var(--white-rgb), 0.1);
+   --overlay-white-15: rgba(var(--white-rgb), 0.15);
+   --overlay-white-20: rgba(var(--white-rgb), 0.2);
    --overlay-teal-core-12: rgba(0, 162, 183, 0.12);
 }
 

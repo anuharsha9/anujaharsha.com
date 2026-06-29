@@ -245,7 +245,7 @@ export default function PortfolioLightbox({ isOpen, onClose }: PortfolioLightbox
                                             className="h-1.5 rounded-full transition-all duration-500 block"
                                             style={{
                                                 width: i === currentIndex ? 24 : 8,
-                                                backgroundColor: i === currentIndex ? current.accent : 'rgba(255,255,255,0.15)',
+                                                backgroundColor: i === currentIndex ? current.accent : 'rgba(var(--white-rgb),0.15)',
                                             }}
                                         />
                                     </button>

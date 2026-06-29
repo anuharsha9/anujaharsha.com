@@ -178,7 +178,7 @@ export default function SystemLightbox({
                         >
                             <button
                                 onClick={onClose}
-                                className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.12] bg-black/55 text-white shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-colors duration-300 hover:border-white/30 hover:bg-black/75"
+                                className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.12] bg-black/55 text-white shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl transition-colors duration-300 hover:border-white/30 hover:bg-black/75"
                                 aria-label="Close"
                             >
                                 <X size={20} />
@@ -245,14 +245,14 @@ export default function SystemLightbox({
                                 <button
                                     onClick={onPrev}
                                     aria-label="Previous"
-                                    className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-black/55 border border-white/[0.12] backdrop-blur-xl rounded-full md:rounded-xl flex items-center justify-center text-zinc-300 hover:text-white hover:border-white/30 transition-all hover:scale-105 active:scale-95 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)]"
+                                    className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-black/55 border border-white/[0.12] backdrop-blur-xl rounded-full md:rounded-xl flex items-center justify-center text-zinc-300 hover:text-white hover:border-white/30 transition-all hover:scale-105 active:scale-95 shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)]"
                                 >
                                     <ArrowLeft className="w-5 h-5 md:w-7 md:h-7" />
                                 </button>
                                 <button
                                     onClick={onNext}
                                     aria-label="Next"
-                                    className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-black/55 border border-white/[0.12] backdrop-blur-xl rounded-full md:rounded-xl flex items-center justify-center text-zinc-300 hover:text-white hover:border-white/30 transition-all hover:scale-105 active:scale-95 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)]"
+                                    className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-black/55 border border-white/[0.12] backdrop-blur-xl rounded-full md:rounded-xl flex items-center justify-center text-zinc-300 hover:text-white hover:border-white/30 transition-all hover:scale-105 active:scale-95 shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)]"
                                 >
                                     <ArrowRight className="w-5 h-5 md:w-7 md:h-7" />
                                 </button>

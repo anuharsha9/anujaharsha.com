@@ -628,22 +628,22 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
 @keyframes center-text-appear-disappear {
   0% {
     opacity: 0;
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 0px rgba(var(--white-rgb), 0));
   }
 
   10% {
     opacity: 0.8;
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+    filter: drop-shadow(0 0 12px rgba(var(--white-rgb), 0.4));
   }
 
   75% {
     opacity: 0.8;
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+    filter: drop-shadow(0 0 12px rgba(var(--white-rgb), 0.4));
   }
 
   100% {
     opacity: 0;
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 0px rgba(var(--white-rgb), 0));
   }
 }
 
@@ -850,7 +850,7 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
   height: 100%;
   background: linear-gradient(90deg,
       var(--overlay-white-20) 0%,
-      rgba(255, 255, 255, 0.3) 50%,
+      rgba(var(--white-rgb), 0.3) 50%,
       var(--overlay-white-20) 100%);
   clip-path: inset(0 100% 0 0);
   transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1080,19 +1080,19 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
 /* Foreground lit gears — strong individual shadows + brightness pop */
 .brain-floating .gears-dark-theme #main-gears>.gear-lit {
   filter:
-    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)) grayscale(0%) brightness(1.1) !important;
+    drop-shadow(0 4px 8px rgba(var(--black-rgb), 0.5)) drop-shadow(0 1px 3px rgba(var(--black-rgb), 0.3)) grayscale(0%) brightness(1.1) !important;
   transition: filter 2s ease-out;
 }
 
 /* Foreground unlit gears — subtle shadow for depth layering */
 .brain-floating .gears-dark-theme #main-gears>[id*="gear-"]:not(.gear-lit) {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 4px rgba(var(--black-rgb), 0.4));
   transition: filter 2s ease-out, opacity 2s ease-out;
 }
 
 /* Background gears — softer, recessed shadow */
 .brain-floating .gears-dark-theme [id*="bg-gear-"] {
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 1px 3px rgba(var(--black-rgb), 0.3));
   opacity: 0.12;
   transition: filter 2s ease-out, opacity 2s ease-out;
 }
@@ -1431,13 +1431,13 @@ motion.div[data-visible="true"] {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--overlay-white-08);
   box-shadow:
-    0 4px 30px rgba(0, 0, 0, 0.1),
+    0 4px 30px rgba(var(--black-rgb), 0.1),
     inset 0 1px 0 var(--overlay-white-05);
 }
 
 .glass-card:hover {
   background: var(--overlay-white-05);
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(var(--white-rgb), 0.12);
 }
 
 /* ============================================
@@ -1518,9 +1518,9 @@ motion.div[data-visible="true"] {
   inset: 0;
   z-index: 9998;
   background: repeating-linear-gradient(0deg,
-      rgba(255, 255, 255, 0.015) 0px,
-      rgba(255, 255, 255, 0) 1px,
-      rgba(255, 255, 255, 0) 4px);
+      rgba(var(--white-rgb), 0.015) 0px,
+      rgba(var(--white-rgb), 0) 1px,
+      rgba(var(--white-rgb), 0) 4px);
   opacity: 1;
 }
 

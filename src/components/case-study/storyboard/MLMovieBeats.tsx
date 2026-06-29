@@ -734,7 +734,7 @@ export function MLBeatEntryPoint() {
  transition={{ duration: DURATION.deliberate, ease: 'easeInOut' }}
  className="absolute z-30 pointer-events-none"
  >
- <MousePointerClick className="w-5 h-5 text-white drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]" fill="white" />
+ <MousePointerClick className="w-5 h-5 text-white drop-shadow-[0_2px_8px_rgba(var(--white-rgb),0.3)]" fill="white" />
  </m.div>
  )}
  </AnimatePresence>
@@ -747,7 +747,7 @@ export function MLBeatEntryPoint() {
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.95 }}
  transition={{ duration: DURATION.fast, ease: 'easeOut' }}
- className="absolute top-[28%] left-[48%] w-48 rounded-lg border border-zinc-700 bg-zinc-900/98 shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden z-20 "
+ className="absolute top-[28%] left-[48%] w-48 rounded-lg border border-zinc-700 bg-zinc-900/98 shadow-[0_8px_32px_rgba(var(--black-rgb),0.6)] overflow-hidden z-20 "
  >
  {[
  { label: 'Open', icon: '📂' },
@@ -975,7 +975,7 @@ export function MLBeatBreakthrough() {
  <div key={label} className="flex items-center gap-1.5">
  <m.div
  animate={{
- backgroundColor: i <= activeStep ? 'rgba(59,130,246,0.5)' : 'rgba(255,255,255,0.06)',
+ backgroundColor: i <= activeStep ? 'rgba(59,130,246,0.5)' : 'rgba(var(--white-rgb),0.06)',
  scale: i === activeStep ? 1.15 : 1,
  }}
  transition={{ duration: DURATION.base }}
@@ -1678,10 +1678,10 @@ export function MLBeatValidation() {
  animate={{
  background: step >= 2 && i <= Math.min(step - 1, 3)
  ? 'rgba(16,185,129,0.15)'
- : 'rgba(255,255,255,0.02)',
+ : 'rgba(var(--white-rgb),0.02)',
  borderColor: step >= 2 && i <= Math.min(step - 1, 3)
  ? 'rgba(16,185,129,0.3)'
- : 'rgba(255,255,255,0.06)',
+ : 'rgba(var(--white-rgb),0.06)',
  }}
  transition={{ duration: DURATION.medium }}
  >

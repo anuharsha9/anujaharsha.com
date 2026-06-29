@@ -1200,7 +1200,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 transform: 'translateX(-50%)',
                 width: '42%',
                 height: '1.5%',
-                background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 15%, rgba(0, 0, 0, 0.4) 35%, rgba(0, 0, 0, 0.15) 55%, rgba(0, 0, 0, 0.04) 70%, transparent 82%)',
+                background: 'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(var(--black-rgb), 0.9) 0%, rgba(var(--black-rgb), 0.7) 15%, rgba(var(--black-rgb), 0.4) 35%, rgba(var(--black-rgb), 0.15) 55%, rgba(var(--black-rgb), 0.04) 70%, transparent 82%)',
                 filter: 'blur(10px)',
               }}
             />
@@ -1251,7 +1251,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                   className="w-full relative transition-[filter] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-10 pointer-events-auto"
                   style={{
                     filter: showImmersiveCompleteState
-                      ? 'drop-shadow(0 40px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3)) drop-shadow(0 -5px 15px rgba(255, 255, 255, 0.05))'
+                      ? 'drop-shadow(0 40px 60px rgba(var(--black-rgb), 0.5)) drop-shadow(0 15px 25px rgba(var(--black-rgb), 0.3)) drop-shadow(0 -5px 15px rgba(var(--white-rgb), 0.05))'
                       : 'none',
                   }}
                 >
@@ -1273,7 +1273,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                       exit={{ opacity: 0, scale: 0.9, y: "-60%" }}
                       transition={{ duration: DURATION.slow, ease: EASE_CINEMATIC }}
                     >
-                      <div className="text-white bg-black/50 backdrop-blur-xl border border-white/15 p-5 md:p-6 rounded-2xl shadow-[0_8px_60px_rgba(0,0,0,0.5),0_0_1px_rgba(255,255,255,0.1)] max-w-[420px] w-[90vw] relative overflow-hidden">
+                      <div className="text-white bg-black/50 backdrop-blur-xl border border-white/15 p-5 md:p-6 rounded-2xl shadow-[0_8px_60px_rgba(var(--black-rgb),0.5),0_0_1px_rgba(var(--white-rgb),0.1)] max-w-[420px] w-[90vw] relative overflow-hidden">
 
                         {/* Teal accent top border */}
                         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent-teal)] to-transparent opacity-60" />
@@ -1444,7 +1444,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 >
                   {/* The Cinematic Popover Card */}
                   <div
-                    className="pointer-events-auto p-6 w-[260px] xs:w-[300px] min-h-[100px] flex flex-col justify-center rounded-2xl backdrop-blur-2xl bg-[#031016]/40 shadow-[0_0_40px_-5px_rgba(45,212,191,0.15),inset_0_1px_1px_rgba(255,255,255,0.15)] relative overflow-hidden transition-all duration-300"
+                    className="pointer-events-auto p-6 w-[260px] xs:w-[300px] min-h-[100px] flex flex-col justify-center rounded-2xl backdrop-blur-2xl bg-[#031016]/40 shadow-[0_0_40px_-5px_rgba(45,212,191,0.15),inset_0_1px_1px_rgba(var(--white-rgb),0.15)] relative overflow-hidden transition-all duration-300"
                     data-gear-card
                     onMouseEnter={() => {
                       setIsCardHovered(true)

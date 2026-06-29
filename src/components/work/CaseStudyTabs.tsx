@@ -56,14 +56,14 @@ export default function CaseStudyTabs() {
                 onClick={() => navigateTo('/')}
                 aria-label="Back to home"
                 title="Home"
-                className="pointer-events-auto absolute left-4 inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/75 hover:text-white md:left-6 md:px-4 md:text-[11px]"
+                className="pointer-events-auto absolute left-4 inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-black/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/75 hover:text-white md:left-6 md:px-4 md:text-[11px]"
             >
                 <ArrowLeft className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Home</span>
             </button>
 
             <div
-                className="relative inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-black/55 p-1 shadow-[0_8px_32px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-auto"
+                className="relative inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-black/55 p-1 shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl pointer-events-auto"
                 role="tablist"
                 aria-label="Case study navigation"
             >

@@ -350,14 +350,26 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                         <BentoRow layout="50/50">
                                             <div>
                                                 <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">Legacy Workflow</p>
-                                                <VideoPlayer
-                                                    src={data.prototypeMedia.beforeAfter.before.videoUrl ?? ''}
-                                                    poster={data.prototypeMedia.beforeAfter.before.videoPoster}
-                                                    autoPlay={false}
-                                                    ariaLabel="ML Functions — legacy workflow"
-                                                    className="rounded-xl overflow-hidden aspect-[16/10] bg-black"
-                                                    videoClassName="object-contain"
-                                                />
+                                                {data.prototypeMedia.beforeAfter.before.videoEmbedUrl ? (
+                                                    <div className="rounded-xl overflow-hidden aspect-[16/10] bg-black">
+                                                        <iframe
+                                                            src={data.prototypeMedia.beforeAfter.before.videoEmbedUrl}
+                                                            title="ML Functions — legacy workflow"
+                                                            className="w-full h-full"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowFullScreen
+                                                        />
+                                                    </div>
+                                                ) : data.prototypeMedia.beforeAfter.before.videoUrl ? (
+                                                    <VideoPlayer
+                                                        src={data.prototypeMedia.beforeAfter.before.videoUrl}
+                                                        poster={data.prototypeMedia.beforeAfter.before.videoPoster}
+                                                        autoPlay={false}
+                                                        ariaLabel="ML Functions — legacy workflow"
+                                                        className="rounded-xl overflow-hidden aspect-[16/10] bg-black"
+                                                        videoClassName="object-contain"
+                                                    />
+                                                ) : null}
                                             </div>
                                             <div>
                                                 <p className="text-[10px] font-mono text-[var(--cs-accent)] uppercase tracking-widest mb-3">Redesigned Workflow</p>

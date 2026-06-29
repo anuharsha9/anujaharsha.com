@@ -63,7 +63,7 @@ export function Scene3Unified({ progress }: { progress: number }) {
                 x,
                 y,
                 opacity,
-                background: `color-mix(in srgb, ${tool.color} 8%, rgba(0,0,0,0.4))`,
+                background: `color-mix(in srgb, ${tool.color} 8%, rgba(var(--black-rgb),0.4))`,
                 borderColor: `color-mix(in srgb, ${tool.color} 30%, transparent)`,
                 boxShadow: `0 8px 32px color-mix(in srgb, ${tool.color} 10%, transparent)`,
                 backdropFilter: 'blur(12px)',

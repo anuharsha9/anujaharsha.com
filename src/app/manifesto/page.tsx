@@ -169,10 +169,10 @@ function Scene1Terminal({ progress }: { progress: number }) {
             <div
               className="rounded-xl border overflow-hidden"
               style={{
-                borderColor: 'rgba(255,255,255,0.08)',
+                borderColor: 'rgba(var(--white-rgb),0.08)',
                 background: phase === 2
-                  ? 'rgba(255,255,255,0.03)'
-                  : 'rgba(0,0,0,0.8)',
+                  ? 'rgba(var(--white-rgb),0.03)'
+                  : 'rgba(var(--black-rgb),0.8)',
                 backdropFilter: phase === 2 ? 'blur(20px)' : 'none',
                 WebkitBackdropFilter: phase === 2 ? 'blur(20px)' : 'none',
                 transition: 'all 1s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -699,7 +699,7 @@ function Scene4Archaeology({
             onChange={handleSliderChange}
             className="manifesto-slider w-full h-2 rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, var(--accent-teal-bright) ${sliderValue}%, rgba(255,255,255,0.08) ${sliderValue}%)`,
+              background: `linear-gradient(to right, var(--accent-teal-bright) ${sliderValue}%, rgba(var(--white-rgb),0.08) ${sliderValue}%)`,
             }}
           />
           <div className="flex justify-between mt-2 text-[10px] font-mono text-zinc-600">
@@ -824,7 +824,7 @@ function Scene5TechEdge({ progress }: { progress: number }) {
         <div 
           className="absolute inset-0 rounded-2xl bg-zinc-900 border border-white/5 overflow-hidden flex flex-col p-6 shadow-2xl"
           style={{
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+            background: 'linear-gradient(135deg, rgba(var(--white-rgb),0.05) 0%, rgba(var(--white-rgb),0.01) 100%)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             // The clip path creates the "wipe" effect from left to right.
@@ -934,7 +934,7 @@ function Scene6Closer({ progress }: { progress: number }) {
         >
           <Link
             href="/work/reportcaster"
-            className="px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+            className="px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(var(--white-rgb),0.3)]"
           >
             View Case Study
           </Link>
@@ -981,11 +981,11 @@ function PlaybackBar({
       <m.div
         className="flex items-center gap-4 sm:gap-6 px-4 sm:px-6 py-3 rounded-full"
         style={{
-          background: 'rgba(0, 0, 0, 0.6)',
+          background: 'rgba(var(--black-rgb), 0.6)',
           backdropFilter: 'blur(24px) saturate(1.4)',
           WebkitBackdropFilter: 'blur(24px) saturate(1.4)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+          border: '1px solid rgba(var(--white-rgb),0.08)',
+          boxShadow: '0 16px 48px rgba(var(--black-rgb),0.5)',
         }}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -1127,10 +1127,10 @@ export default function ManifestoPage() {
           href="/"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono text-zinc-400 uppercase tracking-widest transition-all duration-300 hover:text-white hover:bg-white/10"
           style={{
-            background: 'rgba(255,255,255,0.04)',
+            background: 'rgba(var(--white-rgb),0.04)',
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            border: '1px solid rgba(var(--white-rgb),0.08)',
           }}
         >
           <ArrowLeft className="w-3 h-3" />
@@ -1252,7 +1252,7 @@ export default function ManifestoPage() {
           height: 20px;
           border-radius: 50%;
           background: var(--accent-teal-bright);
-          border: 2px solid rgba(255,255,255,0.3);
+          border: 2px solid rgba(var(--white-rgb),0.3);
           box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
           cursor: pointer;
           transition: transform 0.2s, box-shadow 0.2s;
@@ -1266,7 +1266,7 @@ export default function ManifestoPage() {
           height: 20px;
           border-radius: 50%;
           background: var(--accent-teal-bright);
-          border: 2px solid rgba(255,255,255,0.3);
+          border: 2px solid rgba(var(--white-rgb),0.3);
           box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
           cursor: pointer;
         }
@@ -1280,7 +1280,7 @@ export default function ManifestoPage() {
           border-radius: 50%;
           background: white;
           border: none;
-          box-shadow: 0 0 8px rgba(255,255,255,0.3);
+          box-shadow: 0 0 8px rgba(var(--white-rgb),0.3);
           cursor: pointer;
         }
         .manifesto-scrubber::-moz-range-thumb {

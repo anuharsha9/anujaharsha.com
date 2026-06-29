@@ -15,8 +15,8 @@ export default function SectionSkeleton({ height = '100dvh', text = 'LOADING MOD
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255,255,255,1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,1) 1px, transparent 1px)
+            linear-gradient(to right, rgba(var(--white-rgb),1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(var(--white-rgb),1) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px'
         }}
