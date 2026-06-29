@@ -169,6 +169,12 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
      because the Lenis scroll container can sit above body. */
   html {
     overflow-x: clip;
+    /* Opaque dark backdrop on the root element. It sits behind the fixed aurora
+       layer, so there's no visual change on screen — but it gives axe-core /
+       Lighthouse a real background to composite. Without it, the transparent
+       body makes automated contrast checks assume a white page and false-fail
+       on light-on-dark text. */
+    background-color: var(--bg-cinematic);
   }
 
   body {

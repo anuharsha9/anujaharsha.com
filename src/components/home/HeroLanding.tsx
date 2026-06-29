@@ -120,10 +120,12 @@ export default function HeroLanding() {
                                 transition={{ duration: 1.2, delay: 0.1, ease }}
                             >
                                 <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
-                                {/* Easter-egg door — clicking the name opens the brain experience. No label; reward for curiosity. */}
+                                {/* Easter-egg door — clicking the name opens the brain experience.
+                                    aria-label leads with the visible name "Anuja" so it satisfies
+                                    WCAG 2.5.3 (Label in Name) while keeping the curiosity hint. */}
                                 <button
                                     onClick={() => navigateTo('/quiz')}
-                                    aria-label="Hidden — explore my mind"
+                                    aria-label="Anuja — explore my mind"
                                     title="There is more here…"
                                     className="group relative inline-block pointer-events-auto cursor-pointer rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                                 >

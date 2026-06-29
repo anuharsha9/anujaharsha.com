@@ -3,7 +3,6 @@
  * 
  * Provides theme-aware Tailwind class strings and layout helpers.
  * All color values reference CSS custom properties from tokens.css.
- * Motion presets live in /src/lib/motion.ts
  */
 
 // =============================================================================

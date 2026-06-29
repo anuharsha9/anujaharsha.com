@@ -62,7 +62,7 @@ function LifeHero() {
                         {/* Easter-egg door — same hidden brain-experience hook as the Work hero's "Anuja." */}
                         <button
                             onClick={() => navigateTo('/quiz')}
-                            aria-label="Hidden — explore my mind"
+                            aria-label="terminal — explore my mind"
                             title="There is more here…"
                             className="group relative inline-block pointer-events-auto cursor-pointer rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                         >
