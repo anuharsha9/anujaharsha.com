@@ -664,43 +664,6 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     </div>
                 </m.div>
 
-                {/* ═══ Figma Config Pitch — In My Own Words ═══ */}
-                <m.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative w-full max-w-4xl mx-auto px-6 md:px-16 py-16 md:py-24"
-                >
-                    <div className="text-center mb-10">
-                        <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em] block mb-3">Figma Config Pitch</span>
-                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">In My Own Words</h3>
-                        <p className="text-sm text-zinc-500 font-light italic max-w-lg mx-auto">
-                            Recorded 3 days after leaving CSG. 5 AM. 100 takes. This was the one.
-                        </p>
-                    </div>
-
-                    <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm">
-                        <VideoPlayer
-                            src="/videos/figma-config-pitch.mp4"
-                            autoPlay={false}
-                            ariaLabel="Figma Config pitch"
-                            className="aspect-video bg-black"
-                            videoClassName="object-contain"
-                        />
-                    </div>
-
-                    <m.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className="text-center mt-6 text-sm text-zinc-600 font-light italic"
-                    >
-                        &ldquo;Collaboration doesn&apos;t just transform products, it transforms people.&rdquo;
-                    </m.p>
-                </m.div>
-
                 {/* ═══ Next Case Study ═══ */}
                 <SystemIndex currentId="REPORTCASTER" />
             </div>

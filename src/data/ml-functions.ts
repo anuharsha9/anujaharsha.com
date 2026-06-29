@@ -438,7 +438,6 @@ What a mind-bending project.`,
         title: 'Legacy ML Workflow',
         // Public YouTube video - old workflow is public (still current, new workflow hasn't launched yet)
         videoEmbedUrl: 'https://www.youtube.com/embed/VWxMJ0E5aL0', // Public demo of current ML Functions UI
-        videoUrl: '/videos/ml-old-workflow.mp4', // Fallback if videoEmbedUrl not provided
         videoPoster: '/images/case-study/ml-functions/Legacy Train Model UI.png',
         description: 'The old fragmented workflow: 4+ step path, drag model pill onto data flow, configure in popup, hidden hyperparameters, confusing "results not generated" errors.',
       },

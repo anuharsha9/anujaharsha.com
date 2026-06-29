@@ -88,8 +88,7 @@ export const CAREER_DATA: CareerEra[] = [
                 description: "a word game created with agentic AI.",
                 image: "/images/wordu-cover.png",
                 link: "/work/wordu",
-                tags: ["Game Design", "React"],
-                video: "/videos/wordu-demo.mp4"
+                tags: ["Game Design", "React"]
             }
         ],
         milestones: []

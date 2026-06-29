@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'Anu Harsha | Design Manifesto',
     description: 'Untangling 50 years of tech debt. See how I compartmentalize and redesign enterprise systems for zero friction.',
     type: 'website',
-    images: ['/images/manifesto-og.png'],
+    images: ['/opengraph-image'],
   },
 }
 
