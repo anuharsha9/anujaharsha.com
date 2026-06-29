@@ -123,6 +123,35 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
   }
 }
 
+/* ── Hero entrance — CSS-driven on purpose ──
+   The hero headline is the LCP element. Running its blur-to-focus reveal in CSS
+   (instead of framer-motion) means it paints on the FIRST frame rather than
+   waiting for the JS bundle to download + hydrate — which was pushing mobile
+   LCP to ~13s.
+
+   IMPORTANT: we deliberately do NOT animate opacity from 0. Chrome excludes
+   any element that fades in from opacity:0 from LCP consideration — which would
+   make the hero text LCP-ineligible and hand LCP to a late-hydrating element.
+   So the text stays fully opaque and only blur + translateY animate ("rise into
+   focus"). Transforms/filter only ⇒ CLS stays 0 and the hero is LCP-eligible at
+   first paint. */
+@keyframes heroEnter {
+  from { transform: translateY(20px); filter: blur(12px); }
+  to   { transform: translateY(0);    filter: blur(0); }
+}
+
+.hero-enter {
+  /* Blur-to-focus "rise". Runs in CSS (not framer-motion) so the hero paints on
+     the first frame instead of waiting for the JS bundle to hydrate — a real
+     win on slow devices. Opacity stays 1 (LCP-eligible); only transform + filter
+     animate, so CLS stays 0. */
+  animation: heroEnter 1.1s cubic-bezier(0.05, 0.7, 0.1, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter { animation: none; }
+}
+
 /* Floating animation for laptop/hero images - combined with scale */
 /* Scale is applied via CSS variable to combine with translateY */
 @keyframes float {

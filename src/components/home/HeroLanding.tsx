@@ -13,12 +13,6 @@ import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 
-/**
- * Cinematic easing — extremely long deceleration tail.
- * Content drifts into its final position like it was always meant to be there.
- */
-const ease = [0.05, 0.7, 0.1, 1] as [number, number, number, number]
-
 export default function HeroLanding() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { navigateTo } = useTransition()
@@ -96,11 +90,8 @@ export default function HeroLanding() {
                     >
                         <div className="flex flex-col items-center text-center max-w-4xl">
                             {/* ANIMATED SIGNATURE — brandmark, draws itself on load. Centered above the eyebrow. */}
-                            <m.div
-                                className="mb-5 h-16 w-[3.4rem] text-white/90 sm:mb-6 md:h-20 md:w-[4.25rem]"
-                                initial={{ opacity: 0, y: 8, filter: 'blur(8px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 1, ease }}
+                            <div
+                                className="hero-enter mb-5 h-16 w-[3.4rem] text-white/90 sm:mb-6 md:h-20 md:w-[4.25rem]"
                                 aria-hidden="true"
                             >
                                 <AnimatedSignatureLogo
@@ -108,16 +99,14 @@ export default function HeroLanding() {
                                     duration={3600}
                                     pauseDuration={3000}
                                 />
-                            </m.div>
+                            </div>
 
                             {/* MAIN HEADLINE — slowest, most dramatic reveal. The name
                                 leads; the role line sits directly under it (Anuja's call:
                                 "it fits better visually"). */}
-                            <m.h1
-                                className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-4"
-                                initial={{ opacity: 0, y: 24, scale: 0.96, filter: 'blur(14px)' }}
-                                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-                                transition={{ duration: 1.2, delay: 0.1, ease }}
+                            <h1
+                                className="hero-enter text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-4"
+                                style={{ animationDelay: '0.1s' }}
                             >
                                 <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>
                                 {/* Easter-egg door — clicking the name opens the brain experience.
@@ -137,35 +126,29 @@ export default function HeroLanding() {
                                         <InterlockedGearGlyph size={28} />
                                     </span>
                                 </button>
-                            </m.h1>
+                            </h1>
 
                             {/* ROLE — title line, now sits directly under the name */}
-                            <m.span
-                                className="text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-                                initial={{ opacity: 0, y: 12, filter: 'blur(10px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 1, delay: 0.18, ease }}
+                            <span
+                                className="hero-enter block text-[var(--accent-teal)] font-mono text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] mb-6 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+                                style={{ animationDelay: '0.18s' }}
                             >
                                 Staff Product Designer · Enterprise Data Platforms
-                            </m.span>
+                            </span>
 
                             {/* SUBTITLE — positioning + credibility */}
-                            <m.p
-                                className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
-                                initial={{ opacity: 0, y: 16, filter: 'blur(12px)' }}
-                                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                transition={{ duration: 1.2, delay: 0.2, ease }}
+                            <p
+                                className="hero-enter text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
+                                style={{ animationDelay: '0.2s' }}
                             >
                                 I make the most powerful tool in the building — the one nobody likes to use — obvious. 13 years in product design, the last decade in enterprise systems — most recently leading the modernization of a 50-year-old BI platform that helped renew a multi-million-dollar contract.
-                            </m.p>
+                            </p>
                         </div>
 
                         {/* CTAs — primary (work) + secondary (resume) */}
-                        <m.div
-                            className="mt-8 md:mt-10 flex flex-col items-center gap-4 pointer-events-auto sm:flex-row sm:justify-center sm:gap-5"
-                            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
-                            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                            transition={{ duration: 1.2, delay: 0.3, ease }}
+                        <div
+                            className="hero-enter mt-8 md:mt-10 flex flex-col items-center gap-4 pointer-events-auto sm:flex-row sm:justify-center sm:gap-5"
+                            style={{ animationDelay: '0.3s' }}
                         >
                             <div className="relative h-12 sm:h-14">
                                 {/* Outer glow ring — scales out as the hero exits */}
@@ -198,7 +181,7 @@ export default function HeroLanding() {
                                 <FileText className="w-4 h-4" />
                                 <span>Resume</span>
                             </button>
-                        </m.div>
+                        </div>
 
                     </m.div>
                 </m.div>

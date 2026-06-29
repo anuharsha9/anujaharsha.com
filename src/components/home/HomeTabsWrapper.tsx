@@ -30,14 +30,11 @@ export default function HomeTabsWrapper({ children }: { children: React.ReactNod
                     </Suspense>
                 </m.div>
             ) : (
-                <m.div
-                    key="work"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.45, ease }}
-                >
-                    {children}
-                </m.div>
+                /* Work is the default landing — render it immediately, with NO
+                   opacity gate. A JS-driven fade here held the whole page (hero
+                   included) invisible until hydration, which tanked mobile LCP.
+                   The Life tab is reached by a deliberate click, so its fade stays. */
+                <div key="work">{children}</div>
             )}
         </div>
     )
