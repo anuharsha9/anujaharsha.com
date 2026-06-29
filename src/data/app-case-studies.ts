@@ -52,14 +52,14 @@ export interface AppCaseStudy {
         video?: string      // '/videos/walkthroughs/pathwise-feature-a.mp4' (loops; image is the poster)
     }[]
 
-    /* "Request a demo" CTA (Sous) — a native app you can't just open in a
-     * browser. When set, the "See it run" section shows the demo reel (videoSrc,
-     * landscape) or a "reel coming" placeholder, plus a request button:
-     *   testflightUrl present → "Get it on TestFlight" (external)
-     *   else                  → "Request a demo" (mailto)
-     * `note` explains the bring-your-own-API-key model. */
+    /* App CTA (Sous) — a native app you can't just open in a browser. When set,
+     * the "See it run" section shows the demo reel (videoSrc, landscape) or a
+     * "reel coming" placeholder, plus the App Store CTA:
+     *   appStoreUrl present → "Get it on the App Store" (external link)
+     *   else                → "Coming to the App Store" (non-link status, no dead link)
+     * `note` is a short line under the reel. */
     requestDemo?: {
-        testflightUrl?: string
+        appStoreUrl?: string
         note?: string
     }
 
@@ -182,14 +182,14 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         stack: ['Expo + React Native', 'Claude Opus 4.8', 'Gemini Live', 'NativeWind', 'TypeScript (strict)', 'expo-file-system', 'Jest + Maestro'],
         /* Native iOS — can't run in a browser. "See it run" shows the on-camera
          * demo reel (videoSrc, landscape) once recorded; until then a themed
-         * "reel coming" placeholder. Plus a request-demo CTA — you get it on
-         * TestFlight and bring your own API key. (Add videoSrc when the reel
-         * lands; add requestDemo.testflightUrl when the build is invitable.) */
+         * "reel coming" placeholder. Plus the App Store CTA. (Add videoSrc when
+         * the reel lands; set requestDemo.appStoreUrl once Apple approves the
+         * listing — until then the CTA reads "Coming to the App Store".) */
         requestDemo: {
-            note: 'Native iOS. Download it on your iPhone via TestFlight and bring your own API key to run it.',
+            note: 'Native iOS, built in Expo. Launching free on the App Store.',
         },
         status: 'in-development',
-        statusLabel: 'Native iOS · demo reel + TestFlight',
+        statusLabel: 'Native iOS · coming to the App Store',
     },
 
     'warden': {

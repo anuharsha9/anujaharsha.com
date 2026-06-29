@@ -54,7 +54,7 @@ export default function AppCaseStudyLightbox({
     /* "See it run" — the demo surface. Per Anuja it sits UP TOP (right under the
        hero), with the written detail below. Priority:
          A. walkthrough → narrated WalkthroughPlayer + Open Live Demo below
-         B. requestDemo → demo reel (or "reel soon") + Request-demo CTA (Sous)
+         B. requestDemo → demo reel (or "reel soon") + App Store CTA (Sous)
          C. playRoute → cover + Play button
          D. demoUrl → Open Live Demo button
          E. none → nothing */
@@ -112,15 +112,22 @@ export default function AppCaseStudyLightbox({
             )}
 
             <div className="mt-5">
-                <Button
-                    variant="primary"
-                    href={study.requestDemo.testflightUrl || 'mailto:anu.anuja@outlook.com?subject=Sous%20TestFlight%20access'}
-                    external
-                    icon={<Smartphone className="h-4 w-4" />}
-                    className="w-full sm:w-auto"
-                >
-                    {study.requestDemo.testflightUrl ? 'Get it on TestFlight' : 'Request a demo'}
-                </Button>
+                {study.requestDemo.appStoreUrl ? (
+                    <Button
+                        variant="primary"
+                        href={study.requestDemo.appStoreUrl}
+                        external
+                        icon={<Smartphone className="h-4 w-4" />}
+                        className="w-full sm:w-auto"
+                    >
+                        Get it on the App Store
+                    </Button>
+                ) : (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-zinc-300">
+                        <Smartphone className="h-4 w-4" style={{ color: study.accent }} />
+                        Coming to the App Store
+                    </span>
+                )}
             </div>
         </div>
     ) : study.playRoute ? (
