@@ -42,8 +42,9 @@ export default function URLHashSync() {
       return // Don't clear hash or scroll to top
     }
 
-    // No hash - always start at top on initial load
-    window.history.replaceState(null, '', window.location.pathname)
+    // No hash - always start at top on initial load. Keep the query string
+    // (e.g. ?tab=life) so deep-links to the Life tab survive — only clear the hash.
+    window.history.replaceState(null, '', window.location.pathname + window.location.search)
     window.scrollTo({ top: 0, behavior: 'instant' })
 
     let scrollTimeout: NodeJS.Timeout | null = null
@@ -57,7 +58,8 @@ export default function URLHashSync() {
       if (window.scrollY < 100) {
         // If we're at the top, clear hash or set to empty
         if (window.location.hash) {
-          window.history.replaceState(null, '', window.location.pathname)
+          // Keep the query string (e.g. ?tab=life) — only the section hash is cleared.
+      window.history.replaceState(null, '', window.location.pathname + window.location.search)
         }
         return
       }

@@ -137,7 +137,7 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  transition={{ duration: DURATION.slower, delay: 0.1, ease }}
  >
  <TransitionLink
- href="/me"
+ href="/?tab=life"
  className="group relative block rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden transition-all duration-500 hover:border-white/[0.15] hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-black/30 p-8 md:p-10 text-center"
  >
  <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">

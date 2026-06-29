@@ -36,8 +36,11 @@ export const metadata: Metadata = {
     description:
       'Staff Product Designer. 13+ years making complex enterprise software usable. AI-native design, code prototyping. Open to work.',
   },
+  // /me redirects to the Life tab — keep it out of the index so crawlers
+  // consolidate on the home page instead of a duplicate personal surface.
+  robots: { index: false, follow: true },
   alternates: {
-    canonical: `${siteUrl}/me/`,
+    canonical: siteUrl,
   },
 }
 

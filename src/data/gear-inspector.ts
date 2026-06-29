@@ -29,7 +29,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-scattered-workflows": {
     id: "gear-scattered-workflows",
     thought: "I bridged the gap. I stopped waiting for developer handoffs and built this site to prove I can ship production code.",
-    link: "/me",
+    link: "/?tab=life",
     linkLabel: "See My Tech Stack",
     accentColor: "#0BA2B5",
     caseStudy: "me",
@@ -49,7 +49,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-legacy-systems": {
     id: "gear-legacy-systems",
     thought: "Digital Native. I mastered Pixel Logic (MS Paint) in Grade 2 and Vector Logic (CorelDRAW) in Grade 5. Design is my native language.",
-    link: "/me",
+    link: "/?tab=life",
     linkLabel: "See My Origin",
     accentColor: "#22D3EE",
     caseStudy: "me",
@@ -69,7 +69,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-hidden-features": {
     id: "gear-hidden-features",
     thought: "The Polymath. Violin taught me rhythm. Logic taught me structure. Design organizes the chaos.",
-    link: "/me",
+    link: "/?tab=life",
     linkLabel: "See My Story",
     accentColor: "#8B5CF6", // Violet
     caseStudy: "me",
@@ -169,7 +169,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-motherhood": {
     id: "gear-motherhood",
     thought: "Elite Focus. Managing a household and career taught me to respect time. I don't grind; I orbit efficiently.",
-    link: "/me",
+    link: "/?tab=life",
     linkLabel: "See My Philosophy",
     accentColor: "#06B6D4",
     caseStudy: "me",
@@ -209,7 +209,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-life": {
     id: "gear-life",
     thought: "The Human Algorithm. I design for the neural networks of the users who use my tools, not just for screens.",
-    link: "/me",
+    link: "/?tab=life",
     linkLabel: "See My Core",
     accentColor: "#67E8F9",
     caseStudy: "me",

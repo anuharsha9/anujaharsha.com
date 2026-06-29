@@ -221,7 +221,7 @@ export default function MobileMenu({ isLightBackground = false }: MobileMenuProp
                   </button>
 
                   <TransitionLink
-                    href="/me"
+                    href="/?tab=life"
                     onClick={closeMenu}
                     className={`block px-6 py-4 rounded-lg text-lg font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${t.text} hover:${t.bgAccent} hover:text-[var(--accent-teal)] focus-visible:outline-slate-900`}
                   >

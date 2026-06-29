@@ -130,7 +130,7 @@ export default function SiteHeader() {
             {/* Me */}
             <Magnetic>
               <TransitionLink
-                href="/me"
+                href="/?tab=life"
                 className={`block font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors relative px-2 py-1 ${isAboutPage
                   ? 'text-[var(--accent-teal)]'
                   : isLandingPage ? 'text-zinc-400 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`
