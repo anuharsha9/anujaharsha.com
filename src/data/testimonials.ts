@@ -31,13 +31,9 @@ export const TESTIMONIALS: Testimonial[] = [
         role: 'VP of Product Management',
         pull: 'A rare combination of strategy and design intuition.',
         quote: 'She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams. Any team would be lucky to have her.',
-        full: `I had the pleasure of working with Anuja during her time at Cloud Software Group, where she made a significant impact modernizing UX across our legacy enterprise products. She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams.
+        full: `I had the pleasure of working with Anuja at Cloud Software Group, where she made a significant impact modernizing UX across our legacy enterprise products. She brings a rare combination of strategic thinking, design intuition, and the ability to work seamlessly across product, engineering, and business teams.
 
-Anuja is bold in her ideas and consistently proactive in turning complex problems into practical, user-centered solutions. One example was her leadership in reshaping a decade-old workflow: she facilitated discovery sessions, aligned engineering and product teams around a phased approach, and delivered a design strategy that both improved usability and reduced operational risk for customers.
-
-What sets her apart is her empathy and cross-functional fluency. She listens deeply, challenges with purpose, and ensures design decisions are grounded in user value and business outcomes. She quickly earned the trust of stakeholders at all levels and elevated the quality of decisions and execution around her.
-
-In short, Anuja is a standout design leader who brings clarity, collaboration, and strategic impact to every project. Any team would be lucky to have her.`,
+What sets her apart is her empathy and cross-functional fluency — she listens deeply, challenges with purpose, and quickly earned the trust of stakeholders at all levels. In short, Anuja is a standout design leader who brings clarity, collaboration, and strategic impact to every project. Any team would be lucky to have her.`,
         source: 'csg',
     },
     {
