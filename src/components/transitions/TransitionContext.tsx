@@ -21,11 +21,13 @@ export function useTransition() {
 
 /* ── Oceanic wave easing ──────────────────────────────────
  *
- *   SURGE   = 1600ms — deep-water swell gathering and crashing
+ *   SURGE   = 900ms — deep-water swell gathering and crashing
  *   HOLD    = imperceptible route swap
- *   RETREAT = 2200ms — gravity drains the water mass back
+ *   RETREAT = 600ms — gravity drains the water mass back
  *
- *   Total cycle: ~3.8 seconds. Heavy, tidal, oceanic.
+ *   Total cycle: ~1.5 seconds. Brisk but still tidal — fast enough
+ *   that recruiters clicking through never wait on the chrome.
+ *   (Reduced-motion users skip the wash entirely — see navigateTo.)
  *
  *   Asymmetric motion — like REAL ocean waves:
  *   - Surge: slow build (0–40%) → gathering momentum (40–80%) → decelerates at peak
@@ -139,7 +141,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(1400, easeRetreat, () => {
+    animateWith(600, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
@@ -193,16 +195,27 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     }
 
     if (navLock.current || normalizePath(targetHref) === normalizePath(pathnameRef.current)) return
+
+    // Respect prefers-reduced-motion: skip the tidal-wash entirely and just
+    // navigate. (The wave runs on a raw canvas/rAF pipeline that MotionConfig
+    // can't reach, so it must be guarded here directly.)
+    const prefersReduced = typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) {
+      router.push(targetHref, { scroll: true })
+      return
+    }
+
     navLock.current = true
-    
-    // Global failsafe: clear lock and force transition completion after 4.5s to prevent infinite deadlocks
+
+    // Global failsafe: clear lock and force transition completion to prevent infinite deadlocks
     if (lockTimeoutRef.current) clearTimeout(lockTimeoutRef.current)
     lockTimeoutRef.current = setTimeout(() => {
         navLock.current = false
         if (phaseRef.current === 'submerge' || phaseRef.current === 'hold') {
             startEmerge()
         }
-    }, 4500)
+    }, 2500)
 
     pendingHref.current = targetHref
 
@@ -217,7 +230,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'submerge' } }))
 
-    // 3) Push router when the wave is near the peak and content is fully black (at 1900ms)
+    // 3) Push router when the wave is near the peak and content is fully black (at 700ms / ~78% of surge)
     setTimeout(() => {
       if (phaseRef.current !== 'submerge') return
       sessionStorage.setItem('transition_pending', 'true')
@@ -226,9 +239,9 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       }).catch(err => {
         console.error('[TransitionContext] router.push threw error:', err)
       })
-    }, 1900)
+    }, 700)
 
-    animateWith(2500, easeSurge, () => {
+    animateWith(900, easeSurge, () => {
       // The instant the surging wave hits its peak, gravity takes over.
       if (normalizePath(pathnameRef.current) === normalizePath(pendingHref.current || '')) {
         // NO HOLD PHASE. A physical wave never pauses gracefully in mid-air.

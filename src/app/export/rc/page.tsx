@@ -1,10 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import { reportcasterCaseStudy } from '@/data/reportcaster'
 
 import RCFullContent from '@/components/case-study-experiment/RCFullContent'
 
 export default function RCExportPage() {
+    /* Print-only PDF-export artifact — 404 in production so it never ships as a
+     * nav-less, duplicate-content page; available in dev for the capture script.
+     * Page-level guard because output:'export' ignores notFound() in a layout. */
+    if (process.env.NODE_ENV === 'production') notFound()
     const data = reportcasterCaseStudy;
 
     return (

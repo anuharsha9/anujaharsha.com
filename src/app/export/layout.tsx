@@ -1,4 +1,13 @@
+import { notFound } from 'next/navigation'
+
 export default function ExportLayout({ children }: { children: React.ReactNode }) {
+  /* Print-only PDF-export artifacts for the local capture script. They must
+   * never ship to production — at `next build` NODE_ENV is 'production', so
+   * these routes 404 and aren't generated (no nav-less orphan pages live, no
+   * duplicate-content SEO hit). Available in dev for the capture tooling. */
+  if (process.env.NODE_ENV === 'production') {
+    notFound()
+  }
   return (
     <div className="bg-[#02080a] min-h-screen text-white font-sans print:bg-[#02080a] print:text-white pb-20">
       <style dangerouslySetInnerHTML={{ __html: `

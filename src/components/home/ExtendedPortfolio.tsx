@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 
@@ -72,6 +72,16 @@ export default function ExtendedPortfolio() {
     const closeSlideshow = useCallback(() => setSlideshow(null), []) // back to the grid
     const goNext = useCallback(() => setSlideshow(prev => prev ? { ...prev, index: Math.min(prev.index + 1, prev.images.length - 1) } : null), [])
     const goPrev = useCallback(() => setSlideshow(prev => prev ? { ...prev, index: Math.max(prev.index - 1, 0) } : null), [])
+
+    /* Deep-link: the case-study SystemIndex "Earlier Work" card navigates to
+       /#extended-portfolio — open the archive grid directly on arrival so the
+       card delivers the content it promises instead of dropping the user on a
+       quiet footer button (no loose end). */
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.location.hash === '#extended-portfolio') {
+            setGridOpen(true)
+        }
+    }, [])
 
     return (
         <>

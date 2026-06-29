@@ -20,14 +20,6 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
       name: 'Anuja Harsha Nimmagadda',
       url: siteUrl,
     },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteUrl}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
   })
 
   const getPersonSchema = () => ({
@@ -44,7 +36,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     sameAs: [
       'https://www.linkedin.com/in/anu159',
       'https://medium.com/@anujaharsha',
-      'https://adplist.org/mentors/anuja-harsha',
+      'https://adplist.org/mentors/anuja-harsha-nimmagadda',
     ],
     knowsAbout: [
       // Growing role capabilities (Shift UX 2026)
@@ -117,7 +109,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
       sameAs: [
         'https://www.linkedin.com/in/anu159',
         'https://medium.com/@anujaharsha',
-        'https://adplist.org/mentors/anuja-harsha',
+        'https://adplist.org/mentors/anuja-harsha-nimmagadda',
       ],
     },
   })

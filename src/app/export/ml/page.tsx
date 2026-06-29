@@ -1,10 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import { mlFunctionsCaseStudy } from '@/data/ml-functions'
 
 import MLFullContent from '@/components/case-study-experiment/MLFullContent'
 
 export default function MLExportPage() {
+    /* Print-only PDF-export artifact — 404 in production so it never ships as a
+     * nav-less, duplicate-content page; available in dev for the capture script.
+     * Page-level guard because output:'export' ignores notFound() in a layout. */
+    if (process.env.NODE_ENV === 'production') notFound()
     const data = mlFunctionsCaseStudy;
 
     return (

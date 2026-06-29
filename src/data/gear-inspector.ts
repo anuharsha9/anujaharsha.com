@@ -89,7 +89,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-fragmented-ui": {
     id: "gear-fragmented-ui",
     thought: "System Archaeologist. I map fragmented, undocumented legacy subsystems and unify them into coherent platforms.",
-    link: "/work/reportcaster#section-04",
+    link: "/work/reportcaster#act-iv",
     linkLabel: "See the Unification",
     accentColor: "#0BA2B5",
     caseStudy: "reportcaster",
@@ -109,7 +109,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-missing-briefs": {
     id: "gear-missing-briefs",
     thought: "Fearless Adapter. Drop me in. I didn't know Machine Learning, so I embedded with Data Scientists and got MIT Certified.",
-    link: "/work/ml-functions#section-02",
+    link: "/work/ml-functions#act-2-investigation",
     linkLabel: "See the Certification",
     accentColor: "#0BA2B5",
     caseStudy: "ml-functions",
@@ -129,7 +129,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-conflicting-teams": {
     id: "gear-conflicting-teams",
     thought: "Alignment Architect. I use high-fidelity prototypes to bridge the gap between Product, Engineering, and Design.",
-    link: "/work/ml-functions#section-05",
+    link: "/work/ml-functions#act-5-team",
     linkLabel: "See the Alignment",
     accentColor: "#0BA2B5",
     caseStudy: "ml-functions",
@@ -149,7 +149,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-shifting-priorities": {
     id: "gear-shifting-priorities",
     thought: "Strategic Debt. I know when to ship a 'hack' to unblock revenue and when to fight for a refactor. Speed matters.",
-    link: "/work/reportcaster#section-04",
+    link: "/work/reportcaster#act-iv",
     linkLabel: "See the Strategy",
     accentColor: "#0EA5E9",
     caseStudy: "reportcaster",
@@ -189,7 +189,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
   "gear-career-ambition": {
     id: "gear-career-ambition",
     thought: "Consistency at scale. I ensure one component deployed everywhere behaves identically across 50+ squads.",
-    link: "/work/iq-plugin#section-03",
+    link: "/work/iq-plugin#act-3-architecture",
     linkLabel: "See the System",
     accentColor: "#8B5CF6", // Violet
     caseStudy: "iq-plugin",

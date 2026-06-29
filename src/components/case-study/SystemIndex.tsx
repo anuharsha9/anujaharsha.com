@@ -123,9 +123,9 @@ export default function SystemIndex({ currentId }: SystemIndexProps) {
  <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
  <Home className="w-6 h-6 text-zinc-400 group-hover:text-zinc-200 transition-colors" />
  </div>
- <h3 className="text-lg md:text-xl font-semibold text-white mb-2">Fractional Leadership</h3>
+ <h3 className="text-lg md:text-xl font-semibold text-white mb-2">Earlier Work</h3>
  <p className="text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors">
- Early-stage SaaS & zero-to-one architecture
+ 0-to-1 platforms & enterprise UX · 2012–2022
  </p>
  </TransitionLink>
  </m.div>
