@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import Image from 'next/image'
-import { m } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
@@ -64,6 +64,7 @@ function ArchiveCard({ item, onOpen }: { item: ProjectItem; onOpen: (archiveKey:
 /* ─── Main component — quiet "earlier work" band ─── */
 export default function ExtendedPortfolio() {
     const [lightbox, setLightbox] = useState<{ images: string[]; title: string; index: number } | null>(null)
+    const [expanded, setExpanded] = useState(false)
 
     const openSlideshow = useCallback((archiveKey: string, title: string) => {
         const images = ARCHIVE_IMAGES[archiveKey]
@@ -93,18 +94,33 @@ export default function ExtendedPortfolio() {
                     </p>
                 </m.div>
 
-                {/* Compact thumbnail grid */}
-                <m.div
-                    className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.15 }}
-                    transition={{ duration: DURATION.drift, ease: EASE_CINEMATIC }}
+                {/* Collapsed by default — a quiet toggle; the curious can browse. */}
+                <button
+                    onClick={() => setExpanded(v => !v)}
+                    aria-expanded={expanded}
+                    className="group inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.02] px-5 py-2.5 text-sm text-zinc-400 transition-colors hover:border-white/20 hover:text-zinc-200"
                 >
-                    {PROJECTS.map((item) => (
-                        <ArchiveCard key={item.id} item={item} onOpen={openSlideshow} />
-                    ))}
-                </m.div>
+                    {expanded ? 'Hide earlier work' : `Browse ${PROJECTS.length} earlier projects`}
+                    <span className={`transition-transform duration-300 ${expanded ? 'rotate-180' : 'group-hover:translate-y-0.5'}`} aria-hidden="true">↓</span>
+                </button>
+
+                {/* Compact thumbnail grid — revealed on expand */}
+                <AnimatePresence initial={false}>
+                    {expanded && (
+                        <m.div
+                            key="earlier-grid"
+                            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-6"
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: DURATION.base, ease: EASE_CINEMATIC }}
+                        >
+                            {PROJECTS.map((item) => (
+                                <ArchiveCard key={item.id} item={item} onOpen={openSlideshow} />
+                            ))}
+                        </m.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* ── Archive slideshow lightbox ── */}

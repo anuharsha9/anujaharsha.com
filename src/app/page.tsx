@@ -109,28 +109,28 @@ export default function Home() {
         <VibeCodingBlock />
       </BlurZone>
 
-      {/* ═══ TRAILER TEASER — closer for warm visitors ═══ */}
-      <TrailerTeaser />
-
-      {/* ═══ ZONE 4: SOCIAL PROOF ═══
-           No BlurZone here — testimonials are read-heavy and must stay sharp/fully readable
-           (the blur-morph + sticky pin obscured and clipped them).
-           Life milestone pills moved to the Life tab's "Same Time" room. */}
-      <div id="social-proof-zone" className="relative w-full">
-        <TestimonialsBlock />
+      {/* ═══ ZONE 4: EARLIER WORK — collapsed by default (browse on demand) ═══
+           Quiet, secondary band. No BlurZone: the collapsed height stays tight and
+           the expand can't get clipped by a fixed container. */}
+      <div id="extended-portfolio-zone" className="relative">
+        <ExtendedPortfolio />
       </div>
 
-      {/* ═══ ZONE 5: EXTENDED PORTFOLIO ═══ */}
-      <BlurZone id="extended-portfolio-zone" containerHeight="130vh">
-        <ExtendedPortfolio />
-      </BlurZone>
-
-      {/* ═══ ZONE 6: FOUNDATION ═══ */}
+      {/* ═══ ZONE 5: FOUNDATION ═══ */}
       <BlurZone id="foundation-zone" containerHeight="120vh">
         <FoundationBlock />
       </BlurZone>
 
-      {/* ═══ ZONE 7: FOOTER ═══ */}
+      {/* ═══ ZONE 6: SOCIAL PROOF ═══
+           No BlurZone — testimonials are read-heavy and must stay sharp/fully readable. */}
+      <div id="social-proof-zone" className="relative w-full">
+        <TestimonialsBlock />
+      </div>
+
+      {/* ═══ ZONE 7: TRAILER — the 60-sec "why hire me", paired with the close ═══ */}
+      <TrailerTeaser />
+
+      {/* ═══ ZONE 8: FOOTER / LET'S TALK ═══ */}
       <BlurZone id="footer-zone" containerHeight="100dvh">
         <TalkSection />
       </BlurZone>
