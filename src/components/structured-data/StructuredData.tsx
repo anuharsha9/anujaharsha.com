@@ -41,7 +41,6 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     description:
       'Staff Product Designer who makes complex enterprise products easier to understand, use, and adopt. 13 years modernizing legacy workflows, designing AI-native experiences, and shipping data-driven platforms at scale. Specializes in enterprise complexity, data workflow modernization, and AI-native design.',
     email: 'anujanimmagadda@gmail.com',
-    telephone: '+1-781-354-7394',
     sameAs: [
       'https://www.linkedin.com/in/anu159',
       'https://medium.com/@anujaharsha',

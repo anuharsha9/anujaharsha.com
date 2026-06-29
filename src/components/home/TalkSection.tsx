@@ -58,20 +58,13 @@ export default function TalkSection() {
             OPEN TO SENIOR &amp; STAFF PRODUCT DESIGNER ROLES
           </p>
 
-          {/* Contact */}
+          {/* Contact — email only; phone kept off the public site for privacy. */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-8 md:mb-10">
             <a
               href="mailto:anujanimmagadda@gmail.com"
               className="font-mono text-sm text-zinc-400 hover:text-[var(--accent-teal)] transition-colors duration-500"
             >
               anujanimmagadda@gmail.com
-            </a>
-            <span className="hidden sm:inline text-zinc-700" aria-hidden="true">·</span>
-            <a
-              href="tel:+17813547394"
-              className="font-mono text-sm text-zinc-400 hover:text-[var(--accent-teal)] transition-colors duration-500"
-            >
-              +1 781-354-7394
             </a>
           </div>
 
