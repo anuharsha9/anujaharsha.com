@@ -29,12 +29,14 @@ interface NavIslandProps {
     onSelect?: (id: string) => void
     leading?: { label: string; onClick: () => void; icon?: LucideIcon }
     ariaLabel?: string
+    /** Render in-flow (relative) instead of fixed top-center — for the design-system specimen. */
+    embedded?: boolean
 }
 
 /* The ONE glass-pill surface (shared language — tokens only). */
 const PILL = GLASS_PILL
 
-export default function NavIsland({ segments, activeId, onSelect, leading, ariaLabel }: NavIslandProps) {
+export default function NavIsland({ segments, activeId, onSelect, leading, ariaLabel, embedded = false }: NavIslandProps) {
     const hasSegments = !!segments && segments.length > 0
     const count = hasSegments ? segments!.length : 0
     const rawIndex = hasSegments ? segments!.findIndex(s => s.id === activeId) : -1
@@ -60,8 +62,10 @@ export default function NavIsland({ segments, activeId, onSelect, leading, ariaL
 
     return (
         <div
-            className="pointer-events-none fixed inset-x-0 top-0 z-[10001] flex items-start justify-center gap-3"
-            style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}
+            className={embedded
+                ? 'pointer-events-none relative flex items-center justify-center gap-3'
+                : 'pointer-events-none fixed inset-x-0 top-0 z-[10001] flex items-start justify-center gap-3'}
+            style={embedded ? undefined : { paddingTop: 'max(1rem, env(safe-area-inset-top))' }}
         >
             {/* Leading sits left of a switcher, or centers when it's the only control. */}
             {leading && (hasSegments
