@@ -76,11 +76,14 @@ const EXPERIENCE: Role[] = [
     },
 ]
 
-const AI_INTRO = 'AI as an Empathy Bridge: Actively utilizing AI agents (Cursor, Claude) and context-aware prompting to build high-fidelity, functional prototypes in React and Next.js. I use AI as a force multiplier to translate design vision into engineering reality, handing developers runtime-feasible UI to eliminate architectural friction.'
+const AI_INTRO = 'Self-initiated AI-native products I designed, built, and shipped end-to-end — using agentic AI (Claude Code, Cursor) as a force multiplier to take ideas from concept to live, production software. Technical empathy in practice: I don’t hand designs off, I ship them runtime-ready.'
 const AI_BULLETS: Bullet[] = [
-    { lead: 'Pathwise (Early 2026):', rest: 'Architected and deployed an AI-native dashboard prototype for tracking college application materials and education ROI, proving complex data-relationship models through functional, testable interfaces.' },
-    { lead: 'WordU (January 2026):', rest: 'Developed a logic-driven interactive word game for iOS and web, executing end-to-end frontend deployment to rapidly sharpen code-based interaction prototyping speeds.' },
-    { lead: 'Custom Code-Based Architecture (November 2025):', rest: 'Engineered a fully custom interactive platform utilizing Next.js, React, and agentic AI (Cursor, Google Antigravity). Designed to bypass static screens entirely, delivering a living, testable UI environment that proves high-fidelity visual interactions and complex front-end deployment.' },
+    { lead: 'This Portfolio (live):', rest: 'The site you’re reading — a fully custom Next.js / React / Three.js experience, architected and AI-orchestrated across 5 iterations with 6 specialized agents.' },
+    { lead: 'Sous — AI cooking companion (2026):', rest: 'Voice-first native iOS app (Expo / React Native) with a Claude reasoning brain and a live voice mode; preparing for App Store launch.' },
+    { lead: 'Pathwise — AI career & education navigator (2026, live):', rest: 'A decision engine that projects education ROI and career paths from real, cited data. Built in Next.js with Claude — live at pathwise.anujaharsha.com.' },
+    { lead: 'WealthEngine — life-decision engine (2026):', rest: 'A local-first planning tool for modeling long-horizon "what-if" life and financial scenarios on real numbers.' },
+    { lead: 'Warden — AI-agent authorization console (2026):', rest: 'An access & guardrails console governing what autonomous AI agents are allowed to do — a permission engine for the agentic era.' },
+    { lead: 'Also:', rest: 'Inkwell, a local-first writing studio with an AI coach; and WordU, a logic-driven word game for iOS and web.' },
 ]
 
 const COMMUNITY = [
@@ -191,7 +194,7 @@ export default function ResumeDocument() {
 
             {/* AI-Native Prototyping */}
             <section className="mt-8">
-                <h3 className={SECTION_LABEL}>AI-Native Prototyping & Technical Empathy</h3>
+                <h3 className={SECTION_LABEL}>Build Lab — AI-Native Products I Designed &amp; Shipped</h3>
                 <p className="mb-3 text-[13.5px] leading-relaxed text-zinc-300">{AI_INTRO}</p>
                 <BulletList bullets={AI_BULLETS} />
             </section>
