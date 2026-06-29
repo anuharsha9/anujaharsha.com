@@ -8,8 +8,6 @@ import HomeTabsWrapper from '@/components/home/HomeTabsWrapper'
 
 /* ── Hero + first proof render eagerly (above the fold); everything below is lazy ── */
 
-const TrailerTeaser = dynamic(() => import('@/components/home/TrailerTeaser'), { ssr: true })
-
 const TestimonialsLoading = () => <SectionSkeleton height="200vh" text="LOADING PROOF MODULE" />
 const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true, loading: TestimonialsLoading })
 
@@ -127,10 +125,7 @@ export default function Home() {
         <TestimonialsBlock />
       </div>
 
-      {/* ═══ ZONE 7: TRAILER — the 60-sec "why hire me", paired with the close ═══ */}
-      <TrailerTeaser />
-
-      {/* ═══ ZONE 8: FOOTER / LET'S TALK ═══ */}
+      {/* ═══ ZONE 7: FOOTER / LET'S TALK — includes the 60-sec "Why Hire Me" CTA ═══ */}
       <BlurZone id="footer-zone" containerHeight="100dvh">
         <TalkSection />
       </BlurZone>

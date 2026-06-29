@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { m } from 'framer-motion'
+import { Play } from 'lucide-react'
 import { getTheme, spacing } from '@/lib/design-system'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
@@ -56,6 +57,23 @@ export default function TalkSection() {
           <p className="font-mono text-[11px] sm:text-sm uppercase tracking-[0.2em] text-zinc-500 mb-8 md:mb-10">
             OPEN TO SENIOR &amp; STAFF PRODUCT DESIGNER ROLES
           </p>
+
+          {/* Why Hire Me — the 60-sec cinematic (routes to /manifesto). Replaces
+              the old standalone trailer section: one play-button CTA, not a full band. */}
+          <div className="mb-8 flex justify-center md:mb-10">
+            {wrap(0.3, (
+              <button
+                onClick={() => navigateTo('/manifesto')}
+                aria-label="Watch the 60-second Why Hire Me trailer"
+                className="group inline-flex w-full items-center justify-center gap-3 rounded-full border border-[var(--accent-teal)]/30 bg-[var(--accent-teal)]/[0.08] px-7 py-3.5 text-sm font-medium tracking-wide text-[var(--accent-teal-bright)] transition-all duration-500 hover:border-[var(--accent-teal)]/55 hover:bg-[var(--accent-teal)]/[0.15] sm:w-auto"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-teal)]/15 transition-colors duration-500 group-hover:bg-[var(--accent-teal)]/25">
+                  <Play className="h-3 w-3 fill-current" />
+                </span>
+                Why Hire Me · 60 sec
+              </button>
+            ))}
+          </div>
 
           {/* Contact */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-8 md:mb-10">
