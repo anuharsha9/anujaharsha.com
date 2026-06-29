@@ -278,7 +278,6 @@ export const reportcasterCaseStudy: CaseStudyData = {
         ],
       },
     ],
-    pdfUrl: '/documents/reportcaster-case-study.pdf',
   },
   bonusSlides: {
     title: 'Deep Dives',
