@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import { m } from 'framer-motion'
+import { Play } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
+import { useTransition } from '@/components/transitions/TransitionContext'
 import { TESTIMONIALS, type Testimonial } from '@/data/testimonials'
 import { EASE_CINEMATIC, DURATION } from '@/lib/motion'
 
@@ -35,8 +37,9 @@ function Card({ t, onOpen }: { t: Testimonial; onOpen: (t: Testimonial) => void 
                 <span className="text-base font-light text-zinc-300 transition-colors duration-500 group-hover/card:text-white md:text-lg">
                     {t.pull}
                 </span>
-                <span className="mt-1 block font-mono text-[11px] uppercase tracking-wide text-[var(--accent-teal)]/70">
-                    {t.name} · {t.role}
+                <span className="mt-1 block font-mono text-[11px] uppercase tracking-wide">
+                    <span className="text-[var(--accent-teal-bright)]">{t.name}</span>
+                    <span className="text-zinc-500"> · {t.role}</span>
                 </span>
             </span>
         </button>
@@ -62,6 +65,7 @@ function MarqueeRow({ items, direction, onOpen }: { items: Testimonial[]; direct
 
 export default function TestimonialsBlock() {
     const [active, setActive] = useState<Testimonial | null>(null)
+    const { navigateTo } = useTransition()
 
     return (
         <section className="relative mx-auto max-w-[1400px] pt-12 pb-20 md:pt-20 md:pb-28">
@@ -85,14 +89,28 @@ export default function TestimonialsBlock() {
             </m.div>
 
             {/* Two opposing marquee rows */}
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-8 md:space-y-12">
                 <MarqueeRow items={ROW_A} direction="left" onOpen={setActive} />
                 <MarqueeRow items={ROW_B} direction="right" onOpen={setActive} />
             </div>
 
-            <p className="mt-6 px-4 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-600">
+            <p className="mt-8 px-4 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-600">
                 Hover to pause · tap a quote to read the full note
             </p>
+
+            {/* Why Hire Me — the 60-sec cinematic, placed right under the proof */}
+            <div className="mt-10 flex justify-center">
+                <button
+                    onClick={() => navigateTo('/manifesto')}
+                    aria-label="Watch the 60-second Why Hire Me trailer"
+                    className="group inline-flex items-center justify-center gap-3 rounded-full border border-[var(--accent-teal)]/30 bg-[var(--accent-teal)]/[0.08] px-7 py-3.5 text-sm font-medium tracking-wide text-[var(--accent-teal-bright)] transition-all duration-500 hover:border-[var(--accent-teal)]/55 hover:bg-[var(--accent-teal)]/[0.15]"
+                >
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-teal)]/15 transition-colors duration-500 group-hover:bg-[var(--accent-teal)]/25">
+                        <Play className="h-3 w-3 fill-current" />
+                    </span>
+                    Why Hire Me · 60 sec
+                </button>
+            </div>
 
             {/* Full endorsement */}
             {active && (
