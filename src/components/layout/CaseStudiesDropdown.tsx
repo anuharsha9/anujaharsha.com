@@ -201,12 +201,12 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
               {/* Individual Case Studies */}
               {caseStudies.map((item) => {
                 const accentColors: Record<string, string> = {
-                  '001': '#f59e0b',
-                  '002': '#2fc6d5',
-                  '003': '#a855f7',
-                  'APP': '#10b981',
+                  '001': 'var(--accent-amber)',
+                  '002': 'var(--accent-teal-glow)',
+                  '003': 'var(--semantic-purple)',
+                  'APP': 'var(--semantic-emerald)',
                 }
-                const accent = accentColors[item.id] || '#666'
+                const accent = accentColors[item.id] || 'var(--text-dim)'
                 return (
                   <TransitionLink
                     key={item.href}
