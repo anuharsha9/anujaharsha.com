@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
 import { Play, RotateCcw } from 'lucide-react'
-import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION, TRAILER_PACE } from '@/lib/motion'
 
 /* ─── Word-by-word kinetic text ─── */
 function KineticLine({
@@ -117,14 +117,14 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
         ]
 
         timeline.forEach(([ms, s]) => {
-            t.push(setTimeout(() => setStep(s), ms))
+            t.push(setTimeout(() => setStep(s), ms * TRAILER_PACE))
         })
 
         if (!showCTA) {
             t.push(setTimeout(() => {
                 setStep(-1)
                 setTimeout(() => setCycle(c => c + 1), 1000)
-            }, 30700))
+            }, 30700 * TRAILER_PACE))
         }
 
         return () => t.forEach(clearTimeout)

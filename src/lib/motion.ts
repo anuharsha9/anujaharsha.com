@@ -76,6 +76,11 @@ export const DURATION = {
   max: 4.0,
 } as const
 
+/** Pacing multiplier for the case-study trailer timelines (RC/ML/DSML). Stretches
+ *  every beat's dwell so viewers have time to READ each frame before it advances.
+ *  Tune here to re-pace all three trailers at once (1 = original speed). */
+export const TRAILER_PACE = 1.5
+
 /* ── Transition presets ─────────────────────────────────────────────────────
    Common (duration + ease) pairings for convenience. */
 export const TRANSITION = {
