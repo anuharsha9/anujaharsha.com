@@ -12,10 +12,10 @@ import { ASK_QA, CATEGORY_LABELS, type AskCategory } from '@/data/ask-anuja-qa'
  * Two modes layered together:
  *  1. Pre-baked Q&A — 25 hand-curated answers (zero API cost, her voice).
  *     Click a chip to expand its answer in place.
- *  2. Free-form custom questions — POSTed to /ask (Cloudflare Worker calling
- *     Claude). The worker URL is read from NEXT_PUBLIC_ASK_ANUJA_API; if it
- *     isn't set, the UI falls back to a friendly 'email me directly' state
- *     so nothing 500s in dev.
+ *  2. Free-form custom questions — POSTed to the Cloudflare Worker calling
+ *     Claude. The worker URL comes from NEXT_PUBLIC_ASK_ANUJA_API, falling
+ *     back to the deployed Worker (the URL is public; the API key is a Worker
+ *     secret). If the fetch fails, the UI shows a friendly 'email me' state.
  *
  * The modal uses SystemLightbox so the mobile-native chrome we already built
  * (compact close button, safe-area, no terminal cruft) works for free.
@@ -54,14 +54,9 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
         const question = customQ.trim()
         if (!question || customStatus === 'loading') return
 
-        const apiUrl = process.env.NEXT_PUBLIC_ASK_ANUJA_API
-        if (!apiUrl) {
-            setCustomStatus('error')
-            setCustomAnswer(
-                "I haven't wired up the custom-question API yet — but I'd love to answer this directly. Email me at anujanimmagadda@gmail.com and I'll get back to you within a day."
-            )
-            return
-        }
+        // Worker URL is public (not a secret — the API key lives inside the
+        // Worker). Default keeps production working without any build-time env.
+        const apiUrl = process.env.NEXT_PUBLIC_ASK_ANUJA_API || 'https://ask-anuja.anujaharsha.workers.dev'
 
         setCustomStatus('loading')
         setCustomAnswer(null)

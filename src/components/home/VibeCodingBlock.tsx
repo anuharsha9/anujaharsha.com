@@ -715,7 +715,7 @@ const VIBE_TILES = [
     {
         id: 'warden',
         title: 'Warden',
-        subtitle: 'Agent authorization · embedded live',
+        subtitle: 'Agent authorization · access & guardrails console',
         icon: ShieldCheck,
         cover: 'warden' as const,
         accent: 'var(--accent-amber)',
@@ -754,7 +754,7 @@ export default function VibeCodingBlock() {
 
     /* Every app tile opens a short-snapshot case study lightbox (built from the
      * actual app repos). The CTA INSIDE the lightbox is what links out / plays:
-     * 'Open Live Demo' → Vercel (env-var URL), an embedded iframe (Warden), or
+     * 'Open Live Demo' → Vercel (env-var or productionUrl), or
      * 'Play WordU' → the playable build. WordU is now a full case-study peer.
      * Only the 'This Portfolio' tile is special (it opens its own lightbox).
      *

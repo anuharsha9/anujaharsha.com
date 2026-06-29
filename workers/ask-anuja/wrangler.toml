@@ -6,8 +6,7 @@ compatibility_date = "2025-09-01"
 [vars]
 ALLOWED_ORIGINS = "https://anujaharsha.com,https://www.anujaharsha.com,http://localhost:3110"
 
-# Rate-limit KV. Run `wrangler kv:namespace create RATE_LIMIT` once, then paste
-# the printed id here.
+# Rate-limit KV (created via `wrangler kv namespace create RATE_LIMIT`).
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "808b1dfb8b6d4c12b603b3088e6b4c84"
