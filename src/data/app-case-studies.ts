@@ -63,19 +63,6 @@ export interface AppCaseStudy {
         note?: string
     }
 
-    /* Embedded live demo (for projects that render INSIDE the case study via
-     * an iframe, instead of linking out). When `embed` is set, the
-     * AppCaseStudyLightbox renders an iframe in the "See it run" section
-     * INSTEAD OF the video + Open Live Demo CTA. Resolution mirrors the
-     * demo URL: envVar → productionUrl → devFallbackUrl. */
-    embed?: {
-        urlEnvVar?: string
-        productionUrl?: string
-        devFallbackUrl?: string
-        /* Aspect ratio class (tailwind). Defaults to aspect-[16/10]. */
-        aspectClass?: string
-    }
-
     status: 'live' | 'demo' | 'in-development'
     statusLabel: string     // small badge text
 }
@@ -243,7 +230,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
             { id: 'workflow', image: '/images/walkthroughs/warden-workflow.jpg', label: 'How I built it', caption: 'I designed Warden as a pure permission engine first — one typed function, evaluate of agent, action, context — and built it test-first with Claude. Every gate unit-tested edge by edge before a single screen existed. Agentic AI let me move at the speed of thinking; the core stays deterministic.' },
             { id: 'feature-a', image: '/images/walkthroughs/warden-feature-a.jpg', label: 'Default deny, least privilege', caption: 'Scope is a grid, and every cell starts denied. Access exists only where you explicitly grant it. Even a superadmin\'s autonomous agent can\'t act outside its grant — and the visual default makes that obvious the moment you look at it.' },
             { id: 'feature-b', label: 'The marquee scenario', caption: 'Here\'s the moment it clicks: an autonomous cost-sentinel agent tries to modify payments in production. The first gates pass — then a guardrail trips, and the autonomy gate is never even reached. The whole ladder is right there in the audit trail. The trace is the receipt.' },
-            { id: 'outcome', label: 'The outcome', caption: 'I built Warden for a Datadog interview panel, but it stands on its own — and it\'s embedded live, right here in this portfolio. It\'s how I show I don\'t just design for AI systems; I can architect the thing that governs them.' },
+            { id: 'outcome', label: 'The outcome', caption: 'I built Warden for a Datadog interview panel, but it stands on its own — and it\'s live: open the real console and try it. It\'s how I show I don\'t just design for AI systems; I can architect the thing that governs them.' },
         ],
     },
 

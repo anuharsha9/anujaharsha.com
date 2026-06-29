@@ -1,6 +1,7 @@
 /**
- * 25 pre-baked answers for the most common questions a hiring manager,
- * recruiter, or design leader would ask about Anuja's profile.
+ * 39 pre-baked answers for the most common questions a hiring manager,
+ * recruiter, or design leader would ask about Anuja's profile — covering the
+ * CSG case studies, the Build Lab apps, the agentic build process, and background.
  *
  * Sourced from a research sweep of:
  *  - Sourcegraph PD Portfolio Review handbook
@@ -241,5 +242,110 @@ export const ASK_QA: AskQA[] = [
         question: 'In 10 seconds on your homepage, what do you want me to take away?',
         answer:
             'Staff Product Designer · Enterprise Data Platforms · 13 years modernizing legacy systems. The case studies prove the work. The Build Lab proves the AI-native craft. That\'s the 10-second triage. Everything else is depth on demand.',
+    },
+
+    /* ─── (g) Build Lab — the AI-native apps ─── */
+    {
+        id: 'build-lab-why',
+        category: 'work',
+        question: 'Why build six apps on the side?',
+        answer:
+            'Because claiming you\'re AI-native isn\'t proof — shipping is. In a few months I built Pathwise, WealthEngine, Warden, Inkwell, Sous, and WordU end-to-end with agentic AI. Each one targets a different muscle: a quantitative decision engine, an agent-permission system, a voice-first native app, a local-first writing tool, a real-time game. Together they\'re the receipt for "designer who can architect and ship" — not just mock.',
+        cta: { label: 'See the Build Lab →', href: '#vibe-coding-zone' },
+    },
+    {
+        id: 'what-is-warden',
+        category: 'work',
+        question: 'What is Warden?',
+        answer:
+            'Authorization for AI agents — the problem classic role-based access doesn\'t solve. An autonomous agent isn\'t its deployer; it can\'t inherit a superadmin\'s keys. Warden is a pure permission engine: default-deny, least-privilege, a trust gradient, per-action guardrails, a first-class audit trail. The marquee scenario — a cost-sentinel agent tries to modify payments in prod, a guardrail trips, the autonomy gate is never even reached, and the whole gate ladder is in the audit log. Built it for a Datadog panel; it stands on its own.',
+        cta: { label: 'Open Warden →', href: 'https://warden.anujaharsha.com', external: true },
+    },
+    {
+        id: 'what-is-inkwell',
+        category: 'work',
+        question: 'And Inkwell?',
+        answer:
+            'A local-first writing studio. I write in bursts — five essays in a sitting, then nothing for weeks — and every publishing tool fights that rhythm. Inkwell decouples writing from publishing: draft into an archive, publish from a queue, copy a finished piece out in one action. No backend, no accounts — it all lives in your browser. It\'s architected to grow into a writing coach in my own voice.',
+        cta: { label: 'Open Inkwell →', href: 'https://inkwell.anujaharsha.com', external: true },
+    },
+    {
+        id: 'wordu-why',
+        category: 'work',
+        question: 'A word game? Why is that in a Staff PD portfolio?',
+        answer:
+            'Because shipping a complete, polished game — timing, scoring, a computer opponent, a real dictionary — is a different proof than enterprise UX. WordU has genuine game feel and a payoff loop, built solo with agentic AI. It shows range and finish, not just process. And honestly, it was fun. Not everything needs a strategic justification.',
+        cta: { label: 'Play WordU →', href: '/work/wordu' },
+    },
+    {
+        id: 'agentic-workflow',
+        category: 'ai-code',
+        question: 'What is your actual agentic workflow — tools and loop?',
+        answer:
+            'Cursor and Claude Code mostly, with Google Antigravity when I want a second agent. The loop: I describe the intent and the architecture in plain language, the agent scaffolds, I review the diff the way a senior engineer reviews a PR, push back on anything off-system, and commit. I\'m the architect and the reviewer; the agent is the typist. The speed comes from never context-switching into syntax — I stay in product judgment the whole time.',
+    },
+    {
+        id: 'how-so-fast',
+        category: 'ai-code',
+        question: 'How do you ship this fast without it being slop?',
+        answer:
+            'Two guards. One — I design the seams first: the data model, the components, the system, so the AI fills a structure instead of inventing one. Two — every diff goes through my review; I kill anything that drifts from the design system or fakes a feature. Vibe-coding without taste is slop. Vibe-coding with a designer\'s judgment on every commit is leverage.',
+    },
+    {
+        id: 'self-taught-code',
+        category: 'ai-code',
+        question: 'You said self-taught in code — how far does that actually go?',
+        answer:
+            'Far enough to be dangerous, then agentic AI did the rest. I had enough HTML/CSS to start, downloaded VS Code, and went — it was harder than I thought, then I slipped into vibe-coding at full speed and embraced it. I\'m not pretending to be a staff engineer. I\'m a designer who can read a diff, hold the architecture, and ship runtime-feasible UI. That\'s the bar that closes the design-eng gap.',
+    },
+    {
+        id: 'why-eng-lit',
+        category: 'philosophy',
+        question: 'Why a Master\'s in English Literature — for a designer?',
+        answer:
+            'Because design is argument and narrative under constraint, and literature is where I learned both. Critical theory taught me to read a system for what it assumes and who it leaves out — which is exactly what enterprise UX demands. It also makes me a sharper writer, and writing is the half of product design nobody talks about: the spec, the rationale, the case study, the microcopy. The degree isn\'t a detour from design. It\'s the substrate.',
+    },
+    {
+        id: 'ai-replace-designers',
+        category: 'philosophy',
+        question: 'Won\'t AI just replace product designers?',
+        answer:
+            'It replaces the parts that were never the job — pushing pixels, redrawing the same flow, waiting on handoff. Judgment doesn\'t get replaced; it gets amplified. The designers who thrive will be the ones who wield AI as leverage and still own the taste. That\'s the bet this whole portfolio makes — and it was built that way on purpose.',
+    },
+    {
+        id: 'superpower',
+        category: 'hiring',
+        question: 'What is your actual superpower?',
+        answer:
+            'I volunteer for the tool nobody wants to touch — the 40-year-old engine, the ML feature buried under 12 clicks — and make it obvious. The rare combination is enterprise-depth patience plus the ability to ship the prototype myself. I don\'t hand engineering a picture; I hand them a working spec. That\'s the multiplier.',
+    },
+    {
+        id: 'weakness',
+        category: 'hiring',
+        question: 'What is a real growth area for you?',
+        answer:
+            'Delegation. I came up as the sole IC who owned everything end-to-end, and orchestrating AI agents reinforced the habit — I can do a lot alone. On a bigger team I have to consciously hand off and trust, not just review. I\'m better at it than I was, and I want a role that keeps stretching it.',
+    },
+    {
+        id: 'why-orchestrator',
+        category: 'hiring',
+        question: 'Why hire a designer who orchestrates AI over a traditional one?',
+        answer:
+            'Because the deliverable changes. A traditional PD hands off a Figma file and waits two sprints for the translation. I hand off an interactive, runtime-feasible prototype engineering can read AS the spec — and I can pressure-test the AI parts myself. Same design rigor, half the translation loss. In an AI-native org that\'s not a nice-to-have.',
+        cta: { label: 'Email me', href: 'mailto:anujanimmagadda@gmail.com?subject=Role%20at%20your%20company', external: true },
+    },
+    {
+        id: 'work-with-eng',
+        category: 'collab',
+        question: 'How do engineers react to a designer who codes?',
+        answer:
+            'Well — once they see I\'m not faking it. I speak in constraints, not wishes: I know what\'s a cheap change and what\'s a refactor, so I stop proposing the expensive thing by accident. On ML Functions I spent 60% of my time with the Principal Data Scientist. Earning a hard-engineering team\'s trust is mostly about respecting their constraints out loud.',
+    },
+    {
+        id: 'is-ask-real',
+        category: 'meta',
+        question: 'Is this Ask Anu thing real AI or just canned answers?',
+        answer:
+            'Both, on purpose. The common questions are pre-written in my voice — instant, free, and actually me. Anything you type goes to Claude with my full context behind it. I\'d rather hand you a sharp answer fast than a slow generic one — so the FAQ is curated and the model handles the long tail.',
     },
 ]

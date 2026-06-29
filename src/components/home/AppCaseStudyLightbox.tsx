@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ExternalLink, ArrowUpRight, Play, Smartphone } from 'lucide-react'
+import { ExternalLink, Play, Smartphone } from 'lucide-react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import LightboxCard from '@/components/ui/LightboxCard'
@@ -40,46 +40,10 @@ export default function AppCaseStudyLightbox({
         return ''
     }, [study, isProd])
 
-    /* Embedded iframe URL — same resolution order, but lives under `embed`.
-     * When this resolves to a URL, the "See it run" section renders the live
-     * app inline in an iframe instead of the video + Open Live Demo CTA. */
-    const embedUrl = useMemo(() => {
-        if (!study?.embed) return ''
-        const fromEnv = study.embed.urlEnvVar ? process.env[study.embed.urlEnvVar] : undefined
-        if (fromEnv) return fromEnv
-        if (study.embed.productionUrl) return study.embed.productionUrl
-        if (!isProd && study.embed.devFallbackUrl) return study.embed.devFallbackUrl
-        return ''
-    }, [study, isProd])
-
     if (!study) return null
 
     const Icon = study.icon
     const rgb = `var(${study.accentRgbVar})`
-
-    /* Reusable live surfaces (shared between the walkthrough's "below" slot and
-       the standalone branches) so the markup stays DRY. */
-    const embedSurface = embedUrl ? (
-        <>
-            <div className={`mt-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-black ${study.embed?.aspectClass ?? 'aspect-[16/10]'}`}>
-                <iframe
-                    src={embedUrl}
-                    title={`${study.title} — embedded live demo`}
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                    referrerPolicy="no-referrer"
-                    allow="clipboard-write"
-                    className="block h-full w-full"
-                />
-            </div>
-            <div className="mt-3 flex items-center justify-end">
-                <Button variant="ghost" size="sm" href={embedUrl} external className="text-zinc-500 hover:text-zinc-300">
-                    Open in a new tab
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                </Button>
-            </div>
-        </>
-    ) : null
 
     const openLiveDemoBtn = demoUrl ? (
         <Button variant="primary" href={demoUrl} external icon={<ExternalLink className="h-4 w-4" />} className="w-full sm:w-auto">
@@ -89,12 +53,11 @@ export default function AppCaseStudyLightbox({
 
     /* "See it run" — the demo surface. Per Anuja it sits UP TOP (right under the
        hero), with the written detail below. Priority:
-         A. walkthrough → narrated WalkthroughPlayer + live surface below
+         A. walkthrough → narrated WalkthroughPlayer + Open Live Demo below
          B. requestDemo → demo reel (or "reel soon") + Request-demo CTA (Sous)
-         C. embed → live iframe (no walkthrough)
-         D. playRoute → cover + Play button (WordU)
-         E. demoUrl → Open Live Demo button
-         F. none → nothing */
+         C. playRoute → cover + Play button (WordU)
+         D. demoUrl → Open Live Demo button
+         E. none → nothing */
     const seeItRun = study.walkthrough?.length ? (
         <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
@@ -113,17 +76,8 @@ export default function AppCaseStudyLightbox({
                 />
             </div>
 
-            {/* Live surface beneath the walkthrough */}
-            {embedUrl ? (
-                <div className="mt-8">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
-                        Try it live — embedded here
-                    </p>
-                    {embedSurface}
-                </div>
-            ) : openLiveDemoBtn ? (
-                <div className="mt-5">{openLiveDemoBtn}</div>
-            ) : null}
+            {/* Open Live Demo beneath the walkthrough */}
+            {openLiveDemoBtn ? <div className="mt-5">{openLiveDemoBtn}</div> : null}
         </div>
     ) : study.requestDemo ? (
         <div>
@@ -168,16 +122,6 @@ export default function AppCaseStudyLightbox({
                     {study.requestDemo.testflightUrl ? 'Get it on TestFlight' : 'Request a demo'}
                 </Button>
             </div>
-        </div>
-    ) : embedUrl ? (
-        <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: study.accent, opacity: 0.7 }}>
-                Try it live — embedded here
-            </p>
-            <p className="mt-2 text-sm text-zinc-500">
-                Running in an iframe. Interact with it the same way you would the standalone app.
-            </p>
-            {embedSurface}
         </div>
     ) : study.playRoute ? (
         <div>
