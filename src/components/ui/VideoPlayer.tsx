@@ -112,8 +112,8 @@ export default function VideoPlayer({
         >
             <video
                 ref={videoRef}
-                src={src}
-                poster={poster}
+                src={src || undefined}
+                poster={poster || undefined}
                 autoPlay={autoPlay}
                 muted
                 loop={loop}
