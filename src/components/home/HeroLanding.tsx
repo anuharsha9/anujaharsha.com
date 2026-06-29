@@ -130,7 +130,7 @@ export default function HeroLanding() {
                                 className="hero-enter text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
                                 style={{ animationDelay: '0.2s' }}
                             >
-                                I make the most powerful tool in the building — the one nobody likes to use — obvious. 13 years in product design, the last decade in enterprise systems — most recently leading the modernization of a 50-year-old BI platform that helped renew a multi-million-dollar contract.
+                                I make the most powerful tool in the building — the one nobody can figure out — obvious. 13 years in product design, the last decade in enterprise systems — most recently leading the modernization of a 50-year-old BI platform that helped renew a multi-million-dollar contract.
                             </p>
                         </div>
 

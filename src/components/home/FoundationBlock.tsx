@@ -126,9 +126,17 @@ export default function FoundationBlock() {
 
                 {/* Stanzas — word-by-word reveal */}
                 <blockquote className="space-y-6 md:space-y-8">
+                    {/* Readable text for screen readers + search crawlers. The visible copy
+                        below is split into per-word spans (spaces come from a flex gap), so its
+                        DOM text has no spaces ("Whenyoulookatachair…"). Expose the real sentence
+                        here and hide the animated version from assistive tech. */}
+                    <p className="sr-only">
+                        {"When you look at a chair — the only thing that comes to mind is to sit on it. It's the whole point of creating anything — to achieve that obviousness. No? How? By obsessing over how humans experience things."}
+                    </p>
                     {STANZAS.map((stanza, sIdx) => (
                         <p
                             key={sIdx}
+                            aria-hidden="true"
                             className="flex flex-wrap items-baseline justify-center gap-x-[0.35em] gap-y-1 font-sans text-2xl italic leading-[1.55] text-white md:text-3xl lg:text-4xl"
                         >
                             {stanza.map((word, wIdx) => (
