@@ -595,20 +595,21 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
                 gear.style.filter = 'none'
               }
 
-              // Lit gears rotate slowly during quiz for visual feedback
+              // Every gear turns — lit ones a touch quicker, dormant ones idle
+              // very slowly so the machine reads as alive-but-dormant, never
+              // frozen. (No cancel/reset — that was the "frozen gears" problem.)
               const existingAnims = gear.getAnimations()
-              if (isLit && existingAnims.length === 0) {
+              if (existingAnims.length === 0) {
                 const isClockwise = Math.random() > 0.5
+                gear.style.transformOrigin = 'center'
+                gear.style.transformBox = 'fill-box'
                 gear.animate([
                   { transform: 'rotate(0deg)' },
                   { transform: `rotate(${isClockwise ? '360deg' : '-360deg'})` }
                 ], {
-                  duration: 60000,
+                  duration: isLit ? 60000 : 150000,
                   iterations: Infinity
                 })
-              } else if (!isLit) {
-                existingAnims.forEach((anim) => anim.cancel())
-                gear.style.transform = 'rotate(0deg)'
               }
             })
           }
@@ -626,18 +627,17 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
             }
 
             const existingAnims = gear.getAnimations()
-            if (isLit && existingAnims.length === 0) {
+            if (existingAnims.length === 0) {
               const isClockwise = Math.random() > 0.5
+              gear.style.transformOrigin = 'center'
+              gear.style.transformBox = 'fill-box'
               gear.animate([
                 { transform: 'rotate(0deg)' },
                 { transform: `rotate(${isClockwise ? '360deg' : '-360deg'})` }
               ], {
-                duration: 90000,
+                duration: isLit ? 90000 : 180000,
                 iterations: Infinity
               })
-            } else if (!isLit) {
-              existingAnims.forEach((anim) => anim.cancel())
-              gear.style.transform = 'rotate(0deg)'
             }
           })
 
@@ -1105,6 +1105,8 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
   // Neural Mainframe: track brain hover for glitch trigger
   const [brainHovered, setBrainHovered] = useState(false)
   const hasQuizProgress = litGears.length > 0
+  // Quiz "energy" — rises as answers light more gears; drives the ambient field.
+  const quizEnergy = Math.min(1, litGears.length / 18)
   const showImmersiveCompleteState = quizState === 'complete' && hasQuizProgress
   const showImmersiveBrain = quizState === 'quiz' || showImmersiveCompleteState
   const showStartPrompt = !showImmersiveBrain && !forceQuiz
@@ -1205,6 +1207,20 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
               }}
             />
           </>
+        )}
+
+        {/* Ambient energy — the "room" powers on as the quiz progresses. A soft
+            teal field behind the brain whose intensity rises with each answer
+            (litGears grows → quizEnergy → glow). Light only, eased slow. */}
+        {quizState === 'quiz' && (
+          <div
+            className="absolute inset-0 pointer-events-none z-[5]"
+            style={{
+              background: 'radial-gradient(ellipse 66% 52% at 50% 46%, rgba(var(--accent-teal-glow-rgb), 0.30) 0%, rgba(var(--accent-teal-glow-rgb), 0.10) 40%, transparent 72%)',
+              opacity: quizEnergy,
+              transition: 'opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1)',
+            }}
+          />
         )}
 
 
