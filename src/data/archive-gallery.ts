@@ -1,16 +1,5 @@
 
 export const ARCHIVE_GALLERY_DATA: Record<string, { src: string; alt: string; type?: 'image' | 'video'; poster?: string }[]> = {
-    "wordu": [
-        { src: "/images/archive/wordu/Wordu case study1.png", alt: "Wordu Case Study 1" },
-        { src: "/images/archive/wordu/Wordu case study2.png", alt: "Wordu Case Study 2" },
-        { src: "/images/archive/wordu/Wordu case study3.png", alt: "Wordu Case Study 3" },
-        { src: "/images/archive/wordu/Wordu case study4.png", alt: "Wordu Case Study 4" },
-        { src: "/images/archive/wordu/Wordu case study5.png", alt: "Wordu Case Study 5" },
-        { src: "/images/archive/wordu/Wordu case study6.png", alt: "Wordu Case Study 6" },
-        { src: "/images/archive/wordu/Wordu case study7.png", alt: "Wordu Case Study 7" },
-        { src: "/images/archive/wordu/Wordu case study8.png", alt: "Wordu Case Study 8" },
-        { src: "/images/archive/wordu/Wordu case study9.png", alt: "Wordu Case Study 9" },
-    ],
     "kedazzle": [
         { src: "/images/archive/kedazzle/Case Study Kedazzle_Page_01.png", alt: "Kedazzle Case Study 1" },
         { src: "/images/archive/kedazzle/Case Study Kedazzle_Page_02.png", alt: "Kedazzle Case Study 2" },

@@ -11,9 +11,6 @@ const ARCHIVE_IMAGES: Record<string, string[]> = {
     ),    'travel-portal': Array.from({ length: 6 }, (_, i) =>
         `/images/archive/travel-portal/Travel Portal${i + 1}.png`
     ),
-    wordu: Array.from({ length: 9 }, (_, i) =>
-        `/images/archive/wordu/Wordu case study${i + 1}.png`
-    ),
     crbs: Array.from({ length: 10 }, (_, i) =>
         `/images/archive/crbs/CRBS case study${i + 1}.png`
     ),}
@@ -30,7 +27,6 @@ interface ProjectItem {
 const PROJECTS: ProjectItem[] = [
     { id: 'kedazzle', title: 'Kedazzle', subtitle: '0-to-1 EdTech platform', image: '/images/Kedazzle-cover.png', archiveKey: 'kedazzle' },
     { id: 'travel-portal', title: 'Travel Portal', subtitle: 'B2B enterprise booking', image: '/images/travel-cover.png', archiveKey: 'travel-portal' },
-    { id: 'wordu', title: 'WordU', subtitle: 'Consumer game · 12K+ downloads wk 1', image: '/images/wordu-cover.png', archiveKey: 'wordu' },
     { id: 'crbs', title: 'CRBS', subtitle: 'Enterprise IoT interfaces', image: '/images/crbs-cover.png', archiveKey: 'crbs' },
 ]
 

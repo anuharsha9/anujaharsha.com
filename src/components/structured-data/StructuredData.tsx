@@ -154,13 +154,6 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         name: 'Platform Unification — AI Features Discovery & DSML Hub',
         description: 'Unified three fragmented AI capabilities (NLQ, Insights, ML) into one discoverable DSML Hub, driving a 25% adoption boost.',
       },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        url: `${siteUrl}/work/wordu/`,
-        name: 'WordU — A Word Game Built With Agentic AI',
-        description: 'A consumer word game designed and shipped with agentic AI — proof of AI-native product building end-to-end, from concept to interactive prototype.',
-      },
     ],
   })
 

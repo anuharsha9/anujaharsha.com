@@ -56,7 +56,7 @@ export default function PageShell({ children }: PageShellProps) {
   const normalizedPath = (pathname || '/').replace(/\/+$/, '') || '/'
   const isManifesto = normalizedPath === '/manifesto'
   const isLandingPage = normalizedPath === '/'
-  const isCaseStudyPage = normalizedPath.startsWith('/work/') && !normalizedPath.startsWith('/work/wordu')
+  const isCaseStudyPage = normalizedPath.startsWith('/work/')
 
   return (
     <ErrorBoundary>

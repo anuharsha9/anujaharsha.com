@@ -101,31 +101,6 @@
    --cs-bg-radial: rgba(var(--cs-accent-rgb), 0.08);
    --cs-accent-text: var(--cs-accent);
 
-   /* Wordu brand accent */
-   --accent-wordu: #00ADEE;
-   --accent-wordu-hover: #0095CC;
-   --accent-wordu-active: #008DBD;
-   --accent-wordu-rgb: 0, 173, 238;
-
-   /* Wordu surfaces — refined light theme */
-   --surface-wordu: #f8f9fb;
-   --surface-wordu-raised: #ffffff;
-   --surface-wordu-card: #ffffff;
-   --surface-wordu-input: #f1f3f5;
-
-   /* Wordu text */
-   --text-wordu-primary: #1a1d23;
-   --text-wordu-secondary: #3d4250;
-   --text-wordu-muted: #6b7280;
-   --text-wordu-dim: #9ca3af;
-
-   /* Wordu borders */
-   --border-wordu: #e5e7eb;
-   --border-wordu-accent: rgba(0, 173, 238, 0.35);
-
-   /* Wordu glow */
-   --glow-wordu: rgba(0, 173, 238, 0.12);
-
    /* Highlight (alias to teal) */
    --highlight: #078B9C;
 
@@ -315,12 +290,4 @@
    --cs-accent-bright: #22d3ee;
    --cs-accent-soft: rgba(8, 145, 178, 0.08);
    --cs-accent-rgb: 8, 145, 178;
-}
-
-/* WordU — Blue/Aqua */
-[data-cs-theme="wordu"] {
-   --cs-accent: #00ADEE;
-   --cs-accent-bright: #33c4f5;
-   --cs-accent-soft: rgba(0, 173, 238, 0.08);
-   --cs-accent-rgb: 0, 173, 238;
 }

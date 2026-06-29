@@ -37,7 +37,7 @@ export interface ActSection {
 
 export interface CinematicCaseStudyProps {
  data: CaseStudyData
- theme: 'rc' | 'ml' | 'dsml' | 'wordu'
+ theme: 'rc' | 'ml' | 'dsml'
  heroStats: HeroStat[]
  heroBackground?: ReactNode
  actSections?: ActSection[]

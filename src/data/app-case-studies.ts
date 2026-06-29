@@ -7,9 +7,9 @@
  * numbers/goals stay private.
  */
 
-import { Compass, LineChart, ChefHat, ShieldCheck, NotebookPen, Gamepad2, type LucideIcon } from 'lucide-react'
+import { Compass, LineChart, ChefHat, ShieldCheck, NotebookPen, type LucideIcon } from 'lucide-react'
 
-export type AppCaseStudyId = 'career-builder' | 'wealth-engine' | 'sous' | 'warden' | 'inkwell' | 'wordu'
+export type AppCaseStudyId = 'career-builder' | 'wealth-engine' | 'sous' | 'warden' | 'inkwell'
 
 export interface AppCaseStudy {
     id: AppCaseStudyId
@@ -35,7 +35,7 @@ export interface AppCaseStudy {
     devFallbackUrl?: string
     videoSrc?: string
 
-    /* Internal "play" route (WordU) — when set, the "See it run" section shows a
+    /* Internal "play" route — when set, the "See it run" section shows a
      * cover still + a "Play <title>" button that opens the playable build at this
      * route, instead of a video / embed / walkthrough. */
     playRoute?: string
@@ -276,37 +276,4 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
         ],
     },
 
-    'wordu': {
-        id: 'wordu',
-        title: 'WordU',
-        tagline: 'A fast word-chain game — shipped solo with agentic AI, dictionary and all.',
-        icon: Gamepad2,
-        accent: 'var(--semantic-orange)',
-        accentRgbVar: '--semantic-orange-rgb',
-        why: 'I wanted to prove a designer could ship a complete, polished interactive game end-to-end with agentic AI — not a toy, but something with real game feel: timing, scoring, an opponent, and a payoff loop. A word game was the perfect crucible.',
-        whatItSolves: 'WordU is a real-time word-chain game. Build the longest, highest-scoring chains against the clock or a computer opponent — every word validated against a real dictionary, with multipliers, hints, and tap-to-define on any word you play.',
-        highlights: [
-            {
-                title: 'Two modes, real game feel',
-                description: 'Rapid Fire — a 60-second sprint — and a head-to-head Versus battle against a computer opponent. Scoring with multipliers, hints, and genuine time / move pressure.',
-            },
-            {
-                title: 'Real dictionary, instantly',
-                description: 'Every word is validated against a bundled word list (lazy-loaded so play stays snappy). Tap any played word for its real definition + phonetics, pulled live from a dictionary API.',
-            },
-            {
-                title: 'Shipped solo with agentic AI',
-                description: 'Game loop, state machine, opponent logic, and a custom design system — all designed and coded end-to-end with agentic AI. Proof that one designer can ship a complete interactive product.',
-            },
-            {
-                title: 'Tactile, distraction-free UI',
-                description: 'A focused play surface with smooth transitions and a custom theme — no emoji, no clutter. Just the chain and the clock.',
-            },
-        ],
-        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Dictionary API', 'Agentic AI build'],
-        playRoute: '/work/wordu',
-        coverImage: '/images/wordu-cover.png',
-        status: 'live',
-        statusLabel: 'Live · playable now',
-    },
 }

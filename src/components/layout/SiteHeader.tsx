@@ -17,8 +17,6 @@ export default function SiteHeader() {
   const pathname = usePathname()
   const { openPdf } = usePdf()
   const isLandingPage = pathname === '/'
-  const isWorduPage = pathname?.startsWith('/work/wordu') ?? false
-  const isAboutPage = pathname === '/me' || pathname === '/me/'
 
   const isCaseStudyPage = pathname?.startsWith('/work/') ?? false
 
@@ -77,8 +75,8 @@ export default function SiteHeader() {
 
   const t = getTheme(!isLandingPage)
 
-  // Hide header on WordU and all case study pages (they have their own CaseStudyNav)
-  if (isWorduPage || isCaseStudyPage) {
+  // Hide header on case study pages (they have their own CaseStudyNav)
+  if (isCaseStudyPage) {
     return null
   }
 
@@ -131,16 +129,9 @@ export default function SiteHeader() {
             <Magnetic>
               <TransitionLink
                 href="/?tab=life"
-                className={`block font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors relative px-2 py-1 ${isAboutPage
-                  ? 'text-[var(--accent-teal)]'
-                  : isLandingPage ? 'text-zinc-400 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`
-                  }`}
+                className={`block font-mono text-[13px] uppercase tracking-[0.12em] font-normal transition-colors relative px-2 py-1 ${isLandingPage ? 'text-zinc-400 hover:text-[var(--accent-teal)]' : `${t.textMuted} hover:${t.text}`}`}
               >
                 Me
-                {/* Active indicator dot */}
-                {isAboutPage && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--accent-teal)]" />
-                )}
               </TransitionLink>
             </Magnetic>
           </div>

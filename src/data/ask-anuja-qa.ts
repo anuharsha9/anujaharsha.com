@@ -248,9 +248,9 @@ export const ASK_QA: AskQA[] = [
     {
         id: 'build-lab-why',
         category: 'work',
-        question: 'Why build six apps on the side?',
+        question: 'Why build five apps on the side?',
         answer:
-            'Because claiming you\'re AI-native isn\'t proof — shipping is. In a few months I built Pathwise, WealthEngine, Warden, Inkwell, Sous, and WordU end-to-end with agentic AI. Each one targets a different muscle: a quantitative decision engine, an agent-permission system, a voice-first native app, a local-first writing tool, a real-time game. Together they\'re the receipt for "designer who can architect and ship" — not just mock.',
+            'Because claiming you\'re AI-native isn\'t proof — shipping is. In a few months I built Pathwise, WealthEngine, Warden, Inkwell, and Sous end-to-end with agentic AI. Each one targets a different muscle: a quantitative decision engine, an agent-permission system, a voice-first native app, and a local-first writing tool. Together they\'re the receipt for "designer who can architect and ship" — not just mock.',
         cta: { label: 'See the Build Lab →', href: '#vibe-coding-zone' },
     },
     {
@@ -268,14 +268,6 @@ export const ASK_QA: AskQA[] = [
         answer:
             'A local-first writing studio. I write in bursts — five essays in a sitting, then nothing for weeks — and every publishing tool fights that rhythm. Inkwell decouples writing from publishing: draft into an archive, publish from a queue, copy a finished piece out in one action. No backend, no accounts — it all lives in your browser. It\'s architected to grow into a writing coach in my own voice.',
         cta: { label: 'Open Inkwell →', href: 'https://inkwell.anujaharsha.com', external: true },
-    },
-    {
-        id: 'wordu-why',
-        category: 'work',
-        question: 'A word game? Why is that in a Staff PD portfolio?',
-        answer:
-            'Because shipping a complete, polished game — timing, scoring, a computer opponent, a real dictionary — is a different proof than enterprise UX. WordU has genuine game feel and a payoff loop, built solo with agentic AI. It shows range and finish, not just process. And honestly, it was fun. Not everything needs a strategic justification.',
-        cta: { label: 'Play WordU →', href: '/work/wordu' },
     },
     {
         id: 'agentic-workflow',

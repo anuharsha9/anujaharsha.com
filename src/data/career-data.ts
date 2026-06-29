@@ -82,14 +82,6 @@ export const CAREER_DATA: CareerEra[] = [
         ],
         testimonials: [],
         workItems: [
-            {
-                id: "portfolio-game",
-                title: "Play Game",
-                description: "a word game created with agentic AI.",
-                image: "/images/wordu-cover.png",
-                link: "/work/wordu",
-                tags: ["Game Design", "React"]
-            }
         ],
         milestones: []
     },
@@ -364,14 +356,6 @@ export const CAREER_DATA: CareerEra[] = [
                 image: "/images/crbs-cover.png",
                 link: "/archive/crbs",
                 tags: ["Enterprise UX", "Tablet"]
-            },
-            {
-                id: "wordu",
-                title: "Wordu",
-                description: "Viral Word Game. 12,000+ organic downloads in week one.",
-                image: "/images/wordu-cover.png",
-                link: "/archive/wordu",
-                tags: ["Game Design", "Viral Growth"]
             },
             {
                 id: "graphic-design-archive",

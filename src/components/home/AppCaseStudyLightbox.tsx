@@ -55,7 +55,7 @@ export default function AppCaseStudyLightbox({
        hero), with the written detail below. Priority:
          A. walkthrough → narrated WalkthroughPlayer + Open Live Demo below
          B. requestDemo → demo reel (or "reel soon") + Request-demo CTA (Sous)
-         C. playRoute → cover + Play button (WordU)
+         C. playRoute → cover + Play button
          D. demoUrl → Open Live Demo button
          E. none → nothing */
     const seeItRun = study.walkthrough?.length ? (
