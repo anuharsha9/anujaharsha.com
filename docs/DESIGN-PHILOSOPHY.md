@@ -3,6 +3,8 @@
 > **The single source of truth for how Anuja thinks, designs, and works.**
 > Consolidated from `design-preferences.md`, `design-thoughts-anu.md`, `design-system.md`,
 > `copy-and-tone.md`, and the assistant's long-term memory of working with her.
+> The raw source files now live in `archive/` (`design-preferences-source.md`,
+> `design-thoughts-anu-source.md`) — this doc supersedes them.
 > If you're an AI agent or collaborator: **read this first.** When a decision isn't covered
 > here, ask in plain prose — don't guess, and don't hand over a multiple-choice menu (see §8).
 

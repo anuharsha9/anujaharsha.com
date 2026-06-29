@@ -1,3 +1,15 @@
+# Cinematic Experience & Case-Study Plans
+
+> The cinematic case-study system plans/refactor, general case-study audits, the cinematic upgrade notes, and the IQ overhaul summary.
+> Consolidated 2026-06-29. Each section below is a former standalone file, kept verbatim under its source header. Nothing was rewritten; full history is in git.
+
+
+
+---
+
+<!-- merged from: docs/artifacts/cinematic_case_study_plan.md -->
+## ── source: `cinematic_case_study_plan.md` ──
+
 # Cinematic Case Study — Implementation Plan v3
 
 > **Status:** Awaiting green light  
@@ -425,3 +437,399 @@ All illustrations are **CSS/SVG** — no external images. Monochromatic white/te
 | `src/components/case-study-experiment/CinematicCaseStudy.tsx` | **Rewrite** — Full rebuild |
 | `src/components/case-study-experiment/CinematicScene.tsx` | **Keep** |
 | `src/components/case-study-experiment/illustrations/` | **Create** — Small SVG/CSS illustration components |
+
+
+---
+
+<!-- merged from: docs/artifacts/cinematic_refactor_plan.md -->
+## ── source: `cinematic_refactor_plan.md` ──
+
+# CinematicCaseStudy Refactor Plan
+
+## Goal
+Make `CinematicCaseStudy` a fully reusable component. Zero hardcoded content. Everything prop-driven. Design tokens via `data-cs-theme`.
+
+## Design Tokens ✅ DONE
+- Added `--cs-accent`, `--cs-accent-bright`, `--cs-accent-soft`, `--cs-accent-rgb` defaults in `:root`
+- Added derived tokens: `--cs-accent-glow`, `--cs-accent-border`, `--cs-accent-surface`, `--cs-bg-radial`
+- Theme overrides: `[data-cs-theme="rc|ml|dsml|wordu"]`
+
+## Phase 2: Refactor CinematicCaseStudy Props
+
+### New Props Interface
+```tsx
+interface CinematicCaseStudyProps {
+  data: CaseStudyData              // existing — hero title, role, etc.
+  slides: StorySlide[]             // presentation mode slides
+  theme: 'rc' | 'ml' | 'dsml' | 'wordu'  // maps to data-cs-theme
+  heroStats: HeroStat[]            // the 3 stats in hero
+  actSections?: ActSection[]       // scroll nav dots (optional, full view only)
+  children?: ReactNode             // full view content (Acts)
+}
+```
+
+### What changes:
+1. Replace ALL `var(--accent-teal)` → `var(--cs-accent)` in the component
+2. Replace `var(--overlay-accent-08)` → `var(--cs-bg-radial)`
+3. Hero stats (15M+, 5→1, timeline) → from `heroStats` prop
+4. `presentationSlides` → from `slides` prop
+5. `ACT_SECTIONS` → from `actSections` prop
+6. Full view content (Acts I-VI) → from `children` prop
+7. Wrap in `<div data-cs-theme={theme}>` for CSS token scoping
+
+### What stays the same:
+- Hero section structure (title, role, scope tags, cover image — all from `data`)
+- ViewModeToggle
+- StoryDeck carousel
+- Background effects (orbs, scanlines, noise)
+- Scroll progress dots behavior
+
+## Phase 3: Extract RC Content
+- Move RC's `presentationSlides` array to a new file or inline in the page
+- Move RC's Acts I-VI full view content to `RCFullContent.tsx`
+
+## Phase 4: Port ML & DSML
+- ML page: import ML_MOVIE_BEATS, convert to slides, use CinematicCaseStudy
+- DSML page: import DSML_MOVIE_BEATS, convert to slides, use CinematicCaseStudy
+- Both get presentation mode only (no full view children yet)
+
+
+---
+
+<!-- merged from: docs/cinematic-experience-upgrade.md -->
+## ── source: `cinematic-experience-upgrade.md` ──
+
+# Cinematic Experience Upgrade — Continuation Plan
+
+> Branch: `cinematic-experience-upgrade` (off `visual-polish-v3`)
+> Commit: `9f6cac8`
+> Date: Mar 7, 2026
+
+---
+
+## ✅ Completed (Landing Page)
+
+### P1 — Hero → CSG Transition
+- Hero fades to `opacity: 0` (not just blur) at scroll progress `0.50→0.70` (bio) and `0.55→0.75` (container)
+- Hero height reduced from `200vh` → `135vh`
+- CSG overlap: `-mt-[50vh]` — no dead scroll zone
+- **No separate background on CSG wrapper** — continuous `bg-cinematic` from page root. No visible division line.
+
+### P2 — CSG Entrance Choreography
+- Tiles: `blur(16px)`, `1.4s` resolve, wider stagger (`0.25 + i*0.2`)
+- Era label: `blur(20px)`, `1.6s` resolve
+- Heading: scroll-driven `blur(16px→0)` via `useTransform` + `useMotionTemplate`
+
+### P3 — Atmospheric Continuity
+- Faint teal radial gradient (`0.04` opacity) in fixed background layer
+- `mix-blend-screen` + `aurora-ambient` CSS animation (20s gentle drift)
+- SVG noise texture remains for film grain
+
+### P4 — Vibe Coding + Extended Portfolio
+- Same blur-to-focus protocol: `20px` era labels, `16px` tiles, `1.4s` resolve
+- Heading scroll-driven blur removed (performance) — individual items still blur-to-focus
+
+### P5 — Testimonials
+- Era label + heading upgraded to match
+- Individual quote transitions already use blur-to-focus via `AnimatePresence`
+
+### P6 — Foundation + Footer
+- Foundation: `16px` blur, `1.2s` resolve
+- TalkSection: `20px` blur, `1.6s` resolve
+
+### Aurora (Canvas 2D)
+- [HeroAurora.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/HeroAurora.tsx) — vertical curtain rays from wavy bezier top edges
+- 3 curtains (was 4), rayWidth 12-14px (was 3-5px) for performance
+- Colors from `--accent-teal-rgb` design token
+- Reduced motion support
+
+### Performance Fixes
+- **Removed all `useSpring` on blur values** — springs compute continuously
+- **Removed section-level `filter: blur()`** — forces GPU compositing of entire section trees
+- **Canvas aurora: 4x draw call reduction** — wider rays, fewer curtains
+- Individual item `whileInView` blur preserved (cheap, fires once)
+
+---
+
+## ⬜ Remaining (P7+)
+
+### P7 — Case Study Pages
+Priority order:
+1. **Section entrance blur-to-focus** — Apply same 16-20px blur protocol to beat/section reveals
+2. **Beat transitions** — Ensure smooth handoffs between StoryDeck/Movie Beats sections
+3. **Trailer entrance** — The trailers should feel like "lights dim, curtain rises" moments
+4. **Atmospheric continuity** — Very faint aurora/teal presence on case study dark backgrounds
+5. **End-of-journey navigation** — Polish the transition from case study back to landing
+
+Files to audit:
+- [src/components/case-study-experiment/CinematicCaseStudy.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/CinematicCaseStudy.tsx)
+- [src/components/case-study-experiment/RCCaseStudyView.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/RCCaseStudyView.tsx)
+- [src/components/case-study-experiment/MLFullContent.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/MLFullContent.tsx)
+- [src/components/case-study-experiment/DSMLCaseStudyView.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-experiment/DSMLCaseStudyView.tsx)
+- `src/components/case-study/storyboard/*.tsx`
+
+### Wave Design Language Integration
+Ideas discussed but not implemented:
+- Hover states with wave ripple effect
+- Loading indicator as a single flowing wave line
+- Wave-like easing curves site-wide
+- Text reveals with wave stagger
+- Scroll-driven wave parallax on background elements
+
+### Performance Monitoring
+- Verify no more flickering/lag after the fixes
+- Consider `will-change: transform` hints on animated elements
+- Profile canvas aurora on lower-end devices
+
+---
+
+## Key Files Changed
+
+| File | What Changed |
+|---|---|
+| [src/components/home/HeroAurora.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/HeroAurora.tsx) | **NEW** — Canvas 2D aurora with vertical curtain rays |
+| [src/components/home/HeroLanding.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/HeroLanding.tsx) | Hero exit: opacity fade, adjusted timings, 135vh height |
+| [src/app/page.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/app/page.tsx) | Ambient aurora background, CSG overlap cleanup |
+| [src/app/globals.css](file:///Users/anu/Work/anu-portfolio-exploration/src/app/globals.css) | `@keyframes aurora-ambient`, old CSS aurora removed |
+| [src/components/home/CSGBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/CSGBlock.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/TestimonialsBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/TestimonialsBlock.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/VibeCodingBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/VibeCodingBlock.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/ExtendedPortfolio.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/ExtendedPortfolio.tsx) | Blur-to-focus entrance, useSpring removed |
+| [src/components/home/FoundationBlock.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/FoundationBlock.tsx) | Deeper blur entrance |
+| [src/components/home/TalkSection.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/TalkSection.tsx) | Deeper blur entrance |
+| [src/components/home/LifeContextStrip.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/home/LifeContextStrip.tsx) | Unused import cleanup |
+
+---
+
+## Design Principles (Locked In)
+
+1. **The scroll is a film** — every pixel enters as if directed
+2. **Content stays, layout stays, only experience changes**
+3. **Blur-to-focus is the transition protocol** — no crossfades, no opacity-only fades
+4. **The dark canvas is alive** — ambient aurora, never dead black
+5. **"Whispering Intensity"** — alive but barely, you're not sure if it's moving
+6. **The gear/brain experience is separate** — hidden, immersive, its own world
+
+
+---
+
+<!-- merged from: docs/artifacts/case_study_audit_plan.md -->
+## ── source: `case_study_audit_plan.md` ──
+
+# Case Study Audit & Simplification Plan (V3: The Cinematic Hero Aesthetic)
+
+## Synthesizing the Vision (Post-Homepage Review)
+I just reviewed the incredible `HeroLanding.tsx` and the homepage layout. The aesthetic is stunning: "Neural Mainframe," deep cinematic vignettes, floating orbs, massive transparent gradients, and auto-playing scrollytelling. It feels powerful, immersive, and incredibly premium.  
+
+Your critique is spot-on: transitioning from that immersive, Apple-like cinematic homepage sequence into a standard React site with boxed components breaks the magic. The case study needs to feel like an extension of the hero experience—not a standard B2B webpage.
+
+***
+
+## The Execution Plan: The Cinematic Experiment Route
+
+### Vision: The Core Philosophy
+We are shifting from a "reading" layout to a "scrollytelling" experience. We will use the full height of the viewport, dramatic contrast, and huge, kinetic typography. We will strip out arbitrary React boxes (`SectionBlock`) entirely.
+
+### Step 1: Set Up the Cinematic Sandbox
+* Create `src/app/experiment/case-study/[slug]/page.tsx`
+* Create `src/components/case-study-experiment/CinematicCaseStudy.tsx`
+* This ensures complete safety for the live portfolio while we build the new paradigm.
+
+### Step 2: Full-Bleed Scrollytelling (No More standard "Sections")
+* We will replace the standard `SectionBlock` with a `CinematicScene.tsx`.
+* **The Layout:** Images/videos will anchor to the background (full bleed or massive floating plates), and the text will be massive, high-contrast typography that fades in and out as the user scrolls, much like the `HeroLanding` quote sequence.
+* No more small paragraphs next to arbitrary grids. One thought, one screen, one impact.
+
+### Step 3: Apple-Style Bento Callouts
+* For areas where we absolutely *must* show dense information (e.g., the 5 legacy sub-systems or the "250 screens" moment), we will use an ultra-premium, dark-mode `BentoGallery.tsx`.
+* Native, familiar Apple hardware pages layout: Glassmorphic tiles, tight gaps, minimal text, interactive hover states.
+
+### Step 4: The AutoPlay Data Viewer
+* You specifically asked for an improved `AutoSequenceDataViewer`. I will rebuild this as a high-end cinematic component.
+* Instead of a web-app component, it will feel like a HUD terminal overlaying the background, typing out data points or cycling through architectural diagrams on a timer, with slick Framer Motion transitions.
+
+### Step 5: "Better Business Framing"
+* We will extract the true business impact (20M+ schedules, churn prevention) and display them using massive, screen-filling numbers (e.g., `HeroLanding` typography scale) that format dynamically on scroll. 
+* No fake data. Just leveraging the insane scale of what you actually built.
+
+***
+
+### Ready to Execute?
+The vision is clear: we are throwing out the standard React portfolio template and bringing the cinematic, "Neural Mainframe" magic directly into the case study. 
+
+If this hits the mark, I will run the terminal commands to set up the `experiment` route and start building the `CinematicCaseStudy` frame right now.
+
+
+---
+
+<!-- merged from: docs/artifacts/case_study_content_audit.md -->
+## ── source: `case_study_content_audit.md` ──
+
+# Case Study Content Audit: Feb 10 vs Current
+
+> Comparing commit `54d9944` (Feb polished version) against the current `CaseStudyPage.tsx` new layout.
+
+## REPORTCASTER
+
+### Feb 10 Layout (per section)
+| Section | Components |
+|---------|-----------|
+| **section-01** | SectionBlock + SystemArchaeology |
+| **section-02** | SectionBlock + ResearchApproach (RC) + EmpathizeStrategyGrid + MarketAnalysis (RC) + PersonaCards |
+| **section-03** | SectionBlock + ProcessArtifactViewer (RC) + SystemMappingBreakdown |
+| **section-04** | SectionBlock + ScheduleWorkflowComparison + VersionIteration + **RCDesignEvolution** + ImpactVisual |
+| **section-05** | SectionBlock + TeamCollaboration (RC) |
+| **section-06** | SectionBlock + NavigateForwardContent |
+| **Cross-section** | QuickOverview, VitalSigns, ReportCasterTimeline, DesignSystemShowcase |
+
+### Current CaseStudyPage.tsx (RC 6-Act)
+| Act | Components |
+|-----|-----------|
+| **Act I** | SectionBlock (01) + SystemArchaeology |
+| **Act II** | SectionBlock (02) + TribalKnowledgeNetwork + SectionBlock (03) + ProcessArtifactViewer (RC) |
+| **Act III** | SystemConsolidationMap + VersionIteration + ✅ **RCDesignEvolution** (just restored) + PlusMenuInsight |
+| **Act IV** | ScheduleWorkflowComparison + NaturalLanguageInsight + PrototypeBlock + ImpactDiff + DesignSystemShowcase |
+| **Act V** | SectionBlock (05) + TeamCollaboration (RC) |
+| **Act VI** | SectionBlock (06) + ScaleAndResponsibility + QuickOverviewSection + NavigateForwardContent |
+
+### RC GAPS (Missing from new layout)
+| Component | Status | Notes |
+|-----------|--------|-------|
+| ❌ **ResearchApproach** (RC data) | Missing | Was in section-02. TribalKnowledgeNetwork replaces some of it but is different. |
+| ❌ **EmpathizeStrategyGrid** | Missing | Was in section-02 — stakeholder empathy mapping. |
+| ❌ **MarketAnalysis** (RC) | Missing | Was in section-02 — competitive landscape. |
+| ❌ **PersonaCards** | Missing | Was in section-02 — user persona cards. |
+| ❌ **ImpactVisual** | Missing | Was in section-04 — impact visualization. |
+| ❌ **SystemMappingBreakdown** | Missing | Was in section-03 — system mapping. |
+| ✅ RCDesignEvolution | **Just restored** | Tabbed subsystem screens. |
+
+---
+
+## ML FUNCTIONS
+
+### Feb 10 Layout (per section)
+| Section | Components |
+|---------|-----------|
+| **section-01** | SectionBlock + MLKnowledgeGapSystem + MLChallengeBreakdown |
+| **section-02** | SectionBlock + ResearchApproach (ML) + MLUserAccessStrategy + MLPersonaCards + MarketAnalysis (ML) |
+| **section-03** | SectionBlock + ProcessArtifactViewer (ML) + SystemTopologyBlueprint + MLWorkflowMapping + ThreeCriticalPivots |
+| **section-04** | SectionBlock + LayeredDisclosureVisual + DesignIterationLog |
+| **section-05** | SectionBlock + MLExplainabilityHighlight + TeamCollaboration (ML) |
+| **section-06** | SectionBlock + MLImpactMetrics + NavigateForwardContent/MLReflection + MLPatternConnections |
+| **Cross-section** | QuickOverview, VitalSigns, MLFunctionsTimeline, DesignSystemShowcase |
+
+### Current CaseStudyPage.tsx (ML 6-Act)
+| Act | Components |
+|-----|-----------|
+| **Act I** | SectionBlock (01) + MLKnowledgeGapSystem + MLChallengeBreakdown |
+| **Act II** | SectionBlock (02) + MLUserAccessStrategy + MLPersonaCards |
+| **Act III** | SectionBlock (03) + ProcessArtifactViewer (ML) + SystemTopologyBlueprint + MLWorkflowMapping |
+| **Act IV** | SectionBlock (04) + AutoSequenceDataViewer (shipped screens) + PrototypeBlock + ImpactDiff ×2 + DesignSystemShowcase |
+| **Act V** | SectionBlock (05) + MLExplainabilityHighlight + TeamCollaboration (ML) |
+| **Act VI** | SectionBlock (06) + MLImpactMetrics + CaseStudyReflection + MLPatternConnections |
+
+### ML GAPS (Missing from new layout)
+| Component | Status | Notes |
+|-----------|--------|-------|
+| ❌ **ResearchApproach** (ML data) | Removed intentionally | Content overlapped with MLKnowledgeGapSystem. |
+| ❌ **MarketAnalysis** (ML) | Missing | Competitive landscape for ML. |
+| ❌ **ThreeCriticalPivots** | Missing | Was in section-03 — 3 architectural pivots. |
+| ❌ **LayeredDisclosureVisual** | Missing | Was in section-04 — progressive disclosure strategy. |
+| ❌ **DesignIterationLog** | Missing | Was in section-04 — IDE-style artifact explorer with iteration history. |
+| ✅ MLFunctionsTimeline | Removed intentionally | User requested removal. |
+| ✅ QuickOverviewSection | Removed intentionally | Duplicated MLImpactMetrics in Act VI. |
+
+---
+
+## IQ PLUGIN
+> Note: IQ Plugin uses the fallback layout (non-6-Act), not audited here in detail.
+
+### Feb 10 Layout (per section)
+| Section | Components |
+|---------|-----------|
+| **section-01** (Discovery) | SectionBlock + (IQ-specific discovery sub-components) |
+| **section-02** (Research) | SectionBlock |
+| **section-03** (Architecture) | SectionBlock |
+| **section-04** (Iterate) | SectionBlock + IQEvolution + IQEmptyStateShowcase + DesignIterationLog (IQ tabs) |
+| **section-05** (Grow) | SectionBlock + TeamCollaboration (IQ) + IQChallengesBreakdown |
+| **section-06** (Outcome) | SectionBlock |
+
+### IQ GAPS — Need to verify against current fallback layout
+
+---
+
+## PRIORITY ACTION ITEMS
+
+### ✅ Restored
+1. **ThreeCriticalPivots** → ML Act III (after MLWorkflowMapping) — 3 visual before/after pivot cards
+2. **LayeredDisclosureVisual** → ML Act IV — progressive disclosure strategy diagram
+3. **DesignIterationLog** → ML Act IV — IDE-style artifact explorer
+4. **RCDesignEvolution** → RC Act III (after VersionIteration) — 6-tab shipped screen viewer
+
+All 4 components converted from light-mode hardcoded slate/white to design system tokens.
+
+### Consider Restoring (valuable but may overlap)
+5. **MarketAnalysis** (both RC and ML) — competitive landscape
+6. **PersonaCards** (RC) and **EmpathizeStrategyGrid** (RC) — research depth
+7. **SystemMappingBreakdown** (RC) — replaced by SystemConsolidationMap?
+8. **ImpactVisual** (RC) — impact data visualization
+
+### Intentionally Removed (confirmed by user)
+- MLFunctionsTimeline ✅
+- QuickOverviewSection from ML Act VI ✅  
+- ResearchApproach from ML (duplicated MLKnowledgeGapSystem) ✅
+
+
+---
+
+<!-- merged from: docs/artifacts/iq_overhaul_summary.md -->
+## ── source: `iq_overhaul_summary.md` ──
+
+# IQ/DSML Case Study Overhaul — Complete Summary
+
+## ✅ What Was Done
+
+### 1. IQ Case Study Page → 6-Act Structure
+The IQ Plugin page has been migrated from the old `CaseStudyLayout` to the new `CaseStudyPage` (6-Act structure), matching ReportCaster and ML Functions.
+
+**File changed:** [page.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/app/work/iq-plugin/page.tsx)
+
+### 2. DSML Movie Beats Created (8 Beats)
+A full set of animated presentation beats for the DSML/IQ case study, following the exact same patterns as RC and ML beats.
+
+**File created:** [DSMLMovieBeats.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study/storyboard/DSMLMovieBeats.tsx)
+
+| Beat | Title | Signal | Story |
+|------|-------|--------|-------|
+| 1 | The Invisible Feature Problem | <5% ADOPTION | 3 AI features nobody could find |
+| 2 | The Strategic Spark | VP APPROVED | Invented, not assigned — PM partnership |
+| 3 | Terminal → Apple UI | MODERNIZED | Before/after interface transformation |
+| 4 | Architecture Before Tickets | 3 → 1 HUB | Scattered tools → unified hub |
+| 5 | Four Iterations | V4 LANDED | V1→V2→V3→V4 design evolution |
+| 6 | The Navigation Fight | I WON | Icon tiles vs. list views — won |
+| 7 | Room Full of Veterans | 2 YEARS IN | Driving conversation among decades-tenured veterans |
+| 8 | Visibility Was the Solution | +25% ADOPTION | Impact from discoverability alone |
+
+### 3. IQ 6-Act Layout Wired Up
+The full 6-Act structure for IQ is now live with rich IQ-specific components:
+
+**File modified:** [CaseStudyPage.tsx](file:///Users/anu/Work/anu-portfolio-exploration/src/components/case-study-v2/CaseStudyPage.tsx)
+
+| Act | Title | Components |
+|-----|-------|------------|
+| I — The Hook | Three Powerful AI Features. <5% Adoption. | IQBusinessCase, IQChallengesBreakdown |
+| II — The Investigation | Modernizing the Building Blocks | IQPersonaCards, IQEvolution |
+| III — The Architecture | Architecture Before Tickets | ProcessArtifactViewer, IQArchitectureBlueprint, IQWorkflowsAndFoundation, UXPrinciples |
+| IV — The Craft | Four Iterations to the Final Hub | IQIterationLog, IQEmptyStateShowcase, AutoSequenceDataViewer (7 screens), PrototypeBlock, IQWorkflowComparison + DesignSystemShowcase |
+| V — The Team | The Room Full of Veterans | IQPluginTimeline, TeamCollaboration |
+| VI — The Outcome | Visibility Was the Solution | CaseStudyReflection, IQPatternConnections |
+
+### 4. Verification
+- ✅ TypeScript: Clean build (`npx tsc --noEmit` — zero errors)
+- ✅ All pages return HTTP 200:
+  - `/work/iq-plugin/` → 200
+  - `/work/reportcaster/` → 200
+  - `/work/ml-functions/` → 200
+
+> [!IMPORTANT]
+> The IQ case study now uses the same premium 6-Act layout as RC and ML, with animated movie beats in presentation mode and rich component-filled sections in full view.
