@@ -82,9 +82,9 @@ export function Scene3Unified({ progress }: { progress: number }) {
         <m.div
           className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border"
           style={{
-            background: 'rgba(20, 184, 166, 0.05)',
-            borderColor: 'rgba(20, 184, 166, 0.3)',
-            boxShadow: '0 0 60px rgba(20, 184, 166, 0.15)',
+            background: 'rgba(var(--accent-teal-bright-rgb), 0.05)',
+            borderColor: 'rgba(var(--accent-teal-bright-rgb), 0.3)',
+            boxShadow: '0 0 60px rgba(var(--accent-teal-bright-rgb), 0.15)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
           }}

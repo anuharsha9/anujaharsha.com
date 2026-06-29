@@ -173,8 +173,8 @@ export default function NotFound() {
           <span
             className="bg-clip-text text-transparent"
             style={{
-              backgroundImage: 'linear-gradient(to bottom, rgba(7, 139, 156, 0.4) 0%, rgba(7, 139, 156, 0.08) 70%, transparent 100%)',
-              WebkitTextStroke: '1.5px rgba(7, 139, 156, 0.25)',
+              backgroundImage: 'linear-gradient(to bottom, rgba(var(--accent-teal-rgb), 0.4) 0%, rgba(var(--accent-teal-rgb), 0.08) 70%, transparent 100%)',
+              WebkitTextStroke: '1.5px rgba(var(--accent-teal-rgb), 0.25)',
             }}
           >
             404
@@ -208,7 +208,7 @@ export default function NotFound() {
           <Magnetic strength={0.3}>
             <TransitionLink
               href="/"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-teal)] text-white rounded-full font-medium text-sm transition-all hover:shadow-[0_0_30px_rgba(7,139,156,0.4)] hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-teal)] text-white rounded-full font-medium text-sm transition-all hover:shadow-[0_0_30px_rgba(var(--accent-teal-rgb),0.4)] hover:scale-[1.02] active:scale-[0.98]"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

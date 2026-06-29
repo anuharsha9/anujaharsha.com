@@ -125,7 +125,7 @@ export default function WorduPage() {
 
       {/* ── Background ambient glow ── */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(var(--semantic-blue-rgb),0.15) 0%, transparent 70%)' }}
       />
     </section>
   )

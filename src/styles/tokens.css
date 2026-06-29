@@ -70,8 +70,9 @@
    /* ── ACCENT — Teal ─────────────────────────── */
 
    --accent-teal: #078B9C;
-   --accent-teal-soft: rgba(7, 139, 156, 0.08);
+   --accent-teal-soft: rgba(var(--accent-teal-rgb), 0.08);
    --accent-teal-bright: #14b8a6;
+   --accent-teal-bright-rgb: 20, 184, 166;
    --accent-teal-dark: #077D8E;
    --accent-teal-rgb: 7, 139, 156;
    /* Luminous teal — brighter than --accent-teal, reserved for ambient glows,
@@ -159,7 +160,7 @@
 
    /* ── FOCUS & STATE ─────────────────────────── */
 
-   --focus-ring: rgba(7, 139, 156, 0.5);
+   --focus-ring: rgba(var(--accent-teal-rgb), 0.5);
    --focus-ring-width: 3px;
    --focus-ring-offset: 1px;
 
@@ -296,7 +297,7 @@
 [data-cs-theme="rc"] {
    --cs-accent: #078B9C;
    --cs-accent-bright: #14b8a6;
-   --cs-accent-soft: rgba(7, 139, 156, 0.08);
+   --cs-accent-soft: rgba(var(--accent-teal-rgb), 0.08);
    --cs-accent-rgb: 7, 139, 156;
 }
 
@@ -304,7 +305,7 @@
 [data-cs-theme="ml"] {
    --cs-accent: #06b6d4;
    --cs-accent-bright: #22d3ee;
-   --cs-accent-soft: rgba(6, 182, 212, 0.08);
+   --cs-accent-soft: rgba(var(--semantic-cyan-rgb), 0.08);
    --cs-accent-rgb: 6, 182, 212;
 }
 

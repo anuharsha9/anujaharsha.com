@@ -96,7 +96,7 @@ export default function TalkSection() {
                   trackResumeDownload()
                   openPdf('/assets/Anuja%20Harsha%20Nimmagadda%20-%20Staff%20Product%20Designer.pdf', 'Anuja Harsha Nimmagadda - Staff Product Designer')
                 }}
-                className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 sm:gap-3 px-4 sm:px-7 py-3.5 rounded-full border border-amber-500/25 bg-amber-500/[0.08] text-amber-200 text-sm font-medium tracking-wide hover:bg-amber-500/[0.15] hover:text-amber-100 hover:border-amber-500/40 transition-all duration-500 shadow-[0_0_30px_-8px_rgba(245,158,11,0.15)]"
+                className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 sm:gap-3 px-4 sm:px-7 py-3.5 rounded-full border border-amber-500/25 bg-amber-500/[0.08] text-amber-200 text-sm font-medium tracking-wide hover:bg-amber-500/[0.15] hover:text-amber-100 hover:border-amber-500/40 transition-all duration-500 shadow-[0_0_30px_-8px_rgba(var(--accent-amber-rgb),0.15)]"
                 aria-label="View Resume PDF"
               >
                 <svg aria-hidden="true" className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

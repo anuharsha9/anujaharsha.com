@@ -495,7 +495,7 @@ function Scene3Blueprint({ progress }: { progress: number }) {
 
       <m.p
         className="mt-8 text-xs font-mono uppercase tracking-[0.2em]"
-        style={{ color: phase === 1 ? 'rgba(244, 63, 94, 0.8)' : 'var(--accent-teal-bright)' }}
+        style={{ color: phase === 1 ? 'rgba(var(--semantic-rose-rgb), 0.8)' : 'var(--accent-teal-bright)' }}
       >
         {phase === 1 ? '50-Step Legacy Nightmare' : '3-Step Intuitive Flow'}
       </m.p>
@@ -1253,13 +1253,13 @@ export default function ManifestoPage() {
           border-radius: 50%;
           background: var(--accent-teal-bright);
           border: 2px solid rgba(var(--white-rgb),0.3);
-          box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
+          box-shadow: 0 0 15px rgba(var(--accent-teal-bright-rgb), 0.5);
           cursor: pointer;
           transition: transform 0.2s, box-shadow 0.2s;
         }
         .manifesto-slider::-webkit-slider-thumb:hover {
           transform: scale(1.2);
-          box-shadow: 0 0 25px rgba(20, 184, 166, 0.7);
+          box-shadow: 0 0 25px rgba(var(--accent-teal-bright-rgb), 0.7);
         }
         .manifesto-slider::-moz-range-thumb {
           width: 20px;
@@ -1267,7 +1267,7 @@ export default function ManifestoPage() {
           border-radius: 50%;
           background: var(--accent-teal-bright);
           border: 2px solid rgba(var(--white-rgb),0.3);
-          box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
+          box-shadow: 0 0 15px rgba(var(--accent-teal-bright-rgb), 0.5);
           cursor: pointer;
         }
 

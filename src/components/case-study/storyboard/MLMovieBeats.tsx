@@ -498,7 +498,7 @@ export function MLBeatDiscovery() {
  className="flex-1 relative"
  >
  {/* Certificate frame */}
- <div className="relative rounded-xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-950/40 via-zinc-950 to-amber-950/20 p-6 md:p-8 shadow-[0_0_40px_rgba(245,158,11,0.1)]">
+ <div className="relative rounded-xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-950/40 via-zinc-950 to-amber-950/20 p-6 md:p-8 shadow-[0_0_40px_rgba(var(--accent-amber-rgb),0.1)]">
  {/* Decorative corners */}
  <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-amber-500/40 rounded-tl" />
  <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-amber-500/40 rounded-tr" />
@@ -515,7 +515,7 @@ export function MLBeatDiscovery() {
  initial={{ scale: 0, rotate: -180 }}
  animate={step >= 1 ? { scale: 1, rotate: 0 } : {}}
  transition={{ duration: DURATION.slower, type: 'spring', damping: 15 }}
- className="mx-auto mt-4 w-16 h-16 rounded-full border-2 border-amber-400/60 bg-gradient-to-br from-amber-500/30 to-amber-700/20 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+ className="mx-auto mt-4 w-16 h-16 rounded-full border-2 border-amber-400/60 bg-gradient-to-br from-amber-500/30 to-amber-700/20 flex items-center justify-center shadow-[0_0_20px_rgba(var(--accent-amber-rgb),0.3)]"
  >
  <Target className="w-7 h-7 text-amber-300" />
  </m.div>
@@ -762,7 +762,7 @@ export function MLBeatEntryPoint() {
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: i * 0.05 }}
  className={`flex items-center gap-2.5 px-3 py-2 text-left text-xs border-b border-zinc-800/50 cursor-pointer transition-all ${item.highlight && step >= 3
- ? 'bg-[color-mix(in_srgb,var(--cs-accent),transparent_85%)] text-[var(--cs-accent)] font-bold shadow-[inset_0_0_20px_rgba(16,185,129,0.1)]'
+ ? 'bg-[color-mix(in_srgb,var(--cs-accent),transparent_85%)] text-[var(--cs-accent)] font-bold shadow-[inset_0_0_20px_rgba(var(--semantic-emerald-rgb),0.1)]'
  : item.danger ? 'text-zinc-500' : 'text-zinc-400 hover:bg-zinc-800/50'
  }`}
  >
@@ -975,7 +975,7 @@ export function MLBeatBreakthrough() {
  <div key={label} className="flex items-center gap-1.5">
  <m.div
  animate={{
- backgroundColor: i <= activeStep ? 'rgba(59,130,246,0.5)' : 'rgba(var(--white-rgb),0.06)',
+ backgroundColor: i <= activeStep ? 'rgba(var(--semantic-blue-rgb),0.5)' : 'rgba(var(--white-rgb),0.06)',
  scale: i === activeStep ? 1.15 : 1,
  }}
  transition={{ duration: DURATION.base }}
@@ -1190,7 +1190,7 @@ export function MLBeatOrigin() {
  initial={{ opacity: 0, x: 15, scale: 0.95 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
  transition={{ duration: DURATION.deliberate, ease }}
- className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.08)]"
+ className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] overflow-hidden shadow-[0_0_30px_rgba(var(--semantic-emerald-rgb),0.08)]"
  >
  <div className="flex items-center gap-2 px-4 py-2 bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] border-b border-[color-mix(in_srgb,var(--cs-accent),transparent_90%)]">
  <div className="w-2 h-2 rounded-full bg-[var(--cs-accent)] animate-pulse" />
@@ -1352,7 +1352,7 @@ export function MLBeatConfusionMatrix() {
  initial={{ opacity: 0, x: 15, scale: 0.95 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
  transition={{ duration: DURATION.deliberate, ease }}
- className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.1)]"
+ className="rounded-xl border border-[color-mix(in_srgb,var(--cs-accent),transparent_80%)] bg-[color-mix(in_srgb,var(--cs-accent),transparent_97%)] overflow-hidden shadow-[0_0_40px_rgba(var(--semantic-emerald-rgb),0.1)]"
  >
  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[color-mix(in_srgb,var(--cs-accent),transparent_95%)] border-b border-[color-mix(in_srgb,var(--cs-accent),transparent_90%)]">
  <div className="w-1.5 h-1.5 rounded-full bg-[var(--cs-accent)] animate-pulse" />
@@ -1677,10 +1677,10 @@ export function MLBeatValidation() {
  className="flex-1 h-8 rounded flex items-center justify-center border"
  animate={{
  background: step >= 2 && i <= Math.min(step - 1, 3)
- ? 'rgba(16,185,129,0.15)'
+ ? 'rgba(var(--semantic-emerald-rgb),0.15)'
  : 'rgba(var(--white-rgb),0.02)',
  borderColor: step >= 2 && i <= Math.min(step - 1, 3)
- ? 'rgba(16,185,129,0.3)'
+ ? 'rgba(var(--semantic-emerald-rgb),0.3)'
  : 'rgba(var(--white-rgb),0.06)',
  }}
  transition={{ duration: DURATION.medium }}
