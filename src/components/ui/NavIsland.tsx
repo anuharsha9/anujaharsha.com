@@ -2,16 +2,14 @@
 
 import { m } from 'framer-motion'
 import { ArrowLeft, type LucideIcon } from 'lucide-react'
+import { GLASS_PILL, GLASS_PILL_STATES } from '@/lib/surfaces'
 
 /**
  * THE Dynamic-Island nav shell — one canonical component for every nav context
  * (Work/Life, RC/ML/IQ, Back). No more duplicated island markup.
  *
- * Glass + all interactive states come from tokens, standardized here once:
- *   surface  → --overlay-ink-55 (+ -75 on hover)
- *   border   → --overlay-white-10 (+ -20 on hover)
- *   shadow   → --shadow-lg
- *   press    → active:scale-[0.97]   (focus ring is the global *:focus-visible token)
+ * Glass + all interactive states come from the shared GLASS_PILL language
+ * (see src/lib/surfaces.ts) — the same surface the lightbox + icon buttons use.
  *
  * Renders an optional leading pill (Back/Home) and/or a segmented control with a
  * spring-sliding active highlight. If there's no segmented control, the leading
@@ -33,10 +31,8 @@ interface NavIslandProps {
     ariaLabel?: string
 }
 
-/* The ONE glass-pill surface (tokens only). */
-const PILL =
-    'rounded-full border border-[var(--overlay-white-10)] bg-[var(--overlay-ink-55)] ' +
-    'shadow-[var(--shadow-lg)] backdrop-blur-xl'
+/* The ONE glass-pill surface (shared language — tokens only). */
+const PILL = GLASS_PILL
 
 export default function NavIsland({ segments, activeId, onSelect, leading, ariaLabel }: NavIslandProps) {
     const hasSegments = !!segments && segments.length > 0
@@ -53,7 +49,7 @@ export default function NavIsland({ segments, activeId, onSelect, leading, ariaL
             onClick={leading.onClick}
             aria-label={leading.label}
             title={leading.label}
-            className={`${PILL} pointer-events-auto group inline-flex items-center gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 transition-all duration-300 hover:border-[var(--overlay-white-20)] hover:bg-[var(--overlay-ink-75)] hover:text-white active:scale-[0.97] md:px-4 md:text-[11px]`}
+            className={`${PILL} ${GLASS_PILL_STATES} pointer-events-auto group inline-flex items-center gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 md:px-4 md:text-[11px]`}
         >
             {leading.icon
                 ? <leading.icon className="h-3.5 w-3.5" />
