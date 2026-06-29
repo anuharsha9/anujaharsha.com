@@ -4,7 +4,7 @@ import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, Mail, Lock, FolderOpen, Settings, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
 
 interface SystemNode {
  icon: LucideIcon
@@ -202,7 +202,7 @@ export default function BeatFragmentation() {
  <m.div
  initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
  animate={phase >= 3 ? { opacity: 1, scale: 1, rotate: -5 } : {}}
- transition={{ duration: 0.4, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+ transition={{ duration: 0.4, delay: 0.2, ease: EASE_SPRING }}
  className="absolute top-3 right-3 px-2 py-0.5 rounded border border-zinc-500/30 bg-zinc-500/10"
  >
  <span className="text-[11px] font-mono text-zinc-400 tracking-wider uppercase">Outdated</span>

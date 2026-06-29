@@ -8,7 +8,7 @@ import { useManifestoTimeline, SCENES, TOTAL_DURATION } from '@/hooks/useManifes
 import { useManifestoAudio } from '@/hooks/useManifestoAudio'
 import { Scene3Unified } from '@/components/manifesto/Scene3Unified'
 import { Scene4Stitch } from '@/components/manifesto/Scene4Stitch'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Shared easing — matches RCTrailer & HeroLanding
@@ -75,7 +75,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
           transition={{
             duration: 0.35,
             delay: i * 0.035,
-            ease: [0.16, 1, 0.3, 1],
+            ease: EASE_EXPO,
           }}
           className="inline-block"
         >

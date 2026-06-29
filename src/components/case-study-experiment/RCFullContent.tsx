@@ -13,6 +13,7 @@ import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import ImpactDiff from '@/components/case-study/ImpactDiff'
 import SystemIndex from '@/components/case-study/SystemIndex'
+import { EASE_CINEMATIC } from '@/lib/motion'
 import {
     BentoGrid, BentoRow, ImageTile, TextTile, VideoTile,
     PullQuote, EyebrowLabel, CarouselTile,
@@ -573,7 +574,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                                     initial={{ opacity: 0, y: 24 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                                    transition={{ duration: 0.6, delay: i * 0.15, ease: EASE_CINEMATIC }}
                                     className="relative p-8 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden group hover:border-[var(--cs-accent)]/20 transition-colors duration-500"
                                 >
                                     <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[var(--cs-accent)]/5 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -623,7 +624,7 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
                     className="relative w-full min-h-[50vh] flex flex-col items-center justify-center px-6 md:px-16 py-24 md:py-40"
                 >
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
 import { m, AnimatePresence, useInView } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
 
 /* ── 8 constellation nodes ── */
 const ACCENT = 'var(--cs-accent)'
@@ -149,7 +149,7 @@ export default function BeatTeamBuilding() {
  }
  transition={{
  duration: 0.5,
- ease: [0.34, 1.56, 0.64, 1],
+ ease: EASE_SPRING,
  }}
  style={{ transformOrigin: `${node.x}px ${node.y}px` }}
  />

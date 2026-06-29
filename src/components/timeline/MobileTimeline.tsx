@@ -13,6 +13,7 @@ import FlagshipTheater from '@/components/FlagshipTheater'
 import { ERA_TAGS } from './constants'
 import { m } from 'framer-motion'
 import { Play, ArrowDown } from 'lucide-react'
+import { EASE_CINEMATIC } from '@/lib/motion'
 
 interface MobileTimelineProps {
     onOpenLightbox: (id: string) => void
@@ -111,7 +112,7 @@ function MobileEraBlock({ era, onOpenLightbox, onOpenGameLightbox }: { era: Care
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, ease: EASE_CINEMATIC }}
         >
             {/* Watermark Year (Removed to reduce text clutter) */}
 

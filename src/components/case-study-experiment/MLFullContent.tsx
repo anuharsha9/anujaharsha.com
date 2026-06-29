@@ -19,6 +19,7 @@ import {
     PullQuote, EyebrowLabel, CarouselTile,
 } from './BentoGrid'
 import ImageComparisonSlider from '@/components/ui/ImageComparisonSlider'
+import { EASE_CINEMATIC } from '@/lib/motion'
 
 
 export default function MLFullContent({ data }: { data: CaseStudyData }) {
@@ -498,7 +499,7 @@ export default function MLFullContent({ data }: { data: CaseStudyData }) {
                                             initial={{ opacity: 0, y: 24 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
-                                            transition={{ duration: 0.6, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                                            transition={{ duration: 0.6, delay: i * 0.15, ease: EASE_CINEMATIC }}
                                             className="relative p-8 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden group hover:border-[var(--cs-accent)]/20 transition-colors duration-500"
                                         >
                                             <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[var(--cs-accent)]/5 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

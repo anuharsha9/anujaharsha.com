@@ -6,6 +6,7 @@ import { Sparkles, Gamepad2, Compass, LineChart, ChefHat, ShieldCheck, NotebookP
 import PortfolioLightbox from './PortfolioLightbox'
 import AppCaseStudyLightbox from './AppCaseStudyLightbox'
 import { APP_CASE_STUDIES, type AppCaseStudyId } from '@/data/app-case-studies'
+import { EASE_CINEMATIC } from '@/lib/motion'
 
 /* ─── Animated WordU wireframe cover (matches browser/graduation SVG style) ─── */
 function WordULogoCover() {
@@ -791,7 +792,7 @@ export default function VibeCodingBlock() {
                     initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
                     whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.6, ease: EASE_CINEMATIC }}
                 >
                     <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block">
                         BUILD LAB
@@ -804,7 +805,7 @@ export default function VibeCodingBlock() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
                 >
                     <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                         Nov 2025 — Present
@@ -831,7 +832,7 @@ export default function VibeCodingBlock() {
                                 initial={{ opacity: 0, y: 70, scale: 0.9, filter: 'blur(16px)' }}
                                 whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                                 viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 1.4, delay: Math.min(i, 3) * 0.18, ease: [0.22, 1, 0.36, 1] }}
+                                transition={{ duration: 1.4, delay: Math.min(i, 3) * 0.18, ease: EASE_CINEMATIC }}
                             >
                                 <button
                                     onClick={() => handleTileClick(tile.action)}

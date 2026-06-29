@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Calendar, CheckCircle2, Shield, Rocket, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
 
 interface MetricItem {
  value: string
@@ -211,7 +211,7 @@ export default function BeatImpact() {
  }
  transition={{
  duration: 0.6,
- ease: [0.34, 1.56, 0.64, 1],
+ ease: EASE_SPRING,
  }}
  className="relative rounded-xl border bg-white/[0.02] p-4 md:p-5 text-center overflow-hidden"
  style={{
@@ -231,7 +231,7 @@ export default function BeatImpact() {
  <m.div
  initial={{ scale: 0 }}
  animate={isActive ? { scale: 1 } : { scale: 0 }}
- transition={{ duration: 0.4, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+ transition={{ duration: 0.4, delay: 0.1, ease: EASE_SPRING }}
  className="flex items-center justify-center mb-3"
  >
  <div

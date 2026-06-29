@@ -4,6 +4,7 @@ import TransitionLink from '@/components/transitions/TransitionLink'
 import { m } from 'framer-motion'
 import Magnetic from '@/components/ui/Magnetic'
 import { useEffect, useState, useRef, useCallback } from 'react'
+import { EASE_EXPO } from '@/lib/motion'
 
 /**
  * 404 — "Lost at Sea"
@@ -167,7 +168,7 @@ export default function NotFound() {
           className="relative font-mono font-bold text-[10rem] md:text-[14rem] leading-none tracking-tighter select-none mb-[-2rem] md:mb-[-3rem]"
           initial={{ opacity: 0, filter: 'blur(20px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 2, ease: EASE_EXPO }}
         >
           <span
             className="bg-clip-text text-transparent"
@@ -185,7 +186,7 @@ export default function NotFound() {
           className="space-y-5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, delay: 0.4, ease: EASE_EXPO }}
         >
           <h1 className="font-sans text-3xl md:text-4xl text-white font-light tracking-tight">
             You&apos;ve drifted off course.
@@ -202,7 +203,7 @@ export default function NotFound() {
           className="mt-12 flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1, delay: 0.8, ease: EASE_EXPO }}
         >
           <Magnetic strength={0.3}>
             <TransitionLink

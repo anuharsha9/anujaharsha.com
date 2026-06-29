@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { m } from 'framer-motion'
+import { EASE_STANDARD } from '@/lib/motion'
 
 interface FoundationsTerminalProps {
  foundations?: string[]
@@ -15,7 +16,7 @@ export default function FoundationsTerminal({ foundations = [] }: FoundationsTer
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+ transition={{ duration: 0.6, ease: EASE_STANDARD }}
  className="rounded-xl bg-[var(--surface-obsidian-900)] border border-white/[0.08] overflow-hidden shadow-2xl"
  >
  {/* Title Bar */}

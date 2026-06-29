@@ -7,6 +7,7 @@ import { ArrowRight, Lock, Play } from 'lucide-react'
 import { WorkItem } from '@/data/career-data'
 import Image from 'next/image'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
+import { EASE_CINEMATIC } from '@/lib/motion'
 
 // Full-bleed magazine-style card with shared layout transitions
 
@@ -77,7 +78,7 @@ export function MotionWorkCard({ work, fillHeight = false, compact = false, vari
                     ref={ref}
                     layoutId={`project-cover-${work.id}`}
                     whileHover={{ y: -6, scale: 1.008 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 25, layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25, layout: { duration: 0.6, ease: EASE_CINEMATIC } }}
                     className={`relative ${fillHeight ? 'h-full min-h-[320px]' : compact ? 'aspect-video' : 'aspect-[4/3]'} rounded-2xl overflow-hidden bg-slate-900/50 shadow-lg shadow-black/20 border border-white/[0.04] group-hover/work:border-white/[0.1] transition-colors duration-500`}
                 >
                     {/* MEDIA */}

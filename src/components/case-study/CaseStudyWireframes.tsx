@@ -186,7 +186,7 @@ export function MLWireframe() {
  className="rounded-full h-2 overflow-hidden" style={{ backgroundColor: `rgba(${rgb}, 0.08)` }}>
  <m.div className="h-full rounded-full" style={{ backgroundColor: `rgba(${rgb}, 0.3)` }}
  initial={{ width: '0%' }} animate={{ width: '75%' }}
- transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }} />
+ transition={{ duration: 1.5, ease }} />
  </m.div>
  )}
  </AnimatePresence>

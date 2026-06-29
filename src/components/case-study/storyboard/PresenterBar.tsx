@@ -3,7 +3,7 @@
 import { type ReactNode, useState, useEffect, useRef, isValidElement, cloneElement, Fragment } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
 
 interface PresenterBarProps {
  /** Plain narration string — used when no children are passed */
@@ -188,7 +188,7 @@ export default function PresenterBar({
  <m.div
  initial={{ opacity: 0, x: -8, scale: 0.92 }}
  animate={{ opacity: 1, x: 0, scale: 1 }}
- transition={{ duration: 0.5, delay: delay + 0.15, ease: [0.34, 1.56, 0.64, 1] }}
+ transition={{ duration: 0.5, delay: delay + 0.15, ease: EASE_SPRING }}
  className={`relative flex-1 bg-white/[0.04] rounded-2xl ${showAvatar ? 'rounded-tl-md' : ''} px-5 py-4 md:px-6 md:py-5 overflow-hidden`}
  style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 12%, transparent)' }}
  >

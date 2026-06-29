@@ -7,6 +7,7 @@ import { m, useScroll, useTransform, useMotionValue, AnimatePresence, animate as
 import { articleLinks } from '@/data/home'
 import ScrollGear from '@/components/ui/ScrollGear'
 import SystemLightbox from '@/components/ui/SystemLightbox'
+import { EASE_CINEMATIC, EASE_SMOOTH } from '@/lib/motion'
 
 
 /* ═══════════════════════════════════════════════════════════════════════════════
@@ -85,7 +86,7 @@ function GlitchPortalHero() {
   // Enter / exit watch mode
   const enterWatchMode = useCallback(() => {
     setIsWatching(true)
-    fmAnimate(watchMode, 1, { duration: 0.6, ease: [0.4, 0, 0.2, 1] })
+    fmAnimate(watchMode, 1, { duration: 0.6, ease: EASE_SMOOTH })
     if (videoRef.current) {
       videoRef.current.muted = false
       videoRef.current.controls = true
@@ -96,7 +97,7 @@ function GlitchPortalHero() {
 
   const exitWatchMode = useCallback(() => {
     setIsWatching(false)
-    fmAnimate(watchMode, 0, { duration: 0.6, ease: [0.4, 0, 0.2, 1] })
+    fmAnimate(watchMode, 0, { duration: 0.6, ease: EASE_SMOOTH })
     if (videoRef.current) {
       videoRef.current.muted = true
       videoRef.current.controls = false
@@ -543,7 +544,7 @@ function DualityWriting() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, ease: EASE_CINEMATIC }}
             >
               {/* Ambient glow */}
               <div className="fixed inset-0 pointer-events-none z-0">
@@ -605,7 +606,7 @@ function DualityWriting() {
                       transition={{
                         duration: 0.9,
                         delay: 0.4 + si * 0.08,
-                        ease: [0.22, 1, 0.36, 1],
+                        ease: EASE_CINEMATIC,
                       }}
                     >
                       {/* Stanza number whisper */}
@@ -627,7 +628,7 @@ function DualityWriting() {
                           transition={{
                             duration: 0.7,
                             delay: 0.5 + si * 0.08 + li * 0.05,
-                            ease: [0.22, 1, 0.36, 1],
+                            ease: EASE_CINEMATIC,
                           }}
                           style={{
                             fontFamily: "'Playfair Display', Georgia, serif",
@@ -724,7 +725,7 @@ function LifeGallery() {
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, delay: i * 0.1, ease: EASE_CINEMATIC }}
               >
                 {/* Image with cinematic treatment */}
                 <div className="absolute inset-0 transition-all duration-700 ease-out"
@@ -806,7 +807,7 @@ function ConnectionClose() {
             initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, ease: EASE_CINEMATIC }}
           >
             Let&apos;s connect.
           </m.h2>
@@ -924,7 +925,7 @@ function GraphicDesign() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: EASE_CINEMATIC }}
               aria-label={`View graphic design piece ${i + 1}`}
             >
               <div className="absolute inset-0 grayscale brightness-[0.75] transition-[filter] duration-700 group-hover:grayscale-0 group-hover:brightness-100">

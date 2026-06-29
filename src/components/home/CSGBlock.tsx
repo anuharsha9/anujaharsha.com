@@ -137,7 +137,7 @@ export default function CSGBlock() {
                     initial={{ opacity: 0, x: -40, filter: 'blur(20px)' }}
                     whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.6, ease }}
                 >
                     <span className="font-extrabold text-[clamp(2rem,6vw,7rem)] text-white/[0.03] uppercase tracking-tighter leading-none block breathe-slow" style={{ '--breathe-base': '0.03', '--breathe-peak': '0.05' } as React.CSSProperties}>
                         2022 — 2025
@@ -152,7 +152,7 @@ export default function CSGBlock() {
                     className="mb-12 md:mb-16"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.2, ease }}
                 >
                     <p className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-500 mb-3">
                         2022 — 2025

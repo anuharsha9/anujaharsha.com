@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Monitor, FileText, Play, X, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
 
 interface Item {
  icon: LucideIcon
@@ -143,7 +143,7 @@ export default function BeatWhatIGot() {
  }
  transition={{
  duration: 0.7,
- ease: [0.34, 1.56, 0.64, 1], // spring-like
+ ease: EASE_SPRING, // spring-like
  }}
  className="relative rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 md:p-6 text-center overflow-hidden"
  >
@@ -178,7 +178,7 @@ export default function BeatWhatIGot() {
  transition={{
  duration: 0.5,
  delay: 0.15,
- ease: [0.34, 1.56, 0.64, 1],
+ ease: EASE_SPRING,
  }}
  className="relative flex items-center justify-center mb-3"
  >
@@ -254,7 +254,7 @@ export default function BeatWhatIGot() {
  }
  transition={{
  duration: 0.4,
- ease: [0.34, 1.56, 0.64, 1],
+ ease: EASE_SPRING,
  }}
  className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5"
  >

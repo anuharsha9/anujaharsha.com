@@ -5,7 +5,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Search, Users, Sparkles, Target, MousePointerClick } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
 
 const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
@@ -49,14 +49,14 @@ function WireMorphBackdrop() {
  strokeDasharray="2 2"
  initial={{ pathLength: 0, opacity: 0 }}
  animate={{ pathLength: 1, opacity: [0, 0.7, 0.25] }}
- transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
+ transition={{ duration: 2.4, ease }}
  />
  </m.svg>
  <m.div
  className="absolute -left-[25%] top-0 h-full w-[36%] bg-[linear-gradient(90deg,transparent,var(--overlay-teal-18),transparent)] blur-xl"
  initial={{ x: '-20%', opacity: 0 }}
  animate={{ x: '150%', opacity: [0, 0.6, 0] }}
- transition={{ duration: 2.3, ease: [0.16, 1, 0.3, 1] }}
+ transition={{ duration: 2.3, ease: EASE_EXPO }}
  />
  </div>
  )

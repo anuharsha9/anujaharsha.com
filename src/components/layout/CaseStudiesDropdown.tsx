@@ -5,6 +5,7 @@ import TransitionLink from '@/components/transitions/TransitionLink'
 import { usePathname } from 'next/navigation'
 import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import { EASE_CINEMATIC } from '@/lib/motion'
 
 interface CaseStudiesDropdownProps {
   className?: string
@@ -169,7 +170,7 @@ export default function CaseStudiesDropdown({ className = '', onNavigate }: Case
             initial={{ opacity: 0, y: -8, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.2, ease: EASE_CINEMATIC }}
             style={{ backgroundColor: 'rgb(12, 12, 20)' }}
             className="absolute top-full left-0 mt-3 w-72 rounded-xl border border-white/[0.08] backdrop-blur-3xl shadow-2xl shadow-black/60 overflow-hidden"
             onMouseEnter={handleMouseEnter}

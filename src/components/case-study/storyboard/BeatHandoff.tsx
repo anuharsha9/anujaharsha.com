@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { FileText, Video, PenTool, Ticket, StickyNote, Map, FolderOpen, Check, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
 
 interface FolderItem {
  icon: LucideIcon
@@ -142,7 +142,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ scale: 0, rotate: -20 }}
  animate={{ scale: 1, rotate: 0 }}
- transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+ transition={{ duration: 0.5, ease: EASE_SPRING }}
  className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20 flex items-center justify-center"
  >
  <FolderOpen className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
@@ -194,7 +194,7 @@ export default function BeatHandoff() {
  }
  transition={{
  duration: 0.5,
- ease: [0.34, 1.56, 0.64, 1],
+ ease: EASE_SPRING,
  }}
  className="relative rounded-xl border bg-white/[0.02] p-4 overflow-hidden group"
  style={{
@@ -215,7 +215,7 @@ export default function BeatHandoff() {
  <m.div
  initial={{ scale: 0 }}
  animate={isVisible ? { scale: 1 } : { scale: 0 }}
- transition={{ duration: 0.4, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+ transition={{ duration: 0.4, delay: 0.1, ease: EASE_SPRING }}
  className="w-9 h-9 rounded-lg flex items-center justify-center"
  style={{
  background: withHexAlpha(item.color, '15'),

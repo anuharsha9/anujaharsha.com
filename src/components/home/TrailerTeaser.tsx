@@ -3,6 +3,7 @@
 import { m } from 'framer-motion'
 import { Play } from 'lucide-react'
 import { useTransition } from '@/components/transitions/TransitionContext'
+import { EASE_CINEMATIC } from '@/lib/motion'
 
 /**
  * Trailer Teaser — a closer for warm visitors who just finished the 3 case studies.
@@ -25,7 +26,7 @@ export default function TrailerTeaser() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.9, ease: EASE_CINEMATIC }}
             >
                 <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.35em] text-[var(--accent-teal)]/70 md:text-xs">
                     The 60-second version

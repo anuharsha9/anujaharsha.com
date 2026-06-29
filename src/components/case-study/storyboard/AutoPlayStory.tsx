@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import PresenterBar from './PresenterBar'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO, EASE_GLIDE } from '@/lib/motion'
 
 /* ─── types ─────────────────────────────────────────── */
 export interface MovieBeat {
@@ -163,7 +163,7 @@ export default function AutoPlayStory({
  className="absolute -left-[18%] top-0 h-full w-[40%] bg-[linear-gradient(90deg,transparent,var(--overlay-cyan-electric-15),transparent)] blur-2xl"
  initial={{ x: '-18%', opacity: 0 }}
  animate={{ x: '138%', opacity: [0, 0.75, 0] }}
- transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], times: [0, 0.48, 1] }}
+ transition={{ duration: 0.9, ease: EASE_EXPO, times: [0, 0.48, 1] }}
  />
  <m.svg
  className="absolute inset-0 h-full w-full"
@@ -182,7 +182,7 @@ export default function AutoPlayStory({
  strokeDasharray="2 2"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1] }}
+ transition={{ duration: 0.78, ease }}
  />
  <m.path
  d="M0,66 C22,58 37,74 52,67 C70,59 82,70 100,63"
@@ -192,7 +192,7 @@ export default function AutoPlayStory({
  strokeDasharray="2 2"
  initial={{ pathLength: 0 }}
  animate={{ pathLength: 1 }}
- transition={{ duration: 0.82, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+ transition={{ duration: 0.82, delay: 0.06, ease }}
  />
  </m.svg>
  </m.div>
@@ -264,7 +264,7 @@ export default function AutoPlayStory({
  scale: 0.985,
  clipPath: 'inset(4% 2% 3% 2% round 16px)',
  }}
- transition={{ duration: 1.02, ease: [0.18, 1, 0.28, 1] }}
+ transition={{ duration: 1.02, ease: EASE_GLIDE }}
  className="absolute inset-0 flex h-full w-full items-center justify-center p-2 md:p-3 scale-[1.35] origin-center"
  >
  {currentBeatData?.component}
@@ -342,7 +342,7 @@ export default function AutoPlayStory({
  scale: 0.985,
  clipPath: 'inset(4% 2% 3% 2% round 16px)',
  }}
- transition={{ duration: 1.02, ease: [0.18, 1, 0.28, 1] }}
+ transition={{ duration: 1.02, ease: EASE_GLIDE }}
  className="absolute inset-0 flex h-full w-full items-center justify-center p-4 md:p-8"
  >
  {currentBeatData?.component}

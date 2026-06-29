@@ -11,7 +11,7 @@ import { useRef, useEffect, useState } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Layers3, Sparkles } from 'lucide-react'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
 
 const BEAT_PACE = 1.58
 const at = (ms: number) => Math.round(ms * BEAT_PACE)
@@ -76,7 +76,7 @@ function WireMorphBackdrop() {
  className="absolute -left-[25%] top-0 h-full w-[36%] bg-[linear-gradient(90deg,transparent,var(--overlay-teal-18),transparent)] blur-xl"
  initial={{ x: '-20%', opacity: 0 }}
  animate={{ x: '150%', opacity: [0, 0.6, 0] }}
- transition={{ duration: 2.3, ease: [0.16, 1, 0.3, 1] }}
+ transition={{ duration: 2.3, ease: EASE_EXPO }}
  />
  </div>
  )

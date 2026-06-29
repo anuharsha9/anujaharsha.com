@@ -5,7 +5,7 @@ import { m, AnimatePresence, useInView } from 'framer-motion'
 import { Camera, Headphones, Network, User, Map, CheckCircle2, type LucideIcon } from 'lucide-react'
 import PresenterBar from './PresenterBar'
 import { withHexAlpha } from '@/lib/color-utils'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_SPRING } from '@/lib/motion'
 
 interface TimelineEvent {
  month: string
@@ -221,7 +221,7 @@ export default function BeatInvestigation() {
  <m.div
  initial={{ scale: 0, rotate: -20 }}
  animate={{ scale: 1, rotate: 0 }}
- transition={{ duration: 0.5, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+ transition={{ duration: 0.5, delay: 0.2, ease: EASE_SPRING }}
  className="w-10 h-10 rounded-full border border-teal-500/30 flex items-center justify-center flex-shrink-0"
  style={{
  background: 'radial-gradient(circle, var(--overlay-teal-bright-15) 0%, transparent 70%)',

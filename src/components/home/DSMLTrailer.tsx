@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { playAdeleChord } from '@/lib/audio'
-import { EASE_CINEMATIC as ease } from '@/lib/motion'
+import { EASE_CINEMATIC as ease, EASE_EXPO } from '@/lib/motion'
 
 /* ─── Word-by-word kinetic text ─── */
 function KineticLine({
@@ -58,7 +58,7 @@ function SlamText({ children, className = '' }: { children: string; className?: 
                     transition={{
                         duration: 0.35,
                         delay: i * 0.035,
-                        ease: [0.16, 1, 0.3, 1],
+                        ease: EASE_EXPO,
                     }}
                     className="inline-block"
                 >

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Linkedin, Quote } from 'lucide-react'
 import { m, useInView } from 'framer-motion'
 import { CareerEra } from '@/data/career-data'
+import { EASE_CINEMATIC } from '@/lib/motion'
 
 interface TestimonialContentProps {
     era: CareerEra
@@ -34,7 +35,7 @@ export default function TestimonialContent({ era }: TestimonialContentProps) {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: 0.6, ease: EASE_CINEMATIC }
         }
     }
 

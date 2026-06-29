@@ -31,6 +31,12 @@ export const EASE_SMOOTH: Bezier = [0.4, 0, 0.2, 1]
 export const EASE_SPRING: Bezier = [0.34, 1.56, 0.64, 1]
 /** Pronounced bounce overshoot. */
 export const EASE_BOUNCE: Bezier = [0.68, -0.55, 0.265, 1.55]
+/** Expo-out — fast start, long glide to rest. */
+export const EASE_EXPO: Bezier = [0.16, 1, 0.3, 1]
+/** Glide — a slightly gentler expo-out. */
+export const EASE_GLIDE: Bezier = [0.18, 1, 0.28, 1]
+/** CSS-default ease curve (the `ease` keyword), as a tuple. */
+export const EASE_STANDARD: Bezier = [0.25, 0.1, 0.25, 1]
 
 /** Named map of every easing token (keys match the `--ease-*` CSS tokens). */
 export const EASE = {
@@ -39,6 +45,9 @@ export const EASE = {
   smooth: EASE_SMOOTH,
   spring: EASE_SPRING,
   bounce: EASE_BOUNCE,
+  expo: EASE_EXPO,
+  glide: EASE_GLIDE,
+  standard: EASE_STANDARD,
 } as const
 
 /* ── Durations (SECONDS) ─────────────────────────────────────────────────────
