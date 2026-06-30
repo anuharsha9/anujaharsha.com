@@ -5,8 +5,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { m } from 'framer-motion'
 import SystemLightbox from '@/components/ui/SystemLightbox'
+import Button from '@/components/ui/Button'
 import VideoPlayer from '@/components/ui/VideoPlayer'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
+import { ChevronDown } from 'lucide-react'
 import TalkSection from '@/components/home/TalkSection'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { ALL_MILESTONES, FAMILY_PHOTO, MAKES_GALLERIES, SAME_TIME_PAIRS, type MakeGallery } from '@/data/life-content'
@@ -208,14 +210,16 @@ function SameTime() {
             {/* Full milestone list (collapsed by default) */}
             <div className="mt-12 md:mt-16">
                 <div className="flex justify-center">
-                    <button
+                    <Button
+                        variant="secondary"
                         onClick={() => setExpanded(v => !v)}
                         aria-expanded={expanded}
-                        className="group inline-flex items-center gap-2.5 rounded-full border border-[var(--accent-teal)]/25 bg-[var(--accent-teal)]/[0.06] px-7 py-3 text-sm font-medium tracking-wide text-[var(--accent-teal)] transition-all duration-300 hover:border-[var(--accent-teal)]/45 hover:bg-[var(--accent-teal)]/[0.12]"
                     >
-                        {expanded ? 'Show fewer' : `See all ${ALL_MILESTONES.length} life milestones`}
-                        <span className={`transition-transform duration-300 ${expanded ? 'rotate-180' : 'group-hover:translate-y-0.5'}`} aria-hidden="true">↓</span>
-                    </button>
+                        <span className="inline-flex items-center gap-2">
+                            {expanded ? 'Show fewer' : `See all ${ALL_MILESTONES.length} life milestones`}
+                            <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
+                        </span>
+                    </Button>
                 </div>
 
                 {expanded && (

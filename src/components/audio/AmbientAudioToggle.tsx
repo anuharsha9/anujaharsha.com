@@ -64,13 +64,12 @@ export default function AmbientAudioToggle() {
             onClick={toggle}
             aria-label={enabled ? 'Mute ambient audio' : 'Play ambient audio'}
             aria-pressed={enabled}
-            title={enabled ? 'Mute' : 'Sound on'}
-            className="pointer-events-auto inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/[0.12] bg-black/55 p-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/75 active:scale-[0.98] sm:px-4 sm:py-2 md:text-[11px]"
+            title={enabled ? 'Mute ambient audio' : 'Play ambient audio'}
+            className="pointer-events-auto inline-flex items-center justify-center whitespace-nowrap rounded-full border border-white/[0.12] bg-black/55 p-2.5 font-mono text-white shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl transition-all duration-300 hover:border-white/30 hover:bg-black/75 active:scale-[0.98]"
         >
             {enabled
                 ? <Volume2 className="h-3.5 w-3.5 text-[var(--accent-teal)]" />
                 : <VolumeX className="h-3.5 w-3.5 text-zinc-400" />}
-            <span className="hidden sm:inline">{enabled ? 'Sound on' : 'Sound off'}</span>
         </button>
     )
 }
