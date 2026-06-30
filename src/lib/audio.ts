@@ -182,18 +182,3 @@ export function getAmbientAudio(): AmbientAudio {
     if (!_ambient) _ambient = new AmbientAudio()
     return _ambient
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Legacy no-op shims. The trailer components (RC/ML/DSML) still import the
-// previous interactive-sound API (wave crashes, cinematic impacts, an "Adele
-// chord" beat). We never shipped that audio, so the imports always invoked
-// no-ops — keep them no-ops here so the trailers compile while the ambient
-// engine above is the only audio that actually plays.
-export function initAudio() { return null }
-export function isAudioMuted() { return true }
-export function toggleAudioMute() { return true }
-export function playWaveCrash(_volume = 0.2) {}
-export function playOceanSwoosh(_volume = 0.1) {}
-export function playCinematicImpact(_volume = 0.25) {}
-export function startTrailerMusic(_volume = 0.4) { return () => {} }
-export function playAdeleChord(_stepIndex: number, _volume = 0.4) {}

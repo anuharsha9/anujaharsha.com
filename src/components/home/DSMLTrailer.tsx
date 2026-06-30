@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
-import { playAdeleChord } from '@/lib/audio'
 import { EASE_CINEMATIC as ease, EASE_EXPO, DURATION, TRAILER_PACE } from '@/lib/motion'
 
 /* ─── Word-by-word kinetic text ─── */
@@ -112,12 +111,6 @@ export default function DSMLTrailer() {
 
         return () => t.forEach(clearTimeout)
     }, [cycle])
-
-    useEffect(() => {
-        if (step >= 0) {
-            playAdeleChord(step, 0.4)
-        }
-    }, [step])
 
     const textExit = { opacity: 0, y: -25, filter: 'blur(14px)' }
     const textExitT = { duration: DURATION.medium, ease }
