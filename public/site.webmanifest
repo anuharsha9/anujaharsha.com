@@ -1,7 +1,7 @@
 {
-  "name": "Anuja Harsha Nimmagadda - Principal UX Designer",
+  "name": "Anuja Harsha Nimmagadda — Staff Product Designer",
   "short_name": "Anuja Harsha",
-  "description": "Principal UX Designer specializing in enterprise design, legacy modernization, and AI/ML UX",
+  "description": "Staff Product Designer who makes complex enterprise software people can actually use. 13 years modernizing legacy data workflows, designing AI-native experiences, and shipping data-driven platforms at scale.",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -41,10 +41,22 @@
       ]
     },
     {
-      "name": "About",
-      "short_name": "About",
-      "description": "Learn about Anuja",
-      "url": "/me",
+      "name": "Life",
+      "short_name": "Life",
+      "description": "Behind the work",
+      "url": "/?tab=life",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Design System",
+      "short_name": "System",
+      "description": "Explore the design system",
+      "url": "/design-system",
       "icons": [
         {
           "src": "/icon-192.png",

@@ -95,7 +95,7 @@ export default function HeroLanding() {
                                 leads; the role line sits directly under it (Anuja's call:
                                 "it fits better visually"). */}
                             <h1
-                                className="hero-enter text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-4"
+                                className="hero-enter text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-[-0.02em] font-sans mb-4"
                                 style={{ animationDelay: '0.1s' }}
                             >
                                 <span className="text-[var(--text-heading)] drop-shadow-md">Hi, I&apos;m </span>

@@ -30,6 +30,11 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
+  // Mobile browser chrome (address bar tint, Android status bar) matches the
+  // site's deep-ink ground so the chrome blends into the dark cinematic field
+  // instead of cutting a bright line above the hero.
+  themeColor: '#020617',
+  colorScheme: 'dark',
 }
 
 export const metadata: Metadata = {
@@ -147,8 +152,15 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        {/* Theme color for mobile browser chrome */}
-        <meta name="theme-color" content="#0a0a0f" />
+        {/* Theme color for mobile browser chrome — matches the manifest +
+            viewport themeColor so the iOS address bar / Android status bar
+            tint matches the deep-ink ground of the hero. */}
+        <meta name="theme-color" content="#020617" />
+        {/* iOS PWA — let "Add to Home Screen" treat the site as a real app
+            with a fullscreen launch + dark status bar that matches the brand. */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Anuja Harsha" />
         {/* Preconnect hints for external domains (WPO) */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/* Favicon - Multiple formats for best compatibility */}
