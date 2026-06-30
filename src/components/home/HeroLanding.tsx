@@ -126,12 +126,18 @@ export default function HeroLanding() {
                                 Staff Product Designer · Enterprise Data Platforms
                             </span>
 
-                            {/* SUBTITLE — positioning + credibility */}
+                            {/* SUBTITLE — positioning + credibility. Hero is the
+                                introduction: who I am, why the visitor should keep
+                                scrolling. Leads with the philosophy that distinguishes
+                                this work (signal-vs-noise refinement, not complexity
+                                stripping), then anchors it in time-served + the most
+                                recent shipping proof. The chair-test metaphor stays
+                                at the bottom of the page where it has context. */}
                             <p
                                 className="hero-enter text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
                                 style={{ animationDelay: '0.2s' }}
                             >
-                                I make the most powerful tool in the building — the one nobody can figure out — obvious. 13 years in product design, the last decade in enterprise systems — most recently leading the modernization of a 50-year-old BI platform that helped renew a multi-million-dollar contract.
+                                I make complex enterprise products usable — not by stripping the complexity, but by refining what users need to <span className="text-zinc-200">see</span> from what they need to <span className="text-zinc-200">use</span>. 13 years of design thinking and architecting products, most recently leading the modernization of a 50-year-old BI platform that helped renew a multi-million-dollar contract.
                             </p>
                         </div>
 
