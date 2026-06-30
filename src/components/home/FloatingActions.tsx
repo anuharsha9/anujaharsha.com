@@ -5,6 +5,7 @@ import { FileText, MessageSquare } from 'lucide-react'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import AskAnujaModal from './AskAnujaModal'
+import AmbientAudioToggle from '@/components/audio/AmbientAudioToggle'
 
 /**
  * Top-right floating action cluster (landing only). Sibling to TabSwitcher in
@@ -94,6 +95,10 @@ export default function FloatingActions() {
                 className="pointer-events-none fixed right-4 z-[10001] flex items-center gap-2 md:right-6"
                 style={{ top: 'max(1rem, env(safe-area-inset-top))' }}
             >
+                {/* Ambient audio toggle — leftmost, always visible. Mounts only
+                    for non-reduced-motion users; off by default. */}
+                <AmbientAudioToggle />
+
                 {/* Resume — collapsed until scrolled, then expands in on the left.
                     `min-w-0` is required: a flex item defaults to min-width:auto,
                     which floors it at content width and defeats `max-w-0`. */}
