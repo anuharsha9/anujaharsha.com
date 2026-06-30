@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { m } from 'framer-motion'
 import { Play } from 'lucide-react'
+import Button from '@/components/ui/Button'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { TESTIMONIALS, type Testimonial } from '@/data/testimonials'
@@ -98,18 +99,20 @@ export default function TestimonialsBlock() {
                 Hover to pause · tap a quote to read the full note
             </p>
 
-            {/* Why Hire Me — the 60-sec cinematic, placed right under the proof */}
+            {/* Why Hire Me — canonical primary, same shape as every other CTA. */}
             <div className="mt-10 flex justify-center">
-                <button
+                <Button
+                    variant="primary"
                     onClick={() => navigateTo('/manifesto')}
                     aria-label="Watch the 60-second Why Hire Me trailer"
-                    className="group inline-flex items-center justify-center gap-3 rounded-full border border-[var(--accent-teal)]/30 bg-[var(--accent-teal)]/[0.08] px-7 py-3.5 text-sm font-medium tracking-wide text-[var(--accent-teal-bright)] transition-all duration-500 hover:border-[var(--accent-teal)]/55 hover:bg-[var(--accent-teal)]/[0.15]"
+                    icon={
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--accent-teal)]/15">
+                            <Play className="h-3 w-3 fill-current" />
+                        </span>
+                    }
                 >
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-teal)]/15 transition-colors duration-500 group-hover:bg-[var(--accent-teal)]/25">
-                        <Play className="h-3 w-3 fill-current" />
-                    </span>
                     Why hire me — in 60 seconds
-                </button>
+                </Button>
             </div>
 
             {/* Full endorsement */}

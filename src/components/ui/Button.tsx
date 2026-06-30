@@ -4,23 +4,23 @@ import { ReactNode, MouseEvent } from 'react'
 import TransitionLink from '@/components/transitions/TransitionLink'
 
 /**
- * Site-wide button primitive — single source of truth so the cinematic
- * button language stays consistent (no more one-off "flat teal" buttons).
+ * Site-wide button primitive — single source of truth. EVERY text-CTA on
+ * the site uses this. Same shape, same hover, same press, same focus
+ * across the whole site — color is the only thing that differs.
  *
- * Variants:
- *  - primary   — dark glass + teal-glow halo + light-sweep on hover. The
- *                on-brand replacement for the old flat white→teal fill.
- *  - secondary — ghost glass (the existing Watch/Resume treatment).
- *  - ghost     — minimal text/icon link for tertiary actions.
+ * Variants (all share IDENTICAL pill geometry + states):
+ *  - primary      — teal-glow halo + light-sweep. The default forward action.
+ *  - secondary    — ghost glass (white). Supporting actions, externals.
+ *  - accent-amber — amber-glow halo + sweep. Reserved for the résumé CTA —
+ *                   the one place a non-teal accent is semantic ("hire me").
+ *                   Identical geometry to primary; only the color tokens change.
+ *  - ghost        — minimal text/icon link for tertiary actions.
  *
  * Polymorphic: renders a TransitionLink for an internal `href`, a plain
  * <a target="_blank"> for `external`, and a <button> otherwise.
- *
- * Reuses existing tokens + the `.btn-animated` sweep from globals.css —
- * no new global CSS.
  */
 
-type Variant = 'primary' | 'secondary' | 'ghost'
+type Variant = 'primary' | 'secondary' | 'accent-amber' | 'ghost'
 type Size = 'sm' | 'md'
 
 interface BaseProps {
@@ -54,21 +54,35 @@ const SIZES: Record<Size, string> = {
 /* Pill variants share the focus ring + tap feedback; ghost is a bare link. */
 const FOCUS = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent'
 
+/* All pill variants share the EXACT same shape + state recipe:
+ *   rounded-full, ink-glass fill, backdrop-blur, semibold,
+ *   transition 300ms, active:scale-[0.98], focus ring.
+ * Only the accent color tokens differ between primary / secondary / accent-amber.
+ * This is what "every button on the site is the same button" means in code. */
+const PILL_SHELL =
+    `group relative inline-flex items-center justify-center gap-2 rounded-full ` +
+    `bg-black/40 backdrop-blur-md font-semibold ` +
+    `transition-all duration-300 active:scale-[0.98] ${FOCUS}`
+
 const VARIANTS: Record<Variant, string> = {
     primary:
-        `btn-animated btn-sweep-teal group relative inline-flex items-center justify-center gap-2 rounded-full ` +
-        `border border-[rgba(var(--accent-teal-rgb),0.35)] bg-black/40 backdrop-blur-md ` +
-        `font-semibold text-[var(--accent-teal-bright)] ` +
+        `btn-animated btn-sweep-teal ${PILL_SHELL} ` +
+        `border border-[rgba(var(--accent-teal-rgb),0.35)] text-[var(--accent-teal-bright)] ` +
         `shadow-[0_0_30px_-8px_rgba(var(--accent-teal-glow-rgb),0.45)] ` +
-        `transition-all duration-300 active:scale-[0.98] ` +
         `hover:border-[rgba(var(--accent-teal-rgb),0.65)] hover:text-white ` +
-        `hover:shadow-[0_0_42px_-6px_rgba(var(--accent-teal-glow-rgb),0.6)] ${FOCUS}`,
+        `hover:shadow-[0_0_42px_-6px_rgba(var(--accent-teal-glow-rgb),0.6)]`,
     secondary:
-        `group relative inline-flex items-center justify-center gap-2 rounded-full ` +
-        `border border-white/20 bg-white/[0.04] backdrop-blur-sm ` +
-        `font-semibold text-zinc-200 ` +
-        `transition-all duration-300 active:scale-[0.98] ` +
-        `hover:border-white/50 hover:bg-white/[0.10] hover:text-white ${FOCUS}`,
+        `${PILL_SHELL} ` +
+        `border border-white/20 text-zinc-200 ` +
+        `shadow-[0_0_30px_-8px_rgba(var(--white-rgb),0.08)] ` +
+        `hover:border-white/50 hover:bg-white/[0.10] hover:text-white ` +
+        `hover:shadow-[0_0_42px_-6px_rgba(var(--white-rgb),0.15)]`,
+    'accent-amber':
+        `btn-animated ${PILL_SHELL} ` +
+        `border border-[rgba(var(--accent-amber-rgb),0.35)] text-[var(--accent-amber)] ` +
+        `shadow-[0_0_30px_-8px_rgba(var(--accent-amber-rgb),0.45)] ` +
+        `hover:border-[rgba(var(--accent-amber-rgb),0.65)] hover:text-white ` +
+        `hover:shadow-[0_0_42px_-6px_rgba(var(--accent-amber-rgb),0.6)]`,
     ghost:
         `inline-flex items-center gap-1.5 font-medium text-zinc-400 ` +
         `transition-colors duration-200 hover:text-white ${FOCUS} rounded-md`,

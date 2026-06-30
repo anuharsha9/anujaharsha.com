@@ -8,6 +8,7 @@ import {
 } from 'framer-motion'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { ArrowDown, Play } from 'lucide-react'
+import Button from '@/components/ui/Button'
 import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
 import AnimatedSignatureLogo from '@/components/brand/AnimatedSignatureLogo'
 
@@ -139,41 +140,42 @@ export default function HeroLanding() {
                             className="hero-enter mt-8 md:mt-10 flex flex-col items-center gap-4 pointer-events-auto sm:flex-row sm:justify-center sm:gap-5"
                             style={{ animationDelay: '0.3s' }}
                         >
-                            <div className="relative h-12 sm:h-14">
-                                {/* Outer glow ring — scales out as the hero exits */}
+                            <div className="relative">
+                                {/* Outer glow ring + light-sweep on scroll — decorative wrappers
+                                    that animate around the canonical Button. The button itself
+                                    is the same shape/states as every other CTA on the site. */}
                                 <m.div
-                                    className="absolute inset-0 rounded-full border-2 border-white/60 pointer-events-none"
+                                    className="absolute inset-0 rounded-full border-2 border-[rgba(var(--accent-teal-rgb),0.6)] pointer-events-none"
                                     style={{ scale: glowRingScale, opacity: glowRingOpacity }}
                                 />
-                                {/* Light sweep across the button on scroll-down */}
                                 <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
                                     <m.div
                                         className="absolute inset-y-0 w-[60%] bg-gradient-to-r from-transparent via-white/30 to-transparent"
                                         style={{ left: lightSweepX }}
                                     />
                                 </div>
-                                <button
+                                <Button
+                                    variant="primary"
                                     onClick={scrollToWork}
-                                    className="group relative z-10 inline-flex h-full items-center justify-center gap-3 rounded-full border border-white bg-white px-8 sm:px-10 py-3 sm:py-3.5 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_30px_rgba(var(--white-rgb),0.15)] transition-all duration-500 hover:bg-black hover:text-white hover:shadow-[0_0_40px_rgba(var(--white-rgb),0.3)]"
+                                    icon={<ArrowDown className="w-4 h-4 transition-transform duration-500 group-hover:translate-y-1" />}
                                 >
-                                    <span>See the Work</span>
-                                    <ArrowDown className="w-4 h-4 transition-transform duration-500 group-hover:translate-y-1" />
-                                </button>
+                                    See the Work
+                                </Button>
                             </div>
 
-                            {/* 60-second intro — the fast pitch for time-pressed recruiters.
-                                Just a button: the name still loads instantly; the video lives on /manifesto.
-                                Résumé stays one tap away via the floating chip + footer. */}
-                            <button
+                            {/* 60-second intro — secondary. The video lives on /manifesto. */}
+                            <Button
+                                variant="secondary"
                                 onClick={() => navigateTo('/manifesto')}
                                 aria-label="Watch the 60-second intro"
-                                className="group inline-flex h-12 sm:h-14 items-center justify-center gap-2.5 rounded-full border border-white/40 bg-white/[0.04] px-7 sm:px-8 font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-500 hover:border-white/80 hover:bg-white/[0.08]"
+                                icon={
+                                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
+                                        <Play className="h-3 w-3 fill-current" />
+                                    </span>
+                                }
                             >
-                                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-colors duration-500 group-hover:bg-white/20">
-                                    <Play className="h-3 w-3 fill-current" />
-                                </span>
-                                <span>60-sec intro</span>
-                            </button>
+                                60-sec intro
+                            </Button>
                         </div>
 
                     </m.div>
