@@ -234,7 +234,10 @@ export default function SystemLightbox({
                     >
                         {children}
 
-                        {/* Navigation Arrows — the canonical glass IconButton, large thumb targets. */}
+                        {/* Navigation Arrows — the canonical glass IconButton, large thumb targets.
+                            z-30 lifts them above any consumer content that wraps itself
+                            in a `relative z-10`/`z-20` div (e.g. PresentationLightbox),
+                            which would otherwise eat the click. */}
                         {showArrows && (onNext || onPrev) && (
                             <>
                                 {onPrev && (
@@ -243,7 +246,7 @@ export default function SystemLightbox({
                                         label="Previous"
                                         onClick={onPrev}
                                         size="lg"
-                                        className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2"
+                                        className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 z-30"
                                     />
                                 )}
                                 {onNext && (
@@ -252,7 +255,7 @@ export default function SystemLightbox({
                                         label="Next"
                                         onClick={onNext}
                                         size="lg"
-                                        className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2"
+                                        className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 z-30"
                                     />
                                 )}
                             </>

@@ -1,9 +1,10 @@
 'use client'
 
 import { type ReactNode, useState, useEffect, useRef, isValidElement, cloneElement, Fragment } from 'react'
+import { createPortal } from 'react-dom'
 import { m, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
+import { useInsideLightbox, usePresenterSlot } from './PresenterSlotContext'
 
 interface PresenterBarProps {
  /** Plain narration string — used when no children are passed */
@@ -108,6 +109,13 @@ export default function PresenterBar({
  const contentRef = useRef<ReactNode>(null)
  const hasFiredComplete = useRef(false)
 
+ /* Lightbox portal — see PresenterSlotContext. When the bar is rendered
+  * inside the presentation lightbox, we hold the bubble until the left-
+  * column slot div has been ref-attached, then portal into it. Standalone
+  * usage on the case-study pages stays inline (insideLightbox is false). */
+ const insideLightbox = useInsideLightbox()
+ const slot = usePresenterSlot()
+
  const content = children || (
  <p className="text-sm md:text-[15px] text-zinc-200 leading-relaxed">{narration}</p>
  )
@@ -159,51 +167,49 @@ export default function PresenterBar({
  return () => cancelAnimationFrame(rafId)
  }, [phase, typewriterSpeed, onTypingComplete, hideOnMobileAfterTyping])
 
- return (
+ /* Inside the lightbox, suppress the inline DOM until the slot ref is
+  * attached. Returning null first frame avoids a flash where the bar
+  * renders inside the visual column before jumping to the left slot. */
+ if (insideLightbox && !slot) return null
+
+ /* Editorial pull-quote treatment.
+  *
+  * The earlier avatar-and-speech-bubble layout was the only piece of
+  * figurative illustration on the site — a stylized portrait sitting
+  * alongside dark glass, mono caps, and aurora curtains. It read as
+  * "support chat" rather than "designer narrating a case study."
+  *
+  * This treatment keeps the "me talking to you" intent but expresses it
+  * through typography: a slim teal hairline anchor on the left, the
+  * narration in the same serif voice used for poetry, and a quiet mono
+  * byline below. Same typewriter timing, same onTypingComplete callback,
+  * same shimmer at completion — the choreography is unchanged. */
+ const bar = (
  <m.div
  initial={{ opacity: 0 }}
  animate={hiddenOnMobile ? { opacity: 0, height: 0, marginBottom: 0 } : { opacity: 1 }}
  transition={hiddenOnMobile ? { duration: DURATION.medium, ease } : { duration: DURATION.slower, delay, ease }}
- className="flex items-start gap-4 md:gap-5 mb-8 md:mb-10 overflow-hidden"
+ className="mb-8 md:mb-10 overflow-hidden"
  >
- {showAvatar && (
+ <div className="relative pl-5 md:pl-6">
+ {/* Vertical teal hairline — the editorial accent that says
+     "this is a pull quote." Draws in from the top. */}
  <m.div
- initial={{ scale: 0.8, opacity: 0 }}
- animate={{ scale: 1, opacity: 1 }}
+ initial={{ scaleY: 0 }}
+ animate={{ scaleY: 1 }}
  transition={{ duration: DURATION.slow, delay: delay + 0.1, ease }}
- className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden shadow-lg shadow-black/20"
- style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 20%, transparent)' }}
- >
- <Image
- src="/images/presenter-avatar.png"
- alt="Anuja"
- width={96}
- height={96}
- priority
- className="w-full h-full object-cover"
- />
- </m.div>
- )}
-
- <m.div
- initial={{ opacity: 0, x: -8, scale: 0.92 }}
- animate={{ opacity: 1, x: 0, scale: 1 }}
- transition={{ duration: DURATION.slow, delay: delay + 0.15, ease: EASE_SPRING }}
- className={`relative flex-1 bg-white/[0.04] rounded-2xl ${showAvatar ? 'rounded-tl-md' : ''} px-5 py-4 md:px-6 md:py-5 overflow-hidden`}
- style={{ border: '1px solid color-mix(in srgb, var(--cs-accent) 12%, transparent)' }}
- >
- {showAvatar && (
- <div
- className="absolute left-0 top-8 -translate-x-full w-0 h-0"
  style={{
- borderTop: '6px solid transparent',
- borderBottom: '6px solid transparent',
- borderRight: '6px solid var(--overlay-white-08)',
+ transformOrigin: 'top',
+ background: 'rgba(var(--accent-teal-rgb), 0.8)',
+ boxShadow: '0 0 8px rgba(var(--accent-teal-rgb), 0.4)',
  }}
+ className="absolute left-0 top-1 bottom-3 w-[2px] rounded-full"
  />
- )}
 
- {/* Shimmer sweep after typewriter completes */}
+ {/* Shimmer sweep after typewriter completes — kept from the
+     earlier treatment as the "finish" beat that hands off to the
+     visual reveal. */}
+ <div className="relative overflow-hidden">
  <AnimatePresence>
  {phase === 'done' && (
  <m.div
@@ -220,6 +226,17 @@ export default function PresenterBar({
  )}
  </AnimatePresence>
 
+ {/* Content — serif italic, white text. The arbitrary [&_p]
+     descendant selectors override the inline paragraph classes
+     that each beat passes in (mostly `text-base text-zinc-400`),
+     so the whole bar reads as one continuous voice instead of a
+     stack of slightly-different paragraph styles. */}
+ <m.div
+ initial={{ opacity: 0, x: -6 }}
+ animate={{ opacity: 1, x: 0 }}
+ transition={{ duration: DURATION.slow, delay: delay + 0.15, ease: EASE_SPRING }}
+ className="font-serif italic text-zinc-100 [&_p]:!text-zinc-100 [&_p]:!leading-relaxed [&_p]:!text-base md:[&_p]:!text-lg [&_p]:!font-light"
+ >
  <AnimatePresence mode="wait">
  {phase === 'typing' ? (
  <m.div
@@ -246,6 +263,24 @@ export default function PresenterBar({
  )}
  </AnimatePresence>
  </m.div>
+ </div>
+
+ {/* Quiet byline. Anuja's voice, expressed in the same mono caps
+     vocabulary used for every other label on the site. */}
+ {showAvatar && (
+ <m.p
+ initial={{ opacity: 0 }}
+ animate={{ opacity: 1 }}
+ transition={{ duration: DURATION.slow, delay: delay + 0.3, ease }}
+ className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500"
+ >
+ — Anuja Harsha
+ </m.p>
+ )}
+ </div>
  </m.div>
  )
+
+ if (insideLightbox && slot) return createPortal(bar, slot)
+ return bar
 }

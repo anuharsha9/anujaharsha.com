@@ -31,7 +31,7 @@ const CASES: (NavSegment & { href: string })[] = [
 ]
 
 /* Standalone "detour" pages that get a single Back pill. */
-const DETOURS = ['/philosophy', '/manifesto', '/quiz', '/design-system']
+const DETOURS = ['/philosophy', '/manifesto', '/quiz', '/design-system', '/poems']
 
 const normalize = (p: string) => (p || '/').replace(/\/+$/, '') || '/'
 
