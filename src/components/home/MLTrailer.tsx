@@ -227,23 +227,30 @@ export default function MLTrailer() {
                             Right-click. Drag. Context menus. <span className="text-[var(--semantic-rose)] font-medium">Pray.</span>
                         </m.p>
 
-                        {/* Scattered UI fragments */}
+                        {/* Scattered UI fragments — rotations are seeded per index
+                            (NOT Math.random) so the SSR markup matches the client
+                            and React doesn't throw a hydration mismatch. */}
                         <div className="relative w-72 h-40 sm:w-80 sm:h-48 md:w-[28rem] md:h-56">
-                            {['+ Menu', 'Data Flow', 'Drag Model', 'Right Click', 'Run', 'Results'].map((label, i) => (
-                                <m.div
-                                    key={label}
-                                    className="absolute rounded-md border border-rose-400/40 bg-rose-400/[0.08] px-3 py-1.5"
-                                    style={{
-                                        left: `${10 + (i % 3) * 32}%`,
-                                        top: `${10 + Math.floor(i / 3) * 45}%`,
-                                    }}
-                                    initial={{ opacity: 0, scale: 0, rotate: -10 + Math.random() * 20 }}
-                                    animate={{ opacity: 0.7, scale: 1, rotate: -5 + Math.random() * 10 }}
-                                    transition={{ delay: i * 0.1, duration: DURATION.medium, ease }}
-                                >
-                                    <span className="text-[10px] sm:text-xs font-mono text-rose-300/80">{label}</span>
-                                </m.div>
-                            ))}
+                            {['+ Menu', 'Data Flow', 'Drag Model', 'Right Click', 'Run', 'Results'].map((label, i) => {
+                                // Deterministic "random-looking" rotations from the index.
+                                const rotInit = [-7, 11, -3, 8, -5, 13][i] ?? 0
+                                const rotEnd = [-2, 4, -1, 3, -2, 5][i] ?? 0
+                                return (
+                                    <m.div
+                                        key={label}
+                                        className="absolute rounded-md border border-rose-400/40 bg-rose-400/[0.08] px-3 py-1.5"
+                                        style={{
+                                            left: `${10 + (i % 3) * 32}%`,
+                                            top: `${10 + Math.floor(i / 3) * 45}%`,
+                                        }}
+                                        initial={{ opacity: 0, scale: 0, rotate: rotInit }}
+                                        animate={{ opacity: 0.7, scale: 1, rotate: rotEnd }}
+                                        transition={{ delay: i * 0.1, duration: DURATION.medium, ease }}
+                                    >
+                                        <span className="text-[10px] sm:text-xs font-mono text-rose-300/80">{label}</span>
+                                    </m.div>
+                                )
+                            })}
                             {/* Tangled lines between */}
                             <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 100 100">
                                 <m.path d="M15,20 Q60,5 80,25 T90,70 Q50,90 20,75 T15,20" fill="none" stroke="rgb(244,63,94)" strokeWidth="0.5" strokeDasharray="3 3" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: DURATION.epic, ease }} />
