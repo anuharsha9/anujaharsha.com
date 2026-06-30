@@ -676,6 +676,10 @@ export default function VibeCodingBlock() {
     const isComingSoon = (action: string) =>
         isExternal(action) &&
         APP_CASE_STUDIES[APP_CASE_STUDY_BY_ACTION[action]].status === 'in-development'
+    /* Live = not coming-soon. Includes the Portfolio tile (a real shipped
+       site you're reading) and every app whose case-study isn't in-development.
+       Anuja: "aside from the sous app — everything else is actually live." */
+    const isLive = (action: string) => !isComingSoon(action)
 
     const handleTileClick = (action: string) => {
         if (action === 'portfolio') return setPortfolioOpen(true)
@@ -776,8 +780,10 @@ export default function VibeCodingBlock() {
                                         {tile.cover === 'inkwell' && <InkwellCover />}
                                     </div>
 
-                                    {/* 'In Development' badge — only for external tiles without a live URL yet */}
-                                    {comingSoon && (
+                                    {/* Status chip — LIVE for shipped tiles (soft pulse on the dot,
+                                        signals "running right now"), IN DEVELOPMENT for in-flight ones.
+                                        Same shape + position; only the dot and label change. */}
+                                    {(comingSoon || isLive(tile.action)) && (
                                         <span
                                             className="absolute right-3 top-3 z-[15] inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.15em] backdrop-blur-md"
                                             style={{
@@ -786,8 +792,11 @@ export default function VibeCodingBlock() {
                                                 color: tile.accent,
                                             }}
                                         >
-                                            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: tile.accent }} />
-                                            In Development
+                                            <span
+                                                className={`h-1.5 w-1.5 rounded-full ${comingSoon ? '' : 'animate-pulse'}`}
+                                                style={{ backgroundColor: tile.accent }}
+                                            />
+                                            {comingSoon ? 'In Development' : 'Live'}
                                         </span>
                                     )}
 
@@ -809,16 +818,23 @@ export default function VibeCodingBlock() {
                                         </div>
                                     </div>
 
-                                    {/* Bottom label bar — mobile only (desktop uses hover overlay) */}
-                                    <div className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent md:hidden transition-opacity duration-300">
+                                    {/* Bottom label bar — mobile only (desktop uses hover overlay).
+                                        Text follows the CSG block eyebrow treatment: ONE line of
+                                        accent-mono-uppercase title, visible at rest so the app name
+                                        actually reads on small screens. */}
+                                    <div className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent md:hidden">
                                         <div className="flex items-center gap-2.5">
                                             <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
                                                 style={{ backgroundColor: `rgba(${rgb}, 0.2)` }}>
-                                                <Icon className="w-4 h-4 text-zinc-200" />
+                                                <Icon className="w-4 h-4" style={{ color: tile.accent }} />
                                             </div>
                                             <div className="min-w-0">
-                                                <p className="text-zinc-100 text-sm font-semibold leading-tight truncate">{tile.title}</p>
-                                                <p className="text-zinc-500 text-[11px] font-mono truncate">{tile.subtitle}</p>
+                                                <p
+                                                    className="font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed truncate"
+                                                    style={{ color: `rgba(${rgb}, 0.95)` }}
+                                                >
+                                                    {tile.title}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
