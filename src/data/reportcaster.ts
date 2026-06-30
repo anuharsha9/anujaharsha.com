@@ -14,7 +14,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
   company: 'Cloud Software Group — WebFOCUS',
   timeframe: 'Sept 2022 – Nov 2023 | Shipped April 2024',
   status: {
-    label: 'Shipping to 20M+ Users',
+    label: 'Shipping to 17M+ Users',
     variant: 'live' as const,
   },
   scope: [

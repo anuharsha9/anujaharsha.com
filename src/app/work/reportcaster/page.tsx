@@ -8,7 +8,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 export const metadata: Metadata = {
   title: 'Customers Were Leaving. 40 Years Without Updates.',
   description:
-    'The platform\'s enterprise scheduler was losing customers after 40+ years without updates. I modernized a 40-year-old system from scratch — 5 subsystems into 1 hub, powering 15M+ users.',
+    'The platform\'s enterprise scheduler was losing customers after 40+ years without updates. I modernized a 40-year-old system from scratch — 5 subsystems into 1 hub, powering 17M+ users.',
   keywords: [
     'ReportCaster',
     'Legacy Modernization',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Customers Were Leaving. 40 Years Without Updates. | Anuja Harsha',
     description:
-      'The platform\'s enterprise scheduler was losing customers. I modernized a 40-year-old system — 5 subsystems into 1 hub, powering 15M+ users.',
+      'The platform\'s enterprise scheduler was losing customers. I modernized a 40-year-old system — 5 subsystems into 1 hub, powering 17M+ users.',
     url: `${siteUrl}/work/reportcaster/`,
     type: 'article',
     images: [

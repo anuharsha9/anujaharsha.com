@@ -501,7 +501,7 @@ export function KnowledgeTransfer() {
  ───────────────────────────────────────────────────────────── */
 export function ImpactClimax() {
  const metrics = [
- { label: "Platform Scale", before: "Legacy", after: "15M+", unit: "Users" },
+ { label: "Platform Scale", before: "Legacy", after: "17M+", unit: "Users" },
  { label: "Schedule Creation", before: "4 Clicks", after: "2", unit: "Clicks" },
  { label: "Feature Parity", before: "Fragmented", after: "100", unit: "%" },
  { label: "Long-Term Support", before: "None", after: "5", unit: "Year LTS" },

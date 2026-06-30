@@ -70,7 +70,7 @@ export const RC_SLIDES: StorySlide[] = [
     { type: 'execution', title: '250 Screens', content: ['Every edge case. Every state. Every error.'], component: <Beat250Screens />, signal: '250 SCREENS' },
     { type: 'execution', title: 'Building the Team', content: ['~20 people. I onboarded every single one.'], component: <BeatTeamBuilding />, signal: 'TEAM BUILDING' },
     { type: 'lesson', title: 'The Handoff', content: ['250+ files. A living Google Drive folder. The single source of truth.'], component: <BeatHandoff />, signal: 'HANDOFF' },
-    { type: 'impact', title: 'Powering 15M+ Users', content: ['Shipped. Live. Mission-critical.'], component: <BeatImpact />, signal: 'OUTCOME: 15M+ USERS' },
+    { type: 'impact', title: 'Powering 17M+ Users', content: ['Shipped. Live. Mission-critical.'], component: <BeatImpact />, signal: 'OUTCOME: 17M+ USERS' },
     { type: 'impact', title: 'Asked vs. Delivered', content: ['They asked for a makeover. I rebuilt the engine.'], component: <BeatAskedVsDelivered />, signal: 'ASKED VS DELIVERED' },
 ]
 

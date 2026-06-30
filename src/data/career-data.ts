@@ -92,7 +92,7 @@ export const CAREER_DATA: CareerEra[] = [
         company: "Cloud Software Group",
         role: "Senior Product Designer",
         period: "2022 — 2025",
-        description: "Led UX across WebFOCUS — 25M+ users, 50 years of legacy, one Hub.",
+        description: "Led UX across WebFOCUS — 17M+ users, 50 years of legacy, one Hub.",
         platformUrl: "https://www.ibi.com/webfocus",
         testimonials: [
             {

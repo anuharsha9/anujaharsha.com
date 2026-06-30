@@ -101,7 +101,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
 
         const timeline: [number, number][] = [
             [300, 0],       // "Customers were leaving."
-            [2200, 1],      // 15M+ Users | 5→1 Hub (scale/stakes)
+            [2200, 1],      // 20M+ Jobs | 5→1 Hub (scale/stakes)
             [4400, 2],      // "They wanted the product modernized."
             [6300, 3],      // "Competitors were closing in."
             [8200, 4],      // "Leadership said: it's time."
@@ -165,7 +165,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                     </m.div>
                 )}
 
-                {/* ═══ LINE 1: Scale — 15M+ Users | 5→1 Hub ═══ */}
+                {/* ═══ LINE 1: Scale — 20M+ Automated Jobs | 5→1 Hub ═══ */}
                 {step === 1 && (
                     <m.div
                         key="s1-metrics"
@@ -176,7 +176,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         transition={textExitT}
                     >
                         <div className="flex items-center gap-6 sm:gap-10 md:gap-14">
-                            {/* 15M+ Users */}
+                            {/* 20M+ Automated Jobs */}
                             <m.div
                                 className="text-center"
                                 initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
