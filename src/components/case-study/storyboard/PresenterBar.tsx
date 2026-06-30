@@ -1,9 +1,11 @@
 'use client'
 
 import { type ReactNode, useState, useEffect, useRef, isValidElement, cloneElement, Fragment } from 'react'
+import { createPortal } from 'react-dom'
 import { m, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { EASE_CINEMATIC as ease, EASE_SPRING, DURATION } from '@/lib/motion'
+import { useInsideLightbox, usePresenterSlot } from './PresenterSlotContext'
 
 interface PresenterBarProps {
  /** Plain narration string — used when no children are passed */
@@ -108,6 +110,13 @@ export default function PresenterBar({
  const contentRef = useRef<ReactNode>(null)
  const hasFiredComplete = useRef(false)
 
+ /* Lightbox portal — see PresenterSlotContext. When the bar is rendered
+  * inside the presentation lightbox, we hold the bubble until the left-
+  * column slot div has been ref-attached, then portal into it. Standalone
+  * usage on the case-study pages stays inline (insideLightbox is false). */
+ const insideLightbox = useInsideLightbox()
+ const slot = usePresenterSlot()
+
  const content = children || (
  <p className="text-sm md:text-[15px] text-zinc-200 leading-relaxed">{narration}</p>
  )
@@ -159,7 +168,12 @@ export default function PresenterBar({
  return () => cancelAnimationFrame(rafId)
  }, [phase, typewriterSpeed, onTypingComplete, hideOnMobileAfterTyping])
 
- return (
+ /* Inside the lightbox, suppress the inline DOM until the slot ref is
+  * attached. Returning null first frame avoids a flash where the bar
+  * renders inside the visual column before jumping to the left slot. */
+ if (insideLightbox && !slot) return null
+
+ const bar = (
  <m.div
  initial={{ opacity: 0 }}
  animate={hiddenOnMobile ? { opacity: 0, height: 0, marginBottom: 0 } : { opacity: 1 }}
@@ -248,4 +262,7 @@ export default function PresenterBar({
  </m.div>
  </m.div>
  )
+
+ if (insideLightbox && slot) return createPortal(bar, slot)
+ return bar
 }

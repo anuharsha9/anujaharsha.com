@@ -6,6 +6,10 @@ import { type StorySlide } from '@/data/presentation-slides'
 import { m, AnimatePresence } from 'framer-motion'
 import HeroAurora from '@/components/home/HeroAurora'
 import { DURATION } from '@/lib/motion'
+import {
+ InsideLightboxContext,
+ PresenterSlotContext,
+} from '@/components/case-study/storyboard/PresenterSlotContext'
 
 interface PresentationLightboxProps {
  isOpen: boolean
@@ -15,13 +19,23 @@ interface PresentationLightboxProps {
 
 export default function PresentationLightbox({ isOpen, onClose, slides }: PresentationLightboxProps) {
  const [currentIndex, setCurrentIndex] = useState(0)
+ /* Portal target for the PresenterBar bubble — set when the left-column
+  * slot div mounts. Keyed by slide index so each slide's PresenterBar
+  * (a fresh component instance) portals into the current slide's slot. */
+ const [presenterSlot, setPresenterSlot] = useState<HTMLDivElement | null>(null)
 
  // Reset index when opened
  useEffect(() => {
  if (isOpen) {
  setCurrentIndex(0)
+ setPresenterSlot(null)
  }
  }, [isOpen])
+
+ /* When the slide changes, the old slot div unmounts. Clear the cached
+  * ref so the new slide's PresenterBar doesn't try to portal into a
+  * detached node before its own slot has attached. */
+ useEffect(() => { setPresenterSlot(null) }, [currentIndex])
 
  if (!slides || slides.length === 0) return null
 
@@ -36,6 +50,8 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  const currentSlide = slides[currentIndex]
 
  return (
+ <InsideLightboxContext.Provider value={true}>
+ <PresenterSlotContext.Provider value={presenterSlot}>
  <SystemLightbox
  isOpen={isOpen}
  onClose={onClose}
@@ -51,7 +67,12 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  <div className="absolute inset-0 z-0 opacity-15 pointer-events-none">
  <HeroAurora />
  </div>
- <div className="w-full h-full flex flex-col justify-center items-center px-4 md:px-12 py-8 overflow-y-auto relative z-10">
+ {/* Magazine spread (Option C) — asymmetric 40/60. Left column owns the
+ title block; right column is the visual, breathing wide. A whisper-thin
+ hairline between columns anchors the composition. No competing chips,
+ no centered text fighting the visual — each column owns one job. On
+ mobile, the columns stack and the hairline disappears. */}
+ <div className="w-full h-full overflow-y-auto relative z-10">
  <AnimatePresence mode="wait">
  <m.div
  key={currentIndex}
@@ -59,41 +80,52 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -20 }}
  transition={{ duration: DURATION.medium, ease: "easeOut" }}
- className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center"
+ className="grid w-full min-h-full grid-cols-1 lg:grid-cols-[2fr_3fr]"
  >
- {/* Text Column */}
- <div className="lg:col-span-5 flex flex-col justify-center text-white space-y-6">
- <div className="flex items-center gap-3">
- <span className="text-[10px] uppercase tracking-widest text-white/50 border border-white/10 px-2 py-1 rounded-full">
+ {/* Left column — eyebrow stack · title · body */}
+ <div className="flex flex-col justify-center px-8 py-10 md:px-12 lg:py-16 lg:pr-14 lg:border-r lg:border-white/[0.05]">
+ <div className="mb-8 flex flex-col gap-1.5">
+ <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 md:text-[11px]">
  {currentSlide.type}
  </span>
  {currentSlide.signal && (
- <span className="text-[10px] uppercase tracking-widest text-emerald-400 border border-emerald-400/20 bg-emerald-400/5 px-2 py-1 rounded-full">
+ <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 md:text-[11px]">
  {currentSlide.signal}
  </span>
  )}
  </div>
- 
- <h2 className="text-3xl md:text-5xl font-medium tracking-tight">
+
+ <h2 className="mb-6 text-3xl font-medium leading-[1.05] tracking-tight text-white md:text-5xl lg:text-6xl">
  {currentSlide.title}
  </h2>
- 
+
  <div className="space-y-4">
  {currentSlide.content.map((paragraph, idx) => (
- <p key={idx} className="text-lg md:text-xl text-white/60 leading-relaxed">
+ <p key={idx} className="text-base leading-relaxed text-white/55 md:text-lg">
  {paragraph}
  </p>
  ))}
  </div>
+
+ {/* PresenterBar portal slot — each beat's avatar + speech bubble
+     lands here, under the title block. The PresenterBar inside
+     the beat detects the slot via PresenterSlotContext and portals
+     itself in (its timing state machine still runs in place). */}
+ <div ref={setPresenterSlot} className="mt-10" />
  </div>
 
- {/* Visual Column */}
- <div className="lg:col-span-7 flex justify-center items-center min-h-[400px]">
+ {/* Right column — the visual, full-bleed-ish. Wide max-width, generous
+ vertical room, no fight with the left column. */}
+ <div className="flex items-center justify-center px-6 py-10 md:px-10 lg:py-16 lg:pl-14">
+ <div className="flex w-full max-w-3xl items-center justify-center">
  {currentSlide.component}
+ </div>
  </div>
  </m.div>
  </AnimatePresence>
  </div>
  </SystemLightbox>
+ </PresenterSlotContext.Provider>
+ </InsideLightboxContext.Provider>
  )
 }
