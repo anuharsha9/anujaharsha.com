@@ -137,7 +137,7 @@ export default function HeroLanding() {
                                 className="hero-enter text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
                                 style={{ animationDelay: '0.2s' }}
                             >
-                                I make complex enterprise products usable — not by stripping the complexity, but by refining what users need to <span className="text-zinc-200">see</span> from what they need to <span className="text-zinc-200">use</span>. 13 years of design thinking and architecting products, most recently leading the modernization of a 50-year-old BI platform that helped renew a multi-million-dollar contract.
+                                I make complex enterprise products usable — not by stripping the complexity, but by refining what users need to <span className="text-zinc-200">see</span> from what they need to <span className="text-zinc-200">use</span>. 13 years of design thinking and architecting products, most recently leading the product modernization of an award-winning BI platform.
                             </p>
                         </div>
 
