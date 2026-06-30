@@ -11,7 +11,7 @@ export const reportcasterCaseStudy: CaseStudyData = {
     alt: 'ReportCaster Explorer - Unified Schedule Management',
   },
   role: 'UX Owner',
-  company: 'Cloud Software Group — WebFOCUS',
+  company: 'Cloud Software Group — WebFOCUS (releases 9.2 → 9.3.7)',
   timeframe: 'Sept 2022 – Nov 2023 | Shipped April 2024',
   status: {
     label: 'Shipping to 17M+ Users',

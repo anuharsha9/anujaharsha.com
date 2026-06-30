@@ -10,6 +10,6 @@ export default async function Image() {
         eyebrow: 'Case Study · Legacy Modernization',
         title: ['17M+ users.', '40 years of', 'legacy. One', 'unified hub.'],
         subtitle: 'Modernizing a 40-year-old enterprise scheduler without breaking a single customer script. Five subsystems collapsed into one.',
-        tags: ['Enterprise', 'Scheduler', 'Dresner CX'],
+        tags: ['Enterprise', 'Scheduler', 'Dresner Best in Class'],
     })
 }

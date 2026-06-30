@@ -326,7 +326,7 @@ export default function PhilosophyPage() {
                         modernization of over half of WebFOCUS, a ~50-year-old enterprise analytics platform — including
                         the ~40-year-old scheduling engine (ReportCaster), the ML workflows, and the natural-language
                         query layer. Took systems customers couldn’t use and made them ones they relied on. WebFOCUS
-                        was named a Customer Experience Leader in Dresner’s 2025 awards during that period.
+                        was named Best in Class in Dresner Advisory Services’ 2025 Industry Excellence Awards during that period.
                     </P>
                     <P>
                         <strong className="font-semibold text-white">On my own:</strong> five live, working AI products —

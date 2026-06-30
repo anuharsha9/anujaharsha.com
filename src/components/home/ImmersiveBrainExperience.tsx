@@ -136,7 +136,7 @@ const QUIZ_QUESTIONS_DATA: Record<string, QuizQuestion> = {
         id: 'contrast', label: 'Show the before and after', val: 'contrast', emoji: '🪞', nextId: 'end',
         reveal: {
           title: "Make the contrast undeniable.",
-          content: "Leadership can't feel the difference — so I show it. The chaos we inherited beside the clarity we built, side by side. When the contrast is real, the story sells itself. (It's part of how WebFOCUS landed a Dresner CX award.)"
+          content: "Leadership can't feel the difference — so I show it. The chaos we inherited beside the clarity we built, side by side. When the contrast is real, the story sells itself. (It's part of how WebFOCUS was named Best in Class in Dresner's 2025 Industry Excellence Awards.)"
         }
       }
     ],
