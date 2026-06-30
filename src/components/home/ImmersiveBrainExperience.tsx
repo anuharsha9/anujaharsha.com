@@ -310,6 +310,11 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
   const [isAppReady, setIsAppReady] = useState(false)
   const [shouldSkipEntrance, setShouldSkipEntrance] = useState(false)
   const [quizState, setQuizState] = useState<'loading' | 'quiz' | 'complete'>('loading')
+  // The ignition crescendo — the 2s curtain-raise between the final Continue
+  // click and the floating finale. Brain stays at full size, every gear lights
+  // and pulses (via .brain-ignition CSS), synapses peak, then it settles into
+  // floating. This is the Act 3 transition beat the build needed.
+  const [isIgniting, setIsIgniting] = useState(false)
 
   // CINEMATIC ENTRANCE STATE
   // waiting -> entrance (brain zooms out from 3.5x to 1x) -> complete
@@ -494,12 +499,19 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
         setCurrentQuestionId(nextId)
       }, 200)
     } else {
-      // Finish Quiz -> Transition to Hero
+      // Finish Quiz -> IGNITION CRESCENDO -> Floating Hero.
+      // Hold the brain in quiz mode for 2s with the .brain-ignition class
+      // applied — every gear lights, the brain pulses + softly rotates,
+      // synapses peak. THEN transition to the floating finale. This is the
+      // "curtain raises on Act 3" beat the build had been missing.
       localStorage.setItem(ENTRY_SESSION_KEY, 'true')
-      setQuizState('complete')
-      setShouldSkipEntrance(true) // Ensure seamless transition
-      setIsAppReady(true)
-      // Trigger rotations will happen via useEffect(isAppReady)
+      setIsIgniting(true)
+      setTimeout(() => {
+        setIsIgniting(false)
+        setQuizState('complete')
+        setShouldSkipEntrance(true)
+        setIsAppReady(true)
+      }, 2000)
     }
   }, [])
 
@@ -584,7 +596,13 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
               const isLit = litSet.has(gearId)
               const isActive = activeQuestionGear === gearId
 
-              if (isLit) {
+              // During the ignition crescendo, surrender control to the
+              // .brain-ignition CSS class — it lights ALL gears with a pulsing
+              // teal glow. Clearing inline styles lets that class win cleanly.
+              if (isIgniting) {
+                gear.style.removeProperty('opacity')
+                gear.style.filter = ''
+              } else if (isLit) {
                 gear.style.setProperty('opacity', '1', 'important')
                 gear.style.filter = 'drop-shadow(0 0 10px var(--overlay-teal-bright-70))'
               } else if (isActive) {
@@ -618,7 +636,11 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
           bgGears.forEach((gear) => {
             const isLit = litSet.has(gear.id)
 
-            if (isLit) {
+            if (isIgniting) {
+              // Surrender to .brain-ignition CSS during the crescendo.
+              gear.style.removeProperty('opacity')
+              gear.style.filter = ''
+            } else if (isLit) {
               gear.style.setProperty('opacity', '0.9', 'important')
               gear.style.filter = 'drop-shadow(0 0 8px var(--overlay-teal-45))'
             } else {
@@ -1098,7 +1120,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
     return () => {
       if (cleanup) cleanup()
     }
-  }, [isAppReady, shouldSkipEntrance, quizState, litGears, currentQuestionId, currentActiveGearId, baseSvg, navigateTo])
+  }, [isAppReady, shouldSkipEntrance, quizState, litGears, currentQuestionId, currentActiveGearId, baseSvg, navigateTo, isIgniting])
 
   // Click outside to close the hover card
   useEffect(() => {
@@ -1167,7 +1189,8 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
   const [brainHovered, setBrainHovered] = useState(false)
   const hasQuizProgress = litGears.length > 0
   // Quiz "energy" — rises as answers light more gears; drives the ambient field.
-  const quizEnergy = Math.min(1, litGears.length / 18)
+  // During ignition it peaks to 1 so the synapse network hits full brightness.
+  const quizEnergy = isIgniting ? 1 : Math.min(1, litGears.length / 18)
   const showImmersiveCompleteState = quizState === 'complete' && hasQuizProgress
   const showImmersiveBrain = quizState === 'quiz' || showImmersiveCompleteState
   const showStartPrompt = !showImmersiveBrain && !forceQuiz
@@ -1301,7 +1324,7 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
               <div
                 ref={parallaxRef}
                 className={`relative w-full mx-auto flex items-center justify-center transition-[max-width,max-height,margin,padding] duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${quizState === 'quiz' || showImmersiveCompleteState
-                  ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0 ' + (quizState === 'quiz' ? 'brain-entry-container' : 'brain-floating')
+                  ? 'max-w-[520px] sm:max-w-[640px] md:max-w-[860px] lg:max-w-[1040px] xl:max-w-[1160px] max-h-[74vh] sm:max-h-[80vh] lg:max-h-[88vh] mt-0 ' + (quizState === 'quiz' ? 'brain-entry-container' : 'brain-floating') + (isIgniting ? ' brain-ignition' : '')
                   : 'max-w-[150px] sm:max-w-[170px] md:max-w-[250px] lg:max-w-[290px] xl:max-w-[320px] max-h-[30vh] sm:max-h-[35vh] lg:max-h-[40vh] mt-0'
                   }`}
                 style={{
