@@ -1,0 +1,568 @@
+Poem 16 - Maai 
+
+Maai Maai laado bulaye
+Maai Maai wapis aaja
+Maai Maai laado roye
+Maai Maai sooni raatein
+
+Maai Maai laado tarse 
+Maai Maai sapne tute
+Maai Maai laado roye
+Maai Maai sooni aankhen
+
+Maai Maai laado dhundhe 
+Maai Maai dil toote
+Maai Maai laado roye
+Maai Maai soona aangan 
+
+Maai Maai laado toote
+Maai Maai laado haari 
+Maai Maai laado roye
+Maai Maai sooni laado
+
+Maai Maai dekh toh 
+Aayi meri laado rani
+Bharne meri sooni aankhen
+Meri bitiya meri duniya
+
+Suniya Suniya meri bitiya 
+
+Mai hu Teri Maai Maai 
+Tu hai meri laado rani
+
+Maai rahe paas Tere
+Maai gaaye tere liye
+Maai kare pyaar tujhe
+Maai kare laad tujhe
+
+Laado laado meri laado
+
+Kaise Kahe Maai tujhko
+Pyaar kitna karu tujhko
+
+Meri saansein tere liye
+Meri baahein tere liye
+Meri baatein tere liye
+Meri raatein tere liye
+
+Mera gaana tere liye
+Mera waqt tere liye
+Mera pyaar tere liye 
+Mera laad Tere liye 
+
+Maai Maai Maai Maai
+Dekh meri laado aayi
+
+Sooni laado sooni nahi
+
+
+Poem 11 - Tumhari yaad
+
+Ek khalipan said lag raha hai
+Jaise kuch choot raha hai
+Mann mai ek becheni, ek udhasi 
+Ek darr sa lag raha hai
+Pyaar toh hai bahot 
+Par dard ki aahat sunayi de rahi hai
+
+Ek Kami ka khaunf hai
+Ki kuch aur us Kami ki jagah na le
+Khud pe bharosa hai
+Ki nahi tutne dungi hame
+But tumhare pyaar ke bina
+Yeh kar nahi paungi mai 
+
+Doorie badh rahi hai 
+Mann ghabra raha hai 
+Dil ki dhadkan tez ho rahi hai
+Aansun bahar aane ki zid kar rahe hai 
+
+Kaise roku is mann ko
+Tumhe jaane dene ke liye
+Nahi hoga mujhse
+Par karna hoga is pyaar ke liye 
+
+Yaad bahot satayegi tumhari
+Mere har pal mai base ho tum
+Yeh yaad rakhna
+Ki koi hai idhar 
+
+Pagal tumhare ishq mai. 
+
+
+Poem 8 - Tum aur Mai  
+
+Kahan se shuru Karu mai
+Yeh Kya ho Gaya hai
+Lavs nahi hai mere paas
+Is ehsaas ko bayan karne ke liye
+
+Tumne jab dekha mujhe
+Tumse mohabbat ho gayi 
+Tumhari ek nazar ne 
+Jaank liya meri rooh mai 
+
+Yeh jo pyaar hai tumhara
+Mere dil ko pagal kar raha hai
+Kaise kahun mai tumse
+Tumhara Asar is dil pe
+
+Ek din mai hi 
+khudko sonp diya Tumko
+Aisa nasha chadha tumhara
+Ki hosh hi na raha mujhko 
+
+Pata nahi hai tumhe 
+Kya kar diya tumne
+Is waqt mai ek pal nahi
+Jisme tum mere dil mai nahi 
+
+Dil mai bas gaye ho tum mere
+Ab na kahin jaa Paoge tum 
+Bas yuhin karna pyaar
+Toh zindagi jee lungi mai 
+
+Mere ho na sakoge tum
+Par mere ho tum 
+Yeh doori nahi mere haath mai
+Par har pal mere saath ho tum
+
+Intezaar rahega is dil ko
+Tumse ek mulakaat ka
+Jab milenge hum 
+Toh ek honge hum.
+
+
+Poem 15 - Meri Laddo
+
+Meri Laddo
+
+Tu aayi meri zindagi mai 
+Ek bahar banke
+Ek Asha leke
+Meri saans banke 
+
+Mujhe naya jeevan diya tune
+Jeene ki wajah di 
+Tera bina aaj na hoti mai
+
+Meri Laddo 
+Tu aayi meri zindagi mai 
+Ek bahar banke
+
+Teri muskurahat se dil bharta hai mera 
+Teri aakhon mai mere liye jo pyaar dikhta hai mujhe
+Us pyaar ki dor ne thame rakha hai mujhe
+
+Meri Laddo 
+Tu aayi hai meri zindagi mai
+Ek Asha leke
+
+Jaan se bhi zyaada pyaar karti hu tujhe
+Apni Jaan dungi nahi,
+Par kisi aur ki lene mai katraungi nahi tere liye
+
+Meri Laddo
+Tu aayi meri zindagi mai
+Meri saans banke 
+
+Kaise batau tujhe tu mere liye kya hai
+Lavs nahi mere paas 
+Is pyaar ko bayan karne ke liye
+
+Meri Laddo 
+Tu aayi mai meri zindagi mai
+Meri jaan banke 
+
+Kabhi is duniya mai akeli na rahegi tu
+Mai rahungi tere saath 
+Har kadam har mukam har padav pe
+
+Meri Laddo 
+Tu aayi hai meri zindagi mai
+Meri saathi banke 
+
+Tu hai toh mai hu
+Tu nahi toh mai kya hu 
+Mere dil ke kareeb rehna tu 
+
+Meri Laddo 
+Tu aayi hai meri zindagi mai
+Meri duniya banke
+
+
+
+
+Poem 5 - Mera Lalla
+
+Mera Lalla,
+
+Tere aane se pehle,
+Ek kami thi,
+Unkaha dard tha,
+Khalipan tha;
+
+Tere aane se,
+Mai puri ho gayi,
+Mere dard mit gaye,
+Mere dil ke zakham bhar gaye;
+
+Ek ehsaas jaga mujh mai
+Jise liye lavs nahi hai mere paas;
+Ek aisa pyaar mehsoos kiya,
+Jo ab tak mujhe chhu nahi paya tha;
+Ek lau Jali mujh Mai,
+Jo har roz gehri hoti hai.
+
+Mera Lalla,
+
+Mera tukda hai tu,
+Meri saans hai tu;
+Mujhe maa banaya tune,
+Meri mamta ka prateek hai tu;
+Itna sona banaya tujhe Bhagwan ne,
+Meri nazar na lage tujhe.
+
+Mera Lalla,
+
+Tere aansu girte hi,
+Aankan meri bhar aati hai;
+Tu door hai toh,
+Mann mera ghabrata hai;
+Tujhe kuch ho jaaye toh,
+Chain nahi aata mujhe.
+
+Mera Lalla,
+
+Teri zindagi ke har padav pe,
+Garv se muskuraungi mai;
+Teri har mushkil mein,
+Saath khadi rahungi mai;
+Tere dard mein, teri khushi mein
+Kabhi chodke na jaungi mai.
+
+Mera Lalla,
+
+Itna masoom hai tu,
+Kabhi jaan na payega tu;
+Meri aakhon mai basta hai tu,
+Kabhi dekh na payega tu;
+Pyaar tujhe kitna karti hu,
+Kabhi samajh na paayega tu.
+
+Mera Lalla.
+
+
+
+
+
+Poem 13 - Dard
+
+Yeh doorie tumse 
+Ab ho rati hai mehsoos
+Dard ki jo aahat ka dar tha
+Woh ab chala aaya hai darwaze par
+
+Khadi hu us darwaze pe
+Khud se lad rahi
+Darwaze ko kholne ki nahi himmat
+Par dard khat khata raha hai
+
+Darwaza khol na nahi chahti
+Bar dar lag raha hai
+Ki tut na jay darwaza
+Aur jab tutega, toh kya?
+
+Seh paungi darwzaze ka tutna
+Ki khud hi kholdu is darwaze ko
+Yeh sochke ki
+Shayad bardash kar paun
+
+Is doorie ko sweekar karne mai
+Jaan nikal jayegi meri
+Is doorie ko samajhne mai
+Waqt lagega mujhko
+
+Kaise kaatungi is waqt ko
+Jab har pal tumhari yaad
+Mujhe yun satati hai
+Kaise rahun tumhare bina
+
+Tumhari baahon ka ehsaas
+Tumhare aankon mai mere liye pyaar
+Tumhari khushboo mere badan pe
+Tumhare dil ki dhadkan ki awaz
+
+Bas gaye ho tum mujh mai
+Door hoke bhi itne paas ho tum
+Ki shayad, bas shayad
+Yeh darwaza na toote 
+
+
+Poem 14 - Tumse pyaar hai mujhe  
+
+
+Tumhare chehre se,
+Tumhare chehre pe jo chamak hai mere wajah se;
+Usse pyaar hai mujhe,
+
+Tumhari aankhon se,
+Tumhari aankhon mai mere liye jo pyaar hai;
+Usse pyaar hai mujhe,
+
+Tumhari muskurahat se,
+Tumhare musukurane ki wajah jo mai hu;
+Usse pyaar hai mujhe,
+
+Tumhare dil ki dhadkan se,
+Tumhare dil ki jo dhadkan badhti hai mere liye;
+Usse pyaar hai mujhe,
+
+Tumhare honto se,
+Tumhare honto se jo mera naam lete ho tum;
+Usse pyaar hai mujhe,
+
+Tumhare badan se,
+Tumhare badan ki pyaas hai jo mere liye;
+Usse pyaar hai mujhe,
+
+Tumse pyaar hai mujhe.
+
+
+Poem 12 - You
+
+Can’t stop myself from thinking about you.
+You’re just constantly on my mind. 
+With every breath I take
+I miss you.
+
+I feel okay, fine. 
+Keeping myself busy with work
+And all the other things I’ve taken upon! 
+But still, you’re with me all the time.
+
+I can’t separate myself from you,
+When sipping my coffee
+While peeking outside the window
+I find myself talking to you.
+
+I feel you with me in that moment 
+Holding me in your embrace from the back
+Feeling your breath on my neck 
+And taking in your scent 
+
+It makes me feel so …
+Can’t really put it into words
+As much as I want to define it
+There’s just no way I can. 
+
+You’re in me, my love
+I feel one with you 
+I feel connected to you every moment
+You have consumed me.
+
+Poem 10 - Meri Jaan
+
+Tumhe pata hai,
+
+Jab tum chale jaaoge,
+Jab doori badh jayegi,
+Jab baatein kam ho jayengi,
+Jan tumhari awaz bas yaadon mai reh jayegi,
+Jab tumhara chehra Sirf meri aakhon mai reh jaayega,
+Jab tumhara ehsaas ek khwahish ban jayegi,
+Jab tumhara waqt kimti ho jayega,
+Jab hamari Mulakat ek sapna ban jayegi,
+
+Toh,
+
+Kaise iss pyaar ko nibhaungi,
+Kaise tumse chahat barkarar Rakhungi, 
+Kaise tumhara intezaar nahi karungi,
+Kaise is dil ko samjhaujgi,
+Kaise khud ko rokungi, 
+Kaise mere mann ko lubhaungi,
+Kaise nirash nahi houngi,
+Kaise aas nahi chodungi, 
+
+Kyunki,
+
+Jo pyaar hai hamare beech,
+Woh Itna majboot ho chuka hai ki,
+Agar hum kabhi na mile phir se,
+Agar hum kabhi baat na kar paaye ek dusre se, 
+Agar hum kabhi dekh na paye ek dusre ko,
+Agar hum kabhi choo na paye ek dusre ko,
+
+Toh,
+
+Jo chahat ki hai hamari,
+Jo pal saath bitaye humne,
+Jo baatein ki hai humne,
+Jo jaan liya hai ek dusre ko,
+Jo choo liya hai ek dusre ko,
+Jo jee bhara hai ek dusre se,
+Jo aankhon mai basa liya hai ek dusre ko,
+
+Woh Kafi hai meri jaan.
+
+
+Poem 7 - Consumed
+
+Consumed. 
+
+When we see each other,
+There is nothing else.
+He is mine and
+I am his.
+
+When we see each other,
+There is unexplainable love.
+The eyes say everything,
+And words have no meaning.
+
+When we see each other;
+There is a burning desire,
+It can only be satiated 
+When we consume one another
+
+When he looks at me,
+I feel he’s consuming me;
+I can feel all of him 
+And he can feel all of me too.
+
+When he comes close,
+A chill travels down my spine
+My heart beat rises;
+My body aches for him;
+
+When he touches me,
+I feel warmth;
+I feel desired;
+I feel loved.
+
+When he kisses me,
+Holds me, pulls me close;
+I’m intoxicated by him;
+All I want is him.
+
+When he hugs me,
+I feel taken by him,
+I belong to him;
+And the world disappears in his arms. 
+
+
+Poem 6 - Tum ho
+
+Tum ho 
+Toh mai hu
+
+Tum ho 
+Toh saansein hain
+
+Tum ho
+Toh zindagi hai 
+
+Tum ho
+Toh muskan hai 
+
+Tum ho 
+Toh Khushi hai 
+
+Tum ho
+Toh roshni hai 
+
+Tum ho 
+Toh dil gaata hai 
+
+Tum ho
+Toh rang hai 
+
+Tum ho
+Toh pyaar hai
+
+Tum ho
+Toh jeene ka mann karta hai 
+
+Tum ho
+Toh hamara yeh Sansar hai
+
+Tum nahi 
+Toh kuch nahi
+
+Poem 3 - Rushing to be Okay
+
+He walks like he has no troubles.
+His eyes make me feel lost
+I hope he never struggles
+Wondering how much he’s worth
+I die a little every time
+He talks about his feelings.
+He says that it’ll happen anytime
+I suffer, because of the love
+He knows the meaning
+Even though on daily basis,
+Sometimes we barely talk.
+But for how long I’ve been hoping
+For the one day to go on the special walk.
+The rain is falling,
+And I still don’t know what to do.
+The days keep passing,
+And I’m still not that part of you.
+You without a smile
+Is a strange thing to see,
+Me without a tear,
+Shows the patience I feel.
+I can’t keep talking about it,
+With the people that I know.
+I know I don’t have a chance,
+But in my mind everything’s real.
+I only pray it doesn’t take a lot of time
+For this pain in my heart to heal.
+I hope it’s just a matter of time,
+That will soon pass away
+But I can’t wait, I’m in a rush,
+To finally say that I’m okay.
+
+
+Poem 2 - What am I going to do?
+
+Sometimes I want to get under your skin,
+Invade your brain and see
+What you don’t let me see.
+The good part, the bad part. 
+The happy you, the sad you.
+The excited you, the depressed you.
+The crazy you, the sane you.
+The mad you, the funny you.
+The awesome you, the worst you. 
+The out of control you, the composed you.
+Each and every part of your personality,
+The things which trouble you.
+Things which you hate
+Things which make you happy
+Things which you love 
+Things that can’t help you from smiling
+Your all worries
+Your all pain
+Your all botheration
+Your all anxiety
+I want to take it all away from you.
+And give you,
+Your smile
+Your pleasure
+Your happiness
+Your satisfaction
+Your peace
+Your composure.
+
+I can’t help but not look at you.
+You’re the most beautiful person for me to look at.
+Everyone else just seems to wither me off.
+How can I not look at you?
+You’re beyond my capability of resistance.
+From the sound of your laugh
+To the deepness of your eyes,
+There’s nothing I don’t love.
+What am I going to do?
+

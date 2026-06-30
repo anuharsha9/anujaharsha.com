@@ -370,6 +370,13 @@ function Writes() {
                     <p className="mt-6 inline-flex items-center gap-2 text-sm text-[var(--accent-teal)] transition-transform duration-300 group-hover:translate-x-1">
                         Read all 12 stanzas <span aria-hidden="true">→</span>
                     </p>
+                    <Link
+                        href="/poems"
+                        onClick={(e) => e.stopPropagation()}
+                        className="mt-3 inline-flex items-center gap-2 self-start rounded-md px-1 py-0.5 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500 transition-colors duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60"
+                    >
+                        13 more poems <span aria-hidden="true">↗</span>
+                    </Link>
                 </button>
 
                 {/* Full-poem reader sheet — stays inside the Life tab, no bounce to /me */}
