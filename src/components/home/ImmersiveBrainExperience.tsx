@@ -652,18 +652,37 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
           // Parent group has opacity:0 from base CSS — set BOTH the group AND
           // each path so the multiplication actually resolves visible.
           const groupOpacity = String(0.35 + quizEnergy * 0.5) // 0.35 → 0.85
-          const pathTeal = `rgba(var(--accent-teal-glow-rgb), ${0.55 + quizEnergy * 0.35})`
           linesGroups.forEach((group) => {
             group.style.display = ''
             group.style.transition = 'opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)'
             group.style.setProperty('opacity', groupOpacity, 'important')
             const paths = Array.from(group.querySelectorAll<SVGPathElement>('path'))
             paths.forEach((path) => {
-              path.style.transition = 'opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), stroke 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.4s cubic-bezier(0.22, 1, 0.36, 1)'
+              // Don't recolor or restroke — preserve the gray-blue the artwork
+              // already uses. JUST animate them: a slow dashed current drifts
+              // along each path so the synaptic network reads as alive.
+              path.style.transition = 'opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)'
               path.style.setProperty('opacity', '1', 'important')
-              path.style.setProperty('stroke', pathTeal, 'important')
-              path.style.filter = `drop-shadow(0 0 ${2 + quizEnergy * 5}px rgba(var(--accent-teal-glow-rgb), ${0.35 + quizEnergy * 0.4}))`
-              path.style.strokeDashoffset = ''
+
+              // Set up the drift once per path. Use a long dash pattern so the
+              // line still reads as a line (not dotted), with one moving "gap"
+              // of brighter material flowing along it. WAAPI handles cleanup.
+              if (!path.dataset.synapseAnimated) {
+                const len = path.getTotalLength?.() ?? 200
+                const dashLen = Math.max(8, len * 0.18)
+                const gapLen = Math.max(40, len * 0.42)
+                path.style.strokeDasharray = `${dashLen} ${gapLen}`
+                // Random per-path delay so the current doesn't pulse in lockstep.
+                const dur = 9000 + Math.random() * 6000
+                path.animate(
+                  [
+                    { strokeDashoffset: 0 },
+                    { strokeDashoffset: -(dashLen + gapLen) },
+                  ],
+                  { duration: dur, iterations: Infinity, easing: 'linear', delay: -Math.random() * dur }
+                )
+                path.dataset.synapseAnimated = '1'
+              }
             })
           })
 
