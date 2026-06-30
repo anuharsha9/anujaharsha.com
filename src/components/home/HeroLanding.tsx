@@ -156,6 +156,7 @@ export default function HeroLanding() {
                                 </div>
                                 <Button
                                     variant="primary"
+                                    size="lg"
                                     onClick={scrollToWork}
                                     icon={<ArrowDown className="w-4 h-4 transition-transform duration-500 group-hover:translate-y-1" />}
                                 >
@@ -168,6 +169,7 @@ export default function HeroLanding() {
                                 hero buttons are visually the same height. */}
                             <Button
                                 variant="secondary"
+                                size="lg"
                                 onClick={() => navigateTo('/manifesto')}
                                 aria-label="Watch the 60-second intro"
                                 icon={<Play className="w-4 h-4 fill-current" />}

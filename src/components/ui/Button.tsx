@@ -25,7 +25,7 @@ import TransitionLink from '@/components/transitions/TransitionLink'
  */
 
 type Variant = 'primary' | 'secondary' | 'accent-amber' | 'ghost'
-type Size = 'sm' | 'md'
+type Size = 'sm' | 'md' | 'lg'
 
 interface BaseProps {
     variant?: Variant
@@ -51,11 +51,13 @@ interface AsLink extends BaseProps {
 type ButtonProps = AsButton | AsLink
 
 /* Same proportions as the FloatingActions chips + NavIsland leading pill.
- * sm = the chip default. md = a touch larger for hero / standalone CTAs.
- * Both stay compact and font-mono caps — restrained, never shouting. */
+ * sm = the chip default (use everywhere). md = a notch larger.
+ * lg = hero-scale only (reserved for the landing hero CTAs). All sizes
+ * keep the same font-mono caps tracking — only the chip grows. */
 const SIZES: Record<Size, string> = {
     sm: 'p-2.5 sm:px-4 sm:py-2 text-[10px] sm:text-[11px]',
     md: 'px-4 py-2.5 sm:px-5 sm:py-3 text-[11px] sm:text-xs',
+    lg: 'px-5 py-3 sm:px-7 sm:py-4 text-xs sm:text-sm',
 }
 
 const FOCUS = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent'
