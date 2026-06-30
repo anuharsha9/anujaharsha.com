@@ -765,6 +765,28 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
         // CRITICAL: Reset display and opacity from quiz mode
         linesBackground.style.display = ''
         linesBackground.style.opacity = '1'
+        linesBackground.style.transition = ''
+
+        // Cancel the quiz-phase drift on BOTH line groups (we animated both
+        // #brain-gears and #brain-gears-copy during the quiz; the draw-in
+        // animates only the primary, so the copy must be quieted too — else
+        // its dashes keep drifting after the quiz ends).
+        const allLineGroups = [
+          svgRoot!.querySelector<SVGGElement>('#brain-gears #lines-background'),
+          svgRoot!.querySelector<SVGGElement>('#brain-gears-copy #lines-background'),
+        ].filter((g): g is SVGGElement => !!g)
+        allLineGroups.forEach((group) => {
+          group.style.transition = ''
+          group.style.opacity = '1'
+          group.querySelectorAll<SVGPathElement>('path').forEach((p) => {
+            p.getAnimations().forEach((a) => a.cancel())
+            p.style.transition = ''
+            p.style.removeProperty('opacity')
+            p.style.removeProperty('stroke-dasharray')
+            p.style.removeProperty('stroke-dashoffset')
+            delete p.dataset.synapseAnimated
+          })
+        })
 
         const paths = Array.from(linesBackground.querySelectorAll<SVGPathElement>('path'))
         if (paths.length === 0) return
