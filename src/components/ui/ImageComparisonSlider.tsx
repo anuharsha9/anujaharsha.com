@@ -102,6 +102,29 @@ export default function ImageComparisonSlider({
     }
     const handleEnd = () => setIsDragging(false)
 
+    // Track the slider value for ARIA + keyboard handler (rounded to whole %).
+    const [ariaValue, setAriaValue] = useState(50)
+    useEffect(() => {
+        const unsub = sliderPosition.on('change', (v) => setAriaValue(Math.round(v)))
+        return () => unsub()
+    }, [sliderPosition])
+
+    // Keyboard handler — arrow keys nudge, shift bigger jumps, Home/End to edges.
+    const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+        const cur = sliderPosition.get()
+        const step = e.shiftKey ? 10 : 5
+        let next: number | null = null
+        if (e.key === 'ArrowLeft') next = Math.max(0, cur - step)
+        else if (e.key === 'ArrowRight') next = Math.min(100, cur + step)
+        else if (e.key === 'Home') next = 0
+        else if (e.key === 'End') next = 100
+        if (next !== null) {
+            e.preventDefault()
+            setHasInteracted(true)
+            sliderPosition.set(next)
+        }
+    }, [sliderPosition])
+
     return (
         <div
             ref={containerRef}
@@ -166,14 +189,20 @@ export default function ImageComparisonSlider({
 
             {/* Slider Handle */}
             <m.div
-                className="absolute top-11 bottom-0 z-10 cursor-ew-resize"
+                className="absolute top-11 bottom-0 z-10 cursor-ew-resize focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
                 style={{ left: handleLeft, x: '-50%' }}
                 variants={{}}
                 onMouseDown={handleStart}
                 onTouchStart={handleStart}
+                tabIndex={0}
+                onKeyDown={handleKeyDown}
                 role="slider"
-                aria-label="Compare before and after — drag to reveal"
+                aria-label="Compare before and after — drag, or use arrow keys"
                 aria-orientation="horizontal"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={ariaValue}
+                aria-valuetext={`${ariaValue}% reveal`}
             >
                 {/* Vertical Line */}
                 <div className="w-0.5 h-full bg-[var(--accent-teal)] shadow-lg shadow-[var(--accent-teal)]/50"></div>

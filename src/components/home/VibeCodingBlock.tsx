@@ -800,8 +800,10 @@ export default function VibeCodingBlock() {
                                         </span>
                                     )}
 
-                                    {/* Desktop hover overlay — hidden on mobile */}
-                                    <div className="absolute inset-0 z-20 hidden md:flex items-center justify-center bg-black/0 group-hover:bg-black/55 transition-all duration-500 opacity-0 group-hover:opacity-100">
+                                    {/* Desktop hover overlay — also reveals on keyboard focus so
+                                        sighted keyboard users can read the title/subtitle (previously
+                                        invisible to them — blank colored card). */}
+                                    <div className="absolute inset-0 z-20 hidden md:flex items-center justify-center bg-black/0 group-hover:bg-black/55 group-focus-visible:bg-black/55 transition-all duration-500 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100">
                                         <div className="flex flex-col items-center gap-3 max-w-xs text-center px-4">
                                             <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
                                                 <Icon className="w-5 h-5 text-white" />

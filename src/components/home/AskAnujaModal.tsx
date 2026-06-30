@@ -111,10 +111,12 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                             return (
                                 <button
                                     key={c}
+                                    type="button"
                                     onClick={() => {
                                         setActiveCategory(c)
                                         setExpandedId(null)
                                     }}
+                                    aria-pressed={isActive}
                                     className={`rounded-full border px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-200 md:text-[11px] ${
                                         isActive
                                             ? 'border-[var(--accent-teal)]/40 bg-[var(--accent-teal)]/[0.12] text-[var(--accent-teal)]'

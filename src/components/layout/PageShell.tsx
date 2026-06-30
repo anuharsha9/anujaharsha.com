@@ -78,9 +78,12 @@ export default function PageShell({ children }: PageShellProps) {
           {/* Custom cursor for desktop - instant movement, matches system speed */}
           <CustomCursor />
           <RouteAnnouncer />
+          {/* Skip-to-content lives on every route (was missing on /manifesto).
+              The reading progress + URL hash sync only make sense on long
+              scrollable pages, so they stay route-gated. */}
+          <SkipToContent />
           {!isManifesto && (
             <>
-              <SkipToContent />
               <ReadingProgress />
               <URLHashSync />
             </>
@@ -92,7 +95,7 @@ export default function PageShell({ children }: PageShellProps) {
           {/* Résumé · Ask Anu actions — landing only. */}
           {isLandingPage && <FloatingActions />}
           <PageTransition>
-            <main id="main-content" role="main" className="relative z-[1]">
+            <main id="main-content" role="main" tabIndex={-1} className="relative z-[1] focus:outline-none">
               {children}
             </main>
           </PageTransition>

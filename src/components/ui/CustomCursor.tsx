@@ -48,11 +48,14 @@ export default function CustomCursor() {
   }, [])
 
   useEffect(() => {
-    // Only enable on desktop with fine pointer (mouse)
+    // Only enable on desktop with fine pointer (mouse). Also disable for users
+    // with prefers-reduced-motion or accessibility cursor settings — hiding
+    // the OS cursor for them is hostile (loses cursor-size assistive tech).
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
     const hasFineMouse = window.matchMedia('(pointer: fine)').matches
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    if (isTouchDevice || !hasFineMouse) {
+    if (isTouchDevice || !hasFineMouse || prefersReducedMotion) {
       setIsEnabled(false)
       return
     }

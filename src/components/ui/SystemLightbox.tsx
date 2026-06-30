@@ -150,7 +150,13 @@ export default function SystemLightbox({
     const content = (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[99999] flex flex-col" role="dialog" aria-modal="true">
+                <div
+                    ref={containerRef as React.RefObject<HTMLDivElement>}
+                    className="fixed inset-0 z-[99999] flex flex-col"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={title}
+                >
 
                     {/* 1. Backdrop */}
                     <m.div
@@ -219,7 +225,6 @@ export default function SystemLightbox({
                         never receives them, so case-study content can't scroll
                         even though its scrollHeight > clientHeight. */}
                     <m.div
-                        ref={containerRef as React.RefObject<HTMLDivElement>}
                         data-lenis-prevent
                         className={`relative z-10 flex-1 min-h-0 flex items-center justify-center p-4 md:p-8 w-full max-w-[1800px] mx-auto ${className}`}
                         initial={{ opacity: 0, scale: 0.95 }}
