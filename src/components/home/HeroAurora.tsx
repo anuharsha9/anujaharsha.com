@@ -333,15 +333,24 @@ export default function HeroAurora() {
         scrollPhaseCurrentRef.current = scrollPhaseTargetRef.current // Sync on mount
 
         const startTime = performance.now()
+        // 60 FPS cap — on 120 Hz displays the aurora was redrawing twice as
+        // often as needed (each frame allocates createLinearGradient calls per
+        // ray + per curtain). Capping to ~60 fps halves the GPU/CPU work with
+        // zero perceptible change in motion.
+        const FRAME_MS = 1000 / 60
+        let lastDrawAt = 0
         const animate = (now: number) => {
-            const elapsed = (now - startTime) / 1000
+            if (now - lastDrawAt >= FRAME_MS) {
+                lastDrawAt = now
+                const elapsed = (now - startTime) / 1000
 
-            // Smoothly lerp scroll phase toward target
-            const current = scrollPhaseCurrentRef.current
-            const target = scrollPhaseTargetRef.current
-            scrollPhaseCurrentRef.current = current + (target - current) * 0.08
+                // Smoothly lerp scroll phase toward target
+                const current = scrollPhaseCurrentRef.current
+                const target = scrollPhaseTargetRef.current
+                scrollPhaseCurrentRef.current = current + (target - current) * 0.08
 
-            draw(ctx, prefersReducedMotion ? 0 : elapsed)
+                draw(ctx, prefersReducedMotion ? 0 : elapsed)
+            }
             rafRef.current = requestAnimationFrame(animate)
         }
         rafRef.current = requestAnimationFrame(animate)
