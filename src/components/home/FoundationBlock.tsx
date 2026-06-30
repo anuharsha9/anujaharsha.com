@@ -2,7 +2,8 @@
 
 import { useRef } from 'react'
 import { m, useInView } from 'framer-motion'
-import TransitionLink from '@/components/transitions/TransitionLink'
+import { ArrowRight } from 'lucide-react'
+import Button from '@/components/ui/Button'
 import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
 
 /**
@@ -183,19 +184,23 @@ export default function FoundationBlock() {
                     — How I design
                 </m.p>
 
-                {/* The curious can go deep — the full written philosophy. */}
+                {/* The curious can go deep — the full written philosophy.
+                    Promoted from a quiet mono-link to the primary glass button
+                    (teal-glow halo + light-sweep) so it actually invites a
+                    click — the previous treatment was too easy to miss. */}
                 <m.div
+                    className="mt-8"
                     initial={{ opacity: 0, y: 8 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: DURATION.deliberate, delay: TEXT_DURATION + 2.1, ease }}
                 >
-                    <TransitionLink
+                    <Button
+                        variant="primary"
                         href="/philosophy"
-                        className="group mt-7 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 transition-colors duration-500 hover:text-[var(--accent-teal-bright)]"
+                        icon={<ArrowRight className="h-4 w-4" />}
                     >
                         Read my design philosophy
-                        <span aria-hidden="true" className="transition-transform duration-500 group-hover:translate-x-1">→</span>
-                    </TransitionLink>
+                    </Button>
                 </m.div>
             </div>
         </section>
