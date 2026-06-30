@@ -7,7 +7,9 @@
 
 import React from 'react'
 import { m } from 'framer-motion'
+import { Download } from 'lucide-react'
 import { CaseStudyData } from '@/types/caseStudy'
+import Button from '@/components/ui/Button'
 import CinematicScene from './CinematicScene'
 import PerspectiveReveal from '@/components/ui/PerspectiveReveal'
 import VideoPlayer from '@/components/ui/VideoPlayer'
@@ -193,10 +195,9 @@ export default function RCFullContent({ data }: { data: CaseStudyData }) {
 
                         <div className="mt-16 mb-4 flex items-center justify-between">
                             <EyebrowLabel>Mapping the chaos</EyebrowLabel>
-                            <a href="/assets/rc-sketchbook.pdf" target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono text-[var(--cs-accent)] border border-[var(--cs-accent)]/30 px-4 py-2 rounded-full hover:bg-[var(--cs-accent)]/10 transition-colors flex items-center gap-2">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                                VIEW PDF
-                            </a>
+                            <Button variant="secondary" href="/assets/rc-sketchbook.pdf" external icon={<Download className="w-3 h-3" />}>
+                                View PDF
+                            </Button>
                         </div>
                         <BentoRow layout="full">
                             <CarouselTile

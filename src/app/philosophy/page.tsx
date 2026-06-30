@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Button from '@/components/ui/Button'
 import { ArrowRight } from 'lucide-react'
 import {
     ChairMark,
@@ -345,19 +346,12 @@ export default function PhilosophyPage() {
                         as a chair — and the harder it is to understand, the more I want it.
                     </p>
                     <div className="mt-8 flex flex-wrap gap-3">
-                        <Link
-                            href="/"
-                            className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-black transition-all duration-500 hover:bg-black hover:text-white"
-                        >
+                        <Button variant="primary" href="/" icon={<ArrowRight className="h-4 w-4" />}>
                             See the work
-                            <ArrowRight className="h-4 w-4" />
-                        </Link>
-                        <a
-                            href="mailto:hello@anujaharsha.com"
-                            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-500 hover:border-white/50"
-                        >
+                        </Button>
+                        <Button variant="secondary" href="mailto:hello@anujaharsha.com">
                             Let&rsquo;s talk
-                        </a>
+                        </Button>
                     </div>
                 </section>
 

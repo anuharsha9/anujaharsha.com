@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Button from '@/components/ui/Button'
 import { Play, Pause, Volume2, VolumeX, RotateCcw } from 'lucide-react'
 import { useManifestoTimeline, SCENES, TOTAL_DURATION } from '@/hooks/useManifestoTimeline'
 import { useManifestoAudio } from '@/hooks/useManifestoAudio'
@@ -932,18 +933,12 @@ function Scene6Closer({ progress }: { progress: number }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: DURATION.drift, ease: easeCinematic }}
         >
-          <Link
-            href="/work/reportcaster"
-            className="px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(var(--white-rgb),0.3)]"
-          >
+          <Button variant="primary" href="/work/reportcaster">
             View Case Study
-          </Link>
-          <Link
-            href="/#lets-talk"
-            className="px-8 py-4 bg-white/5 text-white border border-white/10 rounded-full font-medium tracking-wide hover:bg-white/10 transition-colors"
-          >
+          </Button>
+          <Button variant="secondary" href="/#lets-talk">
             Let&apos;s Connect
-          </Link>
+          </Button>
         </m.div>
       </m.div>
     </div>

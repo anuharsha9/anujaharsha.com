@@ -1,6 +1,7 @@
 'use client'
 
-import TransitionLink from '@/components/transitions/TransitionLink'
+import Button from '@/components/ui/Button'
+import { ArrowLeft } from 'lucide-react'
 import { m } from 'framer-motion'
 import Magnetic from '@/components/ui/Magnetic'
 import { useEffect, useState, useRef, useCallback } from 'react'
@@ -206,24 +207,15 @@ export default function NotFound() {
           transition={{ duration: DURATION.drift, delay: 0.8, ease: EASE_EXPO }}
         >
           <Magnetic strength={0.3}>
-            <TransitionLink
-              href="/"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-teal)] text-white rounded-full font-medium text-sm transition-all hover:shadow-[0_0_30px_rgba(var(--accent-teal-rgb),0.4)] hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
+            <Button variant="primary" href="/" icon={<ArrowLeft className="w-4 h-4" />}>
               Resurface
-            </TransitionLink>
+            </Button>
           </Magnetic>
 
           <Magnetic strength={0.2}>
-            <TransitionLink
-              href="/#work-overview"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-medium text-sm transition-all hover:bg-white/10 hover:border-white/20 backdrop-blur-sm"
-            >
+            <Button variant="secondary" href="/#work-overview">
               Explore Case Studies
-            </TransitionLink>
+            </Button>
           </Magnetic>
         </m.div>
 

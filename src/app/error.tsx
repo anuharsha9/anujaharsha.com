@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
-import TransitionLink from '@/components/transitions/TransitionLink'
+import Button from '@/components/ui/Button'
+import { RotateCw, ArrowLeft } from 'lucide-react'
 import SignatureLogo from '@/components/brand/SignatureLogo'
 
 export default function Error({
@@ -44,49 +45,14 @@ export default function Error({
           )}
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons — canonical, same as every other CTA on the site. */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-          <button
-            onClick={reset}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white text-sm font-medium transition-all duration-300 hover:bg-[var(--accent-teal)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-teal)] shadow-sm"
-            aria-label="Try again"
-          >
-            <svg
-              aria-hidden="true"
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
+          <Button variant="primary" onClick={reset} icon={<RotateCw className="w-4 h-4" />}>
             Try again
-          </button>
-          <TransitionLink
-            href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-300 text-zinc-600 text-sm font-medium transition-all duration-300 hover:border-slate-400 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
-          >
-            <svg
-              aria-hidden="true"
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-              />
-            </svg>
+          </Button>
+          <Button variant="secondary" href="/" icon={<ArrowLeft className="w-4 h-4" />}>
             Back to Home
-          </TransitionLink>
+          </Button>
         </div>
       </div>
     </main>
