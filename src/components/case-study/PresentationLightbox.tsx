@@ -80,10 +80,12 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -20 }}
  transition={{ duration: DURATION.medium, ease: "easeOut" }}
- className="grid w-full min-h-full grid-cols-1 lg:grid-cols-[2fr_3fr]"
+ className="grid w-full min-h-full grid-cols-1 lg:grid-cols-[7fr_13fr]"
  >
- {/* Left column — eyebrow stack · title · body */}
- <div className="flex flex-col justify-center px-8 py-10 md:px-12 lg:py-16 lg:pr-14 lg:border-r lg:border-white/[0.05]">
+ {/* Left column — eyebrow stack · title · body. Narrower than half
+     deliberately: the right-column animation is the case-study hero,
+     this column is just the editorial frame around it. */}
+ <div className="flex flex-col justify-center px-8 py-10 md:px-12 lg:py-16 lg:pr-12 lg:border-r lg:border-white/[0.05]">
  <div className="mb-8 flex flex-col gap-1.5">
  <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 md:text-[11px]">
  {currentSlide.type}
@@ -95,13 +97,15 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  )}
  </div>
 
- <h2 className="mb-6 text-3xl font-medium leading-[1.05] tracking-tight text-white md:text-5xl lg:text-6xl">
+ {/* Title — smaller than first pass. The animation on the right is
+     the highlight; this is the chapter heading for it, not the poster. */}
+ <h2 className="mb-5 text-2xl font-medium leading-[1.1] tracking-tight text-white md:text-3xl lg:text-[2rem]">
  {currentSlide.title}
  </h2>
 
  <div className="space-y-4">
  {currentSlide.content.map((paragraph, idx) => (
- <p key={idx} className="text-base leading-relaxed text-white/55 md:text-lg">
+ <p key={idx} className="text-sm leading-relaxed text-white/55 md:text-base">
  {paragraph}
  </p>
  ))}
