@@ -163,16 +163,14 @@ export default function HeroLanding() {
                                 </Button>
                             </div>
 
-                            {/* 60-second intro — secondary. The video lives on /manifesto. */}
+                            {/* 60-second intro — secondary. Plain Play icon at the
+                                same w-4 h-4 as the primary's ArrowDown so the two
+                                hero buttons are visually the same height. */}
                             <Button
                                 variant="secondary"
                                 onClick={() => navigateTo('/manifesto')}
                                 aria-label="Watch the 60-second intro"
-                                icon={
-                                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
-                                        <Play className="h-3 w-3 fill-current" />
-                                    </span>
-                                }
+                                icon={<Play className="w-4 h-4 fill-current" />}
                             >
                                 60-sec intro
                             </Button>

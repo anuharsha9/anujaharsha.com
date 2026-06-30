@@ -4,20 +4,24 @@ import { ReactNode, MouseEvent } from 'react'
 import TransitionLink from '@/components/transitions/TransitionLink'
 
 /**
- * Site-wide button primitive — single source of truth. EVERY text-CTA on
- * the site uses this. Same shape, same hover, same press, same focus
- * across the whole site — color is the only thing that differs.
+ * Site-wide button primitive — single source of truth.
  *
- * Variants (all share IDENTICAL pill geometry + states):
- *  - primary      — teal-glow halo + light-sweep. The default forward action.
- *  - secondary    — ghost glass (white). Supporting actions, externals.
- *  - accent-amber — amber-glow halo + sweep. Reserved for the résumé CTA —
- *                   the one place a non-teal accent is semantic ("hire me").
- *                   Identical geometry to primary; only the color tokens change.
+ * Every button on the site uses this. Same surface, same shape, same hover,
+ * same press, same focus — color is the only thing that differs between
+ * variants. Recipe matches the FloatingActions chips (Resume / Ask Anu) and
+ * the NavIsland: compact, mono caps, glass pill, restrained — Anuja's
+ * "whispering intensity" aesthetic. No primary-only glow halos, no
+ * light-sweeps, no dark blur patches dropped over the aurora background.
+ *
+ * Variants (identical surface + states; ONLY color tokens swap):
+ *  - secondary    — white border + white text. Default for most CTAs.
+ *  - primary      — teal border + teal text. The forward action.
+ *  - accent-amber — amber border + amber text. Reserved for the résumé CTA
+ *                   (the one semantic non-teal: "hire me").
  *  - ghost        — minimal text/icon link for tertiary actions.
  *
- * Polymorphic: renders a TransitionLink for an internal `href`, a plain
- * <a target="_blank"> for `external`, and a <button> otherwise.
+ * Polymorphic: TransitionLink for internal `href`, `<a target="_blank">`
+ * for `external`, `<button>` otherwise.
  */
 
 type Variant = 'primary' | 'secondary' | 'accent-amber' | 'ghost'
@@ -46,56 +50,51 @@ interface AsLink extends BaseProps {
 
 type ButtonProps = AsButton | AsLink
 
+/* Same proportions as the FloatingActions chips + NavIsland leading pill.
+ * sm = the chip default. md = a touch larger for hero / standalone CTAs.
+ * Both stay compact and font-mono caps — restrained, never shouting. */
 const SIZES: Record<Size, string> = {
-    sm: 'px-4 py-2 text-xs',
-    md: 'px-6 py-3 text-sm',
+    sm: 'p-2.5 sm:px-4 sm:py-2 text-[10px] sm:text-[11px]',
+    md: 'px-4 py-2.5 sm:px-5 sm:py-3 text-[11px] sm:text-xs',
 }
 
-/* Pill variants share the focus ring + tap feedback; ghost is a bare link. */
 const FOCUS = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent'
 
-/* All pill variants share the EXACT same shape + state recipe:
- *   rounded-full, ink-glass fill, backdrop-blur, semibold,
- *   transition 300ms, active:scale-[0.98], focus ring.
- * Only the accent color tokens differ between primary / secondary / accent-amber.
- * This is what "every button on the site is the same button" means in code. */
+/* THE shared pill surface — mirror of GLASS_PILL + GLASS_PILL_STATES from
+ * lib/surfaces.ts, the same surface the NavIsland and SystemLightbox use.
+ * Color (border + text) is added per variant; everything else is fixed. */
 const PILL_SHELL =
-    `group relative inline-flex items-center justify-center gap-2 rounded-full ` +
-    `bg-black/40 backdrop-blur-md font-semibold ` +
-    `transition-all duration-300 active:scale-[0.98] ${FOCUS}`
+    `inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full ` +
+    `bg-[var(--overlay-ink-55)] backdrop-blur-xl ` +
+    `shadow-[var(--shadow-lg)] ` +
+    `font-mono uppercase tracking-[0.2em] ` +
+    `transition-all duration-300 active:scale-[0.97] ${FOCUS}`
 
 const VARIANTS: Record<Variant, string> = {
-    primary:
-        `btn-animated btn-sweep-teal ${PILL_SHELL} ` +
-        `border border-[rgba(var(--accent-teal-rgb),0.35)] text-[var(--accent-teal-bright)] ` +
-        `shadow-[0_0_30px_-8px_rgba(var(--accent-teal-glow-rgb),0.45)] ` +
-        `hover:border-[rgba(var(--accent-teal-rgb),0.65)] hover:text-white ` +
-        `hover:shadow-[0_0_42px_-6px_rgba(var(--accent-teal-glow-rgb),0.6)]`,
     secondary:
         `${PILL_SHELL} ` +
-        `border border-white/20 text-zinc-200 ` +
-        `shadow-[0_0_30px_-8px_rgba(var(--white-rgb),0.08)] ` +
-        `hover:border-white/50 hover:bg-white/[0.10] hover:text-white ` +
-        `hover:shadow-[0_0_42px_-6px_rgba(var(--white-rgb),0.15)]`,
+        `border border-[var(--overlay-white-10)] text-zinc-200 ` +
+        `hover:border-[var(--overlay-white-20)] hover:bg-[var(--overlay-ink-75)] hover:text-white`,
+    primary:
+        `${PILL_SHELL} ` +
+        `border border-[rgba(var(--accent-teal-rgb),0.35)] text-[var(--accent-teal-bright)] ` +
+        `hover:border-[rgba(var(--accent-teal-rgb),0.6)] hover:bg-[var(--overlay-ink-75)] hover:text-white`,
     'accent-amber':
-        `btn-animated ${PILL_SHELL} ` +
+        `${PILL_SHELL} ` +
         `border border-[rgba(var(--accent-amber-rgb),0.35)] text-[var(--accent-amber)] ` +
-        `shadow-[0_0_30px_-8px_rgba(var(--accent-amber-rgb),0.45)] ` +
-        `hover:border-[rgba(var(--accent-amber-rgb),0.65)] hover:text-white ` +
-        `hover:shadow-[0_0_42px_-6px_rgba(var(--accent-amber-rgb),0.6)]`,
+        `hover:border-[rgba(var(--accent-amber-rgb),0.6)] hover:bg-[var(--overlay-ink-75)] hover:text-white`,
     ghost:
         `inline-flex items-center gap-1.5 font-medium text-zinc-400 ` +
         `transition-colors duration-200 hover:text-white ${FOCUS} rounded-md`,
 }
 
 export default function Button(props: ButtonProps) {
-    const { variant = 'primary', size = 'md', icon, className = '', children } = props
+    const { variant = 'primary', size = 'sm', icon, className = '', children } = props
     const sizeCls = variant === 'ghost' ? (size === 'sm' ? 'text-xs' : 'text-sm') : SIZES[size]
     const cls = `${VARIANTS[variant]} ${sizeCls} ${className}`.trim()
 
-    /* Content sits above the .btn-animated sweep (z-[2]). */
     const inner = (
-        <span className="relative z-[2] inline-flex items-center gap-2">
+        <span className="inline-flex items-center gap-2">
             {icon}
             {children}
         </span>

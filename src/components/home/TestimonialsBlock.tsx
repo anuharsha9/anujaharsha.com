@@ -99,17 +99,14 @@ export default function TestimonialsBlock() {
                 Hover to pause · tap a quote to read the full note
             </p>
 
-            {/* Why Hire Me — canonical primary, same shape as every other CTA. */}
+            {/* Why Hire Me — canonical primary. Plain Play icon at w-4 h-4 to
+                match every other CTA on the page; no extra wrapper. */}
             <div className="mt-10 flex justify-center">
                 <Button
                     variant="primary"
                     onClick={() => navigateTo('/manifesto')}
                     aria-label="Watch the 60-second Why Hire Me trailer"
-                    icon={
-                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--accent-teal)]/15">
-                            <Play className="h-3 w-3 fill-current" />
-                        </span>
-                    }
+                    icon={<Play className="w-4 h-4 fill-current" />}
                 >
                     Why hire me — in 60 seconds
                 </Button>
