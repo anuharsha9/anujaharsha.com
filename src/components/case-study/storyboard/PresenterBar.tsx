@@ -198,8 +198,12 @@ export default function PresenterBar({
  initial={{ scaleY: 0 }}
  animate={{ scaleY: 1 }}
  transition={{ duration: DURATION.slow, delay: delay + 0.1, ease }}
- style={{ transformOrigin: 'top' }}
- className="absolute left-0 top-1 bottom-3 w-[2px] rounded-full bg-[var(--accent-teal)]/40"
+ style={{
+ transformOrigin: 'top',
+ background: 'rgba(var(--accent-teal-rgb), 0.8)',
+ boxShadow: '0 0 8px rgba(var(--accent-teal-rgb), 0.4)',
+ }}
+ className="absolute left-0 top-1 bottom-3 w-[2px] rounded-full"
  />
 
  {/* Shimmer sweep after typewriter completes — kept from the
