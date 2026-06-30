@@ -3,10 +3,17 @@ import dynamic from 'next/dynamic'
 import SectionSkeleton from '@/components/ui/SectionSkeleton'
 
 import HeroLanding from '@/components/home/HeroLanding'
-import CSGBlock from '@/components/home/CSGBlock'
 import HomeTabsWrapper from '@/components/home/HomeTabsWrapper'
 
-/* ── Hero + first proof render eagerly (above the fold); everything below is lazy ── */
+/* ── Only the hero renders eagerly. CSG + everything below is lazy.
+ *    CSGBlock was previously eager — its 3 case-study tiles + wireframes +
+ *    presentation lightboxes added meaningful TBT on cold load. Moving it
+ *    behind dynamic() (with ssr:true so HTML still prerenders for SEO and
+ *    no LCP regression) pushes the hydration cost out of the critical
+ *    render path. The skeleton matches the section's ~120vh footprint so
+ *    layout stays at CLS=0 while the JS chunk loads. */
+const CSGLoading = () => <SectionSkeleton height="120vh" text="LOADING CASE STUDIES" />
+const CSGBlock = dynamic(() => import('@/components/home/CSGBlock'), { ssr: true, loading: CSGLoading })
 
 const TestimonialsLoading = () => <SectionSkeleton height="200vh" text="LOADING PROOF MODULE" />
 const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true, loading: TestimonialsLoading })
