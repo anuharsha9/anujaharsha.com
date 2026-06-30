@@ -87,7 +87,7 @@ export const ASK_QA: AskQA[] = [
         category: 'work',
         question: 'What kinds of products have you worked on?',
         answer:
-            'Mostly enterprise data platforms — BI scheduling, ML workflow tools, AI-powered analytics hubs. Before that: branding, mobile, and prototyping at agencies in India and Boston. The throughline across 13 years is the same — the most powerful tool in the building that nobody knows how to use. My job is making complex systems obvious.',
+            'Mostly enterprise data platforms — BI scheduling, ML workflow tools, AI-powered analytics hubs. Before that: branding, mobile, and prototyping at agencies in India and Boston. The throughline across 13 years is the chair test — the most powerful tool in the building that nobody knows how to use, made as obvious as knowing to sit down. My job is closing the gap between what enterprise software can do and what its users actually reach for.',
     },
 
     /* ─── (b) Process / collaboration ─── */
@@ -177,28 +177,42 @@ export const ASK_QA: AskQA[] = [
         category: 'philosophy',
         question: 'What\'s a design principle you\'ve changed your mind about in the last 2 years?',
         answer:
-            'I used to think research density correlated with quality. Watching the AI-native shift, I now think the bar is closure — did you ship a thing that worked. Synthetic research, vibe-coded prototypes, "ship the spine first" — they beat a flawless research deck that never makes it past the eng standup. The work has to land. Everything else is decoration.',
+            'I used to think research density correlated with quality. Now I think the bar is whether it shipped and worked. AI-native changed it — synthetic research, vibe-coded prototypes, ship-the-spine-first all beat a flawless research deck that never made it past the eng standup. Design without evidence is taste. Evidence without a shipped thing is a paper. The work has to land. Everything else is decoration.',
     },
     {
         id: 'no-ai',
         category: 'philosophy',
         question: 'When is the right answer "don\'t add an AI feature here"?',
         answer:
-            'When the deterministic answer is already correct. When the user needs trust more than they need novelty. When latency would break the flow. ReportCaster\'s scheduler doesn\'t need AI — it needs to be obvious. Pathwise\'s base projections don\'t need AI — citing public data is more honest. AI is a multiplier, not a feature.',
+            'When the deterministic answer is already correct. When the user needs trust more than novelty. When latency would break the flow. ReportCaster\'s scheduler doesn\'t need AI — it needs to be obvious. Pathwise\'s projections don\'t need AI to look smart; they need to be honest about what\'s a fact vs a forecast. A forecast that masquerades as a fact is the worst thing an AI feature can do. AI is a multiplier on a good foundation, not a substitute for one.',
     },
     {
         id: 'not-design',
         category: 'philosophy',
         question: 'How do you decide what NOT to design in an enterprise tool with 500 features?',
         answer:
-            'Two filters: would removing this hurt churn, and is anyone actually using it. ReportCaster had legacy features no customer had touched in years — we deprecated them in the new Hub instead of porting them. For new features I run a "10-second test": if a customer can\'t articulate the value in 10 seconds, it\'s either too small to ship or in the wrong place.',
+            'Three filters. Would removing this hurt churn. Is anyone actually using it. And — would adding this break the law of one element, one job. ReportCaster had legacy features no customer had touched in years — deprecated them in the new Hub instead of porting. For new features I run a 10-second test: if a customer can\'t articulate the value in 10 seconds, it\'s either too small to ship or it\'s in the wrong place. Swiss-army cards are how enterprise tools get unusable.',
     },
     {
         id: 'philosophy',
         category: 'philosophy',
         question: 'What\'s your design philosophy?',
         answer:
-            'When you look at a chair, the only thing that comes to mind is to sit on it. Every UI element should telegraph its function on sight. I call it the chair test — if you have to explain it, redesign it. Powerful tools fail when they\'re not obvious. Most of my work is making powerful enterprise systems obvious without dumbing them down.',
+            'When you look at a chair, the only thing that comes to mind is to sit on it. That\'s the bar. Every UI element should telegraph its function the moment you see it — no instructions, no onboarding, no tutorial. Most enterprise tools fail this test because the power is real and the obviousness isn\'t. My job is making the most powerful tool in the building — the one nobody can figure out — as obvious as the chair. Without dumbing it down.',
+    },
+    {
+        id: 'affordance-laws',
+        category: 'philosophy',
+        question: 'What are the 5 affordance laws you talk about?',
+        answer:
+            'My chair test, made operational — five laws you can name in a design review ("that fails law 3"). (1) Prominence = importance — the thing that matters most is unmistakably the biggest. (2) State before words — on-track / off-track is readable by color + sign + weight before you read the label. (3) Fact ≠ forecast — a current balance looks settled; a projection looks uncertain. A forecast must never look like a fact. (4) Actionable looks actionable — tappable things invite the action; static info stays quiet. (5) One element, one job — no Swiss-army cards. Bake them into the primitives and obviousness is inherited for free.',
+    },
+    {
+        id: 'learns-you',
+        category: 'philosophy',
+        question: 'What do you mean when you say "software should learn you"?',
+        answer:
+            'It\'s the pattern I can\'t help running toward. Every product I\'ve built — ML Functions for engineers, WealthEngine for my finances, Sous for cooking, Pathwise for college decisions, Inkwell for writing — is an adaptive system that learns the user and helps them decide or improve. I didn\'t plan that pattern; it\'s just how my brain works. The moment I touch a problem I\'m asking "how could this learn? how could this adapt? how could this make the person better at the thing?" Software should learn you and extend your thinking. That\'s the point of view.',
     },
 
     /* ─── (e) Availability / fit ─── */
@@ -309,7 +323,7 @@ export const ASK_QA: AskQA[] = [
         category: 'hiring',
         question: 'What is your actual superpower?',
         answer:
-            'I volunteer for the tool nobody wants to touch — the 40-year-old engine, the ML feature buried under 12 clicks — and make it obvious. The rare combination is enterprise-depth patience plus the ability to ship the prototype myself. I don\'t hand engineering a picture; I hand them a working spec. That\'s the multiplier.',
+            'I run toward the 40-year black box nobody will touch. The legacy engine with no docs. The ML feature buried under 12 clicks. The mess everyone\'s avoiding. I map it from scratch, befriend the one engineer who still remembers how it works, then make it as obvious as a chair. The rare combination is enterprise-depth patience plus the ability to ship the prototype myself — so engineering gets a runtime spec, not a Figma file. That\'s the multiplier.',
     },
     {
         id: 'weakness',
