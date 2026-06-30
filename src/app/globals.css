@@ -962,7 +962,10 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
    BRAIN ENTRY EXPERIENCE - GEAR LIGHTING
    ============================================ */
 
-/* Container for brain entry — cinematic zoom-out reveal */
+/* Container for brain entry — cinematic zoom-out reveal.
+   Clean monotonic ease-out from scale(15) → scale(1) (no overshoot/bounce).
+   The cubic-bezier(0.16, 1, 0.3, 1) on the .brain-entry-container rule does
+   the heavy-lift of the deceleration — keyframes just hold the endpoints. */
 @keyframes brain-zoom-reveal {
   0% {
     transform: translateZ(0) scale(15);
@@ -971,18 +974,6 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
 
   8% {
     opacity: 1;
-  }
-
-  65% {
-    transform: translateZ(0) scale(0.92);
-  }
-
-  80% {
-    transform: translateZ(0) scale(1.03);
-  }
-
-  90% {
-    transform: translateZ(0) scale(0.99);
   }
 
   100% {
