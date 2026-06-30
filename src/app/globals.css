@@ -1169,45 +1169,26 @@ html.has-custom-cursor:not(.lightbox-open) *::after {
   }
 }
 
-@keyframes brain-ignition-rotate {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-
-  25% {
-    transform: rotate(3deg) scale(1.02);
-  }
-
-  50% {
-    transform: rotate(-3deg) scale(1.03);
-  }
-
-  75% {
-    transform: rotate(2deg) scale(1.02);
-  }
-
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-
-/* Ignition state - all gears fully lit with pulse animation */
+/* Ignition state — a quiet curtain-raise between the quiz and the floating
+   finale. NO shake / scale / rotate (gimmicky). NO heavy dual halo (tacky).
+   Just a held moment where every gear lifts to full and the brain reads as
+   completely awake. The float that follows is the reward. */
 .brain-entry-container.brain-ignition #brain-gears,
 .brain-entry-container.brain-ignition #brain-gears-copy {
-  animation: brain-ignition-pulse 2s ease-in-out, brain-ignition-rotate 2s ease-in-out;
+  transition: filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  filter: brightness(1.05);
 }
 
 .brain-entry-container.brain-ignition #brain-gears #main-gears>[id*="gear-"],
 .brain-entry-container.brain-ignition #brain-gears-copy #main-gears>[id*="gear-"] {
   opacity: 1 !important;
-  filter:
-    grayscale(0%) drop-shadow(0 0 20px rgba(var(--accent-teal-rgb), 0.6)) drop-shadow(0 0 40px rgba(var(--accent-teal-rgb), 0.4)) !important;
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .brain-entry-container.brain-ignition #brain-gears #gears-background [id*="bg-gear-"],
 .brain-entry-container.brain-ignition #brain-gears-copy #gears-background [id*="bg-gear-"] {
-  opacity: 0.8 !important;
-  filter: drop-shadow(0 0 12px rgba(var(--accent-teal-rgb), 0.4)) !important;
+  opacity: 0.85 !important;
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 
