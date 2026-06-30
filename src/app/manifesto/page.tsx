@@ -142,11 +142,12 @@ function Scene1Terminal({ progress }: { progress: number }) {
 
   const terminalLines = [
     '$ ssh deploy@enterprise-legacy.prod',
-    'Connected to legacy-monolith.internal (40yr uptime)',
+    'Connected to legacy-monolith.internal (50yr uptime)',
     '> SELECT complexity FROM systems WHERE age > "decades"',
-    '> 5 disconnected tools. Zero documentation.',
-    '> 20,000,000 automated jobs at risk.',
-    '> STATUS: Someone needs to untangle this.',
+    '> 5 fragmented sub-products. Zero docs.',
+    '> 17,000,000 concurrent users.',
+    '> 20,000,000 weekly jobs.',
+    '> STATUS: Someone needs to make this legible.',
     '',
     '> Initializing redesign protocol...',
   ]
@@ -237,12 +238,12 @@ function Scene1Terminal({ progress }: { progress: number }) {
               </span>
             </m.h1>
             <m.p
-              className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light"
+              className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: DURATION.cinematic, delay: 0.25, ease: easeCinematic }}
             >
-              Enterprise UX Expert · 13 Years · Legacy Modernization & AI-Native Design
+              I make complex enterprise products usable — not by stripping the complexity, but by refining what users need to <span className="text-zinc-200">see</span> from what they need to <span className="text-zinc-200">use</span>.
             </m.p>
           </m.div>
         )}
@@ -287,8 +288,8 @@ function Scene2Philosophy({ progress }: { progress: number }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: DURATION.deliberate, ease }}
       >
-        <KineticLine emphasisWords={['compartmentalizing', 'reorganizing', 'friction.']} emphasisClass="text-[var(--accent-teal-bright)] font-medium">
-          From 50-year monoliths to AI-powered plugins.
+        <KineticLine emphasisWords={['enemy.', 'illegible']} emphasisClass="text-[var(--accent-teal-bright)] font-medium">
+          Complexity isn&apos;t the enemy. Illegible complexity is.
         </KineticLine>
         <m.p
           className="mt-6 text-sm sm:text-base md:text-lg text-zinc-400 font-light max-w-2xl mx-auto leading-relaxed"
@@ -296,7 +297,7 @@ function Scene2Philosophy({ progress }: { progress: number }) {
           animate={{ opacity: progress > 0.15 ? 1 : 0 }}
           transition={{ duration: DURATION.deliberate }}
         >
-          I don&apos;t just redesign. My specialty is compartmentalizing and reorganizing systems to make your workflow feel effortless. Not everything needs a redesign. The goal is always to solve the problem with the least friction.
+          I don&apos;t strip the complexity — I refine what users need to see from what they need to use. The system stays as powerful as it ever was. The workflow stops getting in the way.
         </m.p>
       </m.div>
 
@@ -924,7 +925,7 @@ function Scene6Closer({ progress }: { progress: number }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: DURATION.drift, ease: easeCinematic }}
         >
-          Let&apos;s untangle the architecture.
+          Let&apos;s make it legible.
         </m.p>
 
         <m.div
