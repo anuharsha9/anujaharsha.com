@@ -118,10 +118,12 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  <div ref={setPresenterSlot} className="mt-10" />
  </div>
 
- {/* Right column — the visual, full-bleed-ish. Wide max-width, generous
- vertical room, no fight with the left column. */}
+ {/* Right column — the visual, full-bleed-ish. The wrapper does NOT
+     clamp width — each beat's own internal max-w (typically max-w-4xl)
+     is the real ceiling. We just center it in the column with breathing
+     room on the edges. */}
  <div className="flex items-center justify-center px-6 py-10 md:px-10 lg:py-16 lg:pl-14">
- <div className="flex w-full max-w-3xl items-center justify-center">
+ <div className="flex w-full items-center justify-center">
  {currentSlide.component}
  </div>
  </div>
