@@ -641,11 +641,31 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
             }
           })
 
-          // Hide lines-background during loading/quiz
-          const linesBackground = brainGearsGroup!.querySelector<SVGGElement>(`#lines-background`)
-          if (linesBackground) linesBackground.style.display = 'none'
-          const linesBackgroundCopy = brainGearsGroup!.querySelector<SVGGElement>(`#lines-background-copy`)
-          if (linesBackgroundCopy) linesBackgroundCopy.style.display = 'none'
+          // SYNAPSES — keep the connective lines visible during the quiz and
+          // brighten them as energy rises. Each answer that lights a new gear
+          // raises the ambient base; a brief teal pulse layers on top.
+          const linesGroups = [
+            brainGearsGroup!.querySelector<SVGGElement>(`#lines-background`),
+            brainGearsGroup!.querySelector<SVGGElement>(`#lines-background-copy`),
+          ].filter((g): g is SVGGElement => !!g)
+
+          // Parent group has opacity:0 from base CSS — set BOTH the group AND
+          // each path so the multiplication actually resolves visible.
+          const groupOpacity = String(0.35 + quizEnergy * 0.5) // 0.35 → 0.85
+          const pathTeal = `rgba(var(--accent-teal-glow-rgb), ${0.55 + quizEnergy * 0.35})`
+          linesGroups.forEach((group) => {
+            group.style.display = ''
+            group.style.transition = 'opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)'
+            group.style.setProperty('opacity', groupOpacity, 'important')
+            const paths = Array.from(group.querySelectorAll<SVGPathElement>('path'))
+            paths.forEach((path) => {
+              path.style.transition = 'opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), stroke 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.4s cubic-bezier(0.22, 1, 0.36, 1)'
+              path.style.setProperty('opacity', '1', 'important')
+              path.style.setProperty('stroke', pathTeal, 'important')
+              path.style.filter = `drop-shadow(0 0 ${2 + quizEnergy * 5}px rgba(var(--accent-teal-glow-rgb), ${0.35 + quizEnergy * 0.4}))`
+              path.style.strokeDashoffset = ''
+            })
+          })
 
           return
         }
@@ -1019,10 +1039,10 @@ export default function ImmersiveBrainExperience({ forceQuiz = false }: { forceQ
         linesDrawnRef.current = true
         setupLineDrawing()
       } else if (quizState !== 'complete') {
-        // Ensure lines are completely hidden during quiz
+        // During quiz, lines are owned by the synapse block above (ambient teal
+        // current that rises with quizEnergy). Just reset the once-flag so the
+        // final draw animation re-arms when the quiz completes.
         linesDrawnRef.current = false
-        const linesBg = brainGearsGroup!.querySelector<SVGGElement>(`#lines-background`)
-        if (linesBg) linesBg.style.opacity = '0'
       }
 
       const hoverCleanup = setupHoverListeners()
