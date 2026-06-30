@@ -353,9 +353,27 @@ export default function HeroAurora() {
             }
             rafRef.current = requestAnimationFrame(animate)
         }
-        rafRef.current = requestAnimationFrame(animate)
+
+        /* Defer the rAF loop until the browser is idle so the canvas init
+         * cost doesn't land in the critical render path. The aurora has a
+         * 3.5s entrance animation anyway, so an 80–200ms idle wait is
+         * visually invisible but moves the per-frame draw work out of the
+         * first-paint blocking window. Cuts TBT noticeably on cold loads.
+         * Fallback: setTimeout for browsers without requestIdleCallback. */
+        let idleId = 0
+        const kickoff = () => { rafRef.current = requestAnimationFrame(animate) }
+        if (typeof window.requestIdleCallback === 'function') {
+            idleId = window.requestIdleCallback(kickoff, { timeout: 200 })
+        } else {
+            idleId = window.setTimeout(kickoff, 80)
+        }
 
         return () => {
+            if (typeof window.cancelIdleCallback === 'function') {
+                window.cancelIdleCallback(idleId)
+            } else {
+                window.clearTimeout(idleId)
+            }
             cancelAnimationFrame(rafRef.current)
             window.removeEventListener('resize', resize)
             window.removeEventListener('mousemove', onMouseMove)
