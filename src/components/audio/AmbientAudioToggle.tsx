@@ -9,15 +9,20 @@ import { getAmbientAudio } from '@/lib/audio'
  * sibling to the Resume + Ask Anu chips in FloatingActions.
  *
  * Behavior:
- *   - Default OFF. Visitor opts in by clicking the chip.
- *   - State persisted via localStorage so it survives reloads.
+ *   - ALWAYS defaults OFF on every page load. No localStorage persistence.
+ *     A portfolio shouldn't surprise a recruiter with audio just because
+ *     they enabled it on a previous visit. Opt-in is per-session, period.
  *   - prefers-reduced-motion → the toggle never mounts at all (no audio
  *     for users who've explicitly asked for less stimulation).
  *   - AudioContext is created lazily on the first click (iOS requires a
  *     user gesture, and we honor that).
  *   - Smooth fade-in / fade-out is handled inside the audio engine.
+ *
+ * One legacy cleanup on mount: we delete the old localStorage key from
+ * any visitor who had it persisted from the previous behavior, so they
+ * don't keep auto-starting on returns.
  */
-const STORAGE_KEY = 'ambient_audio_enabled_v1'
+const LEGACY_STORAGE_KEY = 'ambient_audio_enabled_v1'
 
 export default function AmbientAudioToggle() {
     const [enabled, setEnabled] = useState(false)
@@ -29,19 +34,14 @@ export default function AmbientAudioToggle() {
         if (typeof window === 'undefined') return
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
         if (prefersReducedMotion) return
-        // Restore previous preference (if they'd turned it ON before).
-        let restored = false
-        try {
-            restored = localStorage.getItem(STORAGE_KEY) === '1'
-        } catch { /* localStorage blocked → fall back to OFF */ }
-        setEnabled(restored)
+        // Clear any persisted "ON" from the previous (preference-persisting)
+        // behavior — visitors who'd opted in once shouldn't keep getting
+        // sound on every return without re-opting-in.
+        try { localStorage.removeItem(LEGACY_STORAGE_KEY) } catch { /* no-op */ }
         setMounted(true)
     }, [])
 
     // Whenever `enabled` changes, drive the audio engine accordingly.
-    // (We deliberately do NOT auto-start on mount even if restored=true —
-    // browsers require a user gesture to create/resume an AudioContext;
-    // the engine will silently no-op until the user clicks again.)
     useEffect(() => {
         if (!mounted) return
         const audio = getAmbientAudio()
@@ -50,11 +50,7 @@ export default function AmbientAudioToggle() {
     }, [enabled, mounted])
 
     const toggle = useCallback(() => {
-        setEnabled((prev) => {
-            const next = !prev
-            try { localStorage.setItem(STORAGE_KEY, next ? '1' : '0') } catch { /* */ }
-            return next
-        })
+        setEnabled((prev) => !prev)
     }, [])
 
     if (!mounted) return null
