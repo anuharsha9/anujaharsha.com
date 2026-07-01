@@ -21,13 +21,13 @@ export function useTransition() {
 
 /* ── Oceanic wave easing ──────────────────────────────────
  *
- *   SURGE   = 900ms — deep-water swell gathering and crashing
- *   HOLD    = imperceptible route swap
- *   RETREAT = 600ms — gravity drains the water mass back
+ *   SURGE   = 1200ms — deep-water swell gathering and crashing
+ *   HOLD    = imperceptible route swap (soft navigation under the crest)
+ *   RETREAT = 900ms — gravity drains the water mass back
  *
- *   Total cycle: ~1.5 seconds. Brisk but still tidal — fast enough
- *   that recruiters clicking through never wait on the chrome.
- *   (Reduced-motion users skip the wash entirely — see navigateTo.)
+ *   Total cycle: ~2.1 seconds. Tidal, not brisk — the wash IS the brand
+ *   moment, so it gets room to breathe. (Reduced-motion users skip the
+ *   wash entirely — see navigateTo.)
  *
  *   Asymmetric motion — like REAL ocean waves:
  *   - Surge: slow build (0–40%) → gathering momentum (40–80%) → decelerates at peak
@@ -36,6 +36,14 @@ export function useTransition() {
  *   The retreat is NOT a "yank" — it's a ball at the top of its arc.
  *   Velocity = 0 at the peak, then gravity gradually takes over.
  */
+
+const SURGE_MS = 1200
+const RETREAT_MS = 900
+/* Push the route when the crest has the viewport ~fully covered (~75% of
+ * surge). Requires WORKING soft navigation — if the RSC payload fetch
+ * fails, Next hard-navigates and the wash dies mid-air (see deploy.yml's
+ * .txt upload step for the fix that keeps payloads fresh on S3). */
+const PUSH_AT_MS = 900
 
 function easeSurge(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2 // easeInOutCubic
@@ -141,7 +149,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
     window.dispatchEvent(new CustomEvent('wave-transition', { detail: { phase: 'emerge' } }))
 
-    animateWith(600, easeRetreat, () => {
+    animateWith(RETREAT_MS, easeRetreat, () => {
       setPhase('idle')
       phaseRef.current = 'idle'
       window.dispatchEvent(new CustomEvent('wave-progress', { detail: { progress: 0, raw: 0 } }))
@@ -215,7 +223,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
         if (phaseRef.current === 'submerge' || phaseRef.current === 'hold') {
             startEmerge()
         }
-    }, 2500)
+    }, SURGE_MS + RETREAT_MS + 1100)
 
     pendingHref.current = targetHref
 
@@ -239,9 +247,9 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       }).catch(err => {
         console.error('[TransitionContext] router.push threw error:', err)
       })
-    }, 700)
+    }, PUSH_AT_MS)
 
-    animateWith(900, easeSurge, () => {
+    animateWith(SURGE_MS, easeSurge, () => {
       // The instant the surging wave hits its peak, gravity takes over.
       if (normalizePath(pathnameRef.current) === normalizePath(pendingHref.current || '')) {
         // NO HOLD PHASE. A physical wave never pauses gracefully in mid-air.

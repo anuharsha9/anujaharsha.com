@@ -51,6 +51,24 @@ jobs:
               --content-type "text/html"
           done
 
+      - name: Upload RSC payloads and other .txt files (no cache)
+        run: |
+          # CRITICAL: the sync step excludes *.txt, and --delete doesn't touch
+          # excluded keys — so without this step the App Router RSC payload
+          # files (index.txt, __next.*.txt, per-route .txt) go stale on S3
+          # forever. Stale payloads reference chunk hashes that --delete has
+          # already purged, so every client-side navigation 404s its chunk
+          # fetch and Next silently falls back to a FULL PAGE LOAD — which is
+          # what broke the tidal-wash transition into a two-act "wave dies,
+          # page flashes, second wave retreats" sequence. These are
+          # route-coupled like HTML and must be fresh on every deploy.
+          find out -name "*.txt" -type f | while read -r file; do
+            relative_path="${file#out/}"
+            aws s3 cp "$file" "s3://anujaharsha.com/$relative_path" \
+              --cache-control "public, max-age=0, must-revalidate" \
+              --content-type "text/plain"
+          done
+
       - name: Upload sitemap and robots.txt
         run: |
           if [ -f "out/sitemap.xml" ]; then

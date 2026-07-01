@@ -3,7 +3,8 @@
 **Product:** Anuja Harsha Nimmagadda — personal portfolio & proof-of-work platform
 **Owner:** Anuja Harsha Nimmagadda (Staff / Senior Product Designer)
 **Live:** https://anujaharsha.com
-**Status:** ✅ Shipped (launched 2026-06-28) · actively iterated (latest: WordU retired to its own project, `/me` merged into the Life tab, testimonials → moving marquee with full letters, Build Lab added to the résumé)
+**Status:** ✅ Shipped (launched 2026-06-28) · actively iterated (latest: WordU retired to its own project, `/me` merged into the Life tab, testimonials → moving marquee with full letters, Build Lab added to the résumé, all four AI-app subdomains now live)
+**Last updated:** 2026-07-01
 **Stack:** Next.js 16 (static export) · React 19 · TypeScript · framer-motion · Tailwind (CSS-variable tokens) · Three.js/R3F · Cloudflare Worker (Ask Anu) · AWS S3 + CloudFront · GA4
 
 ---
@@ -83,10 +84,10 @@ Three flagship, problem-first, cinematic case studies — each opens with a *rea
 ### 8.3 Build Lab — five self-built AI products
 Proof of 0→1 range, each a real, (mostly) live product with a **narrated, workflow-led walkthrough player** + "Open Live Demo":
 - **Pathwise** — AI-native career/education-ROI navigator → `pathwise.anujaharsha.com`
-- **WealthEngine** — local-first life-decision & scenario engine
-- **Warden** — AI-agent authorization & guardrails console
-- **Inkwell** — local-first writing studio (archive + AI coach)
-- **Sous** — voice-first AI cooking companion (native iOS; shipping free on the App Store, **bring-your-own-key**)
+- **WealthEngine** — local-first life-decision & scenario engine → `wealthengine.anujaharsha.com` (DEMO_MODE + fictional Rao persona)
+- **Warden** — AI-agent authorization & guardrails console → `warden.anujaharsha.com`
+- **Inkwell** — local-first writing studio (archive + AI coach) → `inkwell.anujaharsha.com`
+- **Sous** — voice-first AI cooking companion (native iOS; on TestFlight, App Store submission pending; free with **bring-your-own-key** for the LLM brain)
 
 A sixth Build Lab tile, **This Portfolio**, frames the site itself as an artifact (5 iterations · 6 AI agents · 1 architect). *(WordU, an earlier word game, was retired to its own standalone project — it didn't carry the enterprise story.)*
 
@@ -154,7 +155,7 @@ The portfolio is itself the headline proof: a designer who **architects and ship
 6. **Dual Work/Life narrative** — competence *and* humanity.
 
 ## 15. Roadmap (post-launch, additive)
-- **Sous → App Store** (free, BYOK): flip the tile to a "Download on the App Store" CTA when the listing is live; host privacy + support URLs on the domain.
+- **Sous → App Store** (free, BYOK): build 4 is live on TestFlight (2026-06-30) — awaiting Anuja's real-cook test → tune wake phrases → ASC listing → Submit for Review. When approved, flip the tile to a "Download on the App Store" CTA and host privacy + support URLs on the domain.
 - Drop in remaining **Build Lab demo reels** (e.g., Sous on-camera reel).
 - Optional: deepen the signature "wow" interaction for award consideration (Awwwards SOTD path).
 
