@@ -217,6 +217,7 @@ export default function AskAnujaModal({ isOpen, onClose }: AskAnujaModalProps) {
                         value={customQ}
                         onChange={(e) => setCustomQ(e.target.value)}
                         placeholder="Ask something else…"
+                        maxLength={500}
                         className="flex-1 rounded-full border border-white/[0.10] bg-white/[0.04] px-5 py-3 text-sm text-white placeholder-zinc-500 transition-colors focus:border-[var(--accent-teal)]/50 focus:outline-none md:text-base"
                         aria-label="Ask a custom question"
                         disabled={customStatus === 'loading'}
