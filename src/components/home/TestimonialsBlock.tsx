@@ -28,9 +28,12 @@ function QuoteMark({ className = '' }: { className?: string }) {
 /* Compact endorsement card — shows the pull-quote; click opens the full note. */
 function Card({ t, onOpen }: { t: Testimonial; onOpen: (t: Testimonial) => void }) {
     return (
+        {/* No aria-label — the visible quote + name IS the accessible name.
+            An override here failed WCAG 2.5.3 (Label in Name): voice-control
+            users say what they see ("A rare combination of…"), and a label
+            that doesn't contain the visible text breaks that command. */}
         <button
             onClick={() => onOpen(t)}
-            aria-label={`Read ${t.name}'s full endorsement`}
             className="group/card mx-6 flex max-w-md shrink-0 items-start gap-3 text-left sm:mx-9"
         >
             <QuoteMark className="mt-1 h-4 w-4 shrink-0 text-[var(--accent-teal)]/40 transition-colors duration-500 group-hover/card:text-[var(--accent-teal)]/75" />
@@ -105,7 +108,6 @@ export default function TestimonialsBlock() {
                 <Button
                     variant="primary"
                     onClick={() => navigateTo('/manifesto')}
-                    aria-label="Watch the 60-second Why Hire Me trailer"
                     icon={<Play className="w-4 h-4 fill-current" />}
                 >
                     Why hire me — in 60 seconds
