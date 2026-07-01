@@ -3,17 +3,19 @@ import dynamic from 'next/dynamic'
 import SectionSkeleton from '@/components/ui/SectionSkeleton'
 
 import HeroLanding from '@/components/home/HeroLanding'
+import CSGBlock from '@/components/home/CSGBlock'
 import HomeTabsWrapper from '@/components/home/HomeTabsWrapper'
 
-/* ── Only the hero renders eagerly. CSG + everything below is lazy.
- *    CSGBlock was previously eager — its 3 case-study tiles + wireframes +
- *    presentation lightboxes added meaningful TBT on cold load. Moving it
- *    behind dynamic() (with ssr:true so HTML still prerenders for SEO and
- *    no LCP regression) pushes the hydration cost out of the critical
- *    render path. The skeleton matches the section's ~120vh footprint so
- *    layout stays at CLS=0 while the JS chunk loads. */
-const CSGLoading = () => <SectionSkeleton height="120vh" text="LOADING CASE STUDIES" />
-const CSGBlock = dynamic(() => import('@/components/home/CSGBlock'), { ssr: true, loading: CSGLoading })
+/* ── Hero + CSG render eagerly; everything below is lazy.
+ *    CSGBlock must stay EAGER. We tried dynamic(ssr:true, loading) for a
+ *    ~150ms TBT win and it broke the section on the static export: the
+ *    loading skeleton and the SSR'd section rendered as SIBLINGS inside
+ *    #work-overview (2 children), leaving the real tree half-hydrated —
+ *    every m.div reveal stuck at initial opacity 0, tiles invisible on
+ *    the live site. Reproduced on a local `serve out` of the production
+ *    build. The blocks below tolerate dynamic() fine (they hydrate deep
+ *    below the fold inside BlurZones); the flagship case-study section
+ *    does not. Correctness > the last 150ms of TBT. */
 
 const TestimonialsLoading = () => <SectionSkeleton height="200vh" text="LOADING PROOF MODULE" />
 const TestimonialsBlock = dynamic(() => import('@/components/home/TestimonialsBlock'), { ssr: true, loading: TestimonialsLoading })
