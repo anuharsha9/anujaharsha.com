@@ -144,7 +144,7 @@ export default function AppCaseStudyLightbox({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={study.coverImage}
-                        alt={`${study.title} — game preview`}
+                        alt={study.title ? `${study.title} — game preview` : 'Game preview'}
                         loading="lazy"
                         className="block w-full"
                     />

@@ -36,7 +36,7 @@ export default function Error({
             Something went wrong
           </h2>
           <p className="text-zinc-500 text-base md:text-lg max-w-md mx-auto leading-relaxed">
-            We encountered an unexpected error. Please try again or return to the homepage.
+            We encountered an unexpected error. Try again or return to the homepage.
           </p>
           {error.digest && (
             <p className="text-zinc-400 text-xs font-mono mt-2">

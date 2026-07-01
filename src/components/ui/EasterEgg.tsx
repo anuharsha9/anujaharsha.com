@@ -58,6 +58,7 @@ export default function EasterEgg({ children, clicksRequired = 5 }: EasterEggPro
         aria-label="Trigger easter egg (click 5 times)"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        className="rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
       >
         {children}
       </div>

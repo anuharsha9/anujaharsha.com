@@ -221,7 +221,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                         transition={textExitT}
                     >
                         <KineticLine className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-zinc-200 tracking-tight">
-                            No documentation. 5 disconnected tools.
+                            No documentation. 5 fragmented sub-products.
                         </KineticLine>
                     </m.div>
                 )}
@@ -420,7 +420,7 @@ export default function RCTrailer({ onWatchPresentation, onReplay, showCTA = fal
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1.2 }}
                         >
-                            {step < 9 ? "5 disconnected modules" : "1 cohesive system"}
+                            {step < 9 ? "5 fragmented sub-products" : "1 cohesive system"}
                         </m.p>
                     </m.div>
                 )}

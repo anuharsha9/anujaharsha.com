@@ -95,7 +95,7 @@ export default function PageShell({ children }: PageShellProps) {
           {/* Résumé · Ask Anu actions — landing only. */}
           {isLandingPage && <FloatingActions />}
           <PageTransition>
-            <main id="main-content" role="main" tabIndex={-1} className="relative z-[1] focus:outline-none">
+            <main id="main-content" role="main" tabIndex={-1} className="relative z-[1] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent">
               {children}
             </main>
           </PageTransition>
