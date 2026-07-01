@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import SystemLightbox from '@/components/ui/SystemLightbox'
 import { type StorySlide } from '@/data/presentation-slides'
-import { m, AnimatePresence } from 'framer-motion'
+import { m } from 'framer-motion'
 import HeroAurora from '@/components/home/HeroAurora'
 import { DURATION } from '@/lib/motion'
 import {
@@ -31,11 +31,6 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  setPresenterSlot(null)
  }
  }, [isOpen])
-
- /* When the slide changes, the old slot div unmounts. Clear the cached
-  * ref so the new slide's PresenterBar doesn't try to portal into a
-  * detached node before its own slot has attached. */
- useEffect(() => { setPresenterSlot(null) }, [currentIndex])
 
  if (!slides || slides.length === 0) return null
 
@@ -72,13 +67,19 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  hairline between columns anchors the composition. No competing chips,
  no centered text fighting the visual — each column owns one job. On
  mobile, the columns stack and the hairline disappears. */}
+ {/* NO AnimatePresence here — deliberately. mode="wait" hangs when a
+     visitor advances slides faster than the exit animation completes:
+     the interrupted exit never fires onExitComplete, the next slide
+     never mounts, and the deck is permanently wedged on stale content
+     while the counter keeps advancing (reproduced at ~1s click pacing
+     on the production build). Same failure HomeTabsWrapper documents.
+     A keyed m.div remounts instantly on navigation with an enter-only
+     animation — un-wedgeable by construction, spam-proof arrows. */}
  <div className="w-full h-full overflow-y-auto relative z-10">
- <AnimatePresence mode="wait">
  <m.div
  key={currentIndex}
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- exit={{ opacity: 0, y: -20 }}
  transition={{ duration: DURATION.medium, ease: "easeOut" }}
  className="grid w-full min-h-full grid-cols-1 lg:grid-cols-[7fr_13fr]"
  >
@@ -128,7 +129,6 @@ export default function PresentationLightbox({ isOpen, onClose, slides }: Presen
  </div>
  </div>
  </m.div>
- </AnimatePresence>
  </div>
  </SystemLightbox>
  </PresenterSlotContext.Provider>
