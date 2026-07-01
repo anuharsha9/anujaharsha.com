@@ -51,7 +51,7 @@ export default function NavIsland({ segments, activeId, onSelect, leading, ariaL
             onClick={leading.onClick}
             aria-label={leading.label}
             title={leading.label}
-            className={`${PILL} ${GLASS_PILL_STATES} pointer-events-auto group inline-flex items-center gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-300 md:px-4 md:text-[11px]`}
+            className={`${PILL} ${GLASS_PILL_STATES} pointer-events-auto group inline-flex items-center gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-300 md:px-4 md:text-[11px]`}
         >
             {leading.icon
                 ? <leading.icon className="h-3.5 w-3.5" />
@@ -92,7 +92,7 @@ export default function NavIsland({ segments, activeId, onSelect, leading, ariaL
                                 role="tab"
                                 aria-selected={isActive}
                                 title={seg.label}
-                                className={`relative z-[1] inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] transition-colors duration-300 active:scale-[0.97] md:px-5 md:text-[11px] ${isActive ? 'text-[var(--accent-teal)]' : 'text-zinc-400 hover:text-zinc-200'
+                                className={`relative z-[1] inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-300 active:scale-[0.97] md:px-5 md:text-[11px] ${isActive ? 'text-[var(--accent-teal)]' : 'text-zinc-400 hover:text-zinc-200'
                                     }`}
                             >
                                 {Icon && <Icon className="h-3.5 w-3.5" />}

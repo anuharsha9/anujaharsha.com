@@ -51,7 +51,9 @@ export default function TalkSection() {
               FoundationBlock chair-philosophy animation IS that thesis in full,
               so the old mission quote here was the same idea a third time.
               This section just invites the conversation. */}
-          <h2 className="font-sans font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-white mb-6 px-1">
+          {/* The one deliberate crescendo heading (6xl) — but same weight (800)
+              as every other zone heading so the ladder reads as one voice. */}
+          <h2 className="font-sans font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-white mb-6 px-1">
             Let&rsquo;s talk.
           </h2>
 

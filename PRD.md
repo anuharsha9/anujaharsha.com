@@ -11,7 +11,7 @@
 
 ## 1. TL;DR
 
-A portfolio that doesn't *describe* the work — it **is** the work. A cinematic, AI-native site that argues a single thesis: *Anuja makes the most powerful, most-avoided tool in the building obvious — and she ships it herself by orchestrating AI as her engineering team.* It pairs deep enterprise case studies (a $175M platform, a 40-year-old engine modernized) with five self-built AI products, a **live AI ("Ask Anu") that answers recruiters in her voice**, and a design system so disciplined that color, type, spacing **and motion** all flow from tokens. Lighthouse on the live CDN: **82 mobile / 90 desktop, accessibility 100, CLS 0.**
+A portfolio that doesn't *describe* the work — it **is** the work. A cinematic, AI-native site that argues a single thesis: *Anuja makes the most powerful, most-avoided tool in the building obvious — and she ships it herself by orchestrating AI as her engineering team.* It pairs deep enterprise case studies (a $175M platform, a 40-year-old engine modernized) with five self-built AI products, a **live AI ("Ask Anu") that answers recruiters in her voice**, and a design system so disciplined that color, type, spacing **and motion** all flow from tokens. Lighthouse on the live CDN: **96 mobile / 94–100 desktop, accessibility 100, CLS 0.**
 
 ---
 
@@ -127,14 +127,20 @@ The site's craft signal *and* its maintainability story.
 
 ## 11. Performance & accessibility (live, on CloudFront)
 
+*Chrome DevTools Lighthouse against `https://www.anujaharsha.com`, audited 2026-07-01.*
+
 | | Mobile | Desktop |
 |---|---|---|
-| Performance | **82** | **90** |
+| Performance | **96** | **94** |
 | Accessibility | **100** | **100** |
 | Best Practices | **100** | **100** |
 | SEO | **100** | **100** |
-| LCP | 3.8s | 0.7s |
-| CLS | **0** | **0** |
+| FCP | 1.1s | 0.5s |
+| LCP | 2.7s | 0.8s |
+| TBT | 70ms | 180ms |
+| CLS | **0** | 0.001 |
+
+*The desktop run audited the `#work-overview` scrolled state; a same-day Lighthouse CLI run of the root desktop URL scored a clean **100** (0.7s LCP, 0ms TBT). Honest range: 96 mobile / 94–100 desktop.*
 
 - WCAG-minded: AA color contrast, `Label in Name` compliance, `prefers-reduced-motion` honored, sr-only headings, keyboard + focus states.
 

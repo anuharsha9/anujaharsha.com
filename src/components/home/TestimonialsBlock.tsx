@@ -72,7 +72,7 @@ export default function TestimonialsBlock() {
     const { navigateTo } = useTransition()
 
     return (
-        <section className="relative mx-auto max-w-[1400px] pt-12 pb-20 md:pt-20 md:pb-28">
+        <section className="relative mx-auto max-w-[1440px] pt-12 pb-20 md:pt-20 md:pb-28">
             {/* ambient teal glow */}
             <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[rgba(var(--accent-teal-glow-rgb),0.05)] blur-[130px]" />
 
@@ -87,7 +87,9 @@ export default function TestimonialsBlock() {
                 <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--accent-teal)]/70 md:text-sm">
                     Social Proof · {TESTIMONIALS.length} endorsements
                 </p>
-                <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
+                {/* Zone-heading scale: matches CSG + Build Lab exactly (2xl/3xl/4xl,
+                    extrabold). Only the footer's 'Let's talk.' gets the crescendo. */}
+                <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-white md:text-3xl lg:text-4xl">
                     What leaders say
                 </h2>
             </m.div>

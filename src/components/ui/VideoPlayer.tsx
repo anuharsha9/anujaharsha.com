@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Pause, Play, Volume2, VolumeX } from 'lucide-react'
+import { GLASS_PILL, GLASS_PILL_STATES } from '@/lib/surfaces'
 
 interface VideoPlayerProps {
     src: string
@@ -130,7 +131,7 @@ export default function VideoPlayer({
                     {isPlaying && isMuted && !unmutedOnce && (
                         <button
                             onClick={toggleMute}
-                            className="absolute right-4 top-4 z-20 inline-flex items-center gap-2 rounded-full bg-black/70 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white ring-1 ring-white/20 backdrop-blur-md transition-all duration-300 hover:bg-black/85 hover:ring-white/40"
+                            className={`${GLASS_PILL} ${GLASS_PILL_STATES} absolute right-4 top-4 z-20 inline-flex items-center gap-2 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white`}
                             aria-label="Unmute video"
                         >
                             <VolumeX className="h-3.5 w-3.5" />

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { FileText, MessageSquare } from 'lucide-react'
 import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
+import { GLASS_PILL, GLASS_PILL_STATES } from '@/lib/surfaces'
 import AskAnujaModal from './AskAnujaModal'
 import AmbientAudioToggle from '@/components/audio/AmbientAudioToggle'
 
@@ -111,7 +112,7 @@ export default function FloatingActions() {
                         onClick={openResume}
                         aria-label="View Resume PDF"
                         tabIndex={scrolled ? 0 : -1}
-                        className="pointer-events-auto inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/[0.12] bg-black/55 p-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl transition-colors duration-300 hover:border-white/30 hover:bg-black/75 sm:px-4 sm:py-2 md:text-[11px]"
+                        className={`${GLASS_PILL} ${GLASS_PILL_STATES} pointer-events-auto inline-flex items-center gap-2 whitespace-nowrap p-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white sm:px-4 sm:py-2 md:text-[11px]`}
                     >
                         <FileText className="h-3.5 w-3.5" />
                         <span className="hidden sm:inline">Resume</span>
@@ -124,7 +125,7 @@ export default function FloatingActions() {
                         accessible name. Overrides kept failing WCAG 2.5.3 checkers. */}
                     <button
                         onClick={() => { setAskOpen(true); dismissHint() }}
-                        className="pointer-events-auto inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/[0.12] bg-black/55 p-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl transition-all duration-300 hover:border-[var(--accent-teal)]/40 hover:bg-black/75 active:scale-[0.98] sm:px-4 sm:py-2 md:text-[11px]"
+                        className={`${GLASS_PILL} pointer-events-auto inline-flex items-center gap-2 whitespace-nowrap p-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-[rgba(var(--accent-teal-rgb),0.4)] hover:bg-[var(--overlay-ink-75)] active:scale-[0.97] sm:px-4 sm:py-2 md:text-[11px]`}
                     >
                         <MessageSquare className="h-3.5 w-3.5 text-[var(--accent-teal)]" />
                         <span className="hidden sm:inline">Ask Anu</span>
