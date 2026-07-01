@@ -1034,7 +1034,9 @@ function PlaybackBar({
           })}
         </div>
 
-        {/* Invisible Range Input for Scrubbing */}
+        {/* Invisible Range Input for Scrubbing. -inset-y-3 stretches the hit
+            area to ~30px tall (Fitts) while the visible track stays 6px —
+            the tap target grows, the aesthetic doesn't. */}
         <input
           type="range"
           min="0"
@@ -1042,7 +1044,7 @@ function PlaybackBar({
           step="0.1"
           value={currentTime}
           onChange={(e) => onSeek(parseFloat(e.target.value))}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          className="absolute inset-x-0 -inset-y-3 h-auto w-full opacity-0 cursor-pointer"
           aria-label="Seek timeline"
         />
       </div>
