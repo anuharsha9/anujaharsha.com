@@ -34,34 +34,54 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
         if (isTouchDevice) return
 
-        const lenis = new Lenis({
-            duration: DURATION.reveal,           // Slower = heavier, more deliberate scroll weight
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
-            orientation: 'vertical',
-            gestureOrientation: 'vertical',
-            smoothWheel: true,
-            wheelMultiplier: 0.8,    // Less distance per scroll tick = smoother, more controlled
-            touchMultiplier: 1.5,    // Keep mobile scrolling responsive
-            // Lenis automatically syncs with native scroll events,
-            // so useScrollManager, whileInView, IntersectionObserver all work
-        })
+        /* Defer the Lenis constructor + rAF loop until the browser is idle.
+         * Lenis instantiation walks the DOM to attach listeners and starts a
+         * per-frame rAF that reads scroll state — expensive enough to show up
+         * as a long task on cold loads. A visitor cannot scroll before first
+         * paint anyway, so a 200ms idle defer is completely invisible but
+         * moves the setup work out of the critical render path. */
+        let lenis: Lenis | null = null
+        let raf: ((time: number) => void) | null = null
 
-        lenisRef.current = lenis
+        const kickoff = () => {
+            lenis = new Lenis({
+                duration: DURATION.reveal,           // Slower = heavier, more deliberate scroll weight
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+                orientation: 'vertical',
+                gestureOrientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 0.8,    // Less distance per scroll tick = smoother, more controlled
+                touchMultiplier: 1.5,    // Keep mobile scrolling responsive
+            })
 
-        // RAF loop to drive Lenis
-        function raf(time: number) {
-            lenis.raf(time)
+            lenisRef.current = lenis
+
+            raf = (time: number) => {
+                lenis?.raf(time)
+                requestAnimationFrame(raf!)
+            }
             requestAnimationFrame(raf)
-        }
-        requestAnimationFrame(raf)
 
             // Expose globally for edge cases (lightboxes, modals that need to stop/start)
-            ; (window as any).__lenis = lenis
+            ;(window as unknown as { __lenis?: Lenis }).__lenis = lenis
+        }
+
+        let idleId = 0
+        if (typeof window.requestIdleCallback === 'function') {
+            idleId = window.requestIdleCallback(kickoff, { timeout: 300 })
+        } else {
+            idleId = window.setTimeout(kickoff, 120)
+        }
 
         return () => {
-            lenis.destroy()
+            if (typeof window.cancelIdleCallback === 'function') {
+                window.cancelIdleCallback(idleId)
+            } else {
+                window.clearTimeout(idleId)
+            }
+            lenis?.destroy()
             lenisRef.current = null
-                ; (window as any).__lenis = undefined
+            ;(window as unknown as { __lenis?: Lenis }).__lenis = undefined
         }
     }, [])
 
