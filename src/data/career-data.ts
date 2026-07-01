@@ -1,6 +1,14 @@
 import { Bot, Mountain, GraduationCap, Award, Baby, MapPin, Heart, Palette, Clapperboard, Home, type LucideIcon } from 'lucide-react';
 
-export interface Testimonial {
+/**
+ * A testimonial scoped to a career era on the timeline archive.
+ * Distinct from the landing-page marquee `Testimonial` in data/testimonials.ts
+ * (that one carries pull/full/source for the marquee + lightbox); this one
+ * carries company/relationship/avatar for the per-era bento cards. Named
+ * differently on purpose so the two can never be confused or accidentally
+ * mixed at a call site.
+ */
+export interface EraTestimonial {
     id: string;
     name: string;
     role: string;
@@ -55,7 +63,7 @@ export interface CareerEra {
     period: string;
     description: string;
     secondaryDescription?: string; // Additional tagline
-    testimonials: Testimonial[];
+    testimonials: EraTestimonial[];
     workItems: WorkItem[];
     articles?: WorkItem[]; // Writing/Thought Leadership specific to this era
     milestones?: Milestone[]; // Life context, education, major shifts

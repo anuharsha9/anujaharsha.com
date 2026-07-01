@@ -3,7 +3,7 @@ import DSMLCaseStudyView from '@/components/case-study-experiment/DSMLCaseStudyV
 import { iqPluginCaseStudy } from '@/data/iq-plugin'
 import StructuredData from '@/components/structured-data/StructuredData'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
+import { SITE_URL as siteUrl } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'We Built the Intelligence. Nobody Knew It Existed.',

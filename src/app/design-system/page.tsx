@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import DesignSystemShowcase from '@/components/design-system/DesignSystemShowcase'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
+import { SITE_URL as siteUrl } from '@/lib/config'
 const description =
     'The design system behind the portfolio — tokens, typography, and the canonical components (Button, IconButton, NavIsland, SystemLightbox) that keep the whole site speaking one language.'
 

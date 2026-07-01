@@ -4,7 +4,7 @@ import { MetadataRoute } from 'next'
 export const dynamic = 'force-static'
 export const revalidate = false
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
+import { SITE_URL as siteUrl } from '@/lib/config'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

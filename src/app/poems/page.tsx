@@ -63,7 +63,7 @@ function PoemBlock({ poem, index }: { poem: Poem; index: number }) {
             </div>
 
             {/* End marker */}
-            <p className="mt-14 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-700">
+            <p className="mt-14 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-600">
                 ·
             </p>
         </m.article>
@@ -124,7 +124,7 @@ export default function PoemsPage() {
             </div>
 
             {/* End-of-page marker */}
-            <p className="mt-16 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-700">
+            <p className="mt-16 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-600">
                 — End of collection —
             </p>
         </div>

@@ -30,7 +30,7 @@ const ScrollGear = dynamic(() => import('@/components/ui/ScrollGear'), { ssr: tr
 const BlurZone = dynamic(() => import('@/components/ui/BlurZone'), { ssr: true })
 /* LifeContextStrip removed from Work tab — milestones now live in Life tab's Same Time room. */
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
+import { SITE_URL as siteUrl } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Anuja Harsha Nimmagadda | Staff Product Designer — Enterprise Products, Legacy Modernization, AI-Native',

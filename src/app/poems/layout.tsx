@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
+import { SITE_URL as siteUrl } from '@/lib/config'
 
 export const metadata: Metadata = {
     title: {

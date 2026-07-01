@@ -1,4 +1,5 @@
 import { CaseStudyData } from '@/types/caseStudy'
+import { SITE_URL as siteUrl } from '@/lib/config'
 
 interface StructuredDataProps {
   type: 'website' | 'person' | 'article' | 'caseStudy' | 'profilePage' | 'portfolio'
@@ -6,7 +7,6 @@ interface StructuredDataProps {
 }
 
 export default function StructuredData({ type, data }: StructuredDataProps) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
 
   const getWebsiteSchema = () => ({
     '@context': 'https://schema.org',

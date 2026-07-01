@@ -23,7 +23,7 @@ const jetbrains = JetBrains_Mono({
   variable: '--font-mono',
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://anujaharsha.com'
+import { SITE_URL as siteUrl } from '@/lib/config'
 
 export const viewport: Viewport = {
   width: 'device-width',
