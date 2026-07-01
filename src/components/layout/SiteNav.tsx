@@ -53,7 +53,12 @@ export default function SiteNav() {
         )
     }
 
-    // Case studies — RC/ML/IQ switcher + circle-back
+    // Case studies — RC/ML/IQ switcher + Back-to-portfolio.
+    // Back here means "return to the portfolio landing" (hero, top of /),
+    // NOT browser-back — a visitor may have arrived via deep link, another
+    // case study, or mid-scroll; the pill should always land them in the
+    // same place. Routed through navigateTo so the tidal wash plays like
+    // every other navigation (router.back() skipped the wave entirely).
     const caseIdx = CASES.findIndex(c => normalize(c.href) === pathname)
     if (caseIdx !== -1) {
         return (
@@ -66,7 +71,7 @@ export default function SiteNav() {
                         if (c) navigateTo(c.href)
                     }
                 }}
-                leading={{ label: 'Back', onClick: circleBack }}
+                leading={{ label: 'Back', onClick: () => navigateTo('/') }}
                 ariaLabel="Case study navigation"
             />
         )
