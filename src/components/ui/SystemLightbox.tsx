@@ -237,7 +237,10 @@ export default function SystemLightbox({
                         {/* Navigation Arrows — the canonical glass IconButton, large thumb targets.
                             z-30 lifts them above any consumer content that wraps itself
                             in a `relative z-10`/`z-20` div (e.g. PresentationLightbox),
-                            which would otherwise eat the click. */}
+                            which would otherwise eat the click.
+                            Mobile: docked at the bottom corners (thumb zone) instead of
+                            mid-height, where they floated over the stacked slide content.
+                            Desktop keeps the classic mid-side placement. */}
                         {showArrows && (onNext || onPrev) && (
                             <>
                                 {onPrev && (
@@ -246,7 +249,7 @@ export default function SystemLightbox({
                                         label="Previous"
                                         onClick={onPrev}
                                         size="lg"
-                                        className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 z-30"
+                                        className="absolute z-30 left-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] top-auto translate-y-0 md:left-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2"
                                     />
                                 )}
                                 {onNext && (
@@ -255,7 +258,7 @@ export default function SystemLightbox({
                                         label="Next"
                                         onClick={onNext}
                                         size="lg"
-                                        className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 z-30"
+                                        className="absolute z-30 right-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] top-auto translate-y-0 md:right-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2"
                                     />
                                 )}
                             </>

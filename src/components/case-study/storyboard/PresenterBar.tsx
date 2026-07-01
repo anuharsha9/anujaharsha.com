@@ -112,9 +112,15 @@ export default function PresenterBar({
  /* Lightbox portal — see PresenterSlotContext. When the bar is rendered
   * inside the presentation lightbox, we hold the bubble until the left-
   * column slot div has been ref-attached, then portal into it. Standalone
-  * usage on the case-study pages stays inline (insideLightbox is false). */
+  * usage on the case-study pages stays inline (insideLightbox is false).
+  *
+  * Inside the DECK on mobile, vertical space is the scarcest resource:
+  * the quote plays its typewriter, hands off to the visuals, then fades
+  * out to give the slide back its height (hideOnMobileAfterTyping).
+  * Desktop decks and standalone pages keep the quote pinned. */
  const insideLightbox = useInsideLightbox()
  const slot = usePresenterSlot()
+ const effectiveHideOnMobile = insideLightbox ? true : hideOnMobileAfterTyping
 
  const content = children || (
  <p className="text-sm md:text-[15px] text-zinc-200 leading-relaxed">{narration}</p>
@@ -150,7 +156,7 @@ export default function PresenterBar({
  if (!hasFiredComplete.current) {
  hasFiredComplete.current = true
  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
- if (isMobile && hideOnMobileAfterTyping) {
+ if (isMobile && effectiveHideOnMobile) {
  // On mobile: wait a beat, fade out, then fire callback
  setTimeout(() => {
  setHiddenOnMobile(true)
@@ -165,7 +171,7 @@ export default function PresenterBar({
 
  rafId = requestAnimationFrame(tick)
  return () => cancelAnimationFrame(rafId)
- }, [phase, typewriterSpeed, onTypingComplete, hideOnMobileAfterTyping])
+ }, [phase, typewriterSpeed, onTypingComplete, effectiveHideOnMobile])
 
  /* Inside the lightbox, suppress the inline DOM until the slot ref is
   * attached. Returning null first frame avoids a flash where the bar
