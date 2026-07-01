@@ -1,5 +1,6 @@
 'use client'
 
+import { useLayoutEffect, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 import { ArrowLeft, type LucideIcon } from 'lucide-react'
 import { GLASS_PILL, GLASS_PILL_STATES } from '@/lib/surfaces'
@@ -38,13 +39,28 @@ const PILL = GLASS_PILL
 
 export default function NavIsland({ segments, activeId, onSelect, leading, ariaLabel, embedded = false }: NavIslandProps) {
     const hasSegments = !!segments && segments.length > 0
-    const count = hasSegments ? segments!.length : 0
-    const rawIndex = hasSegments ? segments!.findIndex(s => s.id === activeId) : -1
-    const idx = rawIndex === -1 ? 0 : rawIndex
-    const sliderLeft =
-        idx === 0 ? '4px'
-            : idx === count - 1 ? `calc(100% - ${100 / count}% + 0px)`
-                : `calc(${(100 / count) * idx}% + 2px)`
+
+    /* Active-highlight geometry — measured from the REAL active button, not
+     * derived from equal-column percentage math. The segments are inline-flex
+     * with intrinsic widths ('ReportCaster' is a wider button than 'IQ
+     * Plugin'), so 100/count% columns never matched the actual text and the
+     * highlight sat visibly off-center behind longer/shorter labels.
+     * offsetLeft/offsetWidth are relative to the island (its offsetParent),
+     * so the pill hugs whichever button is active, exactly. Re-measured on
+     * resize because labels swap between full and short at the sm breakpoint. */
+    const btnRefs = useRef(new Map<string, HTMLButtonElement>())
+    const [slider, setSlider] = useState<{ left: number; width: number } | null>(null)
+
+    useLayoutEffect(() => {
+        if (!hasSegments || !activeId) return
+        const measure = () => {
+            const btn = btnRefs.current.get(activeId)
+            if (btn) setSlider({ left: btn.offsetLeft, width: btn.offsetWidth })
+        }
+        measure()
+        window.addEventListener('resize', measure)
+        return () => window.removeEventListener('resize', measure)
+    }, [hasSegments, activeId, segments])
 
     const leadingPill = leading && (
         <button
@@ -74,20 +90,25 @@ export default function NavIsland({ segments, activeId, onSelect, leading, ariaL
 
             {hasSegments && (
                 <div className={`${PILL} pointer-events-auto relative inline-flex items-center gap-1 p-1`} role="tablist" aria-label={ariaLabel}>
-                    {/* Active highlight — spring-slides between segments. */}
-                    <m.div
-                        className="absolute inset-y-1 rounded-full bg-[var(--overlay-white-10)] ring-1 ring-[var(--overlay-white-15)]"
-                        style={{ width: `calc(${100 / count}% - 4px)` }}
-                        animate={{ left: sliderLeft }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                        aria-hidden="true"
-                    />
+                    {/* Active highlight — spring-slides between segments, sized to
+                        the measured active button (null until first measure so it
+                        never flashes at a wrong position). */}
+                    {slider && (
+                        <m.div
+                            className="absolute inset-y-1 rounded-full bg-[var(--overlay-white-10)] ring-1 ring-[var(--overlay-white-15)]"
+                            initial={false}
+                            animate={{ left: slider.left, width: slider.width }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                            aria-hidden="true"
+                        />
+                    )}
                     {segments!.map(seg => {
                         const Icon = seg.icon
                         const isActive = seg.id === activeId
                         return (
                             <button
                                 key={seg.id}
+                                ref={(el) => { if (el) btnRefs.current.set(seg.id, el); else btnRefs.current.delete(seg.id) }}
                                 onClick={() => onSelect?.(seg.id)}
                                 role="tab"
                                 aria-selected={isActive}
