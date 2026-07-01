@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { m, useReducedMotion } from 'framer-motion'
 import { Play, Pause, ChevronLeft, ChevronRight, type LucideIcon } from 'lucide-react'
 import { DURATION } from '@/lib/motion'
@@ -66,12 +66,34 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
         setPlaying(p => !p)
     }
 
-    const navBtn = 'inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-zinc-300 transition-colors hover:border-white/40 hover:text-white disabled:opacity-30 disabled:hover:border-white/15 disabled:hover:text-zinc-300'
+    /* Swipe origin — same deck gesture as PresentationLightbox: a clearly
+       horizontal drag on the visual advances/rewinds. One gesture language
+       across every slideshow on the site. */
+    const touchRef = useRef<{ x: number; y: number } | null>(null)
+
+    /* 44px thumb targets (h-11/w-11) — these are the primary controls of the
+       walkthrough on a phone; 36px was under the bar. */
+    const navBtn = 'inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-zinc-300 transition-colors hover:border-white/40 hover:text-white disabled:opacity-30 disabled:hover:border-white/15 disabled:hover:text-zinc-300'
 
     return (
         <div>
             {/* ── Visual ── */}
-            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/[0.08] bg-black">
+            <div
+                className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/[0.08] bg-black"
+                onTouchStart={(e) => {
+                    touchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+                }}
+                onTouchEnd={(e) => {
+                    const start = touchRef.current
+                    if (!start) return
+                    touchRef.current = null
+                    const dx = e.changedTouches[0].clientX - start.x
+                    const dy = e.changedTouches[0].clientY - start.y
+                    if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.5) return
+                    setPlaying(false)
+                    go(dx < 0 ? index + 1 : index - 1)
+                }}
+            >
                 <m.div
                     key={slide.id}
                     initial={{ opacity: 0 }}
@@ -142,7 +164,7 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
             </div>
 
             {/* ── Controls ── */}
-            <div className="mt-4 flex items-center justify-between gap-4">
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
                 <div className="flex items-center gap-2">
                     <button onClick={() => { setPlaying(false); go(index - 1) }} disabled={index === 0} aria-label="Previous slide" className={navBtn}>
                         <ChevronLeft className="h-4 w-4" />
@@ -152,7 +174,10 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                     </button>
                 </div>
 
-                {/* jump-to dots */}
+                {/* jump-to dots. Each button carries an invisible padded hit area
+                    (p-2.5) with a negative margin (-m-2) cancelling most of the
+                    layout growth — the visible dot stays 6px, the tap target
+                    becomes ~26px (WCAG 2.2 AA). Was a 6×6px target. */}
                 <div className="flex items-center gap-1.5">
                     {slides.map((s, i) => (
                         <button
@@ -160,12 +185,16 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                             onClick={() => { setPlaying(false); go(i) }}
                             aria-label={`Go to ${s.label}`}
                             aria-current={i === index}
-                            className="h-1.5 rounded-full transition-all"
-                            style={{
-                                width: i === index ? 20 : 6,
-                                backgroundColor: i === index ? accent : 'rgba(var(--white-rgb),0.2)',
-                            }}
-                        />
+                            className="-m-2 rounded-full p-2.5 transition-all"
+                        >
+                            <span
+                                className="block h-1.5 rounded-full transition-all"
+                                style={{
+                                    width: i === index ? 20 : 6,
+                                    backgroundColor: i === index ? accent : 'rgba(var(--white-rgb),0.2)',
+                                }}
+                            />
+                        </button>
                     ))}
                 </div>
 
@@ -173,7 +202,7 @@ export default function WalkthroughPlayer({ slides, title, accent, accentRgbVar,
                 {!reduce ? (
                     <button
                         onClick={onPlayPause}
-                        className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition-colors"
+                        className="inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition-colors"
                         style={{ borderColor: `rgba(${rgb},0.4)`, color: accent, backgroundColor: `rgba(${rgb},0.08)` }}
                     >
                         {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
