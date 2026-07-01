@@ -122,7 +122,7 @@ export default function FloatingActions() {
                 <div className="relative">
                     <button
                         onClick={() => { setAskOpen(true); dismissHint() }}
-                        aria-label="Ask Anu a question (Cmd+K)"
+                        aria-label="Ask Anu ⌘K — ask a question"
                         className="pointer-events-auto inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/[0.12] bg-black/55 p-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white shadow-[0_8px_32px_-10px_rgba(var(--black-rgb),0.6)] backdrop-blur-xl transition-all duration-300 hover:border-[var(--accent-teal)]/40 hover:bg-black/75 active:scale-[0.98] sm:px-4 sm:py-2 md:text-[11px]"
                     >
                         <MessageSquare className="h-3.5 w-3.5 text-[var(--accent-teal)]" />

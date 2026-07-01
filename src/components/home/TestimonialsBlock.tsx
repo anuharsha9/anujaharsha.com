@@ -28,10 +28,10 @@ function QuoteMark({ className = '' }: { className?: string }) {
 /* Compact endorsement card — shows the pull-quote; click opens the full note. */
 function Card({ t, onOpen }: { t: Testimonial; onOpen: (t: Testimonial) => void }) {
     return (
-        {/* No aria-label — the visible quote + name IS the accessible name.
-            An override here failed WCAG 2.5.3 (Label in Name): voice-control
-            users say what they see ("A rare combination of…"), and a label
-            that doesn't contain the visible text breaks that command. */}
+        /* No aria-label — the visible quote + name IS the accessible name.
+           An override here failed WCAG 2.5.3 (Label in Name): voice-control
+           users say what they see ("A rare combination of…"), and a label
+           that doesn't contain the visible text breaks that command. */
         <button
             onClick={() => onOpen(t)}
             className="group/card mx-6 flex max-w-md shrink-0 items-start gap-3 text-left sm:mx-9"
