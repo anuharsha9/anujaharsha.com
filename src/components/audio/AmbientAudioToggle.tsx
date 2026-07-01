@@ -104,12 +104,17 @@ export default function AmbientAudioToggle() {
         return () => window.clearInterval(iv)
     }, [mounted])
 
-    /* Auto-dismiss on first scroll, mirroring the ⌘K hint. */
+    /* Auto-dismiss on first scroll — or after 5s on its own. A coachmark
+     * is a whisper, not a sticker; it makes its point and leaves. */
     useEffect(() => {
         if (!hintVisible) return
         const onScroll = () => dismissHint()
         window.addEventListener('scroll', onScroll, { passive: true, once: true })
-        return () => window.removeEventListener('scroll', onScroll)
+        const t = window.setTimeout(dismissHint, 5000)
+        return () => {
+            window.removeEventListener('scroll', onScroll)
+            window.clearTimeout(t)
+        }
     }, [hintVisible, dismissHint])
 
     if (!mounted) return null
