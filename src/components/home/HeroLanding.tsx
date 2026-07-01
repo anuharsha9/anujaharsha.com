@@ -177,7 +177,6 @@ export default function HeroLanding() {
                                 variant="secondary"
                                 size="lg"
                                 onClick={() => navigateTo('/manifesto')}
-                                aria-label="Watch the 60-second intro"
                                 icon={<Play className="w-4 h-4 fill-current" />}
                             >
                                 60-sec intro
