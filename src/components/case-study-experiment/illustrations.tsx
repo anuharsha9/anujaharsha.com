@@ -14,7 +14,7 @@ export function PeopleDotGrid({ total = 200, highlighted = 2 }: { total?: number
 
  return (
  <m.div
- className="flex flex-wrap gap-[6px] max-w-[400px] mb-8"
+ className="flex flex-wrap gap-1.5 max-w-[400px] mb-8"
  initial={{ opacity: 0 }}
  whileInView={{ opacity: 1 }}
  viewport={{ once: true }}

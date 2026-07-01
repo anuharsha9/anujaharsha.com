@@ -52,7 +52,7 @@ export interface AppCaseStudy {
         video?: string      // '/videos/walkthroughs/pathwise-feature-a.mp4' (loops; image is the poster)
     }[]
 
-    /* App CTA (Sous) — a native app you can't just open in a browser. When set,
+    /* App CTA (Sous) — a native app you can’t just open in a browser. When set,
      * the "See it run" section shows the demo reel (videoSrc, landscape) or a
      * "reel coming" placeholder, plus the App Store CTA:
      *   appStoreUrl present → "Get it on the App Store" (external link)
@@ -180,7 +180,7 @@ export const APP_CASE_STUDIES: Record<AppCaseStudyId, AppCaseStudy> = {
             },
         ],
         stack: ['Expo + React Native', 'Claude Opus 4.8', 'Gemini Live', 'NativeWind', 'TypeScript (strict)', 'expo-file-system', 'Jest + Maestro'],
-        /* Native iOS — can't run in a browser. "See it run" shows the on-camera
+        /* Native iOS — can’t run in a browser. "See it run" shows the on-camera
          * demo reel (videoSrc, landscape) once recorded; until then a themed
          * "reel coming" placeholder. Plus the App Store CTA. (Add videoSrc when
          * the reel lands; set requestDemo.appStoreUrl once Apple approves the

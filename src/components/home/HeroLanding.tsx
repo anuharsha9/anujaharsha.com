@@ -134,7 +134,7 @@ export default function HeroLanding() {
                                 recent shipping proof. The chair-test metaphor stays
                                 at the bottom of the page where it has context. */}
                             <p
-                                className="hero-enter text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl px-2 sm:px-0"
+                                className="hero-enter text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed md:leading-relaxed lg:leading-relaxed font-light max-w-3xl px-2 sm:px-0"
                                 style={{ animationDelay: '0.2s' }}
                             >
                                 I make complex enterprise products usable — not by stripping the complexity, but by refining what users need to <span className="text-zinc-200">see</span> from what they need to <span className="text-zinc-200">use</span>. 13 years of design thinking and architecting products, most recently leading the product modernization of an award-winning BI platform.

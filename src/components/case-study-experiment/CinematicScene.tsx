@@ -70,7 +70,7 @@ export default function CinematicScene({ eyebrow, title, body, bullets, children
  className="flex items-start gap-4"
  >
  <span className="text-[var(--accent-teal)] font-mono text-xl leading-none mt-1">0{i + 1}</span>
- <p className="text-lg md:text-xl text-zinc-200 font-light leading-relaxed">{b}</p>
+ <p className="text-lg md:text-xl text-zinc-200 font-light leading-relaxed md:leading-relaxed">{b}</p>
  </m.li>
  ))}
  </ul>

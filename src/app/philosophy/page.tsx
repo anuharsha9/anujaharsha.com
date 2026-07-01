@@ -76,7 +76,7 @@ export default function PhilosophyPage() {
                     <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl">
                         How I think,<br />design, and work.
                     </h1>
-                    <p className="mt-6 text-lg leading-relaxed text-zinc-400 md:text-xl">
+                    <p className="mt-6 text-lg leading-relaxed text-zinc-400 md:text-xl md:leading-relaxed">
                         In my own words — built from my origin story, my craft, and my work.
                     </p>
                 </header>
@@ -340,7 +340,7 @@ export default function PhilosophyPage() {
 
                 {/* Closing */}
                 <section className="mt-14 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-10">
-                    <p className="text-lg font-light leading-relaxed text-zinc-200 md:text-xl">
+                    <p className="text-lg font-light leading-relaxed text-zinc-200 md:text-xl md:leading-relaxed">
                         The short version: I knew at 15. I build things I actually need, and because I have the chops, they
                         come out good enough that other people want them too. I make complex technical systems as obvious
                         as a chair — and the harder it is to understand, the more I want it.

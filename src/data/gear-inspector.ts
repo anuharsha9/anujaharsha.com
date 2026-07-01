@@ -48,7 +48,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-legacy-systems": {
     id: "gear-legacy-systems",
-    thought: "Design is my first language — CorelDRAW in 5th grade, my first logo prize at 16. I didn't pivot into this; I grew up in it.",
+    thought: "Design is my first language — CorelDRAW in 5th grade, my first logo prize at 16. I didn’t pivot into this; I grew up in it.",
     link: "/?tab=life",
     linkLabel: "See My Origin",
     accentColor: "#22D3EE",
@@ -61,7 +61,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
       ],
       reveal: {
         title: "Digital Native",
-        content: "I mastered Pixel Logic in Grade 2. Design isn't just a job; it's my native language."
+        content: "I mastered Pixel Logic in Grade 2. Design isn’t just a job; it’s my native language."
       }
     }
   },
@@ -108,13 +108,13 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-missing-briefs": {
     id: "gear-missing-briefs",
-    thought: "I didn't know machine learning, so I embedded with the data scientists and took an MIT course on my own dime. You earn a strong opinion by understanding the system better than anyone expected.",
+    thought: "I didn’t know machine learning, so I embedded with the data scientists and took an MIT course on my own dime. You earn a strong opinion by understanding the system better than anyone expected.",
     link: "/work/ml-functions#act-2-investigation",
     linkLabel: "See the Certification",
     accentColor: "#0BA2B5",
     caseStudy: "ml-functions",
     quiz: {
-      question: "I didn't know Machine Learning. So...",
+      question: "I didn’t know Machine Learning. So...",
       options: [
         { id: 'ask', label: "I asked for a brief?", isCorrect: false },
         { id: 'learn', label: "I got MIT Certified?", isCorrect: true }
@@ -128,7 +128,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-conflicting-teams": {
     id: "gear-conflicting-teams",
-    thought: "When a team won't align, I stop arguing and build the thing. A working prototype is the source of truth no meeting can be.",
+    thought: "When a team won’t align, I stop arguing and build the thing. A working prototype is the source of truth no meeting can be.",
     link: "/work/ml-functions#act-5-team",
     linkLabel: "See the Alignment",
     accentColor: "#0BA2B5",
@@ -168,7 +168,7 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
 
   "gear-motherhood": {
     id: "gear-motherhood",
-    thought: "Two kids and a career taught me to respect time. I don't grind — I orbit. Elite focus over long hours.",
+    thought: "Two kids and a career taught me to respect time. I don’t grind — I orbit. Elite focus over long hours.",
     link: "/?tab=life",
     linkLabel: "See My Philosophy",
     accentColor: "#06B6D4",
@@ -181,14 +181,14 @@ export const GEAR_INSPECTOR: Record<string, GearInspectorItem> = {
       ],
       reveal: {
         title: "Efficiency Over Grind",
-        content: "I don't grind; I orbit efficiently. Managing a household taught me to respect every second."
+        content: "I don’t grind; I orbit efficiently. Managing a household taught me to respect every second."
       }
     }
   },
 
   "gear-career-ambition": {
     id: "gear-career-ambition",
-    thought: "Consistency at scale isn't a PDF guideline — it's one component behaving identically across 50 squads. Build it into the primitive and obviousness is inherited for free.",
+    thought: "Consistency at scale isn’t a PDF guideline — it’s one component behaving identically across 50 squads. Build it into the primitive and obviousness is inherited for free.",
     link: "/work/iq-plugin#act-3-architecture",
     linkLabel: "See the System",
     accentColor: "#8B5CF6", // Violet

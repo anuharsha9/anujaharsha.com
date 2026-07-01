@@ -308,9 +308,9 @@ export const iqPluginCaseStudy: CaseStudyData = {
       summary: 'Millions invested. Low adoption. The algorithms weren\'t broken; the architecture was.',
       body: `We had built powerful enterprise AI capabilities—Natural Language Query, Automated Insights, and Predictive ML—but they were fragmented across the platform. NLQ was buried inside "Explore Data." Insights was hidden in a submenu.
 
-The problem wasn't the algorithms; it was the architecture. Millions in engineering investment were sitting at near-zero adoption because the features were essentially invisible to the users who needed them most.
+The problem wasn’t the algorithms; it was the architecture. Millions in engineering investment were sitting at near-zero adoption because the features were essentially invisible to the users who needed them most.
 
-This wasn't on a roadmap. My PM and I seized the opportunity during product consolidation talks. I designed dozens of concept mockups, ran weekly FigJam sessions across timezones, and pitched the vision. The VP approved. We owned it end-to-end.`,
+This wasn’t on a roadmap. My PM and I seized the opportunity during product consolidation talks. I designed dozens of concept mockups, ran weekly FigJam sessions across timezones, and pitched the vision. The VP approved. We owned it end-to-end.`,
     },
     {
       id: 'section-02',
@@ -328,7 +328,7 @@ Because I already owned and modernized NLQ, Insights, and ML individually, I was
       index: 'S',
       title: 'Simplify the Chaos: Architecture Before Tickets',
       summary: 'I architected the cross-functional workflows before a single Jira ticket existed.',
-      body: `I pushed for cross-functional alignment in a way that hadn't been done in the organization before. I architected the unified workflows across all three AI engines before anyone asked for them.
+      body: `I pushed for cross-functional alignment in a way that hadn’t been done in the organization before. I architected the unified workflows across all three AI engines before anyone asked for them.
 
 My PM Karishma wrote the Jira tickets *after* seeing my mockups. We ran 3–4 meetings a week across timezones to ensure engineering feasibility.
 
@@ -399,12 +399,12 @@ I designed a unified "Start Page" for Data Science that used clean, outcome-base
       index: 'N',
       title: 'Navigate Forward: Visibility Was the Solution',
       summary: '+25% NLQ adoption jump. The Hub is now implemented, unifying three fragmented AI tools into one ecosystem.',
-      body: `We didn't add new capabilities. We didn't rewrite the core engines. We just made the existing ones visible.
+      body: `We didn’t add new capabilities. We didn’t rewrite the core engines. We just made the existing ones visible.
 
 **Live now:** NLQ adoption jumped 25% post-redesign. Insights with auto-generated visualizations is live. 
 **Implemented:** The unified DSML Hub and ML Functions were code-complete at my departure, with final QA pending.
 
-The features didn't change. The architecture did. It was the highest-leverage design work possible: making powerful tools findable.`,
+The features didn’t change. The architecture did. It was the highest-leverage design work possible: making powerful tools findable.`,
     },
   ],
   // ----------------------------

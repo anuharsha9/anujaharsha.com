@@ -215,12 +215,12 @@ export default function ImageComparisonSlider({
 
             {/* Labels on sides */}
             <div className="absolute bottom-space-4 left-space-4 z-20">
-                <span className={`bg-white/90 backdrop-blur-sm ${t.textMuted} text-xs font-mono px-space-3 py-space-1.5 rounded-full border ${t.border} shadow-sm uppercase`}>
+                <span className={`bg-white/90 backdrop-blur-sm ${t.textMuted} text-xs font-mono px-space-3 py-space-1.5 rounded-full border ${t.border} shadow-sm uppercase tracking-[0.2em]`}>
                     {beforeLabel}
                 </span>
             </div>
             <div className="absolute bottom-space-4 right-space-4 z-20">
-                <span className="bg-[var(--accent-teal)]/90 backdrop-blur-sm text-white text-xs font-mono px-space-3 py-space-1.5 rounded-full shadow-sm uppercase">
+                <span className="bg-[var(--accent-teal)]/90 backdrop-blur-sm text-white text-xs font-mono px-space-3 py-space-1.5 rounded-full shadow-sm uppercase tracking-[0.2em]">
                     {afterLabel}
                 </span>
             </div>

@@ -398,7 +398,7 @@ My entire research foundation consisted of a sandbox environment, a single slide
       index: 'E',
       title: 'Empathize with the Ecosystem',
       summary: 'No user access. No documentation. I embedded with the Gold Support lead and the original RC engineer — they became my sources of truth.',
-      body: `With zero user access allowed, I couldn't run standard UX research. Instead, I embedded myself with the Gold Support lead and the original engineer. I lived in the sandbox, mapping hundreds of screenshots and validating every workaround and hack users had invented. I wasn't an engineer, but I learned the constraints of the legacy FOCUS code well enough to design a modern ecosystem around it.`,
+      body: `With zero user access allowed, I couldn’t run standard UX research. Instead, I embedded myself with the Gold Support lead and the original engineer. I lived in the sandbox, mapping hundreds of screenshots and validating every workaround and hack users had invented. I wasn’t an engineer, but I learned the constraints of the legacy FOCUS code well enough to design a modern ecosystem around it.`,
     },
     {
       id: 'section-03',
@@ -476,7 +476,7 @@ This was my favorite version. It was clean and powerful.
 **Rejected.**
 I was hit with a wall of technical jargon. Creating a new top-level plugin in the Hub required too much cross-team engineering effort for the year. This was a resourcing constraint, not a strategy constraint.
 
-Now I was perplexed. They wanted it fully integrated in the Hub, but we couldn't build a new plugin.`,
+Now I was perplexed. They wanted it fully integrated in the Hub, but we couldn’t build a new plugin.`,
         images: [
           {
             src: '/images/case-study/ReportCaster/RC Hub Integration V2.1 - Home - Create new schedule context menu.png',
@@ -505,7 +505,7 @@ That was the "Ah-ha" moment: **If RC is a creation workflow, why not initiate fr
 
 I completely decoupled the 5 subsystems and embedded them natively where they belonged:
 1. **Creation (Schedules & Lists):** Launched as intelligent, progressive dialog modals directly from the + menu. The Hub remains the parent window.
-2. **Explorer:** Integrated straight into the Hub's Home view alongside Recents and Favorites. We originally wanted to add RC as deep-dive filters for all files, but pushed that to a future phase and finalized a dedicated Home area.
+2. **Explorer:** Integrated straight into the Hub’s Home view alongside Recents and Favorites. We originally wanted to add RC as deep-dive filters for all files, but pushed that to a future phase and finalized a dedicated Home area.
 3. **Admin Status:** Given its own dedicated, highly-visible tab in the main Management Center, rather than being buried three clicks deep in an admin console.
 
 No new plugins. No external apps. UX done. Time to build hundreds of UI screens.`,
@@ -632,11 +632,11 @@ No new plugins. No external apps. UX done. Time to build hundreds of UI screens.
 
 I became the educator. I started with the lead architect and lead engineer, and eventually expanded to dozens of demos for the entire cross-functional team, translating my unified mental model into actionable engineering phases.
 
-At this point, I was running RC and our Machine Learning platform simultaneously, while three other designers were focused on a single feature. Being trusted with two massive systems simultaneously spoke volumes about leadership's confidence in my ownership.
+At this point, I was running RC and our Machine Learning platform simultaneously, while three other designers were focused on a single feature. Being trusted with two massive systems simultaneously spoke volumes about leadership’s confidence in my ownership.
 
-Once the heavy lifting was done, I brought on a junior designer, mentored her on the system's intricacies, and eventually handed the project off. But my role as the core knowledge hub persisted long after I left the team.
+Once the heavy lifting was done, I brought on a junior designer, mentored her on the system’s intricacies, and eventually handed the project off. But my role as the core knowledge hub persisted long after I left the team.
 
-> I was in a room full of veterans — the Head of PM (15 years), Gold Support Lead (20 years), Original RC Engineer (35+ years), Lead Architect (40 years), and Backend Lead (30+ years). By the time I left the team, they'd become my family. They were no longer intimidating. I had earned respect and trust from them. I was the youngest in the room with an unspoken authority on the experience of RC.`,
+> I was in a room full of veterans — the Head of PM (15 years), Gold Support Lead (20 years), Original RC Engineer (35+ years), Lead Architect (40 years), and Backend Lead (30+ years). By the time I left the team, they’d become my family. They were no longer intimidating. I had earned respect and trust from them. I was the youngest in the room with an unspoken authority on the experience of RC.`,
     },
     {
       id: 'section-06',
@@ -645,7 +645,7 @@ Once the heavy lifting was done, I brought on a junior designer, mentored her on
       summary: 'Asked for: a UI makeover. Delivered: a brand-new integrated ReportCaster. Customers retained. Satisfaction validated.',
       body: `Shipped. From 4 clicks to 2. No more individual browser tabs. Everything smoothly integrated within the hub ecosystem. Customers noticed.
 
-At the Virtual User Group, a customer praised the redesign directly and said he was looking forward to what's next. A 5-year contract worth millions was signed after RC shipped.`,
+At the Virtual User Group, a customer praised the redesign directly and said he was looking forward to what’s next. A 5-year contract worth millions was signed after RC shipped.`,
     },
   ],
   // ----------------------------

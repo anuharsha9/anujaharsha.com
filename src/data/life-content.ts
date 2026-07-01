@@ -19,7 +19,7 @@ export const ALL_MILESTONES: LifeMilestone[] = [
     { title: 'High School Graduation', subtitle: 'Hyderabad',                year: '2012',        icon: GraduationCap },
     { title: 'BA in Animation & VFX',  subtitle: 'Enrolled',                 year: 'Jun 2012',    icon: Palette },
     { title: 'Got Married',            subtitle: 'New Chapter',              year: 'Aug 2016',    icon: Heart },
-    { title: "Bachelor's in English",  subtitle: 'Literature',               year: 'Jan 2017',    icon: GraduationCap },
+    { title: "Bachelor’s in English",  subtitle: 'Literature',               year: 'Jan 2017',    icon: GraduationCap },
     { title: 'Moved to Boston',        subtitle: 'The American Dream',       year: 'Mar 2017',    icon: MapPin },
     { title: 'Moved to Denver',        subtitle: 'Colorado',                 year: 'Feb 2019',    icon: Mountain },
     { title: 'Moved to Salt Lake City',subtitle: 'Home base since',          year: 'Aug 2019',    icon: Mountain },
@@ -31,7 +31,7 @@ export const ALL_MILESTONES: LifeMilestone[] = [
     { title: 'Vibe Coding · AI',       subtitle: 'Built this portfolio',     year: 'Nov 2025',    icon: Bot },
 ]
 
-/* Photos used in the "What I'm holding now" room and the "Makes" galleries. */
+/* Photos used in the "What I’m holding now" room and the "Makes" galleries. */
 export const FAMILY_PHOTO = { src: '/images/life/family.jpeg', alt: 'Anuja with family' }
 
 export interface MakeGallery {

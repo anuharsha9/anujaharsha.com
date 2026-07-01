@@ -59,7 +59,7 @@ const ORIGIN = [
 export function OriginTimeline() {
     return (
         <div className="relative w-full max-w-2xl">
-            <div className="absolute left-0 right-0 top-[10px] h-px bg-gradient-to-r from-[var(--accent-teal)]/50 via-[var(--accent-teal)]/25 to-transparent" />
+            <div className="absolute left-0 right-0 top-2.5 h-px bg-gradient-to-r from-[var(--accent-teal)]/50 via-[var(--accent-teal)]/25 to-transparent" />
             <ol className="relative grid grid-cols-4 gap-2">
                 {ORIGIN.map((m) => (
                     <li key={m.year} className="flex flex-col items-start">

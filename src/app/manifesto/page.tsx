@@ -238,7 +238,7 @@ function Scene1Terminal({ progress }: { progress: number }) {
               </span>
             </m.h1>
             <m.p
-              className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed font-light max-w-3xl mx-auto"
+              className="text-base md:text-xl lg:text-2xl text-zinc-400 leading-relaxed md:leading-relaxed lg:leading-relaxed font-light max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: DURATION.cinematic, delay: 0.25, ease: easeCinematic }}

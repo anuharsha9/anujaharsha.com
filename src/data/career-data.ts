@@ -83,7 +83,7 @@ export const CAREER_DATA: CareerEra[] = [
         role: "Staff Product Designer",
         period: "Nov 2025 — Present",
         heroLabel: "November 2025 — Present",
-        description: "I prototype in code. The real risk isn't visuals — it's the logic.",
+        description: "I prototype in code. The real risk isn’t visuals — it’s the logic.",
         skillBadges: [
             { icon: 'code', label: 'Production-Grade React', sub: 'TypeScript, Next.js, Architecture' },
             { icon: 'zap', label: '60fps Interaction', sub: 'Framer Motion, Physics, Gestures' },
@@ -212,7 +212,7 @@ export const CAREER_DATA: CareerEra[] = [
                 name: "Yingchun Chen",
                 role: "Principal System Software Engineer",
                 company: "Cloud Software Group",
-                quote: "From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She's the kind of UX leader any team would be lucky to have.",
+                quote: "From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She’s the kind of UX leader any team would be lucky to have.",
                 relationship: "Engineering Partner",
             },
             {
@@ -349,7 +349,7 @@ export const CAREER_DATA: CareerEra[] = [
                 name: "Vikram Patel",
                 role: "CEO & Co-founder",
                 company: "9P Studioz",
-                quote: "She didn't know what 'UX' was yet — but she had intensity, discipline, and raw talent you can't teach. By the time she left, she was thinking in systems... trusted with high-stakes decisions.",
+                quote: "She didn’t know what 'UX' was yet — but she had intensity, discipline, and raw talent you can’t teach. By the time she left, she was thinking in systems... trusted with high-stakes decisions.",
                 relationship: "First Boss / Mentor",
                 isPrimary: true,
                 linkedInProfile: "https://www.linkedin.com/in/vikrampatel"
@@ -387,7 +387,7 @@ export const CAREER_DATA: CareerEra[] = [
         workItems: [],
         milestones: [
             { title: "Moved to Boston", subtitle: "The American Dream", year: "Mar 2017", icon: MapPin },
-            { title: "Bachelor's in English", subtitle: "Literature", year: "Jan 2017", icon: GraduationCap },
+            { title: "Bachelor’s in English", subtitle: "Literature", year: "Jan 2017", icon: GraduationCap },
             { title: "Got Married", subtitle: "New Chapter", year: "Aug 2016", icon: Heart },
             { title: "BA in Animation & VFX", subtitle: "Enrolled", year: "Jun 2012", icon: Palette },
             { title: "High School Graduation", subtitle: "Hyderabad", year: "2012", icon: GraduationCap },

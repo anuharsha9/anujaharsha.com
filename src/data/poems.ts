@@ -3,7 +3,7 @@
  *
  * "Gifts from Life" lives in its own data file (poem.ts) because the Life-tab
  * teaser renders it with a special "gift word" emphasis treatment. On /poems
- * every poem is an equal citizen, so it's re-exported here as the first entry
+ * every poem is an equal citizen, so it’s re-exported here as the first entry
  * with its stanzas flattened to plain string arrays.
  *
  * Language is annotated per poem so the typography can render Hinglish in a

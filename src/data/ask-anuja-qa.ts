@@ -1,6 +1,6 @@
 /**
  * 39 pre-baked answers for the most common questions a hiring manager,
- * recruiter, or design leader would ask about Anuja's profile — covering the
+ * recruiter, or design leader would ask about Anuja’s profile — covering the
  * CSG case studies, the Build Lab apps, the agentic build process, and background.
  *
  * Sourced from a research sweep of:
@@ -13,7 +13,7 @@
  *  - ADPList portfolio-guide content
  *  - Anthropic Careers — PD rubric language
  *
- * Voice: tuned against Anuja's actual Medium articles (linked in the
+ * Voice: tuned against Anuja’s actual Medium articles (linked in the
  * Worker SYSTEM_PROMPT). Direct, punchy, em-dash rhythm, no
  * corporate-deck connectors. Short sentences mixed with longer builds.
  * Every answer ties to a real case study or number where possible.

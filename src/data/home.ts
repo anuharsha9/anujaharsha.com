@@ -167,14 +167,14 @@ export const recommendations: Recommendation[] = [
     name: 'Marcus Horbach, Ph.D.',
     role: 'Principal Data Scientist',
     company: 'Cloud Software Group',
-    relationship: "I won Marcus's trust with ML Functions when I was trying to understand and learn ML. He was the data scientist I collaborated with closely on ML initiatives.",
+    relationship: "I won Marcus’s trust with ML Functions when I was trying to understand and learn ML. He was the data scientist I collaborated with closely on ML initiatives.",
   },
 
   // ═══════════════════════════════════════════════════════════════
   // ENGINEERING
   // ═══════════════════════════════════════════════════════════════
   {
-    quote: "From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She's the kind of UX leader any team would be lucky to have.",
+    quote: "From the start, she impressed everyone with how quickly she grasped all aspects of a highly intricate system. She’s the kind of UX leader any team would be lucky to have.",
     name: 'Yingchun Chen',
     role: 'Principal System Software Engineer',
     company: 'Cloud Software Group',
@@ -192,7 +192,7 @@ export const recommendations: Recommendation[] = [
     relationship: 'Karishma was the PM I collaborated with on ML Functions and IQ Plugin. We had extremely close collaboration—a true partnership.',
   },
   {
-    quote: "Anuja demonstrated exceptional ability to understand intricate workflows and translate them into elegant, user-centric designs that elevated the product's usability.",
+    quote: "Anuja demonstrated exceptional ability to understand intricate workflows and translate them into elegant, user-centric designs that elevated the product’s usability.",
     name: 'Aniket Awchare',
     role: 'Senior Product Manager',
     company: 'Cloud Software Group',

@@ -4,7 +4,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   slug: 'ml-functions',
   // Blueprint Hero - Architect Design System
   heroTitle: 'Nobody Could Use Our ML Engine.',
-  heroSubheading: 'A multi-million dollar ML engine with zero adoption. 15 clicks through data flow canvases and cascading menus. Business users couldn\'t touch it.',
+  heroSubheading: 'A multi-million dollar ML engine with zero adoption. 15 clicks through data flow canvases and cascading menus. Business users couldn’t touch it.',
   heroSubtitle:
     'I turned it into a 4-step guided workflow. Got MIT certified to earn credibility with the data science team. 4 out of 4 SMEs completed it without help — and the right-click entry pattern was adopted across 3 AI features.',
   coverImage: {
@@ -50,14 +50,14 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
     ],
     unknowns: [
       'How do we abstract complex algorithms without losing power for data scientists?',
-      'Can one path serve both a novice who\'s never touched ML and a Principal Data Scientist?',
+      'Can one path serve both a novice who’s never touched ML and a Principal Data Scientist?',
     ],
     constraints: [
       'Cannot rewrite the underlying ML engine (Python based).',
-      'Must work within WebFOCUS\'s modal/popup architecture.',
+      'Must work within WebFOCUS’s modal/popup architecture.',
       'Extremely limited frontend engineering resources.',
     ],
-    businessGoal: 'Drive adoption and defend our market position by making ML accessible to business users who\'d never touched a model before.',
+    businessGoal: 'Drive adoption and defend our market position by making ML accessible to business users who’d never touched a model before.',
   },
   successCriteria: {
     baseline: '~15 clicks through data flow canvas, cascading context menus, "No results generated" dead-ends.',
@@ -68,7 +68,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   keyDecisions: [
     {
       decision: 'One Unified Path (Not Two Separate Modes)',
-      rationale: 'The principal data scientist asked if I was "trying to make this dumb." I wasn\'t. One path that serves a dual purpose — not dumbed down, not over-engineered. Every step had context, definitions, and tooltips. The sophistication was there; it just waited for you to ask for it.',
+      rationale: 'The principal data scientist asked if I was "trying to make this dumb." I wasn’t. One path that serves a dual purpose — not dumbed down, not over-engineered. Every step had context, definitions, and tooltips. The sophistication was there; it just waited for you to ask for it.',
       tradeoff: 'Had to design each step to be legible for novices AND useful for data scientists simultaneously.',
       rejectedOption: 'Two completely separate experiences (guided vs. advanced)',
     },
@@ -87,21 +87,21 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   ],
   researchDecisionMap: [
     {
-      insight: 'Users didn\'t know which algorithm to pick or what "hyperparameters" meant.',
-      evidence: 'I couldn\'t figure it out after weeks of study. If I find this frustrating, a first-time user has no chance.',
+      insight: 'Users didn’t know which algorithm to pick or what "hyperparameters" meant.',
+      evidence: 'I couldn’t figure it out after weeks of study. If I find this frustrating, a first-time user has no chance.',
       decision: 'Added contextual definitions at every step. Problem type, target, predictors — each explained in plain language.',
       feature: 'Contextual Education',
     },
     {
-      insight: 'Chart colors didn\'t mean anything — four different colors with no purpose.',
+      insight: 'Chart colors didn’t mean anything — four different colors with no purpose.',
       evidence: 'Working sessions with the data scientist. I said: "Your goal is to show F1 scores. Adding colors makes it more confusing."',
-      decision: 'Simplified to meaningful colors only. Won that conversation because I\'d finally understood what the chart was showing.',
+      decision: 'Simplified to meaningful colors only. Won that conversation because I’d finally understood what the chart was showing.',
       feature: 'Visual Clarity',
     },
   ],
   competitiveResponse: {
     marketGap: 'DataRobot and H2O.ai are powerful but too complex for ad-hoc business users.',
-    response: 'Built a guided ML experience embedded directly in their BI tool — right-click a dataset and you\'re in.',
+    response: 'Built a guided ML experience embedded directly in their BI tool — right-click a dataset and you’re in.',
     evidenceSource: 'Competitor teardowns of DataRobot/H2O.',
   },
   businessImpactDirectional: {
@@ -158,7 +158,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
       },
       {
         type: 'research',
-        title: 'I Didn\'t Design It Blindly.',
+        title: 'I Didn’t Design It Blindly.',
         content: [
           'Got MIT certified because the work outgrew surface-level understanding.',
           'Weekly sessions with the principal data scientist. I validated my understanding constantly.',
@@ -180,18 +180,18 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
       },
       {
         type: 'decision',
-        title: 'Why Don\'t We Have a Landing Page Here?',
+        title: 'Why Don’t We Have a Landing Page Here?',
         content: [
           'No Predict Data landing page existed. I designed it from scratch.',
           'Tried combining Train and Run. Engineering pushed back. Tab split became the answer.',
           'Right-click entry: capitalizing on the most common user behavior in the product.',
         ],
-        notes: 'The popup wizard won because WebFOCUS loved modals. It gave breathing room for helper text. Sometimes the best design move is the one that doesn\'t ask the legacy product to become something it isn\'t.',
+        notes: 'The popup wizard won because WebFOCUS loved modals. It gave breathing room for helper text. Sometimes the best design move is the one that doesn’t ask the legacy product to become something it isn’t.',
         signal: 'DECISION: ARCHITECTURE',
       },
       {
         type: 'execution',
-        title: 'The Most Complex Screen I\'ve Ever Designed.',
+        title: 'The Most Complex Screen I’ve Ever Designed.',
         content: [
           'Confusion matrix: two charts, a threshold slider, a four-by-three table.',
           'Threshold slider and chart point: exactly 90 degrees parallel.',
@@ -237,7 +237,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   quickOverview: {
     title: 'ML Functions — Nobody Could Use Our ML Engine',
     subtitle: 'From zero ML knowledge to owning the entire ML UX revamp',
-    leadershipSummary: 'Our data scientist gave me a small explainability project. I didn\'t design it blindly — I dug in, asked questions, understood the entire upstream workflow. That earned the trust to own the full ML revamp. I led this alongside ReportCaster and IQ Plugin, managing multiple teams simultaneously.',
+    leadershipSummary: 'Our data scientist gave me a small explainability project. I didn’t design it blindly — I dug in, asked questions, understood the entire upstream workflow. That earned the trust to own the full ML revamp. I led this alongside ReportCaster and IQ Plugin, managing multiple teams simultaneously.',
     whatTheSystemWas:
       'The UX was a complete liability. A powerful, multi-million dollar ML engine that nobody used. Click the plus menu, open a data flow, drag a dataset, drag a model pill, hit a hidden play button, right-click for cascading context menus — 12 to 15 clicks minimum. A red exclamation mark saying "No results generated." To business analysts, it was a complete black box.',
     myRole:
@@ -263,7 +263,7 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
       },
     ],
     star: {
-      situation: 'Zero adoption. A powerful ML engine buried in a data flow canvas — 12-15 clicks, cascading context menus, confusing error states. Our business users couldn\'t touch it. Massive sunk cost.',
+      situation: 'Zero adoption. A powerful ML engine buried in a data flow canvas — 12-15 clicks, cascading context menus, confusing error states. Our business users couldn’t touch it. Massive sunk cost.',
       task: 'Turn the black box into something a business analyst could use, while keeping it useful for our Principal Data Scientist. One path, not two separate experiences.',
       action: 'Earned the project through a small explainability challenge. Got MIT certified because the work outgrew surface-level understanding. Designed a 4-step popup wizard with contextual education at every step. Sat with the data scientist for dozens of sessions to understand every interaction on the confusion matrix before designing it. Fought to keep Data Flow out of the view when it was brought back. Won.',
       result: '4/4 SMEs blazed through the workflow without help. The principal data scientist called the confusion matrix "the best screen in the entire UX revamp" — out loud, in front of everyone. The right-click entry pattern I designed was adopted for Generate Insights and Ask a Question.',
@@ -310,12 +310,12 @@ export const mlFunctionsCaseStudy: CaseStudyData = {
   uxPrinciples: {
     title: 'Design Principles Applied',
     principles: [
-      { title: 'Explainability First', description: 'I couldn\'t make sense of the confusion matrix when I first saw it. So I sat with the data scientist for a dozen sessions until I understood every interaction. If I can explain it visually, anyone can understand it. He called it "the best screen in the entire UX revamp."' },
+      { title: 'Explainability First', description: 'I couldn’t make sense of the confusion matrix when I first saw it. So I sat with the data scientist for a dozen sessions until I understood every interaction. If I can explain it visually, anyone can understand it. He called it "the best screen in the entire UX revamp."' },
       { title: 'Linear Flow (No Branching)', description: 'Problem Type → Target → Predictors → Hyperparameters. The foundation was staring at me in my face. Four things you need to train a model. That became the spine. No branching, no hidden paths.' },
-      { title: 'Evidence-Backed Decisions', description: 'I could never just say "I designed this because I felt like it." Design instincts don\'t mean anything if you don\'t have the evidence to back them up. Every pushback forced me to find industry research, existing WebFOCUS behavior, or documentation.' },
+      { title: 'Evidence-Backed Decisions', description: 'I could never just say "I designed this because I felt like it." Design instincts don’t mean anything if you don’t have the evidence to back them up. Every pushback forced me to find industry research, existing WebFOCUS behavior, or documentation.' },
       { title: 'Contextual Education', description: 'Every step had definitions, tooltips, explanations. Not a dumbed-down UI — an educated one. The sophistication was there; it just waited for you to ask for it.' },
-      { title: 'Right-click Entry', description: 'In WebFOCUS, right-click is like religion. Everything is right-clickable. So putting "Predict Data" in the right-click menu was capitalizing on the most common user behavior in the product. That wasn\'t a UX tweak. That was adoption thinking.' },
-      { title: 'One Path, Dual Purpose', description: 'We did not have two experiences. We had one path that serves both new users and data scientists. Not easy enough that they\'d say "this is spoon feeding," but clear enough that someone with zero ML background could use it.' },
+      { title: 'Right-click Entry', description: 'In WebFOCUS, right-click is like religion. Everything is right-clickable. So putting "Predict Data" in the right-click menu was capitalizing on the most common user behavior in the product. That wasn’t a UX tweak. That was adoption thinking.' },
+      { title: 'One Path, Dual Purpose', description: 'We did not have two experiences. We had one path that serves both new users and data scientists. Not easy enough that they’d say "this is spoon feeding," but clear enough that someone with zero ML background could use it.' },
     ],
   },
   // ----------------------------
@@ -340,9 +340,9 @@ He was shocked that I took the effort to understand the entire upstream workflow
       index: 'II',
       title: 'One Path. Not Two Experiences.',
       summary: 'Data scientists wanted depth. I wanted simplicity. We landed on one workflow that served both—not dumbed down, not over-engineered.',
-      body: `The principal data scientist asked me early on, "Are you trying to make this dumb?" No. I wasn't removing sophistication. I was making the sophistication legible.
+      body: `The principal data scientist asked me early on, "Are you trying to make this dumb?" No. I wasn’t removing sophistication. I was making the sophistication legible.
 
-We didn't need two separate experiences. We needed one path that served both business analysts and experts. Every step provided contextual education—definitions, explanations, and tooltips. The sophistication was there; it just waited for you to ask for it.
+We didn’t need two separate experiences. We needed one path that served both business analysts and experts. Every step provided contextual education—definitions, explanations, and tooltips. The sophistication was there; it just waited for you to ask for it.
 
 > To bridge the massive knowledge gap, I began doing weekly deep dives with the data scientist. I then used an MIT certification course in AI/ML as an accelerator to build foundational knowledge. Those two things combined allowed me to have smarter, faster, and highly technical conversations with engineering.
 
@@ -363,9 +363,9 @@ Every session with the data scientist was enlightening. He loved machine learnin
     {
       id: 'section-03',
       index: 'III',
-      title: 'Why Don\'t We Have a Landing Page Here?',
+      title: 'Why Don’t We Have a Landing Page Here?',
       summary: 'There was no entry point to the system. I designed a Predict Data landing page from scratch, capitalizing on existing user behaviors.',
-      body: `The moment I saw the legacy workflow, my first instinct was structural: *why don't we have a landing page here?* Why couldn't users select data themselves? I designed the Predict Data hub from scratch.
+      body: `The moment I saw the legacy workflow, my first instinct was structural: *why don’t we have a landing page here?* Why couldn’t users select data themselves? I designed the Predict Data hub from scratch.
 
 I initially tried combining "Train" and "Run" on the same display, but engineering pushed back—it was too complex to maintain in the codebase. So we split them into two tabs. That negotiation balanced UX ambition with technical reality.
 
@@ -383,7 +383,7 @@ The 4-step wizard practically designed itself: Problem Type, Target Variable, Pr
     {
       id: 'act-4-craft',
       index: 'IV',
-      title: 'The Most Complex Screen I\'ve Ever Designed',
+      title: 'The Most Complex Screen I’ve Ever Designed',
       summary: 'The confusion matrix featured two charts, a threshold slider, and a 4x3 table. I sketched live with the data scientist until the relationship became undeniable.',
       body: `The confusion matrix screen was incredibly dense: two charts, a threshold slider, and a four-by-three table. When I first saw it, it looked like a wall of noise. I sat with the data scientist for dozens of sessions—paper, pen, and live sketching—until I grasped every interaction.
 
@@ -436,7 +436,7 @@ What a mind-bending project.`,
     beforeAfter: {
       before: {
         title: 'Legacy ML Workflow',
-        // Public YouTube video - old workflow is public (still current, new workflow hasn't launched yet)
+        // Public YouTube video - old workflow is public (still current, new workflow hasn’t launched yet)
         videoEmbedUrl: 'https://www.youtube.com/embed/VWxMJ0E5aL0', // Public demo of current ML Functions UI
         videoPoster: '/images/case-study/ml-functions/Legacy Train Model UI.png',
         description: 'The old fragmented workflow: 4+ step path, drag model pill onto data flow, configure in popup, hidden hyperparameters, confusing "results not generated" errors.',
@@ -475,7 +475,7 @@ What a mind-bending project.`,
       {
         letter: 'I',
         title: 'A Side Project Earned Me the Whole Thing',
-        description: 'Our data scientist gave me a small explainability project. I didn\'t design it blindly. That curiosity earned the trust to own the full ML revamp.',
+        description: 'Our data scientist gave me a small explainability project. I didn’t design it blindly. That curiosity earned the trust to own the full ML revamp.',
       },
       {
         letter: 'II',
@@ -484,12 +484,12 @@ What a mind-bending project.`,
       },
       {
         letter: 'III',
-        title: 'Why Don\'t We Have a Landing Page Here?',
+        title: 'Why Don’t We Have a Landing Page Here?',
         description: 'No entry point existed. Right-click entry, tab split, model cards, popup wizard — all invented from scratch.',
       },
       {
         letter: 'IV',
-        title: 'The Most Complex Screen I\'ve Ever Designed',
+        title: 'The Most Complex Screen I’ve Ever Designed',
         description: 'Dozens of sessions with the data scientist on the confusion matrix. Threshold slider and chart point: exactly 90 degrees parallel. "The best screen in the entire UX revamp."',
       },
       {
@@ -531,20 +531,20 @@ What a mind-bending project.`,
         id: 'ag',
         name: 'Anita George',
         role: 'Principal Account Tech Strategist',
-        quote: 'During a User Acceptance Test session, Anuja observed me navigating the screen. I was highly impressed with Anuja\'s approach. Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels.',
+        quote: 'During a User Acceptance Test session, Anuja observed me navigating the screen. I was highly impressed with Anuja’s approach. Her design was clean, intuitive, and clearly addressed the needs of users across different skill levels.',
         initials: 'AG'
       }
     ],
     retrospective: {
       pushHarder: {
         title: 'Earlier Working Sessions with the Data Scientist',
-        subtitle: 'Git_Diff: What I\'d Push Harder For',
+        subtitle: 'Git_Diff: What I’d Push Harder For',
         content: '<span class="text-amber-500/80">Live Brainstorming from Week One:</span> If I had started the live working sessions — paper, pen, sketching inside my design software on video calls — from week one instead of halfway through, we would have saved sprint cycles. Brainstorming together inside my tool, not as separate handoffs, was the breakthrough workflow.'
       },
       doNext: {
         title: 'Simplify Even Further',
-        subtitle: 'Roadmap_v2: What I\'d Do Next',
-        content: '<span class="text-[var(--accent-teal)]/80">There\'s always room for improvement:</span> Graying out incompatible models before users ever try them. Simplifying the results screen even more. Automatically letting users enter run model mode from training — no context tab switching. I pushed hard for what mattered. When technical constraints blocked something, that was technical reality, not lack of conviction.'
+        subtitle: 'Roadmap_v2: What I’d Do Next',
+        content: '<span class="text-[var(--accent-teal)]/80">There’s always room for improvement:</span> Graying out incompatible models before users ever try them. Simplifying the results screen even more. Automatically letting users enter run model mode from training — no context tab switching. I pushed hard for what mattered. When technical constraints blocked something, that was technical reality, not lack of conviction.'
       }
     }
   },
