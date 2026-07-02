@@ -7,8 +7,7 @@ import { usePdf } from '@/contexts/PdfContext'
 import { trackResumeDownload } from '@/components/analytics/GoogleAnalytics'
 import Magnetic from '@/components/ui/Magnetic'
 import Button from '@/components/ui/Button'
-import InterlockedGearGlyph from '@/components/ui/InterlockedGearGlyph'
-import { Download } from 'lucide-react'
+import { Brain, Download } from 'lucide-react'
 import ExtendedPortfolio from '@/components/home/ExtendedPortfolio'
 import { useTransition } from '@/components/transitions/TransitionContext'
 import { EASE_CINEMATIC as ease, DURATION } from '@/lib/motion'
@@ -157,7 +156,7 @@ export default function TalkSection() {
               onClick={() => navigateTo('/quiz')}
               className="group inline-flex items-center gap-2.5 rounded-md px-2 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 transition-colors duration-300 hover:text-[var(--accent-teal-bright)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60"
             >
-              <InterlockedGearGlyph size={18} className="transition-transform duration-700 group-hover:rotate-180" />
+              <Brain className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.75} />
               <span>Step inside my brain</span>
               <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </button>
