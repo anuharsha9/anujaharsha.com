@@ -146,17 +146,26 @@ export default function TalkSection() {
             <ExtendedPortfolio />
           </div>
 
-          {/* Sign-off — with a small Easter-egg gear for thorough visitors who made it to the bottom. */}
-          <p className={`${t.textDim} text-[11px] font-mono tracking-wide breathe inline-flex items-center gap-2.5`} style={{ '--breathe-base': '0.3', '--breathe-peak': '0.45' } as React.CSSProperties} suppressHydrationWarning>
-            <span>© {new Date().getFullYear()} Anuja Harsha · Designed + AI-Orchestrated</span>
+          {/* The brain door — an explicit, quiet invitation for whoever made it
+              this far. The hero name-click stays the hidden version (the
+              easter egg jurors get to find); this is the honest one for
+              everyone else. Supersedes the old 30%-opacity micro-gear that
+              hid next to the copyright — one visible door beats two invisible
+              ones. */}
+          <div className="mb-10 flex justify-center">
             <button
               onClick={() => navigateTo('/quiz')}
-              aria-label="Hidden — explore my mind"
-              title="There is more here…"
-              className="group inline-flex h-5 w-5 items-center justify-center rounded-md opacity-30 transition-opacity duration-500 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60"
+              className="group inline-flex items-center gap-2.5 rounded-md px-2 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 transition-colors duration-300 hover:text-[var(--accent-teal-bright)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)]/60"
             >
-              <InterlockedGearGlyph size={16} className="transition-transform duration-500 group-hover:rotate-90" />
+              <InterlockedGearGlyph size={18} className="transition-transform duration-700 group-hover:rotate-180" />
+              <span>Step inside my brain</span>
+              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </button>
+          </div>
+
+          {/* Sign-off */}
+          <p className={`${t.textDim} text-[11px] font-mono tracking-wide breathe inline-flex items-center gap-2.5`} style={{ '--breathe-base': '0.3', '--breathe-peak': '0.45' } as React.CSSProperties} suppressHydrationWarning>
+            <span>© {new Date().getFullYear()} Anuja Harsha · Designed + AI-Orchestrated</span>
           </p>
 
           <div className="h-safe-area-inset-bottom" />
